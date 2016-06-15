@@ -11,6 +11,8 @@ TODO:
 ## Example:
 
 ```javascript
+import { createModel } from 'mobx-form';
+
 const model = this.model = createModel({
   email: '', // initial value for email
   password: '', // initial value for password
