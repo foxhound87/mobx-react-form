@@ -8,6 +8,30 @@ TODO:
 - Add unit tests
 - Add better documentation
 
+## Install
+
+```bash
+npm i --save mobx mobx-form
+```
+
+## Usage
+
+```bash
+import { createModel } from 'mobx-form';
+
+createModel({
+  email: '',
+}, {
+  email: {
+    fn(field) {
+      // return true/false
+      // return Promise.reject({ error: 'some error '}) // will be used as error message
+    }
+  }
+})
+
+```
+
 ## Example:
 
 ```javascript
