@@ -1,0 +1,39 @@
+{
+  "name": "mobx-form",
+  "version": "1.0.0",
+  "description": "A simple form helper for mobx",
+  "main": "lib/FormModel.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src/ -d lib/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/royriojas/mobx-form.git"
+  },
+  "keywords": [
+    "form",
+    "model",
+    "mobx"
+  ],
+  "author": "royriojas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/royriojas/mobx-form/issues"
+  },
+  "homepage": "https://github.com/royriojas/mobx-form#readme",
+  "dependencies": {
+    "coalescy": "^1.0.0",
+    "debouncy": "^1.0.7"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-polyfill": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "mobx": "^2.3.1"
+  }
+}
