@@ -88,6 +88,13 @@ export default class Field {
 
   @action
   clear() {
+    if (!_.isBoolean(this.$value)) this.$value = null;
+    this.interacted = true;
+    this.setInvalid(false);
+  }
+
+  @action
+  reset() {
     if (!_.isBoolean(this.$value)) this.$value = this.originalValue;
     this.interacted = true;
     this.setInvalid(false);

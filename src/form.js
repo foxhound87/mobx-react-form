@@ -72,6 +72,14 @@ export default class Form {
   }
 
   @action
+  reset() {
+    this
+      .fieldKeys()
+      .forEach((key) =>
+        this.fields[key].reset());
+  }
+
+  @action
   validate() {
     this.validating = true;
 
