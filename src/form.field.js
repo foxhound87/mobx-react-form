@@ -15,6 +15,7 @@ export default class Field {
   // @observable interactive = true;
   originalErrorMessage = null;
   validateFunction = null;
+  silent = null;
 
   constructor(form, key, obj = {}) {
     this.initField(key, form, obj);
@@ -88,9 +89,11 @@ export default class Field {
 
   @action
   clear() {
-    if (!_.isBoolean(this.$value)) this.$value = null;
-    this.interacted = true;
+    if (_.isBoolean(this.$value)) return;
+    if (_.isString(this.$value)) this.$value = '';
+    this.interacted = false;
     this.setInvalid(false);
+    this.silent = true;
   }
 
   @action
@@ -120,10 +123,16 @@ export default class Field {
 
   @action
   validate(force = false, showErrors = true) {
+    // exit on silent mode (on reset and clear)
+    if (this.silent === true) {
+      this.silent = false;
+      return false;
+    }
+
     // not execute if no valid function or ajv rules
     if (!this.validateFunction && !this.form.ajvValidate) return false;
 
-    // invalidate if not forced and not interacted with field
+    // invalidate field if validation not forced and not yet interacted with field
     if (!force && !this.interacted) return this.setInvalid(showErrors);
 
     // Use "ajv" Rules

@@ -69,6 +69,8 @@ export default class Form {
       .fieldKeys()
       .forEach((key) =>
         this.fields[key].clear());
+
+    this.genericErrorMessage = null;
   }
 
   @action
@@ -77,6 +79,8 @@ export default class Form {
       .fieldKeys()
       .forEach((key) =>
         this.fields[key].reset());
+
+    this.genericErrorMessage = null;
   }
 
   @action

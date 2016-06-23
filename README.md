@@ -17,81 +17,99 @@
 npm i --save mobx-ajv-form
 ```
 
+## Demo
+
+http://www.webpackbin.com/E1khFEBrZ
+
 ## Usage
 
 ```
+import Form from 'mobx-ajv-form';
+
 // define a json schema
 const schema = {
   type: 'object',
   properties: {
     username: { type: 'string', minLength: 6, maxLength: 20 },
     email: { type: 'string', format: 'email', minLength: 5, maxLength: 20 },
-    password: { type: 'string', minLength: 6, maxLength: 20 },
-  },
+    password: { type: 'string', minLength: 6, maxLength: 20 }
+  }
 };
 
 // define fields
 const fields = {
   username: {
     label: 'Username',
-    value: 'SteveJobs',
+    value: 'SteveJobs'
   },
   email: {
     label: 'Email',
-    value: 's.jobs@apple.com',
+    value: 's.jobs@apple.com'
   },
   password: {
     label: 'Password',
-    value: 'thinkdifferent',
-  },
+    value: 'thinkdifferent'
+  }
 };
 
 // create the form
-this.forms.register = new Form(fields, schema);
+export default new Form(fields, schema);
 ```
 
 Pass the form to a react component:
 
 ````
-// input
-<TextField
-  name={form.fields.username.name}
-  value={form.fields.username.value}
-  hintText={form.fields.username.label}
-  floatingLabelText={form.fields.username.label}
-  errorText={form.fields.username.errorMessage}
-  onChange={form.syncValue}
-/>
+import React from 'react';
+import { observer } from 'mobx-react';
 
-// button
-<button
-  type="submit"
-  disabled={!form.valid}
-  className="btn btn-primary"
-  onClick={handleOnSubmit}
->Register</button>
+const FormComponent = ({ form, handleOnSubmit }) => (
+  <form>
+    <input
+      type="text"
+      name={form.fields.username.name}
+      value={form.fields.username.value}
+      label={form.fields.username.label}
+      onChange={form.syncValue}
+    />
+    <p>{form.fields.username.errorMessage}</p>
 
-// generic error message
-<div
-  className={cx(errorMessage, {
-    hide: !form.valid && form.genericErrorMessage,
-  })}
->
-  {form.genericErrorMessage}
-</div>
+    ...
+
+    <button
+      type="submit"
+      disabled={!form.valid}
+      onClick={handleOnSubmit}
+    >Register</button>
+
+    <p>{form.genericErrorMessage}</p>
+  </form>
+);
+
+export default observer(FormComponent);
 ````
 
 Deal with events:
 
 ```
-registerOrShowError() {
-  const form = this.forms.register;
+import form from './form';
+
+export const handleOnSubmit = (e) => {
+  e.preventDefault();
+
   if (!form.validate()) return;
 
-  dispatch('auth.register', form.values())
-    .then(() => dispatch('ui.authModal.toggleSection', 'signin'))
-    .then(() => dispatch('ui.snackBar.open', 'Register Successful.'))
-    .then(() => form.clear())
-    .catch(() => form.invalidate('The user already exist.'));
+  alert('Form is valid! Send the requrest here.');
+
+  // get fields values
+  console.log('Form Values', form.values());
+
+  // clear the form
+  form.clear();
+
+  // or reset to the default initial values
+  // form.reset();
+
+  // or show a custom generic error
+  form.invalidate('The user already exist.')
 }
 ```
