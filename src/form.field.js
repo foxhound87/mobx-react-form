@@ -96,7 +96,7 @@ export default class Field {
   @action
   reset() {
     if (!_.isBoolean(this.$value)) this.$value = this.originalValue;
-    this.interacted = true;
+    this.interacted = false;
     this.setInvalid(false);
   }
 
