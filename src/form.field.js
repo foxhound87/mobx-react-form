@@ -12,7 +12,7 @@ export default class Field {
   @observable disabled = false;
   @observable valid = false;
   @observable errorMessage = null;
-  @observable interactive = true;
+  // @observable interactive = true;
   originalErrorMessage = null;
   validateFunction = null;
 
@@ -116,7 +116,7 @@ export default class Field {
     // not execute if no valid function or ajv rules
     if (!this.validateFunction && !this.form.ajvValidate) return false;
 
-    // invalidate if forced and not interacted with field
+    // invalidate if not forced and not interacted with field
     if (!force && !this.interacted) return this.setInvalid(showErrors);
 
     // Use "ajv" Rules

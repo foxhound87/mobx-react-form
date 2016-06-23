@@ -2,10 +2,30 @@
   "name": "mobx-ajv-form",
   "license": "MIT",
   "version": "0.0.0-semantically-released",
-  "main": "lib/index.js",
   "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
   "description": "Easly manage Forms with MobX and automatic validation with AJV json-schema rules.",
-  "homepage": "",
+  "homepage": "https://www.npmjs.com/package/mobx-ajv-form",
+  "main": "lib/index.js",
+  "scripts": {
+    "clean:lib": "rm -rf lib",
+    "clean:umd": "rm -rf umd",
+    "clean:all": "npm run clean:lib && npm run clean:umd",
+    "clean:modules": "rm -rf ./node_modules && npm cache clean",
+    "lint": "eslint src --ext .jsx,.js",
+    "build": "npm-run-all --parallel build:*",
+    "build:main": "babel -d lib/ src/",
+    "build:umd": "webpack --output-filename index.umd.js",
+    "build:umdmin": "webpack --output-filename index.umd.min.js -p",
+    "prebuild": "npm run clean:all",
+    "commit": "git-cz",
+    "watch:build": "babel --watch -d lib/ src/",
+    "watch:test": "npm run test -- -w",
+    "test": "mocha tests/test.js --compilers js:babel-register",
+    "cover": "nyc npm test",
+    "coverage-check": "nyc check-coverage --satements 100 --branches 100 --functions 100 --lines 100",
+    "coverage-report": "cat ./coverage/lcov.info | codecov",
+    "release": "semantic-release pre && npm publish && semantic-release post"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/foxhound87/mobx-ajv-form.git"
@@ -26,21 +46,6 @@
   "engines": {
     "node": ">=4"
   },
-  "scripts": {
-    "clean:lib": "rm -rf lib",
-    "clean:modules": "rm -rf ./node_modules && npm cache clean",
-    "lint": "eslint src --ext .jsx,.js",
-    "build": "babel -d lib/ src/",
-    "prebuild": "npm run clean:lib",
-    "commit": "git-cz",
-    "watch:build": "babel --watch -d lib/ src/",
-    "watch:test": "npm run test -- -w",
-    "test": "mocha tests/test.js --compilers js:babel-register",
-    "cover": "nyc npm test",
-    "coverage-check": "nyc check-coverage --satements 100 --branches 100 --functions 100 --lines 100",
-    "coverage-report": "cat ./coverage/lcov.info | codecov",
-    "release": "semantic-release pre && npm publish && semantic-release post"
-  },
   "config": {
     "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
@@ -52,11 +57,13 @@
   "dependencies": {
     "ajv": "4.1.3",
     "lodash": "4.13.1",
-    "mobx": "2.3.2"
+    "mobx": "2.3.2",
+    "path": "0.12.7"
   },
   "devDependencies": {
     "babel-cli": "6.10.1",
     "babel-eslint": "6.1.0",
+    "babel-loader": "6.2.4",
     "babel-plugin-transform-class-properties": "6.10.2",
     "babel-plugin-transform-decorators": "6.8.0",
     "babel-plugin-transform-decorators-legacy": "1.3.4",
@@ -73,9 +80,11 @@
     "eslint-plugin-jsx-a11y": "1.5.3",
     "eslint-plugin-react": "5.2.2",
     "ghooks": "1.2.4",
+    "json-loader": "0.5.4",
     "mocha": "2.5.3",
     "npm-run-all": "2.2.0",
     "nyc": "6.6.1",
-    "semantic-release": "4.3.5"
+    "semantic-release": "4.3.5",
+    "webpack": "1.13.1"
   }
 }
