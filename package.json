@@ -1,39 +1,81 @@
 {
-  "name": "mobx-form",
-  "version": "1.0.0",
-  "description": "A simple form helper for mobx",
-  "main": "lib/FormModel.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src/ -d lib/"
-  },
+  "name": "mobx-ajv-form",
+  "license": "MIT",
+  "version": "0.0.0-semantically-released",
+  "main": "lib/index.js",
+  "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
+  "description": "Easly manage Forms with MobX and automatic validation with AJV json-schema rules.",
+  "homepage": "",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/royriojas/mobx-form.git"
+    "url": "https://github.com/foxhound87/mobx-ajv-form.git"
   },
   "keywords": [
     "form",
-    "model",
-    "mobx"
+    "mobx",
+    "ajv",
+    "json",
+    "schema",
+    "validation"
   ],
-  "author": "royriojas",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/royriojas/mobx-form/issues"
+  "files": [
+    "es6",
+    "lib",
+    "umd"
+  ],
+  "engines": {
+    "node": ">=4"
   },
-  "homepage": "https://github.com/royriojas/mobx-form#readme",
+  "scripts": {
+    "clean:lib": "rm -rf lib",
+    "clean:modules": "rm -rf ./node_modules && npm cache clean",
+    "lint": "eslint src --ext .jsx,.js",
+    "build": "babel -d lib/ src/",
+    "prebuild": "npm run clean:lib",
+    "commit": "git-cz",
+    "watch:build": "babel --watch -d lib/ src/",
+    "watch:test": "npm run test -- -w",
+    "test": "mocha tests/test.js --compilers js:babel-register",
+    "cover": "nyc npm test",
+    "coverage-check": "nyc check-coverage --satements 100 --branches 100 --functions 100 --lines 100",
+    "coverage-report": "cat ./coverage/lcov.info | codecov",
+    "release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    },
+    "ghooks": {
+      "pre-commit": "npm run lint && npm run cover"
+    }
+  },
   "dependencies": {
-    "coalescy": "^1.0.0",
-    "debouncy": "^1.0.7"
+    "ajv": "4.1.3",
+    "lodash": "4.13.1",
+    "mobx": "2.3.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-polyfill": "^6.9.1",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "mobx": "^2.3.1"
+    "babel-cli": "6.10.1",
+    "babel-eslint": "6.1.0",
+    "babel-plugin-transform-class-properties": "6.10.2",
+    "babel-plugin-transform-decorators": "6.8.0",
+    "babel-plugin-transform-decorators-legacy": "1.3.4",
+    "babel-plugin-transform-runtime": "6.9.0",
+    "babel-preset-es2015": "6.9.0",
+    "babel-preset-stage-0": "6.5.0",
+    "chai": "3.5.0",
+    "codecov.io": "0.1.6",
+    "commitizen": "2.8.2",
+    "cz-conventional-changelog": "1.1.6",
+    "eslint": "2.13.1",
+    "eslint-config-airbnb": "9.0.1",
+    "eslint-plugin-import": "1.9.2",
+    "eslint-plugin-jsx-a11y": "1.5.3",
+    "eslint-plugin-react": "5.2.2",
+    "ghooks": "1.2.4",
+    "mocha": "2.5.3",
+    "npm-run-all": "2.2.0",
+    "nyc": "6.6.1",
+    "semantic-release": "4.3.5"
   }
 }
