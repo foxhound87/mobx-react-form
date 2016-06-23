@@ -13,7 +13,7 @@ export default {
   externals: {
     lodash: 'lodash',
     mobx: 'mobx',
-    ajv: 'ajv',
+    ajv: 'Ajv',
   },
   module: {
     loaders: [{
