@@ -98,7 +98,7 @@ export const handleOnSubmit = (e) => {
 
   if (!form.validate()) return;
 
-  alert('Form is valid! Send the requrest here.');
+  alert('Form is valid! Send the request here.');
 
   // get fields values
   console.log('Form Values', form.values());
