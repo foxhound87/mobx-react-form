@@ -6,6 +6,7 @@
 
 ## TODO:
 
+- Add new features
 - Add documentation
 - Add examples
 - Add unit tests
