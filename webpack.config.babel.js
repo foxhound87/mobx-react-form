@@ -10,6 +10,11 @@ export default {
     libraryTarget: 'umd',
     library: 'ReactiveForm',
   },
+  externals: {
+    lodash: 'lodash',
+    mobx: 'mobx',
+    ajv: 'ajv',
+  },
   module: {
     loaders: [{
       test: /\.js$/,
