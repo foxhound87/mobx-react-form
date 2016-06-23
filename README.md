@@ -1,4 +1,8 @@
-MobX Ajv Form
+# MobX Ajv Form
+
+##### Easly manage Forms with MobX and automatic validation with AJV json-schema rules.
+
+---
 
 TODO:
 
