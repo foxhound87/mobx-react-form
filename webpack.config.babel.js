@@ -11,7 +11,7 @@ export default {
     library: 'ReactiveForm',
   },
   externals: {
-    lodash: 'lodash',
+    lodash: '_',
     mobx: 'mobx',
     ajv: 'Ajv',
   },
