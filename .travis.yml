@@ -15,7 +15,6 @@ script:
   - npm run cover
   - npm run build
 after_success:
-  - npm run coverage-report
   - npm run release
 branches:
   except:
