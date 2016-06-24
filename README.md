@@ -68,7 +68,7 @@ const FormComponent = ({ form, handleOnSubmit }) => (
       type="text"
       name={form.fields.username.name}
       value={form.fields.username.value}
-      label={form.fields.username.label}
+      placeholder={form.fields.username.label}
       onChange={form.syncValue}
     />
     <p>{form.fields.username.errorMessage}</p>
