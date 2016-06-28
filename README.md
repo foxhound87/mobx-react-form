@@ -4,12 +4,8 @@
 
 ---
 
-## TODO:
-
-- Add new features
-- Add documentation
-- Add examples
-- Add unit tests
+## API Documentation
+See the [Changelog](https://github.com/foxhound87/mobx-ajv-form/blob/master/CHANGELOG.md) or the [Documentation](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md) for all the details.
 
 ## Install
 
@@ -53,7 +49,7 @@ const fields = {
 };
 
 // create the form
-export default new Form(fields, schema);
+export default new Form({ fields, schema });
 ```
 
 Pass the form to a react component:

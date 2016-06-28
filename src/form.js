@@ -9,15 +9,16 @@ export default class Form {
   @observable validating = false;
   @observable genericErrorMessage = null;
 
-  ajvValidate = false;
-  ajvInstance;
-  ajvOptions;
-  ajvSchema;
+  ajvValidate = null;
+  ajvInstance = null;
+  ajvOptions = null;
+  ajvSchema = null;
+  ajvExtend = null;
 
-  constructor(obj = {}, ajvSchema = false, ajvOptions = {}) {
-    const keys = Object.keys(obj);
-    this.initAjv(ajvSchema, ajvOptions);
-    this.initFields(keys, obj);
+  constructor({ fields = {}, schema = false, options = {}, extend = null }) {
+    const keys = Object.keys(fields);
+    this.initAjv(schema, options, extend);
+    this.initFields(keys, fields);
   }
 
   @action
@@ -28,21 +29,32 @@ export default class Form {
   }
 
   @action
-  initAjv(ajvSchema, ajvOptions = {}) {
+  initAjv(ajvSchema, ajvOptions = {}, ajvExtend) {
     if (!ajvSchema) return;
     // set ajv schema and options
     this.ajvSchema = ajvSchema;
     this.ajvOptions = ajvOptions;
+    this.ajvExtend = ajvExtend;
     // create ajv instance
     this.ajvInstance = new AJV(_.merge(this.ajvOptions, {
       allErrors: true,
       coerceTypes: true,
     }));
+    // extend with custom keywords
+    if (this.ajvExtend) {
+      _.forEach(this.ajvExtend, (val, key) =>
+        this.ajvInstance.addKeyword(key, val));
+    }
     // create ajvInstance validator (compiling rules)
     this.ajvValidate = this.ajvInstance.compile(this.ajvSchema);
   }
 
-  @computed get valid() {
+  fieldKeys() {
+    return Object.keys(this.fields);
+  }
+
+  @computed
+  get isValid() {
     if (this.validating) {
       return false; // consider the form invalid until the validation process finish
     }
@@ -50,17 +62,20 @@ export default class Form {
       .fieldKeys()
       .reduce((seq, key) => {
         const field = this.fields[key];
-        seq = seq && field.valid; // eslint-disable-line no-param-reassign
+        seq = seq && field.isValid; // eslint-disable-line no-param-reassign
         return seq;
       }, true);
   }
 
-  values() {
-    return _.mapValues(this.fields, 'value');
+  @computed
+  get isDirty() {
+    return this
+      .fieldKeys()
+      .some(key => this.fields[key].isDirty);
   }
 
-  fieldKeys() {
-    return Object.keys(this.fields);
+  values() {
+    return _.mapValues(this.fields, 'value');
   }
 
   @action
@@ -82,6 +97,16 @@ export default class Form {
 
     this.genericErrorMessage = null;
   }
+
+  @action
+  update(obj) {
+    this
+      .fieldKeys()
+      .forEach((key) =>
+        this.fields[key].update(obj[key]));
+  }
+
+  /* validation */
 
   @action
   validate() {

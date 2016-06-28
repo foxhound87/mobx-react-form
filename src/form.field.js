@@ -8,11 +8,11 @@ export default class Field {
   name;
   label;
   @observable $value;
+  @observable $valid = false;
   @observable interacted = false;
   @observable disabled = false;
-  @observable valid = false;
   @observable errorMessage = null;
-  // @observable interactive = true;
+  originalValue = null;
   originalErrorMessage = null;
   validateFunction = null;
   silent = null;
@@ -67,8 +67,14 @@ export default class Field {
     this.validateFunction = validate || (() => Promise.resolve());
   }
 
+  @computed
   get isValid() {
-    return this.valid;
+    return this.$valid;
+  }
+
+  @computed
+  get isDirty() {
+    return this.originalValue !== this.$value;
   }
 
   @computed
@@ -104,20 +110,26 @@ export default class Field {
   }
 
   @action
+  update(obj) {
+    this.$value = obj;
+    return;
+  }
+
+  @action
   setValid() {
-    this.valid = true;
+    this.$valid = true;
     this.errorMessage = null;
   }
 
   @action
   setInvalid(showErrors = true) {
-    if (!_.isBoolean(this.$value)) this.valid = false;
+    if (!_.isBoolean(this.$value)) this.$valid = false;
     this.errorMessage = showErrors ? this.originalErrorMessage : null;
   }
 
   @action
   setInvalidWithMessage(message, showErrors = true) {
-    this.valid = false;
+    this.$valid = false;
     this.errorMessage = showErrors ? message : null;
   }
 
@@ -146,7 +158,6 @@ export default class Field {
 
   @action
   handleAjvValidationRules(showErrors) {
-    // const values = this.form.values();
     const validate = this.form.ajvValidate;
     const formIsValid = validate({ [this.name]: this.$value });
 
@@ -155,7 +166,7 @@ export default class Field {
       const fieldErrorObj = _.find(validate.errors, (item) =>
         _.includes(item.dataPath, `.${this.name}`));
 
-      // if fieldErrorObj is not undefined, the current field is valid.
+      // if fieldErrorObj is not undefined, the current field is invalid.
       if (!_.isUndefined(fieldErrorObj)) {
         // the current field is now invalid
         // add additional info to the message
