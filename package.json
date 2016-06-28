@@ -31,8 +31,8 @@
     "url": "https://github.com/foxhound87/mobx-ajv-form.git"
   },
   "keywords": [
-    "form",
     "mobx",
+    "form",
     "ajv",
     "json",
     "schema",

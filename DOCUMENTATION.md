@@ -9,10 +9,10 @@ new Form({ fields, schema, options, extend });
 * **schema**: the json-schema for the validation.
 See [json-schema.org](http://json-schema.org)
 
-* **options** the additional options for ajv.
+* **options**: the additional options for ajv.
 See [github.com/epoberezkin/ajv#options](https://github.com/epoberezkin/ajv#options)
 
-* **extend** add custom validation keyword for using in the json-schema
+* **extend**: add custom validation keyword for using in the json-schema
 
 ## Form API
 
