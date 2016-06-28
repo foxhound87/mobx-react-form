@@ -13,8 +13,10 @@ before_script:
   - npm prune
 script:
   - npm run cover
+  - npm run coverage:check
   - npm run build
 after_success:
+  - npm run coverage:report
   - npm run release
 branches:
   except:

@@ -2,6 +2,17 @@
 
 ##### Easly manage Forms with MobX and automatic validation with AJV json-schema rules.
 
+[![Travis Build](https://img.shields.io/travis/foxhound87/mobx-ajv-form.svg)](https://travis-ci.org/foxhound87/mobx-ajv-form)
+[![Codecov Coverage](https://img.shields.io/codecov/c/github/foxhound87/mobx-ajv-form/master.svg)](https://codecov.io/gh/foxhound87/mobx-ajv-form)
+[![Package Version](https://img.shields.io/npm/v/mobx-ajv-form.svg)]()
+[![Downloads](https://img.shields.io/npm/dt/mobx-ajv-form.svg)]()
+[![npm](https://img.shields.io/npm/v/mobx-ajv-form.svg)]()
+[![node](https://img.shields.io/node/v/mobx-ajv-form.svg)]()
+[![GitHub license](https://img.shields.io/github/license/foxhound87/mobx-ajv-form.svg)]()
+
+
+[![NPM](https://nodei.co/npm/mobx-ajv-form.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/mobx-ajv-form/)
+
 ---
 
 ## Changelog & Documentation

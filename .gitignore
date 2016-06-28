@@ -6,3 +6,5 @@
 /umd
 npm-debug.log
 .nyc_output
+coverage.lcov
+codecov.yml

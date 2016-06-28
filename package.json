@@ -22,8 +22,8 @@
     "watch:test": "npm run test -- -w",
     "test": "mocha tests/test.js --compilers js:babel-register",
     "cover": "nyc npm test",
-    "coverage-check": "nyc check-coverage --satements 100 --branches 100 --functions 100 --lines 100",
-    "coverage-report": "cat ./coverage/lcov.info | codecov",
+    "coverage:check": "nyc check-coverage --satements 100 --branches 100 --functions 100 --lines 100",
+    "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
@@ -51,7 +51,7 @@
       "path": "node_modules/cz-conventional-changelog"
     },
     "ghooks": {
-      "pre-commit": "npm run lint && npm run cover"
+      "pre-commit": "npm run lint && npm run cover && npm run coverage:check"
     }
   },
   "dependencies": {
@@ -71,7 +71,7 @@
     "babel-preset-es2015": "6.9.0",
     "babel-preset-stage-0": "6.5.0",
     "chai": "3.5.0",
-    "codecov.io": "0.1.6",
+    "codecov": "1.0.1",
     "commitizen": "2.8.2",
     "cz-conventional-changelog": "1.1.6",
     "eslint": "2.13.1",
