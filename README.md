@@ -4,7 +4,7 @@
 
 ---
 
-## API Documentation
+## Changelog & Documentation
 See the [Changelog](https://github.com/foxhound87/mobx-ajv-form/blob/master/CHANGELOG.md) or the [Documentation](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md) for all the details.
 
 ## Install
