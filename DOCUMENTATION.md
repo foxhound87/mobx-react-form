@@ -71,7 +71,15 @@ const extend = {
 
 // then use it the schema
 
-var schema = { "range": [2, 4], "exclusiveRange": true };
+var schema = {
+  type: 'object',
+  properties: {
+    fieldname: {
+      "range": [2, 4],
+      "exclusiveRange": true,
+    },
+  },
+};
 
 // pass all to the form constructor
 
