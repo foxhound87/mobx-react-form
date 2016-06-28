@@ -4,6 +4,7 @@
 * Custom Validation Keywords
 * Created API Documentation
 * Added methods: isDirty();
+* Renamed computed values: valid to isValid
 * Added some tests
 
 # 1.2.1
