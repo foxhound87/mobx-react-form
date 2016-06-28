@@ -22,7 +22,7 @@
     "watch:test": "npm run test -- -w",
     "test": "mocha tests/test.js --compilers js:babel-register",
     "cover": "nyc npm test",
-    "coverage:check": "nyc check-coverage --satements 100 --branches 100 --functions 100 --lines 100",
+    "coverage:check": "nyc check-coverage --satements 40 --branches 40 --functions 40 --lines 40",
     "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "release": "semantic-release pre && npm publish && semantic-release post"
   },
@@ -51,7 +51,7 @@
       "path": "node_modules/cz-conventional-changelog"
     },
     "ghooks": {
-      "pre-commit": "npm run lint && npm run cover && npm run coverage:check"
+      "pre-commit": "npm run lint && npm run cover"
     }
   },
   "dependencies": {
