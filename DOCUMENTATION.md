@@ -52,7 +52,7 @@ Invalidate the form passing a generic error message (string).
 
 # Custom Validation Keyword
 
-```
+```javascript
 // define an 'extend' object with the custom keyword
 
 const extend = {

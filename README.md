@@ -30,10 +30,11 @@ http://www.webpackbin.com/E1khFEBrZ
 
 ## Usage
 
-```
+```javascript
 import Form from 'mobx-ajv-form';
 
 // define a json schema
+
 const schema = {
   type: 'object',
   properties: {
@@ -44,6 +45,7 @@ const schema = {
 };
 
 // define fields
+
 const fields = {
   username: {
     label: 'Username',
@@ -60,12 +62,13 @@ const fields = {
 };
 
 // create the form
+
 export default new Form({ fields, schema });
 ```
 
 Pass the form to a react component:
 
-````
+```javascript
 import React from 'react';
 import { observer } from 'mobx-react';
 
@@ -97,7 +100,7 @@ export default observer(FormComponent);
 
 Deal with events:
 
-```
+```javascript
 import form from './form';
 
 export const handleOnSubmit = (e) => {
@@ -118,5 +121,8 @@ export const handleOnSubmit = (e) => {
 
   // or show a custom generic error
   form.invalidate('The user already exist.')
+
+  // or update with new values
+  // form.update({ username: 'Jonathan Ive' });
 }
 ```
