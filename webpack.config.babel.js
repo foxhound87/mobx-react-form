@@ -20,10 +20,11 @@ export default {
       query: {
         presets: ['es2015', 'stage-0'],
         plugins: [
-          'transform-es2015-modules-umd',
+          'add-module-exports',
           'transform-decorators-legacy',
           'transform-decorators',
           'transform-class-properties',
+          'transform-es2015-modules-umd',
         ],
       },
       test: /\.js$/,
