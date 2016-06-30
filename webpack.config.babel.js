@@ -18,7 +18,7 @@ export default {
   module: {
     loaders: [{
       query: {
-        presets: ['es2015', 'stage-0', 'react'],
+        presets: ['es2015', 'stage-0'],
         plugins: [
           'transform-es2015-modules-umd',
           'transform-decorators-legacy',
