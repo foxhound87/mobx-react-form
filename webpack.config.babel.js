@@ -17,6 +17,15 @@ export default {
   },
   module: {
     loaders: [{
+      query: {
+        presets: ['es2015', 'stage-0', 'react'],
+        plugins: [
+          'transform-es2015-modules-umd',
+          'transform-decorators-legacy',
+          'transform-decorators',
+          'transform-class-properties',
+        ],
+      },
       test: /\.js$/,
       loader: 'babel-loader',
       include,
