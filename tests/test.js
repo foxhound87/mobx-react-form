@@ -7,7 +7,8 @@ import cForm from './data/c.form.js';
 import dForm from './data/d.form.js';
 
 // do some stuff
-dForm.update({ username: 'changed' });
+cForm.invalidate('The user already exist');
+dForm.update({ username: 'Jonathan Ive' });
 
 // do tests
 describe('mobx-ajv-form', () => {
@@ -23,7 +24,13 @@ describe('mobx-ajv-form', () => {
   it('cForm isDirty should be false', () => expect(cForm.isDirty).to.be.false);
   it('dForm isDirty should be true', () => expect(dForm.isDirty).to.be.true);
 
-  // others
+  // others check
   it('aForm fieldKeys() should be array', () => expect(aForm.fieldKeys()).to.be.array);
   it('aForm values() should be array', () => expect(aForm.values()).to.be.array);
+
+  it('cForm username should be equal to "The user already exist."', () =>
+    expect(cForm.genericErrorMessage).to.be.equal('The user already exist'));
+
+  it('dForm username should be equal to "Jonathan Ive"', () =>
+    expect(dForm.fields.username.value).to.be.equal('Jonathan Ive'));
 });
