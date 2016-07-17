@@ -1,3 +1,7 @@
+# 1.4.0
+
+* Support for v5 json schema rules
+
 # 1.3.0
 
 * Updated constructor with single object
