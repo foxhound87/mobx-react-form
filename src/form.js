@@ -39,6 +39,7 @@ export default class Form {
     this.ajvInstance = new AJV(_.merge(this.ajvOptions, {
       allErrors: true,
       coerceTypes: true,
+      v5: true,
     }));
     // extend with custom keywords
     if (this.ajvExtend) {
