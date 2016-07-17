@@ -126,3 +126,19 @@ export const handleOnSubmit = (e) => {
   // form.update({ username: 'Jonathan Ive' });
 }
 ```
+
+Use a custom validation function:
+
+```javascript
+const fields = {
+  username: {
+    label: 'Username',
+    validate: (field, fields) => {
+      // field.value() // get current field value
+      // fields.anotherfield.value(); // get anotherfield value
+      // do some validation stuff
+      // return true / false
+    },
+  },
+}
+```
