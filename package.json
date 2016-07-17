@@ -55,14 +55,14 @@
     }
   },
   "dependencies": {
-    "ajv": "4.1.3",
+    "ajv": "4.1.7",
     "lodash": "4.13.1",
-    "mobx": "2.3.2",
+    "mobx": "2.3.7",
     "path": "0.12.7"
   },
   "devDependencies": {
     "babel-cli": "6.10.1",
-    "babel-eslint": "6.1.0",
+    "babel-eslint": "6.1.2",
     "babel-loader": "6.2.4",
     "babel-plugin-add-module-exports": "0.2.1",
     "babel-plugin-transform-class-properties": "6.10.2",
@@ -76,16 +76,16 @@
     "codecov": "1.0.1",
     "commitizen": "2.8.2",
     "cz-conventional-changelog": "1.1.6",
-    "eslint": "2.13.1",
+    "eslint": "3.1.0",
     "eslint-config-airbnb": "9.0.1",
-    "eslint-plugin-import": "1.9.2",
-    "eslint-plugin-jsx-a11y": "1.5.3",
+    "eslint-plugin-import": "1.10.3",
+    "eslint-plugin-jsx-a11y": "2.0.1",
     "eslint-plugin-react": "5.2.2",
-    "ghooks": "1.2.4",
+    "ghooks": "1.3.2",
     "json-loader": "0.5.4",
     "mocha": "2.5.3",
-    "npm-run-all": "2.2.0",
-    "nyc": "6.6.1",
+    "npm-run-all": "2.3.0",
+    "nyc": "7.0.0",
     "semantic-release": "4.3.5",
     "webpack": "1.13.1"
   }
