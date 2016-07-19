@@ -19,13 +19,19 @@ export default class Form {
     const keys = Object.keys(fields);
     this.initAjv(schema, options, extend);
     this.initFields(keys, fields);
+    this.validateFields(false, false);
   }
 
   @action
   initFields(keys, obj) {
     keys.forEach((key) => extendObservable(this.fields, {
-      [key]: new FormField(this, key, obj[key]),
+      [key]: new FormField(key, obj[key]),
     }));
+  }
+
+  validateFields(force = true, showErrors = true) {
+    _.forEach(this.fields, (field) =>
+      field.validate(force, showErrors, this));
   }
 
   @action
@@ -56,9 +62,9 @@ export default class Form {
 
   @computed
   get isValid() {
-    if (this.validating) {
-      return false; // consider the form invalid until the validation process finish
-    }
+    // consider the form invalid until the validation process finish
+    if (this.validating) return false;
+
     return this
       .fieldKeys()
       .reduce((seq, key) => {
@@ -111,17 +117,23 @@ export default class Form {
 
   @action
   validate() {
-    this.validating = true;
+    // consider the form invalid until the validation process finish
+    if (this.validating) return false;
+
+    this.validateFields();
 
     // Check with with "ajv" rules (exit on fail)
-    if (!this.checkAjvValidation()) return false;
+    if (!this.checkGenericAjvValidation()) return false;
 
-    // Check with "validate" Function
-    return this.checkFunctionValidation();
+    // return the fields validation status
+    return this.isValid;
   }
 
   @action
-  checkAjvValidation() {
+  checkGenericAjvValidation() {
+    this.validating = true;
+    this.genericErrorMessage = null;
+
     if (this.ajvValidate) {
       const validate = this.ajvValidate;
       const formIsValid = validate(this.values());
@@ -131,19 +143,9 @@ export default class Form {
         return false;
       }
     }
+
     this.validating = false;
     return true;
-  }
-
-  @action
-  checkFunctionValidation() {
-    return this
-      .fieldKeys()
-      .reduce((seq, key) => {
-        const field = this.fields[key];
-        return seq.then(() => field.validate(true));
-      }, Promise.resolve())
-      .then(action(() => { this.validating = false; }));
   }
 
   @action

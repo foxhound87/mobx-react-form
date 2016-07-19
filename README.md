@@ -126,3 +126,43 @@ export const handleOnSubmit = (e) => {
   // form.update({ username: 'Jonathan Ive' });
 }
 ```
+
+Use a custom validation function:
+
+```javascript
+// define custom functions,
+// they must return an array with: [boolean, string];
+
+function shouldBeEqualTo(fieldName) {
+  const $fieldName = fieldName;
+  return (field, fields) => {
+    const fieldsAreEquals = (fields[$fieldName].getValue() === field.getValue());
+    return [fieldsAreEquals, `The username should be equals to ${$fieldName}`];
+  };
+}
+
+function isEmail(field) {
+  const email = field.value;
+  const isValid = (email.indexOf('@') > 0);
+  return [isValid, 'Should be an email address.'];
+}
+
+// pass them to the field's `validate` property
+// as function or as an array of functions
+
+const fields = {
+  username: {
+    label: 'Username',
+    value: 's.jobs@apple.com',
+    validate: [isEmail, shouldBeEqualTo('email')],
+  },
+  email: {
+    label: 'Email',
+    value: 's.jobs@apple.com',
+    validate: isEmail,
+  },
+  ...
+};
+```
+
+
