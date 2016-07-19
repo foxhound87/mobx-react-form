@@ -5,12 +5,11 @@ import $A from './data/form.a.js';
 import $B from './data/form.b.js';
 import $C from './data/form.c.js';
 import $D from './data/form.d.js';
-import $E from './data/form.e.js';
+
 
 // do some stuff
 $C.invalidate('The user already exist');
 $D.update({ username: 'Jonathan Ive' });
-$E.validate();
 
 // do tests
 describe('mobx-ajv-form', () => {
@@ -19,19 +18,18 @@ describe('mobx-ajv-form', () => {
   it('$B isValid should be false', () => expect($B.isValid).to.be.false);
   it('$C isValid should be false', () => expect($C.isValid).to.be.false);
   it('$D isValid should be false', () => expect($D.isValid).to.be.false);
-  it('$E isValid should be false', () => expect($E.isValid).to.be.false);
 
-  // // test isDirty
+  // test isDirty
   it('$A isDirty should be false', () => expect($A.isDirty).to.be.false);
   it('$B isDirty should be false', () => expect($B.isDirty).to.be.false);
   it('$C isDirty should be false', () => expect($C.isDirty).to.be.false);
   it('$D isDirty should be true', () => expect($D.isDirty).to.be.true);
 
-  // // others check
+  // others check
   it('$A fieldKeys() should be array', () => expect($A.fieldKeys()).to.be.array);
   it('$A values() should be array', () => expect($A.values()).to.be.array);
 
-  it('$C genericErrorMessage should be equal to "The user already exist"', () =>
+  it('$C username should be equal to "The user already exist."', () =>
     expect($C.genericErrorMessage).to.be.equal('The user already exist'));
 
   it('$D username should be equal to "Jonathan Ive"', () =>

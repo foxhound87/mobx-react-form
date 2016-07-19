@@ -1,7 +1,3 @@
-# 1.5.0
-
-* Custom Validation Functions
-
 # 1.4.0
 
 * Support for v5 json schema rules

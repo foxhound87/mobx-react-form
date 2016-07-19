@@ -86,32 +86,3 @@ var schema = {
 new Form({ fields, schema, extend });
 
 ```
-
-# Custom Validation Function
-
-Use a custom validation function,
-multiple functions can be used with the array.
-
-```javascript
-export function shouldBeEqualTo(fieldName) {
-  const $fieldName = fieldName;
-  return (field, fields) => {
-    const fieldsAreEquals = (fields[$fieldName].value === field.value);
-    const errorMessage = `The username should be equals to ${$fieldName}`;
-    return [fieldsAreEquals, errorMessage];
-  };
-}
-
-const fields = {
-  username: {
-    label: 'Username',
-    value: 'SteveJobs',
-    validate: [shouldBeEqualTo('email')],
-  },
-  email: {
-    label: 'Email',
-    value: 's.jobs@apple.com',
-  },
-  ...
-}
-```
