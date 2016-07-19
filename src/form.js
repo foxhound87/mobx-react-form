@@ -56,13 +56,14 @@ export default class Form {
 
   @computed
   get isValid() {
-    if (this.validating) {
-      return false; // consider the form invalid until the validation process finish
-    }
+    // consider the form invalid until the validation process finish
+    if (this.validating) return false;
+
     return this
       .fieldKeys()
       .reduce((seq, key) => {
         const field = this.fields[key];
+        field.validate(true);
         seq = seq && field.isValid; // eslint-disable-line no-param-reassign
         return seq;
       }, true);
@@ -111,9 +112,7 @@ export default class Form {
 
   @action
   validate() {
-    this.validating = true;
-
-    // Check with with "ajv" rules (exit on fail)
+    // Check with "ajv" rules (exit on fail)
     if (!this.checkAjvValidation()) return false;
 
     // Check with "validate" Function
@@ -122,21 +121,25 @@ export default class Form {
 
   @action
   checkAjvValidation() {
+    this.validating = true;
+
     if (this.ajvValidate) {
-      const validate = this.ajvValidate;
-      const formIsValid = validate(this.values());
+      const formIsValid = this.ajvValidate(this.values());
       if (!formIsValid) {
         this.genericErrorMessage = 'An error occurred. Validation has failed.';
         this.validating = false;
         return false;
       }
     }
+
     this.validating = false;
     return true;
   }
 
   @action
   checkFunctionValidation() {
+    this.validating = true;
+
     return this
       .fieldKeys()
       .reduce((seq, key) => {

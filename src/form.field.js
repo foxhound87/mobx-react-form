@@ -14,12 +14,12 @@ export default class Field {
   @observable errorMessage = null;
   originalValue = null;
   originalErrorMessage = null;
-  validateFunction = null;
+  validateProperty = null;
   silent = null;
 
   constructor(form, key, obj = {}) {
     this.initField(key, form, obj);
-    this.validate(true, false);
+    this.validate(false, false);
   }
 
   @action
@@ -63,8 +63,8 @@ export default class Field {
     this.name = name || key;
     this.label = label || key;
     this.disabled = disabled || false;
-    this.originalErrorMessage = message;
-    this.validateFunction = validate || (() => Promise.resolve());
+    this.originalErrorMessage = message || null;
+    this.validateProperty = validate || (() => Promise.resolve());
   }
 
   @computed
@@ -85,12 +85,20 @@ export default class Field {
     return this.$value;
   }
 
+  getValue() {
+    return this.$value;
+  }
+
   @action
   setValue(val) {
     if (!this.interacted) this.interacted = true;
     if (this.$value === val) return;
     this.$value = val;
     this.validate();
+  }
+
+  getMessage() {
+    return this.errorMessage;
   }
 
   @action
@@ -138,22 +146,23 @@ export default class Field {
     // exit on silent mode (on reset and clear)
     if (this.silent === true) {
       this.silent = false;
-      return false;
+      return;
     }
 
     // not execute if no valid function or ajv rules
-    if (!this.validateFunction && !this.form.ajvValidate) return false;
+    if (!this.validateProperty || !this.form.ajvValidate) return;
 
     // invalidate field if validation not forced and not yet interacted with field
-    if (!force && !this.interacted) return this.setInvalid(showErrors);
+    if (!force && !this.interacted) {
+      this.setInvalid(showErrors);
+      return;
+    }
 
     // Use "ajv" Rules
-    if (this.form.ajvValidate) return this.handleAjvValidationRules(showErrors);
+    if (this.form.ajvValidate) this.handleAjvValidationRules(showErrors);
 
     // Use "validate" Function
-    if (this.validateFunction) return this.handleValidateFunction(showErrors);
-
-    return false;
+    if (this.validateProperty) this.handleValidateProperty(showErrors);
   }
 
   @action
@@ -184,11 +193,42 @@ export default class Field {
     return;
   }
 
-  handleValidateFunction(showErrors) {
-    const res = this.validateFunction(this, this.form.fields);
+  handleValidateProperty(showErrors) {
+    const $validator = this.validateProperty;
+
+    // check if is an array of validator functions
+    if (_.isArray($validator)) {
+      // loop validation functions
+      _.forEach($validator, ($fn) => {
+        if (_.isFunction($fn)) this.handleValidateFunction($fn, showErrors);
+      });
+    }
+
+    // if it's not an array, it's a function
+    if (_.isFunction($validator)) {
+      return this.handleValidateFunction($validator, showErrors);
+    }
+
+    return false;
+  }
+
+  handleValidateFunction($validator, showErrors) {
+    const res = $validator(this, this.form.fields);
 
     /**
-      Handle "simple" Custom Rule
+      Handle "array"
+    */
+    if (_.isArray(res)) {
+      const isValid = res[0] || false;
+      const message = res[1] || 'Error';
+      if (isValid === true) this.setValid();
+      if (isValid === false) {
+        this.setInvalidWithMessage(message, showErrors);
+      }
+    }
+
+    /**
+      Handle "boolean"
     */
     if (_.isBoolean(res)) {
       // the function returned a boolean, we assume it is the flag for the valid state
@@ -198,7 +238,7 @@ export default class Field {
     }
 
     /**
-      Handle "promise" Custom Rule
+      Handle "promise"
     */
     const p = Promise.resolve(res);
     return new Promise((resolve) => p.then( // eslint-disable-line consistent-return

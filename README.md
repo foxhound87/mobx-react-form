@@ -130,15 +130,25 @@ export const handleOnSubmit = (e) => {
 Use a custom validation function:
 
 ```javascript
+export function shouldBeEqualTo(fieldName) {
+  const $fieldName = fieldName;
+  return (field, fields) => {
+    const fieldsAreEquals = (fields[$fieldName].value === field.value);
+    const errorMessage = `The username should be equals to ${$fieldName}`;
+    return [fieldsAreEquals, errorMessage];
+  };
+}
+
 const fields = {
   username: {
     label: 'Username',
-    validate: (field, fields) => {
-      // field.value; // get current field value
-      // fields.anotherfield.value; // get anotherfield value
-      // do some validation stuff
-      // return true / false
-    },
+    value: 'SteveJobs',
+    validate: [shouldBeEqualTo('email')],
   },
+  email: {
+    label: 'Email',
+    value: 's.jobs@apple.com',
+  },
+  ...
 }
 ```
