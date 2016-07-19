@@ -145,6 +145,12 @@ export default class Field {
       return;
     }
 
+    // not execute if no valid function or ajv rules
+    if (!this.validateFunction && !this.form.ajvValidate) {
+      this.setValid();
+      return;
+    }
+
     // Use "ajv" Rules
     if (this.form.ajvValidate) this.handleAjvValidationRules(showErrors);
 
