@@ -26,7 +26,7 @@ npm i --save mobx-ajv-form
 
 ## Demo
 
-http://www.webpackbin.com/EyE8JnEDW
+http://www.webpackbin.com/EJYXMNvwZ
 
 ## Usage
 
