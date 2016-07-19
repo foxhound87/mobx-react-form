@@ -22,7 +22,7 @@
     "watch:test": "npm run test -- -w",
     "test": "mocha tests/test.js --compilers js:babel-register",
     "cover": "nyc npm test",
-    "coverage:check": "nyc check-coverage --satements 55 --branches 50 --functions 70 --lines 60",
+    "coverage:check": "nyc check-coverage --satements 75 --branches 60 --functions 85 --lines 75",
     "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "release": "semantic-release pre && npm publish && semantic-release post"
   },
