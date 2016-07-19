@@ -193,6 +193,7 @@ export default class Field {
     return;
   }
 
+  @action
   handleValidateProperty(showErrors) {
     const $validator = this.validateProperty;
 
@@ -212,6 +213,7 @@ export default class Field {
     return false;
   }
 
+  @action
   handleValidateFunction($validator, showErrors) {
     const res = $validator(this, this.form.fields);
 
