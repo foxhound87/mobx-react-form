@@ -1,5 +1,5 @@
 import Form from '../../src/index';
-import extend from './extend';
+import extend from './_.extend';
 
 const schema = {
   type: 'object',

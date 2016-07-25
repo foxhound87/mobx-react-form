@@ -93,18 +93,19 @@ new Form({ fields, schema, extend });
 // define custom functions,
 // they must return an array with: [boolean, string];
 
-function shouldBeEqualTo(fieldName) {
-  const $fieldName = fieldName;
+function shouldBeEqualTo($target) {
+  const target = $target;
   return (field, fields) => {
-    const fieldsAreEquals = (fields[$fieldName].getValue() === field.getValue());
-    return [fieldsAreEquals, `The username should be equals to ${$fieldName}`];
+    const current = field.label || field.name;
+    const fieldsAreEquals = (fields[target].getValue() === field.getValue());
+    return [fieldsAreEquals, `The ${current} should be equals to ${target}`];
   };
 }
 
 function isEmail(field) {
-  const email = field.value;
-  const isValid = (email.indexOf('@') > 0);
-  return [isValid, 'Should be an email address.'];
+  const current = field.label || field.name;
+  const isValid = (field.value.indexOf('@') > 0);
+  return [isValid, `The ${current} should be an email address.`];
 }
 
 // pass them to the field's `validate` property

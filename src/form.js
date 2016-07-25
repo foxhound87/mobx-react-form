@@ -16,24 +16,28 @@ export default class Form {
   ajvExtend = null;
 
   constructor({ fields = {}, schema = false, options = {}, extend = null }) {
-    const objectFields = fields;
-    if (Object.keys(objectFields).length === 0 && !!schema) {
-      Object.keys(schema.properties).forEach((property) => {
-        const label = schema.properties[property].title;
-        const value = schema.properties[property].default;
-        objectFields[property] = { label, value };
-      });
-    }
-    const keys = Object.keys(objectFields);
+    this.mergeSchemaDefaults(fields, schema);
     this.initAjv(schema, options, extend);
-    this.initFields(keys, objectFields);
+    this.initFields(fields);
     this.validateFields(false, false);
   }
 
   @action
-  initFields(keys, obj) {
+  mergeSchemaDefaults(fields, schema) {
+    if (Object.keys(fields).length === 0 && !!schema) {
+      Object.keys(schema.properties).forEach((property) => {
+        const label = schema.properties[property].title;
+        const value = schema.properties[property].default;
+        fields[property] = { label, value }; // eslint-disable-line no-param-reassign
+      });
+    }
+  }
+
+  @action
+  initFields(fields) {
+    const keys = Object.keys(fields);
     keys.forEach((key) => extendObservable(this.fields, {
-      [key]: new FormField(key, obj[key]),
+      [key]: new FormField(key, fields[key]),
     }));
   }
 

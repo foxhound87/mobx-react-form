@@ -16,18 +16,19 @@ export default class Field {
   originalValue = null;
   originalErrorMessage = null;
   validateProperty = null;
-  validationFunctionsValues = {};
+  validationFunctionsValues = [];
 
   constructor(key, obj = {}) {
     this.initField(key, obj);
   }
 
+
   @action
-  initField(key, obj) {
+  initField(key, field) {
     this.key = key;
 
     /**
-      Assume the obj is a plain value.
+      Assume the field is an array, a boolean, a string or a number
       Example:
 
         {
@@ -35,16 +36,21 @@ export default class Field {
           password: '12345',
         }
     */
-    if (!_.isObject(obj)) {
+    if (
+    _.isBoolean(field) ||
+    _.isArray(field) ||
+    _.isString(field) ||
+    _.isNumber(field)) {
+      /* The field IS the value here */
       this.name = key;
       this.label = key;
-      this.$value = obj; // the object IS the value here!
-      this.originalValue = obj; // the object IS the value here!
+      this.$value = field;
+      this.originalValue = field;
       return;
     }
 
     /**
-      Assume the obj is an object.
+      Assume the field is an object.
       Example:
 
         {
@@ -56,15 +62,25 @@ export default class Field {
           },
         }
     */
-    const { name, label, value, disabled, message, validate } = obj;
-    this.$value = value || '';
-    this.originalValue = value || '';
-    this.name = name || key;
-    this.label = label || key;
-    this.originalErrorMessage = message;
-    this.validateProperty = validate || null;
-    this.disabled = disabled || false;
+    if (_.isObject(field)) {
+      const { value, name, label, disabled, message, validate, related } = field;
+      this.$value = value || '';
+      this.originalValue = value || '';
+      this.name = name || key;
+      this.label = label || key;
+      this.originalErrorMessage = message;
+      this.validateProperty = validate || null;
+      this.disabled = disabled || false;
+      this.related = related || [];
+      return;
+    }
+
+    throw new Error(`
+      The field ${this.key} should be an object
+      , an array, a boolean, a string or a number.
+    `);
   }
+
 
   @computed
   get isValid() {
@@ -189,23 +205,17 @@ export default class Field {
     // check if is a validator function
     if (_.isFunction($validator)) {
       const res = this.handleValidateFunction($validator, showErrors);
-      _.extend(this.validationFunctionsValues, {
-        0: { valid: res[0], message: res[1] },
-      });
+      this.validationFunctionsValues.push({ valid: res[0], message: res[1] });
     }
 
     // check if is an array of validator functions
     if (_.isArray($validator)) {
       // loop validation functions
-      let n = 0;
       _.forEach($validator, ($fn) => {
         if (_.isFunction($fn)) {
           const res = this.handleValidateFunction($fn);
-          _.extend(this.validationFunctionsValues, {
-            [n]: { valid: res[0], message: res[1] },
-          });
+          this.validationFunctionsValues.push({ valid: res[0], message: res[1] });
         }
-        n++;
       });
     }
 

@@ -1,6 +1,6 @@
 import Form from '../../src/index';
-import extend from './extend';
-import { shouldBeEqualTo } from './validators';
+import extend from './_.extend';
+import { shouldBeEqualTo } from './_.validators';
 
 const fields = {
   username: {
