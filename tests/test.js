@@ -15,8 +15,9 @@ $C.invalidate('The user already exist');
 $D.update({ username: 'Jonathan Ive' });
 
 // do tests
-describe('mobx-ajv-form', () => {
-  // test isValid
+
+// test isValid
+describe('isValid', () => {
   it('$A isValid should be true', () => expect($A.isValid).to.be.true);
   it('$B isValid should be false', () => expect($B.isValid).to.be.false);
   it('$C isValid should be false', () => expect($C.isValid).to.be.false);
@@ -25,13 +26,17 @@ describe('mobx-ajv-form', () => {
   it('$F isValid should be false', () => expect($F.isValid).to.be.false);
   it('$G isValid should be true', () => expect($G.isValid).to.be.true);
   it('$H isValid should be true', () => expect($H.isValid).to.be.true);
+});
 
-  // test isDirty
+// test isDirty
+describe('isDirty', () => {
   it('$A isDirty should be false', () => expect($A.isDirty).to.be.false);
   it('$B isDirty should be false', () => expect($B.isDirty).to.be.false);
   it('$C isDirty should be false', () => expect($C.isDirty).to.be.false);
   it('$D isDirty should be true', () => expect($D.isDirty).to.be.true);
+});
 
+describe('others', () => {
   // others check
   it('$A fieldKeys() should be array', () => expect($A.fieldKeys()).to.be.array);
   it('$A values() should be array', () => expect($A.values()).to.be.array);
@@ -53,5 +58,4 @@ describe('mobx-ajv-form', () => {
 
   it('$H devSkills should be equal to ""', () =>
     expect($H.fields.devSkills.value).to.be.equal(''));
-
 });
