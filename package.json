@@ -11,7 +11,7 @@
     "clean:umd": "rm -rf umd",
     "clean:all": "npm run clean:lib && npm run clean:umd",
     "clean:modules": "rm -rf ./node_modules && npm cache clean",
-    "lint": "eslint src --ext .jsx,.js",
+    "lint": "eslint . --ext .jsx,.js --ignore-path .gitignore",
     "build": "npm-run-all --parallel build:*",
     "build:main": "babel -d lib/ src/",
     "build:umd": "webpack --output-filename index.umd.js",
