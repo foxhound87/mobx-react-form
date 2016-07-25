@@ -1,44 +1,75 @@
-import { action, observable, computed, extendObservable } from 'mobx';
+import { action, observable, computed, observe } from 'mobx';
 import FormField from './form.field';
 import AJV from 'ajv';
 import _ from 'lodash';
 
 export default class Form {
 
+  schema = null;
+  options = null;
+  extend = null;
+  ajv = null;
+
   @observable fields = {};
   @observable validating = false;
   @observable genericErrorMessage = null;
 
-  ajvValidate = null;
-  ajvInstance = null;
-  ajvOptions = null;
-  ajvSchema = null;
-  ajvExtend = null;
-
   constructor({ fields = {}, schema = false, options = {}, extend = null }) {
-    this.mergeSchemaDefaults(fields, schema);
-    this.initAjv(schema, options, extend);
-    this.initFields(fields);
+    this.fields = fields;
+    this.schema = schema;
+    this.options = options;
+    this.extend = extend;
+
+    // initialize form
+    this.mergeSchemaDefaults();
+    this.initAjv();
+    this.initFields();
     this.validateFields(false, false);
+    this.observeFields();
   }
 
   @action
-  mergeSchemaDefaults(fields, schema) {
-    if (Object.keys(fields).length === 0 && !!schema) {
-      Object.keys(schema.properties).forEach((property) => {
-        const label = schema.properties[property].title;
-        const value = schema.properties[property].default;
-        fields[property] = { label, value }; // eslint-disable-line no-param-reassign
+  mergeSchemaDefaults() {
+    if (Object.keys(this.fields).length === 0 && !!this.schema) {
+      Object.keys(this.schema.properties).forEach((property) => {
+        const label = this.schema.properties[property].title;
+        const value = this.schema.properties[property].default;
+        this.fields[property] = { label, value }; // eslint-disable-line no-param-reassign
       });
     }
   }
 
   @action
-  initFields(fields) {
-    const keys = Object.keys(fields);
-    keys.forEach((key) => extendObservable(this.fields, {
-      [key]: new FormField(key, fields[key]),
+  initFields(opt = {}) {
+    const keys = this.fieldKeys();
+    keys.forEach((key) => _.merge(this.fields, {
+      [key]: new FormField(key, this.fields[key], opt),
     }));
+  }
+
+  @action
+  initAjv() {
+    if (!this.schema) return;
+    // create ajv instance
+    const ajvInstance = new AJV(_.merge(this.options, {
+      allErrors: true,
+      coerceTypes: true,
+      v5: true,
+    }));
+    // extend with custom keywords
+    if (this.extend) {
+      _.forEach(this.extend, (val, key) =>
+        ajvInstance.addKeyword(key, val));
+    }
+    // create ajvInstance validator (compiling rules)
+    this.ajv = ajvInstance.compile(this.schema);
+  }
+
+  @action
+  observeFields() {
+    _.forEach(this.fields, (val, key) =>
+      observe(this.fields[key], '$value', () =>
+        this.validateField(key, true)));
   }
 
   validateFields(force = true, showErrors = true) {
@@ -46,26 +77,22 @@ export default class Form {
       field.validate(force, showErrors, this));
   }
 
-  @action
-  initAjv(ajvSchema, ajvOptions = {}, ajvExtend) {
-    if (!ajvSchema) return;
-    // set ajv schema and options
-    this.ajvSchema = ajvSchema;
-    this.ajvOptions = ajvOptions;
-    this.ajvExtend = ajvExtend;
-    // create ajv instance
-    this.ajvInstance = new AJV(_.merge(this.ajvOptions, {
-      allErrors: true,
-      coerceTypes: true,
-      v5: true,
-    }));
-    // extend with custom keywords
-    if (this.ajvExtend) {
-      _.forEach(this.ajvExtend, (val, key) =>
-        this.ajvInstance.addKeyword(key, val));
+  validateField(key = null, recursive = false, force = true, showErrors = true) {
+    if (!key) throw new Error('validateField: No field key provided');
+
+    // validate field by key
+    this.fields[key].validate(force, showErrors, this);
+
+    /*
+      validate related fields if specified
+      and recursive validation allowed
+    */
+    if (!recursive) return;
+    const related = this.fields[key].related;
+    if (!_.isEmpty(related)) {
+      _.forEach(related, ($rel) =>
+        this.validateField($rel));
     }
-    // create ajvInstance validator (compiling rules)
-    this.ajvValidate = this.ajvInstance.compile(this.ajvSchema);
   }
 
   fieldKeys() {
@@ -77,13 +104,8 @@ export default class Form {
     // consider the form invalid until the validation process finish
     if (this.validating) return false;
 
-    return this
-      .fieldKeys()
-      .reduce((seq, key) => {
-        const field = this.fields[key];
-        seq = seq && field.isValid; // eslint-disable-line no-param-reassign
-        return seq;
-      }, true);
+    // check isValid
+    return _.every(this.fields, 'isValid');
   }
 
   @computed
@@ -119,13 +141,9 @@ export default class Form {
 
   @action
   update(obj) {
-    this
-      .fieldKeys()
-      .forEach((key) =>
-        this.fields[key].update(obj[key]));
+    _.merge(this.fields, obj);
+    this.initFields({ interacted: true });
   }
-
-  /* validation */
 
   @action
   validate() {

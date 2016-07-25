@@ -14,9 +14,6 @@ import $H from './data/form.h.js';
 $C.invalidate('The user already exist');
 $D.update({ username: 'Jonathan Ive' });
 
-// do tests
-
-// test isValid
 describe('isValid', () => {
   it('$A isValid should be true', () => expect($A.isValid).to.be.true);
   it('$B isValid should be false', () => expect($B.isValid).to.be.false);
@@ -28,7 +25,6 @@ describe('isValid', () => {
   it('$H isValid should be true', () => expect($H.isValid).to.be.true);
 });
 
-// test isDirty
 describe('isDirty', () => {
   it('$A isDirty should be false', () => expect($A.isDirty).to.be.false);
   it('$B isDirty should be false', () => expect($B.isDirty).to.be.false);
@@ -37,7 +33,6 @@ describe('isDirty', () => {
 });
 
 describe('others', () => {
-  // others check
   it('$A fieldKeys() should be array', () => expect($A.fieldKeys()).to.be.array);
   it('$A values() should be array', () => expect($A.values()).to.be.array);
 

@@ -110,17 +110,20 @@ function isEmail(field) {
 
 // pass them to the field's `validate` property
 // as function or as an array of functions
+// and set `related` fields to be validated at the same time
 
 const fields = {
   username: {
     label: 'Username',
     value: 's.jobs@apple.com',
     validate: [isEmail, shouldBeEqualTo('email')],
+    related: ['email'],
   },
   email: {
     label: 'Email',
     value: 's.jobs@apple.com',
     validate: isEmail,
+    related: ['username'],
   },
   ...
 };

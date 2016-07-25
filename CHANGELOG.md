@@ -1,3 +1,8 @@
+# 1.7.0
+
+* Validation using mobx observe on field $value
+* Display errors of related fields
+
 # 1.5.0
 
 * Custom Validation Functions

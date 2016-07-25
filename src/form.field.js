@@ -1,4 +1,4 @@
-import { action, observable, computed, isObservableArray } from 'mobx';
+import { action, observable, computed, isObservableArray, toJS } from 'mobx';
 import _ from 'lodash';
 
 export default class Field {
@@ -18,14 +18,17 @@ export default class Field {
   validateProperty = null;
   validationFunctionsValues = [];
 
-  constructor(key, obj = {}) {
-    this.initField(key, obj);
+  constructor(key, field = {}, opt = {}) {
+    this.initField(key, field, opt);
   }
 
 
   @action
-  initField(key, field) {
+  initField(key, field, opt) {
     this.key = key;
+
+    // overwrite none/some/any class properties
+    _.forEach(opt, ($v, $k) => { this[$k] = $v; });
 
     /**
       Assume the field is an array, a boolean, a string or a number
@@ -69,7 +72,7 @@ export default class Field {
       this.name = name || key;
       this.label = label || key;
       this.originalErrorMessage = message;
-      this.validateProperty = validate || null;
+      this.validateProperty = toJS(validate) || null;
       this.disabled = disabled || false;
       this.related = related || [];
       return;
@@ -89,7 +92,8 @@ export default class Field {
 
   @computed
   get isDirty() {
-    return this.originalValue !== this.$value;
+    const valueChanged = (this.originalValue !== this.$value);
+    return valueChanged || this.interacted;
   }
 
   @computed
@@ -109,7 +113,6 @@ export default class Field {
     if (!this.interacted) this.interacted = true;
     if (this.$value === val) return;
     this.$value = val;
-    this.form.validate();
   }
 
   @action
@@ -130,7 +133,7 @@ export default class Field {
 
   @action
   update(obj) {
-    this.$value = obj;
+    this.setValue(obj);
   }
 
   @action
@@ -162,13 +165,13 @@ export default class Field {
     }
 
     // not execute if no valid function or ajv rules
-    if (!this.validateFunction && !this.form.ajvValidate) {
+    if (!this.validateProperty && !this.form.ajv) {
       this.setValid();
       return;
     }
 
     // Use "ajv" Rules
-    if (this.form.ajvValidate) this.handleAjvValidationRules(showErrors);
+    if (this.form.ajv) this.handleAjvValidationRules(showErrors);
 
     // Use "validate" Function
     if (this.validateProperty) this.handleValidateProperty(showErrors);
@@ -176,7 +179,7 @@ export default class Field {
 
   @action
   handleAjvValidationRules(showErrors) {
-    const validate = this.form.ajvValidate;
+    const validate = this.form.ajv;
     const formIsValid = validate({ [this.name]: this.$value });
 
     if (!formIsValid) {
@@ -200,7 +203,10 @@ export default class Field {
   }
 
   handleValidateProperty(showErrors) {
-    const $validator = this.validateProperty;
+    // reset this.handleValidateFunction;
+    this.validationFunctionsValues = [];
+    // get validators from validate property
+    const $validator = toJS(this.validateProperty);
 
     // check if is a validator function
     if (_.isFunction($validator)) {
@@ -261,11 +267,6 @@ export default class Field {
   }
 
   checkValidateFunctions() {
-    return Object.keys(this.validationFunctionsValues)
-      .reduce((seq, key) => {
-        const rule = this.validationFunctionsValues[key];
-        seq = seq && rule.valid; // eslint-disable-line no-param-reassign
-        return seq;
-      }, true);
+    return _.every(this.validationFunctionsValues, 'valid');
   }
 }
