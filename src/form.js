@@ -16,9 +16,17 @@ export default class Form {
   ajvExtend = null;
 
   constructor({ fields = {}, schema = false, options = {}, extend = null }) {
-    const keys = Object.keys(fields);
+    const objectFields = fields;
+    if (Object.keys(objectFields).length === 0 && !!schema) {
+      Object.keys(schema.properties).forEach((property) => {
+        const label = schema.properties[property].title;
+        const value = schema.properties[property].default;
+        objectFields[property] = { label, value };
+      });
+    }
+    const keys = Object.keys(objectFields);
     this.initAjv(schema, options, extend);
-    this.initFields(keys, fields);
+    this.initFields(keys, objectFields);
     this.validateFields(false, false);
   }
 

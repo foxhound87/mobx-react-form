@@ -8,6 +8,7 @@ import $D from './data/form.d.js';
 import $E from './data/form.e.js';
 import $F from './data/form.f.js';
 import $G from './data/form.g.js';
+import $H from './data/form.h.js';
 
 // do some stuff
 $C.invalidate('The user already exist');
@@ -23,6 +24,7 @@ describe('mobx-ajv-form', () => {
   it('$E isValid should be true', () => expect($E.isValid).to.be.true);
   it('$F isValid should be false', () => expect($F.isValid).to.be.false);
   it('$G isValid should be true', () => expect($G.isValid).to.be.true);
+  it('$H isValid should be true', () => expect($H.isValid).to.be.true);
 
   // test isDirty
   it('$A isDirty should be false', () => expect($A.isDirty).to.be.false);
@@ -39,4 +41,17 @@ describe('mobx-ajv-form', () => {
 
   it('$D username should be equal to "Jonathan Ive"', () =>
     expect($D.fields.username.value).to.be.equal('Jonathan Ive'));
+
+  it('$H username should be equal to "SteveJobs"', () =>
+    expect($H.fields.username.value).to.be.equal('SteveJobs'));
+
+  it('$H email value should be equal to "s.jobs@apple.com"', () =>
+    expect($H.fields.email.value).to.be.equal('s.jobs@apple.com'));
+
+  it('$H email label should be equal to "Email"', () =>
+    expect($H.fields.email.label).to.be.equal('Email'));
+
+  it('$H devSkills should be equal to ""', () =>
+    expect($H.fields.devSkills.value).to.be.equal(''));
+
 });
