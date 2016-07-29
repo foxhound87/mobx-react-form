@@ -131,18 +131,16 @@ export default class Form {
 
   @action
   reset() {
-    this
-      .fieldKeys()
-      .forEach((key) =>
-        this.fields[key].reset());
+    _.forEach(this.fields, (val, key) =>
+      this.fields[key].reset());
 
     this.genericErrorMessage = null;
   }
 
   @action
   update(obj) {
-    _.merge(this.fields, obj);
-    this.initFields({ interacted: true });
+    _.forEach(obj, (val, key) =>
+      this.fields[key].update(val));
   }
 
   @action
