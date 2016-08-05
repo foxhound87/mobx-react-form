@@ -52,9 +52,9 @@
 |---|---|---|---|
 | **isValid()** | - | boolean | Check if the field is valid. |
 | **isDirty()** | - | boolean | Check if the field is dirty. |
-| **getValue()** | - | string, array, object | Get the field value. |
-| **setValue(val)** | string, array, object | - | Set the field value to the given value. |
-| **update(val)** | - | string, array, object | Alias of setValue(). |
+| **getValue()** | - | string, array, object, boolean | Get the field value. |
+| **setValue(val)** | string, array, object, boolean | - | Set the field value to the given value. |
+| **update(val)** | string, array, object, boolean | - | Alias of setValue(). |
 | **clear()** | - | - | Clear the field to empty value. |
 | **reset()** | - | - | Reset the field to initial value. |
 | **setValid()** | - | - | Set the field as valid. |
