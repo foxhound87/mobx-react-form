@@ -165,9 +165,8 @@ export default class Form {
     this.validating = true;
     this.genericErrorMessage = null;
 
-    if (this.ajvValidate) {
-      const validate = this.ajvValidate;
-      const formIsValid = validate(this.values());
+    if (this.ajv) {
+      const formIsValid = this.ajv(this.values());
       if (!formIsValid) {
         this.genericErrorMessage = 'An error occurred. Validation has failed.';
         this.validating = false;
