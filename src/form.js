@@ -14,18 +14,21 @@ export default class Form {
   @observable validating = false;
   @observable genericErrorMessage = null;
 
-  constructor({ fields = {}, schema = false, options = {}, extend = null }) {
-    this.fields = fields;
-    this.schema = schema;
-    this.options = options;
-    this.extend = extend;
-
-    // initialize form
+  constructor(obj = {}) {
+    this.assignInitData(obj);
     this.mergeSchemaDefaults();
     this.initAjv();
     this.initFields();
     this.validateFields(false, false);
     this.observeFields();
+  }
+
+  @action
+  assignInitData({ fields = {}, schema = false, options = {}, extend = null }) {
+    this.fields = fields;
+    this.schema = schema;
+    this.options = options;
+    this.extend = extend;
   }
 
   @action

@@ -132,7 +132,7 @@ export const handleOnSubmit = (e) => {
 
 - [Fields API List](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#fields-api)
 
-- [Use a custom Validation keywords (extend AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-keywords-extend-ajv)
+- [Use a custom validation keyword (extend AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-keywords-extend-ajv)
 
 - [Use a custom validation function (without AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-functions-without-ajv)
 
