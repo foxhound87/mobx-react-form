@@ -65,7 +65,7 @@ const fields = {
 export default new Form({ fields, schema });
 ```
 
-Pass the form to a react component:
+### Pass the form to a react component:
 
 ```javascript
 import React from 'react';
@@ -97,7 +97,7 @@ const FormComponent = ({ form, handleOnSubmit }) => (
 export default observer(FormComponent);
 ````
 
-Deal with events:
+### Deal with events:
 
 ```javascript
 import form from './form';
@@ -126,7 +126,7 @@ export const handleOnSubmit = (e) => {
 }
 ```
 
-Use a custom validation function:
+### Use a custom validation function
 
 ```javascript
 // define custom functions,
@@ -149,7 +149,7 @@ function isEmail(field) {
 
 // pass them to the field's `validate` property
 // as function or as an array of functions
-// and set `related fields to be validated at the same time
+// and set `related` fields to be validated at the same time
 
 const fields = {
   username: {
@@ -168,4 +168,10 @@ const fields = {
 };
 ```
 
+### Remove AJV Warnings
 
+Add this line to your webpack config in the `plugins` array:
+
+```javascript
+new webpack.IgnorePlugin(/regenerator|nodent|js\-beautify/, /ajv/)
+``

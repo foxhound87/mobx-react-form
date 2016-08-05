@@ -2,55 +2,34 @@
 
 ## Form Constructor
 
-new Form({ fields, schema, options, extend });
+**Usage:** `new Form({ fields, schema, options, extend });`
 
-* **fields**: represents the fields: name, label, value.
-
-* **schema**: the json-schema for the validation.
-See [json-schema.org](http://json-schema.org)
-
-* **options**: the additional options for ajv.
-See [github.com/epoberezkin/ajv#options](https://github.com/epoberezkin/ajv#options)
-
-* **extend**: add custom validation keyword for using in the json-schema
+|   |   |
+|---|---|
+| **fields**    | Object which represents the fields: name, label, value. |
+| **schema**    | The json-schema for the validation. See [json-schema.org](http://json-schema.org) |
+| **options**   | The additional options for ajv. See [github.com/epoberezkin/ajv#options](https://github.com/epoberezkin/ajv#options) |
+| **extend**    | Add custom validation keyword for using in the json-schema |
 
 ## Form API
 
-#### syncValue()
-Synchronizes the value of the field `onChange` event.
+| Method | Input | Output | Info |
+|---|---|---|---|
+| **syncValue()** | - | - | Synchronizes the value of the field `onChange` event. You must define the name of the field to use this method. |
+| **isValid()** | - | boolean | Check if the form is valid. |
+| **isDirty()** | - | boolean  | Check if the form is dirty. |
+| **fieldKeys()** | - | array | Get an array with all fields keys. |
+| **values()** | - | object | Get an object with all fields values. |
+| **clear()** | - | - | Clear the form to empty values. |
+| **reset()** | - | - | Reset the form to initials values. |
+| **update(obj)** | object | - | Pass an object to update the form with new values. |
+| **validate()** | - | boolean | Check if the form is valid. |
+| **invalidate(err)** | string | - | Invalidate the form passing a generic error message. |
 
-You must define the name of the field to use this method.
-
-#### isValid()
-Check if the form is valid (boolean).
-
-#### isDirty()
-Check if the form is dirty (boolean).
-
-#### fieldKeys()
-Get an array with all fields names.
-
-#### values()
-Get an object with all fields values.
-
-#### clear()
-Clear the form to empty values.
-
-#### reset()
-Reset the form to initials values.
-
-#### update(obj)
-Pass an object to update the form with new values.
-
-#### validate()
-Check if the form is valid (boolean).
-
-#### invalidate(err)
-Invalidate the form passing a generic error message (string).
 
 ---
 
-# Custom Validation Keyword
+# Custom Validation Keywords (extend AJV)
 
 ```javascript
 // define an 'extend' object with the custom keyword
@@ -87,7 +66,9 @@ new Form({ fields, schema, extend });
 
 ```
 
-# Custom Validation Function
+---
+
+# Custom Validation Functions (without AJV)
 
 ```javascript
 // define custom functions,
@@ -127,4 +108,14 @@ const fields = {
   },
   ...
 };
+```
+
+---
+
+## Remove AJV Warnings
+
+Add this line to your webpack config in the `plugins` array:
+
+```javascript
+new webpack.IgnorePlugin(/regenerator|nodent|js\-beautify/, /ajv/)
 ```
