@@ -126,52 +126,15 @@ export const handleOnSubmit = (e) => {
 }
 ```
 
-### Use a custom validation function
+# More...
 
-```javascript
-// define custom functions,
-// they must return an array with: [boolean, string];
+- [Form API List](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-api)
 
-function shouldBeEqualTo($target) {
-  const target = $target;
-  return (field, fields) => {
-    const current = field.label || field.name;
-    const fieldsAreEquals = (fields[target].getValue() === field.getValue());
-    return [fieldsAreEquals, `The ${current} should be equals to ${target}`];
-  };
-}
+- [Fields API List](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#fields-api)
 
-function isEmail(field) {
-  const current = field.label || field.name;
-  const isValid = (field.value.indexOf('@') > 0);
-  return [isValid, `The ${current} should be an email address.`];
-}
+- [Use a custom Validation keywords (extend AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-keywords-extend-ajv)
 
-// pass them to the field's `validate` property
-// as function or as an array of functions
-// and set `related` fields to be validated at the same time
+- [Use a custom validation function (without AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-functions-without-ajv)
 
-const fields = {
-  username: {
-    label: 'Username',
-    value: 's.jobs@apple.com',
-    validate: [isEmail, shouldBeEqualTo('email')],
-    related: ['email'],
-  },
-  email: {
-    label: 'Email',
-    value: 's.jobs@apple.com',
-    validate: isEmail,
-    related: ['username'],
-  },
-  ...
-};
-```
+- [Remove AJV Warnings](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#remove-ajv-warnings)
 
-### Remove AJV Warnings
-
-Add this line to your webpack config in the `plugins` array:
-
-```javascript
-new webpack.IgnorePlugin(/regenerator|nodent|js\-beautify/, /ajv/)
-``

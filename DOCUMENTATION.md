@@ -13,19 +13,52 @@
 
 ## Form API
 
+| Property | Type | MobX Type | Info |
+|---|---|---|---|
+| **isValid** | boolean | computed | Check if the form is valid. |
+| **isDirty** | boolean | computed | Check if the form is dirty. |
+| **validating** | boolean | observable | Check if the form is in validation state. |
+| **genericErrorMessage** | string | observable | Generic error message (not related to fields). |
+
+
 | Method | Input | Output | Info |
 |---|---|---|---|
 | **syncValue()** | - | - | Synchronizes the value of the field `onChange` event. You must define the name of the field to use this method. |
 | **isValid()** | - | boolean | Check if the form is valid. |
 | **isDirty()** | - | boolean  | Check if the form is dirty. |
-| **fieldKeys()** | - | array | Get an array with all fields keys. |
+| **fieldKeys()** | - | array | Get an array with all fields keys/names. |
+| **update(obj)** | object | - | Pass an object to update the form with new values. |
 | **values()** | - | object | Get an object with all fields values. |
 | **clear()** | - | - | Clear the form to empty values. |
 | **reset()** | - | - | Reset the form to initials values. |
-| **update(obj)** | object | - | Pass an object to update the form with new values. |
 | **validate()** | - | boolean | Check if the form is valid. |
 | **invalidate(err)** | string | - | Invalidate the form passing a generic error message. |
 
+## Fields API
+
+| Property | Type | MobX Type | Info |
+|---|---|---|---|
+| **isValid** | boolean | computed | Check if the form is valid. |
+| **isDirty** | boolean | computed | Check if the form is dirty. |
+| **key** | string | - | Field key (set on form constructor) |
+| **name** | string | - | Field name or key (set on form constructor) |
+| **label** | string | - | Field label name (set on form constructor) |
+| **value** | string, array, object, boolean | computed | Computed value of the field. |
+| **disabled** | boolean | - | The disabled state of the field. |
+| **errorMessage** | string | observable | Field error message. |
+
+
+| Property | Input | Output | Info |
+|---|---|---|---|
+| **isValid()** | - | boolean | Check if the field is valid. |
+| **isDirty()** | - | boolean | Check if the field is dirty. |
+| **getValue()** | - | string, array, object | Get the field value. |
+| **setValue(val)** | string, array, object | - | Set the field value to the given value. |
+| **update(val)** | - | string, array, object | Alias of setValue(). |
+| **clear()** | - | - | Clear the field to empty value. |
+| **reset()** | - | - | Reset the field to initial value. |
+| **setValid()** | - | - | Set the field as valid. |
+| **setInvalid(showErrors = true)** | boolean | - | Set the field as invalid. If true is passed, no errors are shown. |
 
 ---
 
