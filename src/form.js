@@ -1,7 +1,7 @@
 import { action, observable, computed, observe } from 'mobx';
-import FormField from './form.field';
 import AJV from 'ajv';
 import _ from 'lodash';
+import FormField from './form.field';
 
 export default class Form {
 
