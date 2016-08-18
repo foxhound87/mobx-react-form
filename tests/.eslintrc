@@ -1,5 +1,11 @@
 {
   "env": {
     "mocha": true
+  },
+  "rules": {
+    "import/no-extraneous-dependencies": [2, {"devDependencies": true}],
+    "no-global-assign": 0,
+    "no-unsafe-negation": 0
   }
+
 }
