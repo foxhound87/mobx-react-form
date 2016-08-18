@@ -2,6 +2,8 @@
   "parser": "babel-eslint",
   "extends": ["airbnb"],
   "rules": {
-    "no-confusing-arrow": 0
+    "no-confusing-arrow": 0,
+    "no-global-assign": 0,
+    "no-unsafe-negation": 0
   }
 }
