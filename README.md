@@ -128,13 +128,15 @@ export const handleOnSubmit = (e) => {
 
 # More...
 
+- [Form Constructor](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-constructor)
 - [Form API List](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-api)
-
 - [Fields API List](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#fields-api)
-
 - [Use a custom validation keyword (extend AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-keywords-extend-ajv)
-
 - [Use a custom validation function (without AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-functions-without-ajv)
-
 - [Remove AJV Warnings](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#remove-ajv-warnings)
 
+## Contributing
+
+If you want to contribute to the development, do not hesitate to fork the repo and send pull requests.
+
+And don't forget to star the repo! Thanks!
