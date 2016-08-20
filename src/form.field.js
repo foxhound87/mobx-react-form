@@ -12,7 +12,6 @@ export default class Field {
   @observable interacted = false;
   @observable disabled = false;
   @observable errorMessage = null;
-  silent = null;
   originalValue = null;
   originalErrorMessage = null;
   validateProperty = null;
@@ -21,7 +20,6 @@ export default class Field {
   constructor(key, field = {}, opt = {}) {
     this.initField(key, field, opt);
   }
-
 
   @action
   initField(key, field, opt) {
@@ -120,7 +118,6 @@ export default class Field {
     if (_.isString(this.$value)) this.$value = '';
     this.interacted = false;
     this.setInvalid(false);
-    this.silent = true;
   }
 
   @action
@@ -156,12 +153,6 @@ export default class Field {
   validate(showErrors = true, form = null) {
     if (form) this.form = form;
     this.setValid();
-
-    // exit on silent mode (on reset and clear)
-    if (this.silent === true) {
-      this.silent = false;
-      return;
-    }
 
     // not execute if no valid function or ajv rules
     if (!this.validateProperty && !this.form.ajv) return;

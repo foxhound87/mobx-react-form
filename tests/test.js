@@ -12,6 +12,7 @@ import $H from './data/form.h.js';
 import $I from './data/form.i.js';
 import $L from './data/form.l.js';
 import $M from './data/form.m.js';
+import $N from './data/form.n.js';
 
 // do some stuff (DIFFERENT FORMS)
 $C.invalidate('The user already exist');
@@ -23,6 +24,24 @@ $L.clear(); // to empty values
 // subsequent clear and reset (SAME FORM)
 $M.clear(); // to empty values
 $M.reset(); // to original values
+
+// subsequent clear and reset (SAME FORM)
+$N.clear(); // to empty values
+$N.reset(); // to original values
+
+describe('$L Form', () => {
+  it('$L username value should be equal to "" (empty string)', () =>
+    expect($L.fields.username.value).to.be.equal(''));
+
+  it('$L email value should be equal to "" (empty string)', () =>
+    expect($L.fields.email.value).to.be.equal(''));
+
+  it('$L password value should be equal to "" (empty string)', () =>
+    expect($L.fields.password.value).to.be.equal(''));
+
+  it('$L password errorMessage should be null', () =>
+    expect($L.fields.password.errorMessage).to.be.null);
+});
 
 describe('isValid', () => {
   it('$A isValid should be true', () => expect($A.isValid).to.be.true);
@@ -36,6 +55,7 @@ describe('isValid', () => {
   it('$I isValid should be true', () => expect($I.isValid).to.be.true);
   it('$L isValid should be false', () => expect($L.isValid).to.be.false);
   it('$M isValid should be true', () => expect($M.isValid).to.be.true);
+  it('$N isValid should be false', () => expect($N.isValid).to.be.false);
 });
 
 describe('isDirty', () => {
@@ -50,6 +70,7 @@ describe('isDirty', () => {
   it('$I isDirty should be true', () => expect($I.isDirty).to.be.true);
   it('$L isDirty should be false', () => expect($L.isDirty).to.be.false);
   it('$M isDirty should be true', () => expect($M.isDirty).to.be.true);
+  it('$N isDirty should be true', () => expect($N.isDirty).to.be.true);
 });
 
 describe('validate()', () => {
@@ -63,6 +84,7 @@ describe('validate()', () => {
   it('$I validate() should return true', () => expect($I.validate()).to.be.true);
   it('$L validate() should return false', () => expect($L.validate()).to.be.false);
   it('$M validate() should return true', () => expect($M.validate()).to.be.true);
+  it('$N validate() should return false', () => expect($N.validate()).to.be.false);
 });
 
 describe('fieldKeys()', () => {
@@ -79,19 +101,8 @@ describe('values()', () => {
   it('$D values() should be array', () => expect($D.values()).to.be.array);
 });
 
-describe('$L Form', () => {
-  it('$L username should be equal to ""', () =>
-    expect($L.fields.username.value).to.be.equal(''));
-
-  it('$L email should be equal to ""', () =>
-    expect($L.fields.email.value).to.be.equal(''));
-
-  it('$L password should be equal to ""', () =>
-    expect($L.fields.password.value).to.be.equal(''));
-});
-
 describe('$H Form', () => {
-  it('$H username should be equal to "SteveJobs"', () =>
+  it('$H username value should be equal to "SteveJobs"', () =>
     expect($H.fields.username.value).to.be.equal('SteveJobs'));
 
   it('$H email value should be equal to "s.jobs@apple.com"', () =>
@@ -104,12 +115,11 @@ describe('$H Form', () => {
     expect($H.fields.devSkills.value).to.be.equal(''));
 });
 
-
 describe('others', () => {
   it('$C genericErrorMessage should be equal to "The user already exist."', () =>
     expect($C.genericErrorMessage).to.be.equal('The user already exist'));
 
-  it('$D fields.devSkills.$valid should be false', () =>
+  it('$D devSkills.$valid should be false', () =>
     expect($D.fields.devSkills.$valid).to.be.false);
 
   it('$D username should be equal to "JonathanIve"', () =>
@@ -117,4 +127,10 @@ describe('others', () => {
 
   it('$I username should be equal to "SteveJobs"', () =>
     expect($I.fields.username.value).to.be.equal('SteveJobs'));
+
+  it('$N email.$valid should be false', () =>
+    expect($N.fields.email.$valid).to.be.false);
+
+  it('$N email should be equal to "12345" (empty string)', () =>
+    expect($N.fields.email.value).to.be.equal('12345'));
 });
