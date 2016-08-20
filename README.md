@@ -78,25 +78,23 @@ const FormComponent = ({ form, events }) => (
       placeholder={form.fields.username.label}
       onChange={form.syncValue}
     />
-    <p>{form.fields.username.errorMessage}</p>
+    <p>{form.fields.username.error}</p>
 
     ...
 
     <button
       type="submit"
-      disabled={!form.valid}
+      disabled={!form.isValid}
       onClick={events.handleOnSubmit}
     >Submit</button>
 
     <button
       type="submit"
-      disabled={!form.isDirty}
       onClick={events.handleOnReset}
       >Reset</button>
 
     <button
       type="submit"
-      disabled={!form.isDirty}
       onClick={events.handleOnClear}
       >Clear</button>
 
@@ -121,7 +119,7 @@ const handleOnSubmit = (e) => {
   alert('Form is valid! Send the requrest here.');
 
   // get fields values
-  console.log('Form Values', form.values);
+  console.log('Form Values', form.values());
 
   // or show a custom generic error after a beckend call
   form.invalidate('The user already exist.');
