@@ -75,19 +75,19 @@ export default class Form {
         this.validateField(key, true)));
   }
 
-  validateFields(force = true, showErrors = true) {
+  validateFields(showErrors = true) {
     _.forEach(this.fields, (field) =>
-      field.validate(force, showErrors, this));
+      field.validate(showErrors, this));
   }
 
-  validateField(key = null, recursive = false, force = true, showErrors = true) {
+  validateField(key = null, recursive = false, showErrors = true) {
     if (!key) throw new Error('validateField: No field key provided');
 
     // validate field by key
-    this.fields[key].validate(force, showErrors, this);
+    this.fields[key].validate(showErrors, this);
 
     /*
-      validate related fields if specified
+      validate 'related' fields if specified
       and recursive validation allowed
     */
     if (!recursive) return;

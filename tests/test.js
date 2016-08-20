@@ -11,13 +11,18 @@ import $G from './data/form.g.js';
 import $H from './data/form.h.js';
 import $I from './data/form.i.js';
 import $L from './data/form.l.js';
+import $M from './data/form.m.js';
 
-// do some stuff
+// do some stuff (DIFFERENT FORMS)
 $C.invalidate('The user already exist');
 $D.update({ username: 'JonathanIve' });
 $I.update({ username: 'JonathanIve' });
-$I.reset();
-$L.clear();
+$I.reset(); // to original values
+$L.clear(); // to empty values
+
+// subsequent clear and reset (SAME FORM)
+$M.clear(); // to empty values
+$M.reset(); // to original values
 
 describe('isValid', () => {
   it('$A isValid should be true', () => expect($A.isValid).to.be.true);
@@ -29,7 +34,8 @@ describe('isValid', () => {
   it('$G isValid should be true', () => expect($G.isValid).to.be.true);
   it('$H isValid should be true', () => expect($H.isValid).to.be.true);
   it('$I isValid should be true', () => expect($I.isValid).to.be.true);
-  it('$L isDirty should be false', () => expect($L.isValid).to.be.false);
+  it('$L isValid should be false', () => expect($L.isValid).to.be.false);
+  it('$M isValid should be true', () => expect($M.isValid).to.be.true);
 });
 
 describe('isDirty', () => {
@@ -43,6 +49,7 @@ describe('isDirty', () => {
   it('$H isDirty should be true', () => expect($H.isDirty).to.be.true);
   it('$I isDirty should be true', () => expect($I.isDirty).to.be.true);
   it('$L isDirty should be false', () => expect($L.isDirty).to.be.false);
+  it('$M isDirty should be true', () => expect($M.isDirty).to.be.true);
 });
 
 describe('validate()', () => {
@@ -54,6 +61,8 @@ describe('validate()', () => {
   it('$G validate() should return true', () => expect($G.validate()).to.be.true);
   it('$H validate() should return true', () => expect($H.validate()).to.be.true);
   it('$I validate() should return true', () => expect($I.validate()).to.be.true);
+  it('$L validate() should return false', () => expect($L.validate()).to.be.false);
+  it('$M validate() should return true', () => expect($M.validate()).to.be.true);
 });
 
 describe('fieldKeys()', () => {

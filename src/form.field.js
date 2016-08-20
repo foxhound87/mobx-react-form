@@ -154,8 +154,9 @@ export default class Field {
   }
 
   @action
-  validate(force = false, showErrors = true, form = null) {
+  validate(showErrors = true, form = null) {
     if (form) this.form = form;
+    this.setValid();
 
     // exit on silent mode (on reset and clear)
     if (this.silent === true) {
@@ -164,10 +165,7 @@ export default class Field {
     }
 
     // not execute if no valid function or ajv rules
-    if (!this.validateProperty && !this.form.ajv) {
-      this.setValid();
-      return;
-    }
+    if (!this.validateProperty && !this.form.ajv) return;
 
     // Use "ajv" Rules
     if (this.form.ajv) this.handleAjvValidationRules(showErrors);
@@ -196,9 +194,6 @@ export default class Field {
         return;
       }
     }
-
-    this.setValid();
-    return;
   }
 
   handleValidateProperty(showErrors) {
