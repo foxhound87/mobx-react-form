@@ -92,8 +92,8 @@ export default class Field {
 
   @computed
   get isDirty() {
-    const valueChanged = (this.originalValue !== this.$value);
-    return valueChanged || this.interacted;
+    if (_.isBoolean(this.$value)) return true;
+    return this.$value.length;
   }
 
   @computed
@@ -128,7 +128,6 @@ export default class Field {
   reset() {
     if (!_.isBoolean(this.$value)) this.$value = this.originalValue;
     this.interacted = false;
-    this.setInvalid(false);
   }
 
   @action

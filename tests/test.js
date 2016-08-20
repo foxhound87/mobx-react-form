@@ -28,19 +28,21 @@ describe('isValid', () => {
   it('$F isValid should be false', () => expect($F.isValid).to.be.false);
   it('$G isValid should be true', () => expect($G.isValid).to.be.true);
   it('$H isValid should be true', () => expect($H.isValid).to.be.true);
-  it('$I isValid should be false', () => expect($I.isValid).to.be.false);
+  it('$I isValid should be true', () => expect($I.isValid).to.be.true);
+  it('$L isDirty should be false', () => expect($L.isValid).to.be.false);
 });
 
 describe('isDirty', () => {
-  it('$A isDirty should be false', () => expect($A.isDirty).to.be.false);
+  it('$A isDirty should be true', () => expect($A.isDirty).to.be.true);
   it('$B isDirty should be false', () => expect($B.isDirty).to.be.false);
   it('$C isDirty should be false', () => expect($C.isDirty).to.be.false);
   it('$D isDirty should be true', () => expect($D.isDirty).to.be.true);
-  it('$E isDirty should be false', () => expect($E.isDirty).to.be.false);
-  it('$F isDirty should be false', () => expect($F.isDirty).to.be.false);
+  it('$E isDirty should be true', () => expect($E.isDirty).to.be.true);
+  it('$F isDirty should be true', () => expect($F.isDirty).to.be.true);
   it('$G isDirty should be false', () => expect($G.isDirty).to.be.false);
-  it('$H isDirty should be false', () => expect($H.isDirty).to.be.false);
-  it('$I isDirty should be false', () => expect($I.isDirty).to.be.false);
+  it('$H isDirty should be true', () => expect($H.isDirty).to.be.true);
+  it('$I isDirty should be true', () => expect($I.isDirty).to.be.true);
+  it('$L isDirty should be false', () => expect($L.isDirty).to.be.false);
 });
 
 describe('validate()', () => {

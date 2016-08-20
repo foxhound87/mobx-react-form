@@ -71,7 +71,7 @@ export default new Form({ fields, schema });
 import React from 'react';
 import { observer } from 'mobx-react';
 
-const FormComponent = ({ form, handleOnSubmit }) => (
+const FormComponent = ({ form, events }) => (
   <form>
     <input
       type="text"
@@ -87,8 +87,20 @@ const FormComponent = ({ form, handleOnSubmit }) => (
     <button
       type="submit"
       disabled={!form.valid}
-      onClick={handleOnSubmit}
-    >Register</button>
+      onClick={events.handleOnSubmit}
+    >Submit</button>
+
+    <button
+      type="submit"
+      disabled={!form.isDirty}
+      onClick={events.handleOnReset}
+      >Reset</button>
+
+    <button
+      type="submit"
+      disabled={!form.isDirty}
+      onClick={events.handleOnClear}
+      >Clear</button>
 
     <p>{form.genericErrorMessage}</p>
   </form>
@@ -102,27 +114,33 @@ export default observer(FormComponent);
 ```javascript
 import form from './form';
 
-export const handleOnSubmit = (e) => {
+const handleOnSubmit = (e) => {
   e.preventDefault();
 
+  // check if the form is valid, otherwise exit
   if (!form.validate()) return;
 
-  alert('Form is valid! Send the request here.');
+  alert('Form is valid! Send the requrest here.');
 
   // get fields values
   console.log('Form Values', form.values());
 
+  // or show a custom generic error after a beckend call
+  form.invalidate('The user already exist.')
+}
+
+const handleOnClear = (e) => {
+  e.preventDefault();
+
   // clear the form
   form.clear();
+}
 
-  // or reset to the default initial values
-  // form.reset();
+const handleOnReset = (e) => {
+  e.preventDefault();
 
-  // or show a custom generic error
-  form.invalidate('The user already exist.')
-
-  // or update with new values
-  // form.update({ username: 'Jonathan Ive' });
+  // reset to the default initial values
+  form.reset();
 }
 ```
 
