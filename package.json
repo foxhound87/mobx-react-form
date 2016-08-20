@@ -20,7 +20,7 @@
     "commit": "git add . && git-cz && git push origin",
     "watch:build": "babel --watch -d lib/ src/",
     "watch:test": "npm run test -- -w",
-    "test": "mocha tests/test.js --compilers js:babel-register",
+    "test": "mocha tests --compilers js:babel-register",
     "cover": "nyc npm test",
     "coverage:check": "nyc check-coverage --satements 90 --branches 70 --functions 95 --lines 90",
     "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",

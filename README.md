@@ -8,6 +8,7 @@
 [![npm](https://img.shields.io/npm/v/mobx-ajv-form.svg)]()
 [![node](https://img.shields.io/node/v/mobx-ajv-form.svg)]()
 [![GitHub license](https://img.shields.io/github/license/foxhound87/mobx-ajv-form.svg)]()
+
 [![NPM](https://nodei.co/npm/mobx-ajv-form.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/mobx-ajv-form/)
 
 ---
@@ -23,7 +24,7 @@ npm i --save mobx-ajv-form
 
 ## Demo
 
-http://www.webpackbin.com/EkiE6Fb9-
+http://www.webpackbin.com/VJZUlhWc-
 
 ## Usage
 

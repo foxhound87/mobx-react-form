@@ -117,20 +117,6 @@ describe('validate()', () => {
   it('$N validate() should return false', () => expect($N.validate()).to.be.false);
 });
 
-describe('fieldKeys()', () => {
-  it('$A fieldKeys() should be array', () => expect($A.fieldKeys()).to.be.array);
-  it('$B fieldKeys() should be array', () => expect($B.fieldKeys()).to.be.array);
-  it('$C fieldKeys() should be array', () => expect($C.fieldKeys()).to.be.array);
-  it('$D fieldKeys() should be array', () => expect($D.fieldKeys()).to.be.array);
-});
-
-describe('values', () => {
-  it('$A values should be array', () => expect($A.values).to.be.array);
-  it('$B values should be array', () => expect($B.values).to.be.array);
-  it('$C values should be array', () => expect($C.values).to.be.array);
-  it('$D values should be array', () => expect($D.values).to.be.array);
-});
-
 describe('$H Form', () => {
   it('$H username value should be equal to "SteveJobs"', () =>
     expect($H.fields.username.value).to.be.equal('SteveJobs'));
