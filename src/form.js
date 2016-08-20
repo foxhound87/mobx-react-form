@@ -104,18 +104,22 @@ export default class Form {
 
   @computed
   get isValid() {
-    // consider the form invalid until the validation process finish
-    if (this.validating) return false;
-
-    // check isValid
     return _.every(this.fields, 'isValid');
   }
 
   @computed
   get isDirty() {
-    return this
-      .fieldKeys()
-      .some(key => this.fields[key].isDirty);
+    return _.some(this.fields, 'isDirty');
+  }
+
+  @computed
+  get isPristine() {
+    return _.every(this.fields, 'isPristine');
+  }
+
+  @computed
+  get isEmpty() {
+    return _.every(this.fields, 'isEmpty');
   }
 
   values() {
@@ -148,9 +152,6 @@ export default class Form {
 
   @action
   validate() {
-    // consider the form invalid until the validation process finish
-    if (this.validating) return false;
-
     this.validateFields();
 
     // Check with with "ajv" rules (exit on fail)
@@ -162,20 +163,22 @@ export default class Form {
 
   @action
   checkGenericAjvValidation() {
-    this.validating = true;
     this.genericErrorMessage = null;
 
     if (this.ajv) {
       const formIsValid = this.ajv(this.values());
       if (!formIsValid) {
         this.genericErrorMessage = 'An error occurred. Validation has failed.';
-        this.validating = false;
         return false;
       }
     }
 
-    this.validating = false;
     return true;
+  }
+
+  @computed
+  get genericError() {
+    return this.genericErrorMessage;
   }
 
   @action

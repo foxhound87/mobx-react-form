@@ -59,18 +59,48 @@ describe('isValid', () => {
 });
 
 describe('isDirty', () => {
-  it('$A isDirty should be true', () => expect($A.isDirty).to.be.true);
+  it('$A isDirty should be false', () => expect($A.isDirty).to.be.false);
   it('$B isDirty should be false', () => expect($B.isDirty).to.be.false);
   it('$C isDirty should be false', () => expect($C.isDirty).to.be.false);
   it('$D isDirty should be true', () => expect($D.isDirty).to.be.true);
-  it('$E isDirty should be true', () => expect($E.isDirty).to.be.true);
-  it('$F isDirty should be true', () => expect($F.isDirty).to.be.true);
+  it('$E isDirty should be false', () => expect($E.isDirty).to.be.false);
+  it('$F isDirty should be false', () => expect($F.isDirty).to.be.false);
   it('$G isDirty should be false', () => expect($G.isDirty).to.be.false);
-  it('$H isDirty should be true', () => expect($H.isDirty).to.be.true);
-  it('$I isDirty should be true', () => expect($I.isDirty).to.be.true);
-  it('$L isDirty should be false', () => expect($L.isDirty).to.be.false);
-  it('$M isDirty should be true', () => expect($M.isDirty).to.be.true);
-  it('$N isDirty should be true', () => expect($N.isDirty).to.be.true);
+  it('$H isDirty should be false', () => expect($H.isDirty).to.be.false);
+  it('$I isDirty should be false', () => expect($I.isDirty).to.be.false);
+  it('$L isDirty should be true', () => expect($L.isDirty).to.be.true);
+  it('$M isDirty should be false', () => expect($M.isDirty).to.be.false);
+  it('$N isDirty should be false', () => expect($N.isDirty).to.be.false);
+});
+
+describe('isEmpty', () => {
+  it('$A isEmpty should be false', () => expect($A.isEmpty).to.be.false);
+  it('$B isEmpty should be true', () => expect($B.isEmpty).to.be.true);
+  it('$C isEmpty should be true', () => expect($C.isEmpty).to.be.true);
+  it('$D isEmpty should be false', () => expect($D.isEmpty).to.be.false);
+  it('$E isEmpty should be false', () => expect($E.isEmpty).to.be.false);
+  it('$F isEmpty should be false', () => expect($F.isEmpty).to.be.false);
+  it('$G isEmpty should be true', () => expect($G.isEmpty).to.be.true);
+  it('$H isEmpty should be false', () => expect($H.isEmpty).to.be.false);
+  it('$I isEmpty should be false', () => expect($I.isEmpty).to.be.false);
+  it('$L isEmpty should be true', () => expect($L.isEmpty).to.be.true);
+  it('$M isEmpty should be false', () => expect($M.isEmpty).to.be.false);
+  it('$N isEmpty should be false', () => expect($N.isEmpty).to.be.false);
+});
+
+describe('isPristine', () => {
+  it('$A isPristine should be true', () => expect($A.isPristine).to.be.true);
+  it('$B isPristine should be true', () => expect($B.isPristine).to.be.true);
+  it('$C isPristine should be true', () => expect($C.isPristine).to.be.true);
+  it('$D isPristine should be false', () => expect($D.isPristine).to.be.false);
+  it('$E isPristine should be true', () => expect($E.isPristine).to.be.true);
+  it('$F isPristine should be true', () => expect($F.isPristine).to.be.true);
+  it('$G isPristine should be true', () => expect($G.isPristine).to.be.true);
+  it('$H isPristine should be true', () => expect($H.isPristine).to.be.true);
+  it('$I isPristine should be true', () => expect($I.isPristine).to.be.true);
+  it('$L isPristine should be false', () => expect($L.isPristine).to.be.false);
+  it('$M isPristine should be true', () => expect($M.isPristine).to.be.true);
+  it('$N isPristine should be true', () => expect($N.isPristine).to.be.true);
 });
 
 describe('validate()', () => {
@@ -94,11 +124,11 @@ describe('fieldKeys()', () => {
   it('$D fieldKeys() should be array', () => expect($D.fieldKeys()).to.be.array);
 });
 
-describe('values()', () => {
-  it('$A values() should be array', () => expect($A.values()).to.be.array);
-  it('$B values() should be array', () => expect($B.values()).to.be.array);
-  it('$C values() should be array', () => expect($C.values()).to.be.array);
-  it('$D values() should be array', () => expect($D.values()).to.be.array);
+describe('values', () => {
+  it('$A values should be array', () => expect($A.values).to.be.array);
+  it('$B values should be array', () => expect($B.values).to.be.array);
+  it('$C values should be array', () => expect($C.values).to.be.array);
+  it('$D values should be array', () => expect($D.values).to.be.array);
 });
 
 describe('$H Form', () => {
@@ -118,6 +148,9 @@ describe('$H Form', () => {
 describe('others', () => {
   it('$C genericErrorMessage should be equal to "The user already exist."', () =>
     expect($C.genericErrorMessage).to.be.equal('The user already exist'));
+
+  it('$C genericError should be equal to "The user already exist."', () =>
+    expect($C.genericError).to.be.equal('The user already exist'));
 
   it('$D devSkills.$valid should be false', () =>
     expect($D.fields.devSkills.$valid).to.be.false);

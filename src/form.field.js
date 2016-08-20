@@ -82,15 +82,29 @@ export default class Field {
     `);
   }
 
-
   @computed
   get isValid() {
     return this.$valid;
   }
 
   @computed
+  get error() {
+    return this.errorMessage;
+  }
+
+  @computed
   get isDirty() {
-    return !_.isEmpty(this.$value);
+    return (this.originalValue !== this.$value);
+  }
+
+  @computed
+  get isPristine() {
+    return (this.originalValue === this.$value);
+  }
+
+  @computed
+  get isEmpty() {
+    return _.isEmpty(this.$value);
   }
 
   @computed

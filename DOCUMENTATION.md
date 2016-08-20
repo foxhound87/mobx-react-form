@@ -26,15 +26,15 @@
 |---|---|---|---|
 | **isValid** | boolean | computed | Check if the form is valid. |
 | **isDirty** | boolean | computed | Check if the form is dirty. |
-| **validating** | boolean | observable | Check if the form is in validation state. |
-| **genericErrorMessage** | string | observable | Generic error message (not related to fields). |
+| **isPristine** | boolean | computed | Check if the form is pristine. |
+| **isEmpty** | boolean | computed | Check if the form is empty. |
+| **genericError** | string | observable | Generic error message (not related to fields). |
+| **genericErrorMessage** | string | observable | Alias of `genericError`. |
 
 
 | Method | Input | Output | Info |
 |---|---|---|---|
 | **syncValue()** | - | - | Synchronizes the value of the field `onChange` event. You must define the name of the field to use this method. |
-| **isValid()** | - | boolean | Check if the form is valid. |
-| **isDirty()** | - | boolean  | Check if the form is dirty. |
 | **fieldKeys()** | - | array | Get an array with all fields keys/names. |
 | **update(obj)** | object | - | Pass an object to update the form with new values. |
 | **values()** | - | object | Get an object with all fields values. |
@@ -47,20 +47,21 @@
 
 | Property | Type | MobX Type | Info |
 |---|---|---|---|
-| **isValid** | boolean | computed | Check if the form is valid. |
-| **isDirty** | boolean | computed | Check if the form is dirty. |
+| **isValid** | boolean | computed | Check if the field is valid. |
+| **isDirty** | boolean | computed | Check if the field is dirty. |
+| **isPristine** | boolean | computed | Check if the field is pristine. |
+| **isEmpty** | boolean | computed | Check if the field is empty. |
 | **key** | string | - | Field key (set on form constructor) |
 | **name** | string | - | Field name or key (set on form constructor) |
 | **label** | string | - | Field label name (set on form constructor) |
 | **value** | string, array, object, boolean | computed | Computed value of the field. |
 | **disabled** | boolean | - | The disabled state of the field. |
-| **errorMessage** | string | observable | Field error message. |
+| **error** | string | observable | Field error message. |
+| **errorMessage** | string | observable | Alias of `error`. |
 
 
 | Property | Input | Output | Info |
 |---|---|---|---|
-| **isValid()** | - | boolean | Check if the field is valid. |
-| **isDirty()** | - | boolean | Check if the field is dirty. |
 | **getValue()** | - | string, array, object, boolean | Get the field value. |
 | **setValue(val)** | string, array, object, boolean | - | Set the field value to the given value. |
 | **update(val)** | string, array, object, boolean | - | Alias of setValue(). |

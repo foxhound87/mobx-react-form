@@ -8,8 +8,6 @@
 [![npm](https://img.shields.io/npm/v/mobx-ajv-form.svg)]()
 [![node](https://img.shields.io/node/v/mobx-ajv-form.svg)]()
 [![GitHub license](https://img.shields.io/github/license/foxhound87/mobx-ajv-form.svg)]()
-
-
 [![NPM](https://nodei.co/npm/mobx-ajv-form.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/mobx-ajv-form/)
 
 ---
@@ -25,7 +23,7 @@ npm i --save mobx-ajv-form
 
 ## Demo
 
-http://www.webpackbin.com/EJE_QL1OW
+http://www.webpackbin.com/EkiE6Fb9-
 
 ## Usage
 
@@ -123,10 +121,10 @@ const handleOnSubmit = (e) => {
   alert('Form is valid! Send the requrest here.');
 
   // get fields values
-  console.log('Form Values', form.values());
+  console.log('Form Values', form.values);
 
   // or show a custom generic error after a beckend call
-  form.invalidate('The user already exist.')
+  form.invalidate('The user already exist.');
 }
 
 const handleOnClear = (e) => {
