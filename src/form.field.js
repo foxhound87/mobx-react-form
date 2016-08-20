@@ -92,8 +92,7 @@ export default class Field {
 
   @computed
   get isDirty() {
-    if (_.isBoolean(this.$value)) return true;
-    return this.$value.length;
+    return !_.isEmpty(this.$value);
   }
 
   @computed
