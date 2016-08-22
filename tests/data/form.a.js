@@ -18,6 +18,14 @@ const fields = {
     label: 'Dev Skills',
     value: 5,
   },
+  revenue: {
+    label: 'Revenue (Billion $)',
+    value: '233.715',
+  },
+  assets: {
+    label: 'Assets (Billion $)',
+    value: 305.277,
+  },
 };
 
 const schema = {
@@ -27,6 +35,8 @@ const schema = {
     email: { type: 'string', format: 'email', minLength: 5, maxLength: 20 },
     password: { type: 'string', minLength: 6, maxLength: 20 },
     devSkills: { range: [5, 10] },
+    revenue: { type: 'number' },
+    assets: { type: 'number' },
   },
 };
 

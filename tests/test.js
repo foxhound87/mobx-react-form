@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect, assert } from 'chai';
 
 // test data
 import $A from './data/form.a.js';
@@ -153,3 +153,14 @@ describe('others', () => {
   it('$N email should be equal to "12345" (empty string)', () =>
     expect($N.fields.email.value).to.be.equal('12345'));
 });
+
+describe('Values type checks', () => {
+  it('$A.fields.revenue.value is string', () =>
+    assert.isString($A.fields.revenue.value,
+      '$A.fields.revenue.value is not string'));
+
+  it('$A.fields.assets.value is a number', () =>
+    assert.isNumber($A.fields.assets.value,
+      '$A.fields.assets.value is not a number'));
+});
+

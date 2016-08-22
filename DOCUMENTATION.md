@@ -28,6 +28,7 @@
 | **isDirty** | boolean | computed | Check if the form is dirty. |
 | **isPristine** | boolean | computed | Check if the form is pristine. |
 | **isEmpty** | boolean | computed | Check if the form is empty. |
+| **hasEmpty** | boolean | computed | Check if the form has errors. |
 | **genericError** | string | observable | Generic error message (not related to fields). |
 | **genericErrorMessage** | string | observable | Alias of `genericError`. |
 
@@ -51,6 +52,7 @@
 | **isDirty** | boolean | computed | Check if the field is dirty. |
 | **isPristine** | boolean | computed | Check if the field is pristine. |
 | **isEmpty** | boolean | computed | Check if the field is empty. |
+| **hasError** | boolean | computed | Check if the field has errors. |
 | **key** | string | - | Field key (set on form constructor) |
 | **name** | string | - | Field name or key (set on form constructor) |
 | **label** | string | - | Field label name (set on form constructor) |

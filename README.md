@@ -154,4 +154,4 @@ const handleOnReset = (e) => {
 
 If you want to contribute to the development, do not hesitate to fork the repo and send pull requests.
 
-And don't forget to star the repo! Thanks!
+And don't forget to star the repo, I will ensure more frequent updates! Thanks!

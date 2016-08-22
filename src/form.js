@@ -44,7 +44,7 @@ export default class Form {
 
   @action
   initFields(opt = {}) {
-    const keys = this.fieldKeys();
+    const keys = Object.keys(this.fields);
     keys.forEach((key) => _.merge(this.fields, {
       [key]: new FormField(key, this.fields[key], opt),
     }));
@@ -61,7 +61,7 @@ export default class Form {
     }));
     // extend with custom keywords
     if (this.extend) {
-      _.forEach(this.extend, (val, key) =>
+      _.each(this.extend, (val, key) =>
         ajvInstance.addKeyword(key, val));
     }
     // create ajvInstance validator (compiling rules)
@@ -70,13 +70,13 @@ export default class Form {
 
   @action
   observeFields() {
-    _.forEach(this.fields, (val, key) =>
+    _.each(this.fields, (val, key) =>
       observe(this.fields[key], '$value', () =>
         this.validateField(key, true)));
   }
 
   validateFields(showErrors = true) {
-    _.forEach(this.fields, (field) =>
+    _.each(this.fields, (field) =>
       field.validate(showErrors, this));
   }
 
@@ -93,18 +93,14 @@ export default class Form {
     if (!recursive) return;
     const related = this.fields[key].related;
     if (!_.isEmpty(related)) {
-      _.forEach(related, ($rel) =>
+      _.each(related, ($rel) =>
         this.validateField($rel));
     }
   }
 
-  fieldKeys() {
-    return Object.keys(this.fields);
-  }
-
   @computed
-  get isValid() {
-    return _.every(this.fields, 'isValid');
+  get hasError() {
+    return _.some(this.fields, 'hasError');
   }
 
   @computed
@@ -118,6 +114,11 @@ export default class Form {
   }
 
   @computed
+  get isValid() {
+    return _.every(this.fields, 'isValid');
+  }
+
+  @computed
   get isEmpty() {
     return _.every(this.fields, 'isEmpty');
   }
@@ -128,17 +129,15 @@ export default class Form {
 
   @action
   clear() {
-    this
-      .fieldKeys()
-      .forEach((key) =>
-        this.fields[key].clear());
+    _.each(this.fields, (val, key) =>
+      this.fields[key].clear());
 
     this.genericErrorMessage = null;
   }
 
   @action
   reset() {
-    _.forEach(this.fields, (val, key) =>
+    _.each(this.fields, (val, key) =>
       this.fields[key].reset());
 
     this.genericErrorMessage = null;
@@ -146,7 +145,7 @@ export default class Form {
 
   @action
   update(obj) {
-    _.forEach(obj, (val, key) =>
+    _.each(obj, (val, key) =>
       this.fields[key].update(val));
   }
 
@@ -177,6 +176,11 @@ export default class Form {
   }
 
   @computed
+  get error() {
+    return this.genericErrorMessage;
+  }
+
+  @computed
   get genericError() {
     return this.genericErrorMessage;
   }
@@ -197,9 +201,9 @@ export default class Form {
   }
 
   @action
-  invalidate(errors) {
-    if (_.isString(errors)) {
-      this.genericErrorMessage = errors;
+  invalidate(message) {
+    if (_.isString(message)) {
+      this.genericErrorMessage = message;
       return;
     }
     this.genericErrorMessage = 'An error occurred sending request.';

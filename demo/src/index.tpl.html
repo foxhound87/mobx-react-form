@@ -16,10 +16,51 @@
         background: #4B7893;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 1.25rem;
+        margin-top: 50px;
       }
 
       a {
+        cursor: pointer;
         color: #fff;
+      }
+
+      .clearfix {
+        overflow: auto;
+        zoom: 1;
+      }
+
+      .left {
+        float: left;
+      }
+
+      .right {
+        float: right;
+      }
+
+      .menu {
+        background: #f5f5f5;
+        z-index: 999;
+        position: fixed;
+        height: 55px;
+        left: 0;
+        right: 0;
+        top: 0;
+      }
+
+      .menu a, span {
+        color: #4B7893;
+        display: inline-block;
+        padding: 15px 20px;
+        text-decoration: none;
+      }
+
+      .menu span {
+        color: #F87666;
+      }
+
+      .menu a:hover {
+        background: #F87666;
+        color: #f5f5f5;
       }
 
       .container {

@@ -1,14 +1,12 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { DebugForm, DebugField } from './DebugComponent';
+import { DebugForm, DebugField } from './Debug';
 
-const FormComponent = ({ form, events }) => (
+const FormRegister = ({ form }) => (
   <div className="container">
     <div className="splitted-35 fixed container-left">
       <form>
-        <a href="https://www.npmjs.com/package/mobx-ajv-form">
-          <h3>mobx-ajv-form</h3>
-        </a>
+        <h2>Form Register</h2>
         <div>
           {form.fields.username.label}
           <i>{form.fields.username.error}</i>
@@ -49,15 +47,15 @@ const FormComponent = ({ form, events }) => (
           <button
             type="submit"
             disabled={!form.isValid}
-            onClick={events.handleOnSubmit}
+            onClick={form.handleOnSubmit}
           >Submit</button>
           <button
             type="submit"
-            onClick={events.handleOnClear}
+            onClick={form.handleOnClear}
           >Clear</button>
           <button
             type="submit"
-            onClick={events.handleOnReset}
+            onClick={form.handleOnReset}
           >Reset</button>
         </div>
 
@@ -75,9 +73,8 @@ const FormComponent = ({ form, events }) => (
   </div>
 );
 
-FormComponent.propTypes = {
-  events: React.PropTypes.object,
+FormRegister.propTypes = {
   form: React.PropTypes.object,
 };
 
-export default observer(FormComponent);
+export default observer(FormRegister);

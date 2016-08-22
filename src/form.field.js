@@ -45,8 +45,8 @@ export default class Field {
       /* The field IS the value here */
       this.name = key;
       this.label = key;
-      this.$value = field;
-      this.originalValue = field;
+      this.originalValue = field || '';
+      this.$value = this.originalValue;
       return;
     }
 
@@ -65,8 +65,8 @@ export default class Field {
     */
     if (_.isObject(field)) {
       const { value, name, label, disabled, message, validate, related } = field;
-      this.$value = value || '';
       this.originalValue = value || '';
+      this.$value = this.originalValue;
       this.name = name || key;
       this.label = label || key;
       this.originalErrorMessage = message;
@@ -83,13 +83,18 @@ export default class Field {
   }
 
   @computed
-  get isValid() {
-    return this.$valid;
+  get error() {
+    return this.errorMessage;
   }
 
   @computed
-  get error() {
-    return this.errorMessage;
+  get hasError() {
+    return !_.isNull(this.errorMessage);
+  }
+
+  @computed
+  get isValid() {
+    return this.$valid;
   }
 
   @computed
@@ -120,17 +125,33 @@ export default class Field {
   }
 
   @action
-  setValue(val) {
+  setValue(newVal) {
     if (!this.interacted) this.interacted = true;
-    if (this.$value === val) return;
-    this.$value = val;
+    if (this.$value === newVal) return;
+    // handle numbers
+    if (_.isNumber(this.originalValue)) {
+      const numericVal = _.toNumber(newVal);
+      if (_.isNaN(numericVal)) {
+        this.$value = newVal;
+        return;
+      }
+      if (!_.isString(numericVal)) {
+        this.$value = numericVal;
+        return;
+      }
+    }
+    // handle other types
+    this.$value = newVal;
   }
 
   @action
   clear() {
-    if (_.isBoolean(this.$value)) return;
-    if (_.isString(this.$value)) this.$value = '';
     this.interacted = false;
+    const $v = this.$value;
+    const $ov = this.originalValue;
+    if (_.isBoolean($v)) this.$value = $ov;
+    if (_.isString($v)) this.$value = '';
+    if (_.isNumber($v)) this.$value = 0;
     this.setInvalid(false);
   }
 

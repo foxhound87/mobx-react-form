@@ -1,10 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
-import FormComponent from './FormComponent';
-import form from './form';
-import events from './form.events';
+import Main from './components/Main';
 
 render(
-  <FormComponent form={form} events={events} />,
+  <Main />,
   document.querySelector('#app') // eslint-disable-line
 );

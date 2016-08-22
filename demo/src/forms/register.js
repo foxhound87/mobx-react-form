@@ -1,6 +1,3 @@
-import Form from '../../lib';
-// import Form from 'mobx-ajv-form';
-
 // define a json schema
 const schema = {
   type: 'object',
@@ -25,7 +22,10 @@ const fields = {
     label: 'Password',
     value: 'thinkdifferent',
   },
+  birthday: {
+    label: 'Password',
+    value: 1,
+  },
 };
 
-// create the form
-export default new Form({ fields, schema });
+export default { fields, schema };

@@ -4,12 +4,13 @@ import jsonStringifySafe from 'json-stringify-safe';
 import _ from 'lodash';
 
 const merge = (field) => ({
+  error: field.error,
+  hasError: field.hasError,
   isValid: field.isValid,
   isDirty: field.isDirty,
   isPristine: field.isPristine,
   isEmpty: field.isEmpty,
   value: field.value,
-  error: field.error,
 });
 
 const toJson = (data) => {
