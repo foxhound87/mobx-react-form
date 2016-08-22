@@ -146,8 +146,11 @@ export default class Form {
 
   @action
   update(obj) {
-    _.forEach(obj, (val, key) =>
-      this.fields[key].update(val));
+    _.forEach(obj, (val, key) => {
+      if (this.fields.hasOwnProperty(key)) {
+        this.fields[key].update(val);
+      }
+    }
   }
 
   @action
