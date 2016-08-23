@@ -1,3 +1,12 @@
+# Index
+
+- [Form Constructor](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-constructor)
+- [Form API List](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-api)
+- [Fields API List](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#fields-api)
+- [Use a custom validation keyword (extend AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-keywords-extend-ajv)
+- [Use a custom validation function (without AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-functions-without-ajv)
+- [Remove AJV Warnings](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#remove-ajv-warnings)
+
 # FORM
 
 ## Form Constructor
@@ -7,9 +16,9 @@
 |   |   |
 |---|---|
 | **fields**    | Object which represents the fields: name, label, value. |
-| **schema**    | The json-schema for the validation. See [json-schema.org](http://json-schema.org) |
-| **options**   | The additional options for ajv. See [github.com/epoberezkin/ajv#options](https://github.com/epoberezkin/ajv#options) |
-| **extend**    | Add custom validation keyword for using in the json-schema |
+| **schema**    | The json-schema for the validation. See [json schema](http://json-schema.org) |
+| **options**   | The additional options for ajv. See [ajv options](https://github.com/epoberezkin/ajv#options) |
+| **extend**    | Add custom validation keyword for using in the json-schema. See [extend ajv](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-keywords-extend-ajv) |
 
 ## Form API
 
@@ -17,15 +26,16 @@
 |---|---|---|---|
 | **isValid** | boolean | computed | Check if the form is valid. |
 | **isDirty** | boolean | computed | Check if the form is dirty. |
-| **validating** | boolean | observable | Check if the form is in validation state. |
-| **genericErrorMessage** | string | observable | Generic error message (not related to fields). |
+| **isPristine** | boolean | computed | Check if the form is pristine. |
+| **isEmpty** | boolean | computed | Check if the form is empty. |
+| **hasEmpty** | boolean | computed | Check if the form has errors. |
+| **genericError** | string | observable | Generic error message (not related to fields). |
+| **genericErrorMessage** | string | observable | Alias of `genericError`. |
 
 
 | Method | Input | Output | Info |
 |---|---|---|---|
 | **syncValue()** | - | - | Synchronizes the value of the field `onChange` event. You must define the name of the field to use this method. |
-| **isValid()** | - | boolean | Check if the form is valid. |
-| **isDirty()** | - | boolean  | Check if the form is dirty. |
 | **fieldKeys()** | - | array | Get an array with all fields keys/names. |
 | **update(obj)** | object | - | Pass an object to update the form with new values. |
 | **values()** | - | object | Get an object with all fields values. |
@@ -38,20 +48,22 @@
 
 | Property | Type | MobX Type | Info |
 |---|---|---|---|
-| **isValid** | boolean | computed | Check if the form is valid. |
-| **isDirty** | boolean | computed | Check if the form is dirty. |
+| **isValid** | boolean | computed | Check if the field is valid. |
+| **isDirty** | boolean | computed | Check if the field is dirty. |
+| **isPristine** | boolean | computed | Check if the field is pristine. |
+| **isEmpty** | boolean | computed | Check if the field is empty. |
+| **hasError** | boolean | computed | Check if the field has errors. |
 | **key** | string | - | Field key (set on form constructor) |
 | **name** | string | - | Field name or key (set on form constructor) |
 | **label** | string | - | Field label name (set on form constructor) |
 | **value** | string, array, object, boolean | computed | Computed value of the field. |
 | **disabled** | boolean | - | The disabled state of the field. |
-| **errorMessage** | string | observable | Field error message. |
+| **error** | string | observable | Field error message. |
+| **errorMessage** | string | observable | Alias of `error`. |
 
 
 | Property | Input | Output | Info |
 |---|---|---|---|
-| **isValid()** | - | boolean | Check if the field is valid. |
-| **isDirty()** | - | boolean | Check if the field is dirty. |
 | **getValue()** | - | string, array, object, boolean | Get the field value. |
 | **setValue(val)** | string, array, object, boolean | - | Set the field value to the given value. |
 | **update(val)** | string, array, object, boolean | - | Alias of setValue(). |

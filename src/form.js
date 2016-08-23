@@ -44,7 +44,7 @@ export default class Form {
 
   @action
   initFields(opt = {}) {
-    const keys = this.fieldKeys();
+    const keys = Object.keys(this.fields);
     keys.forEach((key) => _.merge(this.fields, {
       [key]: new FormField(key, this.fields[key], opt),
     }));
@@ -61,7 +61,7 @@ export default class Form {
     }));
     // extend with custom keywords
     if (this.extend) {
-      _.forEach(this.extend, (val, key) =>
+      _.each(this.extend, (val, key) =>
         ajvInstance.addKeyword(key, val));
     }
     // create ajvInstance validator (compiling rules)
@@ -70,52 +70,57 @@ export default class Form {
 
   @action
   observeFields() {
-    _.forEach(this.fields, (val, key) =>
+    _.each(this.fields, (val, key) =>
       observe(this.fields[key], '$value', () =>
         this.validateField(key, true)));
   }
 
-  validateFields(force = true, showErrors = true) {
-    _.forEach(this.fields, (field) =>
-      field.validate(force, showErrors, this));
+  validateFields(showErrors = true) {
+    _.each(this.fields, (field) =>
+      field.validate(showErrors, this));
   }
 
-  validateField(key = null, recursive = false, force = true, showErrors = true) {
+  validateField(key = null, recursive = false, showErrors = true) {
     if (!key) throw new Error('validateField: No field key provided');
 
     // validate field by key
-    this.fields[key].validate(force, showErrors, this);
+    this.fields[key].validate(showErrors, this);
 
     /*
-      validate related fields if specified
+      validate 'related' fields if specified
       and recursive validation allowed
     */
     if (!recursive) return;
     const related = this.fields[key].related;
     if (!_.isEmpty(related)) {
-      _.forEach(related, ($rel) =>
+      _.each(related, ($rel) =>
         this.validateField($rel));
     }
   }
 
-  fieldKeys() {
-    return Object.keys(this.fields);
-  }
-
   @computed
-  get isValid() {
-    // consider the form invalid until the validation process finish
-    if (this.validating) return false;
-
-    // check isValid
-    return _.every(this.fields, 'isValid');
+  get hasError() {
+    return _.some(this.fields, 'hasError');
   }
 
   @computed
   get isDirty() {
-    return this
-      .fieldKeys()
-      .some(key => this.fields[key].isDirty);
+    return _.some(this.fields, 'isDirty');
+  }
+
+  @computed
+  get isPristine() {
+    return _.every(this.fields, 'isPristine');
+  }
+
+  @computed
+  get isValid() {
+    return _.every(this.fields, 'isValid');
+  }
+
+  @computed
+  get isEmpty() {
+    return _.every(this.fields, 'isEmpty');
   }
 
   values() {
@@ -124,17 +129,15 @@ export default class Form {
 
   @action
   clear() {
-    this
-      .fieldKeys()
-      .forEach((key) =>
-        this.fields[key].clear());
+    _.each(this.fields, (val, key) =>
+      this.fields[key].clear());
 
     this.genericErrorMessage = null;
   }
 
   @action
   reset() {
-    _.forEach(this.fields, (val, key) =>
+    _.each(this.fields, (val, key) =>
       this.fields[key].reset());
 
     this.genericErrorMessage = null;
@@ -142,15 +145,12 @@ export default class Form {
 
   @action
   update(obj) {
-    _.forEach(obj, (val, key) =>
+    _.each(obj, (val, key) =>
       this.fields[key].update(val));
   }
 
   @action
   validate() {
-    // consider the form invalid until the validation process finish
-    if (this.validating) return false;
-
     this.validateFields();
 
     // Check with with "ajv" rules (exit on fail)
@@ -162,20 +162,27 @@ export default class Form {
 
   @action
   checkGenericAjvValidation() {
-    this.validating = true;
     this.genericErrorMessage = null;
 
     if (this.ajv) {
       const formIsValid = this.ajv(this.values());
       if (!formIsValid) {
         this.genericErrorMessage = 'An error occurred. Validation has failed.';
-        this.validating = false;
         return false;
       }
     }
 
-    this.validating = false;
     return true;
+  }
+
+  @computed
+  get error() {
+    return this.genericErrorMessage;
+  }
+
+  @computed
+  get genericError() {
+    return this.genericErrorMessage;
   }
 
   @action
@@ -194,9 +201,9 @@ export default class Form {
   }
 
   @action
-  invalidate(errors) {
-    if (_.isString(errors)) {
-      this.genericErrorMessage = errors;
+  invalidate(message) {
+    if (_.isString(message)) {
+      this.genericErrorMessage = message;
       return;
     }
     this.genericErrorMessage = 'An error occurred sending request.';

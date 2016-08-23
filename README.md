@@ -9,7 +9,6 @@
 [![node](https://img.shields.io/node/v/mobx-ajv-form.svg)]()
 [![GitHub license](https://img.shields.io/github/license/foxhound87/mobx-ajv-form.svg)]()
 
-
 [![NPM](https://nodei.co/npm/mobx-ajv-form.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/mobx-ajv-form/)
 
 ---
@@ -25,7 +24,7 @@ npm i --save mobx-ajv-form
 
 ## Demo
 
-http://www.webpackbin.com/EJE_QL1OW
+http://www.webpackbin.com/VJZUlhWc-
 
 ## Usage
 
@@ -71,7 +70,7 @@ export default new Form({ fields, schema });
 import React from 'react';
 import { observer } from 'mobx-react';
 
-const FormComponent = ({ form, handleOnSubmit }) => (
+const FormComponent = ({ form, events }) => (
   <form>
     <input
       type="text"
@@ -80,15 +79,25 @@ const FormComponent = ({ form, handleOnSubmit }) => (
       placeholder={form.fields.username.label}
       onChange={form.syncValue}
     />
-    <p>{form.fields.username.errorMessage}</p>
+    <p>{form.fields.username.error}</p>
 
     ...
 
     <button
       type="submit"
-      disabled={!form.valid}
-      onClick={handleOnSubmit}
-    >Register</button>
+      disabled={!form.isValid}
+      onClick={events.handleOnSubmit}
+    >Submit</button>
+
+    <button
+      type="submit"
+      onClick={events.handleOnReset}
+      >Reset</button>
+
+    <button
+      type="submit"
+      onClick={events.handleOnClear}
+      >Clear</button>
 
     <p>{form.genericErrorMessage}</p>
   </form>
@@ -102,39 +111,47 @@ export default observer(FormComponent);
 ```javascript
 import form from './form';
 
-export const handleOnSubmit = (e) => {
+const handleOnSubmit = (e) => {
   e.preventDefault();
 
+  // check if the form is valid, otherwise exit
   if (!form.validate()) return;
 
-  alert('Form is valid! Send the request here.');
+  alert('Form is valid! Send the requrest here.');
 
   // get fields values
   console.log('Form Values', form.values());
 
+  // or show a custom generic error after a beckend call
+  form.invalidate('The user already exist.');
+}
+
+const handleOnClear = (e) => {
+  e.preventDefault();
+
   // clear the form
   form.clear();
+}
 
-  // or reset to the default initial values
-  // form.reset();
+const handleOnReset = (e) => {
+  e.preventDefault();
 
-  // or show a custom generic error
-  form.invalidate('The user already exist.')
-
-  // or update with new values
-  // form.update({ username: 'Jonathan Ive' });
+  // reset to the default initial values
+  form.reset();
 }
 ```
 
 # More...
 
+- [Form Constructor](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-constructor)
 - [Form API List](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-api)
-
 - [Fields API List](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#fields-api)
-
 - [Use a custom validation keyword (extend AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-keywords-extend-ajv)
-
 - [Use a custom validation function (without AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-functions-without-ajv)
-
 - [Remove AJV Warnings](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#remove-ajv-warnings)
 
+## Contributing
+
+If you want to contribute to the development, do not hesitate to fork the repo and send pull requests.
+
+And don't forget to star the repo, I will ensure more frequent updates! Thanks!

@@ -1,5 +1,4 @@
 import Form from '../../src/index';
-import extend from './_.extend';
 
 const fields = {
   username: {
@@ -8,23 +7,11 @@ const fields = {
   },
   email: {
     label: 'Email',
-    value: 's.jobs@apple.com',
+    value: '12345', // should fail
   },
   password: {
     label: 'Password',
     value: 'thinkdifferent',
-  },
-  devSkills: {
-    label: 'Dev Skills',
-    value: 5,
-  },
-  revenue: {
-    label: 'Revenue (Billion $)',
-    value: '233.715',
-  },
-  assets: {
-    label: 'Assets (Billion $)',
-    value: 305.277,
   },
 };
 
@@ -34,10 +21,7 @@ const schema = {
     username: { type: 'string', minLength: 6, maxLength: 20 },
     email: { type: 'string', format: 'email', minLength: 5, maxLength: 20 },
     password: { type: 'string', minLength: 6, maxLength: 20 },
-    devSkills: { range: [5, 10] },
-    revenue: { type: 'number' },
-    assets: { type: 'number' },
   },
 };
 
-export default new Form({ fields, schema, extend });
+export default new Form({ fields, schema });

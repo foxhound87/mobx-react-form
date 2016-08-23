@@ -12,7 +12,6 @@ export default class Field {
   @observable interacted = false;
   @observable disabled = false;
   @observable errorMessage = null;
-  silent = null;
   originalValue = null;
   originalErrorMessage = null;
   validateProperty = null;
@@ -21,7 +20,6 @@ export default class Field {
   constructor(key, field = {}, opt = {}) {
     this.initField(key, field, opt);
   }
-
 
   @action
   initField(key, field, opt) {
@@ -47,8 +45,8 @@ export default class Field {
       /* The field IS the value here */
       this.name = key;
       this.label = key;
-      this.$value = field;
-      this.originalValue = field;
+      this.originalValue = field || '';
+      this.$value = this.originalValue;
       return;
     }
 
@@ -67,8 +65,8 @@ export default class Field {
     */
     if (_.isObject(field)) {
       const { value, name, label, disabled, message, validate, related } = field;
-      this.$value = value || '';
       this.originalValue = value || '';
+      this.$value = this.originalValue;
       this.name = name || key;
       this.label = label || key;
       this.originalErrorMessage = message;
@@ -84,6 +82,15 @@ export default class Field {
     `);
   }
 
+  @computed
+  get error() {
+    return this.errorMessage;
+  }
+
+  @computed
+  get hasError() {
+    return !_.isNull(this.errorMessage);
+  }
 
   @computed
   get isValid() {
@@ -92,8 +99,17 @@ export default class Field {
 
   @computed
   get isDirty() {
-    const valueChanged = (this.originalValue !== this.$value);
-    return valueChanged || this.interacted;
+    return (this.originalValue !== this.$value);
+  }
+
+  @computed
+  get isPristine() {
+    return (this.originalValue === this.$value);
+  }
+
+  @computed
+  get isEmpty() {
+    return _.isEmpty(this.$value);
   }
 
   @computed
@@ -109,26 +125,40 @@ export default class Field {
   }
 
   @action
-  setValue(val) {
+  setValue(newVal) {
     if (!this.interacted) this.interacted = true;
-    if (this.$value === val) return;
-    this.$value = val;
+    if (this.$value === newVal) return;
+    // handle numbers
+    if (_.isNumber(this.originalValue)) {
+      const numericVal = _.toNumber(newVal);
+      if (_.isNaN(numericVal)) {
+        this.$value = newVal;
+        return;
+      }
+      if (!_.isString(numericVal)) {
+        this.$value = numericVal;
+        return;
+      }
+    }
+    // handle other types
+    this.$value = newVal;
   }
 
   @action
   clear() {
-    if (_.isBoolean(this.$value)) return;
-    if (_.isString(this.$value)) this.$value = '';
     this.interacted = false;
+    const $v = this.$value;
+    const $ov = this.originalValue;
+    if (_.isBoolean($v)) this.$value = $ov;
+    if (_.isString($v)) this.$value = '';
+    if (_.isNumber($v)) this.$value = 0;
     this.setInvalid(false);
-    this.silent = true;
   }
 
   @action
   reset() {
     if (!_.isBoolean(this.$value)) this.$value = this.originalValue;
     this.interacted = false;
-    this.setInvalid(false);
   }
 
   @action
@@ -155,20 +185,12 @@ export default class Field {
   }
 
   @action
-  validate(force = false, showErrors = true, form = null) {
+  validate(showErrors = true, form = null) {
     if (form) this.form = form;
-
-    // exit on silent mode (on reset and clear)
-    if (this.silent === true) {
-      this.silent = false;
-      return;
-    }
+    this.setValid();
 
     // not execute if no valid function or ajv rules
-    if (!this.validateProperty && !this.form.ajv) {
-      this.setValid();
-      return;
-    }
+    if (!this.validateProperty && !this.form.ajv) return;
 
     // Use "ajv" Rules
     if (this.form.ajv) this.handleAjvValidationRules(showErrors);
@@ -197,9 +219,6 @@ export default class Field {
         return;
       }
     }
-
-    this.setValid();
-    return;
   }
 
   handleValidateProperty(showErrors) {
