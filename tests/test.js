@@ -16,6 +16,8 @@ import $N from './data/form.n.js';
 
 // do some stuff (DIFFERENT FORMS)
 $C.invalidate('The user already exist');
+$D.update({ revenue: 'aaa' });
+$D.update({ assets: 0 });
 $D.update({ username: 'JonathanIve' });
 $I.update({ username: 'JonathanIve' });
 $I.reset(); // to original values
@@ -30,16 +32,19 @@ $N.clear(); // to empty values
 $N.reset(); // to original values
 
 describe('$L Form', () => {
-  it('$L username value should be equal to "" (empty string)', () =>
+  it('$L username.value should be equal to "" (empty string)', () =>
     expect($L.fields.username.value).to.be.equal(''));
 
-  it('$L email value should be equal to "" (empty string)', () =>
+  it('$L email.value should be equal to "" (empty string)', () =>
     expect($L.fields.email.value).to.be.equal(''));
 
-  it('$L password value should be equal to "" (empty string)', () =>
+  it('$L password.value should be equal to "" (empty string)', () =>
     expect($L.fields.password.value).to.be.equal(''));
 
-  it('$L password errorMessage should be null', () =>
+  it('$L password.error should be null', () =>
+    expect($L.fields.password.error).to.be.null);
+
+  it('$L password.errorMessage should be null', () =>
     expect($L.fields.password.errorMessage).to.be.null);
 });
 
@@ -118,16 +123,16 @@ describe('validate()', () => {
 });
 
 describe('$H Form', () => {
-  it('$H username value should be equal to "SteveJobs"', () =>
+  it('$H username.value should be equal to "SteveJobs"', () =>
     expect($H.fields.username.value).to.be.equal('SteveJobs'));
 
-  it('$H email value should be equal to "s.jobs@apple.com"', () =>
+  it('$H email.value should be equal to "s.jobs@apple.com"', () =>
     expect($H.fields.email.value).to.be.equal('s.jobs@apple.com'));
 
-  it('$H email label should be equal to "Email"', () =>
+  it('$H email.label should be equal to "Email"', () =>
     expect($H.fields.email.label).to.be.equal('Email'));
 
-  it('$H devSkills should be equal to ""', () =>
+  it('$H devSkills.value should be equal to ""', () =>
     expect($H.fields.devSkills.value).to.be.equal(''));
 });
 
@@ -141,16 +146,28 @@ describe('others', () => {
   it('$D devSkills.$valid should be false', () =>
     expect($D.fields.devSkills.$valid).to.be.false);
 
-  it('$D username should be equal to "JonathanIve"', () =>
+  it('$D devSkills.isValid should be false', () =>
+    expect($D.fields.devSkills.isValid).to.be.false);
+
+  it('$D username.value should be equal to "JonathanIve"', () =>
     expect($D.fields.username.value).to.be.equal('JonathanIve'));
 
-  it('$I username should be equal to "SteveJobs"', () =>
+  it('$D revenue.hasError should be equal to be true', () =>
+    expect($D.fields.revenue.hasError).to.be.true);
+
+  it('$D revenue.value should be equal to "aaa"', () =>
+    expect($D.fields.revenue.value).to.be.equal('aaa'));
+
+  it('$D assets.value should be equal to "0"', () =>
+    expect($D.fields.assets.value).to.be.equal(0));
+
+  it('$I username.value should be equal to "SteveJobs"', () =>
     expect($I.fields.username.value).to.be.equal('SteveJobs'));
 
-  it('$N email.$valid should be false', () =>
-    expect($N.fields.email.$valid).to.be.false);
+  it('$N email.isValid should be false', () =>
+    expect($N.fields.email.isValid).to.be.false);
 
-  it('$N email should be equal to "12345" (empty string)', () =>
+  it('$N email.value should be equal to "12345" (empty string)', () =>
     expect($N.fields.email.value).to.be.equal('12345'));
 });
 

@@ -27,3 +27,8 @@ describe('Check isEmpty returns boolean', () => {
   _.each($forms, (form, key) => it(`$${up(key)} isEmpty is boolean`, () =>
     assert.isBoolean(form.isEmpty, `$${up(key)}.isEmpty is not boolean`)));
 });
+
+describe('Check hasError returns boolean', () => {
+  _.each($forms, (form, key) => it(`$${up(key)} hasError is boolean`, () =>
+    assert.isBoolean(form.hasError, `$${up(key)}.hasError is not boolean`)));
+});
