@@ -23,6 +23,11 @@ describe('Check isPristine returns boolean', () => {
     assert.isBoolean(form.isPristine, `$${up(key)}.isPristine is not boolean`)));
 });
 
+describe('Check isDefault returns boolean', () => {
+  _.each($forms, (form, key) => it(`$${up(key)} isDefault is boolean`, () =>
+    assert.isBoolean(form.isDefault, `$${up(key)}.isDefault is not boolean`)));
+});
+
 describe('Check isEmpty returns boolean', () => {
   _.each($forms, (form, key) => it(`$${up(key)} isEmpty is boolean`, () =>
     assert.isBoolean(form.isEmpty, `$${up(key)}.isEmpty is not boolean`)));

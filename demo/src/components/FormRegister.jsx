@@ -43,6 +43,18 @@ const FormRegister = ({ form }) => (
           onChange={form.syncValue}
         />
 
+        <br />
+        <br />
+        <input
+          type="checkbox"
+          name={form.fields.terms.name}
+          checked={form.fields.terms.value}
+          onChange={form.syncValue}
+        /> {form.fields.terms.label}
+        <div>
+          <i>{form.fields.terms.error}</i>
+        </div>
+
         <div>
           <button
             type="submit"
@@ -59,7 +71,7 @@ const FormRegister = ({ form }) => (
           >Reset</button>
         </div>
 
-        <p>{form.genericError}</p>
+        <p><i>{form.genericError}</i></p>
 
       </form>
     </div>
@@ -69,6 +81,7 @@ const FormRegister = ({ form }) => (
       <DebugField field={form.fields.username} />
       <DebugField field={form.fields.email} />
       <DebugField field={form.fields.password} />
+      <DebugField field={form.fields.terms} />
     </div>
   </div>
 );

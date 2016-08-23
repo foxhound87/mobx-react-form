@@ -45,7 +45,7 @@ export default class Field {
       /* The field IS the value here */
       this.name = key;
       this.label = key;
-      this.originalValue = field || '';
+      this.originalValue = this.parseInitialValue(field);
       this.$value = this.originalValue;
       return;
     }
@@ -65,7 +65,7 @@ export default class Field {
     */
     if (_.isObject(field)) {
       const { value, name, label, disabled, message, validate, related } = field;
-      this.originalValue = value || '';
+      this.originalValue = this.parseInitialValue(value);
       this.$value = this.originalValue;
       this.name = name || key;
       this.label = label || key;
@@ -75,11 +75,18 @@ export default class Field {
       this.related = related || [];
       return;
     }
+  }
 
-    throw new Error(`
-      The field ${this.key} should be an object
-      , an array, a boolean, a string or a number.
-    `);
+  parseInitialValue(value) {
+    // handle boolean
+    if (_.isBoolean(value)) return value;
+    // handle others types
+    return value || '';
+  }
+
+  @computed
+  get default() {
+    return this.originalValue;
   }
 
   @computed
@@ -108,7 +115,14 @@ export default class Field {
   }
 
   @computed
+  get isDefault() {
+    return (this.originalValue === this.$value);
+  }
+
+  @computed
   get isEmpty() {
+    if (_.isNumber(this.$value)) return false;
+    if (_.isBoolean(this.$value)) return !this.$value;
     return _.isEmpty(this.$value);
   }
 
@@ -131,10 +145,7 @@ export default class Field {
     // handle numbers
     if (_.isNumber(this.originalValue)) {
       const numericVal = _.toNumber(newVal);
-      if (_.isNaN(numericVal)) {
-        this.$value = newVal;
-        return;
-      }
+      if (_.isNaN(numericVal)) return;
       if (!_.isString(numericVal)) {
         this.$value = numericVal;
         return;
@@ -148,8 +159,8 @@ export default class Field {
   clear() {
     this.interacted = false;
     const $v = this.$value;
-    const $ov = this.originalValue;
-    if (_.isBoolean($v)) this.$value = $ov;
+    // const $ov = this.originalValue;
+    if (_.isBoolean($v)) this.$value = false;
     if (_.isString($v)) this.$value = '';
     if (_.isNumber($v)) this.$value = 0;
     this.setInvalid(false);
@@ -157,7 +168,7 @@ export default class Field {
 
   @action
   reset() {
-    if (!_.isBoolean(this.$value)) this.$value = this.originalValue;
+    this.$value = this.originalValue;
     this.interacted = false;
   }
 

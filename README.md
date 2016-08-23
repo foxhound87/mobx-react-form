@@ -99,7 +99,7 @@ const FormComponent = ({ form, events }) => (
       onClick={events.handleOnClear}
       >Clear</button>
 
-    <p>{form.genericErrorMessage}</p>
+    <p>{form.genericError}</p>
   </form>
 );
 

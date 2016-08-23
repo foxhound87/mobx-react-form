@@ -4,11 +4,13 @@ import jsonStringifySafe from 'json-stringify-safe';
 import _ from 'lodash';
 
 const merge = (field) => ({
+  default: field.default,
   error: field.error,
   hasError: field.hasError,
   isValid: field.isValid,
   isDirty: field.isDirty,
   isPristine: field.isPristine,
+  isDefault: field.isDefault,
   isEmpty: field.isEmpty,
   value: field.value,
 });
@@ -34,6 +36,7 @@ const parseFieldData = (field) => {
     'key',
     'disabled',
     'errorMessage',
+    'originalValue',
     'validationFunctionsValues',
     'validateProperty',
   ];

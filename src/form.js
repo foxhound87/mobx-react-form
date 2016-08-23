@@ -114,6 +114,11 @@ export default class Form {
   }
 
   @computed
+  get isDefault() {
+    return _.every(this.fields, 'isDefault');
+  }
+
+  @computed
   get isValid() {
     return _.every(this.fields, 'isValid');
   }
@@ -189,6 +194,7 @@ export default class Form {
   syncValue = (e) => {
     const currentVal = this.fields[e.target.name].value;
 
+    console.log(currentVal);
     // checkbox
     if (_.isBoolean(currentVal) && _.isBoolean(e.target.checked)) {
       this.fields[e.target.name].setValue(e.target.checked);

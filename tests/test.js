@@ -16,9 +16,14 @@ import $N from './data/form.n.js';
 
 // do some stuff (DIFFERENT FORMS)
 $C.invalidate('The user already exist');
-$D.update({ revenue: 'aaa' });
-$D.update({ assets: 0 });
-$D.update({ username: 'JonathanIve' });
+
+$D.update({
+  username: 'JonathanIve',
+  terms: false,
+  assets: 0,
+  revenue: 'aaa',
+});
+
 $I.update({ username: 'JonathanIve' });
 $I.reset(); // to original values
 $L.clear(); // to empty values
@@ -48,7 +53,7 @@ describe('$L Form', () => {
     expect($L.fields.password.errorMessage).to.be.null);
 });
 
-describe('isValid', () => {
+describe('Form isValid', () => {
   it('$A isValid should be true', () => expect($A.isValid).to.be.true);
   it('$B isValid should be false', () => expect($B.isValid).to.be.false);
   it('$C isValid should be false', () => expect($C.isValid).to.be.false);
@@ -63,7 +68,7 @@ describe('isValid', () => {
   it('$N isValid should be false', () => expect($N.isValid).to.be.false);
 });
 
-describe('isDirty', () => {
+describe('Form isDirty', () => {
   it('$A isDirty should be false', () => expect($A.isDirty).to.be.false);
   it('$B isDirty should be false', () => expect($B.isDirty).to.be.false);
   it('$C isDirty should be false', () => expect($C.isDirty).to.be.false);
@@ -78,10 +83,10 @@ describe('isDirty', () => {
   it('$N isDirty should be false', () => expect($N.isDirty).to.be.false);
 });
 
-describe('isEmpty', () => {
+describe('Form isEmpty', () => {
   it('$A isEmpty should be false', () => expect($A.isEmpty).to.be.false);
   it('$B isEmpty should be true', () => expect($B.isEmpty).to.be.true);
-  it('$C isEmpty should be true', () => expect($C.isEmpty).to.be.true);
+  it('$C isEmpty should be false', () => expect($C.isEmpty).to.be.false);
   it('$D isEmpty should be false', () => expect($D.isEmpty).to.be.false);
   it('$E isEmpty should be false', () => expect($E.isEmpty).to.be.false);
   it('$F isEmpty should be false', () => expect($F.isEmpty).to.be.false);
@@ -93,7 +98,7 @@ describe('isEmpty', () => {
   it('$N isEmpty should be false', () => expect($N.isEmpty).to.be.false);
 });
 
-describe('isPristine', () => {
+describe('Form isPristine', () => {
   it('$A isPristine should be true', () => expect($A.isPristine).to.be.true);
   it('$B isPristine should be true', () => expect($B.isPristine).to.be.true);
   it('$C isPristine should be true', () => expect($C.isPristine).to.be.true);
@@ -108,7 +113,7 @@ describe('isPristine', () => {
   it('$N isPristine should be true', () => expect($N.isPristine).to.be.true);
 });
 
-describe('validate()', () => {
+describe('Form validate()', () => {
   it('$A validate() should return true', () => expect($A.validate()).to.be.true);
   it('$B validate() should return false', () => expect($B.validate()).to.be.false);
   it('$D validate() should return false', () => expect($D.validate()).to.be.false);
@@ -122,7 +127,7 @@ describe('validate()', () => {
   it('$N validate() should return false', () => expect($N.validate()).to.be.false);
 });
 
-describe('$H Form', () => {
+describe('$H Form fields', () => {
   it('$H username.value should be equal to "SteveJobs"', () =>
     expect($H.fields.username.value).to.be.equal('SteveJobs'));
 
@@ -136,7 +141,7 @@ describe('$H Form', () => {
     expect($H.fields.devSkills.value).to.be.equal(''));
 });
 
-describe('others', () => {
+describe('others fields', () => {
   it('$C genericErrorMessage should be equal to "The user already exist."', () =>
     expect($C.genericErrorMessage).to.be.equal('The user already exist'));
 
@@ -152,7 +157,13 @@ describe('others', () => {
   it('$D username.value should be equal to "JonathanIve"', () =>
     expect($D.fields.username.value).to.be.equal('JonathanIve'));
 
-  it('$D revenue.hasError should be equal to be true', () =>
+  it('$D terms.value should be false', () =>
+    expect($D.fields.terms.value).to.be.false);
+
+  it('$D terms.hasError should be false', () =>
+    expect($D.fields.terms.hasError).to.be.false);
+
+  it('$D revenue.hasError should be true', () =>
     expect($D.fields.revenue.hasError).to.be.true);
 
   it('$D revenue.value should be equal to "aaa"', () =>
@@ -160,6 +171,9 @@ describe('others', () => {
 
   it('$D assets.value should be equal to "0"', () =>
     expect($D.fields.assets.value).to.be.equal(0));
+
+  it('$D assets.isEmpty should be false', () =>
+    expect($D.fields.assets.isEmpty).to.be.false);
 
   it('$I username.value should be equal to "SteveJobs"', () =>
     expect($I.fields.username.value).to.be.equal('SteveJobs'));
@@ -171,7 +185,11 @@ describe('others', () => {
     expect($N.fields.email.value).to.be.equal('12345'));
 });
 
-describe('Values type checks', () => {
+describe('Field values type checks', () => {
+  it('$A.fields.terms.value is a boolean', () =>
+    assert.isBoolean($A.fields.terms.value,
+      '$A.fields.terms.value is not a boolean'));
+
   it('$A.fields.revenue.value is string', () =>
     assert.isString($A.fields.revenue.value,
       '$A.fields.revenue.value is not string'));

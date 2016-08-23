@@ -26,7 +26,8 @@
 |---|---|---|---|
 | **isValid** | boolean | computed | Check if the form is valid. |
 | **isDirty** | boolean | computed | Check if the form is dirty. |
-| **isPristine** | boolean | computed | Check if the form is pristine. |
+| **isPristine** | boolean | computed | Check if the form is in pristine state. |
+| **isDefault** | boolean | computed | Check if the form is to default state. |
 | **isEmpty** | boolean | computed | Check if the form is empty. |
 | **hasEmpty** | boolean | computed | Check if the form has errors. |
 | **genericError** | string | observable | Generic error message (not related to fields). |
@@ -51,12 +52,14 @@
 | **isValid** | boolean | computed | Check if the field is valid. |
 | **isDirty** | boolean | computed | Check if the field is dirty. |
 | **isPristine** | boolean | computed | Check if the field is pristine. |
+| **isDefault** | boolean | computed | Check if the field is to default value. |
 | **isEmpty** | boolean | computed | Check if the field is empty. |
 | **hasError** | boolean | computed | Check if the field has errors. |
 | **key** | string | - | Field key (set on form constructor) |
 | **name** | string | - | Field name or key (set on form constructor) |
 | **label** | string | - | Field label name (set on form constructor) |
 | **value** | string, array, object, boolean | computed | Computed value of the field. |
+| **default** | boolean | - | The default/initial value of the field. |
 | **disabled** | boolean | - | The disabled state of the field. |
 | **error** | string | observable | Field error message. |
 | **errorMessage** | string | observable | Alias of `error`. |

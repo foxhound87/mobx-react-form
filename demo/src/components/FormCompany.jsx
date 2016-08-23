@@ -59,7 +59,7 @@ const FormCompany = ({ form }) => (
           >Reset</button>
         </div>
 
-        <p>{form.genericError}</p>
+        <p><i>{form.genericError}</i></p>
 
       </form>
     </div>

@@ -14,6 +14,10 @@ const fields = {
     label: 'Password',
     value: 'thinkdifferent',
   },
+  terms: {
+    label: 'Accept Terms',
+    value: true,
+  },
   devSkills: {
     label: 'Dev Skills',
     value: 5,
@@ -34,6 +38,7 @@ const schema = {
     username: { type: 'string', minLength: 6, maxLength: 20 },
     email: { type: 'string', format: 'email', minLength: 5, maxLength: 20 },
     password: { type: 'string', minLength: 6, maxLength: 20 },
+    terms: { enum: [true, false] },
     devSkills: { range: [5, 10] },
     revenue: { type: 'number' },
     assets: { type: 'number' },
