@@ -145,8 +145,7 @@ export default class Field {
     // handle numbers
     if (_.isNumber(this.originalValue)) {
       const numericVal = _.toNumber(newVal);
-      if (_.isNaN(numericVal)) return;
-      if (!_.isString(numericVal)) {
+      if (!_.isString(numericVal) && !_.isNaN(numericVal)) {
         this.$value = numericVal;
         return;
       }
