@@ -2,6 +2,8 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { DebugForm, DebugField } from './Debug';
 
+const products = ['iPhone', 'Watch', 'iMac', 'Mac Pro', 'MacBook Air', 'MacBook Pro'];
+
 const FormCompany = ({ form }) => (
   <div className="container">
     <div className="splitted-35 fixed container-left">
@@ -44,6 +46,21 @@ const FormCompany = ({ form }) => (
         />
 
         <div>
+          {form.fields.products.label}
+          <i>{form.fields.products.error}</i>
+        </div>
+        <select
+          value={form.fields.products.value}
+          name={form.fields.products.name}
+          onChange={form.syncValue}
+        >
+          <option />
+          {products.map((val) =>
+            <option value={val} key={val}>{val}</option>
+          )}
+        </select>
+
+        <div>
           <button
             type="submit"
             disabled={!form.isValid}
@@ -69,6 +86,7 @@ const FormCompany = ({ form }) => (
       <DebugField field={form.fields.name} />
       <DebugField field={form.fields.revenue} />
       <DebugField field={form.fields.assets} />
+      <DebugField field={form.fields.products} />
     </div>
   </div>
 );

@@ -22,6 +22,10 @@ const fields = {
     label: 'Assets (Billion $)',
     value: 305.277,
   },
+  products: {
+    label: 'Products',
+    value: 'iMac',
+  },
 };
 
 export default { fields, schema };
