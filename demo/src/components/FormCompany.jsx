@@ -9,49 +9,50 @@ const FormCompany = ({ form }) => (
     <div className="splitted-35 fixed container-left">
       <form>
         <h2>Form Company</h2>
+
         <div>
-          {form.fields.name.label}
-          <i>{form.fields.name.error}</i>
+          {form.$('name').label}
+          <i>{form.$('name').error}</i>
         </div>
         <input
           type="text"
-          name={form.fields.name.name}
-          value={form.fields.name.value}
-          placeholder={form.fields.name.label}
+          name={form.$('name').name}
+          value={form.$('name').value}
+          placeholder={form.$('name').label}
           onChange={form.syncValue}
         />
 
         <div>
-          {form.fields.revenue.label}
-          <i>{form.fields.revenue.error}</i>
+          {form.$('revenue').label}
+          <i>{form.$('revenue').error}</i>
         </div>
         <input
           type="text"
-          name={form.fields.revenue.name}
-          value={form.fields.revenue.value}
-          placeholder={form.fields.revenue.label}
+          name={form.$('revenue').name}
+          value={form.$('revenue').value}
+          placeholder={form.$('revenue').label}
           onChange={form.syncValue}
         />
 
         <div>
-          {form.fields.assets.label}
-          <i>{form.fields.assets.error}</i>
+          {form.$('assets').label}
+          <i>{form.$('assets').error}</i>
         </div>
         <input
           type="text"
-          name={form.fields.assets.name}
-          value={form.fields.assets.value}
-          placeholder={form.fields.assets.label}
+          name={form.$('assets').name}
+          value={form.$('assets').value}
+          placeholder={form.$('assets').label}
           onChange={form.syncValue}
         />
 
         <div>
-          {form.fields.products.label}
-          <i>{form.fields.products.error}</i>
+          {form.$('products').label}
+          <i>{form.$('products').error}</i>
         </div>
         <select
-          value={form.fields.products.value}
-          name={form.fields.products.name}
+          value={form.$('products').value}
+          name={form.$('products').name}
           onChange={form.syncValue}
         >
           <option />
@@ -76,7 +77,7 @@ const FormCompany = ({ form }) => (
           >Reset</button>
         </div>
 
-        <p><i>{form.genericError}</i></p>
+        <p><i>{form.error}</i></p>
 
       </form>
     </div>

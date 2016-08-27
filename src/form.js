@@ -1,101 +1,99 @@
-import { action, observable, computed, observe } from 'mobx';
-import AJV from 'ajv';
+import { action, computed, observe } from 'mobx';
 import _ from 'lodash';
-import FormField from './form.field';
+
+import Validator from './Validator';
+import Field from './Field';
 
 export default class Form {
 
-  schema = null;
-  options = null;
-  extend = null;
-  ajv = null;
+  validator;
 
-  @observable fields = {};
-  @observable validating = false;
-  @observable genericErrorMessage = null;
+  fields = {};
+  events = [];
 
   constructor(obj = {}) {
     this.assignInitData(obj);
+    this.initValidator(obj);
     this.mergeSchemaDefaults();
-    this.initAjv();
     this.initFields();
-    this.validateFields(false, false);
     this.observeFields();
+    this.validate({
+      showErrors: false,
+    });
   }
 
-  @action
-  assignInitData({ fields = {}, schema = false, options = {}, extend = null }) {
+  assignInitData({ fields = {} }) {
     this.fields = fields;
-    this.schema = schema;
-    this.options = options;
-    this.extend = extend;
   }
 
-  @action
+  initValidator(obj = {}) {
+    this.validator = new Validator(obj);
+  }
+
   mergeSchemaDefaults() {
-    if (Object.keys(this.fields).length === 0 && !!this.schema) {
-      Object.keys(this.schema.properties).forEach((property) => {
-        const label = this.schema.properties[property].title;
-        const value = this.schema.properties[property].default;
+    if (Object.keys(this.fields).length === 0 && !!this.validator.schema) {
+      const properties = this.validator.schema.properties;
+      Object.keys(properties).forEach((property) => {
+        const label = properties[property].title;
+        const value = properties[property].default;
         this.fields[property] = { label, value }; // eslint-disable-line no-param-reassign
       });
     }
   }
 
-  @action
-  initFields(opt = {}) {
+  initFields() {
     const keys = Object.keys(this.fields);
     keys.forEach((key) => _.merge(this.fields, {
-      [key]: new FormField(key, this.fields[key], opt),
+      [key]: new Field(key, this.fields[key]),
     }));
   }
 
-  @action
-  initAjv() {
-    if (!this.schema) return;
-    // create ajv instance
-    const ajvInstance = new AJV(_.merge(this.options, {
-      allErrors: true,
-      coerceTypes: true,
-      v5: true,
-    }));
-    // extend with custom keywords
-    if (this.extend) {
-      _.each(this.extend, (val, key) =>
-        ajvInstance.addKeyword(key, val));
-    }
-    // create ajvInstance validator (compiling rules)
-    this.ajv = ajvInstance.compile(this.schema);
-  }
-
-  @action
   observeFields() {
-    _.each(this.fields, (val, key) =>
+    _.each(this.fields, (field, key) =>
       observe(this.fields[key], '$value', () =>
-        this.validateField(key, true)));
+        this.validate({ key, showErrors: true, recursive: true })));
   }
 
-  validateFields(showErrors = true) {
-    _.each(this.fields, (field) =>
-      field.validate(showErrors, this));
-  }
+  validate({ key = null, showErrors = true, recursive = false } = {}) {
+    const $showErrors = showErrors && !this.eventsRunning(['clear', 'reset']);
 
-  validateField(key = null, recursive = false, showErrors = true) {
-    if (!key) throw new Error('validateField: No field key provided');
-
-    // validate field by key
-    this.fields[key].validate(showErrors, this);
-
-    /*
-      validate 'related' fields if specified
-      and recursive validation allowed
-    */
-    if (!recursive) return;
-    const related = this.fields[key].related;
-    if (!_.isEmpty(related)) {
-      _.each(related, ($rel) =>
-        this.validateField($rel));
+    // validate all fields
+    if (!key) {
+      this.validator.validateAll({
+        recursive,
+        showErrors: $showErrors,
+        fields: this.fields,
+        values: this.values(),
+      });
     }
+
+    // validate single field by key
+    if (key) {
+      this.validator
+        .validateField(this.fields, key, $showErrors, recursive);
+    }
+
+    // return validation status
+    return this.isValid;
+  }
+
+  /**
+    Field selector shortcut
+  */
+  $(key) {
+    return this.fields[key];
+  }
+
+  values() {
+    return _.mapValues(this.fields, 'value');
+  }
+
+  invalidate(message) {
+    this.validator.invalidate(message);
+  }
+
+  eventsRunning(events) {
+    return _.intersection(events, this.events).length > 0;
   }
 
   @computed
@@ -128,69 +126,44 @@ export default class Form {
     return _.every(this.fields, 'isEmpty');
   }
 
-  values() {
-    return _.mapValues(this.fields, 'value');
+  @computed
+  get error() {
+    return this.validator.genericErrorMessage;
+  }
+
+  @computed
+  get genericError() {
+    return this.validator.genericErrorMessage;
+  }
+
+  @computed
+  get genericErrorMessage() {
+    return this.validator.genericErrorMessage;
   }
 
   @action
   clear() {
-    _.each(this.fields, (val, key) =>
-      this.fields[key].clear());
-
-    this.genericErrorMessage = null;
+    const $e = 'clear';
+    this.events.push($e);
+    this.validator.genericErrorMessage = null;
+    _.each(this.fields, (field) => field.clear());
+    this.events.pop($e);
   }
 
   @action
   reset() {
-    _.each(this.fields, (val, key) =>
-      this.fields[key].reset());
-
-    this.genericErrorMessage = null;
+    const $e = 'reset';
+    this.events.push($e);
+    this.validator.genericErrorMessage = null;
+    _.each(this.fields, (field) => field.reset());
+    this.events.pop($e);
   }
 
-  @action
   update(obj) {
     _.each(obj, (val, key) =>
       this.fields[key].update(val));
   }
 
-  @action
-  validate() {
-    this.validateFields();
-
-    // Check with with "ajv" rules (exit on fail)
-    if (!this.checkGenericAjvValidation()) return false;
-
-    // return the fields validation status
-    return this.isValid;
-  }
-
-  @action
-  checkGenericAjvValidation() {
-    this.genericErrorMessage = null;
-
-    if (this.ajv) {
-      const formIsValid = this.ajv(this.values());
-      if (!formIsValid) {
-        this.genericErrorMessage = 'An error occurred. Validation has failed.';
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  @computed
-  get error() {
-    return this.genericErrorMessage;
-  }
-
-  @computed
-  get genericError() {
-    return this.genericErrorMessage;
-  }
-
-  @action
   syncValue = (e) => {
     const currentVal = this.fields[e.target.name].value;
 
@@ -202,16 +175,6 @@ export default class Form {
 
     // text
     this.fields[e.target.name].setValue(e.target.value);
-    return;
-  }
-
-  @action
-  invalidate(message) {
-    if (_.isString(message)) {
-      this.genericErrorMessage = message;
-      return;
-    }
-    this.genericErrorMessage = 'An error occurred sending request.';
     return;
   }
 }

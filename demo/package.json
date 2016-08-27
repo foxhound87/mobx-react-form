@@ -1,10 +1,15 @@
 {
+  "private": true,
   "name": "mobx-ajv-form-demo",
   "license": "MIT",
   "version": "1.0.0",
   "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
   "description": "Easly manage Forms with MobX and automatic validation with AJV json-schema rules.",
   "homepage": "https://www.npmjs.com/package/mobx-ajv-form",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foxhound87/mobx-ajv-form.git"
+  },
   "scripts": {
     "build": "webpack -p",
     "start:dev": "webpack-dev-server --port 8888",
@@ -27,6 +32,7 @@
     "babel-preset-stage-0": "6.5.0",
     "html-webpack-plugin": "2.22.0",
     "json-loader": "0.5.4",
+    "mobx-react-devtools": "4.2.4",
     "webpack": "1.13.2",
     "webpack-dev-server": "1.14.1"
   }

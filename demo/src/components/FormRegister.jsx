@@ -7,39 +7,64 @@ const FormRegister = ({ form }) => (
     <div className="splitted-35 fixed container-left">
       <form>
         <h2>Form Register</h2>
+
         <div>
-          {form.fields.username.label}
-          <i>{form.fields.username.error}</i>
+          {form.$('username').label}
+          <i>{form.$('username').error}</i>
         </div>
         <input
           type="text"
-          name={form.fields.username.name}
-          value={form.fields.username.value}
-          placeholder={form.fields.username.label}
+          name={form.$('username').name}
+          value={form.$('username').value}
+          placeholder={form.$('username').label}
           onChange={form.syncValue}
         />
 
         <div>
-          {form.fields.email.label}
-          <i>{form.fields.email.error}</i>
+          {form.$('email').label}
+          <i>{form.$('email').error}</i>
         </div>
         <input
           type="text"
-          name={form.fields.email.name}
-          value={form.fields.email.value}
-          placeholder={form.fields.email.label}
+          name={form.$('email').name}
+          value={form.$('email').value}
+          placeholder={form.$('email').label}
           onChange={form.syncValue}
         />
 
         <div>
-          {form.fields.password.label}
-          <i>{form.fields.password.error}</i>
+          {form.$('emailConfirm').label}
+          <i>{form.$('emailConfirm').error}</i>
+        </div>
+        <input
+          type="text"
+          name={form.$('emailConfirm').name}
+          value={form.$('emailConfirm').value}
+          placeholder={form.$('emailConfirm').label}
+          onChange={form.syncValue}
+        />
+
+        <div>
+          {form.$('password').label}
+          <i>{form.$('password').error}</i>
         </div>
         <input
           type="password"
-          name={form.fields.password.name}
-          value={form.fields.password.value}
-          placeholder={form.fields.password.label}
+          name={form.$('password').name}
+          value={form.$('password').value}
+          placeholder={form.$('password').label}
+          onChange={form.syncValue}
+        />
+
+        <div>
+          {form.$('devSkills').label}
+          <i>{form.$('devSkills').error}</i>
+        </div>
+        <input
+          type="string"
+          name={form.$('devSkills').name}
+          value={form.$('devSkills').value}
+          placeholder={form.$('devSkills').label}
           onChange={form.syncValue}
         />
 
@@ -47,12 +72,12 @@ const FormRegister = ({ form }) => (
         <br />
         <input
           type="checkbox"
-          name={form.fields.terms.name}
-          checked={form.fields.terms.value}
+          name={form.$('terms').name}
+          checked={form.$('terms').value}
           onChange={form.syncValue}
-        /> {form.fields.terms.label}
+        /> {form.$('terms').label}
         <div>
-          <i>{form.fields.terms.error}</i>
+          <i>{form.$('terms').error}</i>
         </div>
 
         <div>
@@ -71,7 +96,7 @@ const FormRegister = ({ form }) => (
           >Reset</button>
         </div>
 
-        <p><i>{form.genericError}</i></p>
+        <p><i>{form.error}</i></p>
 
       </form>
     </div>
@@ -80,7 +105,9 @@ const FormRegister = ({ form }) => (
       <hr />
       <DebugField field={form.fields.username} />
       <DebugField field={form.fields.email} />
+      <DebugField field={form.fields.emailConfirm} />
       <DebugField field={form.fields.password} />
+      <DebugField field={form.fields.devSkills} />
       <DebugField field={form.fields.terms} />
     </div>
   </div>

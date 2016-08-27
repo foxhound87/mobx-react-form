@@ -1,11 +1,139 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>MobX Ajv Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        color: #fff;
+        background: #4B7893;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 1.15rem;
+        margin-top: 50px;
+      }
+
+      a {
+        cursor: pointer;
+        color: #fff;
+      }
+
+      .clearfix {
+        overflow: auto;
+        zoom: 1;
+      }
+
+      .left {
+        float: left;
+      }
+
+      .right {
+        float: right;
+      }
+
+      .menu {
+        background: #f5f5f5;
+        z-index: 999;
+        position: fixed;
+        height: 55px;
+        left: 0;
+        right: 0;
+        top: 0;
+      }
+
+      .menu a, span {
+        color: #4B7893;
+        display: inline-block;
+        padding: 15px 20px;
+        text-decoration: none;
+      }
+
+      .menu span {
+        color: #F87666;
+      }
+
+      .menu a:hover {
+        background: #F87666;
+        color: #f5f5f5;
+      }
+
+      .container {
+        display: table;
+        height: 100%;
+        width: 100%;
+      }
+
+      .splitted-35 {
+        display: table-cell;
+        width: 35%;
+      }
+
+      .splitted-65 {
+        display: table-cell;
+        width: 65%;
+      }
+
+      .fixed {
+        position: fixed;
+        height: 100%;
+      }
+
+      .container-left {
+        background: #283044;
+        top: 0;
+        left: 0;
+        bottom: 0;
+      }
+
+      .container-left form {
+        margin: 80px 30px 30px;
+      }
+
+      .container-left form div {
+        margin-top: 10px;
+      }
+
+      .container-left form div i {
+        margin-left: 10px;
+        color: #F87666;
+      }
+
+      .container-left form p i {
+        color: #F87666;
+      }
+
+      .container-left input {
+        padding: 10px;
+        font-size: 16px;
+      }
+
+      .container-left button {
+        padding: 10px;
+        margin-right: 10px;
+        font-size: 16px;
+      }
+
+      .container-right {
+        border-left: 2px solid #f5f5f5;
+      }
+
+      .container-right h4 {
+        margin: 30px 0 0 50px;
+      }
+
+      .container-right pre {
+        margin-left: 50px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Mobx Ajv Form</h1>
     <div id="app"></div>
-    <script src="main.js"></script>
   </body>
 </html>

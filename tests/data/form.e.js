@@ -1,4 +1,4 @@
-import Form from '../../src/index';
+import Form from '../../src';
 import extend from './_.extend';
 import { isEmail, shouldBeEqualTo } from './_.validators';
 

@@ -13,13 +13,14 @@
 
 ---
 
+
 ## Changelog & Documentation
 See the [Changelog](https://github.com/foxhound87/mobx-ajv-form/blob/master/CHANGELOG.md) or the [Documentation](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md) for all the details.
 
 ## Install
 
 ```bash
-npm i --save mobx-ajv-form
+npm install --save mobx-ajv-form
 ```
 
 ## Demo
@@ -28,26 +29,16 @@ http://www.webpackbin.com/VJZUlhWc-
 
 ## Usage
 
+#### Define the form fields
+
+> Optionally using a `default` property, it will fill the field on `reset` instead of using the initial `value`.
+
 ```javascript
-import Form from 'mobx-ajv-form';
-
-// define a json schema
-
-const schema = {
-  type: 'object',
-  properties: {
-    username: { type: 'string', minLength: 6, maxLength: 20 },
-    email: { type: 'string', format: 'email', minLength: 5, maxLength: 20 },
-    password: { type: 'string', minLength: 6, maxLength: 20 }
-  }
-};
-
-// define fields
-
 const fields = {
   username: {
     label: 'Username',
     value: 'SteveJobs'
+    default: '',
   },
   email: {
     label: 'Email',
@@ -58,13 +49,36 @@ const fields = {
     value: 'thinkdifferent'
   }
 };
+```
 
-// create the form
+#### Define a json schema
+
+```javascript
+const schema = {
+  type: 'object',
+  properties: {
+    username: { type: 'string', minLength: 6, maxLength: 20 },
+    email: { type: 'string', format: 'email', minLength: 5, maxLength: 20 },
+    password: { type: 'string', minLength: 6, maxLength: 20 }
+  }
+};
+```
+
+#### Create the form
+
+> Simply pass the `fields` and `schema` objects to the constructor
+
+```javascript
+import Form from 'mobx-ajv-form';
+
+...
 
 export default new Form({ fields, schema });
 ```
 
-### Pass the form to a react component:
+#### Pass the form to a react component:
+
+> `form.$('fieldkey')` is a shortcut to `form.fields.fieldkey`
 
 ```javascript
 import React from 'react';
@@ -74,12 +88,12 @@ const FormComponent = ({ form, events }) => (
   <form>
     <input
       type="text"
-      name={form.fields.username.name}
-      value={form.fields.username.value}
-      placeholder={form.fields.username.label}
+      name={form.$('username').name}
+      value={form.$('username').value}
+      placeholder={form.$('username').label}
       onChange={form.syncValue}
     />
-    <p>{form.fields.username.error}</p>
+    <p>{form.$('username').error}</p>
 
     ...
 
@@ -99,18 +113,16 @@ const FormComponent = ({ form, events }) => (
       onClick={events.handleOnClear}
       >Clear</button>
 
-    <p>{form.genericError}</p>
+    <p>{form.error}</p>
   </form>
 );
 
 export default observer(FormComponent);
-````
+```
 
-### Deal with events:
+#### Deal with events:
 
 ```javascript
-import form from './form';
-
 const handleOnSubmit = (e) => {
   e.preventDefault();
 
@@ -144,14 +156,16 @@ const handleOnReset = (e) => {
 # More...
 
 - [Form Constructor](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-constructor)
-- [Form API List](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-api)
-- [Fields API List](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#fields-api)
-- [Use a custom validation keyword (extend AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-keywords-extend-ajv)
-- [Use a custom validation function (without AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-functions-without-ajv)
-- [Remove AJV Warnings](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#remove-ajv-warnings)
+- [Form Options](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-options)
+- [Form API](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-api)
+- [Fields API](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#fields-api)
+- [Custom Validation Keywords (extend AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-keywords-extend-ajv)
+- [Custom Validation Functions (without AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-functions-without-ajv)
+- [Remove AJV Warnings from webpack](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#remove-ajv-warnings-from-webpack)
 
 ## Contributing
 
 If you want to contribute to the development, do not hesitate to fork the repo and send pull requests.
 
 And don't forget to star the repo, I will ensure more frequent updates! Thanks!
+

@@ -1,5 +1,5 @@
 import { useStrict } from 'mobx';
-import Form from './form';
+import Form from './Form';
 
 /**
   Enables / disables strict mode globally.

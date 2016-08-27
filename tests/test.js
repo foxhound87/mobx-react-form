@@ -25,32 +25,32 @@ $D.update({
 });
 
 $I.update({ username: 'JonathanIve' });
-$I.reset(); // to original values
+$I.reset(); // to default or initial values
 $L.clear(); // to empty values
 
 // subsequent clear and reset (SAME FORM)
 $M.clear(); // to empty values
-$M.reset(); // to original values
+$M.reset(); // to default or initial values
 
 // subsequent clear and reset (SAME FORM)
 $N.clear(); // to empty values
-$N.reset(); // to original values
+$N.reset(); // to default or initial values
 
 describe('$L Form', () => {
   it('$L username.value should be equal to "" (empty string)', () =>
-    expect($L.fields.username.value).to.be.equal(''));
+    expect($L.$('username').value).to.be.equal(''));
 
   it('$L email.value should be equal to "" (empty string)', () =>
-    expect($L.fields.email.value).to.be.equal(''));
+    expect($L.$('email').value).to.be.equal(''));
 
   it('$L password.value should be equal to "" (empty string)', () =>
-    expect($L.fields.password.value).to.be.equal(''));
+    expect($L.$('password').value).to.be.equal(''));
 
   it('$L password.error should be null', () =>
-    expect($L.fields.password.error).to.be.null);
+    expect($L.$('password').error).to.be.null);
 
   it('$L password.errorMessage should be null', () =>
-    expect($L.fields.password.errorMessage).to.be.null);
+    expect($L.$('password').errorMessage).to.be.null);
 });
 
 describe('Form isValid', () => {
@@ -137,8 +137,8 @@ describe('$H Form fields', () => {
   it('$H email.label should be equal to "Email"', () =>
     expect($H.fields.email.label).to.be.equal('Email'));
 
-  it('$H devSkills.value should be equal to ""', () =>
-    expect($H.fields.devSkills.value).to.be.equal(''));
+  it('$H devSkills.value should be null', () =>
+    expect($H.fields.devSkills.value).to.be.null);
 });
 
 describe('others fields', () => {
@@ -177,6 +177,12 @@ describe('others fields', () => {
 
   it('$I username.value should be equal to "SteveJobs"', () =>
     expect($I.fields.username.value).to.be.equal('SteveJobs'));
+
+  it('$M username.default should be equal to "Claudio"', () =>
+    expect($M.fields.username.default).to.be.equal('Claudio'));
+
+  it('$M username.value should be equal to "Claudio"', () =>
+    expect($M.fields.username.value).to.be.equal('Claudio'));
 
   it('$N email.isValid should be false', () =>
     expect($N.fields.email.isValid).to.be.false);

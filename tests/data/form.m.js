@@ -1,9 +1,10 @@
-import Form from '../../src/index';
+import Form from '../../src';
 
 const fields = {
   username: {
     label: 'Username',
     value: 'SteveJobs',
+    default: 'Claudio',
   },
   email: {
     label: 'Email',

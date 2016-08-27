@@ -28,9 +28,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve('src', 'index.tpl.html'),
+      template: path.resolve('src', 'index.html'),
       inject: 'body',
-      filename: 'index.html',
     }),
   ],
   module: { loaders },

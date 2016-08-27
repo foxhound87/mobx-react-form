@@ -21,7 +21,7 @@ const toJson = (data) => {
 };
 
 const parseFormData = (form) => {
-  const omit = ['fields', 'schema', 'extend', 'options'];
+  const omit = ['fields', 'schema', 'extend', 'options', 'validator', 'events'];
   return toJson(_.merge(_.omit(form, omit), merge(form)));
 };
 
@@ -36,8 +36,9 @@ const parseFieldData = (field) => {
     'key',
     'disabled',
     'errorMessage',
-    'originalValue',
-    'validationFunctionsValues',
+    'initialValue',
+    'defaultValue',
+    'validationFunctionsData',
     'validateProperty',
   ];
 

@@ -1,4 +1,4 @@
-import Form from '../../src/index';
+import Form from '../../src';
 import extend from './_.extend';
 
 const fields = {
@@ -6,7 +6,7 @@ const fields = {
   email: 's.jobs@apple.com',
   password: 'thinkdifferent',
   terms: true,
-  devSkills: 11, // should fail
+  devSkills: 10, // 10 should fail with exclusiveRange on
   revenue: '233.715',
   assets: 305.277,
 };
