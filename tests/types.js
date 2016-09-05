@@ -13,6 +13,11 @@ describe('Check values() returns object', () => {
     assert.isObject(form.values(), `$${up(key)}.values() is not object`)));
 });
 
+describe('Check errors() returns object', () => {
+  _.each($forms, (form, key) => it(`$${up(key)} errors() is object`, () =>
+    assert.isObject(form.errors(), `$${up(key)}.errors() is not object`)));
+});
+
 describe('Check eventsRunning() returns boolean', () => {
   _.each($forms, (form, key) => it(`$${up(key)} eventsRunning() is boolean`, () =>
     assert.isBoolean(form.eventsRunning(), `$${up(key)}.eventsRunning() is not boolean`)));
