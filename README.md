@@ -25,7 +25,7 @@ See the [Changelog](https://github.com/foxhound87/mobx-react-form/blob/master/CH
 npm install --save mobx-react-form
 ```
 
-## Demo
+## Demo (mobx-ajv-form)
 
 http://www.webpackbin.com/VJZUlhWc-
 

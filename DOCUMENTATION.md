@@ -16,9 +16,9 @@
 
 | Modes | Result | Provider Library |
 |---|---|---|
-| **VJF** | Enable Vanilla Javascript Validation Functions | `default` |
-| **JVK** | Enable json-schema Validation and Keywords | epoberezkin's **`ajv`** |
-| **DVR** | Enable Declarative Validation Rules | skaterdav85 **`validatorjs`** |
+| **VJF** | Enable Vanilla Javascript Validation Functions | **default** |
+| **JVK** | Enable json-schema Validation and Keywords | epoberezkin's **ajv** |
+| **DVR** | Enable Declarative Validation Rules | skaterdav85's **validatorjs** |
 
 > Some plugins can be extended with custom functionalities, you'll find out how by reading this documentation.
 
@@ -56,7 +56,6 @@
 
 | Option | Type | Default | Info |
 |---|---|---|---|
-| **disableValidation** | boolean | false | Completely disable validation functionalities. |
 | **validateOnInit** | boolean | true | Validate of the whole form on initilization. |
 | **showErrorsOnInit** | boolean | false | Show or hide error messages for `validateOnInit`. |
 | **defaultGenericError** | string | null | Set e default message to show when a generic error occurs. |
