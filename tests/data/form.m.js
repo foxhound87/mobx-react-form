@@ -1,10 +1,23 @@
+import ajv from 'ajv';
+import validatorjs from 'validatorjs';
+
 import Form from '../../src';
+import dvrExtend from './_.extend.dvr';
+
+const plugins = {
+  svk: ajv,
+  dvr: {
+    package: validatorjs,
+    extend: dvrExtend,
+  },
+};
 
 const fields = {
   username: {
     label: 'Username',
     value: 'SteveJobs',
     default: 'Claudio',
+    rules: 'checkUser',
   },
   email: {
     label: 'Email',
@@ -25,4 +38,4 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema });
+export default new Form({ fields, schema, plugins });

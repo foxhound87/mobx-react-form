@@ -1,15 +1,15 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { DebugForm, DebugField } from './Debug';
+import { DebugForm } from './Debug';
 
 const FormRegister = ({ form }) => (
   <div className="container">
-    <div className="splitted-35 fixed container-left">
+    <div className="splitted-35 fixed container-left normal">
       <form>
         <h2>Form Register</h2>
 
         <div>
-          {form.$('username').label}
+          <b>{form.$('username').label}</b>
           <i>{form.$('username').error}</i>
         </div>
         <input
@@ -17,11 +17,11 @@ const FormRegister = ({ form }) => (
           name={form.$('username').name}
           value={form.$('username').value}
           placeholder={form.$('username').label}
-          onChange={form.syncValue}
+          onChange={form.$('username').sync}
         />
 
         <div>
-          {form.$('email').label}
+          <b>{form.$('email').label}</b>
           <i>{form.$('email').error}</i>
         </div>
         <input
@@ -29,11 +29,11 @@ const FormRegister = ({ form }) => (
           name={form.$('email').name}
           value={form.$('email').value}
           placeholder={form.$('email').label}
-          onChange={form.syncValue}
+          onChange={form.$('email').sync}
         />
 
         <div>
-          {form.$('emailConfirm').label}
+          <b>{form.$('emailConfirm').label}</b>
           <i>{form.$('emailConfirm').error}</i>
         </div>
         <input
@@ -41,11 +41,11 @@ const FormRegister = ({ form }) => (
           name={form.$('emailConfirm').name}
           value={form.$('emailConfirm').value}
           placeholder={form.$('emailConfirm').label}
-          onChange={form.syncValue}
+          onChange={form.$('emailConfirm').sync}
         />
 
         <div>
-          {form.$('password').label}
+          <b>{form.$('password').label}</b>
           <i>{form.$('password').error}</i>
         </div>
         <input
@@ -53,11 +53,11 @@ const FormRegister = ({ form }) => (
           name={form.$('password').name}
           value={form.$('password').value}
           placeholder={form.$('password').label}
-          onChange={form.syncValue}
+          onChange={form.$('password').sync}
         />
 
         <div>
-          {form.$('devSkills').label}
+          <b>{form.$('devSkills').label}</b>
           <i>{form.$('devSkills').error}</i>
         </div>
         <input
@@ -65,7 +65,7 @@ const FormRegister = ({ form }) => (
           name={form.$('devSkills').name}
           value={form.$('devSkills').value}
           placeholder={form.$('devSkills').label}
-          onChange={form.syncValue}
+          onChange={form.$('devSkills').sync}
         />
 
         <br />
@@ -74,16 +74,17 @@ const FormRegister = ({ form }) => (
           type="checkbox"
           name={form.$('terms').name}
           checked={form.$('terms').value}
-          onChange={form.syncValue}
+          onChange={form.$('terms').sync}
         /> {form.$('terms').label}
         <div>
           <i>{form.$('terms').error}</i>
         </div>
 
-        <div>
+        <br />
+        <br />
+        <div className="ctrl">
           <button
             type="submit"
-            disabled={!form.isValid}
             onClick={form.handleOnSubmit}
           >Submit</button>
           <button
@@ -102,13 +103,6 @@ const FormRegister = ({ form }) => (
     </div>
     <div className="splitted-65 container-right">
       <DebugForm form={form} />
-      <hr />
-      <DebugField field={form.fields.username} />
-      <DebugField field={form.fields.email} />
-      <DebugField field={form.fields.emailConfirm} />
-      <DebugField field={form.fields.password} />
-      <DebugField field={form.fields.devSkills} />
-      <DebugField field={form.fields.terms} />
     </div>
   </div>
 );

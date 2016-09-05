@@ -1,4 +1,7 @@
+import ajv from 'ajv';
 import Form from '../../src';
+
+const plugins = { svk: ajv };
 
 const fields = {
   username: {
@@ -24,4 +27,4 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema });
+export default new Form({ fields, schema, plugins });

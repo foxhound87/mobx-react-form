@@ -1,11 +1,11 @@
-import { useStrict } from 'mobx';
+import { isStrictModeEnabled } from 'mobx';
 import Form from './Form';
 
 /**
-  Enables / disables strict mode globally.
+  Enables MobX strict mode globally.
   In strict mode, it is not allowed to
   change any state outside of an action
  */
-useStrict(true);
+isStrictModeEnabled();
 
 export default Form;

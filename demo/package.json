@@ -1,39 +1,53 @@
 {
   "private": true,
-  "name": "mobx-ajv-form-demo",
+  "name": "mobx-react-form-demo",
   "license": "MIT",
   "version": "1.0.0",
   "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
   "description": "Easly manage Forms with MobX and automatic validation with AJV json-schema rules.",
-  "homepage": "https://www.npmjs.com/package/mobx-ajv-form",
+  "homepage": "https://www.npmjs.com/package/mobx-react-form",
   "repository": {
     "type": "git",
-    "url": "https://github.com/foxhound87/mobx-ajv-form.git"
+    "url": "https://github.com/foxhound87/mobx-react-form.git"
   },
   "scripts": {
     "build": "webpack -p",
     "start:dev": "webpack-dev-server --port 8888",
-    "start": "node ./src/server.js"
+    "start": "node ./server.js"
   },
   "dependencies": {
+    "ajv": "4.6.1",
+    "bluebird": "3.4.6",
     "ejs": "2.5.1",
     "express": "4.14.0",
     "json-stringify-safe": "5.0.1",
     "lodash": "4.15.0",
-    "mobx": "2.4.3",
+    "material-ui": "0.15.4",
+    "mobx": "2.5.1",
     "mobx-react": "3.5.5",
+    "moment": "2.14.1",
     "react": "15.3.1",
-    "react-dom": "15.3.1"
+    "react-dom": "15.3.1",
+    "react-select": "1.0.0-rc.1",
+    "react-tap-event-plugin": "1.0.0",
+    "react-widgets": "3.4.4",
+    "validatorjs": "3.6.0"
   },
   "devDependencies": {
     "babel-loader": "6.2.5",
-    "babel-preset-es2015": "6.13.2",
+    "babel-preset-es2015": "6.14.0",
     "babel-preset-react": "6.11.1",
     "babel-preset-stage-0": "6.5.0",
+    "css-loader": "0.25.0",
+    "file-loader": "0.9.0",
     "html-webpack-plugin": "2.22.0",
     "json-loader": "0.5.4",
-    "mobx-react-devtools": "4.2.4",
+    "less": "2.7.1",
+    "less-loader": "2.2.3",
+    "mobx-react-devtools": "4.2.5",
+    "style-loader": "0.13.1",
+    "url-loader": "0.5.7",
     "webpack": "1.13.2",
-    "webpack-dev-server": "1.14.1"
+    "webpack-dev-server": "1.15.1"
   }
 }

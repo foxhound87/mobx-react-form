@@ -1,10 +1,10 @@
 {
-  "name": "mobx-ajv-form",
+  "name": "mobx-react-form",
   "license": "MIT",
   "version": "0.0.0-semantically-released",
   "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
-  "description": "Easly manage Forms with MobX and automatic validation with AJV json-schema rules.",
-  "homepage": "https://www.npmjs.com/package/mobx-ajv-form",
+  "description": "Automagically manage React forms state with MobX and automatic validation.",
+  "homepage": "https://www.npmjs.com/package/mobx-react-form",
   "main": "lib/index.js",
   "scripts": {
     "clean:lib": "rm -rf lib",
@@ -22,13 +22,13 @@
     "watch:test": "npm run test -- -w",
     "test": "mocha tests --compilers js:babel-register",
     "cover": "nyc npm test",
-    "coverage:check": "nyc check-coverage --satements 90 --branches 70 --functions 95 --lines 95",
+    "coverage:check": "nyc check-coverage --satements 85 --branches 70 --functions 85 --lines 85",
     "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/foxhound87/mobx-ajv-form.git"
+    "url": "https://github.com/foxhound87/mobx-react-form.git"
   },
   "keywords": [
     "mobx",
@@ -36,7 +36,8 @@
     "ajv",
     "json",
     "schema",
-    "validation"
+    "validation",
+    "validator"
   ],
   "files": [
     "es6",
@@ -55,11 +56,11 @@
     }
   },
   "dependencies": {
-    "ajv": "4.6.1",
     "lodash": "4.15.0",
     "mobx": "2.5.1"
   },
   "devDependencies": {
+    "ajv": "4.6.1",
     "babel-cli": "6.14.0",
     "babel-eslint": "6.1.2",
     "babel-loader": "6.2.5",
@@ -87,6 +88,7 @@
     "nyc": "8.1.0",
     "path": "0.12.7",
     "semantic-release": "4.3.5",
+    "validatorjs": "3.6.0",
     "webpack": "1.13.2"
   }
 }

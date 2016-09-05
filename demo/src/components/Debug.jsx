@@ -27,17 +27,22 @@ const parseFormData = (form) => {
 
 const parseFieldData = (field) => {
   const omit = [
-    '$valid',
     '$value',
     'form',
     'related',
     'label',
     'name',
     'key',
+    'rules',
+    'validate',
     'disabled',
+    'showError',
     'errorMessage',
     'initialValue',
     'defaultValue',
+    'asyncErrorMessage',
+    'validationAsyncData',
+    'validationErrorStack',
     'validationFunctionsData',
     'validateProperty',
   ];
@@ -45,20 +50,24 @@ const parseFieldData = (field) => {
   return toJson(_.merge(_.omit(field, omit), merge(field)));
 };
 
-export const DebugForm = observer(({ form }) => (
-  <div>
-    <h4>Form</h4>
-    <pre>
-      {parseFormData(form)}
-    </pre>
-  </div>
-));
-
 export const DebugField = observer(({ field }) => (
   <div>
     <h4>{field.label}</h4>
     <pre>
       {parseFieldData(field)}
     </pre>
+  </div>
+));
+
+export const DebugForm = observer(({ form }) => (
+  <div>
+    <h4>Form</h4>
+    <pre>
+      {parseFormData(form)}
+    </pre>
+    <hr />
+    {_.map(form.fields, (field) =>
+      <DebugField field={field} key={field.key} />
+    )}
   </div>
 ));

@@ -1,20 +1,20 @@
-export function shouldBeEqualTo($target) {
-  const target = $target;
+import { simulateAsyncFindUserCall } from './_.async';
+
+export function checkUser({ field }) {
+  const msg = `Hey! The username ${field.value} is already taken.`;
+  // show error if the call does not returns entries
+  return simulateAsyncFindUserCall({ user: field.value })
+    .then((items) => [(items.length === 0), msg]);
+}
+
+export function shouldBeEqualTo(target) {
   return ({ field, fields }) => {
-    const current = field.label || field.name;
-    const fieldsAreEquals = (fields[target].getValue() === field.getValue());
-    return [fieldsAreEquals, `The ${current} should be equals to ${target}`];
+    const fieldsAreEquals = (fields[target].value === field.value);
+    return [fieldsAreEquals, `The ${field.label} should be equals to ${fields[target].label}`];
   };
 }
 
 export function isEmail({ field }) {
-  const current = field.label || field.name;
   const isValid = (field.value.indexOf('@') > 0);
-  return [isValid, `The ${current} should be an email address.`];
+  return [isValid, `The ${field.label} should be an email address.`];
 }
-
-// export function isEmail({ field, validator }) {
-//   const isValid = validator.isEmail(field.value);
-//   return [isValid, 'Should be an email address.'];
-// }
-

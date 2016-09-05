@@ -1,3 +1,14 @@
+# 2.0.0
+
+* Validation Plugins
+* Multiple Validation Styles
+* Support for Async Validation
+* Package name changed from `mobx-ajv-form` to `mobx-react-form`
+
+# 1.8.0
+
+* decoupled validator from fields
+
 # 1.7.0
 
 * Validation using mobx observe on field $value

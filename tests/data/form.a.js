@@ -1,10 +1,22 @@
+import ajv from 'ajv';
+import validatorjs from 'validatorjs';
+
 import Form from '../../src';
-import extend from './_.extend';
+import svkExtend from './_.extend.svk';
+
+const plugins = {
+  dvr: validatorjs,
+  svk: {
+    package: ajv,
+    extend: svkExtend,
+  },
+};
 
 const fields = {
   username: {
     label: 'Username',
     value: 'SteveJobs',
+    rules: 'alpha|between:6,20',
   },
   email: {
     label: 'Email',
@@ -35,7 +47,7 @@ const fields = {
 const schema = {
   type: 'object',
   properties: {
-    username: { type: 'string', minLength: 6, maxLength: 20 },
+    // username: { type: 'string', minLength: 6, maxLength: 20 },
     email: { type: 'string', format: 'email', minLength: 5, maxLength: 20 },
     password: { type: 'string', minLength: 6, maxLength: 20 },
     terms: { enum: [true, false] },
@@ -45,4 +57,4 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema, extend });
+export default new Form({ fields, schema, plugins });

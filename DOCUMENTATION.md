@@ -1,182 +1,87 @@
 # Index
 
-- [Form Constructor](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-constructor)
-- [Form Options](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-options)
-- [Form API](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-api)
-- [Fields API](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#fields-api)
-- [Custom Validation Keywords (extend AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-keywords-extend-ajv)
-- [Custom Validation Functions (without AJV)](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-functions-without-ajv)
-- [Remove AJV Warnings from webpack](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#remove-ajv-warnings-from-webpack)
+- [Validation Plugins](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#validation-plugins)
+- [Form Constructor](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-constructor)
+- [Form Options](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-options)
+- [Form API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormApi.md#form-api)
+- [Fields API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormApi.md#fields-api)
+- [Defining the Form Fields](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md)
+- [Supported Validation Packages](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#supported-validation-packages)
+- [Remove AJV Warnings from webpack](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#remove-ajv-warnings-from-webpack)
+
+
+<br>
+
+## Validation Plugins
+
+| Modes | Result | Provider Library |
+|---|---|---|
+| **VJF** | Enable Vanilla Javascript Validation Functions | `default` |
+| **JVK** | Enable json-schema Validation and Keywords | epoberezkin's **`ajv`** |
+| **DVR** | Enable Declarative Validation Rules | skaterdav85 **`validatorjs`** |
+
+> Some plugins can be extended with custom functionalities, you'll find out how by reading this documentation.
+
+- [Enabling JsonSchema Validation Keywords (JVK)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingJVKValidation.md)
+- [Enabling Declarative Validation Rules (DVR)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingDVRValidation.md)
+- [Custom JsonSchema Validation Keywords (extend)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationKeywords.md)
+- [Custom Declarative Validation Rules (extend)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationRules.md)
+- [Custom Vanilla Javascript Validation Functions](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationFunctions.md)
+- [Async JsonSchema Validation Keywords](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationKeywords.md#async-validation-keywords)
+- [Async Declarative Validation Rules](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationRules.md#async-validation-rules)
+- [Async Vanilla Javascript Validation Functions](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationFunctions.md#async-validation-functions)
+
+---
+
+<br>
 
 # FORM
 
+<br>
+
 ## Form Constructor
 
-**Usage:** `new Form({ fields, options, schema, extend });`
+**Usage:** `new Form({ fields, options, plugins, schema });`
 
-|   |   |
-|---|---|
-| **fields**    | Object which represents the fields: name, label, value. |
-| **options**   | Additional options of the form or the AJV validator. See [form options](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#form-options) or [ajv options](https://github.com/epoberezkin/ajv#options) |
-| **schema**    | The json-schema for the validation. See [json schema](http://json-schema.org) |
-| **extend**    | Add custom validation keyword for using in the json-schema. See [extend ajv](https://github.com/foxhound87/mobx-ajv-form/blob/master/DOCUMENTATION.md#custom-validation-keywords-extend-ajv) |
-
-
-## Form API
-
-###### Form Options
-
-| Option | Type | Info |
+| Property | Description | Help |
 |---|---|---|
-| **allowRequired** | boolean | The json-schema `required` property can work only if the object does not contain the field key/value pair, `allowRequired` can remove it when needed to make `required` work properly. Be careful because enabling it will make `minLength` uneffective when the `string` is `empty`. |
+| **fields**    | Object which represents the fields: name, label, value. | [defining fields](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md) |
+| **options**   | Options used by the `form` or the imported `pulgins` which may alter the validation behavior. | [form options](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-options) |
+| **plugins**   | Enable additional functionalities using external libraries. | [validation plugins](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#validation-plugins) |
+| **schema**    | The json-schema for the validation. | [json schema](http://json-schema.org) |
 
-###### Form Properties
+<br>
 
-| Property | Type | MobX Type | Info |
+## Form Options
+
+| Option | Type | Default | Info |
 |---|---|---|---|
-| **fields** | object | computed | All defined form fields. |
-| **isValid** | boolean | computed | Check if the form is valid. |
-| **isDirty** | boolean | computed | Check if the form is dirty. |
-| **isPristine** | boolean | computed | Check if the form is in pristine state. |
-| **isDefault** | boolean | computed | Check if the form is to default state. |
-| **isEmpty** | boolean | computed | Check if the form is empty. |
-| **hasEmpty** | boolean | computed | Check if the form has errors. |
-| **genericError** | string | observable | Generic error message (not related to fields). |
-| **genericErrorMessage** | string | observable | Alias of `genericError`. |
-
-###### Form Methods
-
-| Method | Input | Output | Info |
-|---|---|---|---|
-| **$(key)** | string | object | Field selector shortcut. |
-| **syncValue()** | - | - | Synchronizes the value of the field `onChange` event. You must define the `name` of the field to use this method. |
-| **fieldKeys()** | - | array | Get an array with all fields keys/names. |
-| **update(obj)** | object | - | Pass an object to update the form with new values. |
-| **values()** | - | object | Get an object with all fields values. |
-| **clear()** | - | - | Clear the form to empty values. |
-| **reset()** | - | - | Reset the form to default or initials values. |
-| **validate()** | - | boolean | Check if the form is valid. |
-| **invalidate(err)** | string | - | Invalidate the form passing a generic error message. |
+| **disableValidation** | boolean | false | Completely disable validation functionalities. |
+| **validateOnInit** | boolean | true | Validate of the whole form on initilization. |
+| **showErrorsOnInit** | boolean | false | Show or hide error messages for `validateOnInit`. |
+| **defaultGenericError** | string | null | Set e default message to show when a generic error occurs. |
+| **loadingMessage** | string | null | Set a global loading message to show during async calls. |
+| **allowRequired** | false | boolean | The json-schema `required` property can work only if the object does not contain the field key/value pair, `allowRequired` can remove it when needed to make `required` work properly. Be careful because enabling it will make `minLength` uneffective when the `string` is `empty`. |
+| **ajv** | object | - | Additional options for AJV. See all the details of [ajv options](https://github.com/epoberezkin/ajv#options) on the official github page of AJV. |
 
 
-## Fields API
+<br>
 
-###### Fields Properties
+## Supported Validation Packages
 
-| Property | Type | MobX Type | Info |
-|---|---|---|---|
-| **key** | string | - | Field key (set on form constructor) |
-| **name** | string | - | Field name or key (set on form constructor) |
-| **label** | string | - | Field label name (set on form constructor) |
-| **value** | string, array, object, boolean | computed | Computed value of the field. |
-| **default** | boolean | - | The default/initial value of the field. |
-| **disabled** | boolean | - | The disabled state of the field. |
-| **isValid** | boolean | computed | Check if the field is valid. |
-| **isDirty** | boolean | computed | Check if the field is dirty. |
-| **isPristine** | boolean | computed | Check if the field is pristine. |
-| **isDefault** | boolean | computed | Check if the field is to default value. |
-| **isEmpty** | boolean | computed | Check if the field is empty. |
-| **hasError** | boolean | computed | Check if the field has errors. |
-| **error** | string | observable | Field error message. |
-| **errorMessage** | string | observable | Alias of `error`. |
+The validation functionalities are optional and you can choose which kind of library to import to achieve it, based on your own style preferences or needs. You can even mix these styles to achieve more flexibility.
 
-###### Fields Methods
-
-| Property | Input | Output | Info |
-|---|---|---|---|
-| **getValue()** | - | string, array, object, boolean | Get the field value. |
-| **setValue(val)** | string, array, object, boolean | - | Set the field value to the given value. |
-| **update(val)** | string, array, object, boolean | - | Alias of setValue(). |
-| **clear()** | - | - | Clear the field to empty value. |
-| **reset()** | - | - | Reset the field to initial value. |
-| **setValid()** | - | - | Set the field as valid. |
-| **setInvalid(showErrors = true)** | boolean | - | Set the field as invalid. If true is passed, no errors are shown. |
+All package listed below are not included in the `mobx-react-form` and must be installed and passed to the [Form Constructor](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-constructor) using the `plugins` object.
 
 
----
+| Package | Author | | | Description |
+|---|---|---|---|---|
+| **ajv** | epoberezkin | [GitHub&#10140;](https://github.com/epoberezkin/ajv) | [NPM&#10140;](https://www.npmjs.com/package/ajv) | A v5 compliant JSON Schema Validator with custom validation keywords support and automatic error messages |
+| **validatorjs** | skaterdav85 | [GitHub&#10140;](https://github.com/skaterdav85/validatorjs) | [NPM&#10140;](https://www.npmjs.com/package/validatorjs) | Validation library inspired by Laravel's Validator with readable and declarative validation rules and error messages with multilingual support |
+| **validator** | chriso | [GitHub&#10140;](https://github.com/chriso/validator.js) | [NPM&#10140;](https://www.npmjs.com/package/validator) | String validation and sanitization, useful for enhance custom validation functions |
 
-# Custom Validation Keywords (extend AJV)
 
-```javascript
-// define an 'extend' object with the custom keyword
-
-const extend = {
-  range: {
-    type: 'number',
-    compile: (sch, parentSchema) => {
-      const min = sch[0];
-      const max = sch[1];
-
-      return parentSchema.exclusiveRange === true
-              ? (data) => (data > min && data < max)
-              : (data) => (data >= min && data <= max);
-    },
-  },
-};
-
-// then use it the schema
-
-var schema = {
-  type: 'object',
-  properties: {
-    fieldname: {
-      "range": [2, 4],
-      "exclusiveRange": true,
-    },
-  },
-};
-
-// pass all to the form constructor
-
-new Form({ fields, schema, extend });
-
-```
-
----
-
-# Custom Validation Functions (without AJV)
-
-```javascript
-// define custom functions,
-// they must return an array with: [boolean, string];
-
-function shouldBeEqualTo($target) {
-  const target = $target;
-  return ({ field, fields }) => {
-    const current = field.label || field.name;
-    const fieldsAreEquals = (fields[target].getValue() === field.getValue());
-    return [fieldsAreEquals, `The ${current} should be equals to ${target}`];
-  };
-}
-
-function isEmail({ field }) {
-  const current = field.label || field.name;
-  const isValid = (field.value.indexOf('@') > 0);
-  return [isValid, `The ${current} should be an email address.`];
-}
-
-// pass them to the field's `validate` property
-// as function or as an array of functions
-// and set `related` fields to be validated at the same time
-
-const fields = {
-  username: {
-    label: 'Username',
-    value: 's.jobs@apple.com',
-    validate: [isEmail, shouldBeEqualTo('email')],
-    related: ['email'],
-  },
-  email: {
-    label: 'Email',
-    value: 's.jobs@apple.com',
-    validate: isEmail,
-    related: ['username'],
-  },
-  ...
-};
-```
-
----
+<br>
 
 ## Remove AJV Warnings from webpack
 

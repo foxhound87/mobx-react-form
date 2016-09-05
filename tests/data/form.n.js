@@ -1,9 +1,14 @@
+import ajv from 'ajv';
 import Form from '../../src';
+import { checkUser } from './_.validators';
+
+const plugins = { svk: ajv };
 
 const fields = {
   username: {
     label: 'Username',
     value: 'SteveJobs',
+    validate: [checkUser], // (promise) should fail
   },
   email: {
     label: 'Email',
@@ -24,4 +29,4 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema });
+export default new Form({ fields, schema, plugins });

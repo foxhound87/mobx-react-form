@@ -1,5 +1,13 @@
+import ajv from 'ajv';
 import Form from '../../src';
-import extend from './_.extend';
+import svkExtend from './_.extend.svk';
+
+const plugins = {
+  svk: {
+    package: ajv,
+    extend: svkExtend,
+  },
+};
 
 const schema = {
   type: 'object',
@@ -33,4 +41,4 @@ const schema = {
   },
 };
 
-export default new Form({ schema, extend });
+export default new Form({ schema, plugins });

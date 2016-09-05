@@ -8,44 +8,58 @@ export default class Form {
 
   validator;
 
-  fields = {};
   events = [];
+
+  fields = {};
+
+  options = {
+    validateOnInit: true,
+    showErrorsOnInit: false,
+    defaultGenericError: null,
+    loadingMessage: null,
+    allowRequired: false,
+  };
 
   constructor(obj = {}) {
     this.assignInitData(obj);
     this.initValidator(obj);
-    this.mergeSchemaDefaults();
-    this.initFields();
+    this.initFields(obj);
     this.observeFields();
-    this.validate({
-      showErrors: false,
-    });
+
+    if (this.options.validateOnInit === true) {
+      this.validate({
+        showErrors: this.options.showErrorsOnInit,
+      });
+    }
   }
 
-  assignInitData({ fields = {} }) {
-    this.fields = fields;
+  assignInitData({ fields = {}, options = {} }) {
+    _.merge(this.fields, fields);
+    _.merge(this.options, options);
   }
 
   initValidator(obj = {}) {
     this.validator = new Validator(obj);
   }
 
+  initFields() {
+    this.mergeSchemaDefaults();
+    const keys = Object.keys(this.fields);
+    keys.forEach((key) => _.merge(this.fields, {
+      [key]: new Field(key, this.fields[key]),
+    }));
+  }
+
   mergeSchemaDefaults() {
-    if (Object.keys(this.fields).length === 0 && !!this.validator.schema) {
-      const properties = this.validator.schema.properties;
+    const schema = this.validator.schema();
+    if (Object.keys(this.fields).length === 0 && !!schema) {
+      const properties = schema.properties;
       Object.keys(properties).forEach((property) => {
         const label = properties[property].title;
         const value = properties[property].default;
         this.fields[property] = { label, value }; // eslint-disable-line no-param-reassign
       });
     }
-  }
-
-  initFields() {
-    const keys = Object.keys(this.fields);
-    keys.forEach((key) => _.merge(this.fields, {
-      [key]: new Field(key, this.fields[key]),
-    }));
   }
 
   observeFields() {
@@ -57,24 +71,32 @@ export default class Form {
   validate({ key = null, showErrors = true, recursive = false } = {}) {
     const $showErrors = showErrors && !this.eventsRunning(['clear', 'reset']);
 
-    // validate all fields
     if (!key) {
-      this.validator.validateAll({
-        recursive,
-        showErrors: $showErrors,
-        fields: this.fields,
-        values: this.values(),
+      // validate all fields
+      return new Promise((resolve) => {
+        // validate all fields (return a promise)
+        this.validator.validateAll({
+          recursive,
+          showErrors: $showErrors,
+          fields: this.fields,
+          values: this.values(),
+        });
+        // wait all promises than resolve if is valid
+        return Promise.all(this.validator.promises)
+          .then(() => resolve(this.isValid));
       });
     }
 
     // validate single field by key
-    if (key) {
-      this.validator
-        .validateField(this.fields, key, $showErrors, recursive);
-    }
+    this.validator
+      .validateField(this.fields, key, $showErrors, recursive);
 
-    // return validation status
-    return this.isValid;
+    return this.fields[key].isValid;
+  }
+
+  errors() {
+    return _.reduce(this.fields, (obj, field) =>
+      _.set(obj, field.key, field.error), {});
   }
 
   /**
@@ -136,11 +158,6 @@ export default class Form {
     return this.validator.genericErrorMessage;
   }
 
-  @computed
-  get genericErrorMessage() {
-    return this.validator.genericErrorMessage;
-  }
-
   @action
   clear() {
     const $e = 'clear';
@@ -162,19 +179,5 @@ export default class Form {
   update(obj) {
     _.each(obj, (val, key) =>
       this.fields[key].update(val));
-  }
-
-  syncValue = (e) => {
-    const currentVal = this.fields[e.target.name].value;
-
-    // checkbox
-    if (_.isBoolean(currentVal) && _.isBoolean(e.target.checked)) {
-      this.fields[e.target.name].setValue(e.target.checked);
-      return;
-    }
-
-    // text
-    this.fields[e.target.name].setValue(e.target.value);
-    return;
   }
 }

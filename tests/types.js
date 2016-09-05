@@ -1,7 +1,12 @@
 import _ from 'lodash';
-import { assert } from 'chai';
+import { expect, assert } from 'chai';
 
 import $forms, { up } from './data';
+
+describe('Check validate() returns promise', () => {
+  _.each($forms, (form, key) => it(`$${up(key)} validate() is promise`, () =>
+    expect(form.validate()).to.be.a('promise')));
+});
 
 describe('Check values() returns object', () => {
   _.each($forms, (form, key) => it(`$${up(key)} values() is object`, () =>

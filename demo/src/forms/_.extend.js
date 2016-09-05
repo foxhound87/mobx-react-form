@@ -8,17 +8,24 @@ export default class Form extends MobxAjvForm {
   handleOnSubmit = (e) => {
     e.preventDefault();
 
-    // check if the form is valid, otherwise exit
-    if (!this.validate()) return;
-
-    alert('Form is valid! Send the requrest here.'); // eslint-disable-line
-
-    // get fields values
-    console.log('Form Values', this.values()); // eslint-disable-line
-
-    // or show a custom generic error after a beckend call
-    this.invalidate('This is a generic error message!');
+    this.validate()
+      .then((isValid) => isValid
+        ? this.onSuccess()
+        : this.onError());
   };
+
+  onError() {
+    // get all form errors
+    console.log('All form errors', this.errors());  // eslint-disable-line
+    // invalidate the form with a custom error message
+    this.invalidate('This is a generic error message!');
+  }
+
+  onSuccess() {
+    alert('Form is valid! Send the request here.'); // eslint-disable-line
+    // get field values
+    console.log('Form Values!', this.values()); // eslint-disable-line
+  }
 
   /**
     On Clear

@@ -1,17 +1,25 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 
-import FormRegister from './FormRegister';
-import FormCompany from './FormCompany';
+import FormRegisterMaterial from './FormRegisterMaterial';
+import FormRegisterSimple from './FormRegisterSimple';
+import FormCompanyWidgets from './FormCompanyWidgets';
+import FormCompanySimple from './FormCompanySimple';
 
 const Switch = ({ menu, form }) => {
   switch (true) {
 
-    case menu.register:
-      return (<FormRegister form={form.register} />);
+    case menu.registerMaterial:
+      return (<FormRegisterMaterial form={form.registerMaterial} />);
 
-    case menu.company:
-      return (<FormCompany form={form.company} />);
+    case menu.registerSimple:
+      return (<FormRegisterSimple form={form.registerSimple} />);
+
+    case menu.companyWidgets:
+      return (<FormCompanyWidgets form={form.companyWidgets} />);
+
+    case menu.companySimple:
+      return (<FormCompanySimple form={form.companySimple} />);
 
     default: return null;
   }

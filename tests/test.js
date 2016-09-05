@@ -37,14 +37,14 @@ $N.clear(); // to empty values
 $N.reset(); // to default or initial values
 
 describe('$L Form', () => {
-  it('$L username.value should be equal to "" (empty string)', () =>
-    expect($L.$('username').value).to.be.equal(''));
+  it('$L username.value should be empty', () =>
+    expect($L.$('username').value).to.be.empty);
 
-  it('$L email.value should be equal to "" (empty string)', () =>
-    expect($L.$('email').value).to.be.equal(''));
+  it('$L email.value should be empty', () =>
+    expect($L.$('email').value).to.be.empty);
 
-  it('$L password.value should be equal to "" (empty string)', () =>
-    expect($L.$('password').value).to.be.equal(''));
+  it('$L password.value should be empty', () =>
+    expect($L.$('password').value).to.be.empty);
 
   it('$L password.error should be null', () =>
     expect($L.$('password').error).to.be.null);
@@ -113,20 +113,6 @@ describe('Form isPristine', () => {
   it('$N isPristine should be true', () => expect($N.isPristine).to.be.true);
 });
 
-describe('Form validate()', () => {
-  it('$A validate() should return true', () => expect($A.validate()).to.be.true);
-  it('$B validate() should return false', () => expect($B.validate()).to.be.false);
-  it('$D validate() should return false', () => expect($D.validate()).to.be.false);
-  it('$E validate() should return true', () => expect($E.validate()).to.be.true);
-  it('$F validate() should return false', () => expect($F.validate()).to.be.false);
-  it('$G validate() should return true', () => expect($G.validate()).to.be.true);
-  it('$H validate() should return true', () => expect($H.validate()).to.be.true);
-  it('$I validate() should return true', () => expect($I.validate()).to.be.true);
-  it('$L validate() should return false', () => expect($L.validate()).to.be.false);
-  it('$M validate() should return true', () => expect($M.validate()).to.be.true);
-  it('$N validate() should return false', () => expect($N.validate()).to.be.false);
-});
-
 describe('$H Form fields', () => {
   it('$H username.value should be equal to "SteveJobs"', () =>
     expect($H.fields.username.value).to.be.equal('SteveJobs'));
@@ -137,19 +123,16 @@ describe('$H Form fields', () => {
   it('$H email.label should be equal to "Email"', () =>
     expect($H.fields.email.label).to.be.equal('Email'));
 
-  it('$H devSkills.value should be null', () =>
-    expect($H.fields.devSkills.value).to.be.null);
+  it('$H devSkills.value should be empty', () =>
+    expect($H.fields.devSkills.value).to.be.empty);
 });
 
 describe('others fields', () => {
-  it('$C genericErrorMessage should be equal to "The user already exist."', () =>
-    expect($C.genericErrorMessage).to.be.equal('The user already exist'));
+  it('$C error should be equal to "The user already exist."', () =>
+    expect($C.error).to.be.equal('The user already exist'));
 
   it('$C genericError should be equal to "The user already exist."', () =>
     expect($C.genericError).to.be.equal('The user already exist'));
-
-  it('$D devSkills.$valid should be false', () =>
-    expect($D.fields.devSkills.$valid).to.be.false);
 
   it('$D devSkills.isValid should be false', () =>
     expect($D.fields.devSkills.isValid).to.be.false);
@@ -184,10 +167,13 @@ describe('others fields', () => {
   it('$M username.value should be equal to "Claudio"', () =>
     expect($M.fields.username.value).to.be.equal('Claudio'));
 
+  it('$M username.initial should be equal to "SteveJobs"', () =>
+    expect($M.fields.username.initial).to.be.equal('SteveJobs'));
+
   it('$N email.isValid should be false', () =>
     expect($N.fields.email.isValid).to.be.false);
 
-  it('$N email.value should be equal to "12345" (empty string)', () =>
+  it('$N email.value should be equal to "12345"', () =>
     expect($N.fields.email.value).to.be.equal('12345'));
 });
 
@@ -204,4 +190,3 @@ describe('Field values type checks', () => {
     assert.isNumber($A.fields.assets.value,
       '$A.fields.assets.value is not a number'));
 });
-

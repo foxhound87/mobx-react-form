@@ -1,17 +1,17 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { DebugForm, DebugField } from './Debug';
+import { DebugForm } from './Debug';
 
 const products = ['iPhone', 'Watch', 'iMac', 'Mac Pro', 'MacBook Air', 'MacBook Pro'];
 
 const FormCompany = ({ form }) => (
   <div className="container">
-    <div className="splitted-35 fixed container-left">
+    <div className="splitted-35 fixed container-left normal">
       <form>
         <h2>Form Company</h2>
 
         <div>
-          {form.$('name').label}
+          <b>{form.$('name').label}</b>
           <i>{form.$('name').error}</i>
         </div>
         <input
@@ -19,11 +19,11 @@ const FormCompany = ({ form }) => (
           name={form.$('name').name}
           value={form.$('name').value}
           placeholder={form.$('name').label}
-          onChange={form.syncValue}
+          onChange={form.$('name').sync}
         />
 
         <div>
-          {form.$('revenue').label}
+          <b>{form.$('revenue').label}</b>
           <i>{form.$('revenue').error}</i>
         </div>
         <input
@@ -31,11 +31,11 @@ const FormCompany = ({ form }) => (
           name={form.$('revenue').name}
           value={form.$('revenue').value}
           placeholder={form.$('revenue').label}
-          onChange={form.syncValue}
+          onChange={form.$('revenue').sync}
         />
 
         <div>
-          {form.$('assets').label}
+          <b>{form.$('assets').label}</b>
           <i>{form.$('assets').error}</i>
         </div>
         <input
@@ -43,28 +43,28 @@ const FormCompany = ({ form }) => (
           name={form.$('assets').name}
           value={form.$('assets').value}
           placeholder={form.$('assets').label}
-          onChange={form.syncValue}
+          onChange={form.$('assets').sync}
         />
 
         <div>
-          {form.$('products').label}
+          <b>{form.$('products').label}</b>
           <i>{form.$('products').error}</i>
         </div>
         <select
           value={form.$('products').value}
           name={form.$('products').name}
-          onChange={form.syncValue}
+          onChange={form.$('products').sync}
         >
-          <option />
           {products.map((val) =>
             <option value={val} key={val}>{val}</option>
           )}
         </select>
 
-        <div>
+        <br />
+        <br />
+        <div className="ctrl">
           <button
             type="submit"
-            disabled={!form.isValid}
             onClick={form.handleOnSubmit}
           >Submit</button>
           <button
@@ -83,11 +83,6 @@ const FormCompany = ({ form }) => (
     </div>
     <div className="splitted-65 container-right">
       <DebugForm form={form} />
-      <hr />
-      <DebugField field={form.fields.name} />
-      <DebugField field={form.fields.revenue} />
-      <DebugField field={form.fields.assets} />
-      <DebugField field={form.fields.products} />
     </div>
   </div>
 );

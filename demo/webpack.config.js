@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const loaders = [{
@@ -8,6 +9,21 @@ const loaders = [{
 }, {
   test: /\.json$/,
   loader: 'json-loader',
+}, {
+  test: /\.css$/,
+  loader: 'style-loader!css-loader',
+}, {
+  test: /\.less$/,
+  loader: 'style-loader!css-loader!less-loader',
+}, {
+  test: /\.gif$/,
+  loader: 'url-loader?mimetype=image/png',
+}, {
+  test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/,
+  loader: 'url-loader?mimetype=application/font-woff',
+}, {
+  test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/,
+  loader: 'file-loader?name=[name].[ext]',
 }];
 
 module.exports = {
@@ -15,7 +31,7 @@ module.exports = {
   entry: path.resolve('.', 'src', 'main.jsx'),
   resolve: {
     root: path.resolve('.', 'src'),
-    modulesDirectories: ['node_modules'],
+    modulesDirectories: ['node_modules', path.resolve('.', 'node_modules')],
     extensions: ['', '.js', '.jsx', '.json'],
     alias: {
       react: path.resolve('.', 'node_modules', 'react'),
@@ -27,9 +43,11 @@ module.exports = {
     publicPath: '',
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      Promise: 'bluebird',
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve('src', 'index.html'),
-      inject: 'body',
     }),
   ],
   module: { loaders },

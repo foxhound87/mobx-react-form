@@ -6,16 +6,23 @@ export default class Field {
   key;
   name;
   label;
+  rules;
+  validate;
+
   @observable $value;
-  @observable $valid = false;
   @observable interacted = false;
   @observable disabled = false;
+
+  @observable validationErrorStack = [];
+  @observable asyncErrorMessage = null;
   @observable errorMessage = null;
+  @observable showError = true;
+
+  @observable validationFunctionsData = [];
+  @observable validationAsyncData = {};
+
   defaultValue = null;
   initialValue = null;
-  originalErrorMessage = null;
-  validateProperty = null;
-  validationFunctionsData = [];
 
   constructor(key, field = {}) {
     this.initField(key, field);
@@ -62,14 +69,14 @@ export default class Field {
         }
     */
     if (_.isObject(field)) {
-      const { name, label, disabled, message, validate, related } = field;
+      const { name, label, disabled, rules, validate, related } = field;
       this.initialValue = this.parseInitialValue(field.value);
       this.defaultValue = this.parseDefaultValue(field.default);
       this.$value = this.initialValue;
       this.name = name || key;
       this.label = label || key;
-      this.originalErrorMessage = message;
-      this.validateProperty = toJS(validate) || null;
+      this.rules = rules || null;
+      this.validate = toJS(validate) || null;
       this.disabled = disabled || false;
       this.related = related || [];
       return;
@@ -80,13 +87,12 @@ export default class Field {
     // handle boolean
     if (_.isBoolean(value)) return value;
     // handle others types
-    return !_.isUndefined(value) ? value : null;
+    return !_.isUndefined(value) ? value : '';
   }
 
   parseDefaultValue($default) {
     return !_.isUndefined($default) ? $default : this.initialValue;
   }
-
 
   @computed
   get value() {
@@ -117,33 +123,45 @@ export default class Field {
   }
 
   @action
-  setValid() {
-    this.$valid = true;
+  setInvalid(message, async = false) {
+    if (async === true) {
+      this.asyncErrorMessage = message;
+      return;
+    }
+
+    if (_.isArray(message)) {
+      this.validationErrorStack = message;
+      return;
+    }
+
+    this.validationErrorStack.unshift(message);
+  }
+
+  @action
+  resetValidation() {
+    this.showError = true;
     this.errorMessage = null;
+    this.asyncErrorMessage = null;
+    this.validationAsyncData = {};
+    this.validationFunctionsData = [];
+    this.validationErrorStack = [];
   }
 
   @action
-  setInvalid(showErrors = true) {
-    this.$valid = false;
-    this.errorMessage = showErrors ? this.originalErrorMessage : null;
-  }
-
-  @action
-  setInvalidWithMessage(message, showErrors = true) {
-    this.$valid = false;
-    this.errorMessage = showErrors ? message : null;
+  setValidationAsyncData(obj = {}) {
+    this.validationAsyncData = obj;
   }
 
   @action
   clear() {
     this.interacted = false;
+    this.resetValidation();
     if (_.isBoolean(this.$value)) this.$value = false;
     if (_.isString(this.$value)) this.$value = '';
     if (_.isNumber(this.$value)) this.$value = 0;
-    this.setInvalid(false);
   }
 
-  @action('reset')
+  @action
   reset() {
     const useDefaultValue = (this.defaultValue !== this.initialValue);
     if (useDefaultValue) this.$value = this.defaultValue;
@@ -154,6 +172,26 @@ export default class Field {
   @action
   update(obj) {
     this.setValue(obj);
+  }
+
+  @action
+  showErrors(showErrors = true) {
+    if (showErrors === false) {
+      this.showError = false;
+      return;
+    }
+
+    this.errorMessage = _.head(this.validationErrorStack);
+    this.validationErrorStack = [];
+  }
+
+  @action
+  showAsyncErrors() {
+    if (this.validationAsyncData.valid === false) {
+      this.asyncErrorMessage = this.validationAsyncData.message;
+      return;
+    }
+    this.asyncErrorMessage = null;
   }
 
   @computed
@@ -168,17 +206,21 @@ export default class Field {
 
   @computed
   get error() {
-    return this.errorMessage;
+    if (this.showError === false) return null;
+    return (this.asyncErrorMessage || this.errorMessage);
   }
 
   @computed
   get hasError() {
-    return !this.isValid;
+    return (!_.isEmpty(this.validationAsyncData)
+      && (this.validationAsyncData.valid === false))
+      || (this.validationErrorStack.length !== 0)
+      || _.isString(this.errorMessage);
   }
 
   @computed
   get isValid() {
-    return this.$valid;
+    return !this.hasError;
   }
 
   @computed
@@ -201,5 +243,23 @@ export default class Field {
     if (_.isNumber(this.$value)) return false;
     if (_.isBoolean(this.$value)) return !this.$value;
     return _.isEmpty(this.$value);
+  }
+
+  sync = (e) => {
+    // assume "e" is the value
+    if (_.isUndefined(e.target)) {
+      this.setValue(e);
+      return;
+    }
+
+    // checkbox
+    if (_.isBoolean(this.$value) && _.isBoolean(e.target.checked)) {
+      this.setValue(e.target.checked);
+      return;
+    }
+
+    // text
+    this.setValue(e.target.value);
+    return;
   }
 }

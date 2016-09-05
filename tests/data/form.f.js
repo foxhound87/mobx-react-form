@@ -1,12 +1,21 @@
+import ajv from 'ajv';
 import Form from '../../src';
-import extend from './_.extend';
 import { shouldBeEqualTo } from './_.validators';
+import svkExtend from './_.extend.svk';
+
+const plugins = {
+  svk: {
+    package: ajv,
+    extend: svkExtend,
+  },
+};
 
 const fields = {
   username: {
     label: 'Username',
     value: 'SteveJobs',
     validate: shouldBeEqualTo('email'),
+    related: ['email'],
   },
   email: {
     label: 'Email',
@@ -32,4 +41,4 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema, extend });
+export default new Form({ fields, schema, plugins });

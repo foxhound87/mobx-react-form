@@ -9,8 +9,10 @@ import Switch from './Switch';
 import form from '../forms/_.forms';
 
 const menu = observable({
-  register: true,
-  company: false,
+  registerMaterial: true,
+  registerSimple: false,
+  companyWidgets: false,
+  companySimple: false,
 });
 
 const Main = () => (
