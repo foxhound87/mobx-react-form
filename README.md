@@ -27,7 +27,7 @@ npm install --save mobx-react-form
 
 ## Demo
 
-https://mobx-react-form-demo-iymvfjcsow.now.sh/
+https://mobx-react-form-demo-oalynokern.now.sh
 
 ## Features
 
