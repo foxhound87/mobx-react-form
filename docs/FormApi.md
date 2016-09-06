@@ -11,7 +11,7 @@
 | **isDefault** | boolean | computed | Check if the form is to default state. |
 | **isEmpty** | boolean | computed | Check if the form is empty. |
 | **hasEmpty** | boolean | computed | Check if the form has errors. |
-| **genericError** | string | observable | Generic error message (not related to fields). |
+| **error** | string | observable | Generic error message (not related to fields). |
 
 ###### Form Methods
 
@@ -23,8 +23,8 @@
 | **values()** | - | object | Get an object with all fields values. |
 | **clear()** | - | - | Clear the form to empty values. |
 | **reset()** | - | - | Reset the form to default or initials values. |
-| **validate()** | - | promise | Check if the form is valid and return a promise. |
 | **errors()** | - | object | Get all errors of all fields with keys. |
+| **validate()** | - | promise | Check if the form is valid and return a promise. |
 | **invalidate(err)** | string | - | Invalidate the form passing a generic error message. |
 
 

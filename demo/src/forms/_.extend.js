@@ -1,6 +1,7 @@
-import MobxAjvForm from '../../../src';
+// import MobxReactForm from 'mobx-react-form';
+import MobxReactForm from '../../../src';
 
-export default class Form extends MobxAjvForm {
+export default class Form extends MobxReactForm {
 
   /**
     On Submit
@@ -32,7 +33,6 @@ export default class Form extends MobxAjvForm {
    */
   handleOnClear = (e) => {
     e.preventDefault();
-
     // clear the form
     this.clear();
   };
@@ -42,7 +42,6 @@ export default class Form extends MobxAjvForm {
    */
   handleOnReset = (e) => {
     e.preventDefault();
-
     // reset to the default initial values
     this.reset();
   };

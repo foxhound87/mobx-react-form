@@ -25,9 +25,9 @@ See the [Changelog](https://github.com/foxhound87/mobx-react-form/blob/master/CH
 npm install --save mobx-react-form
 ```
 
-## Demo (mobx-ajv-form)
+## Demo
 
-http://www.webpackbin.com/VJZUlhWc-
+https://mobx-react-form-demo-jojligwzdx.now.sh/
 
 ## Features
 
@@ -39,7 +39,7 @@ http://www.webpackbin.com/VJZUlhWc-
 
 ## Usage
 
-### Define the form fields
+#### Define the form fields
 
 > Optionally using a `default` property, it will fill the field on `reset` instead of using the initial `value`.
 
@@ -61,7 +61,7 @@ const fields = {
 };
 ```
 
-### Choose and Setup a Validation Plugin
+#### Choose and Setup a Validation Plugin
 
 Below we are creating a `plugins` object using the `validatorjs` package to enable `DVR` functionalities (Declarative Validation Rules).
 
@@ -87,7 +87,7 @@ import Form from 'mobx-react-form';
 export default new Form({ fields, plugins });
 ```
 
-### Pass the form to a react component:
+#### Pass the form to a react component
 
 > `form.$('fieldkey')` is a shortcut to `form.fields.fieldkey`
 
@@ -131,7 +131,7 @@ const FormComponent = ({ form, events }) => (
 export default observer(FormComponent);
 ```
 
-### Deal with events:
+#### Deal with events
 
 ###### handleOnSubmit
 
@@ -162,9 +162,8 @@ export default observer(FormComponent);
 ###### handleOnClear
 
 ```javascript
-const handleOnClear = (e) => {
+handleOnClear = (e) => {
   e.preventDefault();
-
   // clear the form
   form.clear();
 }
@@ -173,9 +172,8 @@ const handleOnClear = (e) => {
 ###### handleOnReset
 
 ```javascript
-const handleOnReset = (e) => {
+handleOnReset = (e) => {
   e.preventDefault();
-
   // reset to the default initial values
   form.reset();
 }

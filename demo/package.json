@@ -4,22 +4,18 @@
   "license": "MIT",
   "version": "1.0.0",
   "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
-  "description": "Easly manage Forms with MobX and automatic validation with AJV json-schema rules.",
+  "description": "Automagically manage React forms state with MobX and automatic validation.",
   "homepage": "https://www.npmjs.com/package/mobx-react-form",
   "repository": {
     "type": "git",
     "url": "https://github.com/foxhound87/mobx-react-form.git"
   },
   "scripts": {
-    "build": "webpack -p",
-    "start:dev": "webpack-dev-server --port 8888",
-    "start": "node ./server.js"
+    "start": "webpack-dev-server --port 8888"
   },
   "dependencies": {
     "ajv": "4.6.1",
     "bluebird": "3.4.6",
-    "ejs": "2.5.1",
-    "express": "4.14.0",
     "json-stringify-safe": "5.0.1",
     "lodash": "4.15.0",
     "material-ui": "0.15.4",

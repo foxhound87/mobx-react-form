@@ -29,7 +29,7 @@ const plugins = {
 const fields = {
   username: {
     label: 'Username',
-    value: 'claudio',
+    value: 'SteveJobs',
     rules: 'required|string|between:5,15',
   },
   email: {

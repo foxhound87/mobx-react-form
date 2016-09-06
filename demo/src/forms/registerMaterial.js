@@ -3,7 +3,7 @@ import {
   // checkUser,
   isEmail,
   shouldBeEqualTo,
-} from '../../../tests/data/_.validators';
+} from './extensions/_.validators';
 
 // define a json schema
 const schema = {
@@ -24,7 +24,7 @@ const schema = {
 const fields = {
   username: {
     label: 'Username',
-    value: 'claudio',
+    value: 'SteveJobs',
     rules: 'checkUser|required|string|between:5,15',
     // rules: 'integer',
     // default: 'Claudio',
