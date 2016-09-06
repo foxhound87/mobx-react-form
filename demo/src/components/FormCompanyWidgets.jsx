@@ -30,7 +30,7 @@ const FormCompany = ({ form }) => (
         </div>
         <DateTimePicker
           time={false}
-          defaultValue={form.$('founded').value}
+          value={form.$('founded').value}
           onChange={form.$('founded').sync}
         />
 
@@ -64,7 +64,7 @@ const FormCompany = ({ form }) => (
         </div>
         <DropdownList
           data={products}
-          defaultValue={form.$('productsDropdown').value}
+          value={form.$('productsDropdown').value}
           onChange={form.$('productsDropdown').sync}
         />
 
@@ -74,7 +74,7 @@ const FormCompany = ({ form }) => (
         </div>
         <Multiselect
           data={products}
-          defaultValue={form.$('productsMultiselect').value}
+          value={form.$('productsMultiselect').value}
           onChange={form.$('productsMultiselect').sync}
         />
 
