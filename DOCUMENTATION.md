@@ -1,11 +1,11 @@
 # Index
 
+- [Defining the Form Fields](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md)
 - [Validation Plugins](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#validation-plugins)
 - [Form Constructor](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-constructor)
 - [Form Options](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-options)
 - [Form API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormApi.md#form-api)
 - [Fields API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormApi.md#fields-api)
-- [Defining the Form Fields](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md)
 - [Supported Validation Packages](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#supported-validation-packages)
 - [Remove AJV Warnings from webpack](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#remove-ajv-warnings-from-webpack)
 

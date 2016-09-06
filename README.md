@@ -27,7 +27,7 @@ npm install --save mobx-react-form
 
 ## Demo
 
-https://mobx-react-form-demo-jojligwzdx.now.sh/
+https://mobx-react-form-demo-iymvfjcsow.now.sh/
 
 ## Features
 
@@ -41,14 +41,11 @@ https://mobx-react-form-demo-jojligwzdx.now.sh/
 
 #### Define the form fields
 
-> Optionally using a `default` property, it will fill the field on `reset` instead of using the initial `value`.
-
 ```javascript
 const fields = {
   username: {
     label: 'Username',
     value: 'SteveJobs'
-    default: '',
   },
   email: {
     label: 'Email',
@@ -77,19 +74,17 @@ const plugins = { dvr: validatorjs };
 
 #### Create the form
 
-> Simply pass the `fields` and `plugins` objects to the constructor
+Simply pass the `fields` and `plugins` objects to the constructor
 
 ```javascript
 import Form from 'mobx-react-form';
 
-...
-
 export default new Form({ fields, plugins });
 ```
 
-#### Pass the form to a react component
+Now define a `rules` property on the form fields as shown [here](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingDVRValidation.md#add-the-rules-property-to-the-form-fields).
 
-> `form.$('fieldkey')` is a shortcut to `form.fields.fieldkey`
+#### Pass the form to a react component
 
 ```javascript
 import React from 'react';
@@ -130,6 +125,8 @@ const FormComponent = ({ form, events }) => (
 
 export default observer(FormComponent);
 ```
+
+> `form.$('fieldkey')` is a shortcut to `form.fields.fieldkey`
 
 #### Deal with events
 
@@ -181,12 +178,12 @@ handleOnReset = (e) => {
 
 ## Documentation Index
 
+- [Defining the Form Fields](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md)
 - [Validation Plugins](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#validation-plugins)
 - [Form Constructor](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-constructor)
 - [Form Options](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-options)
 - [Form API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormApi.md#form-api)
 - [Fields API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormApi.md#fields-api)
-- [Defining the Form Fields](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md)
 - [Supported Validation Packages](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#supported-validation-packages)
 - [Remove AJV Warnings from webpack](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#remove-ajv-warnings-from-webpack)
 

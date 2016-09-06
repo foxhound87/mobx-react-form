@@ -40,7 +40,7 @@ const plugins = {
       // here we can access the `ajv` instance and we
       // can add the keywords of our object using `$ajv.addKeyword()`
       Object.keys(keywords).forEach((key) =>
-        $ajv.addKeyword(key, extend.keywords[key]));
+        $ajv.addKeyword(key, keywords[key]));
     };
   },
 };

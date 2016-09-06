@@ -23,7 +23,7 @@ const extend = {
   // formats: {},
 };
 
-export default (ajv) => {
-  Object.keys(extend.keywords).forEach((key) => ajv.addKeyword(key, extend.keywords[key]));
-  // Object.keys(extend.formats).forEach((key) => ajv.addFormat(key, extend.formats[key]));
+export default ($ajv) => {
+  Object.keys(extend.keywords).forEach((key) => $ajv.addKeyword(key, extend.keywords[key]));
+  // Object.keys(extend.formats).forEach((key) => $ajv.addFormat(key, extend.formats[key]));
 };

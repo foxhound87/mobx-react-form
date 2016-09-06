@@ -16,7 +16,7 @@ const Menu = ({ data }) => (
       className="right"
     > NPM &#10140;
     </a>
-    <span className="left">SELECT DEMO:</span>
+    <span className="left label">SELECT DEMO:</span>
     <span className="left">
       <select name="menu" onChange={(e) => switchTo(e, data)}>
         <option value="registerMaterial">Register (Material UI)</option>

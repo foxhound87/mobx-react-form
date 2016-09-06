@@ -16,7 +16,7 @@ const fields = {
     value: 'Apple',
   },
   founded: {
-    label: 'Founded',
+    label: 'Founded - DateTimePicker (react-widgets)',
     value: new Date(1976, 3, 1),
   },
   revenue: {
@@ -28,11 +28,11 @@ const fields = {
     value: 305.277,
   },
   productsDropdown: {
-    label: 'Products Dropdown (react-widgets)',
+    label: 'Products - Dropdown (react-widgets)',
     value: 'iMac',
   },
   productsMultiselect: {
-    label: 'Products Multiselect (react-widgets)',
+    label: 'Products - Multiselect (react-widgets)',
     value: ['iMac', 'iPhone'],
     rules: 'required',
   },

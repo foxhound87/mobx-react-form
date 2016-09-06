@@ -156,7 +156,7 @@ export default class Field {
   clear() {
     this.interacted = false;
     this.resetValidation();
-    if (_.isArray(this.$value)) this.$value = [];
+    if (isObservableArray(this.$value)) this.$value = [];
     if (_.isBoolean(this.$value)) this.$value = false;
     if (_.isNumber(this.$value)) this.$value = 0;
     if (_.isString(this.$value)) this.$value = '';
