@@ -60,34 +60,13 @@ const fields = {
   username: {
     label: 'Username',
     value: 'SteveJobs',
-    default: '',
+    default: '...',
   },
   password: {
     label: 'Password',
     value: 'thinkdifferent',
-    default: '',
+    default: '...',
   }
 };
-```
-
-### Update the Fields State
-
-```javascript
-form.update({
-  username: 'NewUsername',
-  password: 'NewPassword',
-});
-```
-
-### Reset the Fields State
-
-```javascript
-form.reset();
-```
-
-### Clear the Fields State
-
-```javascript
-form.clear();
 ```
 

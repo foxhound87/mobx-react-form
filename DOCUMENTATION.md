@@ -1,12 +1,12 @@
 # Index
 
 - [Defining the Form Fields](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md)
-- [Form Constructor](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-constructor)
+- [Form Initialization](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-initialization)
 - [Form Actions](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormActions.md)
 - [Validation Plugins](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#validation-plugins)
 - [Form Options](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-options)
-- [Form API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormApi.md#form-api)
-- [Fields API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormApi.md#fields-api)
+- [Form API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormApi.md)
+- [Fields API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FieldsApi.md)
 - [Supported Validation Packages](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#supported-validation-packages)
 - [Remove AJV Warnings from webpack](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#remove-ajv-warnings-from-webpack)
 
@@ -40,7 +40,7 @@
 
 <br>
 
-## Form Constructor
+## Form Initialization
 
 **Usage:** `new Form({ fields, options, plugins, schema });`
 
@@ -71,7 +71,7 @@
 
 The validation functionalities are optional and you can choose which kind of library to import to achieve it, based on your own style preferences or needs. You can even mix these styles to achieve more flexibility.
 
-All package listed below are not included in the `mobx-react-form` and must be installed and passed to the [Form Constructor](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-constructor) using the `plugins` object.
+All package listed below are not included in the `mobx-react-form` and must be installed and passed to the [Form Initialization](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-initialization) using the `plugins` object.
 
 
 | Package | Author | | | Description |
