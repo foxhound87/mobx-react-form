@@ -85,7 +85,7 @@
     "json-loader": "0.5.4",
     "mocha": "3.0.2",
     "npm-run-all": "3.1.0",
-    "nyc": "8.1.0",
+    "nyc": "8.3.0",
     "path": "0.12.7",
     "semantic-release": "4.3.5",
     "validatorjs": "3.6.0",
