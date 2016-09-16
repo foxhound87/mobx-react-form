@@ -1,6 +1,6 @@
-## Custom Validation Rules
+## Custom Declarative Validation Rules
 
-Using `ValidatorJS` as plugins, the **DVR** funcionalities will be enabled and can be extended too.
+Using `ValidatorJS` as plugins, the Declarative Validation Rules (**DVR**) funcionalities will be enabled and can be extended too.
 
 > See the AJV documentation: [Registering Custom Validation Rules](https://github.com/skaterdav85/validatorjs#registering-custom-validation-rules) for a deeper explaination
 

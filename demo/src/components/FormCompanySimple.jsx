@@ -1,8 +1,18 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import Select from 'react-select';
 import { DebugForm } from './Debug';
 
 const products = ['iPhone', 'Watch', 'iMac', 'Mac Pro', 'MacBook Air', 'MacBook Pro'];
+
+const productsOptions = [
+  { value: 'iphone', label: 'iPhone' },
+  { value: 'watch', label: 'Watch' },
+  { value: 'imac', label: 'iMac' },
+  { value: 'macpro', label: 'Mac Pro' },
+  { value: 'macbookair', label: 'MacBook Air' },
+  { value: 'macbookpro', label: 'MacBook Pro' },
+];
 
 const FormCompany = ({ form }) => (
   <div className="container">
@@ -59,6 +69,19 @@ const FormCompany = ({ form }) => (
             <option value={val} key={val}>{val}</option>
           )}
         </select>
+
+        <div>
+          <b>{form.$('productsMultiselect').label}</b>
+          <i>{form.$('productsMultiselect').error}</i>
+        </div>
+        <Select
+          multi
+          options={productsOptions}
+          value={form.$('productsMultiselect').value}
+          name={form.$('productsMultiselect').name}
+          onChange={form.$('productsMultiselect').sync}
+          resetValue={[]}
+        />
 
         <br />
         <br />

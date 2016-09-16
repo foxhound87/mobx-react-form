@@ -1,10 +1,20 @@
-# 1.8.0
+# 1.10.0
 
-* Decoupled validator from fields
+* Fixed some documentation errors
+* Enabled VJF enhancement
+* Support for React Select
+
+# 1.9.0
+
 * Validation Plugins
 * Multiple Validation Styles
 * Support for Async Validation
+* Support for Material UI, React Widgets
 * Package name changed from `mobx-ajv-form` to `mobx-react-form`
+
+# 1.8.0
+
+* Decoupled validator from fields
 
 # 1.7.0
 

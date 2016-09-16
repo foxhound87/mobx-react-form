@@ -1,8 +1,8 @@
-## Enabling JsonSchema Validation Keywords
+## Enabling Json Schema Validation Keywords
 
-We are using [AJV](https://github.com/epoberezkin/ajv) to enable JsonSchema Validation Keywords with automatic Error Messages.
+We are using epoberezkin's [AJV](https://github.com/epoberezkin/ajv) to enable Json Schema Validation Keywords (**SVK**) with automatic Error Messages.
 
-### Install AJV
+### Install `AJV`
 `ajv` it's not included in the package, so you have to install it manually.
 
 ```bash
@@ -11,7 +11,7 @@ npm install --save ajv
 
 ### Define a plugins object
 
-We use `ajv` as **JVK** plugin.
+We use `ajv` as **SVK** plugin.
 
 ```javascript
 import ajv from 'ajv';

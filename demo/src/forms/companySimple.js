@@ -27,6 +27,11 @@ const fields = {
     label: 'Products',
     value: 'iMac',
   },
+  productsMultiselect: {
+    label: 'Products - Multiselect (react-select)',
+    value: { value: 'watch', label: 'Watch' },
+    rules: 'required',
+  },
 };
 
 export default { fields, schema };

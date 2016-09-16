@@ -1,8 +1,8 @@
 ## Enabling Declarative Validation Rules
 
-We are using [ValidatorJS](https://github.com/skaterdav85/validatorjs) to enable Declarative Validation Rules with automatic Error Messages.
+We are using skaterdav85's [ValidatorJS](https://github.com/skaterdav85/validatorjs) to enable Declarative Validation Rules (**DVR**) with automatic Error Messages.
 
-### Install ValidatorJS
+### Install `ValidatorJS`
 `ValidatorJS` it's not included in the package, so you have to install it manually.
 
 ```bash

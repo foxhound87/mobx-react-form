@@ -165,8 +165,8 @@ export default class Field {
   @action
   reset() {
     const useDefaultValue = (this.defaultValue !== this.initialValue);
-    if (useDefaultValue) this.$value = this.defaultValue;
-    if (!useDefaultValue) this.$value = this.initialValue;
+    if (useDefaultValue) this.setValue(this.defaultValue);
+    if (!useDefaultValue) this.setValue(this.initialValue);
     this.interacted = false;
   }
 

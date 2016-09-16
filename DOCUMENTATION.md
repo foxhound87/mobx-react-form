@@ -15,20 +15,26 @@
 
 ## Validation Plugins
 
-| Modes | Result | Provider Library |
-|---|---|---|
-| **VJF** | Enable Vanilla Javascript Validation Functions | **default** |
-| **JVK** | Enable json-schema Validation and Keywords | epoberezkin's **ajv** |
-| **DVR** | Enable Declarative Validation Rules | skaterdav85's **validatorjs** |
+| Modes | Description | Default | Provider Library |
+|---|---|---|---|
+| **VJF** | Vanilla Javascript Validation Functions | YES | chriso's **validator** (optional) |
+| **SVK** | Json Schema Validation Keywords | NO | epoberezkin's **ajv** |
+| **DVR** | Declarative Validation Rules | NO | skaterdav85's **validatorjs** |
 
 > Some plugins can be extended with custom functionalities, you'll find out how by reading this documentation.
 
-- [Enabling JsonSchema Validation Keywords (JVK)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingJVKValidation.md)
+###### VALIDATION MODES
+- [Enabling Vanilla Javascript Validation Functions (VJF)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingVJFValidation.md)
+- [Enabling Json Schema Validation Keywords (SVK)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingSVKValidation.md)
 - [Enabling Declarative Validation Rules (DVR)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingDVRValidation.md)
-- [Custom JsonSchema Validation Keywords (extend)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationKeywords.md)
-- [Custom Declarative Validation Rules (extend)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationRules.md)
+
+###### EXTEND VALIDATION
 - [Custom Vanilla Javascript Validation Functions](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationFunctions.md)
-- [Async JsonSchema Validation Keywords](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationKeywords.md#async-validation-keywords)
+- [Custom Json Schema Validation Keywords (extend)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationKeywords.md)
+- [Custom Declarative Validation Rules (extend)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationRules.md)
+
+###### ASYNC VALIDATION
+- [Async Json Schema Validation Keywords](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationKeywords.md#async-validation-keywords)
 - [Async Declarative Validation Rules](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationRules.md#async-validation-rules)
 - [Async Vanilla Javascript Validation Functions](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationFunctions.md#async-validation-functions)
 
@@ -76,9 +82,9 @@ All package listed below are not included in the `mobx-react-form` and must be i
 
 | Package | Author | | | Description |
 |---|---|---|---|---|
-| **ajv** | epoberezkin | [GitHub&#10140;](https://github.com/epoberezkin/ajv) | [NPM&#10140;](https://www.npmjs.com/package/ajv) | A v5 compliant JSON Schema Validator with custom validation keywords support and automatic error messages |
-| **validatorjs** | skaterdav85 | [GitHub&#10140;](https://github.com/skaterdav85/validatorjs) | [NPM&#10140;](https://www.npmjs.com/package/validatorjs) | Validation library inspired by Laravel's Validator with readable and declarative validation rules and error messages with multilingual support |
-| **validator** | chriso | [GitHub&#10140;](https://github.com/chriso/validator.js) | [NPM&#10140;](https://www.npmjs.com/package/validator) | String validation and sanitization, useful for enhance custom validation functions |
+| **ajv** | [epoberezkin](https://github.com/epoberezkin) | [GitHub&#10140;](https://github.com/epoberezkin/ajv) | [NPM&#10140;](https://www.npmjs.com/package/ajv) | A v5 compliant JSON Schema Validator with custom validation keywords support and automatic error messages |
+| **validatorjs** | [skaterdav85](https://github.com/skaterdav85) | [GitHub&#10140;](https://github.com/skaterdav85/validatorjs) | [NPM&#10140;](https://www.npmjs.com/package/validatorjs) | Validation library inspired by Laravel's Validator with readable and declarative validation rules and error messages with multilingual support |
+| **validator** | [chriso](https://github.com/chriso) | [GitHub&#10140;](https://github.com/chriso/validator.js) | [NPM&#10140;](https://www.npmjs.com/package/validator) | String validation and sanitization, useful for enhance custom validation functions |
 
 
 <br>

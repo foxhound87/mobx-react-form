@@ -1,12 +1,12 @@
-## Custom Validation Keywords
+## Custom Json Schema Validation Keywords
 
-Using `ajv` as plugins, the **SVK** funcionalities will be enabled and can be extended too.
+Using `ajv` as plugins, the Json Schema Validation Keywords (**SVK**) funcionalities will be enabled and can be extended too.
 
 > See the AJV documentation: [Defining Custom Keywords](https://github.com/epoberezkin/ajv/blob/master/CUSTOM.md) for a deeper explaination
 
 Below we see how to implement it in `mobx-react-form`:
 
-### Define a `keyword` object with the custom keyword
+### Define a `keywords` object with the custom keyword
 
 ```javascript
 
@@ -76,7 +76,7 @@ var schema = {
 const extend = {
   keywords: {
     checkUser: {
-      async: true, // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+      async: true, // <<---
       validate: (field, value) =>
         simulateAsyncFindUserCall({ [field]: value })
           .then((items) => (items.length === 0)),
@@ -89,7 +89,7 @@ const extend = {
 
 ```javascript
 const schema = {
-  $async: true, // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  $async: true, // <<---
   type: 'object',
   properties: {
     ...

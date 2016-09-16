@@ -7,12 +7,14 @@ import utils from '../utils';
 */
 export default class VJF {
 
-  enabled = true;
+  validator = null;
 
   options = {};
 
-  constructor(enabled, { promises = [], options = {} }) {
-    this.enabled = enabled;
+  constructor(plugin, { promises = [], options = {} }) {
+    if (_.isObject(plugin)) {
+      this.validator = plugin;
+    }
     this.promises = promises;
     this.options = options;
   }
@@ -80,7 +82,7 @@ export default class VJF {
 
   handleFunctionResult($fn, field, fields) {
     // executre validation function
-    const res = $fn({ field, fields });
+    const res = $fn({ field, fields, validator: this.validator });
 
     /**
       Handle "array"

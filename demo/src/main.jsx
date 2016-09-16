@@ -4,7 +4,9 @@ import moment from 'moment';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
+
 import 'react-widgets/lib/less/react-widgets.less';
+import 'react-select/dist/react-select.css';
 
 import Main from './components/Main';
 
