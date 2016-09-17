@@ -23,6 +23,8 @@
 
 > Some plugins can be extended with custom functionalities, you'll find out how by reading this documentation.
 
+<br>
+
 ###### VALIDATION MODES
 - [Enabling Vanilla Javascript Validation Functions (VJF)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingVJFValidation.md)
 - [Enabling Json Schema Validation Keywords (SVK)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingSVKValidation.md)
@@ -48,14 +50,22 @@
 
 ## Form Initialization
 
-**Usage:** `new Form({ fields, options, plugins, schema });`
-
 | Property | Description | Help |
 |---|---|---|
 | **fields**    | Object which represents the fields: name, label, value. | [defining fields](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md) |
 | **options**   | Options used by the `form` or the imported `plugins` which may alter the validation behavior. | [form options](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-options) |
 | **plugins**   | Enable additional functionalities using external libraries. | [validation plugins](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#validation-plugins) |
-| **schema**    | The json-schema for the validation. | [json schema](http://json-schema.org) |
+| **schema**    | The json-schema for the validation (if **SVK** mode is active). | [json schema](http://json-schema.org) |
+
+**Usage**
+
+``` javascript
+import Form from 'mobx-react-form';
+
+... // define all needed objects
+
+new Form({ fields, options, plugins, schema });
+```
 
 <br>
 

@@ -4,12 +4,12 @@
 
 | Property | Type | MobX Type | Info |
 |---|---|---|---|
-| **key** | string | - | Field key (set on form constructor) |
-| **name** | string | - | Field name or key (set on form constructor) |
-| **label** | string | - | Field label name (set on form constructor). If it is not specified, the `name` will be returned instead. |
-| **value** | string, array, object, boolean | computed | Computed value of the field. |
+| **key** | string | - | Field key. |
+| **name** | string | - | Field name or key. |
+| **label** | string | - | Field label name. If it is not specified, the `name` will be returned instead. |
 | **default** | boolean | - | The default/initial value of the field. |
 | **disabled** | boolean | - | The disabled state of the field. |
+| **value** | string, array, object, boolean | computed | Computed value of the field. |
 | **isValid** | boolean | computed | Check if the field is valid. |
 | **isDirty** | boolean | computed | Check if the field is dirty. |
 | **isPristine** | boolean | computed | Check if the field is pristine. |

@@ -2,14 +2,12 @@ import _ from 'lodash';
 import utils from '../utils';
 
 /**
- Schema Validation Keywords
+  Schema Validation Keywords
 
     const plugins = {
       svk: {
-        ajv: {
-          package: ajv,
-          extend: callback,
-        },
+        package: ajv,
+        extend: callback,
       },
     };
 

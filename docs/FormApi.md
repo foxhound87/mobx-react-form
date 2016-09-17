@@ -18,7 +18,6 @@
 | Method | Input | Output | Info |
 |---|---|---|---|
 | **$(key)** | string | object | Field selector shortcut. |
-| **fieldKeys()** | - | array | Get an array with all fields keys/names. |
 | **update(obj)** | object | - | Pass an object to update the form with new values. |
 | **values()** | - | object | Get an object with all fields values. |
 | **clear()** | - | - | Clear the form to empty values. |

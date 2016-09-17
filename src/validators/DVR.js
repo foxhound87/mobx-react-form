@@ -1,16 +1,14 @@
 import _ from 'lodash';
 
 /**
- Declarative Validation Rules
+  Declarative Validation Rules
 
-  const plugins = {
-    dvr: {
-      validatorjs: {
+    const plugins = {
+      dvr: {
         package: validatorjs,
         extend: callback,
       },
-    },
-  };
+    };
 
 */
 export default class DVR {

@@ -81,7 +81,7 @@ export default class Form {
           fields: this.fields,
           values: this.values(),
         });
-        // wait all promises than resolve if is valid
+        // wait all promises then resolve if is valid
         return Promise.all(this.validator.promises)
           .then(() => resolve(this.isValid));
       });
