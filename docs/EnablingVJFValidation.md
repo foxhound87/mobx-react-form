@@ -13,7 +13,7 @@ npm install --save validator
 
 ### Define a plugins object
 
-We use `ValidatorJS` as **DVR** plugin.
+We use `validator` as **VJF** plugin.
 
 ```javascript
 import validator from 'validator';
