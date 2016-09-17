@@ -64,7 +64,7 @@ describe('Form isValid', () => {
   it('$H isValid should be true', () => expect($H.isValid).to.be.true);
   it('$I isValid should be true', () => expect($I.isValid).to.be.true);
   it('$L isValid should be false', () => expect($L.isValid).to.be.false);
-  it('$M isValid should be true', () => expect($M.isValid).to.be.true);
+  it('$M isValid should be false', () => expect($M.isValid).to.be.false);
   it('$N isValid should be false', () => expect($N.isValid).to.be.false);
 });
 
@@ -169,6 +169,9 @@ describe('others fields', () => {
 
   it('$M username.initial should be equal to "SteveJobs"', () =>
     expect($M.fields.username.initial).to.be.equal('SteveJobs'));
+
+  it('$M username.isValid should be false', () =>
+    expect($M.fields.username.isValid).to.be.false);
 
   it('$N email.isValid should be false', () =>
     expect($N.fields.email.isValid).to.be.false);

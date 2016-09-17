@@ -216,6 +216,7 @@ export default class Field {
     return (!_.isEmpty(this.validationAsyncData)
       && (this.validationAsyncData.valid === false))
       || (this.validationErrorStack.length !== 0)
+      || _.isString(this.asyncErrorMessage)
       || _.isString(this.errorMessage);
   }
 

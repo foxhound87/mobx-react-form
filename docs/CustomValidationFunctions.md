@@ -24,17 +24,14 @@ export function isEmail({ field }) {
 
 ```javascript
 const fields = {
-  username: {
-    label: 'Username',
-    value: 's.jobs@apple.com',
-    validate: [isEmail, shouldBeEqualTo('email')],
-    related: ['email'],
-  },
+  ...
   email: {
     label: 'Email',
-    value: 's.jobs@apple.com',
-    validate: isEmail,
-    related: ['username'],
+    related: ['emailConfirm'],
+  },
+  emailConfirm: {
+    label: 'Confirm Email',
+    validate: [isEmail, shouldBeEqualTo('email')],
   },
   ...
 };

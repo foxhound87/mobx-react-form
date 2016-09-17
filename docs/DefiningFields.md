@@ -70,3 +70,17 @@ const fields = {
 };
 ```
 
+### Set `related` fields to be validated at the same time
+
+```javascript
+const fields = {
+  email: {
+    label: 'Email',
+    validate: isEmail,
+    related: ['emailConfirm'], // <<---
+  },
+  emailConfirm: {
+    label: 'Confirm Email',
+    validate: [isEmail, shouldBeEqualTo('email')],
+  },
+};
