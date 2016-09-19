@@ -68,11 +68,11 @@ export default class Form {
         this.validate({ key, showErrors: true, recursive: true })));
   }
 
-  validate({ key = null, showErrors = true, recursive = false } = {}) {
+  validate(key = null, { showErrors = true, recursive = false } = {}) {
     this.validator.promises = []; // reset validator promises stack
     const $showErrors = showErrors && !this.eventsRunning(['clear', 'reset']);
 
-    if (!key) {
+    if (!_.isString(key)) {
       // validate all fields
       return new Promise((resolve) => {
         this.validator.validateAll({
