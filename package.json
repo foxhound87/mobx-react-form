@@ -57,7 +57,7 @@
     }
   },
   "dependencies": {
-    "lodash": "4.15.0",
+    "lodash": "4.16.0",
     "mobx": "2.5.1"
   },
   "devDependencies": {
