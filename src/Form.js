@@ -45,15 +45,15 @@ export default class Form {
   initFields() {
     this.mergeSchemaDefaults();
     const keys = Object.keys(this.fields);
-    keys.forEach((key) => _.merge(this.fields, {
+    keys.forEach(key => _.merge(this.fields, {
       [key]: new Field(key, this.fields[key]),
     }));
   }
 
   mergeSchemaDefaults() {
     const schema = this.validator.schema();
-    if (Object.keys(this.fields).length === 0 && !!schema) {
-      const properties = schema.properties;
+    const properties = schema.properties;
+    if (Object.keys(this.fields).length === 0 && !!properties) {
       Object.keys(properties).forEach((property) => {
         const label = properties[property].title;
         const value = properties[property].default;
@@ -69,34 +69,33 @@ export default class Form {
   }
 
   validate({ key = null, showErrors = true, recursive = false } = {}) {
+    this.validator.promises = []; // reset validator promises stack
     const $showErrors = showErrors && !this.eventsRunning(['clear', 'reset']);
 
     if (!key) {
       // validate all fields
       return new Promise((resolve) => {
-        // validate all fields (return a promise)
         this.validator.validateAll({
           recursive,
           showErrors: $showErrors,
           fields: this.fields,
           values: this.values(),
         });
-        // wait all promises then resolve if is valid
+        // wait all promises then resolve
         return Promise.all(this.validator.promises)
           .then(() => resolve(this.isValid));
       });
     }
 
-    // validate single field by key
-    this.validator
-      .validateField(this.fields, key, $showErrors, recursive);
-
-    return this.fields[key].isValid;
-  }
-
-  errors() {
-    return _.reduce(this.fields, (obj, field) =>
-      _.set(obj, field.key, field.error), {});
+    // validate single field
+    return new Promise((resolve) => {
+      // validate single field by key
+      this.validator
+        .validateField(this.fields, key, $showErrors, recursive);
+      // wait all promises then resolve
+      return Promise.all(this.validator.promises)
+        .then(() => resolve(this.fields[key].isValid));
+    });
   }
 
   /**
@@ -108,6 +107,10 @@ export default class Form {
 
   values() {
     return _.mapValues(this.fields, 'value');
+  }
+
+  errors() {
+    return _.mapValues(this.fields, 'error');
   }
 
   invalidate(message) {
@@ -163,7 +166,7 @@ export default class Form {
     const $e = 'clear';
     this.events.push($e);
     this.validator.genericErrorMessage = null;
-    _.each(this.fields, (field) => field.clear());
+    _.each(this.fields, field => field.clear());
     this.events.pop($e);
   }
 
@@ -172,7 +175,7 @@ export default class Form {
     const $e = 'reset';
     this.events.push($e);
     this.validator.genericErrorMessage = null;
-    _.each(this.fields, (field) => field.reset());
+    _.each(this.fields, field => field.reset());
     this.events.pop($e);
   }
 

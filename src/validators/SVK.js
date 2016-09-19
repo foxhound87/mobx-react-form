@@ -67,7 +67,7 @@ export default class SVK {
       if (!field.hasError) field.setInvalid(this.loadingMessage(), true);
       const $p = validate
         .then(() => field.setValidationAsyncData({ valid: true, message: '' }))
-        .catch((err) => err && this.handleAsyncError(field, err.errors))
+        .catch(err => err && this.handleAsyncError(field, err.errors))
         .then(() => this.executeAsyncValidation(field))
         .then(() => field.showAsyncErrors());
 
@@ -80,7 +80,7 @@ export default class SVK {
   }
 
   handleSyncError(field) {
-    const fieldErrorObj = _.find(this.validate.errors, (item) =>
+    const fieldErrorObj = _.find(this.validate.errors, item =>
       _.includes(item.dataPath, `.${field.name}`));
     // if fieldErrorObj is not undefined, the current field is invalid.
     if (_.isUndefined(fieldErrorObj)) return;
@@ -93,7 +93,7 @@ export default class SVK {
 
   handleAsyncError(field, errors) {
     // find current field error message from ajv errors
-    const fieldErrorObj = _.find(errors, (item) =>
+    const fieldErrorObj = _.find(errors, item =>
       _.includes(item.dataPath, `.${field.name}`));
     // if fieldErrorObj is not undefined, the current field is invalid.
     if (_.isUndefined(fieldErrorObj)) return;

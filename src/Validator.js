@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import _ from 'lodash';
 
 import VJF from './validators/VJF'; // Vanilla JavaScript Functions
-import SVK from './validators/SVK'; // Schema Validation Keywords
+import SVK from './validators/SVK'; // Json Schema Validation Keywords
 import DVR from './validators/DVR'; // Declarative Validation Rules
 
 export default class Validator {
@@ -94,7 +94,7 @@ export default class Validator {
     const { svk, dvr, vjf } = this.validators;
     // validate with json schema validation keywords (svk)
     if (svk) svk.validateField(field);
-    // validate with json schema validation keywords (svk)
+    // validate with json schema validation keywords (dvr)
     if (dvr) dvr.validateField(field);
     // validate with vanilla js functions (vjf)
     if (vjf) vjf.validateField(field, fields);
@@ -110,7 +110,7 @@ export default class Validator {
       and recursive validation allowed
     */
     if (!_.isEmpty(field.related)) {
-      _.each(field.related, ($rel) =>
+      _.each(field.related, $rel =>
         this.validateField(fields, $rel, showErrors, false));
     }
   }

@@ -1,5 +1,6 @@
-// import MobxReactForm from 'mobx-react-form';
-import MobxReactForm from '../../../src';
+// import MobxReactForm from 'mobx-react-form'; // load from package
+// import MobxReactForm from '../../../lib'; // load from build
+import MobxReactForm from '../../../src'; // load from source
 
 export default class Form extends MobxReactForm {
 
@@ -10,7 +11,7 @@ export default class Form extends MobxReactForm {
     e.preventDefault();
 
     this.validate()
-      .then((isValid) => isValid
+      .then(isValid => isValid
         ? this.onSuccess()
         : this.onError());
   };

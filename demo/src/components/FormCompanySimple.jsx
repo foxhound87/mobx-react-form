@@ -65,7 +65,7 @@ const FormCompany = ({ form }) => (
           name={form.$('products').name}
           onChange={form.$('products').sync}
         >
-          {products.map((val) =>
+          {products.map(val =>
             <option value={val} key={val}>{val}</option>
           )}
         </select>

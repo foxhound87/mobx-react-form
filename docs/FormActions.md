@@ -55,6 +55,19 @@ form.validate()
   });
 ```
 
+### Validate single Field
+
+The `validate(key)` action get an optional field `key` in input.
+
+The callback takes a `boolean` (`isValid`) with the validation state of the form.
+
+```javascript
+form.validate('email')
+  .then((isValid) => {
+    ... // Use `isValid` to check the validation status
+  });
+```
+
 ### Invalidate the Form
 
 > Takes a `string` in input for the error message.
@@ -72,7 +85,7 @@ form.errors();
 ```
 ```
 => {
-  username: 'TheUsernameError',
-  password: 'ThePasswordError',
+  username: 'The Username Error',
+  password: 'The Password Error',
 }
 ```

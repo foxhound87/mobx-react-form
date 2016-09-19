@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import jsonStringifySafe from 'json-stringify-safe';
 import _ from 'lodash';
 
-const merge = (field) => ({
+const merge = field => ({
   default: field.default,
   error: field.error,
   hasError: field.hasError,
@@ -66,7 +66,7 @@ export const DebugForm = observer(({ form }) => (
       {parseFormData(form)}
     </pre>
     <hr />
-    {_.map(form.fields, (field) =>
+    {_.map(form.fields, field =>
       <DebugField field={field} key={field.key} />
     )}
   </div>

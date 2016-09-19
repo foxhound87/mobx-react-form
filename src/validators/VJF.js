@@ -28,7 +28,7 @@ export default class VJF {
 
     // map only if is an array of validator functions
     if (_.isArray($fn)) {
-      $fn.map((fn) => this.collectData(fn, field, fields));
+      $fn.map(fn => this.collectData(fn, field, fields));
     }
 
     // it's just one function
@@ -48,7 +48,7 @@ export default class VJF {
       if (!field.hasError) field.setInvalid(this.loadingMessage(), true);
 
       const $p = res
-        .then(($res) => field.setValidationAsyncData({
+        .then($res => field.setValidationAsyncData({
           valid: $res[0],
           message: $res[1],
         }))
@@ -70,7 +70,7 @@ export default class VJF {
   executeValidation(field) {
     // otherwise find an error message to show
     field.validationFunctionsData
-      .map((rule) => (rule.valid === false)
+      .map(rule => (rule.valid === false)
         && field.setInvalid(rule.message));
   }
 

@@ -12,6 +12,8 @@ import $L from './form.l.js';
 import $M from './form.m.js';
 import $N from './form.n.js';
 
+export const up = str => str.toUpperCase();
+
 export default {
   a: $A,
   b: $B,
@@ -26,5 +28,3 @@ export default {
   m: $M,
   n: $N,
 };
-
-export const up = (str) => str.toUpperCase();

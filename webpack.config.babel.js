@@ -1,38 +1,30 @@
-import { join } from 'path';
+import path from 'path';
 
-const include = join(__dirname, 'src');
+const loaders = [{
+  test: /\.js$/,
+  loader: 'babel-loader',
+  include: path.join(__dirname, 'src'),
+}, {
+  test: /\.json$/,
+  loader: 'json-loader',
+}];
 
 export default {
   devtool: 'source-map',
   entry: './src/index',
   output: {
-    path: join(__dirname, 'umd'),
+    path: path.join(__dirname, 'umd'),
+    library: 'MobxReactForm',
     libraryTarget: 'umd',
-    library: 'ReactiveForm',
+  },
+  resolve: {
+    root: path.resolve('.', 'src'),
+    modulesDirectories: ['node_modules'],
+    extensions: ['', '.js', '.jsx', '.json'],
   },
   externals: {
     lodash: '_',
     mobx: 'mobx',
-    ajv: 'Ajv',
   },
-  module: {
-    loaders: [{
-      query: {
-        presets: ['es2015', 'stage-0'],
-        plugins: [
-          'add-module-exports',
-          'transform-decorators-legacy',
-          'transform-decorators',
-          'transform-class-properties',
-          'transform-es2015-modules-umd',
-        ],
-      },
-      test: /\.js$/,
-      loader: 'babel-loader',
-      include,
-    }, {
-      test: /\.json$/,
-      loader: 'json-loader',
-    }],
-  },
+  module: { loaders },
 };

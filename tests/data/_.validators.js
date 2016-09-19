@@ -4,7 +4,7 @@ export function checkUser({ field }) {
   const msg = `Hey! The username ${field.value} is already taken.`;
   // show error if the call does not returns entries
   return simulateAsyncFindUserCall({ user: field.value })
-    .then((items) => [(items.length === 0), msg]);
+    .then(items => [(items.length === 0), msg]);
 }
 
 export function shouldBeEqualTo(target) {
