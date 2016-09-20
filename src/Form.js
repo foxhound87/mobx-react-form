@@ -68,11 +68,13 @@ export default class Form {
         this.validate({ key, showErrors: true, recursive: true })));
   }
 
-  validate(key = null, { showErrors = true, recursive = false } = {}) {
-    this.validator.promises = []; // reset validator promises stack
+  validate(opt = {}, obj = {}) {
+    const $key = _.has(opt, 'key') ? opt.key : opt;
+    const showErrors = _.has(opt, 'showErrors') ? opt.showErrors : obj.showErrors || true;
+    const recursive = _.has(opt, 'recursive') ? opt.recursive : obj.recursive || false;
     const $showErrors = showErrors && !this.eventsRunning(['clear', 'reset']);
 
-    if (!_.isString(key)) {
+    if (_.isObject(opt) && !_.isString($key)) {
       // validate all fields
       return new Promise((resolve) => {
         this.validator.validateAll({
@@ -91,10 +93,10 @@ export default class Form {
     return new Promise((resolve) => {
       // validate single field by key
       this.validator
-        .validateField(this.fields, key, $showErrors, recursive);
+        .validateField(this.fields, $key, $showErrors, recursive);
       // wait all promises then resolve
       return Promise.all(this.validator.promises)
-        .then(() => resolve(this.fields[key].isValid));
+        .then(() => resolve(this.fields[$key].isValid));
     });
   }
 

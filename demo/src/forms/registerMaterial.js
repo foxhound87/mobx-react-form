@@ -26,7 +26,6 @@ const fields = {
     label: 'Username',
     value: 'SteveJobs',
     rules: 'checkUser|required|string|between:5,15',
-    // rules: 'integer',
     // default: 'Claudio',
     // validate: [checkUser],
   },
