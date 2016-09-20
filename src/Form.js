@@ -185,4 +185,35 @@ export default class Form {
     _.each(obj, (val, key) =>
       this.fields[key].update(val));
   }
+
+  /**
+    On Submit
+   */
+  handleOnSubmit = (e, o = {}) => {
+    e.preventDefault();
+
+    const execOnSuccess = _.has(o, 'onSuccess') ? o.onSuccess : this.onSuccess;
+    const execOnError = _.has(o, 'onError') ? o.onError : this.onError;
+
+    this.validate()
+      .then(isValid => isValid
+        ? execOnSuccess(this)
+        : execOnError(this));
+  };
+
+  /**
+    On Clear
+   */
+  handleOnClear = (e) => {
+    e.preventDefault();
+    this.clear();
+  };
+
+  /**
+    On Reset
+   */
+  handleOnReset = (e) => {
+    e.preventDefault();
+    this.reset();
+  };
 }

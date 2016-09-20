@@ -38,3 +38,14 @@ const schema = {
 ```javascript
 new Form({ fields, plugins, schema });
 ```
+
+<br>
+
+
+## Remove AJV Warnings from webpack
+
+Add this line to your webpack config in the `plugins` array:
+
+```javascript
+new webpack.IgnorePlugin(/regenerator|nodent|js\-beautify/, /ajv/)
+```

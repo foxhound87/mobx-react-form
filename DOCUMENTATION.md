@@ -3,27 +3,27 @@
 - [Defining the Form Fields](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md)
 - [Form Initialization](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-initialization)
 - [Form Actions](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormActions.md)
-- [Validation Plugins](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#validation-plugins)
+- [Form Events](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormEvents.md)
 - [Form Options](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-options)
+- [Validation Plugins](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#validation-plugins)
 - [Form API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormApi.md)
 - [Fields API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FieldsApi.md)
 - [Supported Validation Packages](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#supported-validation-packages)
-- [Remove AJV Warnings from webpack](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#remove-ajv-warnings-from-webpack)
+- [Remove AJV Warnings from webpack](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingSVKValidation.md#remove-ajv-warnings-from-webpack)
 
 
 <br>
 
 ## Validation Plugins
 
+> Some plugins can be `extended` with custom functionalities (see below).
+
 | Modes | Description | Default | Provider Library |
 |---|---|---|---|
-| **VJF** | Vanilla Javascript Validation Functions | YES | chriso's **validator** (optional) |
 | **SVK** | Json Schema Validation Keywords | NO | epoberezkin's **ajv** |
 | **DVR** | Declarative Validation Rules | NO | skaterdav85's **validatorjs** |
+| **VJF** | Vanilla Javascript Validation Functions | YES | chriso's **validator** (optional) |
 
-> Some plugins can be extended with custom functionalities, you'll find out how by reading this documentation.
-
-<br>
 
 ###### VALIDATION MODES
 - [Enabling Vanilla Javascript Validation Functions (VJF)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingVJFValidation.md)
@@ -96,13 +96,3 @@ All package listed below are not included in the `mobx-react-form` and must be i
 | **validatorjs** | [skaterdav85](https://github.com/skaterdav85) | [GitHub&#10140;](https://github.com/skaterdav85/validatorjs) | [NPM&#10140;](https://www.npmjs.com/package/validatorjs) | Validation library inspired by Laravel's Validator with readable and declarative validation rules and error messages with multilingual support |
 | **validator** | [chriso](https://github.com/chriso) | [GitHub&#10140;](https://github.com/chriso/validator.js) | [NPM&#10140;](https://www.npmjs.com/package/validator) | String validation and sanitization, useful for enhance custom validation functions |
 
-
-<br>
-
-## Remove AJV Warnings from webpack
-
-Add this line to your webpack config in the `plugins` array:
-
-```javascript
-new webpack.IgnorePlugin(/regenerator|nodent|js\-beautify/, /ajv/)
-```

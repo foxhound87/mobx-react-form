@@ -3,7 +3,7 @@
   "license": "MIT",
   "version": "0.0.0-semantically-released",
   "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
-  "description": "Automagically manage React forms state with MobX and automatic validation.",
+  "description": "Automagically manage React forms state and automatic validation with MobX.",
   "homepage": "https://www.npmjs.com/package/mobx-react-form",
   "main": "lib/index.js",
   "scripts": {
@@ -31,14 +31,15 @@
     "url": "https://github.com/foxhound87/mobx-react-form.git"
   },
   "keywords": [
-    "mobx",
-    "react",
     "form",
-    "ajv",
+    "react",
+    "mobx",
+    "state",
+    "validation",
+    "validator",
     "json",
     "schema",
-    "validation",
-    "validator"
+    "ajv"
   ],
   "files": [
     "es6",

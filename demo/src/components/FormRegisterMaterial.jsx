@@ -72,7 +72,7 @@ const FormRegister = ({ form }) => (
         <br />
         <div className="ctrl">
           <button
-            disabled={!form.isValid}
+            // disabled={!form.isValid}
             type="submit"
             onClick={form.handleOnSubmit}
           >Submit</button>
