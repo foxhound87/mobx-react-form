@@ -20,6 +20,7 @@ The package provide those ready to use event handlers:
 
 The `onSuccess` and `onError` mehtods takes the `form` object in input. So you can perform more actions after the validation occurs.
 
+All Event Handlers methods take the `Proxy` object and can be easly included in yours components:
 
 ```javascript
 ...
@@ -41,9 +42,6 @@ The `onSuccess` and `onError` mehtods takes the `form` object in input. So you c
 
 ...
 ```
-
-All Event Handlers methods take the `Proxy` object and can be easly included in yours components:
-
 
 ### Extending the Form object with the Events Handlers
 
