@@ -24,13 +24,13 @@ export default class Field {
   defaultValue = null;
   initialValue = null;
 
-  constructor(key, field = {}) {
-    this.initField(key, field);
+  constructor(key, field = {}, label = null) {
+    this.initField(key, field, label);
   }
 
   @action
-  initField(key, field) {
-    this.key = key;
+  initField($key, $field, $label = null) {
+    this.key = $key;
 
     /**
       Assume the field is an array, a boolean, a string or a number
@@ -42,14 +42,14 @@ export default class Field {
         }
     */
     if (
-    _.isBoolean(field) ||
-    _.isArray(field) ||
-    _.isString(field) ||
-    _.isNumber(field)) {
+    _.isBoolean($field) ||
+    _.isArray($field) ||
+    _.isString($field) ||
+    _.isNumber($field)) {
       /* The field IS the value here */
-      this.name = key;
-      this.label = key;
-      this.initialValue = this.parseInitialValue(field);
+      this.name = $key;
+      this.label = $label || $key;
+      this.initialValue = this.parseInitialValue($field);
       this.defaultValue = this.initialValue;
       this.$value = this.initialValue;
       return;
@@ -68,13 +68,13 @@ export default class Field {
           },
         }
     */
-    if (_.isObject(field)) {
-      const { name, label, disabled, rules, validate, related } = field;
-      this.initialValue = this.parseInitialValue(field.value);
-      this.defaultValue = this.parseDefaultValue(field.default);
+    if (_.isObject($field)) {
+      const { name, label, disabled, rules, validate, related } = $field;
+      this.initialValue = this.parseInitialValue($field.value);
+      this.defaultValue = this.parseDefaultValue($field.default);
       this.$value = this.initialValue;
-      this.name = name || key;
-      this.label = label || key;
+      this.name = name || $key;
+      this.label = $label || label || $key;
       this.rules = rules || null;
       this.validate = toJS(validate) || null;
       this.disabled = disabled || false;

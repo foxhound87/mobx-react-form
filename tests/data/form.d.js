@@ -19,6 +19,13 @@ const fields = {
   assets: 305.277,
 };
 
+const labels = {
+  username: 'Username',
+  email: 'E-mail',
+  password: 'Password',
+  terms: 'Accept Terms of Service',
+};
+
 const schema = {
   type: 'object',
   properties: {
@@ -32,4 +39,4 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema, plugins });
+export default new Form({ fields, labels, schema, plugins });

@@ -43,11 +43,14 @@ export default class Form {
     this.validator = new Validator(obj);
   }
 
-  initFields() {
+  initFields(obj = {}) {
     this.mergeSchemaDefaults();
     const keys = Object.keys(this.fields);
     keys.forEach(key => _.merge(this.fields, {
-      [key]: new Field(key, this.fields[key]),
+      [key]: new Field(
+        key, this.fields[key],
+        _.has(obj.labels, key) ? obj.labels[key] : null
+      ),
     }));
   }
 

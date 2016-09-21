@@ -158,6 +158,9 @@ describe('others fields', () => {
   it('$D assets.isEmpty should be false', () =>
     expect($D.fields.assets.isEmpty).to.be.false);
 
+  it('$D terms.label should be equal to "Accept Terms of Service"', () =>
+    expect($D.fields.terms.label).to.be.equal('Accept Terms of Service'));
+
   it('$I username.value should be equal to "SteveJobs"', () =>
     expect($I.fields.username.value).to.be.equal('SteveJobs'));
 

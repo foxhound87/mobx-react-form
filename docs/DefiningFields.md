@@ -84,3 +84,19 @@ const fields = {
     validate: [isEmail, shouldBeEqualTo('email')],
   },
 };
+
+<br>
+
+## Define Labels Separately
+
+If you want to provide a simple `fields` object with only the initial state (for example by directly passing an object of a DB query), you can set the Labels for each fields separately creating a `labels` object and passing it to the form costructor:
+
+```javascript
+const labels = {
+  username: 'Username',
+  password: 'Password',
+  passwordConfirm: 'Confirm Password',
+};
+
+new Form({ fields, labels });
+```
