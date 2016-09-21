@@ -13,8 +13,9 @@ export default class Form {
   fields = {};
 
   options = {
-    validateOnInit: true,
     showErrorsOnInit: false,
+    validateOnInit: true,
+    validateOnChange: true,
     defaultGenericError: null,
     loadingMessage: null,
     allowRequired: false,
@@ -63,6 +64,8 @@ export default class Form {
   }
 
   observeFields() {
+    if (this.options.validateOnChange === false) return;
+    // observe and validate each field
     _.each(this.fields, (field, key) =>
       observe(this.fields[key], '$value', () =>
         this.validate({ key, showErrors: true, recursive: true })));

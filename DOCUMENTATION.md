@@ -73,8 +73,9 @@ new Form({ fields, options, plugins, schema });
 
 | Option | Type | Default | Info |
 |---|---|---|---|
-| **validateOnInit** | boolean | true | Validate of the whole form on initilization. |
 | **showErrorsOnInit** | boolean | false | Show or hide error messages for `validateOnInit`. |
+| **validateOnInit** | boolean | true | Validate of the whole form on initilization. |
+| **validateOnChange** | boolean | true | Validate fields when their value changes. |
 | **defaultGenericError** | string | null | Set e default message to show when a generic error occurs. |
 | **loadingMessage** | string | null | Set a global loading message to show during async calls. |
 | **allowRequired** | false | boolean | The json-schema `required` property can work only if the object does not contain the field key/value pair, `allowRequired` can remove it when needed to make `required` work properly. Be careful because enabling it will make `minLength` uneffective when the `string` is `empty`. |
