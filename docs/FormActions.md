@@ -42,11 +42,11 @@ form.update({
 });
 ```
 
-### Validate
+### Validate the Form
 
 The `validate()` action returns a `promise`.
 
-The callback takes a `boolean` (`isValid`) with the validation state of the form.
+The callback takes a `boolean` (`isValid`) with the validation state of the **form**.
 
 ```javascript
 form.validate()
@@ -57,9 +57,9 @@ form.validate()
 
 ### Validate single Field
 
-The `validate(key)` action get an optional field `key` in input.
+The `validate(key)` action get an optional field `key` in input and returns a `promise`.
 
-The callback takes a `boolean` (`isValid`) with the validation state of the form.
+The callback takes a `boolean` (`isValid`) with the validation state of the **field**.
 
 ```javascript
 form.validate('email')

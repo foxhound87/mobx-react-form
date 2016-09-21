@@ -24,4 +24,5 @@
 | **reset()** | - | - | Reset the form to default or initials values. |
 | **errors()** | - | object | Get all errors of all fields with keys. |
 | **validate()** | - | promise | Check if the form is valid and return a promise. |
+| **validate(field)** | string | promise | Check if the field is valid and return a promise. |
 | **invalidate(err)** | string | - | Invalidate the form passing a generic error message. |
