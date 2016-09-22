@@ -15,5 +15,6 @@ export default ($) => {
     it('$M hasError should be true', () => expect($.$M.hasError).to.be.true);
     it('$N hasError should be true', () => expect($.$N.hasError).to.be.true);
     it('$O hasError should be false', () => expect($.$O.hasError).to.be.false);
+    it('$P hasError should be true', () => expect($.$P.hasError).to.be.true);
   });
 };

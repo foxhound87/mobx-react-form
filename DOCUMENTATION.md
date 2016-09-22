@@ -20,9 +20,9 @@
 
 | Modes | Description | Default | Provider Library |
 |---|---|---|---|
-| **SVK** | Json Schema Validation Keywords | NO | epoberezkin's **ajv** |
-| **DVR** | Declarative Validation Rules | NO | skaterdav85's **validatorjs** |
 | **VJF** | Vanilla Javascript Validation Functions | YES | chriso's **validator** (optional) |
+| **DVR** | Declarative Validation Rules | NO | skaterdav85's **validatorjs** |
+| **SVK** | Json Schema Validation Keywords | NO | epoberezkin's **ajv** |
 
 
 ###### VALIDATION MODES

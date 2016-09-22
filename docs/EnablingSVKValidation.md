@@ -23,6 +23,8 @@ const plugins = {
 
 ### Create the json schema
 
+> See [json-schema.org](http://json-schema.org) for more info
+
 ```javascript
 const schema = {
   type: 'object',
@@ -40,7 +42,6 @@ new Form({ fields, plugins, schema });
 ```
 
 <br>
-
 
 ## Remove AJV Warnings from webpack
 

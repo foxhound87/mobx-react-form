@@ -10,7 +10,7 @@ export default class Form {
 
   events = [];
 
-  fields = {};
+  fields = null;
 
   options = {
     showErrorsOnInit: false,
@@ -40,7 +40,7 @@ export default class Form {
   }
 
   assignInitData({ fields = {}, options = {} }) {
-    _.merge(this.fields, fields);
+    this.fields = fields;
     _.merge(this.options, options);
   }
 
@@ -49,13 +49,28 @@ export default class Form {
   }
 
   initFields(obj = {}) {
+    if (_.isArray(this.fields)) {
+      this.fields = _.reduce(this.fields, ($obj, key) =>
+        Object.assign($obj, { [key]: '' }), {});
+    }
+
+    if (_.isEmpty(this.fields) && _.has(obj, 'values')) {
+      _.merge(this.fields, obj.values);
+    }
+
     this.mergeSchemaDefaults();
+
     const keys = Object.keys(this.fields);
     keys.forEach(key => _.merge(this.fields, {
-      [key]: new Field(
-        key, this.fields[key],
-        _.has(obj.labels, key) ? obj.labels[key] : null
-      ),
+      [key]: new Field(key, this.fields[key], {
+        $label: _.has(obj.labels, key) ? obj.labels[key] : null,
+        $value: _.has(obj.values, key) ? obj.values[key] : null,
+        $default: _.has(obj.defaults, key) ? obj.defaults[key] : null,
+        $disabled: _.has(obj.disabled, key) ? obj.disabled[key] : null,
+        $related: _.has(obj.related, key) ? obj.related[key] : null,
+        $validate: _.has(obj.validate, key) ? obj.validate[key] : null,
+        $rules: _.has(obj.rules, key) ? obj.rules[key] : null,
+      }),
     }));
   }
 

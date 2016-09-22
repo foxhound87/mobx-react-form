@@ -15,5 +15,6 @@ export default ($) => {
     it('$M isValid should be false', () => expect($.$M.isValid).to.be.false);
     it('$N isValid should be false', () => expect($.$N.isValid).to.be.false);
     it('$O isValid should be true', () => expect($.$O.isValid).to.be.true);
+    it('$P isValid should be false', () => expect($.$P.isValid).to.be.false);
   });
 };

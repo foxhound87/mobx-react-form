@@ -12,7 +12,8 @@ import $L from './form.l.js';
 import $M from './form.m.js';
 import $N from './form.n.js';
 import $O from './form.o.js';
+import $P from './form.p.js';
 
 export const up = str => str.toUpperCase();
 
-export default { $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O };
+export default { $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P };

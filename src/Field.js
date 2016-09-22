@@ -24,12 +24,20 @@ export default class Field {
   defaultValue = null;
   initialValue = null;
 
-  constructor(key, field = {}, label = null) {
-    this.initField(key, field, label);
+  constructor(key, field = {}, obj = {}) {
+    this.initField(key, field, obj);
   }
 
   @action
-  initField($key, $field, $label = null) {
+  initField($key, $field, {
+    $value = null,
+    $label = null,
+    $default = null,
+    $disabled = null,
+    $related = null,
+    $validate = null,
+    $rules = null,
+  } = {}) {
     this.key = $key;
 
     /**
@@ -49,9 +57,13 @@ export default class Field {
       /* The field IS the value here */
       this.name = $key;
       this.label = $label || $key;
-      this.initialValue = this.parseInitialValue($field);
-      this.defaultValue = this.initialValue;
+      this.initialValue = this.parseInitialValue($value || $field);
+      this.defaultValue = $default || this.initialValue;
       this.$value = this.initialValue;
+      this.disabled = $disabled || false;
+      this.related = $related || [];
+      this.rules = $rules || null;
+      this.validate = toJS($validate || null);
       return;
     }
 
@@ -70,15 +82,15 @@ export default class Field {
     */
     if (_.isObject($field)) {
       const { name, label, disabled, rules, validate, related } = $field;
-      this.initialValue = this.parseInitialValue($field.value);
-      this.defaultValue = this.parseDefaultValue($field.default);
+      this.initialValue = this.parseInitialValue($value || $field.value);
+      this.defaultValue = this.parseDefaultValue($default || $field.default);
       this.$value = this.initialValue;
       this.name = name || $key;
-      this.label = $label || label || $key;
-      this.rules = rules || null;
-      this.validate = toJS(validate) || null;
-      this.disabled = disabled || false;
-      this.related = related || [];
+      this.label = $label || label || this.name;
+      this.disabled = $disabled || disabled || false;
+      this.related = $related || related || [];
+      this.rules = $rules || rules || null;
+      this.validate = toJS($validate || validate || null);
       return;
     }
   }

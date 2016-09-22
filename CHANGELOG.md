@@ -1,10 +1,8 @@
 # 1.11
 
 * Enhanced events handlers
-* Added validateOnChange option
-* Define Labels Separately
-* Added strictUpdate option
-* Added showErrorsOnUpdate option
+* Added validateOnChange, strictUpdate, showErrorsOnUpdate option
+* Define Fields Properties and Validators Separately
 * Added form onInit() event
 
 # 1.10
