@@ -220,7 +220,7 @@ new Form({ fields, validate, ... });
 
 ### Using Declarative Validation Rules (DVR)
 
-You can also define **related** fields to validate defining a `defaults` object to pass to the form initializer:
+You can also define **related** fields to validate defining a `related` object to pass to the form initializer:
 
 ```javascript
 const fields = ['email', 'password'];
