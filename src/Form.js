@@ -16,6 +16,8 @@ export default class Form {
     showErrorsOnInit: false,
     validateOnInit: true,
     validateOnChange: true,
+    strictUpdate: false,
+    showErrorsOnUpdate: true,
     defaultGenericError: null,
     loadingMessage: null,
     allowRequired: false,
@@ -78,7 +80,10 @@ export default class Form {
     const $key = _.has(opt, 'key') ? opt.key : opt;
     const showErrors = _.has(opt, 'showErrors') ? opt.showErrors : obj.showErrors || true;
     const recursive = _.has(opt, 'recursive') ? opt.recursive : obj.recursive || false;
-    const $showErrors = showErrors && !this.eventsRunning(['clear', 'reset']);
+
+    const notShowErrorsEvents = ['clear', 'reset'];
+    if (this.options.showErrorsOnUpdate === false) notShowErrorsEvents.push('update');
+    const $showErrors = showErrors && !this.eventsRunning(notShowErrorsEvents);
 
     if (_.isObject(opt) && !_.isString($key)) {
       // validate all fields
@@ -188,8 +193,22 @@ export default class Form {
   }
 
   update(obj) {
-    _.each(obj, (val, key) =>
-      this.fields[key].update(val));
+    const $e = 'update';
+    this.events.push($e);
+
+    if (this.options.strictUpdate === false) {
+      _.each(obj, (val, key) => _.has(this.fields, key)
+        && this.fields[key].update(val));
+    }
+
+    if (this.options.strictUpdate === true) {
+      _.each(obj, (val, key) => {
+        if (_.has(this.fields, key)) return this.fields[key].update(val);
+        throw new Error(`You are updating a not existent field: ${key}`);
+      });
+    }
+
+    this.events.pop($e);
   }
 
   /**

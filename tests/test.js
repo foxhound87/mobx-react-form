@@ -22,6 +22,7 @@ $D.update({
   terms: false,
   assets: 0,
   revenue: 'aaa',
+  undefined: true, // this field does not exists (strictUpdate)
 });
 
 $I.update({ username: 'JonathanIve' });

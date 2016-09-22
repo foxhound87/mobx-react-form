@@ -15,5 +15,9 @@ export default class Form extends MobxReactForm {
     console.log('All form errors', form.errors());  // eslint-disable-line
     // invalidate the form with a custom error message
     form.invalidate('This is a generic error message!');
+
+    form.update({
+      username: 'aaa',
+    });
   }
 }
