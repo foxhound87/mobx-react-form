@@ -1,7 +1,7 @@
 # 1.11
 
 * Enhanced events handlers
-* Added validateOnChange, strictUpdate, showErrorsOnUpdate option
+* Added validateOnChange, strictUpdate, showErrorsOnUpdate options
 * Define Fields Properties and Validators Separately
 * Added form onInit() event
 

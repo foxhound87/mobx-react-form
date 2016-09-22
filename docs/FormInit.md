@@ -14,8 +14,8 @@
 |---|---|---|
 | **values**    | Object which represents the `value`property for each field key - if you want to provide them separately from the `fields` object. | [defining values](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md#defining-values) |
 | **labels**    | Object which represents the `label` property for each field key - if you want to provide them separately from the `fields` object. | [defining labels](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md#defining-labels) |
-| **defaults**  | Object which represents the `default` property for each field key - if you want to provide them separately from the `fields` object. | [defining labels](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md#defining-labels) |
-| **disabled**  | Object which represents the `disabled` property for each field key - if you want to provide them separately from the `fields` object. | [defining labels](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md#defining-disabled) |
+| **defaults**  | Object which represents the `default` property for each field key - if you want to provide them separately from the `fields` object. | [defining defaults](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md#defining-defaults) |
+| **disabled**  | Object which represents the `disabled` property for each field key - if you want to provide them separately from the `fields` object. | [defining disabled](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md#defining-disabled) |
 | **related**  | Object which represents the `related` property to validate others fields at the same time for each field key - if you want to provide them separately from the `fields` object. | [defining related](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md#defining-related) |
 
 ###### Validation
