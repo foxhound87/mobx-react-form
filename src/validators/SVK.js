@@ -116,4 +116,8 @@ export default class SVK {
     }
     return values;
   }
+
+  loadingMessage() {
+    return this.options.loadingMessage || 'validating...';
+  }
 }

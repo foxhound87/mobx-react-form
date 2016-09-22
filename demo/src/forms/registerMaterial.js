@@ -7,10 +7,10 @@ import {
 
 // define a json schema
 const schema = {
-  // $async: true,
+  $async: true,
   type: 'object',
   properties: {
-    // username: { checkUser: 'user', type: 'string', minLength: 6, maxLength: 20 },
+    username: { checkUser: 'user', type: 'string', minLength: 6, maxLength: 20 },
     // username: { type: 'string', minLength: 6, maxLength: 20 },
     email: { type: 'string', format: 'email', minLength: 5, maxLength: 20 },
     password: { type: 'string', minLength: 6, maxLength: 20 },
@@ -25,7 +25,7 @@ const fields = {
   username: {
     label: 'Username',
     value: 'SteveJobs',
-    rules: 'checkUser|required|string|between:5,15',
+    // rules: 'checkUser|required|string|between:5,15',
     // default: 'Claudio',
     // validate: [checkUser],
   },

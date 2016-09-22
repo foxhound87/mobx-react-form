@@ -14,7 +14,7 @@ export default (query = {}) => {
       const data = _.find(db, query) || [];
       // console.log('Resolved data', data);
       return resolve(data);
-    }, 1500);
+    }, 50);
   });
 };
 

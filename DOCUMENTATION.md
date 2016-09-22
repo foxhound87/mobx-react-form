@@ -65,7 +65,7 @@
 
 The validation functionalities are optional and you can choose which kind of library to import to achieve it, based on your own style preferences or needs. You can even mix these styles to achieve more flexibility.
 
-All package listed below are not included in the `mobx-react-form` and must be installed and passed to the [- [Form Initialization](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormInit.md)
+All package listed below are not included in the `mobx-react-form` and must be installed and passed to the constructor for the [Form Initialization](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormInit.md)
  using the `plugins` object.
 
 
