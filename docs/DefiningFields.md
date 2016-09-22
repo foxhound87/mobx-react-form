@@ -152,7 +152,7 @@ new Form({ fields, values, labels });
 
 ### Defining Defaults
 
-You can pass **Default Values** separately defining a `defaults` object to pass to the form initializer.
+You can pass **default values** separately defining a `defaults` object to pass to the form initializer.
 
 In the example below, the fields does not have initial state, so when the form is initialized, the fields value will be empty.
 
@@ -172,7 +172,7 @@ new Form({ fields, defaults, ... });
 
 ### Defining Disabled
 
-You can pass **Disabled** fields separately defining a `disabled` object to pass to the form initializer:
+You can pass **disabled fields** separately defining a `disabled` object to pass to the form initializer:
 
 ```javascript
 const fields = ['username', 'email'];
@@ -187,7 +187,7 @@ new Form({ fields, disabled, ... });
 
 ### Defining Related
 
-You can also define **related** fields to validate at the same time defining a `related` object to pass to the form initializer:
+You can also define **related fields** to validate at the same time defining a `related` object to pass to the form initializer:
 
 ```javascript
 const fields = ['email', 'emailConfirm'];
@@ -220,8 +220,6 @@ new Form({ fields, validate, ... });
 
 ### Using Declarative Validation Rules (DVR)
 
-You can also define **related** fields to validate defining a `related` object to pass to the form initializer:
-
 ```javascript
 const fields = ['email', 'password'];
 
@@ -235,8 +233,6 @@ new Form({ fields, rules, ... });
 > Read more about how to [Enable Declarative Validation Rules (DVR)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingDVRValidation.md)
 
 ### Using Json Schema Validation Keywords (SVK)
-
-You can also define **related** fields to validate defining a `defaults` object to pass to the form initializer:
 
 ```javascript
 const fields = ['username', 'password'];
