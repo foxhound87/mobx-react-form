@@ -24,7 +24,7 @@ const schema = {
 const fields = {
   username: {
     label: 'Username',
-    value: 'SteveJobs',
+    value: 'SteveJobsx',
     rules: 'checkUser|required|string|between:5,15',
     // default: 'Claudio',
     // validate: [checkUser],

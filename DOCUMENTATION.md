@@ -1,7 +1,7 @@
 # Documentation Index
 
 - [Defining the Form Fields](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md)
-- [Form Initialization](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-initialization)
+- [Form Initialization](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormInit.md)
 - [Form Actions](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormActions.md)
 - [Form Events](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormEvents.md)
 - [Form Options](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-options)
@@ -44,32 +44,6 @@
 
 <br>
 
-# FORM
-
-<br>
-
-## Form Initialization
-
-| Property | Description | Help |
-|---|---|---|
-| **fields**    | Object which represents the fields: name, label, value. | [defining fields](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md) |
-| **labels**    | Object which represents the labels if you want to provide them separately from the `fields` object. | [defining labels](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md#defining-labels-separately) |
-| **options**   | Options used by the `form` or the imported `plugins` which may alter the validation behavior. | [form options](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-options) |
-| **plugins**   | Enable additional functionalities using external libraries. | [validation plugins](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#validation-plugins) |
-| **schema**    | The json-schema for the validation (if **SVK** mode is active). | [json schema](http://json-schema.org) |
-
-**Usage**
-
-``` javascript
-import Form from 'mobx-react-form';
-
-... // define all needed objects
-
-new Form({ fields, options, plugins, schema });
-```
-
-<br>
-
 ## Form Options
 
 | Option | Type | Default | Info |
@@ -91,7 +65,8 @@ new Form({ fields, options, plugins, schema });
 
 The validation functionalities are optional and you can choose which kind of library to import to achieve it, based on your own style preferences or needs. You can even mix these styles to achieve more flexibility.
 
-All package listed below are not included in the `mobx-react-form` and must be installed and passed to the [Form Initialization](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-initialization) using the `plugins` object.
+All package listed below are not included in the `mobx-react-form` and must be installed and passed to the [- [Form Initialization](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormInit.md)
+ using the `plugins` object.
 
 
 | Package | Author | | | Description |

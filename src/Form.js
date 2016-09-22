@@ -34,6 +34,9 @@ export default class Form {
         showErrors: this.options.showErrorsOnInit,
       });
     }
+
+    // execute onInit if exists
+    if (_.isFunction(this.onInit)) this.onInit(this);
   }
 
   assignInitData({ fields = {}, options = {} }) {
@@ -77,6 +80,8 @@ export default class Form {
   }
 
   validate(opt = {}, obj = {}) {
+    this.validator.genericErrorMessage = null;
+
     const $key = _.has(opt, 'key') ? opt.key : opt;
     const showErrors = _.has(opt, 'showErrors') ? opt.showErrors : obj.showErrors || true;
     const recursive = _.has(opt, 'recursive') ? opt.recursive : obj.recursive || false;
@@ -136,7 +141,14 @@ export default class Form {
 
   @computed
   get hasError() {
-    return _.some(this.fields, 'hasError');
+    return _.some(this.fields, 'hasError')
+      || _.isString(this.validator.genericErrorMessage);
+  }
+
+  @computed
+  get isValid() {
+    return _.every(this.fields, 'isValid')
+      && !_.isString(this.validator.genericErrorMessage);
   }
 
   @computed
@@ -152,11 +164,6 @@ export default class Form {
   @computed
   get isDefault() {
     return _.every(this.fields, 'isDefault');
-  }
-
-  @computed
-  get isValid() {
-    return _.every(this.fields, 'isValid');
   }
 
   @computed
@@ -178,7 +185,6 @@ export default class Form {
   clear() {
     const $e = 'clear';
     this.events.push($e);
-    this.validator.genericErrorMessage = null;
     _.each(this.fields, field => field.clear());
     this.events.pop($e);
   }
@@ -187,7 +193,6 @@ export default class Form {
   reset() {
     const $e = 'reset';
     this.events.push($e);
-    this.validator.genericErrorMessage = null;
     _.each(this.fields, field => field.reset());
     this.events.pop($e);
   }

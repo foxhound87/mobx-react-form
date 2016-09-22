@@ -156,7 +156,7 @@ export default observer(FormComponent);
 ## Documentation Index
 
 - [Defining the Form Fields](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md)
-- [Form Initialization](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-initialization)
+- [Form Initialization](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormInit.md)
 - [Form Actions](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormActions.md)
 - [Form Events](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormEvents.md)
 - [Form Options](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-options)
