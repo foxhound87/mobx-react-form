@@ -19,6 +19,12 @@ const fields = {
 };
 ```
 
+then pass it to the Form constructor:
+
+```javascript
+new Form({ fields });
+```
+
 ## Defining Fields with Unified propreties using an Object
 
 ### Define Fields with Initial State
