@@ -88,7 +88,7 @@
     "nyc": "8.3.0",
     "path": "0.12.7",
     "semantic-release": "4.3.5",
-    "validatorjs": "3.6.0",
+    "validatorjs": "3.7.0",
     "webpack": "1.13.2"
   }
 }
