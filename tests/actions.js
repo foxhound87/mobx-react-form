@@ -39,6 +39,8 @@ $.$O.update('label', {
   email: 'E-mail',
 });
 
+$.$P.$('username').set('label', 'UserName');
+
 $.$P.reset();
 
 describe('$L Form', () => {
@@ -98,6 +100,10 @@ describe('$P Form fields', () => {
 
   it('$P email.value hould be equal to "s.jobs@apple.com"', () =>
     expect($.$P.$('email').value).to.be.equal('s.jobs@apple.com'));
+
+  it('$P username.label hould be equal to "UserName"', () =>
+    expect($.$P.$('username').label).to.be.equal('UserName'));
+
 
   it('$P username.isValid should be false', () =>
     expect($.$P.$('username').isValid).to.be.false);

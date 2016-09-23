@@ -208,6 +208,11 @@ export default class Field {
     this.asyncErrorMessage = null;
   }
 
+  @action
+  set(key, val) {
+    _.set(this, `$${key}`, val);
+  }
+
   @computed
   get label() {
     return this.$label;

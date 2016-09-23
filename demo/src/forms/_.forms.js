@@ -28,19 +28,21 @@ class RegisterMaterialForm extends Form {
   // onInit(form) {
   //   console.log('ON INIT');
 
-  //   // form.options({
-  //   //   strictUpdate: true,
-  //   // });
+    // form.options({
+    //   strictUpdate: true,
+    // });
 
-  //   form.update({
-  //     sthElse: '...',
-  //     username: 'aaaaaa',
-  //   });
+    // form.update({
+    //   sthElse: '...',
+    //   username: 'aaaaaa',
+    // });
 
-  //   form.update('label', {
-  //     sthElse: '...',
-  //     username: 'NEW LABEL',
-  //   });
+    // form.update('label', {
+    //   sthElse: '...',
+    //   username: 'NEW LABEL',
+    // });
+
+    // form.$('username').set('label', 'XXXXX');
   // }
 }
 
