@@ -1,16 +1,21 @@
-// import MobxReactForm from 'mobx-react-form'; // load from package
+import MobxReactForm from 'mobx-react-form'; // eslint-disable-line
 // import MobxReactForm from '../../../lib'; // load from build
-import MobxReactForm from '../../../src'; // load from source
+// import MobxReactForm from '../../../src'; // load from source
 
 export default class Form extends MobxReactForm {
 
-  onInit(form) {
-    console.log('ON INIT');
-    form.update({
-      sthElse: '-KSHJV0voLMasB-qE-Zj',
-      username: 'aaaaaa',
-    });
-  }
+  // onInit(form) {
+  //   console.log('ON INIT');
+
+  //   form.options({
+  //     strictUpdate: true,
+  //   });
+
+  //   form.update({
+  //     sthElse: '...',
+  //     username: 'aaaaaa',
+  //   });
+  // }
 
   onSuccess(form) {
     alert('Form is valid! Send the request here.'); // eslint-disable-line

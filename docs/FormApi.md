@@ -18,6 +18,7 @@
 | Method | Input | Output | Info |
 |---|---|---|---|
 | **$(key)** | string | object | Field selector shortcut. |
+| **options(obj)** | object | - | Set/Get form options after the form is yet initialied. |
 | **update(obj)** | object | - | Pass an object to update the form with new values. |
 | **values()** | - | object | Get an object with all fields values. |
 | **clear()** | - | - | Clear the form to empty values. |

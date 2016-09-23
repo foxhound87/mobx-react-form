@@ -21,6 +21,7 @@
     "material-ui": "0.15.4",
     "mobx": "2.5.1",
     "mobx-react": "3.5.6",
+    "mobx-react-form": "1.11.7",
     "moment": "2.15.1",
     "react": "15.3.2",
     "react-dom": "15.3.2",

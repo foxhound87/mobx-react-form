@@ -12,7 +12,7 @@ export default class Form {
 
   fields = null;
 
-  options = {
+  $options = {
     showErrorsOnInit: false,
     validateOnInit: true,
     validateOnChange: true,
@@ -29,9 +29,9 @@ export default class Form {
     this.initFields(obj);
     this.observeFields();
 
-    if (this.options.validateOnInit === true) {
+    if (this.$options.validateOnInit === true) {
       this.validate({
-        showErrors: this.options.showErrorsOnInit,
+        showErrors: this.$options.showErrorsOnInit,
       });
     }
 
@@ -41,7 +41,14 @@ export default class Form {
 
   assignInitData({ fields = {}, options = {} }) {
     this.fields = fields;
-    _.merge(this.options, options);
+    this.options(options);
+  }
+
+  options(options = {}) {
+    if (!_.isEmpty(options)) {
+      _.merge(this.$options, options);
+    }
+    return this.$options;
   }
 
   initValidator(obj = {}) {
@@ -87,7 +94,7 @@ export default class Form {
   }
 
   observeFields() {
-    if (this.options.validateOnChange === false) return;
+    if (this.$options.validateOnChange === false) return;
     // observe and validate each field
     _.each(this.fields, (field, key) =>
       observe(this.fields[key], '$value', () =>
@@ -102,7 +109,7 @@ export default class Form {
     const recursive = _.has(opt, 'recursive') ? opt.recursive : obj.recursive || false;
 
     const notShowErrorsEvents = ['clear', 'reset'];
-    if (this.options.showErrorsOnUpdate === false) notShowErrorsEvents.push('update');
+    if (this.$options.showErrorsOnUpdate === false) notShowErrorsEvents.push('update');
     const $showErrors = showErrors && !this.eventsRunning(notShowErrorsEvents);
 
     if (_.isObject(opt) && !_.isString($key)) {
@@ -216,13 +223,13 @@ export default class Form {
     const $e = 'update';
     this.events.push($e);
 
-    if (this.options.strictUpdate === false) {
+    if (this.$options.strictUpdate === false) {
       _.each(obj, (val, key) => {
         if (_.has(this.fields, key)) this.fields[key].update(val);
       });
     }
 
-    if (this.options.strictUpdate === true) {
+    if (this.$options.strictUpdate === true) {
       _.each(obj, (val, key) => {
         if (_.has(this.fields, key)) this.fields[key].update(val);
         else throw new Error(`You are updating a not existent field: ${key}`);

@@ -27,7 +27,7 @@ npm install --save mobx-react-form
 
 ## Demo
 
-https://mobx-react-form-demo-zgltrpjjwi.now.sh/
+https://mobx-react-form-demo-bbtfrgtrzh.now.sh
 
 ## Tutorial
 [Automagically manage React forms state and automatic validation with MobX](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769)

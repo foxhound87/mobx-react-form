@@ -4,6 +4,7 @@
 * Added validateOnChange, strictUpdate, showErrorsOnUpdate options
 * Define Fields Properties and Validators Separately
 * Added form onInit() event
+* Added form options() get/set
 
 # 1.10
 
