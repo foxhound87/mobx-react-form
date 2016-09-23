@@ -3,6 +3,7 @@
 * Enhanced events handlers
 * Added validateOnChange, strictUpdate, showErrorsOnUpdate options
 * Define Fields Properties and Validators Separately
+* Define fields as Array of Objects
 * Added field set(prop, val) for edit props
 * Added form onInit() event
 * Added form options() get/set

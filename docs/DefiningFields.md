@@ -97,6 +97,24 @@ const fields = {
 };
 ```
 
+## Define Fields as Array of Objects
+
+> You must define a `name` property for each object.
+
+The `name` property will set the `key` of the fields, if you don't specify it the field will not be created.
+
+```javascript
+const fields = [{
+  name: 'username',
+  label: 'Username',
+  value: 'SteveJobs',
+}, {
+  name: 'email',
+  label: 'Email',
+  value: 's.jobs@apple.com',
+}];
+```
+
 <br>
 
 ## Define Fields Properties Separately

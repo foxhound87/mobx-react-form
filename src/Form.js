@@ -57,8 +57,14 @@ export default class Form {
 
   initFields(obj = {}) {
     if (_.isArray(this.fields)) {
-      this.fields = _.reduce(this.fields, ($obj, key) =>
-        Object.assign($obj, { [key]: '' }), {});
+      this.fields = _.reduce(this.fields, ($obj, $) => {
+        // as array of objects (with name as key and custom props)
+        if (_.isObject($) && _.has($, 'name')) {
+          return Object.assign($obj, { [$.name]: $ });
+        }
+        // as array of strings (with empty values)
+        return Object.assign($obj, { [$]: '' });
+      }, {});
     }
 
     if (_.isEmpty(this.fields) && _.has(obj, 'values')) {

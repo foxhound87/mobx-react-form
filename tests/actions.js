@@ -118,6 +118,20 @@ describe('$P Form fields', () => {
     expect($.$P.error).to.be.null);
 });
 
+describe('$Q Form fields', () => {
+  it('$Q username.value hould be equal to "SteveJobs"', () =>
+    expect($.$Q.$('username').value).to.be.equal('SteveJobs'));
+
+  it('$Q username.label hould be equal to "Username"', () =>
+    expect($.$Q.$('username').label).to.be.equal('Username'));
+
+  it('$Q email.value hould be equal to "s.jobs@apple.com"', () =>
+    expect($.$Q.$('email').value).to.be.equal('s.jobs@apple.com'));
+
+  it('$Q email.label hould be equal to "Email"', () =>
+    expect($.$Q.$('email').label).to.be.equal('Email'));
+});
+
 describe('others fields', () => {
   it('$C error should be equal to "The user already exist."', () =>
     expect($.$C.error).to.be.equal('The user already exist'));
