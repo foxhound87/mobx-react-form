@@ -5,6 +5,7 @@
 * Define Fields Properties and Validators Separately
 * Added form onInit() event
 * Added form options() get/set
+* Bulk update() form properties
 
 # 1.10
 

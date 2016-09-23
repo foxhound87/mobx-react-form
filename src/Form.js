@@ -219,20 +219,28 @@ export default class Form {
     this.events.pop($e);
   }
 
-  update(obj) {
+  @action
+  update($, data = null) {
     const $e = 'update';
+    const error = 'You are updating a not existent field:';
+    const isStrict = (this.$options.strictUpdate === true);
     this.events.push($e);
 
-    if (this.$options.strictUpdate === false) {
-      _.each(obj, (val, key) => {
+    // UPDATE FIELDS VALUE (default)
+    if (_.isObject($) && !data) {
+      // $ is the data
+      _.each($, (val, key) => {
         if (_.has(this.fields, key)) this.fields[key].update(val);
+        else if (isStrict) throw new Error(`${error} ${key}`);
       });
     }
 
-    if (this.$options.strictUpdate === true) {
-      _.each(obj, (val, key) => {
-        if (_.has(this.fields, key)) this.fields[key].update(val);
-        else throw new Error(`You are updating a not existent field: ${key}`);
+    // UPDATE CUSTOM PROP
+    if (_.isString($) && _.isObject(data)) {
+      // $ is the prop key
+      _.each(data, (val, key) => {
+        if (_.has(this.fields, key)) _.set(this.fields[key], `$${$}`, val);
+        else if (isStrict) throw new Error(`${error} ${key}`);
       });
     }
 

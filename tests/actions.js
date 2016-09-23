@@ -29,7 +29,15 @@ $.$M.reset(); // to default or initial values
 $.$N.clear(); // to empty values
 $.$N.reset(); // to default or initial values
 
-$.$O.update({ username: 'TestUser' });
+$.$O.update({
+  undefined: 'undefined',
+  username: 'TestUser',
+});
+
+$.$O.update('label', {
+  undefined: 'undefined',
+  email: 'E-mail',
+});
 
 $.$P.reset();
 

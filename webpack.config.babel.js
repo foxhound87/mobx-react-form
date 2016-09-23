@@ -1,9 +1,9 @@
-import path from 'path';
+import { join } from 'path';
 
 const loaders = [{
   test: /\.js$/,
   loader: 'babel-loader',
-  include: path.join(__dirname, 'src'),
+  include: join(__dirname, 'src'),
 }, {
   test: /\.json$/,
   loader: 'json-loader',
@@ -13,14 +13,17 @@ export default {
   devtool: 'source-map',
   entry: './src/index',
   output: {
-    path: path.join(__dirname, 'umd'),
+    path: join(__dirname, 'umd'),
     library: 'MobxReactForm',
     libraryTarget: 'umd',
   },
   resolve: {
-    root: path.resolve('.', 'src'),
+    root: join(__dirname, 'src'),
     modulesDirectories: ['node_modules'],
     extensions: ['', '.js', '.jsx', '.json'],
+    alias: {
+      react: join(__dirname, 'node_modules', 'react'),
+    },
   },
   externals: {
     lodash: '_',

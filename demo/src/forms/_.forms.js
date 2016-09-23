@@ -23,21 +23,41 @@ const plugins = {
   },
 };
 
+class RegisterMaterialForm extends Form {
+
+  // onInit(form) {
+  //   console.log('ON INIT');
+
+  //   // form.options({
+  //   //   strictUpdate: true,
+  //   // });
+
+  //   form.update({
+  //     sthElse: '...',
+  //     username: 'aaaaaa',
+  //   });
+
+  //   form.update('label', {
+  //     sthElse: '...',
+  //     username: 'NEW LABEL',
+  //   });
+  // }
+}
+
 class RegisterSimpleForm extends Form {}
-class RegisterMaterialForm extends Form {}
 class CompanySimpleForm extends Form {}
 class CompanyWidgetsForm extends Form {}
 
 export default {
-  registerSimple: new RegisterSimpleForm({
-    plugins,
-    fields: registerSimple.fields,
-    schema: registerSimple.schema,
-  }),
   registerMaterial: new RegisterMaterialForm({
     plugins,
     fields: registerMaterial.fields,
     schema: registerMaterial.schema,
+  }),
+  registerSimple: new RegisterSimpleForm({
+    plugins,
+    fields: registerSimple.fields,
+    schema: registerSimple.schema,
   }),
   companySimple: new CompanySimpleForm({
     plugins,

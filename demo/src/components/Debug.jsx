@@ -4,15 +4,20 @@ import jsonStringifySafe from 'json-stringify-safe';
 import _ from 'lodash';
 
 const merge = field => ({
-  default: field.default,
-  error: field.error,
-  hasError: field.hasError,
-  isValid: field.isValid,
-  isDirty: field.isDirty,
-  isPristine: field.isPristine,
-  isDefault: field.isDefault,
-  isEmpty: field.isEmpty,
   value: field.value,
+  default: field.default,
+  label: field.label,
+  disabled: field.disabled,
+  related: field.related,
+  rules: field.rules,
+  validate: field.validate,
+  isEmpty: field.isEmpty,
+  isDefault: field.isDefault,
+  isPristine: field.isPristine,
+  isDirty: field.isDirty,
+  isValid: field.isValid,
+  hasError: field.hasError,
+  error: field.error,
 });
 
 const toJson = (data) => {
@@ -21,21 +26,19 @@ const toJson = (data) => {
 };
 
 const parseFormData = (form) => {
-  const omit = ['fields', 'schema', 'extend', 'options', 'validator', 'events'];
+  const omit = ['fields', 'schema', 'extend', 'validator', 'events'];
   return toJson(_.merge(_.omit(form, omit), merge(form)));
 };
 
 const parseFieldData = (field) => {
   const omit = [
-    '$value',
-    'form',
-    'related',
-    'label',
     'name',
-    'key',
-    'rules',
-    'validate',
-    'disabled',
+    '$value',
+    '$related',
+    '$label',
+    '$rules',
+    '$validate',
+    '$disabled',
     'showError',
     'errorMessage',
     'initialValue',

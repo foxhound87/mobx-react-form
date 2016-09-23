@@ -35,10 +35,25 @@ form.values();
 
 > Takes an `object` with fields `key:val` pairs.
 
+This will change the fields `values`:
+
 ```javascript
 form.update({
   username: 'NewUsername',
   password: 'NewPassword',
+});
+```
+
+### Bulk Update Fields Properties
+
+> Takes the prop name `string` and an `object` with fields `key:val` pairs.
+
+You can pass these props: `value`, `label`, `default`, `disabled`, `related`, `validate`, `rules`.
+
+```javascript
+form.update('label', {
+  username: 'It's a New Label',
+  password: 'Another New Label',
 });
 ```
 

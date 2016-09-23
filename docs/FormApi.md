@@ -18,8 +18,9 @@
 | Method | Input | Output | Info |
 |---|---|---|---|
 | **$(key)** | string | object | Field selector shortcut. |
-| **options(obj)** | object | - | Set/Get form options after the form is yet initialied. |
+| **options(obj = null)** | object | - | Set/Get form options after the form is yet initialied. |
 | **update(obj)** | object | - | Pass an object to update the form with new values. |
+| **update(prop, obj)** | (string, object) | - | Bulk update form properties. Takes the prop name `string` and an `object` with fields `key:val` pairs. |
 | **values()** | - | object | Get an object with all fields values. |
 | **clear()** | - | - | Clear the form to empty values. |
 | **reset()** | - | - | Reset the form to default or initials values. |

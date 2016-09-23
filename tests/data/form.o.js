@@ -10,7 +10,7 @@ const values = {
 
 const labels = {
   username: 'Username',
-  email: 'E-mail',
+  email: 'Email',
   password: 'Password',
   passwordConfirm: 'Confirm Password',
   terms: 'Accept Terms of Service',

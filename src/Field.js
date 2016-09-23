@@ -5,13 +5,13 @@ export default class Field {
 
   key;
   name;
-  label;
-  rules;
-  validate;
 
+  $rules;
+  $validate;
+  $related;
+  @observable $label;
   @observable $value;
-  @observable interacted = false;
-  @observable disabled = false;
+  @observable $disabled = false;
 
   @observable validationErrorStack = [];
   @observable asyncErrorMessage = null;
@@ -23,6 +23,7 @@ export default class Field {
 
   defaultValue = null;
   initialValue = null;
+  interacted = false;
 
   constructor(key, field = {}, obj = {}) {
     this.initField(key, field, obj);
@@ -56,14 +57,14 @@ export default class Field {
     _.isNumber($field)) {
       /* The field IS the value here */
       this.name = $key;
-      this.label = $label || $key;
       this.initialValue = this.parseInitialValue($value || $field);
       this.defaultValue = $default || this.initialValue;
+      this.$label = $label || $key;
       this.$value = this.initialValue;
-      this.disabled = $disabled || false;
-      this.related = $related || [];
-      this.rules = $rules || null;
-      this.validate = toJS($validate || null);
+      this.$rules = $rules || null;
+      this.$disabled = $disabled || false;
+      this.$related = $related || [];
+      this.$validate = toJS($validate || null);
       return;
     }
 
@@ -84,13 +85,13 @@ export default class Field {
       const { name, label, disabled, rules, validate, related } = $field;
       this.initialValue = this.parseInitialValue($value || $field.value);
       this.defaultValue = this.parseDefaultValue($default || $field.default);
-      this.$value = this.initialValue;
       this.name = name || $key;
-      this.label = $label || label || this.name;
-      this.disabled = $disabled || disabled || false;
-      this.related = $related || related || [];
-      this.rules = $rules || rules || null;
-      this.validate = toJS($validate || validate || null);
+      this.$value = this.initialValue;
+      this.$label = $label || label || this.name;
+      this.$rules = $rules || rules || null;
+      this.$disabled = $disabled || disabled || false;
+      this.$related = $related || related || [];
+      this.$validate = toJS($validate || validate || null);
       return;
     }
   }
@@ -208,8 +209,33 @@ export default class Field {
   }
 
   @computed
+  get label() {
+    return this.$label;
+  }
+
+  @computed
+  get related() {
+    return this.$related;
+  }
+
+  @computed
+  get disabled() {
+    return this.$disabled;
+  }
+
+  @computed
   get default() {
     return this.defaultValue;
+  }
+
+  @computed
+  get rules() {
+    return this.$rules;
+  }
+
+  @computed
+  get validate() {
+    return this.$validate;
   }
 
   @computed
