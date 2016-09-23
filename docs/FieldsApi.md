@@ -23,7 +23,7 @@
 
 | Property | Input | Output | Info |
 |---|---|---|---|
-| **set(prop, val)** | - | (string, mixed) | * Set field property. Takes prop key and prop value. |
+| **set(prop, val)** | (string, mixed) | - | * Set field property. Takes prop key and prop value. |
 | **update(val)** | string, array, object, boolean | - | Alias of setValue(). |
 | **setValue(val)** | string, array, object, boolean | - | Set the field value to the given value. |
 | **getValue()** | - | string, array, object, boolean | Get the field value. |
