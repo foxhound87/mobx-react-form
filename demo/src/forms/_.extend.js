@@ -4,9 +4,13 @@ import MobxReactForm from '../../../src'; // load from source
 
 export default class Form extends MobxReactForm {
 
-  // onInit(form) {
-  //   console.log('ON INIT');
-  // }
+  onInit(form) {
+    console.log('ON INIT');
+    form.update({
+      sthElse: '-KSHJV0voLMasB-qE-Zj',
+      username: 'aaaaaa',
+    });
+  }
 
   onSuccess(form) {
     alert('Form is valid! Send the request here.'); // eslint-disable-line

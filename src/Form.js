@@ -217,14 +217,15 @@ export default class Form {
     this.events.push($e);
 
     if (this.options.strictUpdate === false) {
-      _.each(obj, (val, key) => _.has(this.fields, key)
-        && this.fields[key].update(val));
+      _.each(obj, (val, key) => {
+        if (_.has(this.fields, key)) this.fields[key].update(val);
+      });
     }
 
     if (this.options.strictUpdate === true) {
       _.each(obj, (val, key) => {
-        if (_.has(this.fields, key)) return this.fields[key].update(val);
-        throw new Error(`You are updating a not existent field: ${key}`);
+        if (_.has(this.fields, key)) this.fields[key].update(val);
+        else throw new Error(`You are updating a not existent field: ${key}`);
       });
     }
 
