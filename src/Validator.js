@@ -123,6 +123,11 @@ export default class Validator {
   }
 
   @action
+  resetGenericError() {
+    this.genericErrorMessage = null;
+  }
+
+  @action
   invalidate(message = null) {
     // set custom genericErrorMessage if provided
     if (_.isString(message)) {

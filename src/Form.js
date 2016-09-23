@@ -108,7 +108,7 @@ export default class Form {
   }
 
   validate(opt = {}, obj = {}) {
-    this.validator.genericErrorMessage = null;
+    this.validator.resetGenericError();
 
     const $key = _.has(opt, 'key') ? opt.key : opt;
     const showErrors = _.has(opt, 'showErrors') ? opt.showErrors : obj.showErrors || true;
