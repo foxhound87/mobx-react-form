@@ -105,7 +105,7 @@ export default new MyForm({ fields, plugins });
 
 #### Pass the form to a react component
 
-The package provide those build-in and ready to use Event Handlers:
+The package provide those built-in and ready to use Event Handlers:
 
 `handleOnSubmit(e)`, `handleOnSuccess(e)`, `handleOnError(e)`.
 

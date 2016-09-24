@@ -22,6 +22,10 @@ const defaults = {
   username: 'TestUser',
 };
 
+const labels = {
+  passwordConfirm: 'Confirm Password',
+};
+
 const validate = {
   email: shouldBeEqualTo('username'), // should fail
 };
@@ -34,4 +38,4 @@ const disabled = {
   terms: true,
 };
 
-export default new Form({ fields, values, defaults, disabled, validate, rules, plugins });
+export default new Form({ fields, values, defaults, labels, disabled, validate, rules, plugins });

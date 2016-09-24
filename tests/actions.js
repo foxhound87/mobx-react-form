@@ -61,9 +61,6 @@ describe('$L Form', () => {
 });
 
 describe('$H Form fields', () => {
-  it('$H username.getValue should be equal to "SteveJobs"', () =>
-    expect($.$H.$('username').getValue()).to.be.equal('SteveJobs'));
-
   it('$H username.value should be equal to "SteveJobs"', () =>
     expect($.$H.$('username').value).to.be.equal('SteveJobs'));
 
@@ -87,9 +84,6 @@ describe('$O Form fields', () => {
   it('$O email.label should be equal to "E-mail"', () =>
     expect($.$O.$('email').label).to.be.equal('E-mail'));
 
-  it('$O passwordConfirm.label should be equal to "Confirm Password"', () =>
-    expect($.$O.$('passwordConfirm').label).to.be.equal('Confirm Password'));
-
   it('$O error should be null', () =>
     expect($.$O.error).to.be.null);
 });
@@ -104,6 +98,8 @@ describe('$P Form fields', () => {
   it('$P username.label hould be equal to "UserName"', () =>
     expect($.$P.$('username').label).to.be.equal('UserName'));
 
+  it('$P passwordConfirm.label should be equal to "Confirm Password"', () =>
+    expect($.$P.$('passwordConfirm').label).to.be.equal('Confirm Password'));
 
   it('$P username.isValid should be false', () =>
     expect($.$P.$('username').isValid).to.be.false);

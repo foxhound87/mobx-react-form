@@ -19,6 +19,7 @@ const Menu = ({ data }) => (
     <span className="left label">SELECT DEMO:</span>
     <span className="left">
       <select name="menu" onChange={e => switchTo(e, data)}>
+        <option value="withNestedFields">Nested Fields</option>
         <option value="registerMaterial">Register (Material UI)</option>
         <option value="registerSimple">Register (Simple)</option>
         <option value="companyWidgets">Company (React Widgets)</option>

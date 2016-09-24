@@ -3,6 +3,7 @@ import validatorjs from 'validatorjs';
 import Form from './_.extend';
 
 // forms
+import withNestedFields from './withNestedFields';
 import registerSimple from './registerSimple';
 import registerMaterial from './registerMaterial';
 import companySimple from './companySimple';
@@ -23,7 +24,7 @@ const plugins = {
   },
 };
 
-class RegisterMaterialForm extends Form {
+class FormWithNestedFields extends Form {
 
   // onInit(form) {
   //   console.log('ON INIT');
@@ -46,11 +47,15 @@ class RegisterMaterialForm extends Form {
   // }
 }
 
+class RegisterMaterialForm extends Form {}
 class RegisterSimpleForm extends Form {}
 class CompanySimpleForm extends Form {}
 class CompanyWidgetsForm extends Form {}
 
 export default {
+  withNestedFields: new FormWithNestedFields({
+    fields: withNestedFields.fields,
+  }),
   registerMaterial: new RegisterMaterialForm({
     plugins,
     fields: registerMaterial.fields,

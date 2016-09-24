@@ -25,8 +25,6 @@
 |---|---|---|---|
 | **set(prop, val)** | (string, mixed) | - | * Set field property. Takes prop key and prop value. |
 | **update(val)** | string, array, object, boolean | - | Alias of setValue(). |
-| **setValue(val)** | string, array, object, boolean | - | Set the field value to the given value. |
-| **getValue()** | - | string, array, object, boolean | Get the field value. |
 | **clear()** | - | - | Clear the field to empty value. |
 | **reset()** | - | - | Reset the field to initial value. |
 | **setValid()** | - | - | Set the field as valid. |

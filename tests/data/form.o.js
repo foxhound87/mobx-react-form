@@ -1,7 +1,5 @@
 import MobxReactForm from '../../src';
 
-const fields = ['username', 'email', 'password', 'passwordConfirm', 'terms'];
-
 const values = {
   username: 'SteveJobs',
   email: 's.jobs@apple.com',
@@ -23,4 +21,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ fields, values, labels });
+export default new Form({ values, labels });

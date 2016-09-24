@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 
+import FormWithNestedFields from './FormWithNestedFields';
 import FormRegisterMaterial from './FormRegisterMaterial';
 import FormRegisterSimple from './FormRegisterSimple';
 import FormCompanyWidgets from './FormCompanyWidgets';
@@ -8,6 +9,9 @@ import FormCompanySimple from './FormCompanySimple';
 
 const Switch = ({ menu, form }) => {
   switch (true) {
+
+    case menu.withNestedFields:
+      return (<FormWithNestedFields form={form.withNestedFields} />);
 
     case menu.registerMaterial:
       return (<FormRegisterMaterial form={form.registerMaterial} />);

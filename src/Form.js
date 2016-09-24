@@ -1,16 +1,16 @@
 import { action, computed, observe } from 'mobx';
 import _ from 'lodash';
-
 import Validator from './Validator';
-import Field from './Field';
+import fieldsInitializer from './FieldsInit';
+import formHelpers from './FormHelpers';
 
 export default class Form {
+
+  fields;
 
   validator;
 
   events = [];
-
-  fields = null;
 
   $options = {
     showErrorsOnInit: false,
@@ -24,24 +24,31 @@ export default class Form {
   };
 
   constructor(obj = {}) {
+    this.assignFormHelpers();
     this.assignInitData(obj);
     this.initValidator(obj);
+    this.assignFieldsInitializer();
+
+    // console.log('FORM --> INIT FIELDS', this.fields);
     this.initFields(obj);
     this.observeFields();
+    this.validateOnInit();
 
-    if (this.$options.validateOnInit === true) {
-      this.validate({
-        showErrors: this.$options.showErrorsOnInit,
-      });
-    }
-
-    // execute onInit if exists
+    // execute onInit if exist
     if (_.isFunction(this.onInit)) this.onInit(this);
   }
 
   assignInitData({ fields = {}, options = {} }) {
     this.fields = fields;
     this.options(options);
+  }
+
+  assignFormHelpers() {
+    Object.assign(this, formHelpers(this));
+  }
+
+  assignFieldsInitializer() {
+    Object.assign(this, fieldsInitializer(this));
   }
 
   options(options = {}) {
@@ -55,56 +62,21 @@ export default class Form {
     this.validator = new Validator(obj);
   }
 
-  initFields(obj = {}) {
-    if (_.isArray(this.fields)) {
-      this.fields = _.reduce(this.fields, ($obj, $) => {
-        // as array of objects (with name as key and custom props)
-        if (_.isObject($) && _.has($, 'name')) {
-          return Object.assign($obj, { [$.name]: $ });
-        }
-        // as array of strings (with empty values)
-        return Object.assign($obj, { [$]: '' });
-      }, {});
-    }
-
-    if (_.isEmpty(this.fields) && _.has(obj, 'values')) {
-      _.merge(this.fields, obj.values);
-    }
-
-    this.mergeSchemaDefaults();
-
-    const keys = Object.keys(this.fields);
-    keys.forEach(key => _.merge(this.fields, {
-      [key]: new Field(key, this.fields[key], {
-        $label: _.has(obj.labels, key) ? obj.labels[key] : null,
-        $value: _.has(obj.values, key) ? obj.values[key] : null,
-        $default: _.has(obj.defaults, key) ? obj.defaults[key] : null,
-        $disabled: _.has(obj.disabled, key) ? obj.disabled[key] : null,
-        $related: _.has(obj.related, key) ? obj.related[key] : null,
-        $validate: _.has(obj.validate, key) ? obj.validate[key] : null,
-        $rules: _.has(obj.rules, key) ? obj.rules[key] : null,
-      }),
-    }));
-  }
-
-  mergeSchemaDefaults() {
-    const schema = this.validator.schema();
-    const properties = schema.properties;
-    if (Object.keys(this.fields).length === 0 && !!properties) {
-      Object.keys(properties).forEach((property) => {
-        const label = properties[property].title;
-        const value = properties[property].default;
-        this.fields[property] = { label, value }; // eslint-disable-line no-param-reassign
-      });
-    }
-  }
-
   observeFields() {
     if (this.$options.validateOnChange === false) return;
     // observe and validate each field
     _.each(this.fields, (field, key) =>
-      observe(this.fields[key], '$value', () =>
-        this.validate({ key, showErrors: true, recursive: true })));
+      _.has(this.fields[key], '$value') &&
+        observe(this.fields[key], '$value', () =>
+          this.validate({ key, showErrors: true, recursive: true })));
+  }
+
+  validateOnInit() {
+    if (this.$options.validateOnInit === false) return;
+
+    this.validate({
+      showErrors: this.$options.showErrorsOnInit,
+    });
   }
 
   validate(opt = {}, obj = {}) {
@@ -145,18 +117,30 @@ export default class Form {
   }
 
   /**
-    Field selector shortcut
+    Fields Selector
   */
   $(key) {
-    return this.fields[key];
+    const $key = _.replace(key, '.', '.fields.');
+    // console.log('this.fields', this.fields);
+    // console.log('_.get(this.fields, $key)', _.get(this.fields, $key));
+    return _.get(this.fields, $key);
+  }
+
+  /**
+    Fields Iterator
+  */
+  $map(key, callback) {
+    const $field = this.$(key);
+    const $obj = _.isEmpty($field.fields) ? $field : $field.fields;
+    return _.map($obj, callback);
   }
 
   values() {
-    return _.mapValues(this.fields, 'value');
+    return this.valuesRecursive(this.fields);
   }
 
   errors() {
-    return _.mapValues(this.fields, 'error');
+    return this.errorsRecursive(this.fields);
   }
 
   invalidate(message) {
@@ -213,7 +197,7 @@ export default class Form {
   clear() {
     const $e = 'clear';
     this.events.push($e);
-    _.each(this.fields, field => field.clear());
+    this.clearRecursive(this.fields);
     this.events.pop($e);
   }
 
@@ -221,33 +205,30 @@ export default class Form {
   reset() {
     const $e = 'reset';
     this.events.push($e);
-    _.each(this.fields, field => field.reset());
+    this.resetRecursive(this.fields);
     this.events.pop($e);
   }
 
   @action
   update($, data = null) {
     const $e = 'update';
-    const error = 'You are updating a not existent field:';
-    const isStrict = (this.$options.strictUpdate === true);
     this.events.push($e);
 
     // UPDATE FIELDS VALUE (default)
     if (_.isObject($) && !data) {
       // $ is the data
-      _.each($, (val, key) => {
-        if (_.has(this.fields, key)) this.fields[key].update(val);
-        else if (isStrict) throw new Error(`${error} ${key}`);
-      });
+      this.updateRecursive('value', $);
     }
 
     // UPDATE CUSTOM PROP
     if (_.isString($) && _.isObject(data)) {
       // $ is the prop key
-      _.each(data, (val, key) => {
-        if (_.has(this.fields, key)) _.set(this.fields[key], `$${$}`, val);
-        else if (isStrict) throw new Error(`${error} ${key}`);
-      });
+      this.updateRecursive($, data);
+
+      // _.each(data, (val, key) => {
+      //   if (_.has(this.fields, key)) _.set(this.fields[key], `$${$}`, val);
+      //   else if (isStrict) throw new Error(`${error} ${key}`);
+      // });
     }
 
     this.events.pop($e);

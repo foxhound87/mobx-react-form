@@ -1,10 +1,14 @@
 import { action, observable, computed, isObservableArray, toJS } from 'mobx';
 import _ from 'lodash';
 
+import fieldsInitializer from './FieldsInit';
+import fieldExtender from './FieldExtend';
+
 export default class Field {
 
-  key;
+  @observable key;
   name;
+  fields;
 
   $rules;
   $validate;
@@ -26,7 +30,23 @@ export default class Field {
   interacted = false;
 
   constructor(key, field = {}, obj = {}) {
+    if (_.has(field, 'fields')) {
+      Object.assign(this, fieldsInitializer(this));
+      Object.assign(this, fieldExtender(this));
+      this.initNestedFields(key, field, obj);
+      return;
+    }
+
     this.initField(key, field, obj);
+  }
+
+  @action
+  initNestedFields($key, $field) {
+    this.key = $key;
+    this.name = $key || $field.name;
+    this.fields = $field.fields;
+    // console.log('FIELD:', $key, '--> INIT FIELDS', $field.fields);
+    this.initFields({ fields: $field.fields });
   }
 
   @action
@@ -59,8 +79,8 @@ export default class Field {
       this.name = $key;
       this.initialValue = this.parseInitialValue($value || $field);
       this.defaultValue = $default || this.initialValue;
-      this.$label = $label || $key;
       this.$value = this.initialValue;
+      this.$label = $label || $key;
       this.$rules = $rules || null;
       this.$disabled = $disabled || false;
       this.$related = $related || [];
@@ -107,34 +127,6 @@ export default class Field {
     return !_.isUndefined($default) ? $default : this.initialValue;
   }
 
-  @computed
-  get value() {
-    if (isObservableArray(this.$value)) {
-      return [].slice.call(this.$value);
-    }
-    return this.$value;
-  }
-
-  getValue() {
-    return this.$value;
-  }
-
-  @action
-  setValue(newVal) {
-    if (!this.interacted) this.interacted = true;
-    if (this.$value === newVal) return;
-    // handle numbers
-    if (_.isNumber(this.initialValue)) {
-      const numericVal = _.toNumber(newVal);
-      if (!_.isString(numericVal) && !_.isNaN(numericVal)) {
-        this.$value = numericVal;
-        return;
-      }
-    }
-    // handle other types
-    this.$value = newVal;
-  }
-
   @action
   setInvalid(message, async = false) {
     if (async === true) {
@@ -178,14 +170,14 @@ export default class Field {
   @action
   reset() {
     const useDefaultValue = (this.defaultValue !== this.initialValue);
-    if (useDefaultValue) this.setValue(this.defaultValue);
-    if (!useDefaultValue) this.setValue(this.initialValue);
+    if (useDefaultValue) this.value = this.defaultValue;
+    if (!useDefaultValue) this.value = this.initialValue;
     this.interacted = false;
   }
 
   @action
   update(obj) {
-    this.setValue(obj);
+    this.value = obj;
   }
 
   @action
@@ -211,6 +203,29 @@ export default class Field {
   @action
   set(key, val) {
     _.set(this, `$${key}`, val);
+  }
+
+  @computed
+  get value() {
+    if (isObservableArray(this.$value)) {
+      return [].slice.call(this.$value);
+    }
+    return this.$value;
+  }
+
+  set value(newVal) {
+    if (!this.interacted) this.interacted = true;
+    if (this.$value === newVal) return;
+    // handle numbers
+    if (_.isNumber(this.initialValue)) {
+      const numericVal = _.toNumber(newVal);
+      if (!_.isString(numericVal) && !_.isNaN(numericVal)) {
+        this.$value = numericVal;
+        return;
+      }
+    }
+    // handle other types
+    this.$value = newVal;
   }
 
   @computed
@@ -293,18 +308,18 @@ export default class Field {
   sync = (e) => {
     // assume "e" is the value
     if (_.isUndefined(e.target)) {
-      this.setValue(e);
+      this.value = e;
       return;
     }
 
     // checkbox
     if (_.isBoolean(this.$value) && _.isBoolean(e.target.checked)) {
-      this.setValue(e.target.checked);
+      this.value = e.target.checked;
       return;
     }
 
     // text
-    this.setValue(e.target.value);
+    this.value = e.target.value;
     return;
   }
 }
