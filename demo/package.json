@@ -14,21 +14,21 @@
     "start": "webpack-dev-server --port 8888"
   },
   "dependencies": {
-    "ajv": "4.7.2",
+    "ajv": "4.7.4",
     "bluebird": "3.4.6",
     "json-stringify-safe": "5.0.1",
     "lodash": "4.16.1",
     "material-ui": "0.15.4",
     "mobx": "2.5.1",
     "mobx-react": "3.5.6",
-    "mobx-react-form": "1.11.7",
+    "mobx-react-form": "1.11.12",
     "moment": "2.15.1",
     "react": "15.3.2",
     "react-dom": "15.3.2",
     "react-select": "1.0.0-rc.2",
     "react-tap-event-plugin": "1.0.0",
     "react-widgets": "3.4.4",
-    "validatorjs": "3.6.0"
+    "validatorjs": "3.7.0"
   },
   "devDependencies": {
     "babel-loader": "6.2.5",

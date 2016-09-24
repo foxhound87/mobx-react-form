@@ -1,4 +1,4 @@
-import { isStrictModeEnabled } from 'mobx';
+import { useStrict } from 'mobx';
 import Form from './Form';
 
 /**
@@ -6,6 +6,6 @@ import Form from './Form';
   In strict mode, it is not allowed to
   change any state outside of an action
  */
-isStrictModeEnabled();
+useStrict(true);
 
 export default Form;
