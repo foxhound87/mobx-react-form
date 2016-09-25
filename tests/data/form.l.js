@@ -34,4 +34,4 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema, plugins });
+export default new Form({ fields, schema, plugins }, 'L');

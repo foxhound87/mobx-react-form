@@ -7,27 +7,14 @@ import Field from './Field';
 export default $this => ({
 
   initFields: (obj = {}) => {
-    if (_.isArray(obj.fields)) {
-      _.set($this, 'fields', _.reduce(obj.fields, ($obj, $) => {
-        // as array of objects (with key and custom props)
-        if (_.isObject($) && _.has($, 'name')) {
-          return Object.assign($obj, { [$.name]: $ });
-        }
-        // as array of strings (with empty values)
-        return Object.assign($obj, { [$]: '' });
-      }, {}));
-    }
+    let fields = obj.fields || {};
 
-    // if the 'field' object is not provided into the constructor
-    // and the 'values' object is passed, use it to create fields
-    if (_.isEmpty(obj.fields) && _.has(obj, 'values')) {
-      _.merge($this.fields, obj.values);
-    }
-
-    $this.mergeSchemaDefaults($this.fields);
+    fields = $this.handleFieldsArray(fields);
+    fields = $this.handleFieldsEmpty(fields, obj);
+    fields = $this.mergeSchemaDefaults(fields);
 
     // create fields
-    _.each($this.fields, (field, key) => _.extend($this.fields, {
+    _.each(fields, (field, key) => _.extend($this.fields, {
       [key]: new Field(key, field, {
         $label: _.has(obj.labels, key) && obj.labels[key],
         $value: _.has(obj.values, key) && obj.values[key],
@@ -40,17 +27,44 @@ export default $this => ({
     }));
   },
 
-  mergeSchemaDefaults: (fields) => {
-    if (!$this.validator) return;
-    const schema = $this.validator.schema();
-    const properties = schema.properties;
-    if (Object.keys(fields).length === 0 && !!properties) {
-      Object.keys(properties).forEach((property) => {
-        const label = properties[property].title;
-        const value = properties[property].default;
-        fields[property] = { label, value }; // eslint-disable-line no-param-reassign
-      });
+  handleFieldsArray: ($fields) => {
+    let fields = $fields;
+    if (_.isArray(fields)) {
+      fields = _.reduce(fields, ($obj, $) => {
+        // as array of objects (with key and custom props)
+        if (_.isObject($) && _.has($, 'name')) {
+          return Object.assign($obj, { [$.name]: $ });
+        }
+        // as array of strings (with empty values)
+        return Object.assign($obj, { [$]: '' });
+      }, {});
     }
+    return fields;
+  },
+
+  handleFieldsEmpty: (fields, obj) => {
+    // if the 'field' object is not provided into the constructor
+    // and the 'values' object is passed, use it to create fields
+    if (_.isEmpty(fields) && _.has(obj, 'values')) {
+      _.merge(fields, obj.values);
+    }
+    return fields;
+  },
+
+  mergeSchemaDefaults: (fields) => {
+    if ($this.validator) {
+      const schema = $this.validator.schema();
+      const properties = schema.properties;
+      if (_.isEmpty(fields) && !!properties) {
+        _.each(properties, (prop, key) => {
+          _.set(fields, key, {
+            value: prop.default,
+            label: prop.title,
+          });
+        });
+      }
+    }
+    return fields;
   },
 
 });

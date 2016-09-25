@@ -41,4 +41,4 @@ const schema = {
   },
 };
 
-export default new Form({ schema, plugins });
+export default new Form({ schema, plugins }, 'H');

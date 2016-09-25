@@ -50,16 +50,15 @@ export default $this => ({
     _.each(data, ($val, $key) => {
       // get the field by path joining keys recursively
       const field = $this.$(_.trimStart(`${path}.${$key}`, '.'));
-      // update values recursively only if field has nested
-      if (_.has(field, 'fields')) {
-        $this.updateRecursive($, $val, $key, isStrict);
-        return;
-      }
       // if no field found when is strict update, throw error
       if (_.isUndefined(field) && isStrict) throw new Error(`${err} ${path}`);
       // update field values or others props
       if (!_.isUndefined(field) && $ === 'value') field.update($val);
-      if (!_.isUndefined(field) && $ !== 'value') _.set(field, `$${$}`, $val);
+      if (!_.isUndefined(field) && $ !== 'value') field.set($, $val);
+      // update values recursively only if field has nested
+      if (_.has(field, 'fields') && _.isObject($val)) {
+        $this.updateRecursive($, $val, $key, isStrict);
+      }
     });
   },
 

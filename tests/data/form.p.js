@@ -38,4 +38,8 @@ const disabled = {
   terms: true,
 };
 
-export default new Form({ fields, values, defaults, labels, disabled, validate, rules, plugins });
+export default new Form({
+
+  fields, values, defaults, labels, disabled, validate, rules, plugins,
+
+}, 'P');

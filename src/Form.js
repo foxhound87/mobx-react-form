@@ -6,7 +6,9 @@ import formHelpers from './FormHelpers';
 
 export default class Form {
 
-  fields;
+  name = null;
+
+  fields = {};
 
   validator;
 
@@ -23,23 +25,27 @@ export default class Form {
     allowRequired: false,
   };
 
-  constructor(obj = {}) {
+  constructor(obj = {}, name = null) {
+    // console.log('-----', name, '-----------------------');
+    this.name = name;
+
     this.assignFormHelpers();
     this.assignInitData(obj);
     this.initValidator(obj);
     this.assignFieldsInitializer();
 
-    // console.log('FORM --> INIT FIELDS', this.fields);
     this.initFields(obj);
+    // console.log('FORM --> INIT FIELDS', this.fields);
+
     this.observeFields();
     this.validateOnInit();
+
 
     // execute onInit if exist
     if (_.isFunction(this.onInit)) this.onInit(this);
   }
 
-  assignInitData({ fields = {}, options = {} }) {
-    this.fields = fields;
+  assignInitData({ options = {} }) {
     this.options(options);
   }
 
@@ -123,9 +129,19 @@ export default class Form {
     return this.get(key);
   }
 
+  /**
+    Fields Selector
+  */
   get(key) {
     const $key = _.replace(key, '.', '.fields.');
     return _.get(this.fields, $key);
+  }
+
+  /**
+    Fields Props Setter
+  */
+  set(key, data) {
+    this.update(key, data);
   }
 
   /**
@@ -225,11 +241,6 @@ export default class Form {
     if (_.isString($) && _.isObject(data)) {
       // $ is the prop key
       this.updateRecursive($, data);
-
-      // _.each(data, (val, key) => {
-      //   if (_.has(this.fields, key)) _.set(this.fields[key], `$${$}`, val);
-      //   else if (isStrict) throw new Error(`${error} ${key}`);
-      // });
     }
 
     this.events.pop($e);

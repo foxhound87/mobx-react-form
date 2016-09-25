@@ -29,4 +29,4 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema, plugins, options });
+export default new Form({ fields, schema, plugins, options }, 'I');

@@ -10,4 +10,4 @@ const fields = [{
   value: 's.jobs@apple.com',
 }];
 
-export default new Form({ fields });
+export default new Form({ fields }, 'Q');

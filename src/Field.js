@@ -5,7 +5,7 @@ import fieldsInitializer from './FieldsInit';
 
 export default class Field {
 
-  fields;
+  fields = {};
 
   key;
   name;
@@ -42,9 +42,8 @@ export default class Field {
   initNestedFields($key, $field) {
     this.key = $key;
     this.name = $key || $field.name;
-    this.fields = $field.fields;
-    // console.log('FIELD:', $key, '--> INIT FIELDS', $field.fields);
     this.initFields({ fields: $field.fields });
+    // console.log('FIELD:', $key, '--> INIT FIELDS', $field.fields);
   }
 
   initNested(key, field, obj = {}) {
@@ -346,7 +345,6 @@ export default class Field {
     this.value = e.target.value;
     return;
   };
-
 
   handleAdd = (e) => {
     e.preventDefault();
