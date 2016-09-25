@@ -120,19 +120,20 @@ export default class Form {
     Fields Selector
   */
   $(key) {
+    return this.get(key);
+  }
+
+  get(key) {
     const $key = _.replace(key, '.', '.fields.');
-    // console.log('this.fields', this.fields);
-    // console.log('_.get(this.fields, $key)', _.get(this.fields, $key));
     return _.get(this.fields, $key);
   }
 
   /**
     Fields Iterator
   */
-  $map(key, callback) {
-    const $field = this.$(key);
-    const $obj = _.isEmpty($field.fields) ? $field : $field.fields;
-    return _.map($obj, callback);
+  map(key, callback) {
+    const field = this.$(key);
+    return _.map(field.fields, callback);
   }
 
   values() {

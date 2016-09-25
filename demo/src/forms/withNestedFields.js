@@ -10,6 +10,11 @@ const fields = [{
     label: 'City',
     value: 'New York',
   }],
+}, {
+  name: 'club',
+  label: 'Club',
+  value: 'Club Name',
+  fields: [],
 }];
 
 export default { fields };

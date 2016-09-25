@@ -37,8 +37,20 @@ const FormWithNestedFields = ({ form }) => (
 
         <h2>Nested Fields (w/ mapping)</h2>
 
-        {form.$map('address', field =>
-          <div key={field.key}>
+        <div>
+          <b>{form.$('club').label}</b>
+          <i>{form.$('club').error}</i>
+        </div>
+        <input
+          type="text"
+          name={form.$('club').name}
+          value={form.$('club').value}
+          placeholder={form.$('club').label}
+          onChange={form.$('club').sync}
+        />
+
+        {form.map('club', field =>
+          <div key={field.name}>
             <div>
               <b>{field.label}</b>
               <i>{field.error}</i>
@@ -55,10 +67,12 @@ const FormWithNestedFields = ({ form }) => (
 
         <br />
 
+        <br />
+
         <div className="ctrl">
           <button
             type="submit"
-            onClick={form.$('address').add}
+            onClick={form.$('club').handleAdd}
           >+ Add Field</button>
         </div>
 

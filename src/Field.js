@@ -2,13 +2,13 @@ import { action, observable, computed, isObservableArray, toJS } from 'mobx';
 import _ from 'lodash';
 
 import fieldsInitializer from './FieldsInit';
-import fieldExtender from './FieldExtend';
 
 export default class Field {
 
-  @observable key;
-  name;
   fields;
+
+  key;
+  name;
 
   $rules;
   $validate;
@@ -25,16 +25,14 @@ export default class Field {
   @observable validationFunctionsData = [];
   @observable validationAsyncData = {};
 
-  defaultValue = null;
-  initialValue = null;
+  defaultValue = undefined;
+  initialValue = undefined;
   interacted = false;
 
   constructor(key, field = {}, obj = {}) {
     if (_.has(field, 'fields')) {
       Object.assign(this, fieldsInitializer(this));
-      Object.assign(this, fieldExtender(this));
       this.initNestedFields(key, field, obj);
-      return;
     }
 
     this.initField(key, field, obj);
@@ -47,6 +45,20 @@ export default class Field {
     this.fields = $field.fields;
     // console.log('FIELD:', $key, '--> INIT FIELDS', $field.fields);
     this.initFields({ fields: $field.fields });
+  }
+
+  initNested(key, field, obj = {}) {
+    _.extend(this.fields, {
+      [key]: new Field(key, field, {
+        $label: _.has(obj.labels, key) && obj.labels[key],
+        $value: _.has(obj.values, key) && obj.values[key],
+        $default: _.has(obj.defaults, key) && obj.defaults[key],
+        $disabled: _.has(obj.disabled, key) && obj.disabled[key],
+        $related: _.has(obj.related, key) && obj.related[key],
+        $validate: _.has(obj.validate, key) && obj.validate[key],
+        $rules: _.has(obj.rules, key) && obj.rules[key],
+      }),
+    });
   }
 
   @action
@@ -125,6 +137,18 @@ export default class Field {
 
   parseDefaultValue($default) {
     return !_.isUndefined($default) ? $default : this.initialValue;
+  }
+
+  /**
+    Add Field
+  */
+  @action
+  add() {
+    console.log('add field');
+    const $n = _.random(999, 9999);
+    const field = $n;
+    console.log('field', field);
+    this.initNested($n, field);
   }
 
   @action
@@ -321,5 +345,11 @@ export default class Field {
     // text
     this.value = e.target.value;
     return;
-  }
+  };
+
+
+  handleAdd = (e) => {
+    e.preventDefault();
+    this.add();
+  };
 }
