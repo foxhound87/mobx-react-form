@@ -99,7 +99,7 @@ export default class Validator {
   }
 
   validateField(form = null, field = null, key, showErrors = true, related = false) {
-    const $field = field || form.fields.get(key) || this.select(form.fields, key);
+    const $field = field || form.fields.get(key) || this.select(key, form.fields);
     // if (isObservableMap($field)) $field = $field.values();
     // reset field validation
     $field.resetValidation();
@@ -150,23 +150,5 @@ export default class Validator {
     // if no string provided, show default error.
     this.genericErrorMessage = this.getDefaultErrorMessage();
     return;
-  }
-
-
-  /**
-    Fields Selector
-  */
-  select(fields, key) {
-    const keys = _.split(key, '.');
-    const head = _.head(keys);
-    keys.shift();
-
-    let $fields = fields.get(head);
-
-    _.each(keys, ($key) => {
-      $fields = fields.fields.get($key);
-    });
-
-    return $fields;
   }
 }

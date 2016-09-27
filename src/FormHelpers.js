@@ -30,11 +30,10 @@ export default $this => ({
   /* ------------------------------------------------------------------ */
 
   actionRecursive: (action, fields) => {
+    if (fields.size === 0) return;
     fields.forEach((field) => {
       field[action]();
-      if (field.fields.size !== 0) {
-        $this.actionRecursive(action, field.fields);
-      }
+      $this.actionRecursive(action, field.fields);
     });
   },
 

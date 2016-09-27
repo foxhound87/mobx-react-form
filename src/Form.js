@@ -2,6 +2,7 @@ import { action, computed, observe, observable, asMap, toJS } from 'mobx';
 import _ from 'lodash';
 import Validator from './Validator';
 import fieldsInitializer from './FieldsInit';
+import fieldHelpers from './FieldHelpers';
 import formHelpers from './FormHelpers';
 
 export default class Form {
@@ -29,6 +30,7 @@ export default class Form {
     this.name = name;
 
     this.assignFormHelpers();
+    this.assignFieldHelpers();
     this.assignInitData(obj);
     this.initValidator(obj);
     this.assignFieldsInitializer();
@@ -46,6 +48,10 @@ export default class Form {
 
   assignFormHelpers() {
     Object.assign(this, formHelpers(this));
+  }
+
+  assignFieldHelpers() {
+    Object.assign(this, fieldHelpers(this));
   }
 
   assignFieldsInitializer() {
@@ -127,24 +133,14 @@ export default class Form {
     Fields Selector
   */
   $(key) {
-    return this.get(key);
+    return this.select(key);
   }
 
   /**
     Fields Selector
   */
   get(key) {
-    const keys = _.split(key, '.');
-    const head = _.head(keys);
-    keys.shift();
-
-    let fields = this.fields.get(head);
-
-    _.each(keys, ($key) => {
-      fields = fields.fields.get($key);
-    });
-
-    return fields;
+    return this.select(key);
   }
 
   /**
