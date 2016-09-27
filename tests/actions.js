@@ -55,9 +55,6 @@ describe('$L Form', () => {
 
   it('$L password.error should be null', () =>
     expect($.$L.$('password').error).to.be.null);
-
-  it('$L password.errorMessage should be null', () =>
-    expect($.$L.$('password').errorMessage).to.be.null);
 });
 
 describe('$H Form fields', () => {
@@ -131,9 +128,6 @@ describe('$Q Form fields', () => {
 describe('others fields', () => {
   it('$C error should be equal to "The user already exist."', () =>
     expect($.$C.error).to.be.equal('The user already exist'));
-
-  it('$C genericError should be equal to "The user already exist."', () =>
-    expect($.$C.genericError).to.be.equal('The user already exist'));
 
   it('$D devSkills.isValid should be false', () =>
     expect($.$D.$('devSkills').isValid).to.be.false);

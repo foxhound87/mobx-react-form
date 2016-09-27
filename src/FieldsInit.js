@@ -1,3 +1,4 @@
+import { action } from 'mobx';
 import _ from 'lodash';
 import Field from './Field';
 
@@ -6,15 +7,8 @@ import Field from './Field';
 */
 export default $this => ({
 
-  initFields: (obj = {}) => {
-    let fields = obj.fields || {};
-
-    fields = $this.handleFieldsArray(fields);
-    fields = $this.handleFieldsEmpty(fields, obj);
-    fields = $this.mergeSchemaDefaults(fields);
-
-    // create fields
-    _.each(fields, (field, key) => _.extend($this.fields, {
+  initField: action('init-Field', (key, field, obj = {}) => {
+    $this.fields.merge({
       [key]: new Field(key, field, {
         $label: _.has(obj.labels, key) && obj.labels[key],
         $value: _.has(obj.values, key) && obj.values[key],
@@ -24,14 +18,25 @@ export default $this => ({
         $validate: _.has(obj.validate, key) && obj.validate[key],
         $rules: _.has(obj.rules, key) && obj.rules[key],
       }),
-    }));
-  },
+    });
+  }),
+
+  initFields: action('init-Fields', (obj = {}) => {
+    let fields = obj.fields || {};
+
+    fields = $this.handleFieldsArray(fields);
+    fields = $this.handleFieldsEmpty(fields, obj);
+    fields = $this.mergeSchemaDefaults(fields);
+
+    // create fields
+    _.each(fields, (field, key) => $this.initField(key, field, obj));
+  }),
 
   handleFieldsArray: ($fields) => {
     let fields = $fields;
     if (_.isArray(fields)) {
       fields = _.reduce(fields, ($obj, $) => {
-        // as array of objects (with key and custom props)
+        // as array of objects (with key and props)
         if (_.isObject($) && _.has($, 'name')) {
           return Object.assign($obj, { [$.name]: $ });
         }

@@ -54,6 +54,7 @@ class CompanyWidgetsForm extends Form {}
 
 export default {
   withNestedFields: new FormWithNestedFields({
+    plugins,
     fields: withNestedFields.fields,
   }),
   registerMaterial: new RegisterMaterialForm({

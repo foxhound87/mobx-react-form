@@ -1,4 +1,4 @@
-import { action, computed, observe } from 'mobx';
+import { action, computed, observe, observable, asMap, toJS } from 'mobx';
 import _ from 'lodash';
 import Validator from './Validator';
 import fieldsInitializer from './FieldsInit';
@@ -8,7 +8,7 @@ export default class Form {
 
   name = null;
 
-  fields = {};
+  @observable fields = asMap({});
 
   validator;
 
@@ -26,20 +26,15 @@ export default class Form {
   };
 
   constructor(obj = {}, name = null) {
-    // console.log('-----', name, '-----------------------');
     this.name = name;
 
     this.assignFormHelpers();
     this.assignInitData(obj);
     this.initValidator(obj);
     this.assignFieldsInitializer();
-
     this.initFields(obj);
-    // console.log('FORM --> INIT FIELDS', this.fields);
-
     this.observeFields();
     this.validateOnInit();
-
 
     // execute onInit if exist
     if (_.isFunction(this.onInit)) this.onInit(this);
@@ -70,11 +65,17 @@ export default class Form {
 
   observeFields() {
     if (this.$options.validateOnChange === false) return;
-    // observe and validate each field
-    _.each(this.fields, (field, key) =>
-      _.has(this.fields[key], '$value') &&
-        observe(this.fields[key], '$value', () =>
-          this.validate({ key, showErrors: true, recursive: true })));
+    // deep observe and validate each field
+    this.observeFieldsDeep(this.fields);
+  }
+
+  observeFieldsDeep(fields) {
+    fields.forEach((field, key) => {
+      observe(fields.get(key), '$value', () =>
+        this.validate({ key, field, showErrors: true, related: true }));
+      // recursive observe and validate each field
+      if (field.fields.size) this.observeFieldsDeep(field.fields);
+    });
   }
 
   validateOnInit() {
@@ -89,8 +90,9 @@ export default class Form {
     this.validator.resetGenericError();
 
     const $key = _.has(opt, 'key') ? opt.key : opt;
+    const $field = _.has(opt, 'field') ? opt.field : null;
     const showErrors = _.has(opt, 'showErrors') ? opt.showErrors : obj.showErrors || true;
-    const recursive = _.has(opt, 'recursive') ? opt.recursive : obj.recursive || false;
+    const related = _.has(opt, 'related') ? opt.related : obj.related || false;
 
     const notShowErrorsEvents = ['clear', 'reset'];
     if (this.$options.showErrorsOnUpdate === false) notShowErrorsEvents.push('update');
@@ -100,9 +102,9 @@ export default class Form {
       // validate all fields
       return new Promise((resolve) => {
         this.validator.validateAll({
-          recursive,
+          related,
+          form: this,
           showErrors: $showErrors,
-          fields: this.fields,
           values: this.values(),
         });
         // wait all promises then resolve
@@ -110,15 +112,14 @@ export default class Form {
           .then(() => resolve(this.isValid));
       });
     }
-
     // validate single field
     return new Promise((resolve) => {
       // validate single field by key
       this.validator
-        .validateField(this.fields, $key, $showErrors, recursive);
+        .validateField(this.fields, $field, $key, $showErrors, related);
       // wait all promises then resolve
       return Promise.all(this.validator.promises)
-        .then(() => resolve(this.fields[$key].isValid));
+        .then(() => resolve($field.isValid));
     });
   }
 
@@ -133,8 +134,17 @@ export default class Form {
     Fields Selector
   */
   get(key) {
-    const $key = _.replace(key, '.', '.fields.');
-    return _.get(this.fields, $key);
+    const keys = _.split(key, '.');
+    const head = _.head(keys);
+    keys.shift();
+
+    let fields = this.fields.get(head);
+
+    _.each(keys, ($key) => {
+      fields = fields.fields.get($key);
+    });
+
+    return fields;
   }
 
   /**
@@ -149,72 +159,33 @@ export default class Form {
   */
   map(key, callback) {
     const field = this.$(key);
-    return _.map(field.fields, callback);
-  }
-
-  values() {
-    return this.valuesRecursive(this.fields);
-  }
-
-  errors() {
-    return this.errorsRecursive(this.fields);
-  }
-
-  invalidate(message) {
-    this.validator.invalidate(message);
+    return field.fields.values().map(callback);
   }
 
   eventsRunning(events) {
     return _.intersection(events, this.events).length > 0;
   }
 
-  @computed
-  get hasError() {
-    return _.some(this.fields, 'hasError')
-      || _.isString(this.validator.genericErrorMessage);
+  invalidate(message) {
+    this.validator.invalidate(message);
   }
 
-  @computed
-  get isValid() {
-    return _.every(this.fields, 'isValid')
-      && !_.isString(this.validator.genericErrorMessage);
+  values() {
+    return this.valuesRecursive(toJS(this.fields));
   }
 
-  @computed
-  get isDirty() {
-    return _.some(this.fields, 'isDirty');
+  errors() {
+    return this.errorsRecursive(toJS(this.fields));
   }
 
-  @computed
-  get isPristine() {
-    return _.every(this.fields, 'isPristine');
-  }
-
-  @computed
-  get isDefault() {
-    return _.every(this.fields, 'isDefault');
-  }
-
-  @computed
-  get isEmpty() {
-    return _.every(this.fields, 'isEmpty');
-  }
-
-  @computed
-  get error() {
-    return this.validator.genericErrorMessage;
-  }
-
-  @computed
-  get genericError() {
-    return this.validator.genericErrorMessage;
-  }
+  /* ------------------------------------------------------------------ */
+  /* ACTIONS */
 
   @action
   clear() {
     const $e = 'clear';
     this.events.push($e);
-    this.clearRecursive(this.fields);
+    this.actionRecursive($e, this.fields);
     this.events.pop($e);
   }
 
@@ -222,7 +193,7 @@ export default class Form {
   reset() {
     const $e = 'reset';
     this.events.push($e);
-    this.resetRecursive(this.fields);
+    this.actionRecursive($e, this.fields);
     this.events.pop($e);
   }
 
@@ -245,6 +216,49 @@ export default class Form {
 
     this.events.pop($e);
   }
+
+  /* ------------------------------------------------------------------ */
+  /* COMPUTED */
+
+  @computed
+  get hasError() {
+    return _.some(this.deepCheck('some', 'hasError', this.fields))
+      || _.isString(this.validator.genericErrorMessage);
+  }
+
+  @computed
+  get isValid() {
+    return _.every(this.deepCheck('every', 'isValid', this.fields))
+      && !_.isString(this.validator.genericErrorMessage);
+  }
+
+  @computed
+  get isDirty() {
+    return _.some(this.deepCheck('some', 'isDirty', this.fields));
+  }
+
+  @computed
+  get isPristine() {
+    return _.every(this.deepCheck('every', 'isPristine', this.fields));
+  }
+
+  @computed
+  get isDefault() {
+    return _.every(this.deepCheck('every', 'isDefault', this.fields));
+  }
+
+  @computed
+  get isEmpty() {
+    return _.every(this.deepCheck('every', 'isEmpty', this.fields));
+  }
+
+  @computed
+  get error() {
+    return this.validator.genericErrorMessage;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* EVENTS */
 
   /**
     On Submit

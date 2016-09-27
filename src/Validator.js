@@ -39,7 +39,7 @@ export default class Validator {
     /**
       Vanilla JavaScript Functions
     */
-    if (this.plugins.vjf === true) {
+    if (this.plugins.vjf) {
       this.validators.vjf = new VJF(this.plugins.vjf, {
         promises: this.promises,
         options: this.options,
@@ -75,43 +75,56 @@ export default class Validator {
   }
 
   @action
-  validateAll({ fields, values = null, showErrors = true, recursive = false }) {
+  validateAll({ form, values = null, showErrors = true, related = false }) {
     const { svk } = this.validators;
     // reset generic error message
     this.genericErrorMessage = null;
     // validate with ajv
     if (svk) svk.validate(values);
     // validate all fields
-    _.each(fields, (field, key) =>
-      this.validateField(fields, key, showErrors, recursive));
+    this.validateAllDeep(form, form.fields, showErrors, related);
   }
 
-  validateField(fields, key, showErrors = true, recursive = false) {
-    const field = fields[key];
+  validateAllDeep(form, fields, showErrors, related, path = '') {
+    if (!fields.size) return;
+
+    fields.forEach((field, key) => {
+      const $path = _.trimStart(`${path}.${key}`, '.');
+      this.validateField(form, field, key, showErrors, related);
+      // recursive validation for nested fields
+      if (field.fields.size) {
+        this.validateAllDeep(field.fields, showErrors, related, $path);
+      }
+    });
+  }
+
+  validateField(form = null, field = null, key, showErrors = true, related = false) {
+    const $field = field || form.fields.get(key) || this.select(form.fields, key);
+    // if (isObservableMap($field)) $field = $field.values();
     // reset field validation
-    field.resetValidation();
+    $field.resetValidation();
     // get all validators
     const { svk, dvr, vjf } = this.validators;
-    // validate with json schema validation keywords (svk)
-    if (svk) svk.validateField(field);
-    // validate with json schema validation keywords (dvr)
-    if (dvr) dvr.validateField(field);
     // validate with vanilla js functions (vjf)
-    if (vjf) vjf.validateField(field, fields);
+    if (vjf) vjf.validateField($field, form);
+    // validate with json schema validation keywords (dvr)
+    if (dvr) dvr.validateField($field);
+    // validate with json schema validation keywords (svk)
+    if (svk) svk.validateField($field);
     // send error to the view
-    field.showErrors(showErrors);
-    // recursive validation
-    if (recursive) this.recursiveFieldValidation(fields, field, showErrors);
+    $field.showErrors(showErrors);
+    // related validation
+    if (related) this.relatedFieldValidation(form.fields, $field, showErrors);
   }
 
-  recursiveFieldValidation(fields, field, showErrors) {
+  relatedFieldValidation(fields, field, showErrors) {
     /*
       validate 'related' fields if specified
-      and recursive validation allowed
+      and related validation allowed (recursive)
     */
     if (!_.isEmpty(field.related)) {
-      _.each(field.related, $rel =>
-        this.validateField(fields, $rel, showErrors, false));
+      _.each(field.related, $path =>
+        this.validateField(fields, null, $path, showErrors, false));
     }
   }
 
@@ -137,5 +150,23 @@ export default class Validator {
     // if no string provided, show default error.
     this.genericErrorMessage = this.getDefaultErrorMessage();
     return;
+  }
+
+
+  /**
+    Fields Selector
+  */
+  select(fields, key) {
+    const keys = _.split(key, '.');
+    const head = _.head(keys);
+    keys.shift();
+
+    let $fields = fields.get(head);
+
+    _.each(keys, ($key) => {
+      $fields = fields.fields.get($key);
+    });
+
+    return $fields;
   }
 }

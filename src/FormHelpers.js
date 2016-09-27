@@ -5,43 +5,38 @@ import _ from 'lodash';
 */
 export default $this => ({
 
-  clearRecursive: (fields) => {
-    _.each(fields, (field) => {
-      field.clear();
-      if (_.has(field, 'fields')) {
-        $this.clearRecursive(field.fields);
-      }
-    });
-  },
-
-  resetRecursive: (fields) => {
-    _.each(fields, (field) => {
-      field.reset();
-      if (_.has(field, 'fields')) {
-        $this.resetRecursive(field.fields);
-      }
-    });
-  },
-
   valuesRecursive: fields =>
     _.reduce(fields, (obj, field) => {
-      if (_.isObject(field.fields)) {
+      if (!_.isEmpty(field.fields)) {
         return Object.assign(obj, {
           [field.key]: $this.valuesRecursive(field.fields),
         });
       }
-      return Object.assign(obj, { [field.key]: field.value });
+      return Object.assign(obj, { [field.key]: field.$value });
     }, {}),
 
   errorsRecursive: fields =>
     _.reduce(fields, (obj, field) => {
-      if (_.isObject(field.fields)) {
+      if (!_.isEmpty(field.fields)) {
         return Object.assign(obj, {
           [field.key]: $this.errorsRecursive(field.fields),
         });
       }
-      return Object.assign(obj, { [field.key]: field.error });
+      return Object.assign(obj, {
+        [field.key]: field.$error || field.asyncErrorMessage,
+      });
     }, {}),
+
+  /* ------------------------------------------------------------------ */
+
+  actionRecursive: (action, fields) => {
+    fields.forEach((field) => {
+      field[action]();
+      if (field.fields.size !== 0) {
+        $this.actionRecursive(action, field.fields);
+      }
+    });
+  },
 
   updateRecursive: ($, data, path = '') => {
     const isStrict = ($this.$options.strictUpdate === true);
@@ -57,9 +52,22 @@ export default $this => ({
       if (!_.isUndefined(field) && $ !== 'value') field.set($, $val);
       // update values recursively only if field has nested
       if (_.has(field, 'fields') && _.isObject($val)) {
-        $this.updateRecursive($, $val, $key, isStrict);
+        if (field.fields.size !== 0) {
+          $this.updateRecursive($, $val, $key, isStrict);
+        }
       }
     });
   },
 
+  /* ------------------------------------------------------------------ */
+
+  deepCheck: ($, prop, fields) =>
+    _.reduce(fields.values(), (check, field) => {
+      if (field.fields.size === 0) {
+        check.push(field[prop]);
+        return check;
+      }
+      check.push(_[$]($this.deepCheck($, prop, field.fields), Boolean));
+      return check;
+    }, []),
 });

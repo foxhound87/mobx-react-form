@@ -19,7 +19,7 @@ export default class VJF {
     this.options = options;
   }
 
-  validateField(field, fields) {
+  validateField(field, form) {
     // exit if field does not have validation functions
     if (!field.validate) return;
 
@@ -28,20 +28,20 @@ export default class VJF {
 
     // map only if is an array of validator functions
     if (_.isArray($fn)) {
-      $fn.map(fn => this.collectData(fn, field, fields));
+      $fn.map(fn => this.collectData(fn, field, form));
     }
 
     // it's just one function
     if (_.isFunction($fn)) {
-      this.collectData($fn, field, fields);
+      this.collectData($fn, field, form);
     }
 
     // execute the function validation
     this.executeValidation(field);
   }
 
-  collectData($fn, field, fields) {
-    const res = this.handleFunctionResult($fn, field, fields);
+  collectData($fn, field, form) {
+    const res = this.handleFunctionResult($fn, field, form);
 
     // check and execute only if is a promise
     if (utils.isPromise(res)) {
@@ -80,9 +80,9 @@ export default class VJF {
     }
   }
 
-  handleFunctionResult($fn, field, fields) {
+  handleFunctionResult($fn, field, form) {
     // executre validation function
-    const res = $fn({ field, fields, validator: this.validator });
+    const res = $fn({ field, form, validator: this.validator });
 
     /**
       Handle "array"

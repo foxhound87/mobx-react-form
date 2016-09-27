@@ -26,7 +26,7 @@ const toJson = (data) => {
 };
 
 const parseFormData = (form) => {
-  const omit = ['fields', 'schema', 'extend', 'validator', 'events'];
+  const omit = ['schema', 'extend', 'validator', 'events'];
   return toJson(_.merge(_.omit(form, omit), merge(form)));
 };
 
@@ -69,8 +69,5 @@ export const DebugForm = observer(({ form }) => (
       {parseFormData(form)}
     </pre>
     <hr />
-    {_.map(form.fields, field =>
-      <DebugField field={field} key={field.key} />
-    )}
   </div>
 ));

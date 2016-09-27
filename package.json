@@ -58,7 +58,6 @@
     }
   },
   "dependencies": {
-    "json-stringify-safe": "5.0.1",
     "lodash": "4.16.1",
     "mobx": "2.5.1"
   },

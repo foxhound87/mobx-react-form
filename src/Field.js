@@ -1,11 +1,11 @@
-import { action, observable, computed, isObservableArray, toJS } from 'mobx';
+import { action, observable, computed, isObservableArray, toJS, asMap } from 'mobx';
 import _ from 'lodash';
 
 import fieldsInitializer from './FieldsInit';
 
 export default class Field {
 
-  fields = {};
+  fields = asMap({});
 
   key;
   name;
@@ -16,10 +16,9 @@ export default class Field {
   @observable $label;
   @observable $value;
   @observable $disabled = false;
-
+  @observable $error = null;
   @observable validationErrorStack = [];
   @observable asyncErrorMessage = null;
-  @observable errorMessage = null;
   @observable showError = true;
 
   @observable validationFunctionsData = [];
@@ -30,34 +29,17 @@ export default class Field {
   interacted = false;
 
   constructor(key, field = {}, obj = {}) {
+    this.initField(key, field, obj);
+    // init nested fields
     if (_.has(field, 'fields')) {
       Object.assign(this, fieldsInitializer(this));
-      this.initNestedFields(key, field, obj);
+      this.initNestedFields(field.fields);
     }
-
-    this.initField(key, field, obj);
   }
 
   @action
-  initNestedFields($key, $field) {
-    this.key = $key;
-    this.name = $key || $field.name;
-    this.initFields({ fields: $field.fields });
-    // console.log('FIELD:', $key, '--> INIT FIELDS', $field.fields);
-  }
-
-  initNested(key, field, obj = {}) {
-    _.extend(this.fields, {
-      [key]: new Field(key, field, {
-        $label: _.has(obj.labels, key) && obj.labels[key],
-        $value: _.has(obj.values, key) && obj.values[key],
-        $default: _.has(obj.defaults, key) && obj.defaults[key],
-        $disabled: _.has(obj.disabled, key) && obj.disabled[key],
-        $related: _.has(obj.related, key) && obj.related[key],
-        $validate: _.has(obj.validate, key) && obj.validate[key],
-        $rules: _.has(obj.rules, key) && obj.rules[key],
-      }),
-    });
+  initNestedFields(fields) {
+    this.initFields({ fields });
   }
 
   @action
@@ -143,11 +125,8 @@ export default class Field {
   */
   @action
   add() {
-    console.log('add field');
     const $n = _.random(999, 9999);
-    const field = $n;
-    console.log('field', field);
-    this.initNested($n, field);
+    this.initField($n);
   }
 
   @action
@@ -168,7 +147,7 @@ export default class Field {
   @action
   resetValidation() {
     this.showError = true;
-    this.errorMessage = null;
+    this.$error = null;
     this.asyncErrorMessage = null;
     this.validationAsyncData = {};
     this.validationFunctionsData = [];
@@ -210,7 +189,7 @@ export default class Field {
       return;
     }
 
-    this.errorMessage = _.head(this.validationErrorStack);
+    this.$error = _.head(this.validationErrorStack);
     this.validationErrorStack = [];
   }
 
@@ -289,7 +268,7 @@ export default class Field {
   @computed
   get error() {
     if (this.showError === false) return null;
-    return (this.asyncErrorMessage || this.errorMessage);
+    return (this.asyncErrorMessage || this.$error);
   }
 
   @computed
@@ -298,7 +277,7 @@ export default class Field {
       && (this.validationAsyncData.valid === false))
       || (this.validationErrorStack.length !== 0)
       || _.isString(this.asyncErrorMessage)
-      || _.isString(this.errorMessage);
+      || _.isString(this.$error);
   }
 
   @computed

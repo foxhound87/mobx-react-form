@@ -3,7 +3,7 @@ import {
   // checkUser,
   isEmail,
   shouldBeEqualTo,
-} from './extensions/_.validators';
+} from './extensions/_.extend.vjf';
 
 // define a json schema
 const schema = {

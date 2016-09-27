@@ -1,7 +1,7 @@
 import validatorjs from 'validatorjs';
 import Form from '../../src';
 import dvrExtend from './_.extend.dvr';
-import { shouldBeEqualTo } from './_.validators';
+import { shouldBeEqualTo } from './_.extend.vjf.js';
 
 const plugins = {
   dvr: {

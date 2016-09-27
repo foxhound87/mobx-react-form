@@ -1,6 +1,6 @@
 import ajv from 'ajv';
 import Form from '../../src';
-import { isEmail, shouldBeEqualTo } from './_.validators';
+import { isEmail, shouldBeEqualTo } from './_.extend.vjf.js';
 import svkExtend from './_.extend.svk';
 
 const plugins = {
