@@ -43,6 +43,10 @@ $.$P.$('username').set('label', 'UserName');
 
 $.$P.reset();
 
+$.$R.update({
+  email: 'invalid',
+});
+
 describe('$L Form', () => {
   it('$L username.value should be empty', () =>
     expect($.$L.$('username').value).to.be.empty);
@@ -123,6 +127,23 @@ describe('$Q Form fields', () => {
 
   it('$Q email.label hould be equal to "Email"', () =>
     expect($.$Q.$('email').label).to.be.equal('Email'));
+});
+
+describe('$R Form fields', () => {
+  it('$R email.value hould be equal to "invalid"', () =>
+    expect($.$R.$('email').value).to.be.equal('invalid'));
+
+  it('$R email.hasError should be true', () =>
+    expect($.$R.$('email').hasError).to.be.true);
+
+  it('$R email.isValid should be false', () =>
+    expect($.$R.$('email').isValid).to.be.false);
+
+  it('$R emailConfirm.hasError should be true', () =>
+    expect($.$R.$('emailConfirm').hasError).to.be.true);
+
+  it('$R emailConfirm.isValid should be false', () =>
+    expect($.$R.$('emailConfirm').isValid).to.be.false);
 });
 
 describe('others fields', () => {

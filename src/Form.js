@@ -122,7 +122,13 @@ export default class Form {
     return new Promise((resolve) => {
       // validate single field by key
       this.validator
-        .validateField(this.fields, $field, $key, $showErrors, related);
+        .validateField({
+          related,
+          form: this,
+          key: $key,
+          field: $field,
+          showErrors: $showErrors,
+        });
       // wait all promises then resolve
       return Promise.all(this.validator.promises)
         .then(() => resolve($field.isValid));

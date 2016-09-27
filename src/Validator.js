@@ -90,7 +90,7 @@ export default class Validator {
 
     fields.forEach((field, key) => {
       const $path = _.trimStart(`${path}.${key}`, '.');
-      this.validateField(form, field, key, showErrors, related);
+      this.validateField({ form, field, key, showErrors, related });
       // recursive validation for nested fields
       if (field.fields.size) {
         this.validateAllDeep(field.fields, showErrors, related, $path);
@@ -98,7 +98,7 @@ export default class Validator {
     });
   }
 
-  validateField(form = null, field = null, key, showErrors = true, related = false) {
+  validateField({ form = null, field = null, key, showErrors = true, related = false }) {
     const $field = field || form.fields.get(key) || this.select(key, form.fields);
     // if (isObservableMap($field)) $field = $field.values();
     // reset field validation
@@ -114,17 +114,17 @@ export default class Validator {
     // send error to the view
     $field.showErrors(showErrors);
     // related validation
-    if (related) this.relatedFieldValidation(form.fields, $field, showErrors);
+    if (related) this.relatedFieldValidation(form, $field, showErrors);
   }
 
-  relatedFieldValidation(fields, field, showErrors) {
+  relatedFieldValidation(form, field, showErrors) {
     /*
       validate 'related' fields if specified
       and related validation allowed (recursive)
     */
     if (!_.isEmpty(field.related)) {
-      _.each(field.related, $path =>
-        this.validateField(fields, null, $path, showErrors, false));
+      _.each(field.related, key =>
+        this.validateField({ form, key, showErrors, related: false }));
     }
   }
 
