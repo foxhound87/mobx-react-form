@@ -39,7 +39,7 @@ export default class Validator {
     /**
       Vanilla JavaScript Functions
     */
-    if (this.plugins.vjf === true) {
+    if (this.plugins.vjf) {
       this.validators.vjf = new VJF(this.plugins.vjf, {
         promises: this.promises,
         options: this.options,
