@@ -148,18 +148,12 @@ export default class Form {
 
   @action
   clear() {
-    const $e = 'clear';
-    this.$events.push($e);
-    this.actionRecursive($e, this.fields);
-    this.$events.pop($e);
+    this.deepAction('clear', this.fields);
   }
 
   @action
   reset() {
-    const $e = 'reset';
-    this.$events.push($e);
-    this.actionRecursive($e, this.fields);
-    this.$events.pop($e);
+    this.deepAction('reset', this.fields);
   }
 
   /* ------------------------------------------------------------------ */

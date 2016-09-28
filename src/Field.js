@@ -181,21 +181,27 @@ export default class Field {
   }
 
   @action
-  clear() {
+  clear(deep = false) {
     this.interacted = false;
     this.resetValidation();
     if (isObservableArray(this.$value)) this.$value = [];
     if (_.isBoolean(this.$value)) this.$value = false;
     if (_.isNumber(this.$value)) this.$value = 0;
     if (_.isString(this.$value)) this.$value = '';
+
+    // recursive clear fields
+    if (deep) this.deepAction('clear', this.fields);
   }
 
   @action
-  reset() {
+  reset(deep = false) {
     const useDefaultValue = (this.defaultValue !== this.initialValue);
     if (useDefaultValue) this.value = this.defaultValue;
     if (!useDefaultValue) this.value = this.initialValue;
     this.interacted = false;
+
+    // recursive clear fields
+    if (deep) this.deepAction('reset', this.fields);
   }
 
   @action

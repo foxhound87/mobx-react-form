@@ -147,4 +147,15 @@ export default $this => ({
     });
   }, {}),
 
+  deepAction: ($action, fields) => {
+    $this.$events.push($action);
+    if (fields.size !== 0) {
+      fields.forEach((field) => {
+        field[$action]();
+        $this.deepAction($action, field.fields);
+      });
+    }
+    $this.$events.pop($action);
+  },
+
 });

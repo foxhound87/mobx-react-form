@@ -5,14 +5,6 @@ import _ from 'lodash';
 */
 export default $this => ({
 
-  actionRecursive: (action, fields) => {
-    if (fields.size === 0) return;
-    fields.forEach((field) => {
-      field[action]();
-      $this.actionRecursive(action, field.fields);
-    });
-  },
-
   deepCheck: ($, prop, fields) =>
     _.reduce(fields.values(), (check, field) => {
       if (field.fields.size === 0) {
