@@ -342,6 +342,25 @@ export default class Field {
     return;
   };
 
+  /**
+    Event: On Clear
+  */
+  handleOnClear = (e) => {
+    e.preventDefault();
+    this.clear(true);
+  };
+
+  /**
+    Event: On Reset
+  */
+  handleOnReset = (e) => {
+    e.preventDefault();
+    this.reset(true);
+  };
+
+  /**
+    Event: On Add
+  */
   handleAdd = (e) => {
     e.preventDefault();
     this.add();

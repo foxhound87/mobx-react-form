@@ -215,16 +215,16 @@ export default class Form {
   };
 
   /**
-    On Clear
-   */
+    Event: On Clear
+  */
   handleOnClear = (e) => {
     e.preventDefault();
     this.clear();
   };
 
   /**
-    On Reset
-   */
+    Event: On Reset
+  */
   handleOnReset = (e) => {
     e.preventDefault();
     this.reset();

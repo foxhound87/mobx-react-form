@@ -70,12 +70,14 @@ const FormWithNestedFields = ({ form }) => (
         <br />
 
         <div className="ctrl">
+          <button onClick={form.$('club').handleOnClear}>Clear</button>
+          <button onClick={form.$('club').handleOnReset}>Reset</button>
           <button
             onClick={form.$('club').handleAdd}
           >+ Add Field</button>
         </div>
 
-        <br />
+        <hr />
         <br />
         <div className="ctrl">
           <button type="submit">Submit</button>
