@@ -145,9 +145,25 @@ export default class Field {
     Add Field
   */
   @action
-  add() {
-    const $n = _.random(999, 9999);
-    this.initField($n);
+  add(e, fields = null) {
+    e.preventDefault();
+
+    if (!fields) {
+      const $n = _.random(999, 9999);
+      this.initField($n);
+      return;
+    }
+
+    this.initFields({ fields });
+  }
+
+  /**
+    Del Field
+  */
+  @action
+  del(e, key) {
+    e.preventDefault();
+    this.fields.delete(key);
   }
 
   @action
@@ -356,13 +372,5 @@ export default class Field {
   handleOnReset = (e) => {
     e.preventDefault();
     this.reset(true);
-  };
-
-  /**
-    Event: On Add
-  */
-  handleAdd = (e) => {
-    e.preventDefault();
-    this.add();
   };
 }

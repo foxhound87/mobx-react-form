@@ -62,6 +62,11 @@ const FormWithNestedFields = ({ form }) => (
               placeholder={field.label}
               onChange={field.sync}
             />
+            <span className="ctrl">
+              <button
+                onClick={e => form.$('club').del(e, field.name)}
+              >X</button>
+            </span>
           </div>
         )}
 
@@ -73,7 +78,7 @@ const FormWithNestedFields = ({ form }) => (
           <button onClick={form.$('club').handleOnClear}>Clear</button>
           <button onClick={form.$('club').handleOnReset}>Reset</button>
           <button
-            onClick={form.$('club').handleAdd}
+            onClick={e => form.$('club').add(e)}
           >+ Add Field</button>
         </div>
 
