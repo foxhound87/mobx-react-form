@@ -8,15 +8,18 @@ import Field from './Field';
 export default $this => ({
 
   initField: action('init-Field', (key, field, obj = {}) => {
+    // try to get props from separated objects
+    const $try = prop => _.has(obj[prop], key) && obj[prop][key];
+
     $this.fields.merge({
       [key]: new Field(key, field, {
-        $label: _.has(obj.labels, key) && obj.labels[key],
-        $value: _.has(obj.values, key) && obj.values[key],
-        $default: _.has(obj.defaults, key) && obj.defaults[key],
-        $disabled: _.has(obj.disabled, key) && obj.disabled[key],
-        $related: _.has(obj.related, key) && obj.related[key],
-        $validate: _.has(obj.validate, key) && obj.validate[key],
-        $rules: _.has(obj.rules, key) && obj.rules[key],
+        $label: $try('labels'),
+        $value: $try('values'),
+        $default: $try('defaults'),
+        $disabled: $try('disabled'),
+        $related: $try('related'),
+        $validate: $try('validate'),
+        $rules: $try('rules'),
       }),
     });
   }),

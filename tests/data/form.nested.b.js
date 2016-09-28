@@ -2,7 +2,8 @@ import Form from '../../src';
 
 const fields = [{
   name: 'state',
-  label: 'USA',
+  label: 'State',
+  value: 'USA',
   fields: [{
     name: 'city',
     label: 'City',

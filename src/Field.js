@@ -34,13 +34,17 @@ export default class Field {
     this.initField(key, field, obj);
     // init nested fields
     if (_.has(field, 'fields')) {
-      Object.assign(this, fieldsInitializer(this));
+      this.assignFieldsInitializer();
       this.initNestedFields(field.fields);
     }
   }
 
   assignFieldHelpers() {
     Object.assign(this, fieldHelpers(this));
+  }
+
+  assignFieldsInitializer() {
+    Object.assign(this, fieldsInitializer(this));
   }
 
   @action
