@@ -34,13 +34,13 @@ export default $this => ({
     });
   },
 
-  mapDeep: (prop, fields) =>
+  deepMap: (prop, fields) =>
     _.reduce(fields.values(), (obj, field) => {
       if (field.fields.size === 0) {
         return Object.assign(obj, { [field.key]: field[prop] });
       }
       return Object.assign(obj, {
-        [field.key]: $this.mapDeep(prop, field.fields),
+        [field.key]: $this.deepMap(prop, field.fields),
       });
     }, {}),
 

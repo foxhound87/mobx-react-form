@@ -1,4 +1,4 @@
-import { action, computed, observe, observable, asMap, toJS } from 'mobx';
+import { action, computed, observe, observable, asMap } from 'mobx';
 import _ from 'lodash';
 import Validator from './Validator';
 import fieldsInitializer from './FieldsInit';
@@ -151,11 +151,11 @@ export default class Form {
   }
 
   values() {
-    return this.mapDeep('value', this.fields);
+    return this.deepMap('value', this.fields);
   }
 
   errors() {
-    return this.mapDeep('error', this.fields);
+    return this.deepMap('error', this.fields);
   }
 
   /* ------------------------------------------------------------------ */
