@@ -202,7 +202,7 @@ export default class Form {
   /**
     On Submit
    */
-  handleOnSubmit = (e, o = {}) => {
+  onSubmit = (e, o = {}) => {
     e.preventDefault();
 
     const execOnSuccess = _.has(o, 'onSuccess') ? o.onSuccess : this.onSuccess;
@@ -217,7 +217,7 @@ export default class Form {
   /**
     Event: On Clear
   */
-  handleOnClear = (e) => {
+  onClear = (e) => {
     e.preventDefault();
     this.clear();
   };
@@ -225,7 +225,7 @@ export default class Form {
   /**
     Event: On Reset
   */
-  handleOnReset = (e) => {
+  onReset = (e) => {
     e.preventDefault();
     this.reset();
   };

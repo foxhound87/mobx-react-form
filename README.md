@@ -109,14 +109,14 @@ export default new MyForm({ fields, plugins });
 
 The package provide those built-in and ready to use Event Handlers:
 
-`handleOnSubmit(e)`, `handleOnSuccess(e)`, `handleOnError(e)`.
+`onSubmit(e)`, `onSuccess(e)`, `onError(e)`.
 
 ```javascript
 import React from 'react';
 import { observer } from 'mobx-react';
 
 const FormComponent = ({ form, events }) => (
-  <form onSubmit={form.handleOnSubmit}>
+  <form onSubmit={form.onSubmit}>
     <input
       type="text"
       name={form.$('username').name}
@@ -129,8 +129,8 @@ const FormComponent = ({ form, events }) => (
     ...
 
     <button type="submit">Submit</button>
-    <button onClick={form.handleOnReset}>Reset</button>
-    <button onClick={form.handleOnClear}>Clear</button>
+    <button onClick={form.onReset}>Reset</button>
+    <button onClick={form.onClear}>Clear</button>
 
     <p>{form.error}</p>
   </form>

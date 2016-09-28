@@ -80,9 +80,9 @@ const FormCompany = ({ form }) => (
 
         <br />
         <div className="ctrl">
-          <button onClick={form.handleOnSubmit} type="submit">Submit</button>
-          <button onClick={form.handleOnClear}>Clear</button>
-          <button onClick={form.handleOnReset}>Reset</button>
+          <button onClick={form.onSubmit} type="submit">Submit</button>
+          <button onClick={form.onClear}>Clear</button>
+          <button onClick={form.onReset}>Reset</button>
         </div>
 
         <p><i>{form.error}</i></p>

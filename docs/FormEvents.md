@@ -10,12 +10,12 @@
 
 The package provide those ready to use event handlers:
 
-`handleOnSubmit(e)`, `handleOnSuccess(e)`, `handleOnError(e)`.
+`onSubmit(e)`, `onSuccess(e)`, `onError(e)`.
 
 ---
 
 
-> The `handleOnSubmit` will `validate` the form and will call respectively `onSuccess` or `onError` mehtods if they are implemented in the `extended` class.
+> The `onSubmit` will `validate` the form and will call respectively `onSuccess` or `onError` mehtods if they are implemented in the `extended` class.
 
 
 The `onSuccess` and `onError` mehtods takes the `form` object in input. So you can perform more actions after the validation occurs.
@@ -25,9 +25,9 @@ All Event Handlers methods take the `Proxy` object and can be easly included in 
 ```javascript
 ...
 
-<button onClick={form.handleOnSubmit} type="submit">Submit</button>
-<button onClick={form.handleOnClear}>Clear</button>
-<button onClick={form.handleOnReset}>Reset</button>
+<button onClick={form.onSubmit} type="submit">Submit</button>
+<button onClick={form.onClear}>Clear</button>
+<button onClick={form.onReset}>Reset</button>
 
 ...
 ```
@@ -67,14 +67,14 @@ const events = {
 };
 ```
 
-Then pass the events to the `handleOnSubmit` events handler:
+Then pass the events to the `onSubmit` events handler:
 
 ```javascript
 ...
 
 <button
   type="submit"
-  onClick={e => form.handleOnSubmit(e, {
+  onClick={e => form.onSubmit(e, {
     onSuccess: events.onSuccess,
     onError: events.onError,
   })}

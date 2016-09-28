@@ -145,9 +145,7 @@ export default class Field {
     Add Field
   */
   @action
-  add(e, fields = null) {
-    e.preventDefault();
-
+  add(fields = null) {
     if (!fields) {
       const $n = _.random(999, 9999);
       this.initField($n);
@@ -161,8 +159,7 @@ export default class Field {
     Del Field
   */
   @action
-  del(e, key) {
-    e.preventDefault();
+  del(key) {
     this.fields.delete(key);
   }
 
@@ -361,7 +358,7 @@ export default class Field {
   /**
     Event: On Clear
   */
-  handleOnClear = (e) => {
+  onClear = (e) => {
     e.preventDefault();
     this.clear(true);
   };
@@ -369,8 +366,24 @@ export default class Field {
   /**
     Event: On Reset
   */
-  handleOnReset = (e) => {
+  onReset = (e) => {
     e.preventDefault();
     this.reset(true);
+  };
+
+  /**
+    Event: On Add
+  */
+  onAdd = (e, data) => {
+    e.preventDefault();
+    this.add(data);
+  };
+
+  /**
+    Event: On Del
+  */
+  onDel = (e, key) => {
+    e.preventDefault();
+    this.del(key);
   };
 }
