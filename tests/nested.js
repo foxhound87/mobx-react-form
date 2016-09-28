@@ -90,3 +90,13 @@ describe('Check $C Nested Fields', () => {
   it('$C state.city.places.empireStateBuilding value should be false', () =>
     expect($.$C.$('state.city.places.empireStateBuilding').value).to.be.false);
 });
+
+describe('Check form.values() for Nested Fields', () => {
+  const deepProp = 'state.city.places.empireStateBuilding';
+
+  it(`$B values() ${deepProp} should be false`, () =>
+    expect($.$B.values()).to.have.deep.property(deepProp, false));
+
+  it(`$C values() ${deepProp} should be false`, () =>
+    expect($.$C.values()).to.have.deep.property(deepProp, false));
+});

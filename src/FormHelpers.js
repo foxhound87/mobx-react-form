@@ -5,38 +5,6 @@ import _ from 'lodash';
 */
 export default $this => ({
 
-  valuesRecursive: fields =>
-    _.reduce(fields, (obj, field) => {
-      if (!_.isEmpty(field.fields)) {
-        return Object.assign(obj, {
-          [field.key]: $this.valuesRecursive(field.fields),
-        });
-      }
-      return Object.assign(obj, { [field.key]: field.$value });
-    }, {}),
-
-  errorsRecursive: fields =>
-    _.reduce(fields, (obj, field) => {
-      if (!_.isEmpty(field.fields)) {
-        return Object.assign(obj, {
-          [field.key]: $this.errorsRecursive(field.fields),
-        });
-      }
-      return Object.assign(obj, {
-        [field.key]: field.$error || field.asyncErrorMessage,
-      });
-    }, {}),
-
-  /* ------------------------------------------------------------------ */
-
-  actionRecursive: (action, fields) => {
-    if (fields.size === 0) return;
-    fields.forEach((field) => {
-      field[action]();
-      $this.actionRecursive(action, field.fields);
-    });
-  },
-
   updateRecursive: ($, data, path = '') => {
     const isStrict = ($this.$options.strictUpdate === true);
     const err = 'You are updating a not existent field:';
@@ -58,7 +26,23 @@ export default $this => ({
     });
   },
 
-  /* ------------------------------------------------------------------ */
+  actionRecursive: (action, fields) => {
+    if (fields.size === 0) return;
+    fields.forEach((field) => {
+      field[action]();
+      $this.actionRecursive(action, field.fields);
+    });
+  },
+
+  mapDeep: (prop, fields) =>
+    _.reduce(fields.values(), (obj, field) => {
+      if (field.fields.size === 0) {
+        return Object.assign(obj, { [field.key]: field[prop] });
+      }
+      return Object.assign(obj, {
+        [field.key]: $this.mapDeep(prop, field.fields),
+      });
+    }, {}),
 
   deepCheck: ($, prop, fields) =>
     _.reduce(fields.values(), (check, field) => {

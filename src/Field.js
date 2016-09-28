@@ -17,11 +17,13 @@ export default class Field {
   @observable $label;
   @observable $value;
   @observable $disabled = false;
-  @observable $error = null;
-  @observable validationErrorStack = [];
-  @observable asyncErrorMessage = null;
+
+  @observable errorSync = null;
+  @observable errorAsync = null;
+
   @observable showError = true;
 
+  @observable validationErrorStack = [];
   @observable validationFunctionsData = [];
   @observable validationAsyncData = {};
 
@@ -142,7 +144,7 @@ export default class Field {
   @action
   setInvalid(message, async = false) {
     if (async === true) {
-      this.asyncErrorMessage = message;
+      this.errorAsync = message;
       return;
     }
 
@@ -157,8 +159,8 @@ export default class Field {
   @action
   resetValidation() {
     this.showError = true;
-    this.$error = null;
-    this.asyncErrorMessage = null;
+    this.errorSync = null;
+    this.errorAsync = null;
     this.validationAsyncData = {};
     this.validationFunctionsData = [];
     this.validationErrorStack = [];
@@ -194,17 +196,17 @@ export default class Field {
       return;
     }
 
-    this.$error = _.head(this.validationErrorStack);
+    this.errorSync = _.head(this.validationErrorStack);
     this.validationErrorStack = [];
   }
 
   @action
   showAsyncErrors() {
     if (this.validationAsyncData.valid === false) {
-      this.asyncErrorMessage = this.validationAsyncData.message;
+      this.errorAsync = this.validationAsyncData.message;
       return;
     }
-    this.asyncErrorMessage = null;
+    this.errorAsync = null;
   }
 
   @action
@@ -282,7 +284,7 @@ export default class Field {
   @computed
   get error() {
     if (this.showError === false) return null;
-    return (this.asyncErrorMessage || this.$error);
+    return (this.errorAsync || this.errorSync);
   }
 
   @computed
@@ -290,8 +292,8 @@ export default class Field {
     return (!_.isEmpty(this.validationAsyncData)
       && (this.validationAsyncData.valid === false))
       || (this.validationErrorStack.length !== 0)
-      || _.isString(this.asyncErrorMessage)
-      || _.isString(this.$error);
+      || _.isString(this.errorAsync)
+      || _.isString(this.errorSync);
   }
 
   @computed

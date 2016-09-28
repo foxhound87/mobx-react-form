@@ -151,11 +151,11 @@ export default class Form {
   }
 
   values() {
-    return this.valuesRecursive(toJS(this.fields));
+    return this.mapDeep('value', this.fields);
   }
 
   errors() {
-    return this.errorsRecursive(toJS(this.fields));
+    return this.mapDeep('error', this.fields);
   }
 
   /* ------------------------------------------------------------------ */
