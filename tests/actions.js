@@ -34,7 +34,7 @@ $.$O.update({
   username: 'TestUser',
 });
 
-$.$O.update('label', {
+$.$O.set('label', {
   undefined: 'undefined',
   email: 'E-mail',
 });
