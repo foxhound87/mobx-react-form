@@ -5,13 +5,6 @@ import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
 import { DebugForm } from './Debug';
 
-const handleUpdate = (e, form) => {
-  e.preventDefault();
-  form.update({
-    email: 'invalid',
-  });
-};
-
 const FormRegister = ({ form }) => (
   <div className="container">
     <div className="splitted-35 fixed container-left material">
@@ -92,11 +85,6 @@ const FormRegister = ({ form }) => (
             onClick={form.handleOnReset}
           >Reset</button>
         </div>
-
-        <button
-          type="submit"
-          onClick={e => handleUpdate(e, form)}
-        >UPDATE</button>
 
         <p><i>{form.error}</i></p>
 

@@ -136,32 +136,10 @@ export default class Form {
   }
 
   /**
-    Fields Selector
-  */
-  $(key) {
-    return this.select(key);
-  }
-
-  /**
-    Fields Selector
-  */
-  get(key) {
-    return this.select(key);
-  }
-
-  /**
     Fields Props Setter
   */
   set(key, data) {
     this.update(key, data);
-  }
-
-  /**
-    Fields Iterator
-  */
-  map(key, callback) {
-    const field = this.$(key);
-    return field.fields.values().map(callback);
   }
 
   eventsRunning(events) {

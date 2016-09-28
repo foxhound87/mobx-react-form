@@ -1,6 +1,5 @@
 // test data
 import $A from './form.nested.a.js';
+import $B from './form.nested.b.js';
 
-export const up = str => str.toUpperCase();
-
-export default { $A };
+export default { $A, $B };

@@ -43,7 +43,7 @@ export default $this => ({
 
     _.each(data, ($val, $key) => {
       // get the field by path joining keys recursively
-      const field = $this.$(_.trimStart(`${path}.${$key}`, '.'));
+      const field = $this.select(_.trimStart(`${path}.${$key}`, '.'), null, isStrict);
       // if no field found when is strict update, throw error
       if (_.isUndefined(field) && isStrict) throw new Error(`${err} ${path}`);
       // update field values or others props

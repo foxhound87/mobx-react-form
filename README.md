@@ -148,9 +148,6 @@ const FormComponent = ({ form, events }) => (
 export default observer(FormComponent);
 ```
 
-> `form.$('fieldkey')` is a shortcut to `form.fields.fieldkey`
-
-
 <br>
 
 ## Documentation Index

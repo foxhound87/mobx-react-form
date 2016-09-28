@@ -1,6 +1,6 @@
 export default {
-  withNestedFields: false,
-  registerMaterial: true,
+  withNestedFields: true,
+  registerMaterial: false,
   registerSimple: false,
   companyWidgets: false,
   companySimple: false,

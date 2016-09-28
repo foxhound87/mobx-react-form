@@ -2,6 +2,7 @@ import { action, observable, computed, isObservableArray, toJS, asMap } from 'mo
 import _ from 'lodash';
 
 import fieldsInitializer from './FieldsInit';
+import fieldHelpers from './FieldHelpers';
 
 export default class Field {
 
@@ -29,12 +30,17 @@ export default class Field {
   interacted = false;
 
   constructor(key, field = {}, obj = {}) {
+    this.assignFieldHelpers();
     this.initField(key, field, obj);
     // init nested fields
     if (_.has(field, 'fields')) {
       Object.assign(this, fieldsInitializer(this));
       this.initNestedFields(field.fields);
     }
+  }
+
+  assignFieldHelpers() {
+    Object.assign(this, fieldHelpers(this));
   }
 
   @action
@@ -178,11 +184,6 @@ export default class Field {
   }
 
   @action
-  update(obj) {
-    this.value = obj;
-  }
-
-  @action
   showErrors(showErrors = true) {
     if (showErrors === false) {
       this.showError = false;
@@ -203,8 +204,17 @@ export default class Field {
   }
 
   @action
-  set(key, val) {
-    _.set(this, `$${key}`, val);
+  update(obj) {
+    this.value = obj;
+  }
+
+  @action
+  set(key, val = null) {
+    if (val) {
+      _.set(this, `$${key}`, val);
+      return;
+    }
+    this.value = key;
   }
 
   @computed
