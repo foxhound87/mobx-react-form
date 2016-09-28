@@ -99,4 +99,8 @@ describe('Check form.values() for Nested Fields', () => {
 
   it(`$C values() ${deepProp} should be false`, () =>
     expect($.$C.values()).to.have.deep.property(deepProp, false));
+
+  it('$C values() places.empireStateBuilding should be false', () =>
+    expect($.$C.$('state.city').values())
+      .to.have.deep.property('places.empireStateBuilding', false));
 });

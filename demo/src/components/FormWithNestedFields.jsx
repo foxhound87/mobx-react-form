@@ -5,7 +5,7 @@ import { DebugForm } from './Debug';
 const FormWithNestedFields = ({ form }) => (
   <div className="container">
     <div className="splitted-35 fixed container-left normal">
-      <form>
+      <form onSubmit={form.handleOnSubmit}>
         <h2>Nested Fields (w/ selectors)</h2>
 
         <div>
@@ -71,7 +71,6 @@ const FormWithNestedFields = ({ form }) => (
 
         <div className="ctrl">
           <button
-            type="submit"
             onClick={form.$('club').handleAdd}
           >+ Add Field</button>
         </div>
@@ -79,18 +78,9 @@ const FormWithNestedFields = ({ form }) => (
         <br />
         <br />
         <div className="ctrl">
-          <button
-            type="submit"
-            onClick={form.handleOnSubmit}
-          >Submit</button>
-          <button
-            type="submit"
-            onClick={form.handleOnClear}
-          >Clear</button>
-          <button
-            type="submit"
-            onClick={form.handleOnReset}
-          >Reset</button>
+          <button type="submit">Submit</button>
+          <button onClick={form.handleOnClear}>Clear</button>
+          <button onClick={form.handleOnReset}>Reset</button>
         </div>
 
         <p><i>{form.error}</i></p>

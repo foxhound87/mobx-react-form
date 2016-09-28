@@ -21,6 +21,35 @@ export default $this => ({
   */
   set: (key, data) => $this.update(key, data),
 
+
+  /**
+    Fields Values (recursive with Nested Fields)
+  */
+  values: () => $this.deepMap('value', $this.fields),
+
+  /**
+    Fields Errors (recursive with Nested Fields)
+  */
+  errors: () => $this.deepMap('error', $this.fields),
+
+  /**
+    Fields Iterator
+  */
+  map: (key, callback) => {
+    const field = $this.$(key);
+    return field.fields.values().map(callback);
+  },
+
+  /**
+    Check Fields
+  */
+  check: (key, fields, msg = null) => {
+    if (_.isUndefined(fields)) {
+      const $msg = _.isNull(msg) ? 'The selected field is not defined' : msg;
+      throw new Error(`${$msg} (${key})`);
+    }
+  },
+
   /**
     Fields Selector
   */
@@ -45,23 +74,8 @@ export default $this => ({
   },
 
   /**
-    Fields Iterator
+    Update Values or Props
   */
-  map: (key, callback) => {
-    const field = $this.$(key);
-    return field.fields.values().map(callback);
-  },
-
-  /**
-    Check Fields
-  */
-  check: (key, fields, msg = null) => {
-    if (_.isUndefined(fields)) {
-      const $msg = _.isNull(msg) ? 'The selected field is not defined' : msg;
-      throw new Error(`${$msg} (${key})`);
-    }
-  },
-
   update: action(($, data = null) => {
     const $e = 'update';
     $this.$events.push($e);
@@ -122,5 +136,15 @@ export default $this => ({
       }
     });
   },
+
+  deepMap: (prop, fields) =>
+  _.reduce(fields.values(), (obj, field) => {
+    if (field.fields.size === 0) {
+      return Object.assign(obj, { [field.key]: field[prop] });
+    }
+    return Object.assign(obj, {
+      [field.key]: $this.deepMap(prop, field.fields),
+    });
+  }, {}),
 
 });

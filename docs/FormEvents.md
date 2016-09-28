@@ -25,20 +25,9 @@ All Event Handlers methods take the `Proxy` object and can be easly included in 
 ```javascript
 ...
 
-<button
-  type="submit"
-  onClick={form.handleOnSubmit}
->Submit</button>
-
-<button
-  type="submit"
-  onClick={form.handleOnReset}
-  >Reset</button>
-
-<button
-  type="submit"
-  onClick={form.handleOnClear}
-  >Clear</button>
+<button onClick={form.handleOnSubmit} type="submit">Submit</button>
+<button onClick={form.handleOnClear}>Clear</button>
+<button onClick={form.handleOnReset}>Reset</button>
 
 ...
 ```

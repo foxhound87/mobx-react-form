@@ -143,14 +143,6 @@ export default class Form {
     this.validator.invalidate(message);
   }
 
-  values() {
-    return this.deepMap('value', this.fields);
-  }
-
-  errors() {
-    return this.deepMap('error', this.fields);
-  }
-
   /* ------------------------------------------------------------------ */
   /* ACTIONS */
 

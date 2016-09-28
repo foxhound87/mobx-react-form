@@ -13,16 +13,6 @@ export default $this => ({
     });
   },
 
-  deepMap: (prop, fields) =>
-    _.reduce(fields.values(), (obj, field) => {
-      if (field.fields.size === 0) {
-        return Object.assign(obj, { [field.key]: field[prop] });
-      }
-      return Object.assign(obj, {
-        [field.key]: $this.deepMap(prop, field.fields),
-      });
-    }, {}),
-
   deepCheck: ($, prop, fields) =>
     _.reduce(fields.values(), (check, field) => {
       if (field.fields.size === 0) {
