@@ -13,7 +13,7 @@ export default class Form {
 
   validator;
 
-  events = [];
+  $events = [];
 
   $options = {
     showErrorsOnInit: false,
@@ -135,15 +135,8 @@ export default class Form {
     });
   }
 
-  /**
-    Fields Props Setter
-  */
-  set(key, data) {
-    this.update(key, data);
-  }
-
   eventsRunning(events) {
-    return _.intersection(events, this.events).length > 0;
+    return _.intersection(events, this.$events).length > 0;
   }
 
   invalidate(message) {
@@ -164,37 +157,17 @@ export default class Form {
   @action
   clear() {
     const $e = 'clear';
-    this.events.push($e);
+    this.$events.push($e);
     this.actionRecursive($e, this.fields);
-    this.events.pop($e);
+    this.$events.pop($e);
   }
 
   @action
   reset() {
     const $e = 'reset';
-    this.events.push($e);
+    this.$events.push($e);
     this.actionRecursive($e, this.fields);
-    this.events.pop($e);
-  }
-
-  @action
-  update($, data = null) {
-    const $e = 'update';
-    this.events.push($e);
-
-    // UPDATE FIELDS VALUE (default)
-    if (_.isObject($) && !data) {
-      // $ is the data
-      this.updateRecursive('value', $);
-    }
-
-    // UPDATE CUSTOM PROP
-    if (_.isString($) && _.isObject(data)) {
-      // $ is the prop key
-      this.updateRecursive($, data);
-    }
-
-    this.events.pop($e);
+    this.$events.pop($e);
   }
 
   /* ------------------------------------------------------------------ */

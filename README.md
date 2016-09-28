@@ -44,10 +44,10 @@ https://mobx-react-form-demo-bbtfrgtrzh.now.sh
 
 #### Choose and Setup a Validation Plugin
 
-Below we are creating a `plugins` object using the `validatorjs` package to enable `DVR` functionalities (Declarative Validation Rules).
-
 > See [Validation Plugins](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#validation-plugins)
  and [Supported Validation Packages](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#supported-validation-packages) for more info.
+
+Below we are creating a `plugins` object using the `validatorjs` package to enable `DVR` functionalities (Declarative Validation Rules).
 
 ```javascript
 import validatorjs from 'validatorjs';
@@ -57,20 +57,21 @@ const plugins = { dvr: validatorjs };
 
 #### Define the Form Fields
 
-Also define a `rules` property on the form fields.
+Define the `fields` as a collection with a `rules` property for the validation.
 
 ```javascript
-const fields = {
-  email: {
-    label: 'Email',
-    rules: 'required|email|string|between:5,25',
-  },
-  password: {
-    label: 'Password',
-    rules: 'required|string|between:5,25',
-  },
-};
+const fields = [{
+  name: 'email',
+  label: 'Email',
+  rules: 'required|email|string|between:5,25',
+}, {
+  name: 'password',
+  label: 'Password',
+  rules: 'required|string|between:5,25',
+}];
 ```
+
+> You can also define `fields` as an `object`.
 
 #### Define the Validation Events Handlers
 
@@ -94,6 +95,8 @@ class MyForm extends MobxReactForm {
 }
 ```
 
+> The Events Handler can be decoupled from the class as well.
+
 #### Initialize the Form
 
 Simply pass the `fields` and `plugins` objects to the constructor
@@ -101,7 +104,6 @@ Simply pass the `fields` and `plugins` objects to the constructor
 ```javascript
 export default new MyForm({ fields, plugins });
 ```
-
 
 #### Pass the form to a react component
 

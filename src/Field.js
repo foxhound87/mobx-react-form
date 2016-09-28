@@ -6,6 +6,9 @@ import fieldHelpers from './FieldHelpers';
 
 export default class Field {
 
+  $options;
+  $events;
+
   fields = asMap({});
 
   key;
@@ -31,7 +34,8 @@ export default class Field {
   initialValue = undefined;
   interacted = false;
 
-  constructor(key, field = {}, obj = {}) {
+  constructor(key, field = {}, obj = {}, opt = {}) {
+    this.assignFormOptions(opt);
     this.assignFieldHelpers();
     this.initField(key, field, obj);
     // init nested fields
@@ -39,6 +43,11 @@ export default class Field {
       this.assignFieldsInitializer();
       this.initNestedFields(field.fields);
     }
+  }
+
+  assignFormOptions({ options, events }) {
+    this.$options = options;
+    this.$events = events;
   }
 
   assignFieldHelpers() {
@@ -207,20 +216,6 @@ export default class Field {
       return;
     }
     this.errorAsync = null;
-  }
-
-  @action
-  update(obj) {
-    this.value = obj;
-  }
-
-  @action
-  set(key, val = null) {
-    if (val) {
-      _.set(this, `$${key}`, val);
-      return;
-    }
-    this.value = key;
   }
 
   @computed
