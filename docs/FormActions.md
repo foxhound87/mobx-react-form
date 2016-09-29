@@ -1,61 +1,56 @@
 ## Form Actions
 
-### Clear the Fields State
+### Get the Fields Props
 
-> Set all fields value to empty
+> Takes an `object` with fields `key:val` pairs.
 
-```javascript
-form.clear();
-```
-
-### Reset the Fields State
-
-> Set all fields value to initial state
+This will get all fields prop:
 
 ```javascript
-form.reset();
+form.get();
 ```
 
-### Get all Fields Values
-
-> Returns an `object` with all fields `key:val` pairs.
+or filtering by a prop:
 
 ```javascript
-form.values();
-```
-```
-=> {
-  username: 'TheUsername',
-  password: 'ThePassword',
-}
+form.get('error');
 ```
 
+or if you need to filter multiple props:
 
-### Update the Fields State
+```javascript
+form.get(['value', 'error']);
+```
+
+### Set the Fields Values
 
 > Takes an `object` with fields `key:val` pairs.
 
 This will change the fields `values`:
 
 ```javascript
-form.update({
+form.set({
   username: 'NewUsername',
   password: 'NewPassword',
 });
 ```
 
-### Bulk Update Fields Properties
+The object can be structured to set values of nested fields as well.
+
+### Set Fields Properties
 
 > Takes the prop name `string` and an `object` with fields `key:val` pairs.
 
 You can pass these props: `value`, `label`, `default`, `disabled`, `related`, `validate`, `rules`.
 
 ```javascript
-form.update('label', {
+form.set('label', {
   username: 'It's a New Label',
   password: 'Another New Label',
 });
 ```
+
+The object can be structured to set values of nested fields as well.
 
 ### Validate the Form
 
@@ -70,7 +65,7 @@ form.validate()
   });
 ```
 
-### Validate single Field
+### Validate Single Field
 
 The `validate(key)` action get an optional field `key` in input and returns a `promise`.
 
@@ -89,6 +84,20 @@ form.validate('email')
 
 ```javascript
 form.invalidate('This is a generic error message!');
+```
+
+### Get all Fields Values
+
+> Returns an `object` with all fields `key:val` pairs.
+
+```javascript
+form.values();
+```
+```
+=> {
+  username: 'TheUsername',
+  password: 'ThePassword',
+}
 ```
 
 ### Get all Field Errors

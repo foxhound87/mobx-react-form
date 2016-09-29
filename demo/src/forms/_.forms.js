@@ -33,12 +33,12 @@ class FormWithNestedFields extends Form {
     //   strictUpdate: true,
     // });
 
-    // form.update({
+    // form.set({
     //   sthElse: '...',
     //   username: 'aaaaaa',
     // });
 
-    // form.update('label', {
+    // form.set('label', {
     //   sthElse: '...',
     //   username: 'NEW LABEL',
     // });

@@ -2,24 +2,24 @@ import { expect } from 'chai';
 
 import $ from './data/nested'; // FORMS
 
-$.$A.update({
+$.$A.set({
   address: {
     city: 'Los Angeles',
   },
 });
 
-$.$A.update('label', {
+$.$A.set('label', {
   address: {
     city: 'Cool City',
   },
 });
 
 $.$B.$('state.city.places').set('label', 'NY Cool Places');
-$.$B.$('state.city.places').$('empireStateBuilding').update(false);
+$.$B.$('state.city.places').$('empireStateBuilding').set(false);
 $.$B.$('state.city.places.centralPark').set(false);
 
 $.$C.$('state.city.places').set('label', 'NY Cool Places');
-$.$C.$('state.city.places').$('empireStateBuilding').update(false);
+$.$C.$('state.city.places').$('empireStateBuilding').set(false);
 $.$C.$('state.city.places.centralPark').set(false);
 
 describe('Check $A Nested Fields', () => {

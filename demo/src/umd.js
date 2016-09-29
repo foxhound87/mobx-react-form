@@ -8,5 +8,5 @@ const form = new MobxReactForm({
 });
 
 console.log('form', form);
-console.log('form.values()', form.values());
-console.log('form.update()', form.update({ email: 'test' }));
+console.log('form.get()', form.get('values'));
+console.log('form.set()', form.set({ email: 'test' }));

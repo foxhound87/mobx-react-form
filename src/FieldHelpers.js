@@ -6,21 +6,21 @@ import _ from 'lodash';
 */
 export default $this => ({
 
+  props: ['value', 'error', 'label', 'disable', 'default', 'related'],
+
+  hasProps: props => _.intersection(props, $this.props).length > 0,
+
+  allowedProps: (props) => {
+    if (!$this.hasProps(props)) {
+      const $msg = 'The selected property is not allowed';
+      throw new Error(`${$msg} (${JSON.stringify(props)})`);
+    }
+  },
+
   /**
     Fields Selector (alias of select)
   */
   $: key => $this.select(key),
-
-  /**
-    Fields Selector (alias of select)
-  */
-  get: key => $this.select(key),
-
-  /**
-    Fields Props Setter
-  */
-  set: (key, data) => $this.update(key, data),
-
 
   /**
     Fields Values (recursive with Nested Fields)
@@ -31,6 +31,21 @@ export default $this => ({
     Fields Errors (recursive with Nested Fields)
   */
   errors: () => $this.deepMap('error', $this.fields),
+
+  /**
+    Fields Labels (recursive with Nested Fields)
+  */
+  labels: () => $this.deepMap('label', $this.fields),
+
+  /**
+    Fields Default Values (recursive with Nested Fields)
+  */
+  defaults: () => $this.deepMap('default', $this.fields),
+
+  /**
+    Fields Initial Values (recursive with Nested Fields)
+  */
+  initials: () => $this.deepMap('initial', $this.fields),
 
   /**
     Fields Iterator
@@ -74,15 +89,28 @@ export default $this => ({
   },
 
   /**
-    Update Values or Props
+    Get Fields Props
   */
-  update: action(($, data = null) => {
+  get: (prop = null) => {
+    if (_.isNull(prop)) {
+      return $this.deepGet($this.props, $this.fields);
+    }
+
+    $this.allowedProps(_.isArray(prop) ? prop : [prop]);
+    return $this.deepGet(prop, $this.fields);
+  },
+
+  /**
+    Set Fields Props
+  */
+  set: action(($, data = null) => {
     const $e = 'update';
     $this.$events.push($e);
 
     // UPDATE CUSTOM PROP
     if ($this.constructor.name === 'Field') {
       if (_.isString($) && !_.isNull(data)) {
+        $this.allowedProps([$]);
         _.set($this, `$${$}`, data);
         return;
       }
@@ -95,14 +123,15 @@ export default $this => ({
     // UPDATE NESTED FIELDS VALUE (recursive)
     if (_.isObject($) && !data) {
       // $ is the data
-      $this.updateRecursive('value', $);
+      $this.deepSet('value', $);
       return;
     }
 
     // UPDATE NESTED CUSTOM PROP (recursive)
     if (_.isString($) && _.isObject(data)) {
+      $this.allowedProps([$]);
       // $ is the prop key
-      $this.updateRecursive($, data);
+      $this.deepSet($, data);
       return;
     }
 
@@ -112,7 +141,7 @@ export default $this => ({
   /**
     Update Recursive Fields
   */
-  updateRecursive: ($, data, path = '') => {
+  deepSet: ($, data, path = '') => {
     const err = 'You are updating a not existent field:';
     const isStrict = $this.$options.strictUpdate;
 
@@ -125,22 +154,49 @@ export default $this => ({
       // update the field/fields if defined
       if (!_.isUndefined(field)) {
         // update field values or others props
-        if ($ === 'value') field.update($val);
-        if ($ !== 'value') field.update($, $val);
+        field.set($, $val);
         // update values recursively only if field has nested
         if (field.fields.size && _.isObject($val)) {
           if (field.fields.size !== 0) {
-            $this.updateRecursive($, $val, $key);
+            $this.deepSet($, $val, $key);
           }
         }
       }
     });
   },
 
+  deepGet: (prop, fields) =>
+  _.reduce(fields.values(), (obj, field) => {
+    const $nested = $fields => ($fields.size !== 0)
+      ? $this.deepGet(prop, $fields)
+      : undefined;
+
+    Object.assign(obj, {
+      [field.key]: { fields: $nested(field.fields) },
+    });
+
+    if (_.isArray(prop)) {
+      _.each(prop, $prop =>
+        Object.assign(obj[field.key], {
+          [$prop]: field[$prop],
+        }));
+    }
+
+    if (_.isString(prop)) {
+      Object.assign(obj[field.key], {
+        [prop]: field[prop],
+      });
+    }
+
+    return obj;
+  }, {}),
+
   deepMap: (prop, fields) =>
   _.reduce(fields.values(), (obj, field) => {
     if (field.fields.size === 0) {
-      return Object.assign(obj, { [field.key]: field[prop] });
+      return Object.assign(obj, {
+        [field.key]: field[prop],
+      });
     }
     return Object.assign(obj, {
       [field.key]: $this.deepMap(prop, field.fields),
