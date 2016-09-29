@@ -7,13 +7,17 @@ import formHelpers from './FormHelpers';
 
 export default class Form {
 
-  name = null;
-
-  @observable fields = asMap({});
+  name;
 
   validator;
 
-  $events = [];
+  @observable fields = asMap({});
+
+  @observable $events = {
+    clear: false,
+    reset: false,
+    update: false,
+  };
 
   $options = {
     showErrorsOnInit: false,
@@ -69,6 +73,14 @@ export default class Form {
     this.validator = new Validator(obj);
   }
 
+  on(event, callback) {
+    observe(this.$events, ({ name, oldValue, object }) => {
+      if (event === name && oldValue && !object[name]) {
+        callback(this);
+      }
+    });
+  }
+
   observeFields() {
     if (this.$options.validateOnChange === false) return;
     // deep observe and validate each field
@@ -86,10 +98,8 @@ export default class Form {
 
   validateOnInit() {
     if (this.$options.validateOnInit === false) return;
-
-    this.validate({
-      showErrors: this.$options.showErrorsOnInit,
-    });
+    // execute validation on form initialization
+    this.validate({ showErrors: this.$options.showErrorsOnInit });
   }
 
   validate(opt = {}, obj = {}) {
@@ -100,6 +110,7 @@ export default class Form {
     const showErrors = _.has(opt, 'showErrors') ? opt.showErrors : obj.showErrors || true;
     const related = _.has(opt, 'related') ? opt.related : obj.related || false;
 
+    // look running events and choose when show errors messages
     const notShowErrorsEvents = ['clear', 'reset'];
     if (this.$options.showErrorsOnUpdate === false) notShowErrorsEvents.push('update');
     const $showErrors = showErrors && !this.eventsRunning(notShowErrorsEvents);
@@ -136,7 +147,8 @@ export default class Form {
   }
 
   eventsRunning(events) {
-    return _.intersection(events, this.$events).length > 0;
+    const running = _.keys(_.omitBy(this.$events, e => e === false));
+    return _.intersection(events, running).length > 0;
   }
 
   invalidate(message) {

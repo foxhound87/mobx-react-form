@@ -103,9 +103,12 @@ export default $this => ({
   /**
     Set Fields Props
   */
-  set: action(($, data = null) => {
+  set: action(($, data = null, recursion = false) => {
     const $e = 'update';
-    $this.$events.push($e);
+
+    if (!recursion) {
+      _.set($this.$events, $e, true);
+    }
 
     // UPDATE CUSTOM PROP
     if ($this.constructor.name === 'Field') {
@@ -123,7 +126,7 @@ export default $this => ({
     // UPDATE NESTED FIELDS VALUE (recursive)
     if (_.isObject($) && !data) {
       // $ is the data
-      $this.deepSet('value', $);
+      $this.deepSet('value', $, '', recursion);
       return;
     }
 
@@ -131,17 +134,19 @@ export default $this => ({
     if (_.isString($) && _.isObject(data)) {
       $this.allowedProps([$]);
       // $ is the prop key
-      $this.deepSet($, data);
+      $this.deepSet($, data, '', recursion);
       return;
     }
 
-    $this.$events.pop($e);
+    if (!recursion) {
+      _.set($this.$events, $e, false);
+    }
   }),
 
   /**
     Update Recursive Fields
   */
-  deepSet: ($, data, path = '') => {
+  deepSet: ($, data, path = '', recursion = false) => {
     const err = 'You are updating a not existent field:';
     const isStrict = $this.$options.strictUpdate;
 
@@ -154,11 +159,11 @@ export default $this => ({
       // update the field/fields if defined
       if (!_.isUndefined(field)) {
         // update field values or others props
-        field.set($, $val);
+        field.set($, $val, recursion);
         // update values recursively only if field has nested
         if (field.fields.size && _.isObject($val)) {
           if (field.fields.size !== 0) {
-            $this.deepSet($, $val, $key);
+            $this.deepSet($, $val, $key, recursion);
           }
         }
       }
@@ -203,15 +208,21 @@ export default $this => ({
     });
   }, {}),
 
-  deepAction: ($action, fields) => {
-    $this.$events.push($action);
+  deepAction: ($action, fields, recursion = false) => {
+    if (!recursion) {
+      _.set($this.$events, $action, true);
+    }
+
     if (fields.size !== 0) {
       fields.forEach((field) => {
         field[$action]();
-        $this.deepAction($action, field.fields);
+        $this.deepAction($action, field.fields, true);
       });
     }
-    $this.$events.pop($action);
+
+    if (!recursion) {
+      _.set($this.$events, $action, false);
+    }
   },
 
 });
