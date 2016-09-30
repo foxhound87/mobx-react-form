@@ -115,11 +115,13 @@ export default $this => ({
       if (_.isString($) && !_.isNull(data)) {
         $this.allowedProps([$]);
         _.set($this, `$${$}`, data);
+        if (!recursion) _.set($this.$events, $e, false);
         return;
       }
 
       // update just the value
       $this.value = $; // eslint-disable-line
+      if (!recursion) _.set($this.$events, $e, false);
       return;
     }
 
@@ -127,6 +129,7 @@ export default $this => ({
     if (_.isObject($) && !data) {
       // $ is the data
       $this.deepSet('value', $, '', recursion);
+      if (!recursion) _.set($this.$events, $e, false);
       return;
     }
 
@@ -135,11 +138,8 @@ export default $this => ({
       $this.allowedProps([$]);
       // $ is the prop key
       $this.deepSet($, data, '', recursion);
+      if (!recursion) _.set($this.$events, $e, false);
       return;
-    }
-
-    if (!recursion) {
-      _.set($this.$events, $e, false);
     }
   }),
 

@@ -26,8 +26,12 @@ const plugins = {
 
 class FormWithNestedFields extends Form {
 
-  // onInit(form) {
+  onInit(form) {
   //   console.log('ON INIT');
+
+    form.on('reset', $form => console.log('ON RESET', $form));
+    form.on('clear', $form => console.log('ON CLEAR', $form));
+    // form.on('update', $form => console.log('ON UPDATE', $form));
 
     // form.options({
     //   strictUpdate: true,
@@ -44,7 +48,7 @@ class FormWithNestedFields extends Form {
     // });
 
     // form.$('username').set('label', 'XXXXX');
-  // }
+  }
 }
 
 class RegisterMaterialForm extends Form {}
