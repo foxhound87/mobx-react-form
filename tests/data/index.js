@@ -1,20 +1,20 @@
 // test data
-import $A from './form.a.js';
-import $B from './form.b.js';
-import $C from './form.c.js';
-import $D from './form.d.js';
-import $E from './form.e.js';
-import $F from './form.f.js';
-import $G from './form.g.js';
-import $H from './form.h.js';
-import $I from './form.i.js';
-import $L from './form.l.js';
-import $M from './form.m.js';
-import $N from './form.n.js';
-import $O from './form.o.js';
-import $P from './form.p.js';
-import $Q from './form.q.js';
-import $R from './form.r.js';
+import $A from './form.a';
+import $B from './form.b';
+import $C from './form.c';
+import $D from './form.d';
+import $E from './form.e';
+import $F from './form.f';
+import $G from './form.g';
+import $H from './form.h';
+import $I from './form.i';
+import $L from './form.l';
+import $M from './form.m';
+import $N from './form.n';
+import $O from './form.o';
+import $P from './form.p';
+import $Q from './form.q';
+import $R from './form.r';
 
 export default {
 

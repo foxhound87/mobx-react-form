@@ -1,6 +1,6 @@
 import ajv from 'ajv';
 import Form from '../../src';
-import { checkUser } from './_.extend.vjf.js';
+import { checkUser } from './_.extend.vjf';
 
 const plugins = { svk: ajv };
 

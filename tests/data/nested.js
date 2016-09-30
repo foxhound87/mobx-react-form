@@ -1,7 +1,7 @@
 // test data
-import $A from './form.nested.a.js';
-import $B from './form.nested.b.js';
-import $C from './form.nested.c.js';
-import $D from './form.nested.d.js';
+import $A from './form.nested.a';
+import $B from './form.nested.b';
+import $C from './form.nested.c';
+import $D from './form.nested.d';
 
 export default { $A, $B, $C, $D };

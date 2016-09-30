@@ -1,5 +1,5 @@
 import Form from '../../src';
-import { isEmail, shouldBeEqualTo } from './_.extend.vjf.js';
+import { isEmail, shouldBeEqualTo } from './_.extend.vjf';
 
 const fields = {
   email: {
