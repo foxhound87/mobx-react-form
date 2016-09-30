@@ -70,18 +70,18 @@ export default $this => ({
   /**
     Throw Error if undefined Fields
   */
-  throwError: (key, fields, msg = null) => {
+  throwError: (path, fields, msg = null) => {
     if (_.isUndefined(fields)) {
       const $msg = _.isNull(msg) ? 'The selected field is not defined' : msg;
-      throw new Error(`${$msg} (${key})`);
+      throw new Error(`${$msg} (${path})`);
     }
   },
 
   /**
     Fields Selector
   */
-  select: (key, fields = null, isStrict = true) => {
-    const keys = _.split(key, '.');
+  select: (path, fields = null, isStrict = true) => {
+    const keys = _.split(path, '.');
     const head = _.head(keys);
 
     keys.shift();
@@ -95,7 +95,7 @@ export default $this => ({
       $fields = $fields.fields.get($key);
     });
 
-    if (isStrict) $this.throwError(key, $fields);
+    if (isStrict) $this.throwError(path, $fields);
 
     return $fields;
   },
@@ -105,7 +105,7 @@ export default $this => ({
   */
   get: (prop = null) => {
     if (_.isNull(prop)) {
-      return $this.deepGet($this.props, $this.fields);
+      return $this.deepGet(utils.props, $this.fields);
     }
 
     utils.allowed('props', _.isArray(prop) ? prop : [prop]);

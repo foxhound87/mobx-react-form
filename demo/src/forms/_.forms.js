@@ -33,6 +33,8 @@ class FormWithNestedFields extends Form {
     form.on('clear', $form => console.log('ON CLEAR', $form));
     // form.on('update', $form => console.log('ON UPDATE', $form));
 
+    // console.log('GET', form.$('address').get());
+
     // form.$('address.city').set('');
     // form.$('address.street').set('');
     // console.log('isEmpty', form.$('address.street').check('isEmpty'));

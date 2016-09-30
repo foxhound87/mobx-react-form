@@ -1,10 +1,12 @@
 ## Form API
 
-###### Form Properties
+<br>
+
+### Form Properties
 
 | Property | Type | MobX Type | Info |
 |---|---|---|---|
-| **fields** | object | computed | All defined form fields. |
+| **fields** | object | computed | All defined Form Fields. |
 | **isValid** | boolean | computed | Check if the form is valid. |
 | **isDirty** | boolean | computed | Check if the form is dirty. |
 | **isPristine** | boolean | computed | Check if the form is in pristine state. |
@@ -13,18 +15,36 @@
 | **hasEmpty** | boolean | computed | Check if the form has errors. |
 | **error** | string | observable | Generic error message (not related to fields). |
 
-###### Form Methods
+
+<br>
+
+### Form Methods
 
 | Method | Input | Output | Info |
 |---|---|---|---|
-| **$(key)** | string | object | Field selector shortcut. |
-| **options(obj = null)** | object | - | Set/Get form options after the form is yet initialied. |
-| **update(obj)** | object | - | Pass an object to update the form with new values. |
-| **update(prop, obj)** | (string, object) | - | Bulk update form properties. Takes the prop name `string` and an `object` with fields `key:val` pairs. |
-| **values()** | - | object | Get an object with all fields values. |
-| **clear()** | - | - | Clear the form to empty values. |
-| **reset()** | - | - | Reset the form to default or initials values. |
-| **errors()** | - | object | Get all errors of all fields with keys. |
+| **options(obj = null)** | object | - | Get/Set form options after the form is yet initialied. |
+| **select(path)** | (string) | object | Field Selector. Can be chained. | - |
+| **get(prop)** | (string|array) | - | Get all field data. Can be filtered by certain `props`. | - |
+| **set(val)** | (mixed) | - | Set field value. Takes prop key and prop value. | - |
+| **set(prop, val)** | (string, mixed) | - | Set field property. Takes prop key and prop value. | - |
+| **check(computed)** | (string) | - | Check field computed property. | - |
 | **validate()** | - | promise | Check if the form is valid and return a promise. |
-| **validate(field)** | string | promise | Check if the field is valid and return a promise. |
-| **invalidate(err)** | string | - | Invalidate the form passing a generic error message. |
+| **validate(field)** | (string) | promise | Check if the field is valid and return a promise. |
+| **invalidate(err)** | (string) | - | Invalidate the form passing a generic error message. |
+
+> $(path) is an alias of select(path)
+
+<br>
+
+### Nested Fields Methods
+
+| Property | Input | Output | Info | Help |
+|---|---|---|---|---|
+| **set(data)** | (object) | - | Provide an object to set nested fields values. | - |
+| **set(prop, data)** | (string, object) | - | Provide an object to set nested fields properties. | - |
+| **check(computed, deep)** | (string, boolean) | - | Check all nested fields computed property if `deep` is `true` | - |
+| **values()** | - | object | Get all Nested Fields Values. | - |
+| **errors()** | - | object | Get all Nested Fields Errors. | - |
+| **labels()** | - | object | Get all Nested Fields Labels. | - |
+| **default()** | - | object | Get all Nested Fields Default Values. | - |
+| **initial()** | - | object | Get all Nested Fields Initial Values. | - |
