@@ -128,7 +128,7 @@ export default $this => ({
     // UPDATE NESTED FIELDS VALUE (recursive)
     if (_.isObject($) && !data) {
       // $ is the data
-      $this.deepSet('value', $, '', recursion);
+      $this.deepSet('value', $, '', true);
       if (!recursion) _.set($this.$events, $e, false);
       return;
     }
@@ -137,7 +137,7 @@ export default $this => ({
     if (_.isString($) && _.isObject(data)) {
       $this.allowedProps([$]);
       // $ is the prop key
-      $this.deepSet($, data, '', recursion);
+      $this.deepSet($, data, '', true);
       if (!recursion) _.set($this.$events, $e, false);
       return;
     }
