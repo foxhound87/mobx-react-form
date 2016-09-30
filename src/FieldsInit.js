@@ -7,12 +7,12 @@ import Field from './Field';
 */
 export default $this => ({
 
-  initField: action('init-Field', (key, field, obj = {}) => {
+  initField: action('init-Field', (key, path, field, obj = {}) => {
     // try to get props from separated objects
     const $try = prop => _.has(obj[prop], key) && obj[prop][key];
 
     $this.fields.merge({
-      [key]: new Field(key, field, {
+      [key]: new Field(key, path, field, {
         $label: $try('labels'),
         $value: $try('values'),
         $default: $try('defaults'),
@@ -34,8 +34,11 @@ export default $this => ({
     fields = $this.handleFieldsEmpty(fields, obj);
     fields = $this.mergeSchemaDefaults(fields);
 
+    const $path = key => _.trimStart([$this.path, key].join('.'), '.');
+
     // create fields
-    _.each(fields, (field, key) => $this.initField(key, field, obj));
+    _.each(fields, (field, key) =>
+      $this.initField(key, $path(key), field, obj));
   }),
 
   handleFieldsArray: ($fields) => {

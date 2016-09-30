@@ -11,6 +11,7 @@ export default class Field {
 
   fields = asMap({});
 
+  path;
   key;
   name;
 
@@ -34,10 +35,10 @@ export default class Field {
   initialValue = undefined;
   interacted = false;
 
-  constructor(key, field = {}, obj = {}, opt = {}) {
+  constructor(key, path, field = {}, obj = {}, opt = {}) {
     this.assignFormOptions(opt);
     this.assignFieldHelpers();
-    this.initField(key, field, obj);
+    this.initField(key, path, field, obj);
     // init nested fields
     if (_.has(field, 'fields')) {
       this.assignFieldsInitializer();
@@ -64,7 +65,7 @@ export default class Field {
   }
 
   @action
-  initField($key, $field, {
+  initField($key, $path, $field, {
     $value = null,
     $label = null,
     $default = null,
@@ -74,6 +75,7 @@ export default class Field {
     $rules = null,
   } = {}) {
     this.key = $key;
+    this.path = $path;
 
     /**
       Assume the field is an array, a boolean, a string or a number
@@ -148,7 +150,7 @@ export default class Field {
   add(fields = null) {
     if (!fields) {
       const $n = _.random(999, 9999);
-      this.initField($n);
+      this.initField($n, [this.path, $n].join('.'));
       return;
     }
 

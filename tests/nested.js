@@ -107,3 +107,20 @@ describe('Check form.values() for Nested Fields', () => {
     expect($.$C.$('state.city').values())
       .to.have.deep.property('places.empireStateBuilding', false));
 });
+
+describe('Check Nested Fields path property', () => {
+  const path = {
+    a: 'address.city',
+    b: 'state.city.places',
+    c: 'state.city.places.statueOfLiberty',
+  };
+
+  it(`$A ${path.a} path path should be equal to ${path.a}`, () =>
+    expect($.$A.$(path.a).path).to.be.equal(path.a));
+
+  it(`$B ${path.b} path path should be equal to ${path.b}`, () =>
+    expect($.$B.$(path.b).path).to.be.equal(path.b));
+
+  it(`$C ${path.c} path path should be equal to ${path.c}`, () =>
+    expect($.$C.$(path.c).path).to.be.equal(path.c));
+});
