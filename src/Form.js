@@ -3,7 +3,6 @@ import _ from 'lodash';
 import Validator from './Validator';
 import fieldsInitializer from './FieldsInit';
 import fieldHelpers from './FieldHelpers';
-import formHelpers from './FormHelpers';
 
 export default class Form {
 
@@ -33,7 +32,6 @@ export default class Form {
   constructor(obj = {}, name = null) {
     this.name = name;
 
-    this.assignFormHelpers();
     this.assignFieldHelpers();
     this.assignInitData(obj);
     this.initValidator(obj);
@@ -48,10 +46,6 @@ export default class Form {
 
   assignInitData({ options = {} }) {
     this.options(options);
-  }
-
-  assignFormHelpers() {
-    Object.assign(this, formHelpers(this));
   }
 
   assignFieldHelpers() {

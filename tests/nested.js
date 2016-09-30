@@ -75,6 +75,9 @@ describe('Check $C Nested Fields', () => {
   it('$C state.city.places isEmpty should be true', () =>
     expect($.$C.$('state.city.places').isEmpty).to.be.true);
 
+  it('$C state.city.places isEmpty should be true', () =>
+    expect($.$C.$('state.city.places').isEmpty).to.be.true);
+
   it('$C state.city.places label should be equal to "NY Cool Places"', () =>
     expect($.$C.$('state.city.places').label).to.be.equal('NY Cool Places'));
 

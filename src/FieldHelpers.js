@@ -1,21 +1,11 @@
 import { action } from 'mobx';
 import _ from 'lodash';
+import utils from './utils';
 
 /**
   Field Helpers
 */
 export default $this => ({
-
-  props: ['value', 'error', 'label', 'disable', 'default', 'related'],
-
-  hasProps: props => _.intersection(props, $this.props).length > 0,
-
-  allowedProps: (props) => {
-    if (!$this.hasProps(props)) {
-      const $msg = 'The selected property is not allowed';
-      throw new Error(`${$msg} (${JSON.stringify(props)})`);
-    }
-  },
 
   /**
     Fields Selector (alias of select)
@@ -56,9 +46,31 @@ export default $this => ({
   },
 
   /**
-    Check Fields
+    Check Field Computed Values
   */
-  check: (key, fields, msg = null) => {
+  check: (computed, deep = false) => {
+    utils.allowed('computed', [computed]);
+
+    const $ = {
+      hasError: 'some',
+      isValid: 'every',
+      isDirty: 'some',
+      isPristine: 'every',
+      isDefault: 'every',
+      isEmpty: 'every',
+    };
+
+    const $check = $[computed];
+
+    return deep
+      ? _[$check]($this.deepCheck($check, computed, $this.fields))
+      : $this[computed];
+  },
+
+  /**
+    Throw Error if undefined Fields
+  */
+  throwError: (key, fields, msg = null) => {
     if (_.isUndefined(fields)) {
       const $msg = _.isNull(msg) ? 'The selected field is not defined' : msg;
       throw new Error(`${$msg} (${key})`);
@@ -83,7 +95,7 @@ export default $this => ({
       $fields = $fields.fields.get($key);
     });
 
-    if (isStrict) $this.check(key, $fields);
+    if (isStrict) $this.throwError(key, $fields);
 
     return $fields;
   },
@@ -96,7 +108,7 @@ export default $this => ({
       return $this.deepGet($this.props, $this.fields);
     }
 
-    $this.allowedProps(_.isArray(prop) ? prop : [prop]);
+    utils.allowed('props', _.isArray(prop) ? prop : [prop]);
     return $this.deepGet(prop, $this.fields);
   },
 
@@ -113,7 +125,7 @@ export default $this => ({
     // UPDATE CUSTOM PROP
     if ($this.constructor.name === 'Field') {
       if (_.isString($) && !_.isNull(data)) {
-        $this.allowedProps([$]);
+        utils.allowed('props', [$]);
         _.set($this, `$${$}`, data);
         if (!recursion) _.set($this.$events, $e, false);
         return;
@@ -135,7 +147,7 @@ export default $this => ({
 
     // UPDATE NESTED CUSTOM PROP (recursive)
     if (_.isString($) && _.isObject(data)) {
-      $this.allowedProps([$]);
+      utils.allowed('props', [$]);
       // $ is the prop key
       $this.deepSet($, data, '', true);
       if (!recursion) _.set($this.$events, $e, false);
@@ -155,7 +167,7 @@ export default $this => ({
       // get the field by path joining keys recursively
       const field = $this.select($path, null, isStrict);
       // if no field found when is strict update, throw error
-      if (isStrict) $this.check($path, field, err);
+      if (isStrict) $this.throwError($path, field, err);
       // update the field/fields if defined
       if (!_.isUndefined(field)) {
         // update field values or others props
@@ -225,4 +237,13 @@ export default $this => ({
     }
   },
 
+  deepCheck: ($, prop, fields) =>
+    _.reduce(fields.values(), (check, field) => {
+      if (field.fields.size === 0) {
+        check.push(field[prop]);
+        return check;
+      }
+      check.push(_[$]($this.deepCheck($, prop, field.fields), Boolean));
+      return check;
+    }, []),
 });
