@@ -13,5 +13,7 @@
 * [API Refernece](docs/api-reference/README.md)
 
  * [Form Initialization](docs/api-reference/form-initialization.md)
+ * [Form Methods](docs/api-reference/form-methods.md)
+ * [Fields Methods](docs/api-reference/fields-methods.md)
+ * [Nested Fields Methods](docs/api-reference/nested-fields-methods.md)
 
- * [Form](docs/api-reference/separated-properties.md)
