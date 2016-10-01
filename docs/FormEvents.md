@@ -31,12 +31,10 @@ All Event Handlers methods take the `Proxy` object and can be easly included in 
 >Submit</button>
 
 <button
-  type="submit"
   onClick={form.handleOnReset}
   >Reset</button>
 
 <button
-  type="submit"
   onClick={form.handleOnClear}
   >Clear</button>
 
