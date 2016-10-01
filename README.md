@@ -14,3 +14,11 @@
 ---
 
 <br>
+
+# WARNING
+
+This page is a work in progress for the next version. 
+
+Refer to the link below if you are searching for the documentation of the current version:
+
+https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md
