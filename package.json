@@ -17,13 +17,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/foxhound87/foxhound87.github.io.git"
+    "url": "git+https://github.com/foxhound87/mobx-react-form.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/foxhound87/foxhound87.github.io/issues"
+    "url": "https://github.com/foxhound87/mobx-react-form/issues"
   },
-  "homepage": "https://github.com/foxhound87/foxhound87.github.io#readme"
+  "homepage": "https://github.com/foxhound87/mobx-react-form#readme"
 }
