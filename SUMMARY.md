@@ -50,7 +50,7 @@
     * [Async VJF (Functions)]()
     * [Async DVR (Rules)]()
     * [Async SVK (Schema)]()
- * Async Validation
+ * Custom Error Messages
    * [Async VJF (Functions)]()
    * [Async DVR (Rules)]()
    * [Async SVK (Schema)]()
