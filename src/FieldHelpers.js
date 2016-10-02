@@ -1,6 +1,7 @@
 import { action } from 'mobx';
 import _ from 'lodash';
 import utils from './utils';
+import Options from './Options';
 
 /**
   Field Helpers
@@ -160,7 +161,8 @@ export default $this => ({
   */
   deepSet: ($, data, path = '', recursion = false) => {
     const err = 'You are updating a not existent field:';
-    const isStrict = $this.$options.strictUpdate;
+
+    const isStrict = Options.get('strictUpdate');
 
     _.each(data, ($val, $key) => {
       const $path = _.trimStart(`${path}.${$key}`, '.');

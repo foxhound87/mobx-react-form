@@ -1,6 +1,7 @@
 import { action, computed, observe, observable, asMap } from 'mobx';
 import _ from 'lodash';
 import Validator from './Validator';
+import Options from './Options';
 import InitialState from './InitialState';
 import fieldsInitializer from './FieldsInit';
 import fieldHelpers from './FieldHelpers';
@@ -8,8 +9,6 @@ import fieldHelpers from './FieldHelpers';
 export default class Form {
 
   name;
-
-  initial;
 
   validator;
 
@@ -21,18 +20,8 @@ export default class Form {
     update: false,
   };
 
-  $options = {
-    showErrorsOnInit: false,
-    validateOnInit: true,
-    validateOnChange: true,
-    strictUpdate: false,
-    showErrorsOnUpdate: true,
-    defaultGenericError: null,
-    loadingMessage: null,
-    allowRequired: false,
-  };
-
   constructor(obj = {}, name = null) {
+    console.log('NAME', name);
     this.name = name;
 
     this.assignFieldHelpers();
@@ -49,7 +38,8 @@ export default class Form {
 
   assignInitData(initial) {
     InitialState.set(_.omit(initial, ['options', 'plugins']));
-    this.options(initial.options);
+    Options.set(Options.defaults);
+    Options.set(initial.options);
   }
 
   assignFieldHelpers() {
@@ -61,10 +51,8 @@ export default class Form {
   }
 
   options(options = {}) {
-    if (!_.isEmpty(options)) {
-      _.merge(this.$options, options);
-    }
-    return this.$options;
+    if (!_.isEmpty(options)) Options.set(options);
+    return Options.get();
   }
 
   initValidator(obj = {}) {
@@ -80,7 +68,7 @@ export default class Form {
   }
 
   observeFields() {
-    if (this.$options.validateOnChange === false) return;
+    if (Options.get('validateOnChange') === false) return;
     // deep observe and validate each field
     this.observeFieldsDeep(this.fields);
   }
@@ -95,9 +83,9 @@ export default class Form {
   }
 
   validateOnInit() {
-    if (this.$options.validateOnInit === false) return;
+    if (Options.get('validateOnInit') === false) return;
     // execute validation on form initialization
-    this.validate({ showErrors: this.$options.showErrorsOnInit });
+    this.validate({ showErrors: Options.get('showErrorsOnInit') });
   }
 
   validate(opt = {}, obj = {}) {
@@ -110,7 +98,7 @@ export default class Form {
 
     // look running events and choose when show errors messages
     const notShowErrorsEvents = ['clear', 'reset'];
-    if (this.$options.showErrorsOnUpdate === false) notShowErrorsEvents.push('update');
+    if (Options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
     const $showErrors = showErrors && !this.eventsRunning(notShowErrorsEvents);
 
     if (_.isObject(opt) && !_.isString($key)) {

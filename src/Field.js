@@ -6,7 +6,6 @@ import fieldHelpers from './FieldHelpers';
 
 export default class Field {
 
-  $options;
   $events;
 
   fields = asMap({});
@@ -46,8 +45,7 @@ export default class Field {
     }
   }
 
-  assignFormOptions({ options, events }) {
-    this.$options = options;
+  assignFormOptions({ events }) {
     this.$events = events;
   }
 

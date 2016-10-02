@@ -23,7 +23,6 @@ export default $this => ({
         $validate: $try('validate'),
         $rules: $try('rules'),
       }, {
-        options: $this.$options,
         events: $this.$events,
       }),
     });
