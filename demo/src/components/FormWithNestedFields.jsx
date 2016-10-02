@@ -5,7 +5,7 @@ import { DebugForm } from './Debug';
 const FormWithNestedFields = ({ form }) => (
   <div className="container">
     <div className="splitted-35 fixed container-left normal">
-      <form onSubmit={form.onSubmit}>
+      <form>
         <h2>Nested Fields (w/ selectors)</h2>
 
         <div>
@@ -64,6 +64,7 @@ const FormWithNestedFields = ({ form }) => (
             />
             <span className="ctrl">
               <button
+                type="button"
                 onClick={e => form.$('club').onDel(e, field.name)}
               >X</button>
             </span>
@@ -75,19 +76,17 @@ const FormWithNestedFields = ({ form }) => (
         <br />
 
         <div className="ctrl">
-          <button onClick={form.$('club').onClear}>Clear</button>
-          <button onClick={form.$('club').onReset}>Reset</button>
-          <button
-            onClick={e => form.$('club').onAdd(e)}
-          >+ Add Field</button>
+          <button type="button" onClick={form.$('club').onClear}>Clear</button>
+          <button type="button" onClick={form.$('club').onReset}>Reset</button>
+          <button type="button" onClick={e => form.$('club').onAdd(e)}>+ Add Field</button>
         </div>
 
         <hr />
         <br />
         <div className="ctrl">
-          <button type="submit">Submit</button>
-          <button onClick={form.onClear}>Clear</button>
-          <button onClick={form.onReset}>Reset</button>
+          <button type="submit" onClick={form.onSubmit} >Submit</button>
+          <button type="button" onClick={form.onClear} >Clear</button>
+          <button type="button" onClick={form.onReset}>Reset</button>
         </div>
 
         <p><i>{form.error}</i></p>
