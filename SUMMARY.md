@@ -38,7 +38,6 @@
 * Validation
  * [Plugins & Modes](docs/validation/plugins.md)
  * [Supported Packages](docs/validation/supported-packages.md)
- * [Custom Error Messages]()
  * Validation Modes
     * [Enable VJF (Functions)]()
     * [Enable DVR (Rules)]()
@@ -51,3 +50,7 @@
     * [Async VJF (Functions)]()
     * [Async DVR (Rules)]()
     * [Async SVK (Schema)]()
+ * Async Validation
+   * [Async VJF (Functions)]()
+   * [Async DVR (Rules)]()
+   * [Async SVK (Schema)]()
