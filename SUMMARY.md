@@ -20,8 +20,8 @@
 ## Form Events
 
 * [Form Events](docs/form-events/README.md)
- * [Extending the Form with Handlers](docs/form-events/.md)
- * [Decupling the Handler from the Form](docs/form-events/.md)
+ * [Extending the Form with Handlers](docs/form-events/extending-form.md)
+ * [Decupling the Handlers from the Form](docs/form-events/decoupling-handlers.md)
 
 
 
