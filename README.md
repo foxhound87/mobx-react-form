@@ -13,8 +13,6 @@
 
 ---
 
-<br>
-
 # WARNING
 
 This page is a work in progress for the next version. 
