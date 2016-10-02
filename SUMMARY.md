@@ -35,17 +35,18 @@
 
 ## Validation
 
-* [Plugins & Modes](docs/validation/plugins.md)
-* [Supported Packages](docs/validation/supported-packages.md)
- * Validation Modes
-   * [Enable VJF]()
-   * [Enable SVK]()
-   * [Enable DVR]()
- * Extend Validation
-   * [Custom VJF]()
-   * [Custom SVK]()
-   * [Custom DVR]()
- * Async Validation
-   * [Async VJF]()
-   * [Async SVK]()
-   * [Async DVR]()
+* Validation
+ * [Plugins & Modes](docs/validation/plugins.md)
+ * [Supported Packages](docs/validation/supported-packages.md)
+  * Validation Modes
+    * [Enable VJF]()
+    * [Enable SVK]()
+    * [Enable DVR]()
+  * Extend Validation
+    * [Custom VJF]()
+    * [Custom SVK]()
+    * [Custom DVR]()
+  * Async Validation
+    * [Async VJF]()
+    * [Async SVK]()
+    * [Async DVR]()
