@@ -27,9 +27,9 @@
 ## Actions
 
 * [Actions](docs/actions/README.md)
- * [Form Actions](docs/form-events/form-actions.md)
- * [Fields Actions](docs/form-events/fiels-action.md)
- * [Nested Fields Actions](docs/form-events/nested-fields-actions.md)
+ * [Form Actions](docs/actions/form-actions.md)
+ * [Fields Actions](docs/actions/fiels-action.md)
+ * [Nested Fields Actions](docs/actions/nested-fields-actions.md)
 
 
 
