@@ -1,4 +1,13 @@
+import ajv from 'ajv';
 import Form from '../../src';
+import svkExtend from './_.extend.svk';
+
+const plugins = {
+  svk: {
+    package: ajv,
+    extend: svkExtend,
+  },
+};
 
 const fields = {
   state: {
@@ -36,4 +45,18 @@ const fields = {
   },
 };
 
-export default new Form({ fields }, 'Nested-C');
+const schema = {
+  type: 'object',
+  properties: {
+    state: {
+      type: 'integer',
+      properties: {
+        city: {
+          type: 'integer',
+        },
+      },
+    },
+  },
+};
+
+export default new Form({ fields, plugins, schema }, 'Nested-E');

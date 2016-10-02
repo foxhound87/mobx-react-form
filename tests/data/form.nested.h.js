@@ -1,4 +1,5 @@
 import Form from '../../src';
+import { isEmail } from './_.extend.vjf';
 
 const fields = {
   state: {
@@ -11,6 +12,7 @@ const fields = {
         fields: {
           places: {
             label: 'NY Places',
+            value: 'NY Places',
             fields: {
               centralPark: {
                 label: 'Central Park',
@@ -36,4 +38,10 @@ const fields = {
   },
 };
 
-export default new Form({ fields }, 'Nested-C');
+const validate = {
+  'state': isEmail,
+  'state.city': isEmail,
+  'state.city.places': isEmail,
+};
+
+export default new Form({ fields, validate }, 'Nested-H');

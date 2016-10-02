@@ -75,13 +75,10 @@ export default class Validator {
   }
 
   @action
-  validateAll({ form, values = null, showErrors = true, related = false }) {
-    const { svk } = this.validators;
+  validateAll({ form, showErrors = true, related = false }) {
     // reset generic error message
-    this.genericErrorMessage = null;
-    // validate with ajv
-    if (svk) svk.validate(values);
-    // validate all fields
+    this.resetGenericError();
+    // validate all fields and nested fields
     this.validateAllDeep(form, form.fields, showErrors, related);
   }
 
@@ -93,7 +90,7 @@ export default class Validator {
       this.validateField({ form, field, key, showErrors, related });
       // recursive validation for nested fields
       if (field.fields.size) {
-        this.validateAllDeep(field.fields, showErrors, related, $path);
+        this.validateAllDeep(form, field.fields, showErrors, related, $path);
       }
     });
   }

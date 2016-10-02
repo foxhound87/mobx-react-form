@@ -27,7 +27,7 @@ const plugins = {
 class FormWithNestedFields extends Form {
 
   onInit(form) {
-  //   console.log('ON INIT');
+    // console.log('ON INIT');
 
     form.on('reset', $form => console.log('ON RESET', $form));
     form.on('clear', $form => console.log('ON CLEAR', $form));
@@ -35,8 +35,8 @@ class FormWithNestedFields extends Form {
 
     // console.log('GET', form.$('address').get());
 
-    // form.$('address.city').set('');
     // form.$('address.street').set('');
+    // console.log('street isValid', form.$('address.street').isValid);
     // console.log('isEmpty', form.$('address.street').check('isEmpty'));
 
     // form.options({

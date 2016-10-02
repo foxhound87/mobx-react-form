@@ -1,12 +1,15 @@
 import { action, computed, observe, observable, asMap } from 'mobx';
 import _ from 'lodash';
 import Validator from './Validator';
+import InitialState from './InitialState';
 import fieldsInitializer from './FieldsInit';
 import fieldHelpers from './FieldHelpers';
 
 export default class Form {
 
   name;
+
+  initial;
 
   validator;
 
@@ -44,8 +47,9 @@ export default class Form {
     if (_.isFunction(this.onInit)) this.onInit(this);
   }
 
-  assignInitData({ options = {} }) {
-    this.options(options);
+  assignInitData(initial) {
+    InitialState.set(_.omit(initial, ['options', 'plugins']));
+    this.options(initial.options);
   }
 
   assignFieldHelpers() {
@@ -116,7 +120,6 @@ export default class Form {
           related,
           form: this,
           showErrors: $showErrors,
-          values: this.values(),
         });
         // wait all promises then resolve
         return Promise.all(this.validator.promises)

@@ -19,12 +19,6 @@
 ## Changelog & Documentation
 See the [Changelog](https://github.com/foxhound87/mobx-react-form/blob/master/CHANGELOG.md) or the [Documentation](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md) for all the details.
 
-## Install
-
-```bash
-npm install --save mobx-react-form
-```
-
 ## Demo
 
 https://mobx-react-form-demo-bbtfrgtrzh.now.sh
@@ -37,8 +31,15 @@ https://mobx-react-form-demo-bbtfrgtrzh.now.sh
 - Automatic Reactive Form State Management with MobX Magic
 - Automatic Reactive Validation & Error Messages
 - Validation Plugins & Multiple Validation Styles
-- Support for Sync & Async Validation functions
+- Nested Fields (w/ Validation)
+- Sync & Async Validation functions
 - Support for Material UI, React Widgets, React Select
+
+## Install
+
+```bash
+npm install --save mobx-react-form
+```
 
 ## Usage
 

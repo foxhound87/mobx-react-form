@@ -55,10 +55,6 @@ export default class SVK {
     this.validate = ajvInstance.compile(this.schema);
   }
 
-  validate(values) {
-    this.validate(this.parseValues(values));
-  }
-
   validateField(field) {
     const data = { [field.name]: field.value };
     const validate = this.validate(this.parseValues(data));
@@ -81,7 +77,7 @@ export default class SVK {
 
   handleSyncError(field) {
     const fieldErrorObj = _.find(this.validate.errors, item =>
-      _.includes(item.dataPath, `.${field.name}`));
+      _.includes(item.dataPath, `.${field.path}`));
     // if fieldErrorObj is not undefined, the current field is invalid.
     if (_.isUndefined(fieldErrorObj)) return;
     // the current field is now invalid
@@ -94,7 +90,7 @@ export default class SVK {
   handleAsyncError(field, errors) {
     // find current field error message from ajv errors
     const fieldErrorObj = _.find(errors, item =>
-      _.includes(item.dataPath, `.${field.name}`));
+      _.includes(item.dataPath, `.${field.path}`));
     // if fieldErrorObj is not undefined, the current field is invalid.
     if (_.isUndefined(fieldErrorObj)) return;
     // the current field is now invalid

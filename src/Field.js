@@ -38,7 +38,7 @@ export default class Field {
   constructor(key, path, field = {}, obj = {}, opt = {}) {
     this.assignFormOptions(opt);
     this.assignFieldHelpers();
-    this.initField(key, path, field, obj);
+    this.setupField(key, path, field, obj);
     // init nested fields
     if (_.has(field, 'fields')) {
       this.assignFieldsInitializer();
@@ -65,7 +65,7 @@ export default class Field {
   }
 
   @action
-  initField($key, $path, $field, {
+  setupField($key, $path, $field, {
     $value = null,
     $label = null,
     $default = null,
@@ -181,18 +181,21 @@ export default class Field {
   }
 
   @action
-  resetValidation() {
+  setValidationAsyncData(obj = {}) {
+    this.validationAsyncData = obj;
+  }
+
+  @action
+  resetValidation(deep = false) {
     this.showError = true;
     this.errorSync = null;
     this.errorAsync = null;
     this.validationAsyncData = {};
     this.validationFunctionsData = [];
     this.validationErrorStack = [];
-  }
 
-  @action
-  setValidationAsyncData(obj = {}) {
-    this.validationAsyncData = obj;
+    // recursive resetValidation
+    if (deep) this.deepAction('resetValidation', this.fields);
   }
 
   @action

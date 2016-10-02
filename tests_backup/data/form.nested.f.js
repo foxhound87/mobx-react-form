@@ -1,4 +1,9 @@
+import validatorjs from 'validatorjs';
 import Form from '../../src';
+
+const plugins = {
+  dvr: validatorjs,
+};
 
 const fields = {
   state: {
@@ -36,4 +41,10 @@ const fields = {
   },
 };
 
-export default new Form({ fields }, 'Nested-C');
+const rules = {
+  'state': 'integer',
+  'state.city': 'integer',
+  'state.city.places': 'integer',
+};
+
+export default new Form({ fields, plugins, rules }, 'Nested-F');

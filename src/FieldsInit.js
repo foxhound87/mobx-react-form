@@ -1,18 +1,20 @@
 import { action } from 'mobx';
 import _ from 'lodash';
 import Field from './Field';
+import InitialState from './InitialState';
 
 /**
   Fields Initializer
 */
 export default $this => ({
 
-  initField: action('init-Field', (key, path, field, obj = {}) => {
+  initField: action('init-Field', (key, path, data) => {
+    const initial = InitialState.get();
     // try to get props from separated objects
-    const $try = prop => _.has(obj[prop], key) && obj[prop][key];
+    const $try = prop => _.has(initial[prop], path) && initial[prop][path];
 
     $this.fields.merge({
-      [key]: new Field(key, path, field, {
+      [key]: new Field(key, path, data, {
         $label: $try('labels'),
         $value: $try('values'),
         $default: $try('defaults'),
@@ -27,18 +29,18 @@ export default $this => ({
     });
   }),
 
-  initFields: action('init-Fields', (obj = {}) => {
-    let fields = obj.fields || {};
+  initFields: action('init-Fields', (initial = {}) => {
+    let fields = initial.fields || {};
 
     fields = $this.handleFieldsArray(fields);
-    fields = $this.handleFieldsEmpty(fields, obj);
+    fields = $this.handleFieldsEmpty(fields, initial);
     fields = $this.mergeSchemaDefaults(fields);
 
     const $path = key => _.trimStart([$this.path, key].join('.'), '.');
 
     // create fields
     _.each(fields, (field, key) =>
-      $this.initField(key, $path(key), field, obj));
+      $this.initField(key, $path(key), field));
   }),
 
   handleFieldsArray: ($fields) => {
