@@ -20,13 +20,12 @@
 ## Form Events
 
 * [Form Events](docs/form-events/README.md)
- * [](docs/form-events/.md)
- * [](docs/form-events/.md)
- * [](docs/form-events/.md)
- * [](docs/form-events/.md)
+ * [Extending the Form with Handlers](docs/form-events/.md)
+ * [Decupling the Handler from the Form](docs/form-events/.md)
 
 
-Extending the Form object with the Events Handlers
+
+
 
 
 
