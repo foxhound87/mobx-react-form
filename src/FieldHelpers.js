@@ -2,6 +2,7 @@ import { action } from 'mobx';
 import _ from 'lodash';
 import utils from './utils';
 import Options from './Options';
+import Events from './Events';
 
 /**
   Field Helpers
@@ -120,7 +121,7 @@ export default $this => ({
     const $e = 'update';
 
     if (!recursion) {
-      _.set($this.$events, $e, true);
+      Events.setRunning($e, true);
     }
 
     // UPDATE CUSTOM PROP
@@ -128,13 +129,13 @@ export default $this => ({
       if (_.isString($) && !_.isNull(data)) {
         utils.allowed('props', [$]);
         _.set($this, `$${$}`, data);
-        if (!recursion) _.set($this.$events, $e, false);
+        if (!recursion) Events.setRunning($e, false);
         return;
       }
 
       // update just the value
       $this.value = $; // eslint-disable-line
-      if (!recursion) _.set($this.$events, $e, false);
+      if (!recursion) Events.setRunning($e, false);
       return;
     }
 
@@ -142,7 +143,7 @@ export default $this => ({
     if (_.isObject($) && !data) {
       // $ is the data
       $this.deepSet('value', $, '', true);
-      if (!recursion) _.set($this.$events, $e, false);
+      if (!recursion) Events.setRunning($e, false);
       return;
     }
 
@@ -151,7 +152,7 @@ export default $this => ({
       utils.allowed('props', [$]);
       // $ is the prop key
       $this.deepSet($, data, '', true);
-      if (!recursion) _.set($this.$events, $e, false);
+      if (!recursion) Events.setRunning($e, false);
       return;
     }
   }),
@@ -224,7 +225,7 @@ export default $this => ({
 
   deepAction: ($action, fields, recursion = false) => {
     if (!recursion) {
-      _.set($this.$events, $action, true);
+      Events.setRunning($action, true);
     }
 
     if (fields.size !== 0) {
@@ -235,7 +236,7 @@ export default $this => ({
     }
 
     if (!recursion) {
-      _.set($this.$events, $action, false);
+      Events.setRunning($action, false);
     }
   },
 

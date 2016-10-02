@@ -2,6 +2,7 @@ import { action, computed, observe, observable, asMap } from 'mobx';
 import _ from 'lodash';
 import Validator from './Validator';
 import Options from './Options';
+import Events from './Events';
 import InitialState from './InitialState';
 import fieldsInitializer from './FieldsInit';
 import fieldHelpers from './FieldHelpers';
@@ -13,12 +14,6 @@ export default class Form {
   validator;
 
   @observable fields = asMap({});
-
-  @observable $events = {
-    clear: false,
-    reset: false,
-    update: false,
-  };
 
   constructor(obj = {}, name = null) {
     this.name = name;
@@ -60,8 +55,9 @@ export default class Form {
   }
 
   on(event, callback) {
-    observe(this.$events, ({ name, oldValue, object }) => {
+    observe(Events.getRunning(), ({ name, oldValue, object }) => {
       if (event === name && oldValue && !object[name]) {
+        // console.log(Events.getPath(name));
         callback(this);
       }
     });
@@ -132,7 +128,7 @@ export default class Form {
   }
 
   eventsRunning(events) {
-    const running = _.keys(_.omitBy(this.$events, e => e === false));
+    const running = _.keys(_.omitBy(Events.getRunning(), e => e === false));
     return _.intersection(events, running).length > 0;
   }
 

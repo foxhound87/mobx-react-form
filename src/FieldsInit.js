@@ -22,8 +22,6 @@ export default $this => ({
         $related: $try('related'),
         $validate: $try('validate'),
         $rules: $try('rules'),
-      }, {
-        events: $this.$events,
       }),
     });
   }),

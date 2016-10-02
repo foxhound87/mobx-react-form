@@ -6,8 +6,6 @@ import fieldHelpers from './FieldHelpers';
 
 export default class Field {
 
-  $events;
-
   fields = asMap({});
 
   path;
@@ -34,8 +32,7 @@ export default class Field {
   initialValue = undefined;
   interacted = false;
 
-  constructor(key, path, field = {}, obj = {}, opt = {}) {
-    this.assignFormOptions(opt);
+  constructor(key, path, field = {}, obj = {}) {
     this.assignFieldHelpers();
     this.setupField(key, path, field, obj);
     // init nested fields
@@ -43,10 +40,6 @@ export default class Field {
       this.assignFieldsInitializer();
       this.initNestedFields(field.fields);
     }
-  }
-
-  assignFormOptions({ events }) {
-    this.$events = events;
   }
 
   assignFieldHelpers() {
