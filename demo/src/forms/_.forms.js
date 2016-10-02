@@ -26,34 +26,36 @@ const plugins = {
 
 class FormWithNestedFields extends Form {
 
-  onInit(form) {
+  onInit($form) {
     // console.log('ON INIT');
 
-    form.on('reset', $form => console.log('ON RESET', $form));
-    form.on('clear', $form => console.log('ON CLEAR', $form));
-    // form.on('update', $form => console.log('ON UPDATE', $form));
+    // $form.on('reset', ({ form, path }) => console.log('reset', path, form));
+    // $form.on('clear', ({ form, path }) => console.log('clear', path, form));
+    // $form.on('clear@club', ({ form, path }) => console.log('clear@club', path, form));
+    // $form.on('update', ({ form, path }) => console.log('update', path, form));
+    // $form.on('update@club', ({ form, path }) => console.log('update@club', path, form));
 
-    // console.log('GET', form.$('address').get());
+    // console.log('GET', $form.$('address').get());
 
-    // form.$('address.street').set('');
-    // console.log('street isValid', form.$('address.street').isValid);
-    // console.log('isEmpty', form.$('address.street').check('isEmpty'));
+    // $form.$('address.street').set('');
+    // console.log('street isValid', $form.$('address.street').isValid);
+    // console.log('isEmpty', $form.$('address.street').check('isEmpty'));
 
-    // form.options({
+    // $form.options({
     //   strictUpdate: true,
     // });
 
-    // form.set({
+    // $form.set({
     //   sthElse: '...',
     //   username: 'aaaaaa',
     // });
 
-    // form.set('label', {
+    // $form.set('label', {
     //   sthElse: '...',
     //   username: 'NEW LABEL',
     // });
 
-    // form.$('username').set('label', 'XXXXX');
+    $form.$('club').set('test');
   }
 }
 

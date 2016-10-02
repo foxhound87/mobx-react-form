@@ -121,7 +121,7 @@ export default $this => ({
     const $e = 'update';
 
     if (!recursion) {
-      Events.setRunning($e, true);
+      Events.setRunning($e, true, $this.path);
     }
 
     // UPDATE CUSTOM PROP
@@ -225,7 +225,7 @@ export default $this => ({
 
   deepAction: ($action, fields, recursion = false) => {
     if (!recursion) {
-      Events.setRunning($action, true);
+      Events.setRunning($action, true, $this.path);
     }
 
     if (fields.size !== 0) {

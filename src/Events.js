@@ -9,20 +9,24 @@ class Events {
   };
 
   $path = {
-    clear: false,
-    reset: false,
-    update: false,
+    clear: null,
+    reset: null,
+    update: null,
   };
 
-  @action
   getRunning(key = null) {
     if (key) return this.$running[key];
     return this.$running;
   }
 
   @action
-  setRunning(key, flag) {
+  setRunning(key, flag, path = null) {
     this.$running[key] = flag;
+    if (path) this.$path[key] = path;
+  }
+
+  path(key) {
+    return this.$path[key];
   }
 }
 

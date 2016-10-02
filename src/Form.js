@@ -56,9 +56,15 @@ export default class Form {
 
   on(event, callback) {
     observe(Events.getRunning(), ({ name, oldValue, object }) => {
-      if (event === name && oldValue && !object[name]) {
-        // console.log(Events.getPath(name));
-        callback(this);
+      const $event = _.split(event, '@');
+      const $path = Events.path(name);
+      if ($event[0] === name && _.isUndefined($event[1]) && oldValue && !object[name]) {
+        callback({ form: this, path: $path });
+        return;
+      }
+      if ($event[0] === name && $event[1] === $path && oldValue && !object[name]) {
+        callback({ form: this, path: $path });
+        return;
       }
     });
   }
