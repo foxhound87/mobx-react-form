@@ -18,6 +18,21 @@ describe('Check errors() returns object', () => {
     assert.isObject(form.errors(), `${key}.errors() is not object`)));
 });
 
+describe('Check labels() returns object', () => {
+  _.each($forms, (form, key) => it(`${key} labels() is object`, () =>
+    assert.isObject(form.labels(), `${key}.labels() is not object`)));
+});
+
+describe('Check defaults() returns object', () => {
+  _.each($forms, (form, key) => it(`${key} defaults() is object`, () =>
+    assert.isObject(form.defaults(), `${key}.defaults() is not object`)));
+});
+
+describe('Check initials() returns object', () => {
+  _.each($forms, (form, key) => it(`${key} initials() is object`, () =>
+    assert.isObject(form.initials(), `${key}.initials() is not object`)));
+});
+
 describe('Check eventsRunning() returns boolean', () => {
   _.each($forms, (form, key) => it(`${key} eventsRunning() is boolean`, () =>
     assert.isBoolean(form.eventsRunning(), `${key}.eventsRunning() is not boolean`)));
