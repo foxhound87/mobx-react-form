@@ -22,6 +22,7 @@
 * [Form Events](docs/form-events/README.md)
  * [Extending the Form with Handlers](docs/form-events/extending-form.md)
  * [Decupling the Handlers from the Form](docs/form-events/decoupling-handlers.md)
+ * [Events Callbacks](docs/form-events/events-callbacks.md)
 
 
 
