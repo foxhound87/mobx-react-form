@@ -8,6 +8,11 @@ describe('Check validate() returns promise', () => {
     expect(form.validate()).to.be.a('promise')));
 });
 
+describe('Check options() returns object', () => {
+  _.each($forms, (form, key) => it(`${key} options() is object`, () =>
+    assert.isObject(form.options(), `${key}.options() is not object`)));
+});
+
 describe('Check values() returns object', () => {
   _.each($forms, (form, key) => it(`${key} values() is object`, () =>
     assert.isObject(form.values(), `${key}.values() is not object`)));
