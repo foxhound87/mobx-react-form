@@ -71,19 +71,9 @@ const FormRegister = ({ form }) => (
 
         <br />
         <div className="ctrl">
-          <button
-            // disabled={!form.isValid}
-            type="submit"
-            onClick={form.handleOnSubmit}
-          >Submit</button>
-          <button
-            type="submit"
-            onClick={form.handleOnClear}
-          >Clear</button>
-          <button
-            type="submit"
-            onClick={form.handleOnReset}
-          >Reset</button>
+          <button type="submit" onClick={form.handleOnSubmit}>Submit</button>
+          <button type="button" onClick={form.handleOnClear}>Clear</button>
+          <button type="button" onClick={form.handleOnReset}>Reset</button>
         </div>
 
         <p><i>{form.error}</i></p>

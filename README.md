@@ -126,18 +126,9 @@ const FormComponent = ({ form, events }) => (
 
     ...
 
-    <button
-      type="submit"
-      onClick={form.handleOnSubmit}
-    >Submit</button>
-
-    <button
-      onClick={form.handleOnReset}
-      >Reset</button>
-
-    <button
-      onClick={form.handleOnClear}
-      >Clear</button>
+    <button type="submit" onClick={form.handleOnSubmit}>Submit</button>
+    <button type="button" onClick={form.handleOnClear}>Clear</button>
+    <button type="button" onClick={form.handleOnReset}>Reset</button>
 
     <p>{form.error}</p>
   </form>
