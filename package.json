@@ -62,7 +62,7 @@
     "mobx": "^2.5.2"
   },
   "devDependencies": {
-    "ajv": "4.7.5",
+    "ajv": "4.7.6",
     "babel-cli": "6.16.0",
     "babel-eslint": "7.0.0",
     "babel-loader": "6.2.5",
