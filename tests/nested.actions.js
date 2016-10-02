@@ -92,6 +92,15 @@ describe('Check $C Nested Fields', () => {
 
   it('$C state.city.places.empireStateBuilding value should be false', () =>
     expect($.$C.$('state.city.places.empireStateBuilding').value).to.be.false);
+
+  const deepPropValue = 'state.fields.city.value';
+  const deepPropLabel = 'state.fields.city.label';
+
+  it(`$C get([label, value]) ${deepPropValue} should be equal to "New York"`, () =>
+    expect($.$C.get(['label', 'value'])).to.have.deep.property(deepPropValue, 'New York'));
+
+  it(`$C get([label, value]) ${deepPropLabel} should be equal to "New York"`, () =>
+    expect($.$C.get(['label', 'value'])).to.have.deep.property(deepPropLabel, 'City'));
 });
 
 describe('Check form.values() for Nested Fields', () => {

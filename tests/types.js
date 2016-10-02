@@ -13,6 +13,11 @@ describe('Check options() returns object', () => {
     assert.isObject(form.options(), `${key}.options() is not object`)));
 });
 
+describe('Check get() returns object', () => {
+  _.each($forms, (form, key) => it(`${key} get() is object`, () =>
+    assert.isObject(form.get(), `${key}.get() is not object`)));
+});
+
 describe('Check values() returns object', () => {
   _.each($forms, (form, key) => it(`${key} values() is object`, () =>
     assert.isObject(form.values(), `${key}.values() is not object`)));
