@@ -21,7 +21,6 @@ export default class Form {
   };
 
   constructor(obj = {}, name = null) {
-    console.log('NAME', name);
     this.name = name;
 
     this.assignFieldHelpers();
