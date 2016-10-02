@@ -17,19 +17,19 @@
  * [Fields Methods](docs/api-reference/fields-methods.md)
  * [Nested Fields Methods](docs/api-reference/nested-fields-methods.md)
 
-## Events
-
-* [Form Events](docs/events/README.md)
- * [Extending the Form with Handlers](docs/events/extending-form.md)
- * [Decupling the Handlers from the Form](docs/events/decoupling-handlers.md)
- * [Events Hooks](docs/events/events-hooks.md)
-
 ## Actions
 
 * [Actions](docs/actions/README.md)
  * [Form Actions](docs/actions/form-actions.md)
  * [Fields Actions](docs/actions/fields-actions.md)
  * [Nested Fields Actions](docs/actions/nested-fields-actions.md)
+
+## Events
+
+* [Events Hooks](docs/events/events-hooks.md)
+* [Events Handlers](docs/events/README.md)
+ * [Extending the Form with Handlers](docs/events/extending-form.md)
+ * [Decupling the Handlers from the Form](docs/events/decoupling-handlers.md)
 
 
 
