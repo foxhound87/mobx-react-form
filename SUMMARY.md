@@ -38,7 +38,8 @@
 * Validation
  * [Plugins & Modes](docs/validation/plugins.md)
  * [Supported Packages](docs/validation/supported-packages.md)
-  * Validation Modes
+ * [Custom Error Messages]()
+ * Validation Modes
     * [Enable VJF (Functions)]()
     * [Enable DVR (Rules)]()
     * [Enable SVK (Schema)]()
