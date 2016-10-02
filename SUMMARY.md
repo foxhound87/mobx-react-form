@@ -28,7 +28,7 @@
 
 * [Actions](docs/actions/README.md)
  * [Form Actions](docs/actions/form-actions.md)
- * [Fields Actions](docs/actions/fiels-action.md)
+ * [Fields Actions](docs/actions/fields-action.md)
  * [Nested Fields Actions](docs/actions/nested-fields-actions.md)
 
 
