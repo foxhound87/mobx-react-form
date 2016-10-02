@@ -33,19 +33,19 @@
     * [Plugins & Modes](docs/validation/plugins.md)
     * [Supported Packages](docs/validation/supported-packages.md)
     * Validation Modes
-        * Enable VJF \(Functions\)
-        * Enable DVR \(Rules\)
-        * Enable SVK \(Schema\)
+        * Enable VJF (Functions)
+        * Enable DVR (Rules)
+        * Enable SVK (Schema)
     * Extend Validation
-        * Custom VJF \(Functions\)
-        * Custom DVR \(Rules\)
-        * Custom SVK \(Schema\)
+        * Custom VJF (Functions)
+        * Custom DVR (Rules)
+        * Custom SVK (Schema)
     * Async Validation
-        * Async VJF \(Functions\)
-        * Async DVR \(Rules\)
-        * Async SVK \(Schema\)
-    * Define\/Override Error Messages
-        * VJF \(Functions\) Messages
-        * DVR \(Rules\) Messages
-        * SVK \(Schema\) Messages
+        * Async VJF (Functions)
+        * Async DVR (Rules)
+        * Async SVK (Schema)
+    * Custom Error Messages
+        * VJF (Functions) Messages
+        * DVR (Rules) Messages
+        * SVK (Schema) Messages
 
