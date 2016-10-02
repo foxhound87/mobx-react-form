@@ -5,8 +5,8 @@
 
 ## Start
 * [Defining Fields](docs/defining-fields/README.md)
-    * [Unified Properties](docs/defining-fields/unified-properties.md)
-    * [Separated Properties](docs/defining-fields/separated-properties.md)
+    * [As Unified Properties](docs/defining-fields/unified-properties.md)
+    * [As Separated Properties](docs/defining-fields/separated-properties.md)
 
 ## API Reference
 * [API Reference](docs/api-reference/README.md)
