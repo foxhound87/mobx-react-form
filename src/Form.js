@@ -49,9 +49,9 @@ export default class Form {
     Object.assign(this, fieldsInitializer(this));
   }
 
-  options(options = {}) {
-    if (!_.isEmpty(options)) Options.set(options);
-    if (!_.isString(options)) Options.get(options);
+  options(options = null) {
+    if (!_.isObject(options)) Options.set(options);
+    if (!_.isString(options)) return Options.get(options);
     return Options.get();
   }
 
