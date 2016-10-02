@@ -1,7 +1,7 @@
 # API Reference
 
- * [Form Initialization](docs/api-reference/form-initialization.md)
- * [Form Options](docs/api-reference/form-options.md)
- * [Form Methods](docs/api-reference/form-methods.md)
- * [Fields Methods](docs/api-reference/fields-methods.md)
- * [Nested Fields Methods](docs/api-reference/nested-fields-methods.md)
+ * [Form Initialization](form-initialization.md)
+ * [Form Options](form-options.md)
+ * [Form Methods](form-methods.md)
+ * [Fields Methods](fields-methods.md)
+ * [Nested Fields Methods](nested-fields-methods.md)
