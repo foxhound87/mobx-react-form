@@ -22,7 +22,7 @@
 
 | Method | Input | Output | Info |
 |---|---|---|---|
-| **options(obj = null)** | object | - | Get/Set form options after the form is yet initialied. |
+| **options(obj = null)** | (object|string) | - | Get/Set form options after the form is yet initialied. |
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
 | **get(prop)** | (string|array) | - | Get all field data. Can be filtered by certain `props`. | - |
 | **set(val)** | (mixed) | - | Set field value. Takes prop key and prop value. | - |

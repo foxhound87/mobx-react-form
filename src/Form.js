@@ -51,6 +51,7 @@ export default class Form {
 
   options(options = {}) {
     if (!_.isEmpty(options)) Options.set(options);
+    if (!_.isString(options)) Options.get(options);
     return Options.get();
   }
 
