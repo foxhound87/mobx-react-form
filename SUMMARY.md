@@ -10,7 +10,7 @@
 
 ## API Reference
 
-* [API Refernece](docs/api-reference/README.md)
+* [API Reference](docs/api-reference/README.md)
 
  * [Form Initialization](docs/api-reference/form-initialization.md)
  * [Form Methods](docs/api-reference/form-methods.md)
@@ -21,7 +21,7 @@
 
 * [Form Events](docs/form-events/README.md)
  * [Extending the Form with Handlers](docs/form-events/extending-form.md)
- * [Decupling the Handlers from the Form](docs/form-events/decoupling-handlers.md)
+ * [Decupling the Handlers from the Form](docs/form-events/decoupling-handlers.md)Re
  * [Events Hooks](docs/form-events/events-hooks.md)
 
 ## Actions
