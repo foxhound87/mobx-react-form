@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import $ from './data/nested'; // FORMS
+import $ from './data/_.nested'; // FORMS
 
 describe('Check Nested $E validation', () => {
   it('$E state isValid should be false', () =>

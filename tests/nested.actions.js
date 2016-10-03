@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import $ from './data/nested'; // FORMS
+import $ from './data/_.nested'; // FORMS
 
 $.$A.set({
   address: {
@@ -99,7 +99,7 @@ describe('Check $C Nested Fields', () => {
   it(`$C get([label, value]) ${deepPropValue} should be equal to "New York"`, () =>
     expect($.$C.get(['label', 'value'])).to.have.deep.property(deepPropValue, 'New York'));
 
-  it(`$C get([label, value]) ${deepPropLabel} should be equal to "New York"`, () =>
+  it(`$C get([label, value]) ${deepPropLabel} should be equal to "City"`, () =>
     expect($.$C.get(['label', 'value'])).to.have.deep.property(deepPropLabel, 'City'));
 });
 

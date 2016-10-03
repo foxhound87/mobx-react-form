@@ -10,8 +10,8 @@ import companySimple from './companySimple';
 import companyWidgets from './companyWidgets';
 
 // plugins extensions
-import svkExtend from './extensions/_.extend.svk';
-import dvrExtend from './extensions/_.extend.dvr';
+import svkExtend from './extension/svk';
+import dvrExtend from './extension/dvr';
 
 const plugins = {
   dvr: {

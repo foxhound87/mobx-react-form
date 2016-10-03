@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import $ from './data/nested'; // FORMS
+import $ from './data/_.nested'; // FORMS
 
 $.$D.$('state.city').clear(true);
 
