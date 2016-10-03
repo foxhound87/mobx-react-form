@@ -103,6 +103,13 @@ export default $this => ({
   },
 
   /**
+    Update Field Values
+  */
+  update: (data) => {
+    $this.set('value', data);
+  },
+
+  /**
     Get Fields Props
   */
   get: (prop = null) => {
@@ -111,7 +118,16 @@ export default $this => ({
     }
 
     utils.allowed('props', _.isArray(prop) ? prop : [prop]);
-    return $this.deepGet(prop, $this.fields);
+
+    if (_.isString(prop)) {
+      return $this.deepMap(prop, $this.fields);
+    }
+
+    if (_.isArray(prop)) {
+      return $this.deepGet(prop, $this.fields);
+    }
+
+    return null;
   },
 
   /**
@@ -134,9 +150,9 @@ export default $this => ({
       }
 
       // update just the value
-      $this.value = $; // eslint-disable-line
-      if (!recursion) Events.setRunning($e, false);
-      return;
+      // $this.value = $; // eslint-disable-line
+      // if (!recursion) Events.setRunning($e, false);
+      // return;
     }
 
     // UPDATE NESTED FIELDS VALUE (recursive)
@@ -202,11 +218,11 @@ export default $this => ({
         }));
     }
 
-    if (_.isString(prop)) {
-      Object.assign(obj[field.key], {
-        [prop]: field[prop],
-      });
-    }
+    // if (_.isString(prop)) {
+    //   Object.assign(obj[field.key], {
+    //     [prop]: field[prop],
+    //   });
+    // }
 
     return obj;
   }, {}),

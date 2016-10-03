@@ -30,7 +30,8 @@
 | Property | Input | Output | Info | Help |
 |---|---|---|---|---|
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
-| **get(prop)** | (string|array) | - | Get all field data. Can be filtered by certain `props`. | - |
+| **update(data)** | (mixed) | - | Update Fields Values. | - |
+| **get(prop)** | (string|array) | - | Get all field data or filter by certain `props`. | - |
 | **set(val)** | (mixed) | - | Set field value. Takes prop key and prop value. | - |
 | **set(prop, val)** | (string, mixed) | - | Set field property. Takes prop key and prop value. | - |
 | **check(computed)** | (string) | - | Check field computed property. | - |

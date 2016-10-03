@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import $ from './data/_.nested'; // FORMS
 
-$.$A.set({
+$.$A.update({
   address: {
     city: 'Los Angeles',
   },
@@ -15,12 +15,12 @@ $.$A.set('label', {
 });
 
 $.$B.$('state.city.places').set('label', 'NY Cool Places');
-$.$B.$('state.city.places').$('empireStateBuilding').set(false);
-$.$B.$('state.city.places.centralPark').set(false);
+$.$B.$('state.city.places').$('empireStateBuilding').update(false);
+$.$B.$('state.city.places.centralPark').update(false);
 
 $.$C.$('state.city.places').set('label', 'NY Cool Places');
-$.$C.$('state.city.places').$('empireStateBuilding').set(false);
-$.$C.$('state.city.places.centralPark').set(false);
+$.$C.$('state.city.places').$('empireStateBuilding').update(false);
+$.$C.$('state.city.places.centralPark').update(false);
 
 describe('Check $A Nested Fields', () => {
   it('$A address.street.value should be equal to "Broadway"', () =>

@@ -8,7 +8,7 @@ import $ from './data/_.flat'; // FORMS
 
 $.$C.invalidate('The user already exist');
 
-$.$D.set({
+$.$D.update({
   username: 'JonathanIve',
   terms: false,
   assets: 0,
@@ -16,7 +16,7 @@ $.$D.set({
   undefined: true, // this field does not exists (strictUpdate)
 });
 
-$.$I.set({ username: 'JonathanIve' });
+$.$I.update({ username: 'JonathanIve' });
 $.$I.reset(); // to default or initial values
 
 $.$L.clear(); // to empty values
@@ -29,7 +29,7 @@ $.$M.reset(); // to default or initial values
 $.$N.clear(); // to empty values
 $.$N.reset(); // to default or initial values
 
-$.$O.set({
+$.$O.update({
   undefined: 'undefined',
   username: 'TestUser',
 });
@@ -43,7 +43,7 @@ $.$P.$('username').set('label', 'UserName');
 
 $.$P.reset();
 
-$.$R.set({
+$.$R.update({
   email: 'invalid',
 });
 
