@@ -24,6 +24,7 @@
 |---|---|---|---|
 | **options(obj = null)** | (object|string) | - | Get/Set form options after the form is yet initialied. |
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
+| **update(data)** | (mixed) | - | Update Fields Values. | - |
 | **get(prop)** | (string|array) | - | Get all field data. Can be filtered by certain `props`. | - |
 | **set(val)** | (mixed) | - | Set field value. Takes prop key and prop value. | - |
 | **set(prop, val)** | (string, mixed) | - | Set field property. Takes prop key and prop value. | - |
