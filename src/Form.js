@@ -254,11 +254,9 @@ export default class Form {
   }
 
   /**
-    On Submit
+    Manual form submit
    */
-  handleOnSubmit = (e, o = {}) => {
-    e.preventDefault();
-
+  submit = (o = {}) => {
     const execOnSuccess = _.has(o, 'onSuccess') ? o.onSuccess : this.onSuccess;
     const execOnError = _.has(o, 'onError') ? o.onError : this.onError;
 
@@ -266,6 +264,14 @@ export default class Form {
       .then(isValid => isValid
         ? execOnSuccess(this)
         : execOnError(this));
+  };
+
+  /**
+    On Submit
+   */
+  handleOnSubmit = (e, o = {}) => {
+    e.preventDefault();
+    this.submit(o);
   };
 
   /**
