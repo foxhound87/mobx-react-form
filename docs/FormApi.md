@@ -14,7 +14,7 @@
 | **error** | string | observable | Generic error message (not related to fields). |
 
 ###### Form Methods
-<!--  -->
+
 | Method | Input | Output | Info |
 |---|---|---|---|
 | **$(key)** | string | object | Field selector shortcut. |
