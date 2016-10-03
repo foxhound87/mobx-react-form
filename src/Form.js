@@ -144,6 +144,16 @@ export default class Form {
     });
   }
 
+  submit(o = {}) {
+    const execOnSuccess = _.has(o, 'onSuccess') ? o.onSuccess : this.onSuccess;
+    const execOnError = _.has(o, 'onError') ? o.onError : this.onError;
+
+    this.validate()
+      .then(isValid => isValid
+        ? execOnSuccess(this)
+        : execOnError(this));
+  }
+
   /**
     Field selector shortcut
   */
@@ -252,19 +262,6 @@ export default class Form {
 
     this.events.pop($e);
   }
-
-  /**
-    Manual form submit
-   */
-  submit = (o = {}) => {
-    const execOnSuccess = _.has(o, 'onSuccess') ? o.onSuccess : this.onSuccess;
-    const execOnError = _.has(o, 'onError') ? o.onError : this.onError;
-
-    this.validate()
-      .then(isValid => isValid
-        ? execOnSuccess(this)
-        : execOnError(this));
-  };
 
   /**
     On Submit
