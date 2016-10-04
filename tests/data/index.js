@@ -14,7 +14,8 @@ import $N from './form.n';
 import $O from './form.o';
 import $P from './form.p';
 import $Q from './form.q';
+import $R from './form.r';
 
 export const up = str => str.toUpperCase();
 
-export default { $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q };
+export default { $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q, $R };

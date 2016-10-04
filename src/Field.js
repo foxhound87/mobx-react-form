@@ -57,8 +57,8 @@ export default class Field {
     _.isNumber($field)) {
       /* The field IS the value here */
       this.name = $key;
-      this.initialValue = this.parseInitialValue($value || $field);
-      this.defaultValue = $default || this.initialValue;
+      this.initialValue = this.parseInitialValue($field, $value);
+      this.defaultValue = this.parseDefaultValue($field.default, $default);
       this.$label = $label || $key;
       this.$value = this.initialValue;
       this.$rules = $rules || null;
@@ -83,8 +83,8 @@ export default class Field {
     */
     if (_.isObject($field)) {
       const { name, label, disabled, rules, validate, related } = $field;
-      this.initialValue = this.parseInitialValue($value || $field.value);
-      this.defaultValue = this.parseDefaultValue($default || $field.default);
+      this.initialValue = this.parseInitialValue($field.value, $value);
+      this.defaultValue = this.parseDefaultValue($field.default, $default);
       this.name = name || $key;
       this.$value = this.initialValue;
       this.$label = $label || label || this.name;
@@ -96,15 +96,19 @@ export default class Field {
     }
   }
 
-  parseInitialValue(value) {
+  parseInitialValue(unified, separated) {
+    if (separated === 0) return separated;
+    const $value = separated || unified;
     // handle boolean
-    if (_.isBoolean(value)) return value;
+    if (_.isBoolean($value)) return $value;
     // handle others types
-    return !_.isUndefined(value) ? value : '';
+    return !_.isUndefined($value) ? $value : '';
   }
 
-  parseDefaultValue($default) {
-    return !_.isUndefined($default) ? $default : this.initialValue;
+  parseDefaultValue(unified, separated) {
+    if (separated === 0) return separated;
+    const $value = separated || unified;
+    return !_.isUndefined($value) ? $value : this.initialValue;
   }
 
   @computed
