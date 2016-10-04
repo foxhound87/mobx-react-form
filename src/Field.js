@@ -58,7 +58,7 @@ export default class Field {
       /* The field IS the value here */
       this.name = $key;
       this.initialValue = this.parseInitialValue($field, $value);
-      this.defaultValue = this.parseDefaultValue($field.default, $default);
+      this.defaultValue = this.parseDefaultValue(this.initialValue, $default);
       this.$label = $label || $key;
       this.$value = this.initialValue;
       this.$rules = $rules || null;
@@ -105,9 +105,9 @@ export default class Field {
     return !_.isUndefined($value) ? $value : '';
   }
 
-  parseDefaultValue(unified, separated) {
-    if (separated === 0) return separated;
-    const $value = separated || unified;
+  parseDefaultValue(initial, separated) {
+    // if (separated === 0) return separated;
+    const $value = separated || initial;
     return !_.isUndefined($value) ? $value : this.initialValue;
   }
 
