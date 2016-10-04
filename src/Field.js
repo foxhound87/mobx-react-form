@@ -106,7 +106,7 @@ export default class Field {
   }
 
   parseDefaultValue(initial, separated) {
-    // if (separated === 0) return separated;
+    if (separated === 0) return separated;
     const $value = separated || initial;
     return !_.isUndefined($value) ? $value : this.initialValue;
   }
