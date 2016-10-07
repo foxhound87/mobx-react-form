@@ -159,7 +159,7 @@ export default class Field {
     Del Field
   */
   @action
-  del(key) {
+  del(key = null) {
     this.fields.delete(key);
   }
 

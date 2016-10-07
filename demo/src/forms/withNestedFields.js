@@ -1,25 +1,14 @@
-const fields = [{
-  name: 'address',
-  label: 'Address',
-  fields: [{
-    name: 'street',
-    label: 'Street',
-    value: 'Broadway',
-    rules: 'required',
+const fields = {
+  club: 'HELLO',
+  members: [{
+    firstname: 'Clint',
+    lastname: 'Eastwood',
+    hobbies: ['Soccer', 'Baseball'],
   }, {
-    name: 'city',
-    label: 'City',
-    value: 'New York',
+    firstname: 'Charlie',
+    lastname: 'Chaplin',
+    hobbies: ['Golf', 'Basket'],
   }],
-}, {
-  name: 'club',
-  label: 'Club',
-  value: 'Club Name',
-  fields: [{
-    name: 'xxx',
-    label: 'XXX',
-    value: 'CIAO',
-  }],
-}];
+};
 
 export default { fields };
