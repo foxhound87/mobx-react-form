@@ -87,7 +87,7 @@
     "json-loader": "0.5.4",
     "mocha": "3.1.0",
     "npm-run-all": "3.1.0",
-    "nyc": "8.3.0",
+    "nyc": "8.3.1",
     "path": "0.12.7",
     "rimraf": "2.5.4",
     "semantic-release": "4.3.5",
