@@ -26,7 +26,6 @@ export default {
     },
   },
   externals: {
-    lodash: '_',
     mobx: 'mobx',
   },
   module: { loaders },
