@@ -70,7 +70,10 @@ const FormWithNestedFields = observer(({ form }) => (
         </div>
 
         <hr />
-        <button type="button" onClick={e => form.$('club.members').onAdd(e)}>+ Add Member</button>
+        <button
+          type="button"
+          onClick={e => form.$('members').onAdd(e)}
+        >+ Add Member</button>
         <hr />
 
         {<MembersFields form={form} />}

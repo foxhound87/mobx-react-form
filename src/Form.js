@@ -11,18 +11,21 @@ export default class Form {
 
   name;
 
+  state;
+
   validator;
 
   @observable fields = asMap({});
 
-  constructor(obj = {}, name = null) {
+  constructor(initial = {}, name = null) {
     this.name = name;
 
     this.assignFieldHelpers();
-    this.assignInitData(obj);
-    this.initValidator(obj);
+    this.assignInitData(initial);
+    this.initValidator(initial);
     this.assignFieldsInitializer();
-    this.initFields(obj);
+    this.initPropsState(initial);
+    this.initFields(initial);
     this.observeFields();
     this.validateOnInit();
 
@@ -31,7 +34,6 @@ export default class Form {
   }
 
   assignInitData(initial) {
-    InitialState.set(_.omit(initial, ['options', 'plugins']));
     Options.set(Options.defaults);
     Options.set(initial.options);
   }
@@ -44,14 +46,23 @@ export default class Form {
     Object.assign(this, fieldsInitializer(this));
   }
 
+  initValidator(obj = {}) {
+    this.validator = new Validator(obj);
+  }
+
+  initPropsState(initial) {
+    const initialPropsState = _.omit(initial, [
+      'fields', 'options', 'plugins',
+    ]);
+
+    this.state = new InitialState();
+    this.state.set('props', initialPropsState);
+  }
+
   options(options = null) {
     if (!_.isObject(options)) Options.set(options);
     if (!_.isString(options)) return Options.get(options);
     return Options.get();
-  }
-
-  initValidator(obj = {}) {
-    this.validator = new Validator(obj);
   }
 
   on(event, callback) {

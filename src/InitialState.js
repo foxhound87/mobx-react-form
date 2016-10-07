@@ -1,14 +1,21 @@
-class InitialState {
+import _ from 'lodash';
 
-  state;
+export default class InitialState {
 
-  get() {
-    return this.state;
+  props;
+
+  fields;
+
+  get(type, path = null) {
+    if (_.isString(path)) {
+      const $path = [_.replace(path, '.', '.fields.'), 'fields'].join('.');
+      return _.get(this[type], $path);
+    }
+
+    return this[type];
   }
 
-  set(state) {
-    this.state = state;
+  set(type, state) {
+    this[type] = state;
   }
 }
-
-export default new InitialState();

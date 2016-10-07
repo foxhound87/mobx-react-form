@@ -7,7 +7,7 @@ import fieldHelpers from './FieldHelpers';
 export default class Field {
 
   fields = asMap({});
-
+  state;
   path;
   key;
   name;
@@ -32,9 +32,10 @@ export default class Field {
   initialValue = undefined;
   interacted = false;
 
-  constructor(key, path, field = {}, obj = {}) {
+  constructor(key, path, field = {}, state, props = {}) {
+    this.state = state;
     this.assignFieldHelpers();
-    this.setupField(key, path, field, obj);
+    this.setupField(key, path, field, props);
     // init nested fields
     if (_.has(field, 'fields')) {
       this.assignFieldsInitializer();
@@ -152,7 +153,7 @@ export default class Field {
       return;
     }
 
-    this.initFields({ fields });
+    // this.initFields({ fields });
   }
 
   /**

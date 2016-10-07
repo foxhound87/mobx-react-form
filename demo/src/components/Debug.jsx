@@ -26,7 +26,7 @@ const toJson = (data) => {
 };
 
 const parseFormData = (form) => {
-  const omit = ['schema', 'extend', 'validator', 'events'];
+  const omit = ['state', 'schema', 'validator', 'events'];
   return toJson(_.merge(_.omit(form, omit), merge(form)));
 };
 
