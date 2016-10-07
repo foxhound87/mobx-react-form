@@ -16,7 +16,7 @@ describe('Check Nested $I Separated Properties', () => {
   expect($.$I.$('state.city.places.brooklynBridge').value).to.be.false);
 });
 
-describe('Check Nested $L Separated Properties', () => {
+describe('Check Nested $L Values', () => {
   it('$L state.city.places.centralPark value should be true', () =>
   expect($.$L.$('state.city.places.centralPark').value).to.be.true);
 
@@ -30,7 +30,7 @@ describe('Check Nested $L Separated Properties', () => {
   expect($.$L.$('state.city.places.brooklynBridge').value).to.be.false);
 });
 
-describe('Check Nested $M Separated Properties', () => {
+describe('Check Nested $M Values (fields prop)', () => {
   it('$M clubname value should be equal to "HELLO"', () =>
   expect($.$M.$('clubname').value).to.be.equal('HELLO'));
 
@@ -50,3 +50,22 @@ describe('Check Nested $M Separated Properties', () => {
   expect($.$M.$('members.1.hobbies.1').value).to.be.equal('Basket'));
 });
 
+describe('Check Nested $N Values (values prop)', () => {
+  it('$N clubname value should be equal to "HELLO"', () =>
+  expect($.$N.$('clubname').value).to.be.equal('HELLO'));
+
+  it('$N members.0.firstname value should be equal to "Clint"', () =>
+  expect($.$N.$('members.0.firstname').value).to.be.equal('Clint'));
+
+  it('$N members.1.firstname value should be equal to "Charlie"', () =>
+  expect($.$N.$('members.1.firstname').value).to.be.equal('Charlie'));
+
+  it('$N members.0.hobbies.1 value should be equal to "Baseball"', () =>
+  expect($.$N.$('members.0.hobbies.1').value).to.be.equal('Baseball'));
+
+  it('$N members.1.hobbies.0 value should be equal to "Golf"', () =>
+  expect($.$N.$('members.1.hobbies.0').value).to.be.equal('Golf'));
+
+  it('$N members.1.hobbies.1 value should be equal to "Basket"', () =>
+  expect($.$N.$('members.1.hobbies.1').value).to.be.equal('Basket'));
+});
