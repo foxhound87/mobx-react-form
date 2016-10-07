@@ -84,8 +84,8 @@ export default class Field {
     _.isNumber($field)) {
       /* The field IS the value here */
       this.name = $key;
-      this.initialValue = this.parseInitialValue($value || $field);
-      this.defaultValue = $default || this.initialValue;
+      this.initialValue = this.parseInitialValue($field, $value);
+      this.defaultValue = this.parseDefaultValue($field.default, $default);
       this.$value = this.initialValue;
       this.$label = $label || $key;
       this.$rules = $rules || null;
@@ -110,8 +110,8 @@ export default class Field {
     */
     if (_.isObject($field)) {
       const { name, label, disabled, rules, validate, related } = $field;
-      this.initialValue = this.parseInitialValue($value || $field.value);
-      this.defaultValue = this.parseDefaultValue($default || $field.default);
+      this.initialValue = this.parseInitialValue($field.value, $value);
+      this.defaultValue = this.parseDefaultValue($field.default, $default);
       this.name = name || $key;
       this.$value = this.initialValue;
       this.$label = $label || label || this.name;
@@ -123,16 +123,23 @@ export default class Field {
     }
   }
 
-  parseInitialValue(value) {
+  parseInitialValue(unified, separated) {
+    if (separated === 0) return separated;
+    const $value = separated || unified;
     // handle boolean
-    if (_.isBoolean(value)) return value;
+    if (_.isBoolean($value)) return $value;
     // handle others types
-    return !_.isUndefined(value) ? value : '';
+    return !_.isUndefined($value) ? $value : '';
   }
 
-  parseDefaultValue($default) {
-    return !_.isUndefined($default) ? $default : this.initialValue;
+  parseDefaultValue(initial, separated) {
+    if (separated === 0) return separated;
+    const $value = separated || initial;
+    return !_.isUndefined($value) ? $value : this.initialValue;
   }
+
+  /* ------------------------------------------------------------------ */
+  /* ACTIONS */
 
   /**
     Add Field
@@ -233,6 +240,9 @@ export default class Field {
     this.errorAsync = null;
   }
 
+  /* ------------------------------------------------------------------ */
+  /* COMPUTED */
+
   @computed
   get value() {
     if (isObservableArray(this.$value)) {
@@ -332,6 +342,9 @@ export default class Field {
     if (_.isBoolean(this.$value)) return !this.$value;
     return _.isEmpty(this.$value);
   }
+
+  /* ------------------------------------------------------------------ */
+  /* EVENTS */
 
   sync = (e) => {
     // assume "e" is the value

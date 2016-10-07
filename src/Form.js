@@ -116,6 +116,7 @@ export default class Form {
           .then(() => resolve(this.isValid));
       });
     }
+
     // validate single field
     return new Promise((resolve) => {
       // validate single field by key
@@ -153,6 +154,17 @@ export default class Form {
   @action
   reset() {
     this.deepAction('reset', this.fields);
+  }
+
+  @action
+  submit(o = {}) {
+    const execOnSuccess = _.has(o, 'onSuccess') ? o.onSuccess : this.onSuccess;
+    const execOnError = _.has(o, 'onError') ? o.onError : this.onError;
+
+    this.validate()
+      .then(isValid => isValid
+        ? execOnSuccess(this)
+        : execOnError(this));
   }
 
   /* ------------------------------------------------------------------ */
@@ -203,14 +215,7 @@ export default class Form {
    */
   onSubmit = (e, o = {}) => {
     e.preventDefault();
-
-    const execOnSuccess = _.has(o, 'onSuccess') ? o.onSuccess : this.onSuccess;
-    const execOnError = _.has(o, 'onError') ? o.onError : this.onError;
-
-    this.validate()
-      .then(isValid => isValid
-        ? execOnSuccess(this)
-        : execOnError(this));
+    this.submit(o);
   };
 
   /**

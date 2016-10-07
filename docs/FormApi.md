@@ -32,6 +32,7 @@
 | **validate()** | - | promise | Check if the form is valid and return a promise. |
 | **validate(field)** | (string) | promise | Check if the field is valid and return a promise. |
 | **invalidate(err)** | (string) | - | Invalidate the form passing a generic error message. |
+| **submit(obj)** | (object) | - | Perform fields validation. After successful validation triggers onSuccess event and onError event in case of validation error. |
 
 > $(path) is an alias of select(path)
 
