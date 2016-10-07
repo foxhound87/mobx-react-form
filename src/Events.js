@@ -1,4 +1,5 @@
 import { action, observable } from 'mobx';
+import _ from 'lodash';
 
 class Events {
 
@@ -27,6 +28,11 @@ class Events {
 
   path(key) {
     return this.$path[key];
+  }
+
+  running(events) {
+    const running = _.keys(_.omitBy(this.getRunning(), e => e === false));
+    return _.intersection(events, running).length > 0;
   }
 }
 

@@ -101,7 +101,7 @@ export default class Form {
     // look running events and choose when show errors messages
     const notShowErrorsEvents = ['clear', 'reset'];
     if (Options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
-    const $showErrors = showErrors && !this.eventsRunning(notShowErrorsEvents);
+    const $showErrors = showErrors && !Events.running(notShowErrorsEvents);
 
     if (_.isObject(opt) && !_.isString($key)) {
       // validate all fields
@@ -132,11 +132,6 @@ export default class Form {
       return Promise.all(this.validator.promises)
         .then(() => resolve($field.isValid));
     });
-  }
-
-  eventsRunning(events) {
-    const running = _.keys(_.omitBy(Events.getRunning(), e => e === false));
-    return _.intersection(events, running).length > 0;
   }
 
   invalidate(message) {

@@ -43,11 +43,6 @@ describe('Check initials() returns object', () => {
     assert.isObject(form.initials(), `${key}.initials() is not object`)));
 });
 
-describe('Check eventsRunning() returns boolean', () => {
-  _.each($forms, (form, key) => it(`${key} eventsRunning() is boolean`, () =>
-    assert.isBoolean(form.eventsRunning(), `${key}.eventsRunning() is not boolean`)));
-});
-
 describe('Check hasError returns boolean', () => {
   _.each($forms, (form, key) => it(`${key} hasError is boolean`, () =>
     assert.isBoolean(form.hasError, `${key}.hasError is not boolean`)));
@@ -77,3 +72,8 @@ describe('Check isEmpty returns boolean', () => {
   _.each($forms, (form, key) => it(`${key} isEmpty is boolean`, () =>
     assert.isBoolean(form.isEmpty, `${key}.isEmpty is not boolean`)));
 });
+
+// describe('Check eventsRunning() returns boolean', () => {
+//   _.each($forms, (form, key) => it(`${key} eventsRunning() is boolean`, () =>
+//     assert.isBoolean(form.eventsRunning(), `${key}.eventsRunning() is not boolean`)));
+// });
