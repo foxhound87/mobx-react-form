@@ -9,9 +9,10 @@ import $E from './forms/nested/form.e';
 import $F from './forms/nested/form.f';
 import $G from './forms/nested/form.g';
 import $H from './forms/nested/form.h';
+import $I from './forms/nested/form.i';
 
 export default {
 
-  $A, $B, $C, $D, $E, $F, $G, $H,
+  $A, $B, $C, $D, $E, $F, $G, $H, $I,
 
 };

@@ -1,5 +1,6 @@
 import { action } from 'mobx';
 import _ from 'lodash';
+import utils from './utils';
 import Field from './Field';
 import InitialState from './InitialState';
 
@@ -29,8 +30,9 @@ export default $this => ({
   initFields: action('init-Fields', (initial = {}) => {
     let fields = initial.fields || {};
 
-    fields = $this.handleFieldsArray(fields);
     fields = $this.handleFieldsEmpty(fields, initial);
+    fields = $this.handleFieldsArray(fields);
+    fields = $this.handleFieldsNested(fields);
     fields = $this.mergeSchemaDefaults(fields);
 
     const $path = key => _.trimStart([$this.path, key].join('.'), '.');
@@ -55,14 +57,25 @@ export default $this => ({
     return fields;
   },
 
-  handleFieldsEmpty: (fields, obj) => {
+  handleFieldsEmpty: (fields, initial) => {
+    if (!_.isEmpty(fields) || !_.has(initial, 'values')) return fields;
     // if the 'field' object is not provided into the constructor
     // and the 'values' object is passed, use it to create fields
-    if (_.isEmpty(fields) && _.has(obj, 'values')) {
-      _.merge(fields, obj.values);
-    }
-    return fields;
+    return _.merge(fields, initial.values);
   },
+
+  handleFieldsNested: fields =>
+    _.reduce(fields, (obj, field, key) => {
+      if (_.isObject(field)
+        && !_.has(field, 'fields')
+        && !_(field).hasSome(utils.props)
+        && !_(field).hasSome(utils.vprops)) {
+        return Object.assign(obj, {
+          [key]: { fields: $this.handleFieldsNested(field) },
+        });
+      }
+      return Object.assign(obj, { [key]: field });
+    }, {}),
 
   mergeSchemaDefaults: (fields) => {
     if ($this.validator) {

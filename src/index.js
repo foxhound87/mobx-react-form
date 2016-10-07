@@ -1,4 +1,5 @@
 import { useStrict } from 'mobx';
+import './mixins';
 import Form from './Form';
 
 /**
