@@ -6,6 +6,7 @@ import fieldHelpers from './FieldHelpers';
 
 export default class Field {
 
+  incremental = false;
   fields = asMap({});
   state;
   path;
@@ -36,10 +37,17 @@ export default class Field {
     this.state = state;
     this.assignFieldHelpers();
     this.setupField(key, path, field, props);
+
     // init nested fields
     if (_.has(field, 'fields')) {
       this.assignFieldsInitializer();
       this.initNestedFields(field.fields);
+    }
+
+    // set as auto-incremental
+    // if no string keys found
+    if (this.hasIntIndex()) {
+      this.incremental = true;
     }
   }
 
@@ -140,6 +148,21 @@ export default class Field {
   }
 
   /* ------------------------------------------------------------------ */
+  /* INDEX / KEYS */
+
+  hasIntIndex() {
+    return _.every(this.parseIntKeys(), _.isInteger);
+  }
+
+  maxIndex() {
+    return _.max(this.parseIntKeys());
+  }
+
+  parseIntKeys() {
+    return _.map(this.fields.keys(), _.ary(parseInt, 1));
+  }
+
+  /* ------------------------------------------------------------------ */
   /* ACTIONS */
 
   /**
@@ -147,8 +170,8 @@ export default class Field {
   */
   @action
   add(fields = null) {
-    if (!fields) {
-      const $n = _.random(999, 9999);
+    if (this.incremental && !fields) {
+      const $n = this.maxIndex() + 1;
       this.initField($n, [this.path, $n].join('.'));
       return;
     }

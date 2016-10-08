@@ -2,6 +2,33 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { DebugForm } from './Debug';
 
+
+const HobbiesFields = observer(({ form, field }) => (
+  <div>
+    {field.map('hobbies', hobby =>
+      <div key={hobby.key}>
+        <span key={hobby.name}>
+          <div>
+            <i>{hobby.error}</i>
+          </div>
+          <input
+            type="text"
+            placeholder="hobby"
+            name={hobby.name}
+            value={hobby.value}
+            onChange={hobby.sync}
+          />
+        </span>
+        <span>
+          <button type="button" onClick={e => form.onDel(e, hobby.path)}>X</button>
+          <button type="button" onClick={hobby.onClear}>Clear</button>
+          <button type="button" onClick={hobby.onReset}>Reset</button>
+        </span>
+      </div>
+    )}
+  </div>
+));
+
 const MembersFields = observer(({ form }) => (
   <div>
     {form.map('members', field =>
@@ -33,14 +60,14 @@ const MembersFields = observer(({ form }) => (
           />
         </div>
         <span className="ctrl">
-          <button
-            type="button"
-            onClick={e => form.$('members').onDel(e, field.key)}
-          >X</button>
+          <button type="button" onClick={e => form.$('members').onDel(e, field.key)}>X</button>
           <button type="button" onClick={field.onClear}>Clear</button>
           <button type="button" onClick={field.onReset}>Reset</button>
           <button type="button" onClick={e => field.$('hobbies').onAdd(e)}>+ Add Hobby</button>
         </span>
+        <hr />
+        <HobbiesFields form={form} field={field} />
+        <hr />
       </div>
     )}
   </div>

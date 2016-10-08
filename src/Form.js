@@ -214,6 +214,20 @@ export default class Form {
   }
 
   /* ------------------------------------------------------------------ */
+  /* ACTIONS */
+
+  /**
+    Del Field
+  */
+  @action
+  del(path = null) {
+    const keys = _.split(path, '.');
+    const last = _.last(keys);
+    const $path = _.trimEnd(path, `.${last}`);
+    this.select($path).del(last);
+  }
+
+  /* ------------------------------------------------------------------ */
   /* EVENTS */
 
   /**
@@ -238,5 +252,13 @@ export default class Form {
   onReset = (e) => {
     e.preventDefault();
     this.reset();
+  };
+
+  /**
+    Event: On Del
+  */
+  onDel = (e, key) => {
+    e.preventDefault();
+    this.del(key);
   };
 }
