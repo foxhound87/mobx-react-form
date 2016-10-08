@@ -217,6 +217,17 @@ export default class Form {
   /* ACTIONS */
 
   /**
+    Add Field
+  */
+  @action
+  add(path = null) {
+    const keys = _.split(path, '.');
+    const last = _.last(keys);
+    const $path = _.trimEnd(path, `.${last}`);
+    this.select($path).add(last);
+  }
+
+  /**
     Del Field
   */
   @action
@@ -252,6 +263,14 @@ export default class Form {
   onReset = (e) => {
     e.preventDefault();
     this.reset();
+  };
+
+  /**
+    Event: On Add
+  */
+  onAdd = (e, data) => {
+    e.preventDefault();
+    this.add(data);
   };
 
   /**

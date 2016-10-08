@@ -63,7 +63,7 @@ const MembersFields = observer(({ form }) => (
           <button type="button" onClick={e => form.$('members').onDel(e, field.key)}>X</button>
           <button type="button" onClick={field.onClear}>Clear</button>
           <button type="button" onClick={field.onReset}>Reset</button>
-          <button type="button" onClick={e => field.$('hobbies').onAdd(e)}>+ Add Hobby</button>
+          <button type="button" onClick={e => field.onAdd(e, 'hobbies')}>+ Add Hobby</button>
         </span>
         <hr />
         <HobbiesFields form={form} field={field} />
@@ -97,10 +97,7 @@ const FormWithNestedFields = observer(({ form }) => (
         </div>
 
         <hr />
-        <button
-          type="button"
-          onClick={e => form.$('members').onAdd(e)}
-        >+ Add Member</button>
+        <button type="button" onClick={e => form.$('members').onAdd(e)}>+ Add Member</button>
         <hr />
 
         {<MembersFields form={form} />}
