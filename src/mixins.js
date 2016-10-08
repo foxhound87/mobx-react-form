@@ -5,7 +5,7 @@ import _ from 'lodash';
 */
 
 _.mixin({
-  hasEvery: (obj, keys) => _.every(keys, _.partial(_.has, obj)),
+  // hasEvery: (obj, keys) => _.every(keys, _.partial(_.has, obj)),
   hasSome: (obj, keys) => _.some(keys, _.partial(_.has, obj)),
 },
 { chain: false });
