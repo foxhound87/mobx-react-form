@@ -97,11 +97,15 @@ const FormWithNestedFields = observer(({ form }) => (
             onChange={form.$('club').sync}
           />
 
-          <span className="ctrl">
+          <span>
             <button type="button" onClick={form.$('club').onClear}>Clear Club</button>
             <button type="button" onClick={form.$('club').onReset}>Reset Club</button>
           </span>
         </fieldset>
+
+        <b>{form.$('members').label}</b>
+        <br />
+        <br />
 
         {<MembersFields form={form} />}
 

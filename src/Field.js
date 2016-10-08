@@ -155,7 +155,8 @@ export default class Field {
   }
 
   maxIndex() {
-    return _.max(this.parseIntKeys());
+    const max = _.max(this.parseIntKeys());
+    return _.isUndefined(max) ? 0 : max;
   }
 
   parseIntKeys() {
