@@ -133,3 +133,20 @@ describe('Check Nested Fields path property', () => {
   it(`$C ${path.c} path path should be equal to ${path.c}`, () =>
     expect($.$C.$(path.c).path).to.be.equal(path.c));
 });
+
+describe('Check Nested $C Fields computed deep check()', () => {
+  it('$C check(isEmpty, deep=true) should be false', () =>
+    expect($.$C.check('isEmpty', true)).to.be.false);
+
+  it('$C check(isDirty, deep=true) should be true', () =>
+    expect($.$C.check('isDirty', true)).to.be.true);
+
+  it('$C check(isPristine, deep=true) should be false', () =>
+    expect($.$C.check('isPristine', true)).to.be.false);
+
+  it('$C check(isDefault, deep=true) should be false', () =>
+    expect($.$C.check('isDefault', true)).to.be.false);
+
+  it('$C check(hasError, deep=true) should be false', () =>
+    expect($.$C.check('hasError', true)).to.be.false);
+});
