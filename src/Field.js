@@ -170,21 +170,13 @@ export default class Field {
   */
   @action
   add(path = null) {
-    console.log('this.incremental', this.incremental, this);
-
     if (_.isString(path)) {
       this.select(path).add();
       return;
     }
 
-    if (this.incremental) {
-      const $n = this.maxIndex() + 1;
-      this.initField($n, [this.path, $n].join('.'));
-      return;
-    }
-
-    // console.log($);
-    // this.initFields({ fields });
+    const $n = this.maxIndex() + 1;
+    this.initField($n, [this.path, $n].join('.'));
   }
 
   /**

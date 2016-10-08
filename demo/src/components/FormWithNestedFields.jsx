@@ -4,7 +4,8 @@ import { DebugForm } from './Debug';
 
 
 const HobbiesFields = observer(({ form, field }) => (
-  <div>
+  <fieldset>
+    <div>Hobbies</div>
     {field.map('hobbies', hobby =>
       <div key={hobby.key}>
         <span key={hobby.name}>
@@ -26,13 +27,13 @@ const HobbiesFields = observer(({ form, field }) => (
         </span>
       </div>
     )}
-  </div>
+  </fieldset>
 ));
 
 const MembersFields = observer(({ form }) => (
   <div>
     {form.map('members', field =>
-      <div key={field.key}>
+      <fieldset key={field.key}>
         <div key={field.$('firstname').name}>
           <div>
             <b>{field.$('firstname').label}</b>
@@ -59,16 +60,20 @@ const MembersFields = observer(({ form }) => (
             onChange={field.$('lastname').sync}
           />
         </div>
-        <span className="ctrl">
+        <br />
+        <span>
           <button type="button" onClick={e => form.$('members').onDel(e, field.key)}>X</button>
           <button type="button" onClick={field.onClear}>Clear</button>
           <button type="button" onClick={field.onReset}>Reset</button>
           <button type="button" onClick={e => field.onAdd(e, 'hobbies')}>+ Add Hobby</button>
         </span>
-        <hr />
+
+        <br />
+        <br />
+
         <HobbiesFields form={form} field={field} />
-        <hr />
-      </div>
+
+      </fieldset>
     )}
   </div>
 ));
@@ -79,41 +84,36 @@ const FormWithNestedFields = observer(({ form }) => (
       <form>
         <h2>Nested Fields</h2>
 
-        <div>
-          <b>{form.$('club').label}</b>
-          <i>{form.$('club').error}</i>
-        </div>
-        <input
-          type="text"
-          name={form.$('club').name}
-          value={form.$('club').value}
-          placeholder={form.$('club').label}
-          onChange={form.$('club').sync}
-        />
+        <fieldset>
+          <div>
+            <b>{form.$('club').label}</b>
+            <i>{form.$('club').error}</i>
+          </div>
+          <input
+            type="text"
+            name={form.$('club').name}
+            value={form.$('club').value}
+            placeholder={form.$('club').label}
+            onChange={form.$('club').sync}
+          />
 
-        <div className="ctrl">
-          <button type="button" onClick={form.$('club').onClear}>Clear Club</button>
-          <button type="button" onClick={form.$('club').onReset}>Reset Club</button>
-        </div>
-
-        <hr />
-        <button type="button" onClick={e => form.$('members').onAdd(e)}>+ Add Member</button>
-        <hr />
+          <span className="ctrl">
+            <button type="button" onClick={form.$('club').onClear}>Clear Club</button>
+            <button type="button" onClick={form.$('club').onReset}>Reset Club</button>
+          </span>
+        </fieldset>
 
         {<MembersFields form={form} />}
-
-        <br />
-        <br />
 
         <div className="ctrl">
           <button type="button" onClick={form.$('members').onClear}>Clear Members</button>
           <button type="button" onClick={form.$('members').onReset}>Reset Members</button>
         </div>
 
-        <hr />
+        <br />
         <br />
         <div className="ctrl">
-          <button type="submit" onClick={form.onSubmit}>Submit</button>
+          <button type="submit" onClick={form.onSubmit}>SUBMIT</button>
           <button type="button" onClick={form.onClear}>Clear All</button>
           <button type="button" onClick={form.onReset}>Reset All</button>
         </div>
