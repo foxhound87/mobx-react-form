@@ -1,8 +1,19 @@
 import React from 'react';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
+import Dock from 'react-dock';
 import JSONTree from 'react-json-tree';
 import _ from 'lodash';
+
+const dock = {
+  visible: true,
+  fluid: true,
+  position: 'right',
+  mode: 'none',
+  style: {
+    background: '#2b303b',
+  },
+};
 
 const theme = {
   scheme: 'ocean',
@@ -44,7 +55,6 @@ const fieldPropsToPick = [
 
 const parseFormData = form =>
   toJS(_.pick(form, [
-    'validating',
     'hasError',
     'isValid',
     'isEmpty',
@@ -71,18 +81,24 @@ const parseFieldsData = fields =>
   }, {});
 
 export default observer(({ form }) => (
-  <div>
-    <h3>Form</h3>
+  <Dock
+    position={dock.position}
+    fluid={dock.fluid}
+    isVisible={dock.visible}
+    dimMode={dock.mode}
+    dockStyle={dock.style}
+  >
+    <h4>Form</h4>
     <JSONTree
       data={parseFormData(form)}
       theme={theme}
       isLightTheme={false}
     />
-    <h3>Fields</h3>
+    <h4>Fields</h4>
     <JSONTree
       data={parseFieldsData(form.fields)}
       theme={theme}
       isLightTheme={false}
     />
-  </div>
+  </Dock>
 ));

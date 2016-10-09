@@ -87,54 +87,53 @@ const MembersFields = observer(({ form }) => (
 ));
 
 const FormWithNestedFields = observer(({ form }) => (
-  <div className="container">
-    <div className="splitted-35 fixed container-left normal">
-      <form>
-        <h2>Nested Fields</h2>
+  <div className="container normal">
+    <form>
+      <h2>Nested Fields</h2>
 
-        <fieldset>
-          <div>
-            <b>{form.$('club').label}</b>
-            <i>{form.$('club').error}</i>
-          </div>
-          <input
-            type="text"
-            name={form.$('club').name}
-            value={form.$('club').value}
-            placeholder={form.$('club').label}
-            onChange={form.$('club').sync}
-          />
-
-          <span>
-            <button type="button" onClick={form.$('club').onClear}>Clear Club</button>
-            <button type="button" onClick={form.$('club').onReset}>Reset Club</button>
-          </span>
-        </fieldset>
-
-        <b>{form.$('members').label}</b>
-        <br />
-        <br />
-
-        {<MembersFields form={form} />}
-
-        <div className="ctrl">
-          <button type="button" onClick={form.$('members').onClear}>Clear Members</button>
-          <button type="button" onClick={form.$('members').onReset}>Reset Members</button>
+      <fieldset>
+        <div>
+          <b>{form.$('club').label}</b>
+          <i>{form.$('club').error}</i>
         </div>
+        <input
+          type="text"
+          name={form.$('club').name}
+          value={form.$('club').value}
+          placeholder={form.$('club').label}
+          onChange={form.$('club').sync}
+        />
 
-        <br />
-        <br />
-        <div className="ctrl">
-          <button type="submit" onClick={form.onSubmit}>SUBMIT</button>
-          <button type="button" onClick={form.onClear}>Clear All</button>
-          <button type="button" onClick={form.onReset}>Reset All</button>
-        </div>
+        <span>
+          <button type="button" onClick={form.$('club').onClear}>Clear Club</button>
+          <button type="button" onClick={form.$('club').onReset}>Reset Club</button>
+        </span>
+      </fieldset>
 
-        <p><i>{form.error}</i></p>
+      <b>{form.$('members').label}</b>
+      <br />
+      <br />
 
-      </form>
-    </div>
-    <div className="splitted-65 container-right">
+      {<MembersFields form={form} />}
+
+      <div className="ctrl">
+        <button type="button" onClick={form.$('members').onClear}>Clear Members</button>
+        <button type="button" onClick={form.$('members').onReset}>Reset Members</button>
+      </div>
+
+      <br />
+      <br />
+      <div className="ctrl">
+        <button type="submit" onClick={form.onSubmit}>SUBMIT</button>
+        <button type="button" onClick={form.onClear}>Clear All</button>
+        <button type="button" onClick={form.onReset}>Reset All</button>
+      </div>
+
+      <p><i>{form.error}</i></p>
+
+    </form>
+
+    <div className="mobx-react-form-devtools">
       <DebugForm form={form} />
     </div>
   </div>

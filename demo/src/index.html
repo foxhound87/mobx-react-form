@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
       html, body {
-        height: 100%;
         margin: 0;
         padding: 0;
       }
@@ -64,29 +63,13 @@
         color: #f5f5f5;
       }
 
-      .container {
-        display: table;
-        height: 100%;
-        width: 100%;
-      }
-
-      .splitted-35 {
-        display: table-cell;
-        width: 40%;
-      }
-
-      .splitted-65 {
-        display: table-cell;
-        width: 60%;
-      }
-
       .fixed {
         position: fixed;
         height: 100%;
       }
 
-      .container-left {
-        overflow: auto;
+      .container {
+        width: 400px;
         background: #fff;
         color: #F87666;
         top: 0;
@@ -94,16 +77,11 @@
         bottom: 0;
       }
 
-      .container-left.material {
-        background: #fff;
-        color: #F87666;
-      }
-
-      .container-left form {
+      .container form {
         margin: 80px 30px 30px;
       }
 
-      .container-left form fieldset {
+      .container form fieldset {
         border: 0;
         margin-bottom: 15px;
         background-color:rgba(0,0,0,0.05);
@@ -112,7 +90,7 @@
         border-radius: 3px;
       }
 
-      .container-left.normal form div b {
+      .container.normal form div b {
         color: #999;
         display: block;
         margin-top: 10px;
@@ -120,21 +98,21 @@
         font-size: 14px;
       }
 
-      .container-left.normal form div i {
+      .container.normal form div i {
         color: #F87666;
       }
 
-      .container-left.normal form p i {
+      .container.normal form p i {
         color: #F87666;
       }
 
-      .container-left.normal form input {
+      .container.normal form input {
         padding: 8px;
         font-size: 16px;
         margin-right: 10px;
       }
 
-      .container-left.normal form select,
+      .container.normal form select,
       .menu select {
         margin: 0;
         border: 1px solid #111;
@@ -157,35 +135,25 @@
         border: 1px solid #F87666;
       }
 
-      .container-left .ctrl button {
+      .container .ctrl button {
         padding: 10px;
         margin-right: 10px;
         font-size: 16px;
       }
 
-      .container-left form button {
+      .container form button {
         padding: 5px;
         font-size: 14px;
       }
 
-      .container-right {
-        background: #2b303b;
-        color: #f0f0f0;
-        font-size: 15px;
-        border-left: 2px solid #f5f5f5;
-      }
-
-      .container-right h3 {
-        margin: 25px 0 10px 15px;
-      }
-
-      .container-right pre {
-        margin-left: 50px;
+      .mobx-react-form-devtools h4 {
+        padding: 10px 0 5px 10px;
+        margin: 0;
+        border-top: 1px solid #4f5b66;
       }
 
       @media screen and (min-width: 0px) and (max-width: 450px) {
-        .container-right { display: none; }
-        .splitted-35 { width: 100%; position: inherit; }
+        .mobx-react-form-devtools { display: none; }
         .menu span.label { display: none; }
       }
     </style>
