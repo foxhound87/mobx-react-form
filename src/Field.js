@@ -16,6 +16,7 @@ export default class Field {
   $rules;
   $validate;
   $related;
+
   @observable $label;
   @observable $value;
   @observable $disabled = false;
@@ -31,22 +32,18 @@ export default class Field {
 
   defaultValue = undefined;
   initialValue = undefined;
-  interacted = false;
 
   constructor(key, path, field = {}, state, props = {}) {
     this.state = state;
-    this.assignFieldHelpers();
-    this.setupField(key, path, field, props);
 
-    // init nested fields
-    if (_.has(field, 'fields')) {
-      this.assignFieldsInitializer();
-      this.initNestedFields(field.fields);
-    }
+    this.assignFieldHelpers();
+    this.assignFieldsInitializer();
+
+    this.setupField(key, path, field, props);
+    this.initNestedFields(field.fields);
 
     // set as auto-incremental
-    // if no string keys found
-    if (this.hasIntIndex()) {
+    if (this.hasIntKeys() || !this.fields.size) {
       this.incremental = true;
     }
   }
@@ -150,17 +147,17 @@ export default class Field {
   /* ------------------------------------------------------------------ */
   /* INDEX / KEYS */
 
-  hasIntIndex() {
+  hasIntKeys() {
     return _.every(this.parseIntKeys(), _.isInteger);
-  }
-
-  maxIndex() {
-    const max = _.max(this.parseIntKeys());
-    return _.isUndefined(max) ? 0 : max;
   }
 
   parseIntKeys() {
     return _.map(this.fields.keys(), _.ary(parseInt, 1));
+  }
+
+  maxKey() {
+    const max = _.max(this.parseIntKeys());
+    return _.isUndefined(max) ? 0 : max;
   }
 
   /* ------------------------------------------------------------------ */
@@ -176,7 +173,7 @@ export default class Field {
       return;
     }
 
-    const $n = this.maxIndex() + 1;
+    const $n = this.maxKey() + 1;
     this.initField($n, [this.path, $n].join('.'));
   }
 
@@ -223,7 +220,6 @@ export default class Field {
 
   @action
   clear(deep = false) {
-    this.interacted = false;
     this.resetValidation();
     if (isObservableArray(this.$value)) this.$value = [];
     if (_.isBoolean(this.$value)) this.$value = false;
@@ -239,7 +235,6 @@ export default class Field {
     const useDefaultValue = (this.defaultValue !== this.initialValue);
     if (useDefaultValue) this.value = this.defaultValue;
     if (!useDefaultValue) this.value = this.initialValue;
-    this.interacted = false;
 
     // recursive clear fields
     if (deep) this.deepAction('reset', this.fields);
@@ -277,7 +272,6 @@ export default class Field {
   }
 
   set value(newVal) {
-    if (!this.interacted) this.interacted = true;
     if (this.$value === newVal) return;
     // handle numbers
     if (_.isNumber(this.initialValue)) {
@@ -312,6 +306,11 @@ export default class Field {
   }
 
   @computed
+  get initial() {
+    return this.initialValue;
+  }
+
+  @computed
   get rules() {
     return this.$rules;
   }
@@ -319,11 +318,6 @@ export default class Field {
   @computed
   get validate() {
     return this.$validate;
-  }
-
-  @computed
-  get initial() {
-    return this.initialValue;
   }
 
   @computed

@@ -1,11 +1,9 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { DebugForm } from './Debug';
-
+import DebugForm from './Debug';
 
 const HobbiesFields = observer(({ form, field }) => (
   <fieldset>
-    <div>Hobbies</div>
     {field.map('hobbies', hobby =>
       <div key={hobby.key}>
         <span key={hobby.name}>
@@ -65,10 +63,20 @@ const MembersFields = observer(({ form }) => (
           <button type="button" onClick={e => form.$('members').onDel(e, field.key)}>X</button>
           <button type="button" onClick={field.onClear}>Clear</button>
           <button type="button" onClick={field.onReset}>Reset</button>
-          <button type="button" onClick={e => field.onAdd(e, 'hobbies')}>+ Add Hobby</button>
+
         </span>
 
         <br />
+        <br />
+        <div className="clearfix">
+          <div className="left">Hobbies</div>
+          <div className="right">
+            <button
+              type="button"
+              onClick={e => field.onAdd(e, 'hobbies')}
+            >+ Add Hobby</button>
+          </div>
+        </div>
         <br />
 
         <HobbiesFields form={form} field={field} />

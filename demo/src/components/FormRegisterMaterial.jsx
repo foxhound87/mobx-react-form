@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 
 import TextField from 'material-ui/TextField';
 import Toggle from 'material-ui/Toggle';
-import { DebugForm } from './Debug';
+import DebugForm from './Debug';
 
 const FormRegister = ({ form }) => (
   <div className="container">

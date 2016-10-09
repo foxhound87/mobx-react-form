@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { DebugForm } from './Debug';
+import DebugForm from './Debug';
 
 const FormRegister = ({ form }) => (
   <div className="container">

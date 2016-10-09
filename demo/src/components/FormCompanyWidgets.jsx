@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { DropdownList, Multiselect, DateTimePicker } from 'react-widgets';
-import { DebugForm } from './Debug';
+import DebugForm from './Debug';
 
 const products = ['iPhone', 'Watch', 'iMac', 'Mac Pro', 'MacBook Air', 'MacBook Pro'];
 

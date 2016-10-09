@@ -1,73 +1,58 @@
 import React from 'react';
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import jsonStringifySafe from 'json-stringify-safe';
+import JSONTree from 'react-json-tree';
 import _ from 'lodash';
 
-const merge = field => ({
-  value: field.value,
-  default: field.default,
-  label: field.label,
-  disabled: field.disabled,
-  related: field.related,
-  rules: field.rules,
-  validate: field.validate,
-  isEmpty: field.isEmpty,
-  isDefault: field.isDefault,
-  isPristine: field.isPristine,
-  isDirty: field.isDirty,
-  isValid: field.isValid,
-  hasError: field.hasError,
-  error: field.error,
-});
+const fieldPropsToPick = [
+  'path',
+  'value',
+  'label',
+  'disabled',
+  'default',
+  'initial',
+  'hasError',
+  'isValid',
+  'isEmpty',
+  'isDefault',
+  'isPristine',
+  'isDirty',
+  'error',
+  'related',
+];
 
-const toJson = (data) => {
-  const $data = jsonStringifySafe(data);
-  return JSON.stringify(JSON.parse($data), null, 2);
-};
+const parseFormData = form =>
+  toJS(_.pick(form, [
+    'hasError',
+    'isValid',
+    'isEmpty',
+    'isDefault',
+    'isPristine',
+    'isDirty',
+  ]));
 
-const parseFormData = (form) => {
-  const omit = ['state', 'schema', 'validator', 'events'];
-  return toJson(_.merge(_.omit(form, omit), merge(form)));
-};
+const parseFieldsData = fields =>
+  _.reduce(fields.values(), (obj, field) => {
+    const $nested = $fields => ($fields.size !== 0)
+      ? parseFieldsData($fields)
+      : undefined;
 
-const parseFieldData = (field) => {
-  const omit = [
-    'name',
-    '$value',
-    '$related',
-    '$label',
-    '$rules',
-    '$validate',
-    '$disabled',
-    'showError',
-    'errorMessage',
-    'initialValue',
-    'defaultValue',
-    'asyncErrorMessage',
-    'validationAsyncData',
-    'validationErrorStack',
-    'validationFunctionsData',
-    'validateProperty',
-  ];
+    const data = toJS(_.pick(field, fieldPropsToPick));
 
-  return toJson(_.merge(_.omit(field, omit), merge(field)));
-};
+    Object.assign(obj, {
+      [field.key]: Object.assign(data, {
+        fields: $nested(field.fields),
+      }),
+    });
 
-export const DebugField = observer(({ field }) => (
+    return obj;
+  }, {});
+
+export default observer(({ form }) => (
   <div>
-    <h4>{field.label}</h4>
-    <pre>
-      {parseFieldData(field)}
-    </pre>
-  </div>
-));
-
-export const DebugForm = observer(({ form }) => (
-  <div>
-    <h4>Form</h4>
-    <pre>
-      {parseFormData(form)}
-    </pre>
-    <hr />
+    <h3>Form</h3>
+    <JSONTree data={parseFormData(form)} />
+    <h3>Fields</h3>
+    <JSONTree data={parseFieldsData(form.fields)} />
   </div>
 ));
