@@ -342,17 +342,17 @@ export default class Field {
 
   @computed
   get isDirty() {
-    return (this.defaultValue !== this.$value);
+    return !_.isEqual(this.defaultValue, this.value);
   }
 
   @computed
   get isPristine() {
-    return (this.defaultValue === this.$value);
+    return _.isEqual(this.defaultValue, this.value);
   }
 
   @computed
   get isDefault() {
-    return (this.defaultValue === this.$value);
+    return _.isEqual(this.defaultValue, this.value);
   }
 
   @computed

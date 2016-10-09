@@ -6,11 +6,11 @@ import _ from 'lodash';
 
 const fieldPropsToPick = [
   'path',
+  'default',
+  'initial',
   'value',
   'label',
   'disabled',
-  'default',
-  'initial',
   'hasError',
   'isValid',
   'isEmpty',
