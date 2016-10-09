@@ -97,7 +97,6 @@ export default class Validator {
 
   validateField({ form = null, field = null, key, showErrors = true, related = false }) {
     const $field = field || form.fields.get(key) || this.select(key, form.fields);
-    // if (isObservableMap($field)) $field = $field.values();
     // reset field validation
     $field.resetValidation();
     // get all validators

@@ -22,8 +22,8 @@ export default class Form {
 
     this.assignFieldHelpers();
     this.assignInitData(initial);
-    this.initValidator(initial);
     this.assignFieldsInitializer();
+    this.initValidator(initial);
     this.initPropsState(initial);
     this.initFields(initial);
     this.observeFields();
@@ -67,15 +67,15 @@ export default class Form {
 
   on(event, callback) {
     observe(Events.getRunning(), ({ name, oldValue, object }) => {
+      if (!event.includes('@')) return;
+
       const $event = _.split(event, '@');
       const $path = Events.path(name);
-      if ($event[0] === name && _.isUndefined($event[1]) && oldValue && !object[name]) {
+
+      if ($event[0] === name
+        && $event[1] === $path
+        && oldValue && !object[name]) {
         callback({ form: this, path: $path });
-        return;
-      }
-      if ($event[0] === name && $event[1] === $path && oldValue && !object[name]) {
-        callback({ form: this, path: $path });
-        return;
       }
     });
   }
@@ -109,6 +109,8 @@ export default class Form {
     const showErrors = _.has(opt, 'showErrors') ? opt.showErrors : obj.showErrors || true;
     const related = _.has(opt, 'related') ? opt.related : obj.related || false;
 
+    Events.setRunning('validate', true, $field ? $field.path : null);
+
     // look running events and choose when show errors messages
     const notShowErrorsEvents = ['clear', 'reset'];
     if (Options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
@@ -124,6 +126,7 @@ export default class Form {
         });
         // wait all promises then resolve
         return Promise.all(this.validator.promises)
+          .then(() => Events.setRunning('validate', false))
           .then(() => resolve(this.isValid));
       });
     }
@@ -141,6 +144,7 @@ export default class Form {
         });
       // wait all promises then resolve
       return Promise.all(this.validator.promises)
+        .then(() => Events.setRunning('validate', false))
         .then(() => resolve($field.isValid));
     });
   }

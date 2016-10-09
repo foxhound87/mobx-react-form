@@ -29,10 +29,8 @@ class FormWithNestedFields extends Form {
   onInit($form) {
     // console.log('ON INIT');
 
-    // $form.on('reset', ({ form, path }) => console.log('reset', path, form));
-    // $form.on('clear', ({ form, path }) => console.log('clear', path, form));
+    // $form.on('validate@email', ({ form, path }) => console.log('validate@email', path, form));
     // $form.on('clear@club', ({ form, path }) => console.log('clear@club', path, form));
-    // $form.on('update', ({ form, path }) => console.log('update', path, form));
     // $form.on('update@club', ({ form, path }) => console.log('update@club', path, form));
 
     // console.log('GET', $form.$('address').get());

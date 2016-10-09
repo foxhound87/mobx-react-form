@@ -44,6 +44,7 @@ const fieldPropsToPick = [
 
 const parseFormData = form =>
   toJS(_.pick(form, [
+    'validating',
     'hasError',
     'isValid',
     'isEmpty',
