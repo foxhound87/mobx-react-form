@@ -21,6 +21,9 @@ export default class Field {
   @observable $value;
   @observable $disabled = false;
 
+  defaultValue = undefined;
+  initialValue = undefined;
+
   @observable errorSync = null;
   @observable errorAsync = null;
 
@@ -29,9 +32,6 @@ export default class Field {
   @observable validationErrorStack = [];
   @observable validationFunctionsData = [];
   @observable validationAsyncData = {};
-
-  defaultValue = undefined;
-  initialValue = undefined;
 
   constructor(key, path, field = {}, state, props = {}) {
     this.state = state;
@@ -328,9 +328,9 @@ export default class Field {
 
   @computed
   get hasError() {
-    return (!_.isEmpty(this.validationAsyncData)
-      && (this.validationAsyncData.valid === false))
-      || (this.validationErrorStack.length !== 0)
+    return ((this.validationAsyncData.valid === false)
+      && !_.isEmpty(this.validationAsyncData))
+      || !_.isEmpty(this.validationErrorStack)
       || _.isString(this.errorAsync)
       || _.isString(this.errorSync);
   }

@@ -61,7 +61,7 @@
     "lodash": "^4.16.2"
   },
   "peerDependencies": {
-    "mobx": "^2.5.2"
+    "mobx": "^2.6.0"
   },
   "devDependencies": {
     "ajv": "4.7.5",
