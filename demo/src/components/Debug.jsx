@@ -1,19 +1,27 @@
 import React from 'react';
-import { toJS } from 'mobx';
+import { observable, action, toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import Dock from 'react-dock';
+import Draggable from 'react-draggable';
+import ReactTooltip from 'react-tooltip';
 import JSONTree from 'react-json-tree';
+import cx from 'classnames';
 import _ from 'lodash';
 
-const dock = {
+const tools = observable({
+  open: false,
+});
+
+const dock = observable({
   visible: true,
   fluid: true,
+  size: 0.30,
   position: 'right',
   mode: 'none',
   style: {
     background: '#2b303b',
   },
-};
+});
 
 const theme = {
   scheme: 'ocean',
@@ -80,25 +88,82 @@ const parseFieldsData = fields =>
     return obj;
   }, {});
 
+const handleOnSizeChange = action('size-change', size =>
+  _.set(dock, 'size', size));
+
+const handleOnCloseTools = action('close-tools', (e) => {
+  e.preventDefault();
+  _.set(tools, 'open', false);
+  console.log('close', tools);
+});
+
+const handleOnOpenTools = action('open-tools', (e) => {
+  e.preventDefault();
+  _.set(tools, 'open', true);
+  console.log('open', tools);
+});
+
+const handleOnOpenDoc = action('open-tools', (e) => {
+  e.preventDefault();
+  window.open('https://foxhound87.github.io/mobx-react-form/', '_blank'); // eslint-disable-line
+});
+
 export default observer(({ form }) => (
   <Dock
+    defaultSize={tools.open ? dock.size : 0}
+    size={tools.open ? dock.size : 0}
+    onSizeChange={handleOnSizeChange}
     position={dock.position}
     fluid={dock.fluid}
     isVisible={dock.visible}
     dimMode={dock.mode}
     dockStyle={dock.style}
   >
-    <h4>Form</h4>
-    <JSONTree
-      data={parseFormData(form)}
-      theme={theme}
-      isLightTheme={false}
-    />
-    <h4>Fields</h4>
-    <JSONTree
-      data={parseFieldsData(form.fields)}
-      theme={theme}
-      isLightTheme={false}
-    />
+    <ReactTooltip />
+    <Draggable
+      axis="y"
+      handle=".handle"
+      zIndex={99999999999}
+      defaultPosition={{ x: 0, y: 0 }}
+    >
+      <div className={cx('draggable', { hidden: tools.open })}>
+        <div className="handle" data-tip="DRAG">
+          <i className="fa fa-bars" />
+        </div>
+        <button onClick={handleOnOpenTools} data-tip="OPEN">
+          <i className="fa fa-chevron-left" />
+        </button>
+        <button onClick={handleOnOpenDoc} data-tip="DOCS">
+          <i className="fa fa-book" />
+        </button>
+      </div>
+    </Draggable>
+    <div className="tools">
+      <div className="heading clearfix">
+        <div className="left">mobx-react-form <b>DEVTOOLS</b></div>
+        <button className="right" onClick={handleOnCloseTools} data-tip="CLOSE">
+          <i className="fa fa-chevron-circle-right" />
+        </button>
+        <button className="right" onClick={handleOnOpenDoc} data-tip="DOCS">
+          <i className="fa fa-book" />
+        </button>
+      </div>
+
+      <h4><i className="fa fa-th" /> Form</h4>
+      <JSONTree
+        hideRoot
+        data={parseFormData(form)}
+        theme={theme}
+        isLightTheme={false}
+      />
+
+      <h4><i className="fa fa-bars" /> Fields</h4>
+      <JSONTree
+        hideRoot
+        data={parseFieldsData(form.fields)}
+        theme={theme}
+        isLightTheme={false}
+      />
+    </div>
   </Dock>
 ));

@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const postcssImport = require('postcss-import');
+const postcssUrl = require('postcss-url');
 
 const loaders = [{
   test: /\.jsx?$/,
@@ -10,14 +12,14 @@ const loaders = [{
   test: /\.json$/,
   loader: 'json-loader',
 }, {
-  test: /\.css$/,
-  loader: 'style-loader!css-loader',
+  test: /\.gif$/,
+  loader: 'url-loader?mimetype=image/png',
 }, {
   test: /\.less$/,
   loader: 'style-loader!css-loader!less-loader',
 }, {
-  test: /\.gif$/,
-  loader: 'url-loader?mimetype=image/png',
+  test: /\.css$/,
+  loader: 'style-loader!css-loader!postcss-loader',
 }, {
   test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/,
   loader: 'url-loader?mimetype=application/font-woff',
@@ -25,6 +27,16 @@ const loaders = [{
   test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/,
   loader: 'file-loader?name=[name].[ext]',
 }];
+
+const postcss = $webpack => [
+  postcssImport({ addDependencyTo: $webpack }),
+  postcssUrl('inline'),
+  // postcssExtend,
+  // postcssFocus,
+  // autoprefixer,
+  // precss,
+  // cssnano,
+];
 
 module.exports = {
   devtool: 'eval-source-map',
@@ -51,4 +63,5 @@ module.exports = {
     }),
   ],
   module: { loaders },
+  postcss,
 };
