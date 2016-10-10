@@ -4,6 +4,15 @@ import DebugForm from './Debug';
 
 const HobbiesFields = observer(({ form, field }) => (
   <fieldset>
+    <div className="clearfix">
+      <div className="left">Hobbies</div>
+      <div className="right">
+        <button type="button" onClick={e => field.onAdd(e, 'hobbies')}>
+          <i className="fa fa-plus-circle" data-tip="Add Hobby" />
+        </button>
+      </div>
+    </div>
+    <hr />
     {field.map('hobbies', hobby =>
       <div key={hobby.key}>
         <span key={hobby.name}>
@@ -36,6 +45,18 @@ const HobbiesFields = observer(({ form, field }) => (
 
 const MembersFields = observer(({ form }) => (
   <div>
+    <div className="clearfix">
+      <div className="left">Hobbies</div>
+      <div className="right">
+        <button type="button" onClick={form.$('members').onClear}>
+          <i className="fa fa-eraser" data-tip="Clear" /> Clear Members
+        </button>
+        <button type="button" onClick={form.$('members').onReset}>
+          <i className="fa fa-refresh" data-tip="Reset" /> Reset Members
+        </button>
+      </div>
+    </div>
+    <hr />
     {form.map('members', field =>
       <fieldset key={field.key}>
         <div key={field.$('firstname').name}>
@@ -79,15 +100,6 @@ const MembersFields = observer(({ form }) => (
 
         <br />
         <br />
-        <div className="clearfix">
-          <div className="left">Hobbies</div>
-          <div className="right">
-            <button type="button" onClick={e => field.onAdd(e, 'hobbies')}>
-              <i className="fa fa-plus-circle" data-tip="Add Hobby" />
-            </button>
-          </div>
-        </div>
-        <br />
 
         <HobbiesFields form={form} field={field} />
 
@@ -130,16 +142,6 @@ const FormWithNestedFields = observer(({ form }) => (
 
       {<MembersFields form={form} />}
 
-      <div className="ctrl">
-        <button type="button" onClick={form.$('members').onClear}>
-          <i className="fa fa-eraser" data-tip="Clear" /> Clear Members
-        </button>
-        <button type="button" onClick={form.$('members').onReset}>
-          <i className="fa fa-refresh" data-tip="Reset" /> Reset Members
-        </button>
-      </div>
-
-      <br />
       <br />
       <div className="ctrl">
         <button type="submit" onClick={form.onSubmit}>

@@ -26,7 +26,7 @@
 .mobx-react-form-devtools .draggable {
   position: fixed;
   right: 0;
-  top: 10px;
+  top: 100px;
   padding: 5px 5px 7px 5px;
   background: #2b303b;
   -webkit-border-top-left-radius: 5px;
