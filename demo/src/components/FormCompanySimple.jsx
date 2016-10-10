@@ -85,9 +85,15 @@ const FormCompany = ({ form }) => (
       <br />
       <br />
       <div className="ctrl">
-        <button type="submit" onClick={form.onSubmit}>Submit</button>
-        <button type="button" onClick={form.onClear}>Clear</button>
-        <button type="button" onClick={form.onReset}>Reset</button>
+        <button type="submit" onClick={form.onSubmit}>
+          <i className="fa fa-dot-circle-o" data-tip="Submit" /> Submit
+        </button>
+        <button type="button" onClick={form.onClear}>
+          <i className="fa fa-eraser" data-tip="Clear" /> Clear
+        </button>
+        <button type="button" onClick={form.onReset}>
+          <i className="fa fa-refresh" data-tip="Reset" /> Reset
+        </button>
       </div>
 
       <p><i>{form.error}</i></p>

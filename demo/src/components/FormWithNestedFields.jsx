@@ -19,9 +19,15 @@ const HobbiesFields = observer(({ form, field }) => (
           />
         </span>
         <span>
-          <button type="button" onClick={e => form.onDel(e, hobby.path)}>X</button>
-          <button type="button" onClick={hobby.onClear}>Clear</button>
-          <button type="button" onClick={hobby.onReset}>Reset</button>
+          <button type="button" onClick={e => form.onDel(e, hobby.path)}>
+            <i className="fa fa-times-circle" data-tip="Remove" />
+          </button>
+          <button type="button" onClick={hobby.onClear}>
+            <i className="fa fa-eraser" data-tip="Clear" />
+          </button>
+          <button type="button" onClick={hobby.onReset}>
+            <i className="fa fa-refresh" data-tip="Reset" />
+          </button>
         </span>
       </div>
     )}
@@ -60,10 +66,15 @@ const MembersFields = observer(({ form }) => (
         </div>
         <br />
         <span>
-          <button type="button" onClick={e => form.$('members').onDel(e, field.key)}>X</button>
-          <button type="button" onClick={field.onClear}>Clear</button>
-          <button type="button" onClick={field.onReset}>Reset</button>
-
+          <button type="button" onClick={e => form.$('members').onDel(e, field.key)}>
+            <i className="fa fa-times-circle" data-tip="Remove" />
+          </button>
+          <button type="button" onClick={field.onClear}>
+            <i className="fa fa-eraser" data-tip="Clear" />
+          </button>
+          <button type="button" onClick={field.onReset}>
+            <i className="fa fa-refresh" data-tip="Reset" />
+          </button>
         </span>
 
         <br />
@@ -71,10 +82,9 @@ const MembersFields = observer(({ form }) => (
         <div className="clearfix">
           <div className="left">Hobbies</div>
           <div className="right">
-            <button
-              type="button"
-              onClick={e => field.onAdd(e, 'hobbies')}
-            >+ Add Hobby</button>
+            <button type="button" onClick={e => field.onAdd(e, 'hobbies')}>
+              <i className="fa fa-plus-circle" data-tip="Add Hobby" />
+            </button>
           </div>
         </div>
         <br />
@@ -104,9 +114,13 @@ const FormWithNestedFields = observer(({ form }) => (
           onChange={form.$('club').sync}
         />
 
-        <span>
-          <button type="button" onClick={form.$('club').onClear}>Clear Club</button>
-          <button type="button" onClick={form.$('club').onReset}>Reset Club</button>
+        <span className="ctrl">
+          <button type="button" onClick={form.$('club').onClear}>
+            <i className="fa fa-eraser" data-tip="Clear Club" />
+          </button>
+          <button type="button" onClick={form.$('club').onReset}>
+            <i className="fa fa-refresh" data-tip="Reset Club" />
+          </button>
         </span>
       </fieldset>
 
@@ -117,16 +131,26 @@ const FormWithNestedFields = observer(({ form }) => (
       {<MembersFields form={form} />}
 
       <div className="ctrl">
-        <button type="button" onClick={form.$('members').onClear}>Clear Members</button>
-        <button type="button" onClick={form.$('members').onReset}>Reset Members</button>
+        <button type="button" onClick={form.$('members').onClear}>
+          <i className="fa fa-eraser" data-tip="Clear" /> Clear Members
+        </button>
+        <button type="button" onClick={form.$('members').onReset}>
+          <i className="fa fa-refresh" data-tip="Reset" /> Reset Members
+        </button>
       </div>
 
       <br />
       <br />
       <div className="ctrl">
-        <button type="submit" onClick={form.onSubmit}>SUBMIT</button>
-        <button type="button" onClick={form.onClear}>Clear All</button>
-        <button type="button" onClick={form.onReset}>Reset All</button>
+        <button type="submit" onClick={form.onSubmit}>
+          <i className="fa fa-dot-circle-o" data-tip="Submit" /> Submit
+        </button>
+        <button type="button" onClick={form.onClear}>
+          <i className="fa fa-eraser" data-tip="Clear" /> Clear All
+        </button>
+        <button type="button" onClick={form.onReset}>
+          <i className="fa fa-refresh" data-tip="Reset" /> Reset All
+        </button>
       </div>
 
       <p><i>{form.error}</i></p>

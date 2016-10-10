@@ -106,11 +106,8 @@ button:focus {
   font-size: 14px;
 }
 
-.container.normal form div i {
-  color: #F87666;
-}
-
-.container.normal form p i {
+.container form i {
+  font-size: 18px;
   color: #F87666;
 }
 

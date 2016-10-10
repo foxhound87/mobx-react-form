@@ -94,13 +94,11 @@ const handleOnSizeChange = action('size-change', size =>
 const handleOnCloseTools = action('close-tools', (e) => {
   e.preventDefault();
   _.set(tools, 'open', false);
-  console.log('close', tools);
 });
 
 const handleOnOpenTools = action('open-tools', (e) => {
   e.preventDefault();
   _.set(tools, 'open', true);
-  console.log('open', tools);
 });
 
 const handleOnOpenDoc = action('open-tools', (e) => {
