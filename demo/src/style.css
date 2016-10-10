@@ -98,9 +98,9 @@ button:focus {
   padding: 15px;
   margin: 15px 0 0 0;
   background-color:rgba(0,0,0,0.05);
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 
 .container.normal form div b {
@@ -145,9 +145,13 @@ button:focus {
   border: 1px solid #F87666;
 }
 
+.menu i {
+  font-size: 25px;
+}
+
 .container .ctrl button {
   padding: 10px;
-  margin-right: 10px;
+  margin-left: 10px;
   font-size: 16px;
 }
 

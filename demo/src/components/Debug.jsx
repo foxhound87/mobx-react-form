@@ -10,6 +10,10 @@ import _ from 'lodash';
 
 const tools = observable({
   open: false,
+  heading: {
+    name: true,
+    sub: true,
+  },
 });
 
 const dock = observable({
@@ -88,8 +92,11 @@ const parseFieldsData = fields =>
     return obj;
   }, {});
 
-const handleOnSizeChange = action('size-change', size =>
-  _.set(dock, 'size', size));
+const handleOnSizeChange = action('size-change', (size) => {
+  _.set(dock, 'size', size);
+  _.set(tools, 'heading.name', (size > 0.27));
+  _.set(tools, 'heading.sub', (size > 0.13));
+});
 
 const handleOnCloseTools = action('close-tools', (e) => {
   e.preventDefault();
@@ -138,7 +145,10 @@ export default observer(({ form }) => (
     </Draggable>
     <div className="tools">
       <div className="heading clearfix">
-        <div className="left">mobx-react-form <b>DEVTOOLS</b></div>
+        <div className="left">
+          <i className={cx({ hidden: !tools.heading.name })}>mobx-react-form</i>
+          <b className={cx({ hidden: !tools.heading.sub })}>DEVTOOLS</b>
+        </div>
         <button className="right" onClick={handleOnCloseTools} data-tip="CLOSE">
           <i className="fa fa-chevron-circle-right" />
         </button>
@@ -163,5 +173,11 @@ export default observer(({ form }) => (
         isLightTheme={false}
       />
     </div>
+    <JSONTree
+      hideRoot
+      data={toJS(tools)}
+      theme={theme}
+      isLightTheme={false}
+    />
   </Dock>
 ));

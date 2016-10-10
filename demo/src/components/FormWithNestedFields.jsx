@@ -46,19 +46,21 @@ const HobbiesFields = observer(({ form, field }) => (
 const MembersFields = observer(({ form }) => (
   <div>
     <div className="clearfix">
-      <div className="left">Hobbies</div>
+      <div className="left">
+        <b>{form.$('members').label}</b>
+      </div>
       <div className="right">
         <button type="button" onClick={form.$('members').onClear}>
-          <i className="fa fa-eraser" data-tip="Clear" /> Clear Members
+          <i className="fa fa-eraser" data-tip="Clear Members" />
         </button>
         <button type="button" onClick={form.$('members').onReset}>
-          <i className="fa fa-refresh" data-tip="Reset" /> Reset Members
+          <i className="fa fa-refresh" data-tip="Reset Members" />
         </button>
       </div>
     </div>
     <hr />
     {form.map('members', field =>
-      <fieldset key={field.key}>
+      <fieldset key={field.key} className="center">
         <div key={field.$('firstname').name}>
           <div>
             <b>{field.$('firstname').label}</b>
@@ -136,7 +138,6 @@ const FormWithNestedFields = observer(({ form }) => (
         </span>
       </fieldset>
 
-      <b>{form.$('members').label}</b>
       <br />
       <br />
 

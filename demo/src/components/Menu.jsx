@@ -14,7 +14,14 @@ const Menu = ({ data }) => (
     <a
       href="https://www.npmjs.com/package/mobx-react-form"
       className="right"
-    > NPM &#10140;
+      data-tip="NPM"
+    > <i className="fa fa-archive" />
+    </a>
+    <a
+      href="https://github.com/foxhound87/mobx-react-form"
+      className="right"
+      data-tip="GitHub"
+    > <i className="fa fa-github" />
     </a>
     <span className="left label">SELECT DEMO:</span>
     <span className="left">
