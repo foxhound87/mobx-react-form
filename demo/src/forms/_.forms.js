@@ -26,7 +26,7 @@ const plugins = {
 
 class FormWithNestedFields extends Form {
 
-  // onInit($form) {
+  onInit($form) {
     // console.log('ON INIT');
 
     // $form.on('validate@email', ({ form, path }) => console.log('validate@email', path, form));
@@ -39,6 +39,8 @@ class FormWithNestedFields extends Form {
     // $form.$('address.street').update('');
     // console.log('street isValid', $form.$('address.street').isValid);
     // console.log('isEmpty', $form.$('address.street').check('isEmpty'));
+
+    // $form.$('members.0.hobbies.1').update('aaa');
 
     // $form.options({
     //   strictUpdate: true,
@@ -54,8 +56,24 @@ class FormWithNestedFields extends Form {
     //   club: 'NEW LABEL',
     // });
 
-    // $form.$('club').update('test');
-  // }
+    $form.update({
+      club: {
+        name: 'HELLO',
+        city: 'NY',
+      },
+      members: [{
+        firstname: 'Clint',
+        lastname: 'Eastwood',
+        hobbies: ['Soccer', 'Baseball'],
+      }, {
+        firstname: 'Charlie',
+        lastname: 'Chaplin',
+        hobbies: ['Golf', 'Basket'],
+      }],
+    });
+
+    console.log('@@@VALUES', $form.values());
+  }
 }
 
 class RegisterMaterialForm extends Form {}

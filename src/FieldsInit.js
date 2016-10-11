@@ -8,12 +8,13 @@ import Field from './Field';
 */
 export default $this => ({
 
-  initField: action('init-Field', (key, path, data) => {
+  initField: action('init-Field', (key, path, data, fields = null) => {
+    const $fields = fields || $this.fields;
     const initial = $this.state.get('props');
     // try to get props from separated objects
     const $try = prop => _.has(initial[prop], path) && initial[prop][path];
 
-    $this.fields.merge({
+    $fields.merge({
       [key]: new Field(key, path, data, $this.state, {
         $label: $try('labels'),
         $value: $try('values'),

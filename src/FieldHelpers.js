@@ -16,7 +16,26 @@ export default $this => ({
   /**
     Update Field Values
   */
-  update: data => $this.set('value', data),
+  update: (data) => {
+    const fields = $this.prepareFieldsData({ fields: data });
+    $this.deepUpdate(fields);
+    $this.set('value', data);
+  },
+
+  deepUpdate: (data, path = '') => {
+    _.each(data, (field, key) => {
+      const $path = _.trimStart(`${path}.${key}`, '.');
+      const $field = $this.select($path, null, false);
+
+      if (_.isUndefined($field)) {
+        $this.initField(key, path, field);
+      }
+
+      if (_.has(field, 'fields')) {
+        $this.deepUpdate(field, $path);
+      }
+    });
+  },
 
   /**
     Fields Values (recursive with Nested Fields)
@@ -96,9 +115,15 @@ export default $this => ({
       ? $this.fields.get(head)
       : fields.get(head);
 
-
+    let stop = false;
     _.each(keys, ($key) => {
-      $fields = $fields.fields.get($key);
+      if (stop) { return; }
+      if (_.isUndefined($fields)) {
+        $fields = undefined;
+        stop = true;
+      } else {
+        $fields = $fields.fields.get($key);
+      }
     });
 
     if (isStrict) $this.throwError(path, $fields);
@@ -175,7 +200,6 @@ export default $this => ({
   */
   deepSet: ($, data, path = '', recursion = false) => {
     const err = 'You are updating a not existent field:';
-
     const isStrict = $this.$options.get('strictUpdate');
 
     _.each(data, ($val, $key) => {

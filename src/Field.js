@@ -168,6 +168,14 @@ export default class Field {
   */
   @action
   add(path = null) {
+  // add(path = null, val = null) {
+    // if (path && val) {
+    //   // path is the key here
+    //   console.log('this.path', this.path);
+    //   this.initField(path, [this.path, path].join('.'));
+    //   return;
+    // }
+
     if (_.isString(path)) {
       this.select(path).add();
       return;

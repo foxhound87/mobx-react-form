@@ -115,27 +115,41 @@ const FormWithNestedFields = observer(({ form }) => (
     <form>
       <h2>Nested Fields</h2>
 
-      <fieldset>
+      <fieldset className="center">
         <div>
-          <b>{form.$('club').label}</b>
-          <i>{form.$('club').error}</i>
+          <b>{form.$('club.name').label}</b>
+          <i>{form.$('club.name').error}</i>
         </div>
         <input
           type="text"
-          name={form.$('club').name}
-          value={form.$('club').value}
-          placeholder={form.$('club').label}
-          onChange={form.$('club').sync}
+          name={form.$('club.name').name}
+          value={form.$('club.name').value}
+          placeholder={form.$('club.name').label}
+          onChange={form.$('club.name').sync}
         />
 
-        <span className="ctrl">
+        <div>
+          <b>{form.$('club.city').label}</b>
+          <i>{form.$('club.city').error}</i>
+        </div>
+        <input
+          type="text"
+          name={form.$('club.city').name}
+          value={form.$('club.city').value}
+          placeholder={form.$('club.city').label}
+          onChange={form.$('club.city').sync}
+        />
+
+        <br />
+        <br />
+        <div>
           <button type="button" onClick={form.$('club').onClear}>
             <i className="fa fa-eraser" data-tip="Clear Club" />
           </button>
           <button type="button" onClick={form.$('club').onReset}>
             <i className="fa fa-refresh" data-tip="Reset Club" />
           </button>
-        </span>
+        </div>
       </fieldset>
 
       <br />
