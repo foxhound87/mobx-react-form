@@ -19,9 +19,9 @@ export default class Field {
 
   @observable $label;
   @observable $value;
+  @observable $default;
   @observable $disabled = false;
 
-  defaultValue = undefined;
   initialValue = undefined;
 
   @observable errorSync = null;
@@ -91,7 +91,7 @@ export default class Field {
       /* The field IS the value here */
       this.name = $key;
       this.initialValue = this.parseInitialValue($field, $value);
-      this.defaultValue = this.parseDefaultValue($field.default, $default);
+      this.$default = this.parseDefaultValue($field.default, $default);
       this.$value = this.initialValue;
       this.$label = $label || $key;
       this.$rules = $rules || null;
@@ -117,7 +117,7 @@ export default class Field {
     if (_.isObject($field)) {
       const { name, label, disabled, rules, validate, related } = $field;
       this.initialValue = this.parseInitialValue($field.value, $value);
-      this.defaultValue = this.parseDefaultValue($field.default, $default);
+      this.$default = this.parseDefaultValue($field.default, $default);
       this.name = name || $key;
       this.$value = this.initialValue;
       this.$label = $label || label || this.name;
@@ -232,8 +232,8 @@ export default class Field {
 
   @action
   reset(deep = false) {
-    const useDefaultValue = (this.defaultValue !== this.initialValue);
-    if (useDefaultValue) this.value = this.defaultValue;
+    const useDefaultValue = (this.$default !== this.initialValue);
+    if (useDefaultValue) this.value = this.$default;
     if (!useDefaultValue) this.value = this.initialValue;
 
     // recursive clear fields
@@ -302,7 +302,7 @@ export default class Field {
 
   @computed
   get default() {
-    return this.defaultValue;
+    return this.$default;
   }
 
   @computed
@@ -342,17 +342,17 @@ export default class Field {
 
   @computed
   get isDirty() {
-    return !_.isEqual(this.defaultValue, this.value);
+    return !_.isEqual(this.$default, this.value);
   }
 
   @computed
   get isPristine() {
-    return _.isEqual(this.defaultValue, this.value);
+    return _.isEqual(this.$default, this.value);
   }
 
   @computed
   get isDefault() {
-    return _.isEqual(this.defaultValue, this.value);
+    return _.isEqual(this.$default, this.value);
   }
 
   @computed

@@ -9,7 +9,7 @@ import cx from 'classnames';
 import _ from 'lodash';
 
 const tools = observable({
-  open: false,
+  open: true,
   heading: {
     name: true,
     sub: true,
@@ -94,8 +94,8 @@ const parseFieldsData = fields =>
 
 const handleOnSizeChange = action('size-change', (size) => {
   _.set(dock, 'size', size);
-  _.set(tools, 'heading.name', (size > 0.27));
-  _.set(tools, 'heading.sub', (size > 0.13));
+  _.set(tools, 'heading.name', (size > 0.22));
+  _.set(tools, 'heading.sub', (size > 0.11));
 });
 
 const handleOnCloseTools = action('close-tools', (e) => {
@@ -173,11 +173,5 @@ export default observer(({ form }) => (
         isLightTheme={false}
       />
     </div>
-    <JSONTree
-      hideRoot
-      data={toJS(tools)}
-      theme={theme}
-      isLightTheme={false}
-    />
   </Dock>
 ));

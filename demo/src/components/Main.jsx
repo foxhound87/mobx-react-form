@@ -13,7 +13,7 @@ import menu from '../menu';
 const Main = () => (
   <div>
     <ReactTooltip />
-    <DevTools position={{ bottom: 0, right: '20px' }} />
+    <DevTools position={{ bottom: 0, left: '50px' }} />
     <Menu data={observable(menu)} />
     <Switch menu={menu} form={form} />
   </div>

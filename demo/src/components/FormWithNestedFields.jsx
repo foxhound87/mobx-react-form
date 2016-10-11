@@ -51,10 +51,10 @@ const MembersFields = observer(({ form }) => (
       </div>
       <div className="right">
         <button type="button" onClick={form.$('members').onClear}>
-          <i className="fa fa-eraser" data-tip="Clear Members" />
+          <i className="fa fa-eraser" data-tip="Clear All Members" />
         </button>
         <button type="button" onClick={form.$('members').onReset}>
-          <i className="fa fa-refresh" data-tip="Reset Members" />
+          <i className="fa fa-refresh" data-tip="Reset All Members" />
         </button>
       </div>
     </div>
@@ -90,13 +90,13 @@ const MembersFields = observer(({ form }) => (
         <br />
         <span>
           <button type="button" onClick={e => form.$('members').onDel(e, field.key)}>
-            <i className="fa fa-times-circle" data-tip="Remove" />
+            <i className="fa fa-times-circle" data-tip="Remove Member" />
           </button>
           <button type="button" onClick={field.onClear}>
-            <i className="fa fa-eraser" data-tip="Clear" />
+            <i className="fa fa-eraser" data-tip="Clear Member" />
           </button>
           <button type="button" onClick={field.onReset}>
-            <i className="fa fa-refresh" data-tip="Reset" />
+            <i className="fa fa-refresh" data-tip="Reset Member" />
           </button>
         </span>
 
@@ -146,13 +146,13 @@ const FormWithNestedFields = observer(({ form }) => (
       <br />
       <div className="ctrl">
         <button type="submit" onClick={form.onSubmit}>
-          <i className="fa fa-dot-circle-o" data-tip="Submit" /> Submit
+          <i className="fa fa-dot-circle-o" /> Submit
         </button>
         <button type="button" onClick={form.onClear}>
-          <i className="fa fa-eraser" data-tip="Clear" /> Clear All
+          <i className="fa fa-eraser" /> Clear All
         </button>
         <button type="button" onClick={form.onReset}>
-          <i className="fa fa-refresh" data-tip="Reset" /> Reset All
+          <i className="fa fa-refresh" /> Reset All
         </button>
       </div>
 

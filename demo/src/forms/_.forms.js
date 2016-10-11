@@ -26,7 +26,7 @@ const plugins = {
 
 class FormWithNestedFields extends Form {
 
-  onInit($form) {
+  // onInit($form) {
     // console.log('ON INIT');
 
     // $form.on('validate@email', ({ form, path }) => console.log('validate@email', path, form));
@@ -44,18 +44,18 @@ class FormWithNestedFields extends Form {
     //   strictUpdate: true,
     // });
 
-    // $form.set({
+    // $form.set('default', {
     //   sthElse: '...',
-    //   username: 'aaaaaa',
+    //   club: 'HEYYY',
     // });
 
     // $form.set('label', {
     //   sthElse: '...',
-    //   username: 'NEW LABEL',
+    //   club: 'NEW LABEL',
     // });
 
-    $form.$('club').set('test');
-  }
+    // $form.$('club').update('test');
+  // }
 }
 
 class RegisterMaterialForm extends Form {}
