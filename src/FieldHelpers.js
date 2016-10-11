@@ -1,7 +1,6 @@
 import { action } from 'mobx';
 import _ from 'lodash';
 import utils from './utils';
-import Options from './Options';
 import Events from './Events';
 
 /**
@@ -13,6 +12,11 @@ export default $this => ({
     Fields Selector (alias of select)
   */
   $: key => $this.select(key),
+
+  /**
+    Update Field Values
+  */
+  update: data => $this.set('value', data),
 
   /**
     Fields Values (recursive with Nested Fields)
@@ -103,13 +107,6 @@ export default $this => ({
   },
 
   /**
-    Update Field Values
-  */
-  update: (data) => {
-    $this.set('value', data);
-  },
-
-  /**
     Get Fields Props
   */
   get: (prop = null) => {
@@ -179,7 +176,7 @@ export default $this => ({
   deepSet: ($, data, path = '', recursion = false) => {
     const err = 'You are updating a not existent field:';
 
-    const isStrict = Options.get('strictUpdate');
+    const isStrict = $this.$options.get('strictUpdate');
 
     _.each(data, ($val, $key) => {
       const $path = _.trimStart(`${path}.${$key}`, '.');

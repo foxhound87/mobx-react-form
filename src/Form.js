@@ -15,14 +15,16 @@ export default class Form {
 
   validator;
 
+  $options;
+
   @observable fields = asMap({});
 
   constructor(initial = {}, name = null) {
     this.name = name;
 
     this.assignFieldHelpers();
-    this.assignInitData(initial);
     this.assignFieldsInitializer();
+    this.initOptions(initial);
     this.initValidator(initial);
     this.initPropsState(initial);
     this.initFields(initial);
@@ -33,11 +35,6 @@ export default class Form {
     if (_.isFunction(this.onInit)) this.onInit(this);
   }
 
-  assignInitData(initial) {
-    Options.set(Options.defaults);
-    Options.set(initial.options);
-  }
-
   assignFieldHelpers() {
     Object.assign(this, fieldHelpers(this));
   }
@@ -46,8 +43,13 @@ export default class Form {
     Object.assign(this, fieldsInitializer(this));
   }
 
-  initValidator(obj = {}) {
-    this.validator = new Validator(obj);
+  initOptions(initial = {}) {
+    this.$options = new Options();
+    this.$options.set(initial.options);
+  }
+
+  initValidator(initial = {}) {
+    this.validator = new Validator(initial);
   }
 
   initPropsState(initial) {
@@ -60,9 +62,9 @@ export default class Form {
   }
 
   options(options = null) {
-    if (!_.isObject(options)) Options.set(options);
-    if (!_.isString(options)) return Options.get(options);
-    return Options.get();
+    if (!_.isObject(options)) this.$options.set(options);
+    if (!_.isString(options)) return this.$options.get(options);
+    return this.$options.get();
   }
 
   on(event, callback) {
@@ -81,24 +83,25 @@ export default class Form {
   }
 
   observeFields() {
-    if (Options.get('validateOnChange') === false) return;
     // deep observe and validate each field
     this.observeFieldsDeep(this.fields);
   }
 
   observeFieldsDeep(fields) {
     fields.forEach((field, key) => {
-      observe(fields.get(key), '$value', () =>
-        this.validate({ key, field, showErrors: true, related: true }));
+      observe(fields.get(key), '$value', () => {
+        if (this.$options.get('validateOnChange') === false) return;
+        this.validate({ key, field, showErrors: true, related: true });
+      });
       // recursive observe and validate each field
       if (field.fields.size) this.observeFieldsDeep(field.fields);
     });
   }
 
   validateOnInit() {
-    if (Options.get('validateOnInit') === false) return;
+    if (this.$options.get('validateOnInit') === false) return;
     // execute validation on form initialization
-    this.validate({ showErrors: Options.get('showErrorsOnInit') });
+    this.validate({ showErrors: this.$options.get('showErrorsOnInit') });
   }
 
   validate(opt = {}, obj = {}) {
@@ -113,7 +116,7 @@ export default class Form {
 
     // look running events and choose when show errors messages
     const notShowErrorsEvents = ['clear', 'reset'];
-    if (Options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
+    if (this.$options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
     const $showErrors = showErrors && !Events.running(notShowErrorsEvents);
 
     if (_.isObject(opt) && !_.isString($key)) {
@@ -156,16 +159,25 @@ export default class Form {
   /* ------------------------------------------------------------------ */
   /* ACTIONS */
 
+  /**
+    Clear Form
+  */
   @action
   clear() {
     this.deepAction('clear', this.fields);
   }
 
+  /**
+    Reset Form
+  */
   @action
   reset() {
     this.deepAction('reset', this.fields);
   }
 
+  /**
+    Submit Form
+  */
   @action
   submit(o = {}) {
     const execOnSuccess = _.has(o, 'onSuccess') ? o.onSuccess : this.onSuccess;
@@ -175,6 +187,28 @@ export default class Form {
       .then(isValid => isValid
         ? execOnSuccess(this)
         : execOnError(this));
+  }
+
+  /**
+    Add Field
+  */
+  @action
+  add(path = null) {
+    const keys = _.split(path, '.');
+    const last = _.last(keys);
+    const $path = _.trimEnd(path, `.${last}`);
+    this.select($path).add(last);
+  }
+
+  /**
+    Del Field
+  */
+  @action
+  del(path = null) {
+    const keys = _.split(path, '.');
+    const last = _.last(keys);
+    const $path = _.trimEnd(path, `.${last}`);
+    this.select($path).del(last);
   }
 
   /* ------------------------------------------------------------------ */
@@ -215,31 +249,6 @@ export default class Form {
   @computed
   get error() {
     return this.validator.genericErrorMessage;
-  }
-
-  /* ------------------------------------------------------------------ */
-  /* ACTIONS */
-
-  /**
-    Add Field
-  */
-  @action
-  add(path = null) {
-    const keys = _.split(path, '.');
-    const last = _.last(keys);
-    const $path = _.trimEnd(path, `.${last}`);
-    this.select($path).add(last);
-  }
-
-  /**
-    Del Field
-  */
-  @action
-  del(path = null) {
-    const keys = _.split(path, '.');
-    const last = _.last(keys);
-    const $path = _.trimEnd(path, `.${last}`);
-    this.select($path).del(last);
   }
 
   /* ------------------------------------------------------------------ */
