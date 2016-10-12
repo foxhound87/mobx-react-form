@@ -34,20 +34,20 @@ describe('Check Nested $M Values (fields prop)', () => {
   it('$M clubname value should be equal to "HELLO"', () =>
   expect($.$M.$('clubname').value).to.be.equal('HELLO'));
 
-  it('$M members.0.firstname value should be equal to "Clint"', () =>
-  expect($.$M.$('members.0.firstname').value).to.be.equal('Clint'));
+  it('$M members[0].firstname value should be equal to "Clint"', () =>
+  expect($.$M.$('members[0].firstname').value).to.be.equal('Clint'));
 
-  it('$M members.1.firstname value should be equal to "Charlie"', () =>
-  expect($.$M.$('members.1.firstname').value).to.be.equal('Charlie'));
+  it('$M members[1].firstname value should be equal to "Charlie"', () =>
+  expect($.$M.$('members[1].firstname').value).to.be.equal('Charlie'));
 
-  it('$M members.0.hobbies.1 value should be equal to "Baseball"', () =>
-  expect($.$M.$('members.0.hobbies.1').value).to.be.equal('Baseball'));
+  it('$M members[0].hobbies[1] value should be equal to "Baseball"', () =>
+  expect($.$M.$('members[0].hobbies[1]').value).to.be.equal('Baseball'));
 
-  it('$M members.1.hobbies.0 value should be equal to "Golf"', () =>
-  expect($.$M.$('members.1.hobbies.0').value).to.be.equal('Golf'));
+  it('$M members[1].hobbies[0] value should be equal to "Golf"', () =>
+  expect($.$M.$('members[1].hobbies[0]').value).to.be.equal('Golf'));
 
-  it('$M members.1.hobbies.1 value should be equal to "Basket"', () =>
-  expect($.$M.$('members.1.hobbies.1').value).to.be.equal('Basket'));
+  it('$M members[1].hobbies[1] value should be equal to "Basket"', () =>
+  expect($.$M.$('members[1].hobbies[1]').value).to.be.equal('Basket'));
 });
 
 describe('Check Nested $N Values (values prop)', () => {

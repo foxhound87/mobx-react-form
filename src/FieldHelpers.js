@@ -14,30 +14,6 @@ export default $this => ({
   $: key => $this.select(key),
 
   /**
-    Update Field Values
-  */
-  update: (data) => {
-    const fields = $this.prepareFieldsData({ fields: data });
-    $this.deepUpdate(fields);
-    $this.set('value', data);
-  },
-
-  deepUpdate: (data, path = '') => {
-    _.each(data, (field, key) => {
-      const $path = _.trimStart(`${path}.${key}`, '.');
-      const $field = $this.select($path, null, false);
-
-      if (_.isUndefined($field)) {
-        $this.initField(key, path, field);
-      }
-
-      if (_.has(field, 'fields')) {
-        $this.deepUpdate(field, $path);
-      }
-    });
-  },
-
-  /**
     Fields Values (recursive with Nested Fields)
   */
   values: () => $this.deepMap('value', $this.fields),
@@ -106,7 +82,12 @@ export default $this => ({
     Fields Selector
   */
   select: (path, fields = null, isStrict = true) => {
-    const keys = _.split(path, '.');
+    let $path = path;
+
+    $path = _.replace($path, new RegExp('\\[', 'g'), '.');
+    $path = _.replace($path, new RegExp('\\]', 'g'), '');
+
+    const keys = _.split($path, '.');
     const head = _.head(keys);
 
     keys.shift();
@@ -129,6 +110,15 @@ export default $this => ({
     if (isStrict) $this.throwError(path, $fields);
 
     return $fields;
+  },
+
+  /**
+    Update Field Values
+  */
+  update: (data) => {
+    const fields = $this.prepareFieldsData({ fields: data });
+    $this.deepUpdate(fields);
+    $this.set('value', data);
   },
 
   /**
@@ -198,6 +188,24 @@ export default $this => ({
   /**
     Update Recursive Fields
   */
+  deepUpdate: (data, path = '') => {
+    _.each(data, (field, key) => {
+      const $path = _.trimStart(`${path}.${key}`, '.');
+      const $field = $this.select($path, null, false);
+
+      if (_.isUndefined($field)) {
+        $this.initField(key, path, field);
+      }
+
+      if (_.has(field, 'fields')) {
+        $this.deepUpdate(field, $path);
+      }
+    });
+  },
+
+  /**
+    Set Fields Props Recursively
+  */
   deepSet: ($, data, path = '', recursion = false) => {
     const err = 'You are updating a not existent field:';
     const isStrict = $this.$options.get('strictUpdate');
@@ -222,6 +230,9 @@ export default $this => ({
     });
   },
 
+  /**
+    Get Fields Props Recursively
+  */
   deepGet: (prop, fields) =>
   _.reduce(fields.values(), (obj, field) => {
     const $nested = $fields => ($fields.size !== 0)
