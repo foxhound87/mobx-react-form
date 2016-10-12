@@ -56,21 +56,21 @@ class FormWithNestedFields extends Form {
     //   club: 'NEW LABEL',
     // });
 
-    // $form.update({
-    //   club: {
-    //     name: 'HELLO',
-    //     city: 'NY',
-    //   },
-    //   members: [{
-    //     firstname: 'Clint',
-    //     lastname: 'Eastwood',
-    //     hobbies: ['Soccer', 'Baseball'],
-    //   }, {
-    //     firstname: 'Charlie',
-    //     lastname: 'Chaplin',
-    //     hobbies: ['Golf', 'Basket'],
-    //   }],
-    // });
+    $form.update({
+      club: {
+        name: 'VVVVVV',
+        city: 'KKKKKK',
+      },
+      members: [{
+        firstname: 'XXXXXXX',
+        lastname: 'YYYYYY',
+        hobbies: ['@@@@@', '######'],
+      }, {
+        firstname: 'AAAAAAA',
+        lastname: 'BBBBB',
+        hobbies: ['HHHHH', 'NNNNNN'],
+      }],
+    });
 
     console.log('@@@VALUES', $form.values());
   }

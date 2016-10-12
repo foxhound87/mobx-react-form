@@ -117,8 +117,8 @@ export default $this => ({
     OR Create Field if 'undefined'
   */
   update: (data) => {
-    $this.initFields({ fields: data });
     $this.set('value', data);
+    $this.initFields({ fields: data });
   },
 
   /**
