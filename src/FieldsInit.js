@@ -10,7 +10,7 @@ export default $this => ({
 
   initField: action('init-Field', (key, path, data, fields = null) => {
     const $fields = fields || $this.fields;
-    const initial = $this.state.get('props');
+    const initial = $this.state.get('current', 'props');
     // try to get props from separated objects
     const $try = prop => _.has(initial[prop], path) && initial[prop][path];
 
@@ -30,7 +30,7 @@ export default $this => ({
   initFields: action('init-Fields', (initial) => {
     const fields = $this.prepareFieldsData(initial);
 
-    $this.state.set('fields', fields);
+    $this.state.set('current', 'fields', fields);
 
     const $path = key => _.trimStart([$this.path, key].join('.'), '.');
 
