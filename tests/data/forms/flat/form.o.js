@@ -18,6 +18,16 @@ class Form extends MobxReactForm {
 
   onInit(form) {
     form.invalidate();
+
+    form.update({
+      undefined: 'undefined',
+      username: 'TestUser',
+    });
+
+    form.set('label', {
+      undefined: 'undefined',
+      email: 'E-mail',
+    });
   }
 }
 

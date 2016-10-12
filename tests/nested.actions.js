@@ -2,26 +2,6 @@ import { expect } from 'chai';
 
 import $ from './data/_.nested'; // FORMS
 
-$.$A.update({
-  address: {
-    city: 'Los Angeles',
-  },
-});
-
-$.$A.set('label', {
-  address: {
-    city: 'Cool City',
-  },
-});
-
-$.$B.$('state.city.places').set('label', 'NY Cool Places');
-$.$B.$('state.city.places').$('empireStateBuilding').update(false);
-$.$B.$('state.city.places.centralPark').update(false);
-
-$.$C.$('state.city.places').set('label', 'NY Cool Places');
-$.$C.$('state.city.places').$('empireStateBuilding').update(false);
-$.$C.$('state.city.places.centralPark').update(false);
-
 describe('Check $A Nested Fields', () => {
   it('$A address.street.value should be equal to "Broadway"', () =>
     expect($.$A.$('address.street').value).to.be.equal('Broadway'));
@@ -149,4 +129,18 @@ describe('Check Nested $C Fields computed deep check()', () => {
 
   it('$C check(hasError, deep=true) should be false', () =>
     expect($.$C.check('hasError', true)).to.be.false);
+});
+
+describe('Check Nested $D props after state clear()', () => {
+  it('$D state isEmpty should be false', () =>
+  expect($.$D.$('state').isEmpty).to.be.false);
+
+  it('$D state.city isEmpty should be true', () =>
+  expect($.$D.$('state.city').isEmpty).to.be.true);
+
+  it('$D state.city.places isEmpty should be true', () =>
+    expect($.$D.$('state.city.places').isEmpty).to.be.true);
+
+  it('$D state.city.places.brooklynBridge isEmpty should be true', () =>
+    expect($.$D.$('state.city.places.brooklynBridge').isEmpty).to.be.true);
 });

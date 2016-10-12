@@ -1,5 +1,5 @@
 import ajv from 'ajv';
-import Form from '../../../../src';
+import MobxReactForm from '../../../../src';
 
 const options = { strictUpdate: true };
 
@@ -28,5 +28,13 @@ const schema = {
     password: { type: 'string', minLength: 6, maxLength: 20 },
   },
 };
+
+class Form extends MobxReactForm {
+
+  onInit(form) {
+    form.update({ username: 'JonathanIve' });
+    form.reset(); // to default or initial values
+  }
+}
 
 export default new Form({ fields, schema, plugins, options }, 'I');

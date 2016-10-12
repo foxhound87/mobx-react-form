@@ -67,5 +67,5 @@ describe('Check Nested $N Values (values prop)', () => {
   expect($.$N.$('members.1.hobbies.0').value).to.be.equal('Golf'));
 
   it('$N members.1.hobbies.1 value should be equal to "Basket"', () =>
-  expect($.$N.$('members.1.hobbies.1').value).to.be.equal('Basket'));
+  expect($.$N.$('members.1.hobbies').$(1).value).to.be.equal('Basket'));
 });

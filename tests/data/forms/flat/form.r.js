@@ -1,4 +1,4 @@
-import Form from '../../../../src';
+import MobxReactForm from '../../../../src';
 import { isEmail, shouldBeEqualTo } from '../../extension/vjf';
 
 const fields = {
@@ -14,5 +14,15 @@ const fields = {
     validate: [isEmail, shouldBeEqualTo('email')],
   },
 };
+
+class Form extends MobxReactForm {
+
+  onInit(form) {
+    form.update({
+      email: 'invalid',
+    });
+  }
+}
+
 
 export default new Form({ fields }, 'R');

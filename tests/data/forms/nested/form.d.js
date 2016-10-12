@@ -1,4 +1,4 @@
-import Form from '../../../../src';
+import MobxReactForm from '../../../../src';
 
 const fields = {
   state: {
@@ -35,5 +35,14 @@ const fields = {
     },
   },
 };
+
+
+class Form extends MobxReactForm {
+
+  onInit(form) {
+    form.$('state.city').clear(true);
+  }
+}
+
 
 export default new Form({ fields }, 'Nested-D');

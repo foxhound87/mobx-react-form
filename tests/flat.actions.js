@@ -2,51 +2,6 @@ import { expect, assert } from 'chai';
 
 import $ from './data/_.flat'; // FORMS
 
-/**
-  Execute Actions (Different Forms)
-*/
-
-$.$C.invalidate('The user already exist');
-
-$.$D.update({
-  username: 'JonathanIve',
-  terms: false,
-  assets: 0,
-  revenue: 'aaa',
-  undefined: true, // this field does not exists (strictUpdate)
-});
-
-$.$I.update({ username: 'JonathanIve' });
-$.$I.reset(); // to default or initial values
-
-$.$L.clear(); // to empty values
-
-// subsequent clear and reset (SAME FORM)
-$.$M.clear(); // to empty values
-$.$M.reset(); // to default or initial values
-
-// subsequent clear and reset (SAME FORM)
-$.$N.clear(); // to empty values
-$.$N.reset(); // to default or initial values
-
-$.$O.update({
-  undefined: 'undefined',
-  username: 'TestUser',
-});
-
-$.$O.set('label', {
-  undefined: 'undefined',
-  email: 'E-mail',
-});
-
-$.$P.$('username').set('label', 'UserName');
-
-$.$P.reset();
-
-$.$R.update({
-  email: 'invalid',
-});
-
 describe('$L Form', () => {
   it('$L username.value should be empty', () =>
     expect($.$L.$('username').value).to.be.empty);

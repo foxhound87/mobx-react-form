@@ -1,5 +1,5 @@
 import ajv from 'ajv';
-import Form from '../../../../src';
+import MobxReactForm from '../../../../src';
 import svkExtend from '../../extension/svk';
 
 const plugins = {
@@ -37,5 +37,12 @@ const schema = {
     devSkills: { range: [1, 10] },
   },
 };
+
+class Form extends MobxReactForm {
+
+  onInit(form) {
+    form.invalidate('The user already exist');
+  }
+}
 
 export default new Form({ fields, schema, plugins }, 'C');
