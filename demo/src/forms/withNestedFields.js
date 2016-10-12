@@ -7,7 +7,10 @@ const fields = {};
 // ];
 
 // const fields = {
-//   club: 'HELLO',
+//   club: {
+//     name: 'HELLO',
+//     city: 'NY',
+//   },
 //   members: [{
 //     firstname: 'Clint',
 //     lastname: 'Eastwood',

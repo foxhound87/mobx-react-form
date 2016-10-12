@@ -113,11 +113,11 @@ export default $this => ({
   },
 
   /**
-    Update Field Values
+    Update Field Values recurisvely
+    OR Create Field if 'undefined'
   */
   update: (data) => {
-    const fields = $this.prepareFieldsData({ fields: data });
-    $this.deepUpdate(fields);
+    $this.initFields({ fields: data });
     $this.set('value', data);
   },
 
@@ -184,24 +184,6 @@ export default $this => ({
       return;
     }
   }),
-
-  /**
-    Update Recursive Fields
-  */
-  deepUpdate: (data, path = '') => {
-    _.each(data, (field, key) => {
-      const $path = _.trimStart(`${path}.${key}`, '.');
-      const $field = $this.select($path, null, false);
-
-      if (_.isUndefined($field)) {
-        $this.initField(key, path, field);
-      }
-
-      if (_.has(field, 'fields')) {
-        $this.deepUpdate(field, $path);
-      }
-    });
-  },
 
   /**
     Set Fields Props Recursively

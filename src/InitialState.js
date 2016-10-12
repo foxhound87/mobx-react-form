@@ -1,14 +1,14 @@
 export default class InitialState {
 
-  props;
+  props = {};
 
-  fields;
+  fields = {};
 
   get(type) {
     return this[type];
   }
 
   set(type, state) {
-    this[type] = state;
+    Object.assign(this[type], state);
   }
 }

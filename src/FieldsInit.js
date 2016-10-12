@@ -30,21 +30,22 @@ export default $this => ({
   initFields: action('init-Fields', (initial) => {
     const fields = $this.prepareFieldsData(initial);
 
+    $this.state.set('fields', fields);
+
     const $path = key => _.trimStart([$this.path, key].join('.'), '.');
 
     // create fields
     _.each(fields, (field, key) =>
-      $this.initField(key, $path(key), field));
+      _.isUndefined($this.select($path(key), null, false))
+      && $this.initField(key, $path(key), field));
   }),
 
   prepareFieldsData: (initial) => {
     let fields = initial.fields || {};
-
     fields = $this.handleFieldsEmpty(fields, initial);
     fields = $this.handleFieldsArray(fields);
     fields = $this.handleFieldsNested(fields);
     fields = $this.mergeSchemaDefaults(fields);
-
     return fields;
   },
 
