@@ -1,10 +1,12 @@
-const fields = {};
+// const fields = {};
 
-// const fields = [
-//   'club.name',
-//   'club.city',
-//   'members[].hobbies[]',
-// ];
+const fields = [
+  'club.name',
+  'club.city',
+  'members[].firstname',
+  'members[].lastname',
+  'members[].hobbies[]',
+];
 
 // const fields = {
 //   club: {

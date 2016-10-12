@@ -3,7 +3,7 @@ import _ from 'lodash';
 import Validator from './Validator';
 import Options from './Options';
 import Events from './Events';
-import FormState from './FormState';
+import State from './State';
 import fieldsInitializer from './FieldsInit';
 import fieldHelpers from './FieldHelpers';
 
@@ -57,7 +57,7 @@ export default class Form {
       'fields', 'options', 'plugins',
     ]);
 
-    this.state = new FormState();
+    this.state = new State();
     this.state.set('initial', 'props', initialPropsState);
   }
 

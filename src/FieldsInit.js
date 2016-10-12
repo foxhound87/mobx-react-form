@@ -29,7 +29,6 @@ export default $this => ({
 
   initFields: action('init-Fields', (initial) => {
     const fields = $this.prepareFieldsData(initial);
-
     $this.state.set('current', 'fields', fields);
 
     const $path = key => _.trimStart([$this.path, key].join('.'), '.');
@@ -43,24 +42,10 @@ export default $this => ({
   prepareFieldsData: (initial) => {
     let fields = initial.fields || {};
     fields = $this.handleFieldsEmpty(fields, initial);
-    fields = $this.handleFieldsArray(fields);
+    fields = $this.handleFieldsArrayOfStrings(fields);
+    fields = $this.handleFieldsArrayOfObjects(fields);
     fields = $this.handleFieldsNested(fields);
     fields = $this.mergeSchemaDefaults(fields);
-    return fields;
-  },
-
-  handleFieldsArray: ($fields) => {
-    let fields = $fields;
-    if (_.isArray(fields)) {
-      fields = _.reduce(fields, ($obj, $) => {
-        // as array of objects (with key and props)
-        if (_.isObject($) && _.has($, 'name')) {
-          return Object.assign($obj, { [$.name]: $ });
-        }
-        // as array of strings (with empty values)
-        return Object.assign($obj, { [$]: '' });
-      }, {});
-    }
     return fields;
   },
 
@@ -69,6 +54,50 @@ export default $this => ({
     // if the 'field' object is not provided into the constructor
     // and the 'values' object is passed, use it to create fields
     return _.merge(fields, initial.values);
+  },
+
+  handleFieldsArrayOfStrings($fields) {
+    let fields = $fields;
+    // handle array with field struct (strings)
+    if (_.isArray(fields) && _.every(fields, _.isString)) {
+      // save the global struct into state
+      $this.state.struct(fields);
+      // console.log('isArray every', fields);
+      fields = _.reduce(fields, ($obj, $) => {
+        const struct = _.split($, '.');
+        // as array of strings (with empty values)
+        if (!struct.length) return Object.assign($obj, { [$]: '' });
+        // define flat or nested fields from struct
+        return _.merge($obj, $this.defineFromStruct(struct));
+      }, {});
+    }
+    return fields;
+  },
+
+  defineFromStruct: struct =>
+    _.reduceRight(struct, ($, name) => {
+      if (_.endsWith(name, '[]')) {
+        const obj = {};
+        obj[_.trimEnd(name, '[]')] = [$];
+        return obj;
+      }
+
+      // no brakets
+      const obj = {};
+      obj[name] = $;
+      return obj;
+    }, {}),
+
+  handleFieldsArrayOfObjects: ($fields) => {
+    let fields = $fields;
+    // handle array of objects (with unified props)
+    if (_.isArray(fields) && _.every(fields, _.isObject)) {
+      fields = _.reduce(fields, ($obj, $) => {
+        if (!_.has($, 'name')) return undefined;
+        return Object.assign($obj, { [$.name]: $ });
+      }, {});
+    }
+    return fields;
   },
 
   handleFieldsNested: fields =>
