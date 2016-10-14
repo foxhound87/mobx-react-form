@@ -33,14 +33,14 @@ export default class Field {
   @observable validationFunctionsData = [];
   @observable validationAsyncData = {};
 
-  constructor(key, path, field = {}, state, props = {}) {
+  constructor(key, path, field = {}, state, props = {}, update = false) {
     this.state = state;
 
     this.assignFieldHelpers();
     this.assignFieldsInitializer();
 
-    this.setupField(key, path, field, props);
-    this.initNestedFields(field.fields);
+    this.setupField(key, path, field, props, update);
+    this.initNestedFields(field.fields, update);
 
     // set as auto-incremental
     if (this.hasIntKeys() || !this.fields.size) {
@@ -57,8 +57,8 @@ export default class Field {
   }
 
   @action
-  initNestedFields(fields) {
-    this.initFields({ fields });
+  initNestedFields(fields, update) {
+    this.initFields({ fields }, update);
   }
 
   @action
@@ -70,7 +70,7 @@ export default class Field {
     $related = null,
     $validate = null,
     $rules = null,
-  } = {}) {
+  } = {}, update) {
     this.key = $key;
     this.path = $path;
 
@@ -91,7 +91,7 @@ export default class Field {
       /* The field IS the value here */
       this.name = $key;
       this.initialValue = this.parseInitialValue($field, $value);
-      this.$default = this.parseDefaultValue($field.default, $default);
+      this.$default = update ? '' : this.parseDefaultValue($field.default, $default);
       this.$value = this.initialValue;
       this.$label = $label || $key;
       this.$rules = $rules || null;
@@ -117,7 +117,7 @@ export default class Field {
     if (_.isObject($field)) {
       const { name, label, disabled, rules, validate, related } = $field;
       this.initialValue = this.parseInitialValue($field.value, $value);
-      this.$default = this.parseDefaultValue($field.default, $default);
+      this.$default = update ? '' : this.parseDefaultValue($field.default, $default);
       this.name = name || $key;
       this.$value = this.initialValue;
       this.$label = $label || label || this.name;

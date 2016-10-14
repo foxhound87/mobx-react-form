@@ -136,7 +136,7 @@ export default $this => ({
         const cpath = _.trimEnd(path.replace(new RegExp('/[^./]+$/'), ''), '.');
         const container = $this.select(cpath, null, false);
         if (!_.isUndefined(container)) {
-          container.initField(key, $fullPath, val);
+          container.initField(key, $fullPath, val, null, true);
         }
       }
     });

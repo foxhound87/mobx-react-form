@@ -30,7 +30,7 @@ describe('Check Nested $L Values', () => {
     expect($.$L.$('state.city.places.brooklynBridge').value).to.be.false);
 });
 
-describe('Check Nested $M Values (fields prop)', () => {
+describe('Check Nested $M Values', () => {
   it('$M club value should be equal to "HELLO"', () =>
     expect($.$M.$('club').value).to.be.equal('HELLO'));
 
@@ -50,7 +50,7 @@ describe('Check Nested $M Values (fields prop)', () => {
     expect($.$M.$('members[1].hobbies[1]').value).to.be.equal('Basket'));
 });
 
-describe('Check Nested $N Values (values prop)', () => {
+describe('Check Nested $N Values', () => {
   it('$N club value should be equal to "HELLO"', () =>
     expect($.$N.$('club').value).to.be.equal('HELLO'));
 
@@ -70,7 +70,7 @@ describe('Check Nested $N Values (values prop)', () => {
     expect($.$N.$('members.1.hobbies').$(1).value).to.be.equal('Basket'));
 });
 
-describe('Check Nested $O Values (fields prop)', () => {
+describe('Check Nested $O Values', () => {
   it('$O club.name value should be equal to "HELLO"', () =>
     expect($.$O.$('club.name').value).to.be.equal('HELLO'));
 
@@ -88,4 +88,24 @@ describe('Check Nested $O Values (fields prop)', () => {
 
   it('$O members[1].hobbies[1] value should be equal to "Basket"', () =>
     expect($.$O.$('members[1].hobbies[1]').value).to.be.equal('Basket'));
+});
+
+describe('Check Nested $P Values after reset', () => {
+  it('$P club.name value should be empty', () =>
+    expect($.$P.$('club.name').value).to.be.empty);
+
+  it('$P members[0].firstname value should be empty', () =>
+    expect($.$P.$('members[0].firstname').value).to.be.empty);
+
+  it('$P members[1].firstname value should be empty', () =>
+    expect($.$P.$('members[1].firstname').value).to.be.empty);
+
+  it('$P members[0].hobbies[1] value should be empty', () =>
+    expect($.$P.$('members[0].hobbies[1]').value).to.be.empty);
+
+  it('$P members[1].hobbies[0] value should be empty', () =>
+    expect($.$P.$('members[1].hobbies[0]').value).to.be.empty);
+
+  it('$P members[1].hobbies[1] value should be empty', () =>
+    expect($.$P.$('members[1].hobbies[1]').value).to.be.empty);
 });
