@@ -29,8 +29,9 @@
 
 | Property | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **select(path)** | (string) | object | Field Selector. Can be chained. | - |
+| **init(data)** | (mixed) | - | Fields to initialize. | - |
 | **update(data)** | (mixed) | - | Update Fields Values. | - |
+| **select(path)** | (string) | object | Field Selector. Can be chained. | - |
 | **get(prop)** | (string|array) | - | Get all field data or filter by certain `props`. | - |
 | **set(val)** | (mixed) | - | Set field value. Takes prop key and prop value. | - |
 | **set(prop, val)** | (string, mixed) | - | Set field property. Takes prop key and prop value. | - |

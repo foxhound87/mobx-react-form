@@ -109,3 +109,17 @@ describe('Check Nested $P Values after reset', () => {
   it('$P members[1].hobbies[1] value should be empty', () =>
     expect($.$P.$('members[1].hobbies[1]').value).to.be.empty);
 });
+
+describe('Check Nested $Q Values after reset', () => {
+  it('$Q club.name value should be equal to "HELLO"', () =>
+    expect($.$Q.$('club.name').value).to.be.equal('HELLO'));
+
+  it('$Q club.city value should be equal to "NY"', () =>
+    expect($.$Q.$('club.city').value).to.be.equal('NY'));
+
+  it('$Q members[1].firstname value should be equal to "Charlie"', () =>
+    expect($.$Q.$('members[1].firstname').value).to.be.equal('Charlie'));
+
+  it('$Q members[1].hobbies[1] value should be equal to "Basket"', () =>
+    expect($.$Q.$('members[1].hobbies[1]').value).to.be.equal('Basket'));
+});

@@ -160,7 +160,15 @@ export default class Form {
   /* ACTIONS */
 
   /**
-    Clear Form
+    Init Form Fields
+  */
+  @action
+  init(fields) {
+    this.fields = asMap({});
+    this.initFields({ fields });
+  }
+  /**
+    Clear Form Fields
   */
   @action
   clear() {
@@ -168,7 +176,7 @@ export default class Form {
   }
 
   /**
-    Reset Form
+    Reset Form Fields
   */
   @action
   reset() {

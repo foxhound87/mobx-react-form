@@ -13,7 +13,7 @@ const fields = [
 class Form extends MobxReactForm {
 
   onInit(form) {
-    form.update({
+    form.init({
       club: {
         name: 'HELLO',
         city: 'NY',
@@ -34,4 +34,4 @@ class Form extends MobxReactForm {
 }
 
 
-export default new Form({ fields }, 'Nested-O');
+export default new Form({ fields }, 'Nested-Q');
