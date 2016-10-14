@@ -145,22 +145,18 @@ export default $this => ({
   /**
     Get Fields Props
   */
-  get: (prop = null) => {
+  get: (prop = null, struct = false) => {
     if (_.isNull(prop)) {
       return $this.deepGet(utils.props, $this.fields);
     }
 
     utils.allowed('props', _.isArray(prop) ? prop : [prop]);
 
-    if (_.isString(prop)) {
-      return $this.deepMap(prop, $this.fields);
-    }
-
-    if (_.isArray(prop)) {
+    if (_.isArray(prop) || !struct) {
       return $this.deepGet(prop, $this.fields);
     }
 
-    return null;
+    return $this.deepMap(prop, $this.fields);
   },
 
   /**
@@ -269,8 +265,11 @@ export default $this => ({
         [field.key]: field[prop],
       });
     }
+
+    const data = $this.deepMap(prop, field.fields);
+
     return Object.assign(obj, {
-      [field.key]: $this.deepMap(prop, field.fields),
+      [field.key]: field.incremental ? _.values(data) : data,
     });
   }, {}),
 
