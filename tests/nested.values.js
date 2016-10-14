@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import $ from './data/_.nested'; // FORMS
 
-describe('Check Nested $I Separated Properties', () => {
+describe('Check Nested $I Separated Properties (values)', () => {
   it('$I state.city.places.centralPark value should be true', () =>
   expect($.$I.$('state.city.places.centralPark').value).to.be.true);
 

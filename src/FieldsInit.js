@@ -12,7 +12,7 @@ export default $this => ({
     const $fields = fields || $this.fields;
     const initial = $this.state.get('current', 'props');
     // try to get props from separated objects
-    const $try = prop => _.has(initial[prop], path) && initial[prop][path];
+    const $try = prop => _.has(initial[prop], path) && _.get(initial[prop], path);
 
     $fields.merge({
       [key]: new Field(key, path, data, $this.state, {
@@ -39,6 +39,20 @@ export default $this => ({
       && $this.initField(key, $path(key), field));
   }),
 
+  defineFromStruct: struct =>
+    _.reduceRight(struct, ($, name) => {
+      if (_.endsWith(name, '[]')) {
+        const obj = {};
+        obj[_.trimEnd(name, '[]')] = [$];
+        return obj;
+      }
+
+      // no brakets
+      const obj = {};
+      obj[name] = $;
+      return obj;
+    }, {}),
+
   prepareFieldsData: (initial) => {
     let fields = initial.fields || {};
     fields = $this.handleFieldsEmpty(fields, initial);
@@ -62,7 +76,6 @@ export default $this => ({
     if (_.isArray(fields) && _.every(fields, _.isString)) {
       // save the global struct into state
       $this.state.struct(fields);
-      // console.log('isArray every', fields);
       fields = _.reduce(fields, ($obj, $) => {
         const struct = _.split($, '.');
         // as array of strings (with empty values)
@@ -73,20 +86,6 @@ export default $this => ({
     }
     return fields;
   },
-
-  defineFromStruct: struct =>
-    _.reduceRight(struct, ($, name) => {
-      if (_.endsWith(name, '[]')) {
-        const obj = {};
-        obj[_.trimEnd(name, '[]')] = [$];
-        return obj;
-      }
-
-      // no brakets
-      const obj = {};
-      obj[name] = $;
-      return obj;
-    }, {}),
 
   handleFieldsArrayOfObjects: ($fields) => {
     let fields = $fields;

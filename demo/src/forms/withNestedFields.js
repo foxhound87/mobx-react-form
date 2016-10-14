@@ -8,20 +8,24 @@ const fields = [
   'members[].hobbies[]',
 ];
 
-// const fields = {
-//   club: {
-//     name: 'HELLO',
-//     city: 'NY',
-//   },
-//   members: [{
-//     firstname: 'Clint',
-//     lastname: 'Eastwood',
-//     hobbies: ['Soccer', 'Baseball'],
-//   }, {
-//     firstname: 'Charlie',
-//     lastname: 'Chaplin',
-//     hobbies: ['Golf', 'Basket'],
-//   }],
-// };
+const values = {
+  club: {
+    name: 'HELLO',
+    city: 'NY',
+  },
+  members: [{
+    firstname: 'Clint',
+    lastname: 'Eastwood',
+    hobbies: ['Soccer', 'Baseball'],
+  }, {
+    firstname: 'Charlie',
+    lastname: 'Chaplin',
+    hobbies: ['Golf', 'Basket'],
+  }],
+};
 
-export default { fields };
+const labels = {
+  club: 'x',
+};
+
+export default { fields, values, labels };
