@@ -123,20 +123,20 @@ export default $this => ({
 
   deepUpdate: (fields, path = '') => {
     _.each(fields, (val, key) => {
-      const $path = _.trimStart(`${path}.${key}`, '.');
-      const $field = $this.select($path, null, false);
+      const $fullPath = _.trimStart(`${path}.${key}`, '.');
+      const $field = $this.select($fullPath, null, false);
 
       if (!_.isUndefined($field)) {
         if (_.isUndefined(val.fields)) {
           $field.set('value', val);
         } else {
-          $this.deepUpdate(val.fields, $path);
+          $this.deepUpdate(val.fields, $fullPath);
         }
       } else {
         const cpath = _.trimEnd(path.replace(new RegExp('/[^./]+$/'), ''), '.');
         const container = $this.select(cpath, null, false);
         if (!_.isUndefined(container)) {
-          container.initField(key, path, val);
+          container.initField(key, $fullPath, val);
         }
       }
     });

@@ -3,10 +3,22 @@ import MobxReactForm from '../../../../src';
 const fields = [
   'club.name',
   'club.city',
+  'members',
   'members[].firstname',
   'members[].lastname',
+  'members[].hobbies',
   'members[].hobbies[]',
 ];
+
+const labels = {
+  'club': 'Label Club',
+  'club.name': 'Label Club Name',
+  'club.city': 'Label Club City',
+  'members': 'Label Members',
+  'members[].firstname': 'Label Member FirstName',
+  'members[].lastname': 'Label Member LastName',
+  'members[].hobbies': 'Label Member Hobby',
+};
 
 class Form extends MobxReactForm {
 
@@ -30,4 +42,4 @@ class Form extends MobxReactForm {
 }
 
 
-export default new Form({ fields }, 'Nested-M');
+export default new Form({ fields, labels }, 'Nested-O');

@@ -56,21 +56,21 @@ class FormWithNestedFields extends Form {
     //   club: 'NEW LABEL',
     // });
 
-    // $form.update({
-    //   club: {
-    //     name: 'VVVVVV',
-    //     city: 'KKKKKK',
-    //   },
-    //   members: [{
-    //     firstname: 'XXXXXXX',
-    //     lastname: 'YYYYYY',
-    //     hobbies: ['@@@@@', '######'],
-    //   }, {
-    //     firstname: 'AAAAAAA',
-    //     lastname: 'BBBBB',
-    //     hobbies: ['HHHHH', 'NNNNNN'],
-    //   }],
-    // });
+    $form.update({
+      club: {
+        name: 'VVVVVV',
+        city: 'KKKKKK',
+      },
+      members: [{
+        firstname: 'XXXXXXX',
+        lastname: 'YYYYYY',
+        hobbies: ['@@@@@', '######'],
+      }, {
+        firstname: 'AAAAAAA',
+        lastname: 'BBBBB',
+        hobbies: ['HHHHH', 'NNNNNN'],
+      }],
+    });
 
     console.log('@@@VALUES', $form.values());
   }
@@ -83,28 +83,18 @@ class CompanyWidgetsForm extends Form {}
 
 export default {
   withNestedFields: new FormWithNestedFields({
-    plugins,
-    fields: withNestedFields.fields,
-  }),
+    plugins, ...withNestedFields,
+  }, 'FormWithNestedFields'),
   registerMaterial: new RegisterMaterialForm({
-    plugins,
-    fields: registerMaterial.fields,
-    schema: registerMaterial.schema,
-  }),
+    plugins, ...registerMaterial,
+  }, 'RegisterMaterialForm'),
   registerSimple: new RegisterSimpleForm({
-    plugins,
-    fields: registerSimple.fields,
-    schema: registerSimple.schema,
-  }),
+    plugins, ...registerSimple,
+  }, 'RegisterSimpleForm'),
   companySimple: new CompanySimpleForm({
-    plugins,
-    fields: companySimple.fields,
-    schema: companySimple.schema,
-    options: { allowRequired: true },
+    plugins, ...companySimple, options: { allowRequired: true },
   }),
   companyWidgets: new CompanyWidgetsForm({
-    plugins,
-    fields: companyWidgets.fields,
-    schema: companyWidgets.schema,
-  }),
+    plugins, ...companyWidgets,
+  }, 'CompanyWidgetsForm'),
 };

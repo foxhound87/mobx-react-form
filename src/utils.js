@@ -4,6 +4,8 @@ const computed = ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', '
 const props = ['value', 'error', 'label', 'disable', 'default', 'related'];
 const vprops = ['rules', 'validate'];
 
+const pathToStruct = path => _.trimEnd(_.replace(path, new RegExp('[.]\\d($|.)', 'g'), '[].'), '.');
+
 const has = ($type, $data) => {
   let $;
   switch ($type) {
@@ -25,4 +27,13 @@ const isPromise = obj => (!!obj
   && (typeof obj === 'object' || typeof obj === 'function')
   && typeof obj.then === 'function');
 
-export default { computed, props, vprops, has, allowed, isPromise };
+
+export default {
+  computed,
+  props,
+  vprops,
+  has,
+  allowed,
+  isPromise,
+  pathToStruct,
+};

@@ -5,7 +5,7 @@ import DebugForm from './Debug';
 const HobbiesFields = observer(({ form, field }) => (
   <fieldset>
     <div className="clearfix">
-      <div className="left">Hobbies</div>
+      <div className="left">{field.$('hobbies').label}</div>
       <div className="right">
         <button type="button" onClick={e => field.onAdd(e, 'hobbies')}>
           <i className="fa fa-plus-circle" data-tip="Add Hobby" />
@@ -115,6 +115,20 @@ const FormWithNestedFields = observer(({ form }) => (
     <form>
       <h2>Nested Fields</h2>
 
+      <div className="clearfix">
+        <div className="left">
+          <b>{form.$('club').label}</b>
+        </div>
+        <div className="right">
+          <button type="button" onClick={form.$('club').onClear}>
+            <i className="fa fa-eraser" data-tip="Clear Club" />
+          </button>
+          <button type="button" onClick={form.$('club').onReset}>
+            <i className="fa fa-refresh" data-tip="Reset Club" />
+          </button>
+        </div>
+      </div>
+      <hr />
       <fieldset className="center">
         <div>
           <b>{form.$('club.name').label}</b>

@@ -11,13 +11,17 @@ export default $this => ({
   initField: action('init-Field', (key, path, data, fields = null) => {
     const $fields = fields || $this.fields;
     const initial = $this.state.get('current', 'props');
+
     // try to get props from separated objects
-    const $try = prop => _.has(initial[prop], path) && _.get(initial[prop], path);
+    const $try = (prop) => {
+      const struct = utils.pathToStruct(path);
+      return _.get(initial[prop], struct);
+    };
 
     $fields.merge({
       [key]: new Field(key, path, data, $this.state, {
-        $label: $try('labels'),
         $value: $try('values'),
+        $label: $try('labels'),
         $default: $try('defaults'),
         $disabled: $try('disabled'),
         $related: $try('related'),
@@ -28,10 +32,8 @@ export default $this => ({
   }),
 
   initFields: action('init-Fields', (initial) => {
-    const fields = $this.prepareFieldsData(initial);
-    $this.state.set('current', 'fields', fields);
-
     const $path = key => _.trimStart([$this.path, key].join('.'), '.');
+    const fields = $this.prepareFieldsData(initial);
 
     // create fields
     _.each(fields, (field, key) =>
@@ -39,7 +41,17 @@ export default $this => ({
       && $this.initField(key, $path(key), field));
   }),
 
-  defineFromStruct: struct =>
+  prepareFieldsData: (initial) => {
+    let fields = initial.fields || {};
+    fields = $this.handleFieldsEmpty(fields, initial);
+    fields = $this.handleFieldsArrayOfStrings(fields);
+    fields = $this.handleFieldsArrayOfObjects(fields);
+    fields = $this.handleFieldsNested(fields);
+    fields = $this.mergeSchemaDefaults(fields);
+    return fields;
+  },
+
+  defineFieldsFromStruct: struct =>
     _.reduceRight(struct, ($, name) => {
       if (_.endsWith(name, '[]')) {
         const obj = {};
@@ -52,16 +64,6 @@ export default $this => ({
       obj[name] = $;
       return obj;
     }, {}),
-
-  prepareFieldsData: (initial) => {
-    let fields = initial.fields || {};
-    fields = $this.handleFieldsEmpty(fields, initial);
-    fields = $this.handleFieldsArrayOfStrings(fields);
-    fields = $this.handleFieldsArrayOfObjects(fields);
-    fields = $this.handleFieldsNested(fields);
-    fields = $this.mergeSchemaDefaults(fields);
-    return fields;
-  },
 
   handleFieldsEmpty: (fields, initial) => {
     if (!_.isEmpty(fields) || !_.has(initial, 'values')) return fields;
@@ -77,11 +79,11 @@ export default $this => ({
       // save the global struct into state
       $this.state.struct(fields);
       fields = _.reduce(fields, ($obj, $) => {
-        const struct = _.split($, '.');
+        const pathStruct = _.split($, '.');
         // as array of strings (with empty values)
-        if (!struct.length) return Object.assign($obj, { [$]: '' });
-        // define flat or nested fields from struct
-        return _.merge($obj, $this.defineFromStruct(struct));
+        if (!pathStruct.length) return Object.assign($obj, { [$]: '' });
+        // define flat or nested fields from pathStruct
+        return _.merge($obj, $this.defineFieldsFromStruct(pathStruct));
       }, {});
     }
     return fields;
