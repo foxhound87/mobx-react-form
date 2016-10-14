@@ -117,8 +117,29 @@ export default $this => ({
     OR Create Field if 'undefined'
   */
   update: (data) => {
-    $this.set('value', data);
-    $this.initFields({ fields: data });
+    const fields = $this.prepareFieldsData({ fields: data });
+    $this.deepUpdate(fields);
+  },
+
+  deepUpdate: (fields, path = '') => {
+    _.each(fields, (val, key) => {
+      const $path = _.trimStart(`${path}.${key}`, '.');
+      const $field = $this.select($path, null, false);
+
+      if (!_.isUndefined($field)) {
+        if (_.isUndefined(val.fields)) {
+          $field.set('value', val);
+        } else {
+          $this.deepUpdate(val.fields, $path);
+        }
+      } else {
+        const cpath = _.trimEnd(path.replace(new RegExp('/[^./]+$/'), ''), '.');
+        const container = $this.select(cpath, null, false);
+        if (!_.isUndefined(container)) {
+          container.initField(key, path, val);
+        }
+      }
+    });
   },
 
   /**
