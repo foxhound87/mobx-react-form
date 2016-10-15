@@ -13,18 +13,6 @@
 
 ---
 
-<br>
-
-## Changelog & Documentation
-See the [Changelog](https://github.com/foxhound87/mobx-react-form/blob/master/CHANGELOG.md) or the [Documentation](https://foxhound87.github.io/mobx-react-form) for all the details.
-
-## Demo
-
-https://mobx-react-form-demo-bbtfrgtrzh.now.sh
-
-## Tutorial
-[Automagically manage React forms state and automatic validation with MobX](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769)
-
 ## Features
 
 - Automatic Reactive Form State Management with MobX Magic
@@ -33,6 +21,20 @@ https://mobx-react-form-demo-bbtfrgtrzh.now.sh
 - Nested Fields (w/ Validation)
 - Sync & Async Validation functions
 - Support for Material UI, React Widgets, React Select
+
+<br>
+
+## Documentation
+
+[https://foxhound87.github.io/mobx-react-form](https://foxhound87.github.io/mobx-react-form)
+
+## Demo
+
+[https://foxhound87.github.io/mobx-react-form/demo.html](https://foxhound87.github.io/mobx-react-form/demo.html)
+
+## Tutorial
+[Automagically manage React forms state and automatic validation with MobX](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769)
+
 
 ## Install
 
