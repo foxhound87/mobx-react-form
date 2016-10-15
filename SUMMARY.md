@@ -2,7 +2,7 @@
 
 ## Introduction
 * [Introduction](README.md)
-* [Getting Started](getting-started.md)
+* [Getting Started](docs/getting-started.md)
 
 ## Start
 * [Defining Fields](docs/defining-fields/README.md)
