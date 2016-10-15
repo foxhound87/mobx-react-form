@@ -297,9 +297,9 @@ export default class Form {
   /**
     Event: On Add
   */
-  onAdd = (e, data) => {
+  onAdd = (e, key) => {
     e.preventDefault();
-    this.add(data);
+    this.add(key);
   };
 
   /**

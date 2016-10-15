@@ -409,9 +409,9 @@ export default class Field {
   /**
     Event: On Add
   */
-  onAdd = (e, path) => {
+  onAdd = (e, key) => {
     e.preventDefault();
-    this.add(path);
+    this.add(key);
   };
 
   /**
