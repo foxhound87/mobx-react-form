@@ -21,8 +21,7 @@ export default class Field {
   @observable $value;
   @observable $default;
   @observable $disabled = false;
-
-  initialValue = undefined;
+  @observable $initial = undefined;
 
   @observable errorSync = null;
   @observable errorAsync = null;
@@ -90,9 +89,9 @@ export default class Field {
     _.isNumber($field)) {
       /* The field IS the value here */
       this.name = $key;
-      this.initialValue = this.parseInitialValue($field, $value);
+      this.$initial = this.parseInitialValue($field, $value);
       this.$default = update ? '' : this.parseDefaultValue($field.default, $default);
-      this.$value = this.initialValue;
+      this.$value = this.$initial;
       this.$label = $label || $key;
       this.$rules = $rules || null;
       this.$disabled = $disabled || false;
@@ -116,10 +115,10 @@ export default class Field {
     */
     if (_.isObject($field)) {
       const { name, label, disabled, rules, validate, related } = $field;
-      this.initialValue = this.parseInitialValue($field.value, $value);
+      this.$initial = this.parseInitialValue($field.value, $value);
       this.$default = update ? '' : this.parseDefaultValue($field.default, $default);
       this.name = name || $key;
-      this.$value = this.initialValue;
+      this.$value = this.$initial;
       this.$label = $label || label || this.name;
       this.$rules = $rules || rules || null;
       this.$disabled = $disabled || disabled || false;
@@ -141,7 +140,7 @@ export default class Field {
   parseDefaultValue(initial, separated) {
     if (separated === 0) return separated;
     const $value = separated || initial;
-    return !_.isUndefined($value) ? $value : this.initialValue;
+    return !_.isUndefined($value) ? $value : this.$initial;
   }
 
   /* ------------------------------------------------------------------ */
@@ -240,9 +239,9 @@ export default class Field {
 
   @action
   reset(deep = false) {
-    const useDefaultValue = (this.$default !== this.initialValue);
+    const useDefaultValue = (this.$default !== this.$initial);
     if (useDefaultValue) this.value = this.$default;
-    if (!useDefaultValue) this.value = this.initialValue;
+    if (!useDefaultValue) this.value = this.$initial;
 
     // recursive clear fields
     if (deep) this.deepAction('reset', this.fields);
@@ -282,7 +281,7 @@ export default class Field {
   set value(newVal) {
     if (this.$value === newVal) return;
     // handle numbers
-    if (_.isNumber(this.initialValue)) {
+    if (_.isNumber(this.$initial)) {
       const numericVal = _.toNumber(newVal);
       if (!_.isString(numericVal) && !_.isNaN(numericVal)) {
         this.$value = numericVal;
@@ -315,7 +314,7 @@ export default class Field {
 
   @computed
   get initial() {
-    return this.initialValue;
+    return this.$initial;
   }
 
   @computed
