@@ -56,7 +56,7 @@ class FormWithNestedFields extends Form {
     //   club: 'NEW LABEL',
     // });
 
-    $form.init({
+    $form.update({
       club: {
         name: 'VVVVVV',
         city: 'KKKKKK',

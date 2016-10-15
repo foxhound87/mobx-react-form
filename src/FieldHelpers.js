@@ -16,27 +16,27 @@ export default $this => ({
   /**
     Fields Values (recursive with Nested Fields)
   */
-  values: () => $this.deepMap('value', $this.fields),
+  values: (struct = false) => $this.get('value', struct),
 
   /**
     Fields Errors (recursive with Nested Fields)
   */
-  errors: () => $this.deepMap('error', $this.fields),
+  errors: (struct = false) => $this.get('error', struct),
 
   /**
     Fields Labels (recursive with Nested Fields)
   */
-  labels: () => $this.deepMap('label', $this.fields),
+  labels: (struct = false) => $this.get('label', struct),
 
   /**
     Fields Default Values (recursive with Nested Fields)
   */
-  defaults: () => $this.deepMap('default', $this.fields),
+  defaults: (struct = false) => $this.get('default', struct),
 
   /**
     Fields Initial Values (recursive with Nested Fields)
   */
-  initials: () => $this.deepMap('initial', $this.fields),
+  initials: (struct = false) => $this.get('initial', struct),
 
   /**
     Fields Iterator
@@ -145,14 +145,14 @@ export default $this => ({
   /**
     Get Fields Props
   */
-  get: (prop = null, struct = false) => {
+  get: (prop = null, struct = true) => {
     if (_.isNull(prop)) {
       return $this.deepGet(utils.props, $this.fields);
     }
 
     utils.allowed('props', _.isArray(prop) ? prop : [prop]);
 
-    if (_.isArray(prop) || !struct) {
+    if (_.isArray(prop) || struct) {
       return $this.deepGet(prop, $this.fields);
     }
 

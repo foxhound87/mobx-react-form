@@ -1,30 +1,30 @@
 // const fields = {};
 
-const fields = [
-  'club.name',
-  'club.city',
-  'members',
-  'members[].firstname',
-  'members[].lastname',
-  'members[].hobbies',
-  'members[].hobbies[]',
-];
+// const fields = [
+//   'club.name',
+//   'club.city',
+//   'members',
+//   'members[].firstname',
+//   'members[].lastname',
+//   'members[].hobbies',
+//   'members[].hobbies[]',
+// ];
 
-// const fields = {
-//   club: {
-//     name: 'HELLO',
-//     city: 'NY',
-//   },
-//   members: [{
-//     firstname: 'Clint',
-//     lastname: 'Eastwood',
-//     hobbies: ['Soccer', 'Baseball'],
-//   }, {
-//     firstname: 'Charlie',
-//     lastname: 'Chaplin',
-//     hobbies: ['Golf', 'Basket'],
-//   }],
-// };
+const fields = {
+  club: {
+    name: 'Jazz Club',
+    city: 'New York',
+  },
+  members: [{
+    firstname: 'Clint',
+    lastname: 'Eastwood',
+    hobbies: ['Soccer', 'Baseball'],
+  }, {
+    firstname: 'Charlie',
+    lastname: 'Chaplin',
+    hobbies: ['Golf', 'Basket'],
+  }],
+};
 
 const labels = {
   'club': 'Label Club',

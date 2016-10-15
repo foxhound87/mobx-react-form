@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const computed = ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty'];
-const props = ['value', 'error', 'label', 'disable', 'default', 'related'];
+const props = ['value', 'error', 'label', 'disable', 'initial', 'default', 'related'];
 const vprops = ['rules', 'validate'];
 
 const pathToStruct = path => _.trimEnd(_.replace(path, new RegExp('[.]\\d($|.)', 'g'), '[].'), '.');
