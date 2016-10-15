@@ -1,5 +1,5 @@
 import ajv from 'ajv';
-import Form from '../../../../src';
+import MobxReactForm from '../../../../src';
 import svkExtend from '../../extension/svk';
 
 const plugins = {
@@ -33,5 +33,12 @@ const schema = {
     password: { type: 'string', minLength: 6, maxLength: 20 },
   },
 };
+
+class Form extends MobxReactForm {
+
+  onInit(form) {
+    form.clear(); // to empty values
+  }
+}
 
 export default new Form({ fields, schema, plugins }, 'L');

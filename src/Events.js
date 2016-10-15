@@ -7,12 +7,14 @@ class Events {
     clear: false,
     reset: false,
     update: false,
+    validate: false,
   };
 
   $path = {
     clear: null,
     reset: null,
     update: null,
+    validate: null,
   };
 
   getRunning(key = null) {
@@ -24,6 +26,7 @@ class Events {
   setRunning(key, flag, path = null) {
     this.$running[key] = flag;
     if (path) this.$path[key] = path;
+    else this.$path[key] = null;
   }
 
   path(key) {

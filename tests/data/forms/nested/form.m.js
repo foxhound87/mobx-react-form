@@ -1,7 +1,7 @@
 import Form from '../../../../src';
 
 const fields = {
-  clubname: 'HELLO',
+  club: 'HELLO',
   members: [{
     firstname: 'Clint',
     lastname: 'Eastwood',

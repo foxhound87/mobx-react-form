@@ -1,5 +1,4 @@
 # MobX React Form
-> A.K.A. `mobx-ajv-form` (deprecated). Use `mobx-react-form` instead.
 
 ##### Automagically manage React forms state and automatic validation with MobX.
 
@@ -17,7 +16,7 @@
 <br>
 
 ## Changelog & Documentation
-See the [Changelog](https://github.com/foxhound87/mobx-react-form/blob/master/CHANGELOG.md) or the [Documentation](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md) for all the details.
+See the [Changelog](https://github.com/foxhound87/mobx-react-form/blob/master/CHANGELOG.md) or the [Documentation](https://foxhound87.github.io/mobx-react-form) for all the details.
 
 ## Demo
 
@@ -139,40 +138,6 @@ const FormComponent = ({ form, events }) => (
 
 export default observer(FormComponent);
 ```
-
-<br>
-
-## Documentation Index
-
-- [Defining the Form Fields](https://github.com/foxhound87/mobx-react-form/blob/master/docs/DefiningFields.md)
-- [Form Initialization](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormInit.md)
-- [Form Actions](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormActions.md)
-- [Form Events](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormEvents.md)
-- [Form Options](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#form-options)
-- [Validation Plugins](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#validation-plugins)
-- [Form API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FormApi.md)
-- [Fields API List](https://github.com/foxhound87/mobx-react-form/blob/master/docs/FieldsApi.md)
-- [Supported Validation Packages](https://github.com/foxhound87/mobx-react-form/blob/master/DOCUMENTATION.md#supported-validation-packages)
-- [Remove AJV Warnings from webpack](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingSVKValidation.md#remove-ajv-warnings-from-webpack)
-
-<br>
-
-## Plugins Extensions
-
-###### VALIDATION MODES
-- [Enabling Vanilla Javascript Validation Functions (VJF)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingVJFValidation.md)
-- [Enabling Json Schema Validation Keywords (SVK)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingSVKValidation.md)
-- [Enabling Declarative Validation Rules (DVR)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/EnablingDVRValidation.md)
-
-###### EXTEND VALIDATION
-- [Custom Vanilla Javascript Validation Functions](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationFunctions.md)
-- [Custom Json Schema Validation Keywords (extend)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationKeywords.md)
-- [Custom Declarative Validation Rules (extend)](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationRules.md)
-
-###### ASYNC VALIDATION
-- [Async Vanilla Javascript Validation Functions](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationFunctions.md#async-validation-functions)
-- [Async Json Schema Validation Keywords](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationKeywords.md#async-validation-keywords)
-- [Async Declarative Validation Rules](https://github.com/foxhound87/mobx-react-form/blob/master/docs/CustomValidationRules.md#async-validation-rules)
 
 <br>
 

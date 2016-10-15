@@ -1,3 +1,14 @@
+# 2.0
+
+* Nested Fields
+* Nested Validation
+
+# 1.12
+
+* MobX as peer depdendency
+* Lodash Cherry Pick
+* Fixed #74 (validateOnChange option)
+
 # 1.11
 
 * Enhanced events handlers

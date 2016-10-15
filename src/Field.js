@@ -6,8 +6,9 @@ import fieldHelpers from './FieldHelpers';
 
 export default class Field {
 
+  incremental = false;
   fields = asMap({});
-
+  state;
   path;
   key;
   name;
@@ -15,9 +16,12 @@ export default class Field {
   $rules;
   $validate;
   $related;
+
   @observable $label;
   @observable $value;
+  @observable $default;
   @observable $disabled = false;
+  @observable $initial = undefined;
 
   @observable errorSync = null;
   @observable errorAsync = null;
@@ -28,17 +32,18 @@ export default class Field {
   @observable validationFunctionsData = [];
   @observable validationAsyncData = {};
 
-  defaultValue = undefined;
-  initialValue = undefined;
-  interacted = false;
+  constructor(key, path, field = {}, state, props = {}, update = false) {
+    this.state = state;
 
-  constructor(key, path, field = {}, obj = {}) {
     this.assignFieldHelpers();
-    this.setupField(key, path, field, obj);
-    // init nested fields
-    if (_.has(field, 'fields')) {
-      this.assignFieldsInitializer();
-      this.initNestedFields(field.fields);
+    this.assignFieldsInitializer();
+
+    this.setupField(key, path, field, props, update);
+    this.initNestedFields(field.fields, update);
+
+    // set as auto-incremental
+    if (this.hasIntKeys() || !this.fields.size) {
+      this.incremental = true;
     }
   }
 
@@ -51,8 +56,8 @@ export default class Field {
   }
 
   @action
-  initNestedFields(fields) {
-    this.initFields({ fields });
+  initNestedFields(fields, update) {
+    this.initFields({ fields }, update);
   }
 
   @action
@@ -64,7 +69,7 @@ export default class Field {
     $related = null,
     $validate = null,
     $rules = null,
-  } = {}) {
+  } = {}, update) {
     this.key = $key;
     this.path = $path;
 
@@ -84,9 +89,9 @@ export default class Field {
     _.isNumber($field)) {
       /* The field IS the value here */
       this.name = $key;
-      this.initialValue = this.parseInitialValue($field, $value);
-      this.defaultValue = this.parseDefaultValue($field.default, $default);
-      this.$value = this.initialValue;
+      this.$initial = this.parseInitialValue($field, $value);
+      this.$default = update ? '' : this.parseDefaultValue($field.default, $default);
+      this.$value = this.$initial;
       this.$label = $label || $key;
       this.$rules = $rules || null;
       this.$disabled = $disabled || false;
@@ -110,10 +115,10 @@ export default class Field {
     */
     if (_.isObject($field)) {
       const { name, label, disabled, rules, validate, related } = $field;
-      this.initialValue = this.parseInitialValue($field.value, $value);
-      this.defaultValue = this.parseDefaultValue($field.default, $default);
+      this.$initial = this.parseInitialValue($field.value, $value);
+      this.$default = update ? '' : this.parseDefaultValue($field.default, $default);
       this.name = name || $key;
-      this.$value = this.initialValue;
+      this.$value = this.$initial;
       this.$label = $label || label || this.name;
       this.$rules = $rules || rules || null;
       this.$disabled = $disabled || disabled || false;
@@ -135,7 +140,23 @@ export default class Field {
   parseDefaultValue(initial, separated) {
     if (separated === 0) return separated;
     const $value = separated || initial;
-    return !_.isUndefined($value) ? $value : this.initialValue;
+    return !_.isUndefined($value) ? $value : this.$initial;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* INDEX / KEYS */
+
+  hasIntKeys() {
+    return _.every(this.parseIntKeys(), _.isInteger);
+  }
+
+  parseIntKeys() {
+    return _.map(this.fields.keys(), _.ary(parseInt, 1));
+  }
+
+  maxKey() {
+    const max = _.max(this.parseIntKeys());
+    return _.isUndefined(max) ? 0 : max;
   }
 
   /* ------------------------------------------------------------------ */
@@ -145,14 +166,22 @@ export default class Field {
     Add Field
   */
   @action
-  add(fields = null) {
-    if (!fields) {
-      const $n = _.random(999, 9999);
-      this.initField($n, [this.path, $n].join('.'));
+  add(path = null) {
+  // add(path = null, val = null) {
+    // if (path && val) {
+    //   // path is the key here
+    //   console.log('this.path', this.path);
+    //   this.initField(path, [this.path, path].join('.'));
+    //   return;
+    // }
+
+    if (_.isString(path)) {
+      this.select(path).add();
       return;
     }
 
-    this.initFields({ fields });
+    const $n = this.maxKey() + 1;
+    this.initField($n, [this.path, $n].join('.'));
   }
 
   /**
@@ -198,7 +227,6 @@ export default class Field {
 
   @action
   clear(deep = false) {
-    this.interacted = false;
     this.resetValidation();
     if (isObservableArray(this.$value)) this.$value = [];
     if (_.isBoolean(this.$value)) this.$value = false;
@@ -211,10 +239,9 @@ export default class Field {
 
   @action
   reset(deep = false) {
-    const useDefaultValue = (this.defaultValue !== this.initialValue);
-    if (useDefaultValue) this.value = this.defaultValue;
-    if (!useDefaultValue) this.value = this.initialValue;
-    this.interacted = false;
+    const useDefaultValue = (this.$default !== this.$initial);
+    if (useDefaultValue) this.value = this.$default;
+    if (!useDefaultValue) this.value = this.$initial;
 
     // recursive clear fields
     if (deep) this.deepAction('reset', this.fields);
@@ -252,10 +279,9 @@ export default class Field {
   }
 
   set value(newVal) {
-    if (!this.interacted) this.interacted = true;
     if (this.$value === newVal) return;
     // handle numbers
-    if (_.isNumber(this.initialValue)) {
+    if (_.isNumber(this.$initial)) {
       const numericVal = _.toNumber(newVal);
       if (!_.isString(numericVal) && !_.isNaN(numericVal)) {
         this.$value = numericVal;
@@ -283,7 +309,12 @@ export default class Field {
 
   @computed
   get default() {
-    return this.defaultValue;
+    return this.$default;
+  }
+
+  @computed
+  get initial() {
+    return this.$initial;
   }
 
   @computed
@@ -297,11 +328,6 @@ export default class Field {
   }
 
   @computed
-  get initial() {
-    return this.initialValue;
-  }
-
-  @computed
   get error() {
     if (this.showError === false) return null;
     return (this.errorAsync || this.errorSync);
@@ -309,9 +335,9 @@ export default class Field {
 
   @computed
   get hasError() {
-    return (!_.isEmpty(this.validationAsyncData)
-      && (this.validationAsyncData.valid === false))
-      || (this.validationErrorStack.length !== 0)
+    return ((this.validationAsyncData.valid === false)
+      && !_.isEmpty(this.validationAsyncData))
+      || !_.isEmpty(this.validationErrorStack)
       || _.isString(this.errorAsync)
       || _.isString(this.errorSync);
   }
@@ -323,17 +349,17 @@ export default class Field {
 
   @computed
   get isDirty() {
-    return (this.defaultValue !== this.$value);
+    return !_.isEqual(this.$default, this.value);
   }
 
   @computed
   get isPristine() {
-    return (this.defaultValue === this.$value);
+    return _.isEqual(this.$default, this.value);
   }
 
   @computed
   get isDefault() {
-    return (this.defaultValue === this.$value);
+    return _.isEqual(this.$default, this.value);
   }
 
   @computed
@@ -383,9 +409,9 @@ export default class Field {
   /**
     Event: On Add
   */
-  onAdd = (e, data) => {
+  onAdd = (e, key) => {
     e.preventDefault();
-    this.add(data);
+    this.add(key);
   };
 
   /**

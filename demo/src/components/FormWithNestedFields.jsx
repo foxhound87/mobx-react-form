@@ -1,101 +1,194 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { DebugForm } from './Debug';
+import DebugForm from './Debug';
+
+const HobbiesFields = observer(({ form, fields }) => (
+  <fieldset>
+    <div className="clearfix">
+      <div className="left">{fields.$('hobbies').label}</div>
+      <div className="right">
+        <button type="button" onClick={e => fields.$('hobbies').onAdd(e)}>
+          <i className="fa fa-plus-circle" data-tip="Add Hobby" />
+        </button>
+      </div>
+    </div>
+    <hr />
+    {fields.map('hobbies', hobby =>
+      <div key={hobby.key}>
+        <span key={hobby.name}>
+          <div>
+            <i>{hobby.error}</i>
+          </div>
+          <input
+            type="text"
+            placeholder="hobby"
+            name={hobby.name}
+            value={hobby.value}
+            onChange={hobby.sync}
+          />
+        </span>
+        <span>
+          <button type="button" onClick={e => form.onDel(e, hobby.path)}>
+            <i className="fa fa-times-circle" data-tip="Remove" />
+          </button>
+          <button type="button" onClick={hobby.onClear}>
+            <i className="fa fa-eraser" data-tip="Clear" />
+          </button>
+          <button type="button" onClick={hobby.onReset}>
+            <i className="fa fa-refresh" data-tip="Reset" />
+          </button>
+        </span>
+      </div>
+    )}
+  </fieldset>
+));
 
 const MembersFields = observer(({ form }) => (
   <div>
-    {form.map('members', field =>
-      <div key={field.key}>
-        <div key={field.$('firstname').name}>
-          <div>
-            <b>{field.$('firstname').label}</b>
-            <i>{field.$('firstname').error}</i>
-          </div>
-          <input
-            type="text"
-            name={field.$('firstname').name}
-            value={field.$('firstname').value}
-            placeholder={field.$('firstname').label}
-            onChange={field.$('firstname').sync}
-          />
-        </div>
-        <div key={field.$('lastname').name}>
-          <div>
-            <b>{field.$('lastname').label}</b>
-            <i>{field.$('lastname').error}</i>
-          </div>
-          <input
-            type="text"
-            name={field.$('lastname').name}
-            value={field.$('lastname').value}
-            placeholder={field.$('lastname').label}
-            onChange={field.$('lastname').sync}
-          />
-        </div>
-        <span className="ctrl">
-          <button
-            type="button"
-            onClick={e => form.$('members').onDel(e, field.key)}
-          >X</button>
-          <button type="button" onClick={field.onClear}>Clear</button>
-          <button type="button" onClick={field.onReset}>Reset</button>
-          <button type="button" onClick={e => field.$('hobbies').onAdd(e)}>+ Add Hobby</button>
-        </span>
+    <div className="clearfix">
+      <div className="left">
+        <b>{form.$('members').label}</b>
       </div>
+      <div className="right">
+        <button type="button" onClick={form.$('members').onClear}>
+          <i className="fa fa-eraser" data-tip="Clear All Members" />
+        </button>
+        <button type="button" onClick={form.$('members').onReset}>
+          <i className="fa fa-refresh" data-tip="Reset All Members" />
+        </button>
+      </div>
+    </div>
+    <hr />
+    {form.map('members', fields =>
+      <fieldset key={fields.key} className="center">
+        <div key={fields.$('firstname').name}>
+          <div>
+            <b>{fields.$('firstname').label}</b>
+            <i>{fields.$('firstname').error}</i>
+          </div>
+          <input
+            type="text"
+            name={fields.$('firstname').name}
+            value={fields.$('firstname').value}
+            placeholder={fields.$('firstname').label}
+            onChange={fields.$('firstname').sync}
+          />
+        </div>
+        <div key={fields.$('lastname').name}>
+          <div>
+            <b>{fields.$('lastname').label}</b>
+            <i>{fields.$('lastname').error}</i>
+          </div>
+          <input
+            type="text"
+            name={fields.$('lastname').name}
+            value={fields.$('lastname').value}
+            placeholder={fields.$('lastname').label}
+            onChange={fields.$('lastname').sync}
+          />
+        </div>
+        <br />
+        <span>
+          <button type="button" onClick={e => form.$('members').onDel(e, fields.key)}>
+            <i className="fa fa-times-circle" data-tip="Remove Member" />
+          </button>
+          <button type="button" onClick={fields.onClear}>
+            <i className="fa fa-eraser" data-tip="Clear Member" />
+          </button>
+          <button type="button" onClick={fields.onReset}>
+            <i className="fa fa-refresh" data-tip="Reset Member" />
+          </button>
+        </span>
+
+        <br />
+        <br />
+
+        <HobbiesFields form={form} fields={fields} />
+
+      </fieldset>
     )}
   </div>
 ));
 
 const FormWithNestedFields = observer(({ form }) => (
-  <div className="container">
-    <div className="splitted-35 fixed container-left normal">
-      <form>
-        <h2>Nested Fields</h2>
+  <div className="container normal">
+    <form>
+      <h2>Nested Fields</h2>
 
-        <div>
+      <div className="clearfix">
+        <div className="left">
           <b>{form.$('club').label}</b>
-          <i>{form.$('club').error}</i>
+        </div>
+        <div className="right">
+          <button type="button" onClick={form.$('club').onClear}>
+            <i className="fa fa-eraser" data-tip="Clear Club" />
+          </button>
+          <button type="button" onClick={form.$('club').onReset}>
+            <i className="fa fa-refresh" data-tip="Reset Club" />
+          </button>
+        </div>
+      </div>
+      <hr />
+      <fieldset className="center">
+        <div>
+          <b>{form.$('club.name').label}</b>
+          <i>{form.$('club.name').error}</i>
         </div>
         <input
           type="text"
-          name={form.$('club').name}
-          value={form.$('club').value}
-          placeholder={form.$('club').label}
-          onChange={form.$('club').sync}
+          name={form.$('club.name').name}
+          value={form.$('club.name').value}
+          placeholder={form.$('club.name').label}
+          onChange={form.$('club.name').sync}
         />
 
-        <div className="ctrl">
-          <button type="button" onClick={form.$('club').onClear}>Clear Club</button>
-          <button type="button" onClick={form.$('club').onReset}>Reset Club</button>
+        <div>
+          <b>{form.$('club.city').label}</b>
+          <i>{form.$('club.city').error}</i>
         </div>
-
-        <hr />
-        <button type="button" onClick={e => form.$('club.members').onAdd(e)}>+ Add Member</button>
-        <hr />
-
-        {<MembersFields form={form} />}
+        <input
+          type="text"
+          name={form.$('club.city').name}
+          value={form.$('club.city').value}
+          placeholder={form.$('club.city').label}
+          onChange={form.$('club.city').sync}
+        />
 
         <br />
         <br />
-
-        <div className="ctrl">
-          <button type="button" onClick={form.$('members').onClear}>Clear Members</button>
-          <button type="button" onClick={form.$('members').onReset}>Reset Members</button>
+        <div>
+          <button type="button" onClick={form.$('club').onClear}>
+            <i className="fa fa-eraser" data-tip="Clear Club" />
+          </button>
+          <button type="button" onClick={form.$('club').onReset}>
+            <i className="fa fa-refresh" data-tip="Reset Club" />
+          </button>
         </div>
+      </fieldset>
 
-        <hr />
-        <br />
-        <div className="ctrl">
-          <button type="submit" onClick={form.onSubmit}>Submit</button>
-          <button type="button" onClick={form.onClear}>Clear All</button>
-          <button type="button" onClick={form.onReset}>Reset All</button>
-        </div>
+      <br />
+      <br />
 
-        <p><i>{form.error}</i></p>
+      {<MembersFields form={form} />}
 
-      </form>
-    </div>
-    <div className="splitted-65 container-right">
+      <br />
+      <div className="ctrl">
+        <button type="submit" onClick={form.onSubmit}>
+          <i className="fa fa-dot-circle-o" /> Submit
+        </button>
+        <button type="button" onClick={form.onClear}>
+          <i className="fa fa-eraser" /> Clear All
+        </button>
+        <button type="button" onClick={form.onReset}>
+          <i className="fa fa-refresh" /> Reset All
+        </button>
+      </div>
+
+      <p><i>{form.error}</i></p>
+
+    </form>
+
+    <div className="mobx-react-form-devtools">
       <DebugForm form={form} />
     </div>
   </div>

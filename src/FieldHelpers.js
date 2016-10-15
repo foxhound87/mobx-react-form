@@ -1,7 +1,6 @@
 import { action } from 'mobx';
 import _ from 'lodash';
 import utils from './utils';
-import Options from './Options';
 import Events from './Events';
 
 /**
@@ -17,27 +16,27 @@ export default $this => ({
   /**
     Fields Values (recursive with Nested Fields)
   */
-  values: () => $this.deepMap('value', $this.fields),
+  values: (struct = false) => $this.get('value', struct),
 
   /**
     Fields Errors (recursive with Nested Fields)
   */
-  errors: () => $this.deepMap('error', $this.fields),
+  errors: (struct = false) => $this.get('error', struct),
 
   /**
     Fields Labels (recursive with Nested Fields)
   */
-  labels: () => $this.deepMap('label', $this.fields),
+  labels: (struct = false) => $this.get('label', struct),
 
   /**
     Fields Default Values (recursive with Nested Fields)
   */
-  defaults: () => $this.deepMap('default', $this.fields),
+  defaults: (struct = false) => $this.get('default', struct),
 
   /**
     Fields Initial Values (recursive with Nested Fields)
   */
-  initials: () => $this.deepMap('initial', $this.fields),
+  initials: (struct = false) => $this.get('initial', struct),
 
   /**
     Fields Iterator
@@ -62,11 +61,11 @@ export default $this => ({
       isEmpty: 'every',
     };
 
-    const $check = $[computed];
-
     return deep
-      ? _[$check]($this.deepCheck($check, computed, $this.fields))
-      : $this[computed];
+      ? utils.check({
+        type: $[computed],
+        data: $this.deepCheck($[computed], computed, $this.fields),
+      }) : $this[computed];
   },
 
   /**
@@ -83,7 +82,12 @@ export default $this => ({
     Fields Selector
   */
   select: (path, fields = null, isStrict = true) => {
-    const keys = _.split(path, '.');
+    let $path = path;
+
+    $path = _.replace($path, new RegExp('\\[', 'g'), '.');
+    $path = _.replace($path, new RegExp('\\]', 'g'), '');
+
+    const keys = _.split($path, '.');
     const head = _.head(keys);
 
     keys.shift();
@@ -92,9 +96,15 @@ export default $this => ({
       ? $this.fields.get(head)
       : fields.get(head);
 
-
+    let stop = false;
     _.each(keys, ($key) => {
-      $fields = $fields.fields.get($key);
+      if (stop) { return; }
+      if (_.isUndefined($fields)) {
+        $fields = undefined;
+        stop = true;
+      } else {
+        $fields = $fields.fields.get($key);
+      }
     });
 
     if (isStrict) $this.throwError(path, $fields);
@@ -103,31 +113,51 @@ export default $this => ({
   },
 
   /**
-    Update Field Values
+    Update Field Values recurisvely
+    OR Create Field if 'undefined'
   */
   update: (data) => {
-    $this.set('value', data);
+    const fields = $this.prepareFieldsData({ fields: data });
+    $this.deepUpdate(fields);
+  },
+
+  deepUpdate: (fields, path = '') => {
+    _.each(fields, (val, key) => {
+      const $fullPath = _.trimStart(`${path}.${key}`, '.');
+      const $field = $this.select($fullPath, null, false);
+
+      if (!_.isUndefined($field)) {
+        if (_.isUndefined(val.fields)) {
+          $field.set('value', val);
+        } else {
+          $this.deepUpdate(val.fields, $fullPath);
+        }
+      } else {
+        const cpath = _.trimEnd(path.replace(new RegExp('/[^./]+$/'), ''), '.');
+        const container = $this.select(cpath, null, false);
+        if (!_.isUndefined(container)) {
+          container.initField(key, $fullPath, val, null, true);
+        }
+      }
+    });
   },
 
   /**
     Get Fields Props
   */
-  get: (prop = null) => {
+  get: (prop = null, struct = true) => {
     if (_.isNull(prop)) {
       return $this.deepGet(utils.props, $this.fields);
     }
 
     utils.allowed('props', _.isArray(prop) ? prop : [prop]);
 
-    if (_.isString(prop)) {
-      return $this.deepMap(prop, $this.fields);
-    }
-
-    if (_.isArray(prop)) {
+    if (_.isArray(prop) || struct) {
       return $this.deepGet(prop, $this.fields);
     }
 
-    return null;
+    const data = $this.deepMap(prop, $this.fields);
+    return $this.incremental ? _.values(data) : data;
   },
 
   /**
@@ -174,12 +204,11 @@ export default $this => ({
   }),
 
   /**
-    Update Recursive Fields
+    Set Fields Props Recursively
   */
   deepSet: ($, data, path = '', recursion = false) => {
     const err = 'You are updating a not existent field:';
-
-    const isStrict = Options.get('strictUpdate');
+    const isStrict = $this.$options.get('strictUpdate');
 
     _.each(data, ($val, $key) => {
       const $path = _.trimStart(`${path}.${$key}`, '.');
@@ -201,6 +230,9 @@ export default $this => ({
     });
   },
 
+  /**
+    Get Fields Props Recursively
+  */
   deepGet: (prop, fields) =>
   _.reduce(fields.values(), (obj, field) => {
     const $nested = $fields => ($fields.size !== 0)
@@ -234,8 +266,11 @@ export default $this => ({
         [field.key]: field[prop],
       });
     }
+
+    const data = $this.deepMap(prop, field.fields);
+
     return Object.assign(obj, {
-      [field.key]: $this.deepMap(prop, field.fields),
+      [field.key]: field.incremental ? _.values(data) : data,
     });
   }, {}),
 
@@ -262,7 +297,8 @@ export default $this => ({
         check.push(field[prop]);
         return check;
       }
-      check.push(_[$]($this.deepCheck($, prop, field.fields), Boolean));
+      const $deep = $this.deepCheck($, prop, field.fields);
+      check.push(utils.check({ type: $, data: $deep }));
       return check;
     }, []),
 });

@@ -1,7 +1,7 @@
 import Form from '../../../../src';
 
 const values = {
-  clubname: 'HELLO',
+  club: 'HELLO',
   members: [{
     firstname: 'Clint',
     lastname: 'Eastwood',
@@ -13,4 +13,4 @@ const values = {
   }],
 };
 
-export default new Form({ values }, 'Nested-M');
+export default new Form({ values }, 'Nested-N');

@@ -29,10 +29,8 @@ class FormWithNestedFields extends Form {
   onInit($form) {
     // console.log('ON INIT');
 
-    // $form.on('reset', ({ form, path }) => console.log('reset', path, form));
-    // $form.on('clear', ({ form, path }) => console.log('clear', path, form));
+    // $form.on('validate@email', ({ form, path }) => console.log('validate@email', path, form));
     // $form.on('clear@club', ({ form, path }) => console.log('clear@club', path, form));
-    // $form.on('update', ({ form, path }) => console.log('update', path, form));
     // $form.on('update@club', ({ form, path }) => console.log('update@club', path, form));
 
     // console.log('GET', $form.$('address').get());
@@ -42,21 +40,40 @@ class FormWithNestedFields extends Form {
     // console.log('street isValid', $form.$('address.street').isValid);
     // console.log('isEmpty', $form.$('address.street').check('isEmpty'));
 
+    // $form.$('members.0.hobbies.1').update('aaa');
+
     // $form.options({
     //   strictUpdate: true,
     // });
 
-    // $form.set({
+    // $form.set('default', {
     //   sthElse: '...',
-    //   username: 'aaaaaa',
+    //   club: 'HEYYY',
     // });
 
     // $form.set('label', {
     //   sthElse: '...',
-    //   username: 'NEW LABEL',
+    //   club: 'NEW LABEL',
     // });
 
-    $form.$('club').set('test');
+    // $form.update({
+    //   club: {
+    //     name: 'VVVVVV',
+    //     city: 'KKKKKK',
+    //   },
+    //   members: [{
+    //     firstname: 'XXXXXXX',
+    //     lastname: 'YYYYYY',
+    //     hobbies: ['@@@@@', '######'],
+    //   }, {
+    //     firstname: 'AAAAAAA',
+    //     lastname: 'BBBBB',
+    //     hobbies: ['HHHHH', 'NNNNNN'],
+    //   }],
+    // });
+
+    console.log('@@@VALUES', $form.values());
+    // console.log('@@@GET', $form.get('label'));
   }
 }
 
@@ -67,28 +84,18 @@ class CompanyWidgetsForm extends Form {}
 
 export default {
   withNestedFields: new FormWithNestedFields({
-    plugins,
-    fields: withNestedFields.fields,
-  }),
+    plugins, ...withNestedFields,
+  }, 'FormWithNestedFields'),
   registerMaterial: new RegisterMaterialForm({
-    plugins,
-    fields: registerMaterial.fields,
-    schema: registerMaterial.schema,
-  }),
+    plugins, ...registerMaterial,
+  }, 'RegisterMaterialForm'),
   registerSimple: new RegisterSimpleForm({
-    plugins,
-    fields: registerSimple.fields,
-    schema: registerSimple.schema,
-  }),
+    plugins, ...registerSimple,
+  }, 'RegisterSimpleForm'),
   companySimple: new CompanySimpleForm({
-    plugins,
-    fields: companySimple.fields,
-    schema: companySimple.schema,
-    options: { allowRequired: true },
+    plugins, ...companySimple, options: { allowRequired: true },
   }),
   companyWidgets: new CompanyWidgetsForm({
-    plugins,
-    fields: companyWidgets.fields,
-    schema: companyWidgets.schema,
-  }),
+    plugins, ...companyWidgets,
+  }, 'CompanyWidgetsForm'),
 };

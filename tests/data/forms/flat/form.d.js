@@ -1,5 +1,5 @@
 import ajv from 'ajv';
-import Form from '../../../../src';
+import MobxReactForm from '../../../../src';
 import svkExtend from '../../extension/svk';
 
 const plugins = {
@@ -38,5 +38,18 @@ const schema = {
     assets: { type: 'number' },
   },
 };
+
+class Form extends MobxReactForm {
+
+  onInit(form) {
+    form.update({
+      username: 'JonathanIve',
+      terms: false,
+      assets: 0,
+      revenue: 'aaa',
+      undefined: true, // this field does not exists (strictUpdate)
+    });
+  }
+}
 
 export default new Form({ fields, labels, schema, plugins }, 'D');

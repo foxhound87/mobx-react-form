@@ -1,7 +1,7 @@
 import ajv from 'ajv';
 import validatorjs from 'validatorjs';
 
-import Form from '../../../../src';
+import MobxReactForm from '../../../../src';
 import dvrExtend from '../../extension/dvr';
 
 const plugins = {
@@ -37,5 +37,14 @@ const schema = {
     password: { type: 'string', minLength: 6, maxLength: 20 },
   },
 };
+
+class Form extends MobxReactForm {
+
+  onInit(form) {
+    // subsequent clear and reset
+    form.clear(); // to empty values
+    form.reset(); // to default or initial values
+  }
+}
 
 export default new Form({ fields, schema, plugins }, 'M');

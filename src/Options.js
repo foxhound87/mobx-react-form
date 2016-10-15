@@ -1,6 +1,6 @@
-class Options {
+export default class Options {
 
-  defaults = {
+  options = {
     showErrorsOnInit: false,
     validateOnInit: true,
     validateOnChange: true,
@@ -11,8 +11,6 @@ class Options {
     allowRequired: false,
   };
 
-  options = {};
-
   get(key = null) {
     if (key) return this.options[key];
     return this.options;
@@ -22,5 +20,3 @@ class Options {
     Object.assign(this.options, options);
   }
 }
-
-export default new Options();
