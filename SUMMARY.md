@@ -5,9 +5,13 @@
 * [Getting Started](docs/getting-started.md)
 
 ## Start
-* [Defining Fields](docs/defining-fields/README.md)
-    * [As Unified Properties](docs/defining-fields/unified-properties.md)
-    * [As Separated Properties](docs/defining-fields/separated-properties.md)
+* [Defining Fields](docs/defining-fields.md)
+    * Flat Fields
+        * [As Unified Properties](docs/defining-flat-fields/unified-properties.md)
+        * [As Separated Properties](docs/defining-flat-fields/separated-properties.md)
+    * Nested Fields
+        * [As Unified Properties](docs/defining-nested-fields/unified-properties.md)
+        * [As Separated Properties](docs/defining-nested-fields/separated-properties.md)
 
 ## API Reference
 * [API Reference](docs/api-reference/README.md)
@@ -15,39 +19,38 @@
     * [Form Options](docs/api-reference/form-options.md)
     * [Form Methods](docs/api-reference/form-methods.md)
     * [Fields Methods](docs/api-reference/fields-methods.md)
-    * [Nested Fields Methods](docs/api-reference/nested-fields-methods.md)
 
 ## Actions
 * [Actions](docs/actions/README.md)
     * [Form Actions](docs/actions/form-actions.md)
-    * [Fields Actions](docs/actions/fields-actions.md)
-    * [Nested Fields Actions](docs/actions/nested-fields-actions.md)
+    * [Actions (Form & Fields)](docs/actions/actions.md)
+    * [Helpers (Form & Fields)](docs/actions/helpers.md)
 
 ## Events
 * [Events](docs/events/README.md)
  * [Events Hooks](docs/events/events-hooks.md)
  * [Events Handlers](docs/events/events-handlers.md)
-   * [Extending the Form with Handlers](docs/events/extending-form.md)
-   * [Decupling the Handlers from the Form](docs/events/decoupling-handlers.md)
+   * [Extending the Form](docs/events/extending-form.md)
+   * [Decupling the Handlers](docs/events/decoupling-handlers.md)
 
 ## Validation
-* [Validation](validation.md)
+* [Validation](docs/validation/README.md)
     * [Plugins & Modes](docs/validation/plugins.md)
     * [Supported Packages](docs/validation/supported-packages.md)
     * Validation Modes
-        * Enable VJF (Functions)
-        * Enable DVR (Rules)
-        * Enable SVK (Schema)
+        * [Enable VJF (Functions)](docs/validation/modes/vjf-enable.md)
+        * [Enable DVR (Rules)](docs/validation/modes/dvr-enable.md)
+        * [Enable SVK (Schema)](docs/validation/modes/svk-enable.md)
     * Extend Validation
-        * Custom VJF (Functions)
-        * Custom DVR (Rules)
-        * Custom SVK (Schema)
+        * [Custom VJF (Functions)](docs/validation/modes/vjf-custom.md)
+        * [Custom DVR (Rules)](docs/validation/modes/dvr-custom.md)
+        * [Custom SVK (Schema)](docs/validation/modes/svk-custom.md)
     * Async Validation
-        * Async VJF (Functions)
-        * Async DVR (Rules)
-        * Async SVK (Schema)
+        * [Async VJF (Functions)](docs/validation/modes/vjf-async.md)
+        * [Async DVR (Rules)](docs/validation/modes/dvr-async.md)
+        * [Async SVK (Schema)](docs/validation/modes/svk-async.md)
     * Custom Error Messages
-        * VJF (Functions) Messages
-        * DVR (Rules) Messages
-        * SVK (Schema) Messages
+        * [VJF (Functions) Messages](docs/validation/modes/vjf-messages.md)
+        * [DVR (Rules) Messages](docs/validation/modes/dvr-messages.md)
+        * [SVK (Schema) Messages](docs/validation/modes/svk-messages.md)
 
