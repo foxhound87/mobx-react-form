@@ -156,7 +156,8 @@ export default $this => ({
       return $this.deepGet(prop, $this.fields);
     }
 
-    return $this.deepMap(prop, $this.fields);
+    const data = $this.deepMap(prop, $this.fields);
+    return $this.incremental ? _.values(data) : data;
   },
 
   /**

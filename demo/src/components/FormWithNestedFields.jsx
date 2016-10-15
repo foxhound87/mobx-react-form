@@ -2,18 +2,18 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import DebugForm from './Debug';
 
-const HobbiesFields = observer(({ form, field }) => (
+const HobbiesFields = observer(({ form, fields }) => (
   <fieldset>
     <div className="clearfix">
-      <div className="left">{field.$('hobbies').label}</div>
+      <div className="left">{fields.$('hobbies').label}</div>
       <div className="right">
-        <button type="button" onClick={e => field.onAdd(e, 'hobbies')}>
+        <button type="button" onClick={e => fields.$('hobbies').onAdd(e)}>
           <i className="fa fa-plus-circle" data-tip="Add Hobby" />
         </button>
       </div>
     </div>
     <hr />
-    {field.map('hobbies', hobby =>
+    {fields.map('hobbies', hobby =>
       <div key={hobby.key}>
         <span key={hobby.name}>
           <div>
@@ -59,43 +59,43 @@ const MembersFields = observer(({ form }) => (
       </div>
     </div>
     <hr />
-    {form.map('members', field =>
-      <fieldset key={field.key} className="center">
-        <div key={field.$('firstname').name}>
+    {form.map('members', fields =>
+      <fieldset key={fields.key} className="center">
+        <div key={fields.$('firstname').name}>
           <div>
-            <b>{field.$('firstname').label}</b>
-            <i>{field.$('firstname').error}</i>
+            <b>{fields.$('firstname').label}</b>
+            <i>{fields.$('firstname').error}</i>
           </div>
           <input
             type="text"
-            name={field.$('firstname').name}
-            value={field.$('firstname').value}
-            placeholder={field.$('firstname').label}
-            onChange={field.$('firstname').sync}
+            name={fields.$('firstname').name}
+            value={fields.$('firstname').value}
+            placeholder={fields.$('firstname').label}
+            onChange={fields.$('firstname').sync}
           />
         </div>
-        <div key={field.$('lastname').name}>
+        <div key={fields.$('lastname').name}>
           <div>
-            <b>{field.$('lastname').label}</b>
-            <i>{field.$('lastname').error}</i>
+            <b>{fields.$('lastname').label}</b>
+            <i>{fields.$('lastname').error}</i>
           </div>
           <input
             type="text"
-            name={field.$('lastname').name}
-            value={field.$('lastname').value}
-            placeholder={field.$('lastname').label}
-            onChange={field.$('lastname').sync}
+            name={fields.$('lastname').name}
+            value={fields.$('lastname').value}
+            placeholder={fields.$('lastname').label}
+            onChange={fields.$('lastname').sync}
           />
         </div>
         <br />
         <span>
-          <button type="button" onClick={e => form.$('members').onDel(e, field.key)}>
+          <button type="button" onClick={e => form.$('members').onDel(e, fields.key)}>
             <i className="fa fa-times-circle" data-tip="Remove Member" />
           </button>
-          <button type="button" onClick={field.onClear}>
+          <button type="button" onClick={fields.onClear}>
             <i className="fa fa-eraser" data-tip="Clear Member" />
           </button>
-          <button type="button" onClick={field.onReset}>
+          <button type="button" onClick={fields.onReset}>
             <i className="fa fa-refresh" data-tip="Reset Member" />
           </button>
         </span>
@@ -103,7 +103,7 @@ const MembersFields = observer(({ form }) => (
         <br />
         <br />
 
-        <HobbiesFields form={form} field={field} />
+        <HobbiesFields form={form} fields={fields} />
 
       </fieldset>
     )}
