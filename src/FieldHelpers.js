@@ -61,11 +61,11 @@ export default $this => ({
       isEmpty: 'every',
     };
 
-    const $check = $[computed];
-
     return deep
-      ? _[$check]($this.deepCheck($check, computed, $this.fields))
-      : $this[computed];
+      ? utils.check({
+        type: $[computed],
+        data: $this.deepCheck($[computed], computed, $this.fields),
+      }) : $this[computed];
   },
 
   /**
@@ -296,7 +296,8 @@ export default $this => ({
         check.push(field[prop]);
         return check;
       }
-      check.push(_[$]($this.deepCheck($, prop, field.fields), Boolean));
+      const $deep = $this.deepCheck($, prop, field.fields);
+      check.push(utils.check({ type: $, data: $deep }));
       return check;
     }, []),
 });

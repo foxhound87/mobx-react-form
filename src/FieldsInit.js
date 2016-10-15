@@ -1,6 +1,7 @@
 import { action } from 'mobx';
 import _ from 'lodash';
 import utils from './utils';
+import mixins from './mixins';
 import Field from './Field';
 
 /**
@@ -107,8 +108,8 @@ export default $this => ({
     _.reduce(fields, (obj, field, key) => {
       if (_.isObject(field)
         && !_.has(field, 'fields')
-        && !_(field).hasSome(utils.props)
-        && !_(field).hasSome(utils.vprops)) {
+        && !mixins.hasSome(field, utils.props)
+        && !mixins.hasSome(field, utils.vprops)) {
         return Object.assign(obj, {
           [key]: { fields: $this.handleFieldsNested(field) },
         });
