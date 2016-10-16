@@ -48,9 +48,7 @@ new Form({ options, plugins, fields });
 new Form({ options, plugins, values, labels, rules, ... });
 ```
 
-## Form Events
-
-### onInit()
+## onInit()
 
 If you need to execute some code just after the form is initialized,
 you can extend the form implementing the `onInit()` mehtod:
@@ -61,7 +59,7 @@ import Form from 'mobx-react-form';
 export default class MyForm extends MobxReactForm {
 
   onInit(form) {
-    // do staff on the form
+    // do stuff on the form
   }
 }
 ```
