@@ -34,6 +34,3 @@
 ```bash
 npm install --save mobx-react-form
 ```
-
-## Tutorial
-[Automagically manage React forms state and automatic validation with MobX](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769)
