@@ -139,3 +139,16 @@ Clear or Reset the whole Form, a single Field, or Nested Fields recursively.
   ... // access nested fields
 });
 ```
+
+### Add & Del
+
+Provide the `key` to add or delete a field.
+
+```javascript
+.add(key);
+```
+
+```javascript
+.del(key);
+```
+

@@ -22,6 +22,13 @@
 - Sync & Async Validation functions
 - Support for Material UI, React Widgets, React Select
 
+## Demo
+
+[https://foxhound87.github.io/mobx-react-form/demo.html](https://foxhound87.github.io/mobx-react-form/demo.html)
+
+## Tutorial
+[Automagically manage React forms state and automatic validation with MobX](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769)
+
 ## Install
 
 ```bash
