@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
-const computed = ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty'];
-const props = ['value', 'error', 'label', 'disable', 'initial', 'default', 'related'];
+const computed = ['error', 'hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty'];
+const props = ['value', 'label', 'disabled', 'initial', 'default', 'related'];
 const vprops = ['rules', 'validate'];
 
 const pathToStruct = path => _.trimEnd(_.replace(path, new RegExp('[.]\\d($|.)', 'g'), '[].'), '.');
@@ -23,15 +23,29 @@ const has = ($type, $data) => {
   switch ($type) {
     case 'props': $ = props; break;
     case 'computed': $ = computed; break;
+    case 'all': $ = _.union(computed, props, vprops); break;
     default: $ = null;
   }
   return _.intersection($data, $).length > 0;
 };
 
+/**
+  Check Allowed Properties
+*/
 const allowed = (type, data) => {
   if (!has(type, data)) {
     const $msg = 'The selected property is not allowed';
     throw new Error(`${$msg} (${JSON.stringify(data)})`);
+  }
+};
+
+/**
+  Throw Error if undefined Fields
+*/
+const throwError = (path, fields, msg = null) => {
+  if (_.isUndefined(fields)) {
+    const $msg = _.isNull(msg) ? 'The selected field is not defined' : msg;
+    throw new Error(`${$msg} (${path})`);
   }
 };
 
@@ -47,6 +61,7 @@ export default {
   check,
   has,
   allowed,
+  throwError,
   isPromise,
   pathToStruct,
 };

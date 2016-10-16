@@ -69,16 +69,6 @@ export default $this => ({
   },
 
   /**
-    Throw Error if undefined Fields
-  */
-  throwError: (path, fields, msg = null) => {
-    if (_.isUndefined(fields)) {
-      const $msg = _.isNull(msg) ? 'The selected field is not defined' : msg;
-      throw new Error(`${$msg} (${path})`);
-    }
-  },
-
-  /**
     Fields Selector
   */
   select: (path, fields = null, isStrict = true) => {
@@ -107,7 +97,7 @@ export default $this => ({
       }
     });
 
-    if (isStrict) $this.throwError(path, $fields);
+    if (isStrict) utils.throwError(path, $fields);
 
     return $fields;
   },
@@ -147,17 +137,18 @@ export default $this => ({
   */
   get: (prop = null, struct = true) => {
     if (_.isNull(prop)) {
-      return $this.deepGet(utils.props, $this.fields);
+      const all = _.union(utils.computed, utils.props, utils.vprops);
+      return $this.deepGet(all, $this.fields);
     }
 
-    utils.allowed('props', _.isArray(prop) ? prop : [prop]);
+    utils.allowed('all', _.isArray(prop) ? prop : [prop]);
 
-    if (_.isArray(prop) || struct) {
-      return $this.deepGet(prop, $this.fields);
+    if (!struct || !_.isArray(prop)) {
+      const data = $this.deepMap(prop, $this.fields);
+      return $this.incremental ? _.values(data) : data;
     }
 
-    const data = $this.deepMap(prop, $this.fields);
-    return $this.incremental ? _.values(data) : data;
+    return $this.deepGet(prop, $this.fields);
   },
 
   /**
@@ -215,7 +206,7 @@ export default $this => ({
       // get the field by path joining keys recursively
       const field = $this.select($path, null, isStrict);
       // if no field found when is strict update, throw error
-      if (isStrict) $this.throwError($path, field, err);
+      if (isStrict) utils.throwError($path, field, err);
       // update the field/fields if defined
       if (!_.isUndefined(field)) {
         // update field values or others props
