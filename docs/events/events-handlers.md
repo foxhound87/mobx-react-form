@@ -2,7 +2,17 @@
 
 ---
 
-### For Validation
+### Sync Field Value Hanlder
+
+Use the `sync(e)` handler to update the state of the field:
+
+```javascript
+onChange={form.$('username').sync}
+```
+
+---
+
+### Validation Handlers
 
 ###### We have two alternatives to deal with events:
 
@@ -32,7 +42,7 @@ All Event Handlers methods take the `Proxy` object and can be easly included in 
 
 ---
 
-### For Nested Fields
+### Nested Fields Handlers
 
 We have these methods: `onAdd(e)` and `onDel(e)`.
 
