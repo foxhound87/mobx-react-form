@@ -20,10 +20,7 @@ export default {
   resolve: {
     root: join(__dirname, 'src'),
     modulesDirectories: ['node_modules'],
-    extensions: ['', '.js', '.jsx', '.json'],
-    alias: {
-      react: join(__dirname, 'node_modules', 'react'),
-    },
+    extensions: ['', '.js', '.json'],
   },
   externals: {
     mobx: 'mobx',
