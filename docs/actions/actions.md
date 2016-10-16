@@ -77,29 +77,35 @@ This will get all fields prop:
 .get();
 ```
 
-or filtering by a prop:
+or filtering by a prop,
+
+You can get these props: `value`, `label`, `initial`, `default`, `disabled`, `related`,
+
+or these computed props: `error`, `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`,
+
+and the validation props as well: `rules` and `validate`.
 
 ```javascript
-.get('error');
+.get('label');
 ```
 
-if you want to get nested fields as collections instead of `fields` objects pass `true` as second argument:
+if you want to get nested fields as collections instead of `fields` objects pass `false` as second argument:
 
 ```javascript
-.get('error', true);
+.get('label', false);
 ```
 
 or if you need to filter multiple props:
 
 ```javascript
-.get(['value', 'error']);
+.get(['value', 'label']);
 ```
 
 ### Set Fields Properties
 
 > Takes in input the prop name `string` and an `object` with fields `key:val` pairs.
 
-You can pass these props: `value`, `label`, `default`, `disabled`, `related`.
+You can pass these props: `value`, `label`, `initial`, `default`, `disabled`, `related`.
 
 Or passing `validate` and  `rules` for the validation.
 

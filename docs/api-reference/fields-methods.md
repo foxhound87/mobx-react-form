@@ -5,7 +5,8 @@
 | **init(data)** | (mixed) | - | Fields to initialize. | - |
 | **update(data)** | (mixed) | - | Update Fields Values. | - |
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
-| **get(prop)** | (mixed) | - | Get all field data or filter by certain `props`. | - |
+| **get()** | - | - | Get all field data with all props and computed values. | - |
+| **get(prop)** | (mixed) | - | Get all field filtering by certain `props` (string or array). | - |
 | **set(val)** | (mixed) | - | Set field value. Takes prop key and prop value. | - |
 | **set(prop, val)** | (string, mixed) | - | Set field property. Takes prop key and prop value. | - |
 | **check(computed)** | (string) | - | Check field computed property. | - |

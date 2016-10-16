@@ -5,7 +5,8 @@
 | **options(obj = null)** | (object, string) | - | Get/Set form options after the form is yet initialied. |
 | **select(path)** | (string) | object | Field Selector. Can be chained. |
 | **update(data)** | (mixed) | - | Update Fields Values. |
-| **get(prop)** | (mixed) | - | Get all field data. Can be filtered by certain `props`. |
+| **get()** | - | - | Get all field data with all props and computed values. | - |
+| **get(prop)** | (mixed) | - | Get all field filtering by certain `props` (string or array). | - |
 | **set(val)** | (mixed) | - | Set field value. Takes prop key and prop value. |
 | **set(prop, val)** | (string, mixed) | - | Set field property. Takes prop key and prop value. |
 | **check(computed)** | (string) | - | Check field computed property. |
