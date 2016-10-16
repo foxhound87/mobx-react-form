@@ -17,7 +17,7 @@
 ###### Async Validation
 - [Async Vanilla Javascript Validation Functions](modes/vjf-async.md)
 - [Async Declarative Validation Rules](modes/dvr-async.md)
-- [Async Json Schema Validation Keywords](modes/jvk-async.md)
+- [Async Json Schema Validation Keywords](modes/svk-async.md)
 
 ###### Define or Override Error Messages
 - [VJF (Functions) Messages](modes/vjf-messages.md)
