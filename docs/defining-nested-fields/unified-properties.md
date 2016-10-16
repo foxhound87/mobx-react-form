@@ -24,4 +24,4 @@ const fields = [{
 new Form({ fields, ... });
 ```
 
-Validation properties `rules` (DVR) and `validation` (VJF) can be defined as well.
+Validation properties `rules` (DVR) and `validate` (VJF) can be defined as well.
