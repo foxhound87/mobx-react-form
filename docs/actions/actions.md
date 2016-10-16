@@ -7,7 +7,7 @@ The actions can be used on form or every field and nested field.
 form the form instance:
 
 ```javascript
-form.update({
+.update({
   address: {
     city: 'Los Angeles'
   },
@@ -17,7 +17,7 @@ form.update({
 or the same selecting a field:
 
 ```javascript
-form.$('address').update({
+.$('address').update({
   city: 'Los Angeles'
 });
 ```
@@ -69,7 +69,7 @@ const n = 3;
 
 ### Get the Fields Properties
 
-> Takes an `object` with fields `key:val` pairs.
+> Return an `object` with fields `key:val` pairs (with nested fields).
 
 This will get all fields prop:
 
@@ -97,7 +97,7 @@ or if you need to filter multiple props:
 
 ### Set Fields Properties
 
-> Takes the prop name `string` and an `object` with fields `key:val` pairs.
+> Takes in input the prop name `string` and an `object` with fields `key:val` pairs.
 
 You can pass these props: `value`, `label`, `default`, `disabled`, `related`.
 
