@@ -55,6 +55,8 @@ const fieldPropsToPick = [
   'value',
   'label',
   'disabled',
+  'focus',
+  'touched',
   'hasError',
   'isValid',
   'isEmpty',

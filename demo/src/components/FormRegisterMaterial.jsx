@@ -16,8 +16,9 @@ const FormRegister = ({ form }) => (
         value={form.$('username').value}
         floatingLabelText={form.$('username').label}
         errorText={form.$('username').error}
-        onChange={form.$('username').sync}
-
+        onChange={form.$('username').onChange}
+        onFocus={form.$('username').onFocus}
+        onBlur={form.$('username').onBlur}
       /><br />
 
       <TextField
@@ -25,8 +26,9 @@ const FormRegister = ({ form }) => (
         value={form.$('email').value}
         floatingLabelText={form.$('email').label}
         errorText={form.$('email').error}
-        onChange={form.$('email').sync}
-
+        onChange={form.$('email').onChange}
+        onFocus={form.$('email').onFocus}
+        onBlur={form.$('email').onBlur}
       /><br />
 
       <TextField
@@ -34,8 +36,9 @@ const FormRegister = ({ form }) => (
         value={form.$('emailConfirm').value}
         floatingLabelText={form.$('emailConfirm').label}
         errorText={form.$('emailConfirm').error}
-        onChange={form.$('emailConfirm').sync}
-
+        onChange={form.$('emailConfirm').onChange}
+        onFocus={form.$('emailConfirm').onFocus}
+        onBlur={form.$('emailConfirm').onBlur}
       /><br />
 
       <TextField
@@ -43,8 +46,9 @@ const FormRegister = ({ form }) => (
         value={form.$('password').value}
         floatingLabelText={form.$('password').label}
         errorText={form.$('password').error}
-        onChange={form.$('password').sync}
-
+        onChange={form.$('password').onChange}
+        onFocus={form.$('password').onFocus}
+        onBlur={form.$('password').onBlur}
       /><br />
 
       <TextField
@@ -52,8 +56,9 @@ const FormRegister = ({ form }) => (
         value={form.$('devSkills').value}
         floatingLabelText={form.$('devSkills').label}
         errorText={form.$('devSkills').error}
-        onChange={form.$('devSkills').sync}
-
+        onChange={form.$('devSkills').onChange}
+        onFocus={form.$('devSkills').onFocus}
+        onBlur={form.$('devSkills').onBlur}
       /><br />
 
       <br />
@@ -62,7 +67,9 @@ const FormRegister = ({ form }) => (
         label={form.$('terms').label}
         name={form.$('terms').name}
         defaultToggled={form.$('terms').value}
-        onToggle={form.$('terms').sync}
+        onToggle={form.$('terms').onToggle}
+        onFocus={form.$('terms').onFocus}
+        onBlur={form.$('terms').onBlur}
       />
       <div>
         <i>{form.$('terms').error}</i>

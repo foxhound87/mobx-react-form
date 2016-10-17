@@ -20,8 +20,10 @@ export default class Field {
   @observable $label;
   @observable $value;
   @observable $default;
-  @observable $disabled = false;
   @observable $initial = undefined;
+  @observable $disabled = false;
+  @observable $focus = false;
+  @observable $touched = false;
 
   @observable errorSync = null;
   @observable errorAsync = null;
@@ -318,6 +320,16 @@ export default class Field {
   }
 
   @computed
+  get focus() {
+    return this.$focus;
+  }
+
+  @computed
+  get touched() {
+    return this.$touched;
+  }
+
+  @computed
   get rules() {
     return this.$rules;
   }
@@ -389,6 +401,24 @@ export default class Field {
     this.value = e.target.value;
     return;
   };
+
+  onChange = (e) => {
+    this.sync(e);
+  };
+
+  onToggle = (e) => {
+    this.sync(e);
+  }
+
+  onFocus = action(() => {
+    this.$focus = true;
+  });
+
+  onBlur = action(() => {
+    this.$touched = true;
+    this.$focus = false;
+  });
+
 
   /**
     Event: On Clear
