@@ -10,6 +10,20 @@ Use the `sync(e)` handler to update the state of the field:
 onChange={form.$('username').sync}
 ```
 
+> `sync(e)` is an alias of `onChange(e)`;
+
+### onFocus(e) & onBlur(e)
+
+If you need to track `touched` and `focus` state, you can use `onFocus(e)` or `onBlur(e)` handlers:
+
+```javascript
+<input
+  ...
+  onFocus={form.$('username').onFocus}
+  onBlur={form.$('username').onBlur}
+/>
+```
+
 ---
 
 ### Validation Handlers

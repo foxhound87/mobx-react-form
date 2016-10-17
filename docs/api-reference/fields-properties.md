@@ -9,6 +9,8 @@
 | **default** | boolean | computed | The default/initial value of the field. | - |
 | **disabled** | boolean | computed | The disabled state of the field. | - |
 | **value** | mixed | computed | Computed value of the field. | - |
+| **focus** | mixed | computed | Check if the field is `onFocus`. | - |
+| **touched** | mixed | computed | Check if the field is touched. | - |
 | **isValid** | boolean | computed | Check if the field is valid. | - |
 | **isDirty** | boolean | computed | Check if the field is dirty. | - |
 | **isPristine** | boolean | computed | Check if the field is pristine. | - |
