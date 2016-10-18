@@ -74,7 +74,7 @@ class FormWithNestedFields extends Form {
 
     // console.log('@@@VALUES', $form.values());
     // console.log('@@@GET', $form.$('members').get());
-    // console.log('@@@GET', $form.get('label'));
+    // console.log('@@@GET', $form.get());
   // }
 }
 

@@ -16,33 +16,38 @@ export default $this => ({
   /**
     Fields Values (recursive with Nested Fields)
   */
-  values: (struct = false) => $this.get('value', struct),
+  values: () => $this.get('value'),
 
   /**
     Fields Errors (recursive with Nested Fields)
   */
-  errors: (struct = false) => $this.get('error', struct),
+  errors: () => $this.get('error'),
 
   /**
     Fields Labels (recursive with Nested Fields)
   */
-  labels: (struct = false) => $this.get('label', struct),
+  labels: () => $this.get('label'),
 
   /**
     Fields Default Values (recursive with Nested Fields)
   */
-  defaults: (struct = false) => $this.get('default', struct),
+  defaults: () => $this.get('default'),
 
   /**
     Fields Initial Values (recursive with Nested Fields)
   */
-  initials: (struct = false) => $this.get('initial', struct),
+  initials: () => $this.get('initial'),
 
   /**
     Fields Iterator
   */
-  map: (key, callback) => {
-    const field = $this.$(key);
+  map: (path, callback = null) => {
+    if (_.isFunction(path) && !callback) {
+      // path is the callback here
+      return $this.fields.values().map(path);
+    }
+
+    const field = $this.$(path);
     return field.fields.values().map(callback);
   },
 
@@ -135,7 +140,7 @@ export default $this => ({
   /**
     Get Fields Props
   */
-  get: (prop = null, struct = true) => {
+  get: (prop = null) => {
     if (_.isNull(prop)) {
       const all = _.union(utils.computed, utils.props, utils.vprops);
       return $this.deepGet(all, $this.fields);
@@ -143,7 +148,7 @@ export default $this => ({
 
     utils.allowed('all', _.isArray(prop) ? prop : [prop]);
 
-    if (!struct || !_.isArray(prop)) {
+    if (!_.isArray(prop)) {
       const data = $this.deepMap(prop, $this.fields);
       return $this.incremental ? _.values(data) : data;
     }

@@ -13,7 +13,7 @@ const HobbiesFields = observer(({ form, fields }) => (
       </div>
     </div>
     <hr />
-    {fields.map('hobbies', hobby =>
+    {fields.$('hobbies').map(hobby =>
       <div key={hobby.key}>
         <span key={hobby.name}>
           <div>
@@ -59,7 +59,7 @@ const MembersFields = observer(({ form }) => (
       </div>
     </div>
     <hr />
-    {form.map('members', fields =>
+    {form.$('members').map(fields =>
       <fieldset key={fields.key} className="center">
         <div key={fields.$('firstname').name}>
           <div>
