@@ -71,13 +71,17 @@ const n = 3;
 
 > Return an `object` with fields `key:val` pairs (with nested fields).
 
-This will get all fields prop:
+This will get all fields prop (with nested fields as `fields` objects):
 
 ```javascript
 .get();
 ```
 
-or filtering by a prop,
+or filtering by a prop (with nested fields as collections):
+
+```javascript
+.get('label');
+```
 
 You can get these props: `value`, `label`, `initial`, `default`, `disabled`, `related`,
 
@@ -85,14 +89,10 @@ or these computed props: `error`, `hasError`, `isValid`, `isDirty`, `isPristine`
 
 and the validation props as well: `rules` and `validate`.
 
-```javascript
-.get('label');
-```
-
-if you want to get nested fields as collections instead of `fields` objects pass `false` as second argument:
+If you want to get nested fields as `fields` objects instead of collections pass the prop as array:
 
 ```javascript
-.get('label', false);
+.get(['label']);
 ```
 
 or if you need to filter multiple props:
@@ -140,7 +140,15 @@ Clear or Reset the whole Form, a single Field, or Nested Fields recursively.
 
 ### Map Nested Fields
 
+```javascript
+$('hobbies').map((fields) => {
+  ... // access nested fields
+});
 ```
+
+or
+
+```javascript
 .map('hobbies', (fields) => {
   ... // access nested fields
 });

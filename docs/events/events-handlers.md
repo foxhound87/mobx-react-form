@@ -6,17 +6,17 @@
 
 Use the `sync(e)` handler to update the state of the field:
 
-```javascript
+```html
 onChange={form.$('username').sync}
 ```
 
-> `sync(e)` is an alias of `onChange(e)`;
+> `onChange(e)` and `onToggle(e)` are aliases of `sync(e)`;
 
 ### onFocus(e) & onBlur(e)
 
 If you need to track `touched` and `focus` state, you can use `onFocus(e)` or `onBlur(e)` handlers:
 
-```javascript
+```html
 <input
   ...
   onFocus={form.$('username').onFocus}
@@ -64,13 +64,13 @@ We have these methods: `onAdd(e)` and `onDel(e)`.
 
 You have to specify the field `key` as second argument:
 
-```javascript
+```html
 onClick={e => fields.onAdd(e, 'hobbies')}
 ```
 
 or using the field `selector`:
 
-```javascript
+```html
 onClick={e => fields.$('hobbies').onAdd(e)}
 ```
 
@@ -78,6 +78,6 @@ onClick={e => fields.$('hobbies').onAdd(e)}
 
 You have to specify the field `key` as second argument.
 
-```javascript
+```html
 onClick={e => form.onDel(e, hobby.path)}
 ```

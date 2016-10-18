@@ -24,6 +24,7 @@
 
 | Property | Input | Output | Info | Help |
 |---|---|---|---|---|
+| **get()** | - | - | Get all field and nested fields data with all props and computed values. | - |
 | **set(data)** | (object) | - | Provide an object to set nested fields values. | - |
 | **set(prop, data)** | (string, object) | - | Provide a prop key and object to set nested fields properties. | - |
 | **check(computed, deep)** | (string, boolean) | - | Provide a computed key. Check all nested fields computed property if `deep` is `true` | - |
