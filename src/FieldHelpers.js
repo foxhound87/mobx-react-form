@@ -122,10 +122,9 @@ export default $this => ({
       const $field = $this.select($fullPath, null, false);
 
       if (!_.isUndefined($field)) {
-        if (_.isUndefined(val.fields)) {
-          $field.set('value', val);
-        } else {
-          $this.deepUpdate(val.fields, $fullPath);
+        if (!_.isNull(val)) {
+          if (_.isUndefined(val.fields)) $field.set('value', val);
+          else $this.deepUpdate(val.fields, $fullPath);
         }
       } else {
         const cpath = _.trimEnd(path.replace(new RegExp('/[^./]+$/'), ''), '.');

@@ -71,8 +71,11 @@ describe('Check Nested $N Values', () => {
 });
 
 describe('Check Nested $O Values', () => {
-  it('$O club.name value should be equal to "HELLO"', () =>
-    expect($.$O.$('club.name').value).to.be.equal('HELLO'));
+  it('$O club.name value should be equal to be empty', () =>
+    expect($.$O.$('club.name').value).to.be.empty);
+
+  it('$O club.city value should be equal to "New York"', () =>
+    expect($.$O.$('club.city').value).to.be.equal('New York'));
 
   it('$O members[0].firstname value should be equal to "Clint"', () =>
     expect($.$O.$('members[0].firstname').value).to.be.equal('Clint'));

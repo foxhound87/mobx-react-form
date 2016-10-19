@@ -25,8 +25,8 @@ class Form extends MobxReactForm {
   onInit(form) {
     form.update({
       club: {
-        name: 'HELLO',
-        city: 'NY',
+        name: null,
+        city: 'New York',
       },
       members: [{
         firstname: 'Clint',
