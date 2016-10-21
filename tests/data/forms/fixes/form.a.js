@@ -1,7 +1,16 @@
-import Form from '../../../../src';
+import MobxReactForm from '../../../../src';
 
 const fields = ['qwerty'];
 
 const values = { qwerty: 0 };
 
-export default new Form({ fields, values });
+class Form extends MobxReactForm {
+
+  onInit(form) {
+    form.options({
+      loadingMessage: 'Custom Loading Message...',
+    });
+  }
+}
+
+export default new Form({ fields, values }, 'Fixes-A');
