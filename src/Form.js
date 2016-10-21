@@ -62,8 +62,8 @@ export default class Form {
   }
 
   options(options = null) {
-    if (!_.isObject(options)) this.$options.set(options);
-    if (!_.isString(options)) return this.$options.get(options);
+    if (_.isObject(options)) this.$options.set(options);
+    if (_.isString(options)) return this.$options.get(options);
     return this.$options.get();
   }
 
