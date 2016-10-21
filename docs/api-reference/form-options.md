@@ -59,3 +59,12 @@ form.options();
   allowRequired: false,
 }
 ```
+
+### Get Form Option by key
+
+```javascript
+form.options('showErrorsOnInit');
+```
+```
+=> true
+```

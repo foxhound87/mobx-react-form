@@ -2,8 +2,6 @@
 
 The helpers can be used on form or every field and nested field.
 
-> If you want to get nested fields as `fields` objects instead of collections pass `true` as argument of each helper.
-
 ### Get all Fields Values
 
 > Returns an `object` with all fields `key:val` pairs.

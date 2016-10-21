@@ -2,7 +2,7 @@
 
 #### Choose and Setup a Validation Plugin
 
-> See [Validation Plugins](validation/plugins)
+> See [Validation Plugins & Modes](validation/plugins)
  and [Supported Validation Packages](validation/supported-packages) for more info.
 
 Below we are creating a `plugins` object using the `validatorjs` package to enable `DVR` functionalities (Declarative Validation Rules).

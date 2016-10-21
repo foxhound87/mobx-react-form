@@ -6,7 +6,7 @@
 |---|---|---|
 | **plugins**   | Enable additional functionalities using external libraries. | [validation plugins](../validation/plugins.md) |
 | **options**   | Options used by the `form` or the imported `plugins` which may alter the validation behavior. | [form options](form-options.md) |
-| **fields**    | Object which represents the fields with all their properties. | [defining fields](../defining-flat-fields/unified-properties.md) |
+| **fields**    | Object which represents the fields with all their properties. | [defining fields](../defining-fields.md) |
 
 ###### Field Properties
 

@@ -7,7 +7,7 @@ We can hook these events: `validate`, `update`, `clear`, `reset`.
 ```javascript
 form.on('validate@state.city', ({ form, path }) => {
 
-  form.$(path); // access 'state.city' on field 'update'
+  form.$(path); // access 'state.city' on field 'validate'
 });
 ```
 
