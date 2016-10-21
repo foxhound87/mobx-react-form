@@ -10,7 +10,7 @@
 //   'members[].hobbies[]',
 // ];
 
-const fields = {
+const values = {
   club: {
     name: 'Jazz Club',
     city: 'New York',
@@ -36,4 +36,4 @@ const labels = {
   'members[].hobbies': 'Label Member Hobby',
 };
 
-export default { fields, labels };
+export default { values, labels };

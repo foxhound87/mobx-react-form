@@ -51,4 +51,4 @@ export default new Form({
 
   fields, values, defaults, labels, disabled, validate, rules, plugins,
 
-}, 'P');
+}, 'Flat-P');

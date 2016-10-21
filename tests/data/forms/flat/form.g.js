@@ -12,4 +12,4 @@ const fields = {
   },
 };
 
-export default new Form({ fields }, 'G');
+export default new Form({ fields }, 'Flat-G');

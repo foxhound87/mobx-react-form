@@ -31,4 +31,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ values, labels }, 'O');
+export default new Form({ values, labels }, 'Flat-O');

@@ -1,5 +1,15 @@
 import Form from '../../../../src';
 
+const fields = [
+  'club.name',
+  'club.city',
+  'members',
+  'members[].firstname',
+  'members[].lastname',
+  'members[].hobbies',
+  'members[].hobbies[]',
+];
+
 const values = {
   club: 'HELLO',
   members: [{
@@ -13,4 +23,4 @@ const values = {
   }],
 };
 
-export default new Form({ values }, 'Nested-N');
+export default new Form({ fields, values }, 'Nested-N');

@@ -14,10 +14,7 @@ export default $this => ({
     const initial = $this.state.get('current', 'props');
 
     // try to get props from separated objects
-    const $try = (prop) => {
-      const struct = utils.pathToStruct(path);
-      return _.get(initial[prop], struct);
-    };
+    const $try = prop => _.get(initial[prop], utils.pathToStruct(path));
 
     const props = {
       $value: $try('values'),
@@ -46,9 +43,9 @@ export default $this => ({
 
   prepareFieldsData: (initial) => {
     let fields = initial.fields || {};
-    fields = $this.handleFieldsEmpty(fields, initial);
     fields = $this.handleFieldsArrayOfStrings(fields);
     fields = $this.handleFieldsArrayOfObjects(fields);
+    fields = $this.handleFieldsEmpty(fields, initial);
     fields = $this.handleFieldsNested(fields);
     fields = $this.mergeSchemaDefaults(fields);
     return fields;
@@ -69,7 +66,7 @@ export default $this => ({
     }, {}),
 
   handleFieldsEmpty: (fields, initial) => {
-    if (!_.isEmpty(fields) || !_.has(initial, 'values')) return fields;
+    if (!_.has(initial, 'values')) return fields;
     // if the 'field' object is not provided into the constructor
     // and the 'values' object is passed, use it to create fields
     return _.merge(fields, initial.values);

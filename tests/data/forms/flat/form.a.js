@@ -57,4 +57,4 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema, plugins }, 'A');
+export default new Form({ fields, schema, plugins }, 'Flat-A');

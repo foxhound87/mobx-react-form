@@ -37,4 +37,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ fields, schema, plugins, options }, 'I');
+export default new Form({ fields, schema, plugins, options }, 'Flat-I');
