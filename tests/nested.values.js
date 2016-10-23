@@ -57,8 +57,8 @@ describe('Check Nested $N Values', () => {
   it('$N members.0.firstname value should be equal to "Clint"', () =>
     expect($.$N.$('members.0.firstname').value).to.be.equal('Clint'));
 
-  it('$N members.1.firstname value should be equal to "Charlie"', () =>
-    expect($.$N.$('members.1.firstname').value).to.be.equal('Charlie'));
+  it('$N members.1.firstname value should be empty', () =>
+    expect($.$N.$('members.1.firstname').value).to.be.empty);
 
   it('$N members.0.hobbies.1 value should be equal to "Baseball"', () =>
     expect($.$N.$('members.0.hobbies.1').value).to.be.equal('Baseball'));
@@ -80,8 +80,11 @@ describe('Check Nested $O Values', () => {
   it('$O members[0].firstname value should be equal to "Clint"', () =>
     expect($.$O.$('members[0].firstname').value).to.be.equal('Clint'));
 
-  it('$O members[1].firstname value should be equal to "Charlie"', () =>
-    expect($.$O.$('members[1].firstname').value).to.be.equal('Charlie'));
+  it('$O members[1].firstname value should be empty', () =>
+    expect($.$O.$('members[1].firstname').value).to.be.empty);
+
+  it('$O members[1].lastname value should be equal to "Chaplin"', () =>
+    expect($.$O.$('members[1].lastname').value).to.be.equal('Chaplin'));
 
   it('$O members[0].hobbies[1] value should be equal to "Baseball"', () =>
     expect($.$O.$('members[0].hobbies[1]').value).to.be.equal('Baseball'));

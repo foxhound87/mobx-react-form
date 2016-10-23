@@ -41,7 +41,7 @@ export default class Field {
     this.assignFieldsInitializer();
 
     this.setupField(key, path, field, props, update);
-    this.initNestedFields(field.fields, update);
+    this.initNestedFields(field, update);
 
     // set as auto-incremental
     if (this.hasIntKeys() || !this.fields.size) {
@@ -58,7 +58,8 @@ export default class Field {
   }
 
   @action
-  initNestedFields(fields, update) {
+  initNestedFields(field, update) {
+    const fields = _.isNull(field) ? '' : field.fields;
     this.initFields({ fields }, update);
   }
 
@@ -74,6 +75,10 @@ export default class Field {
   } = {}, update) {
     this.key = $key;
     this.path = $path;
+
+    if (_.isNull($field) || _.isUndefined($field)) {
+      $field = ''; // eslint-disable-line
+    }
 
     /**
       Assume the field is an array, a boolean, a string or a number

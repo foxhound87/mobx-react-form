@@ -23,7 +23,7 @@ class Form extends MobxReactForm {
         lastname: 'Eastwood',
         hobbies: ['Soccer', 'Baseball'],
       }, {
-        firstname: 'Charlie',
+        firstname: null,
         lastname: 'Chaplin',
         hobbies: ['Golf', 'Basket'],
       }],
