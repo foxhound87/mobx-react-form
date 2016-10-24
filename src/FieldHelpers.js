@@ -144,12 +144,11 @@ export default $this => ({
   },
 
   pathToFiledsTree: (path) => {
-    const ss = $this.state.struct();
+    const $ss = $this.state.struct();
     const structPath = utils.pathToStruct(path);
-    const structArray = _.filter(ss, item => _.startsWith(item, structPath));
+    const structArray = _.filter($ss, item => _.startsWith(item, structPath));
     const tree = $this.handleFieldsArrayOfStrings(structArray);
-    let struct = utils.pathToStruct(path);
-    struct = _.replace(struct, new RegExp('\\[]', 'g'), '[0]');
+    const struct = _.replace(structPath, new RegExp('\\[]', 'g'), '[0]');
     return $this.handleFieldsNested(_.get(tree, struct));
   },
 
