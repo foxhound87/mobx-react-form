@@ -1,7 +1,6 @@
 import { action } from 'mobx';
 import _ from 'lodash';
 import utils from './utils';
-import mixins from './mixins';
 import Field from './Field';
 
 /**
@@ -46,7 +45,7 @@ export default $this => ({
     fields = $this.handleFieldsArrayOfStrings(fields);
     fields = $this.handleFieldsArrayOfObjects(fields);
     fields = $this.handleFieldsEmpty(fields, initial);
-    fields = $this.handleFieldsNested(fields);
+    fields = $this.handleFieldsNested(fields, initial);
     fields = $this.mergeSchemaDefaults(fields);
     return fields;
   },
@@ -75,7 +74,8 @@ export default $this => ({
   handleFieldsArrayOfStrings($fields) {
     let fields = $fields;
     // handle array with field struct (strings)
-    if (_.isArray(fields) && _.every(fields, _.isString)) {
+    // if (_.isArray(fields) && _.every(fields, _.isString)) {
+    if (utils.isStruct(fields)) {
       // save the global struct into state
       $this.state.struct(fields);
       fields = _.reduce(fields, ($obj, $) => {
@@ -101,12 +101,11 @@ export default $this => ({
     return fields;
   },
 
-  handleFieldsNested: fields =>
+  handleFieldsNested: (fields, initial) =>
     _.reduce(fields, (obj, field, key) => {
-      if (_.isObject(field)
-        && !_.has(field, 'fields')
-        && !mixins.hasSome(field, utils.props)
-        && !mixins.hasSome(field, utils.vprops)) {
+      if (_.isObject(field) && !_.has(field, 'fields')
+        && (!utils.hasUnifiedProps(field) || utils.hasSeparatedProps(initial))) {
+        // define nested field
         return Object.assign(obj, {
           [key]: { fields: $this.handleFieldsNested(field) },
         });
