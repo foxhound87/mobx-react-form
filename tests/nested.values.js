@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import $ from './data/_.nested'; // FORMS
 
 
-describe('Check Nested $F Separated Properties (values)', () => {
+describe('Check Nested $F Unified Properties (values)', () => {
   it('$F state.city value should be equal "New York"', () =>
     expect($.$F.$('state.city').value).to.be.equal('New York'));
 });

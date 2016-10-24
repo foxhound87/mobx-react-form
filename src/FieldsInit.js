@@ -74,7 +74,6 @@ export default $this => ({
   handleFieldsArrayOfStrings($fields) {
     let fields = $fields;
     // handle array with field struct (strings)
-    // if (_.isArray(fields) && _.every(fields, _.isString)) {
     if (utils.isStruct(fields)) {
       // save the global struct into state
       $this.state.struct(fields);
