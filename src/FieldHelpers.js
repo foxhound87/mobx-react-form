@@ -121,19 +121,36 @@ export default $this => ({
       const $fullPath = _.trimStart(`${path}.${key}`, '.');
       const $field = $this.select($fullPath, null, false);
 
-      if (!_.isUndefined($field)) {
-        if (!_.isNull(val)) {
-          if (_.isUndefined(val.fields)) $field.set('value', val);
-          else $this.deepUpdate(val.fields, $fullPath);
-        }
+      if (!_.isUndefined($field) && !_.isNull(val)) {
+        if (_.isUndefined(val.fields)) $field.set('value', val);
+        else $this.deepUpdate(val.fields, $fullPath);
       } else {
+        // create fields
         const cpath = _.trimEnd(path.replace(new RegExp('/[^./]+$/'), ''), '.');
         const container = $this.select(cpath, null, false);
         if (!_.isUndefined(container)) {
+          // init filed into the container field
           container.initField(key, $fullPath, val, null, true);
+          // handle nested fields if defined
+          if (_.has(val, 'fields')) $this.deepUpdate(val.fields, $fullPath);
+          // handle nested fields if undefined or null
+          else if (_.isUndefined(val) || _.isNull(val)) {
+            const $fields = $this.pathToFiledsTree($fullPath);
+            $this.deepUpdate($fields, $fullPath);
+          }
         }
       }
     });
+  },
+
+  pathToFiledsTree: (path) => {
+    const ss = $this.state.struct();
+    const structPath = utils.pathToStruct(path);
+    const structArray = _.filter(ss, item => _.startsWith(item, structPath));
+    const tree = $this.handleFieldsArrayOfStrings(structArray);
+    let struct = utils.pathToStruct(path);
+    struct = _.replace(struct, new RegExp('\\[]', 'g'), '[0]');
+    return $this.handleFieldsNested(_.get(tree, struct));
   },
 
   /**
