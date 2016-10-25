@@ -87,14 +87,14 @@ export default $this => ({
 
     keys.shift();
 
-    let $fields = _.isNull(fields)
+    let $fields = _.isNil(fields)
       ? $this.fields.get(head)
       : fields.get(head);
 
     let stop = false;
     _.each(keys, ($key) => {
       if (stop) { return; }
-      if (_.isUndefined($fields)) {
+      if (_.isNil($fields)) {
         $fields = undefined;
         stop = true;
       } else {
@@ -121,20 +121,20 @@ export default $this => ({
       const $fullPath = _.trimStart(`${path}.${key}`, '.');
       const $field = $this.select($fullPath, null, false);
 
-      if (!_.isUndefined($field) && !_.isNull(val)) {
-        if (_.isUndefined(val.fields)) $field.set('value', val);
+      if (!_.isNil($field) && !_.isNil(val)) {
+        if (_.isNil(val.fields)) $field.set('value', val);
         else $this.deepUpdate(val.fields, $fullPath);
       } else {
         // create fields
         const cpath = _.trimEnd(path.replace(new RegExp('/[^./]+$/'), ''), '.');
         const container = $this.select(cpath, null, false);
-        if (!_.isUndefined(container)) {
+        if (!_.isNil(container)) {
           // init filed into the container field
           container.initField(key, $fullPath, val, null, true);
           // handle nested fields if defined
           if (_.has(val, 'fields')) $this.deepUpdate(val.fields, $fullPath);
           // handle nested fields if undefined or null
-          else if (_.isUndefined(val) || _.isNull(val)) {
+          else if (_.isNil(val)) {
             const $fields = $this.pathToFiledsTree($fullPath);
             $this.deepUpdate($fields, $fullPath);
           }
@@ -156,7 +156,7 @@ export default $this => ({
     Get Fields Props
   */
   get: (prop = null) => {
-    if (_.isNull(prop)) {
+    if (_.isNil(prop)) {
       const all = _.union(utils.computed, utils.props, utils.vprops);
       return $this.deepGet(all, $this.fields);
     }
@@ -183,7 +183,7 @@ export default $this => ({
 
     // UPDATE CUSTOM PROP
     if ($this.constructor.name === 'Field') {
-      if (_.isString($) && !_.isNull(data)) {
+      if (_.isString($) && !_.isNil(data)) {
         utils.allowed('props', [$]);
         _.set($this, `$${$}`, data);
         if (!recursion) Events.setRunning($e, false);
@@ -228,7 +228,7 @@ export default $this => ({
       // if no field found when is strict update, throw error
       if (isStrict) utils.throwError($path, field, err);
       // update the field/fields if defined
-      if (!_.isUndefined(field)) {
+      if (!_.isNil(field)) {
         // update field values or others props
         field.set($, $val, recursion);
         // update values recursively only if field has nested

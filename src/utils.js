@@ -43,8 +43,8 @@ const allowed = (type, data) => {
   Throw Error if undefined Fields
 */
 const throwError = (path, fields, msg = null) => {
-  if (_.isUndefined(fields)) {
-    const $msg = _.isNull(msg) ? 'The selected field is not defined' : msg;
+  if (_.isNil(fields)) {
+    const $msg = _.isNil(msg) ? 'The selected field is not defined' : msg;
     throw new Error(`${$msg} (${path})`);
   }
 };

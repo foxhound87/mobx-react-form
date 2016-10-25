@@ -36,7 +36,7 @@ export default $this => ({
 
     // create fields
     _.each(fields, (field, key) =>
-      _.isUndefined($this.select($path(key), null, false))
+      _.isNil($this.select($path(key), null, false))
       && $this.initField(key, $path(key), field, null, update));
   }),
 

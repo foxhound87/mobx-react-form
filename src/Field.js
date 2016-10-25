@@ -59,7 +59,7 @@ export default class Field {
 
   @action
   initNestedFields(field, update) {
-    const fields = _.isNull(field) ? '' : field.fields;
+    const fields = _.isNil(field) ? '' : field.fields;
     this.initFields({ fields }, update);
   }
 
@@ -76,9 +76,7 @@ export default class Field {
     this.key = $key;
     this.path = $path;
 
-    if (_.isNull($field) || _.isUndefined($field)) {
-      $field = ''; // eslint-disable-line
-    }
+    if (_.isNil($field)) $field = ''; // eslint-disable-line
 
     /**
       Assume the field is an array, a boolean, a string or a number
@@ -141,13 +139,13 @@ export default class Field {
     // handle boolean
     if (_.isBoolean($value)) return $value;
     // handle others types
-    return !_.isUndefined($value) ? $value : '';
+    return !_.isNil($value) ? $value : '';
   }
 
   parseDefaultValue(initial, separated) {
     if (separated === 0) return separated;
     const $value = separated || initial;
-    return !_.isUndefined($value) ? $value : this.$initial;
+    return !_.isNil($value) ? $value : this.$initial;
   }
 
   /* ------------------------------------------------------------------ */
@@ -391,7 +389,7 @@ export default class Field {
 
   sync = (e) => {
     // assume "e" is the value
-    if (_.isUndefined(e.target)) {
+    if (_.isNil(e.target)) {
       this.value = e;
       return;
     }
