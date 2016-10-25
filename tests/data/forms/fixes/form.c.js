@@ -25,7 +25,7 @@ class Form extends MobxReactForm {
     });
 
     form.$('itineraryItems[0].hotel').update({
-      name: 'Trump Hotel',
+      name: 'The Plaza',
       starRating: '4.0',
     });
 

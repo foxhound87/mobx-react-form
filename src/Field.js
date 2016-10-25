@@ -44,7 +44,7 @@ export default class Field {
     this.initNestedFields(field, update);
 
     // set as auto-incremental
-    if (this.hasIntKeys() || !this.fields.size) {
+    if (this.hasIntKeys() && this.fields.size) {
       this.incremental = true;
     }
   }
@@ -277,9 +277,14 @@ export default class Field {
 
   @computed
   get value() {
+    if (this.incremental) {
+      return this.get('value');
+    }
+
     if (isObservableArray(this.$value)) {
       return [].slice.call(this.$value);
     }
+
     return this.$value;
   }
 

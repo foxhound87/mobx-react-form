@@ -11,7 +11,7 @@ export default $this => ({
   /**
     Fields Selector (alias of select)
   */
-  $: key => $this.select(key),
+  $: key => $this.select(key, null, false) || [],
 
   /**
     Fields Values (recursive with Nested Fields)
@@ -47,7 +47,7 @@ export default $this => ({
       return $this.fields.values().map(path);
     }
 
-    const field = $this.$(path);
+    const field = $this.select(path);
     return field.fields.values().map(callback);
   },
 

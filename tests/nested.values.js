@@ -76,6 +76,11 @@ describe('Check Nested $N Values', () => {
     expect($.$N.$('members.1.hobbies').$(1).value).to.be.equal('Basket'));
 });
 
+describe('Check Nested $O value computed check', () => {
+  it('$O members[1].hobbies value should be array', () =>
+    expect($.$O.$('members[1].hobbies').value).to.be.array);
+});
+
 describe('Check Nested $O Values', () => {
   it('$O club.name value should be equal to be empty', () =>
     expect($.$O.$('club.name').value).to.be.empty);

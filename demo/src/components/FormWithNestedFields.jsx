@@ -2,19 +2,19 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import DebugForm from './Debug';
 
-const HobbiesFields = observer(({ form, fields }) => (
+const HobbiesFields = observer(({ form, hobbies }) => (
   <fieldset>
     <div className="clearfix">
-      <div className="left">{fields.$('hobbies').label}</div>
+      <div className="left">{hobbies.label}</div>
       <div className="right">
-        <button type="button" onClick={e => fields.$('hobbies').onAdd(e)}>
+        <button type="button" onClick={e => hobbies.onAdd(e)}>
           <i className="fa fa-plus-circle" data-tip="Add Hobby" />
         </button>
       </div>
     </div>
     <hr />
-    {fields.$('hobbies').map(hobby =>
-      <div key={hobby.key}>
+    {hobbies.map(hobby =>
+      hobby && <div key={hobby.key}>
         <span key={hobby.name}>
           <div>
             <i>{hobby.error}</i>
@@ -59,43 +59,43 @@ const MembersFields = observer(({ form }) => (
       </div>
     </div>
     <hr />
-    {form.$('members').map(fields =>
-      <fieldset key={fields.key} className="center">
-        <div key={fields.$('firstname').name}>
+    {form.$('members').map(member =>
+      member && <fieldset key={member.key} className="center">
+        <div key={member.$('firstname').name}>
           <div>
-            <b>{fields.$('firstname').label}</b>
-            <i>{fields.$('firstname').error}</i>
+            <b>{member.$('firstname').label}</b>
+            <i>{member.$('firstname').error}</i>
           </div>
           <input
             type="text"
-            name={fields.$('firstname').name}
-            value={fields.$('firstname').value}
-            placeholder={fields.$('firstname').label}
-            onChange={fields.$('firstname').sync}
+            name={member.$('firstname').name}
+            value={member.$('firstname').value}
+            placeholder={member.$('firstname').label}
+            onChange={member.$('firstname').sync}
           />
         </div>
-        <div key={fields.$('lastname').name}>
+        <div key={member.$('lastname').name}>
           <div>
-            <b>{fields.$('lastname').label}</b>
-            <i>{fields.$('lastname').error}</i>
+            <b>{member.$('lastname').label}</b>
+            <i>{member.$('lastname').error}</i>
           </div>
           <input
             type="text"
-            name={fields.$('lastname').name}
-            value={fields.$('lastname').value}
-            placeholder={fields.$('lastname').label}
-            onChange={fields.$('lastname').sync}
+            name={member.$('lastname').name}
+            value={member.$('lastname').value}
+            placeholder={member.$('lastname').label}
+            onChange={member.$('lastname').sync}
           />
         </div>
         <br />
         <span>
-          <button type="button" onClick={e => form.$('members').onDel(e, fields.key)}>
+          <button type="button" onClick={e => form.$('members').onDel(e, member.key)}>
             <i className="fa fa-times-circle" data-tip="Remove Member" />
           </button>
-          <button type="button" onClick={fields.onClear}>
+          <button type="button" onClick={member.onClear}>
             <i className="fa fa-eraser" data-tip="Clear Member" />
           </button>
-          <button type="button" onClick={fields.onReset}>
+          <button type="button" onClick={member.onReset}>
             <i className="fa fa-refresh" data-tip="Reset Member" />
           </button>
         </span>
@@ -103,7 +103,7 @@ const MembersFields = observer(({ form }) => (
         <br />
         <br />
 
-        <HobbiesFields form={form} fields={fields} />
+        <HobbiesFields form={form} hobbies={member.$('hobbies')} />
 
       </fieldset>
     )}
@@ -193,13 +193,5 @@ const FormWithNestedFields = observer(({ form }) => (
     </div>
   </div>
 ));
-
-MembersFields.propTypes = {
-  form: React.PropTypes.object,
-};
-
-FormWithNestedFields.propTypes = {
-  form: React.PropTypes.object,
-};
 
 export default FormWithNestedFields;
