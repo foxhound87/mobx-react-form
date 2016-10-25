@@ -6,7 +6,6 @@ import fieldHelpers from './FieldHelpers';
 
 export default class Field {
 
-  incremental = false;
   fields = asMap({});
   state;
   path;
@@ -42,11 +41,6 @@ export default class Field {
 
     this.setupField(key, path, field, props, update);
     this.initNestedFields(field, update);
-
-    // set as auto-incremental
-    if (this.hasIntKeys() && this.fields.size) {
-      this.incremental = true;
-    }
   }
 
   assignFieldHelpers() {
@@ -274,6 +268,11 @@ export default class Field {
 
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
+
+  @computed
+  get incremental() {
+    return (this.hasIntKeys() && this.fields.size);
+  }
 
   @computed
   get value() {
