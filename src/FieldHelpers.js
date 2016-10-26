@@ -1,4 +1,4 @@
-import { action } from 'mobx';
+import { action, asMap } from 'mobx';
 import _ from 'lodash';
 import utils from './utils';
 import Events from './Events';
@@ -108,33 +108,42 @@ export default $this => ({
   },
 
   /**
+    Init Form Fields and Nested Fields
+  */
+  init: action((fields) => {
+    _.set($this, 'fields', asMap({}));
+    $this.initFields({ fields });
+  }),
+
+  /**
     Update Field Values recurisvely
     OR Create Field if 'undefined'
   */
-  update: (data) => {
-    const fields = $this.prepareFieldsData({ fields: data });
-    $this.deepUpdate(fields);
+  update: (fields) => {
+    const $fields = $this.prepareFieldsData({ fields });
+    return $this.deepUpdate($fields);
   },
 
   deepUpdate: (fields, path = '') => {
-    _.each(fields, (val, key) => {
+    _.each(fields, (field, key) => {
       const $fullPath = _.trimStart(`${path}.${key}`, '.');
       const $field = $this.select($fullPath, null, false);
+      const $values = field ? field.fields : null;
 
-      if (!_.isNil($field) && !_.isNil(val)) {
-        if (_.isNil(val.fields)) $field.set('value', val);
-        else $this.deepUpdate(val.fields, $fullPath);
+      if (!_.isNil($field) && !_.isNil(field)) {
+        if (_.isNil($values)) $field.set('value', field);
+        else $this.deepUpdate($values, $fullPath);
       } else {
         // create fields
         const cpath = _.trimEnd(path.replace(new RegExp('/[^./]+$/'), ''), '.');
         const container = $this.select(cpath, null, false);
         if (!_.isNil(container)) {
           // init filed into the container field
-          container.initField(key, $fullPath, val, null, true);
+          container.initField(key, $fullPath, field, null, true);
           // handle nested fields if defined
-          if (_.has(val, 'fields')) $this.deepUpdate(val.fields, $fullPath);
+          if (_.has(field, 'fields')) $this.deepUpdate($values, $fullPath);
           // handle nested fields if undefined or null
-          else if (_.isNil(val)) {
+          else if (_.isNil(field)) {
             const $fields = $this.pathToFiledsTree($fullPath);
             $this.deepUpdate($fields, $fullPath);
           }
