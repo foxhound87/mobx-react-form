@@ -67,3 +67,15 @@ describe('$D Form values() method checks', () => {
   it(`$D values() ${prop[2]} should be equal to "New Test Name"`, () =>
     expect($.$D.$('itineraryItems').values()).to.have.deep.property(prop[2], 'New Test Name'));
 });
+
+describe('Check Nested $E values()', () => {
+  it('$E places values() should be array', () =>
+    expect($.$E.$('places').values()).to.be.array);
+
+  it('$E places values() should be length of 0', () =>
+    expect($.$E.values().places).to.have.lengthOf(0));
+
+  it('$E places values() should be length of 0', () =>
+    expect($.$E.$('places').values()).to.have.lengthOf(0));
+});
+

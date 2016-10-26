@@ -11,7 +11,6 @@ describe('$L Form', () => {
 
   it('$L password.value should be empty', () =>
     expect($.$L.$('password').value).to.be.empty);
-  console.log($.$L.$('password').value);
 
   it('$L password.error should be null', () =>
     expect($.$L.$('password').error).to.be.null);
