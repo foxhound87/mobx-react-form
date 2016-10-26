@@ -225,7 +225,7 @@ export default class Field {
   }
 
   @action
-  clear(deep = false) {
+  clear(deep = true) {
     this.resetValidation();
     if (isObservableArray(this.$value)) this.$value = [];
     if (_.isBoolean(this.$value)) this.$value = false;
@@ -233,17 +233,21 @@ export default class Field {
     if (_.isString(this.$value)) this.$value = '';
 
     // recursive clear fields
-    if (deep) this.deepAction('clear', this.fields);
+    if (deep && this.fields.size) {
+      this.deepAction('clear', this.fields);
+    }
   }
 
   @action
-  reset(deep = false) {
+  reset(deep = true) {
     const useDefaultValue = (this.$default !== this.$initial);
     if (useDefaultValue) this.value = this.$default;
     if (!useDefaultValue) this.value = this.$initial;
 
     // recursive clear fields
-    if (deep) this.deepAction('reset', this.fields);
+    if (deep && this.fields.size) {
+      this.deepAction('reset', this.fields);
+    }
   }
 
   @action
