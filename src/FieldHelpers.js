@@ -124,33 +124,41 @@ export default $this => ({
     return $this.deepUpdate($fields);
   },
 
-  deepUpdate: (fields, path = '') => {
+  deepUpdate: action((fields, path = '') => {
     _.each(fields, (field, key) => {
       const $fullPath = _.trimStart(`${path}.${key}`, '.');
       const $field = $this.select($fullPath, null, false);
-      const $values = field ? field.fields : null;
 
       if (!_.isNil($field) && !_.isNil(field)) {
-        if (_.isNil($values)) $field.set('value', field);
-        else $this.deepUpdate($values, $fullPath);
-      } else {
-        // create fields
-        const cpath = _.trimEnd(path.replace(new RegExp('/[^./]+$/'), ''), '.');
-        const container = $this.select(cpath, null, false);
-        if (!_.isNil(container)) {
-          // init filed into the container field
-          container.initField(key, $fullPath, field, null, true);
-          // handle nested fields if defined
-          if (_.has(field, 'fields')) $this.deepUpdate($values, $fullPath);
-          // handle nested fields if undefined or null
-          else if (_.isNil(field)) {
-            const $fields = $this.pathToFiledsTree($fullPath);
-            $this.deepUpdate($fields, $fullPath);
-          }
+        if (_.isArray($field.values())) {
+          _.each($field.fields.values(), $f =>
+            $field.fields.delete($f.name));
+        }
+        if (_.isNil(field.fields)) {
+          $field.set('value', field);
         }
       }
+
+      const cpath = _.trimEnd(path.replace(new RegExp('/[^./]+$/'), ''), '.');
+      const container = $this.select(cpath, null, false);
+
+      if (!_.isNil(container)) {
+        // init filed into the container field
+        container.initField(key, $fullPath, field, null, true);
+      }
+
+      if (_.isNil(field)) {
+        // handle nested fields if undefined or null
+        const $fields = $this.pathToFiledsTree($fullPath);
+        $this.deepUpdate($fields, $fullPath);
+      }
+
+      if (_.has(field, 'fields') && !_.isNil(field.fields)) {
+        // handle nested fields if defined
+        $this.deepUpdate(field.fields, $fullPath);
+      }
     });
-  },
+  }),
 
   pathToFiledsTree: (path) => {
     const $ss = $this.state.struct();

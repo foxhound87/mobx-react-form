@@ -59,9 +59,8 @@ const throwError = (path, fields, msg = null) => {
   }
 };
 
-const isPromise = obj => (!!obj
-  && (typeof obj === 'object' || typeof obj === 'function')
-  && typeof obj.then === 'function');
+const isPromise = obj => (!!obj && typeof obj.then === 'function'
+  && (typeof obj === 'object' || typeof obj === 'function'));
 
 const isStruct = data =>
   (_.isArray(data) && _.every(data, _.isString));

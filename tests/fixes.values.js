@@ -79,3 +79,13 @@ describe('Check Nested $E values()', () => {
     expect($.$E.$('places').values()).to.have.lengthOf(0));
 });
 
+describe('Check Nested $F value computed check', () => {
+  it('$F inventoryLevel.value value should be equal to "2"', () =>
+    expect($.$F.$('inventoryLevel.value').value).to.be.equal(2));
+
+  it('$F places value should be array', () =>
+    expect($.$F.$('places').value).to.be.array);
+
+  it('$F places value should be length of 2', () =>
+    expect($.$F.$('places').value).to.have.lengthOf(2));
+});
