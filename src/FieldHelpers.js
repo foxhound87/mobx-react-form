@@ -128,6 +128,7 @@ export default $this => ({
     _.each(fields, (field, key) => {
       const $fullPath = _.trimStart(`${path}.${key}`, '.');
       const $field = $this.select($fullPath, null, false);
+      const $container = $this.container(path);
 
       if (!_.isNil($field) && !_.isNil(field)) {
         if (_.isArray($field.values())) {
@@ -139,12 +140,9 @@ export default $this => ({
         }
       }
 
-      const cpath = _.trimEnd(path.replace(new RegExp('/[^./]+$/'), ''), '.');
-      const container = $this.select(cpath, null, false);
-
-      if (!_.isNil(container)) {
+      if (!_.isNil($container)) {
         // init filed into the container field
-        container.initField(key, $fullPath, field, null, true);
+        $container.initField(key, $fullPath, field, null, true);
       }
 
       if (_.isNil(field)) {
@@ -167,6 +165,12 @@ export default $this => ({
     const tree = $this.handleFieldsArrayOfStrings(structArray);
     const struct = _.replace(structPath, new RegExp('\\[]', 'g'), '[0]');
     return $this.handleFieldsNested(_.get(tree, struct));
+  },
+
+  container: (path = null) => {
+    const $path = path || $this.path || '';
+    const cpath = _.trimEnd($path.replace(new RegExp('/[^./]+$/'), ''), '.');
+    return $this.select(cpath, null, false);
   },
 
   /**
