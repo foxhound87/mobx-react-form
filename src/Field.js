@@ -1,7 +1,8 @@
 import { action, observable, computed, isObservableArray, toJS, asMap } from 'mobx';
 import _ from 'lodash';
 
-import fieldsInitializer from './FieldsInit';
+import fieldInitializer from './FieldInit';
+import fieldParser from './FieldParser';
 import fieldHelpers from './FieldHelpers';
 
 export default class Field {
@@ -36,19 +37,24 @@ export default class Field {
   constructor(key, path, field = {}, state, props = {}, update = false) {
     this.state = state;
 
+    this.assignFieldParser();
     this.assignFieldHelpers();
-    this.assignFieldsInitializer();
+    this.assignFieldInitializer();
 
     this.setupField(key, path, field, props, update);
     this.initNestedFields(field, update);
+  }
+
+  assignFieldParser() {
+    Object.assign(this, fieldParser(this));
   }
 
   assignFieldHelpers() {
     Object.assign(this, fieldHelpers(this));
   }
 
-  assignFieldsInitializer() {
-    Object.assign(this, fieldsInitializer(this));
+  assignFieldInitializer() {
+    Object.assign(this, fieldInitializer(this));
   }
 
   @action

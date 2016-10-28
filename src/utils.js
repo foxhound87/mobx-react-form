@@ -6,16 +6,6 @@ const props = ['value', 'label', 'disabled', 'initial', 'default', 'related'];
 const iprops = ['values', 'labels', 'disabled', 'initials', 'defaults', 'related'];
 const vprops = ['rules', 'validate'];
 
-const parse = ($val, $prop) => {
-  const $values = _.values($val);
-  if ($prop === 'value') {
-    if (_.every($values, (_.isEmpty || _.isNil))) {
-      return [];
-    }
-  }
-  return $values;
-};
-
 const check = ({ type, data }) => {
   let $check;
 
@@ -79,7 +69,6 @@ export default {
   props,
   iprops,
   vprops,
-  parse,
   check,
   has,
   allowed,

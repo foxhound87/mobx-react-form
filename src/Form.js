@@ -1,10 +1,13 @@
 import { action, computed, observe, observable, asMap } from 'mobx';
 import _ from 'lodash';
+
 import Validator from './Validator';
 import Options from './Options';
 import Events from './Events';
 import State from './State';
-import fieldsInitializer from './FieldsInit';
+
+import fieldInitializer from './FieldInit';
+import fieldParser from './FieldParser';
 import fieldHelpers from './FieldHelpers';
 
 export default class Form {
@@ -22,8 +25,9 @@ export default class Form {
   constructor(initial = {}, name = null) {
     this.name = name;
 
+    this.assignFieldParser();
     this.assignFieldHelpers();
-    this.assignFieldsInitializer();
+    this.assignFieldInitializer();
     this.initOptions(initial);
     this.initValidator(initial);
     this.initPropsState(initial);
@@ -35,12 +39,16 @@ export default class Form {
     if (_.isFunction(this.onInit)) this.onInit(this);
   }
 
+  assignFieldParser() {
+    Object.assign(this, fieldParser(this));
+  }
+
   assignFieldHelpers() {
     Object.assign(this, fieldHelpers(this));
   }
 
-  assignFieldsInitializer() {
-    Object.assign(this, fieldsInitializer(this));
+  assignFieldInitializer() {
+    Object.assign(this, fieldInitializer(this));
   }
 
   initOptions(initial = {}) {
