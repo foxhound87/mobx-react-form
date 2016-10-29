@@ -26,7 +26,7 @@ export default $this => ({
     let fields = initial.fields || {};
     fields = $this.handleFieldsArrayOfStrings(fields);
     fields = $this.handleFieldsArrayOfObjects(fields);
-    fields = $this.handleFieldsEmpty(fields, initial);
+    fields = $this.handleFieldsValuesFallback(fields, initial);
     fields = $this.handleFieldsNested(fields, initial);
     fields = $this.mergeSchemaDefaults(fields);
     return fields;
@@ -46,9 +46,9 @@ export default $this => ({
       return obj;
     }, {}),
 
-  handleFieldsEmpty: (fields, initial) => {
+  handleFieldsValuesFallback: (fields, initial) => {
     if (!_.has(initial, 'values')) return fields;
-    // if the 'field' object is not provided into the constructor
+    // if the 'fields' object is not provided into the constructor
     // and the 'values' object is passed, use it to create fields
     return _.merge(fields, initial.values);
   },
@@ -57,8 +57,6 @@ export default $this => ({
     let fields = $fields;
     // handle array with field struct (strings)
     if (utils.isStruct(fields)) {
-      // save the global struct into state
-      $this.state.struct(fields);
       fields = _.reduce(fields, ($obj, $) => {
         const pathStruct = _.split($, '.');
         // as array of strings (with empty values)

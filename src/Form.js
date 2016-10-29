@@ -1,5 +1,6 @@
 import { action, computed, observe, observable, asMap } from 'mobx';
 import _ from 'lodash';
+import utils from './utils';
 
 import Validator from './Validator';
 import Options from './Options';
@@ -25,13 +26,12 @@ export default class Form {
   constructor(initial = {}, name = null) {
     this.name = name;
 
-    this.assignFieldParser();
-    this.assignFieldHelpers();
-    this.assignFieldInitializer();
+    this.extend();
     this.initOptions(initial);
     this.initValidator(initial);
     this.initPropsState(initial);
     this.initFields(initial);
+
     this.observeFields();
     this.validateOnInit();
 
@@ -39,15 +39,9 @@ export default class Form {
     if (_.isFunction(this.onInit)) this.onInit(this);
   }
 
-  assignFieldParser() {
+  extend() {
     Object.assign(this, fieldParser(this));
-  }
-
-  assignFieldHelpers() {
     Object.assign(this, fieldHelpers(this));
-  }
-
-  assignFieldInitializer() {
     Object.assign(this, fieldInitializer(this));
   }
 
@@ -67,6 +61,10 @@ export default class Form {
 
     this.state = new State();
     this.state.set('initial', 'props', initialPropsState);
+
+    if (utils.isStruct(initial.fields)) {
+      this.state.struct(initial.fields);
+    }
   }
 
   options(options = null) {

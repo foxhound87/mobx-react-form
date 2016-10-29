@@ -37,23 +37,14 @@ export default class Field {
   constructor(key, path, field = {}, state, props = {}, update = false) {
     this.state = state;
 
-    this.assignFieldParser();
-    this.assignFieldHelpers();
-    this.assignFieldInitializer();
-
+    this.extend();
     this.setupField(key, path, field, props, update);
     this.initNestedFields(field, update);
   }
 
-  assignFieldParser() {
+  extend() {
     Object.assign(this, fieldParser(this));
-  }
-
-  assignFieldHelpers() {
     Object.assign(this, fieldHelpers(this));
-  }
-
-  assignFieldInitializer() {
     Object.assign(this, fieldInitializer(this));
   }
 
@@ -78,15 +69,6 @@ export default class Field {
 
     if (_.isNil($field)) $field = ''; // eslint-disable-line
 
-    /**
-      Assume the field is an array, a boolean, a string or a number
-      Example:
-
-        {
-          username: 'test',
-          password: '12345',
-        }
-    */
     if (
     _.isBoolean($field) ||
     _.isArray($field) ||
@@ -105,19 +87,6 @@ export default class Field {
       return;
     }
 
-    /**
-      Assume the field is an object.
-      Example:
-
-        {
-          username: {
-            value: 'test';
-            label: 'Username',
-            message: 'This is a message!'
-            validate: (field, fields) => {},
-          },
-        }
-    */
     if (_.isObject($field)) {
       const { name, label, disabled, rules, validate, related } = $field;
       this.$initial = this.parseInitialValue($field.value, $value);
