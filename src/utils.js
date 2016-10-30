@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import mixins from './mixins';
 
-const computed = ['error', 'hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty'];
+const computed = ['error', 'hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focus', 'touched'];
 const props = ['value', 'label', 'disabled', 'initial', 'default', 'related'];
 const iprops = ['values', 'labels', 'disabled', 'initials', 'defaults', 'related'];
 const vprops = ['rules', 'validate'];
@@ -33,20 +33,18 @@ const has = ($type, $data) => {
   Check Allowed Properties
 */
 const allowed = (type, data) => {
-  if (!has(type, data)) {
-    const $msg = 'The selected property is not allowed';
-    throw new Error(`${$msg} (${JSON.stringify(data)})`);
-  }
+  if (has(type, data)) return;
+  const $msg = 'The selected property is not allowed';
+  throw new Error(`${$msg} (${JSON.stringify(data)})`);
 };
 
 /**
   Throw Error if undefined Fields
 */
 const throwError = (path, fields, msg = null) => {
-  if (_.isNil(fields)) {
-    const $msg = _.isNil(msg) ? 'The selected field is not defined' : msg;
-    throw new Error(`${$msg} (${path})`);
-  }
+  if (!_.isNil(fields)) return;
+  const $msg = _.isNil(msg) ? 'The selected field is not defined' : msg;
+  throw new Error(`${$msg} (${path})`);
 };
 
 const isPromise = obj => (!!obj && typeof obj.then === 'function'
