@@ -8,7 +8,7 @@ import Field from './Field';
 */
 export default $this => ({
 
-  initFields: action('init-Fields', (initial, update) => {
+  initFields: (initial, update) => {
     const $path = key => _.trimStart([$this.path, key].join('.'), '.');
     const fields = $this.prepareFieldsData(initial);
 
@@ -16,9 +16,9 @@ export default $this => ({
     _.each(fields, (field, key) =>
       _.isNil($this.select($path(key), null, false))
       && $this.initField(key, $path(key), field, null, update));
-  }),
+  },
 
-  initField: action('init-Field', (key, path, data, fields = null, update = false) => {
+  initField: action((key, path, data, fields = null, update = false) => {
     const $fields = fields || $this.fields;
     const initial = $this.state.get('current', 'props');
 

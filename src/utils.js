@@ -8,13 +8,11 @@ const vprops = ['rules', 'validate'];
 
 const check = ({ type, data }) => {
   let $check;
-
   switch (type) {
     case 'some': $check = $data => _.some($data, Boolean); break;
     case 'every': $check = $data => _.every($data, Boolean); break;
     default: $check = null;
   }
-
   return $check(data);
 };
 
