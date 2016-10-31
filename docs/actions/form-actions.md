@@ -1,23 +1,8 @@
 # Form Actions
 
-### Init the fields
-
-You can create the fields after the form is initialized too, or you can re-init them.
-
-```javascript
-form.init({
-  username: 'NewUsername',
-  password: 'NewPassword',
-});
-```
-
-It works like passing the `fields` or the `structure` to the [Form Constructor](../api-reference/form-initialization.md).
-
-Nested fields can be initalized as well.
+The following actions can be used on the form instance.
 
 ---
-
-# Validation
 
 ### Validate the Form
 

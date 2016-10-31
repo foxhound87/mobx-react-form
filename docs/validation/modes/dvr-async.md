@@ -20,6 +20,23 @@ const asyncRules = {
 extend: ($validator) => Object.keys(asyncRules)
   .forEach((key) => $validator.registerAsyncRule(key, asyncRules[key]));
 ...
+
+import validatorjs from 'validatorjs';
+
+const plugins = {
+  dvr: {
+    package: validatorjs,
+    extend: ($validator) => {
+      // here we can access the `validatorjs` instance and we
+      // can add the rules using the `registerAsyncRule()` method.
+      Object.keys(asyncRules).forEach((key) =>
+        $validator.registerAsyncRule(key, asyncRules[key]));
+    };
+  },
+};
+
+// create the form using extended plugins
+new Form({ plugins, ... });
 ```
 
 > Read more about [Asynchronous Validation](https://github.com/skaterdav85/validatorjs#asynchronous-validation) on the official ValidatorJS documentation.

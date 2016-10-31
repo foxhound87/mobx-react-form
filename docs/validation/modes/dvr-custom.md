@@ -27,7 +27,7 @@ const plugins = {
     package: validatorjs,
     extend: ($validator) => {
       // here we can access the `validatorjs` instance and we
-      // can add the rules using `$validator.register()
+      // can add the rules using the `register()` method.
       Object.keys(rules).forEach((key) =>
         $validator.register(key, rules[key].function, rules[key].message));
     };
@@ -35,7 +35,6 @@ const plugins = {
 };
 
 // create the form using extended plugins
-
-new Form({ fields, plugins });
+new Form({ plugins, ... });
 
 ```

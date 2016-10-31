@@ -2,12 +2,38 @@
 
 The actions can be used on form or every field and nested field.
 
-### Update the fields
+---
 
-form the form instance:
+### Init the fields
+
+It works like passing the `fields` or the `structure` to the [Form Constructor](../api-reference/form-initialization.md).
+
+Nested fields can be initalized as well.
+
+You can create the fields after the form is initialized too, or you can re-init them.
 
 ```javascript
-.update({
+form.init({
+  username: 'NewUsername',
+  password: 'NewPassword',
+});
+```
+
+or using the selector for nested fields:
+
+```javascript
+form.$('credentials').init({
+  username: 'NewUsername',
+  password: 'NewPassword',
+});
+```
+
+### Update the fields
+
+Update values from the form instance:
+
+```javascript
+form.update({
   address: {
     city: 'Los Angeles'
   },
@@ -17,7 +43,7 @@ form the form instance:
 or the same selecting a field:
 
 ```javascript
-.$('address').update({
+form.$('address').update({
   city: 'Los Angeles'
 });
 ```
@@ -65,7 +91,6 @@ const n = 3;
 
 .$('members').$(n).$('firstname');
 ```
-
 
 ### Get the Fields Properties
 

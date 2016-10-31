@@ -36,7 +36,7 @@ const schema = {
 #### Create the form passing all the objects
 
 ```javascript
-new Form({ fields, plugins, schema });
+new Form({ plugins, schema, ... });
 ```
 
 <br>
