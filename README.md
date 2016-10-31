@@ -18,9 +18,10 @@
 - Automatic Reactive Form State Management with MobX Magic
 - Automatic Reactive Validation & Error Messages
 - Validation Plugins & Multiple Validation Styles
-- Nested Fields (w/ Validation)
 - Sync & Async Validation functions
+- Nested Fields (w/ Serialization & Validation)
 - Support for Material UI, React Widgets, React Select
+- Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package
 
 <br>
 
