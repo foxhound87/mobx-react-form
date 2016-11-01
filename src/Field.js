@@ -398,10 +398,10 @@ export default class Field {
 
   onFocus = action(() => {
     this.$focus = true;
+    this.$touched = true;
   });
 
   onBlur = action(() => {
-    this.$touched = true;
     this.$focus = false;
   });
 
