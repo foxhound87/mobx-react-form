@@ -104,7 +104,7 @@ export default class Validator {
     // validate with vanilla js functions (vjf)
     if (vjf) vjf.validateField($field, form);
     // validate with json schema validation keywords (dvr)
-    if (dvr) dvr.validateField($field);
+    if (dvr) dvr.validateField($field, form);
     // validate with json schema validation keywords (svk)
     if (svk) svk.validateField($field);
     // send error to the view

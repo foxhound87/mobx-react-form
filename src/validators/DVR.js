@@ -46,18 +46,23 @@ export default class DVR {
     if (_.isFunction(this.extend)) this.extend(this.validator);
   }
 
-  validateField(field) {
-    this.validateFieldAsync(field);
-    this.validateFieldSync(field);
+  validateField(field, form) {
+    // get form fields data
+    const data = {};
+    form.forEach((formField) => {
+      data[formField.path] = formField.value;
+    });
+
+    this.validateFieldAsync(field, form, data);
+    this.validateFieldSync(field, form, data);
   }
 
-  validateFieldSync(field) {
+  validateFieldSync(field, form, data) {
     const $rules = this.rules(field.rules, 'sync');
     // exit if no rules found
     if (_.isEmpty($rules[0])) return;
-    // get field data and rules
-    const data = { [field.key]: field.value };
-    const rules = { [field.key]: $rules };
+    // get field rules
+    const rules = { [field.path]: $rules };
     // create the validator instance
     const Validator = this.validator;
     const validation = new Validator(data, rules);
@@ -69,12 +74,11 @@ export default class DVR {
     field.setInvalid(_.first(validation.errors.get(field.key)));
   }
 
-  validateFieldAsync(field) {
+  validateFieldAsync(field, form, data) {
     const $rules = this.rules(field.rules, 'async');
     // exit if no rules found
     if (_.isEmpty($rules[0])) return;
-    // get field data and rules
-    const data = { [field.key]: field.value };
+    // get field rules
     const rules = { [field.key]: $rules };
     // create the validator instance
     const Validator = this.validator;
