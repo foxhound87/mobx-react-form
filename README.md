@@ -114,7 +114,7 @@ export default new MyForm({ fields, plugins });
 
 #### Pass the form to a react component
 
-The package provide those built-in and ready to use Event Handlers:
+The package provide some built-in and ready to use Event Handlers:
 
 `onSubmit(e)`, `onSuccess(e)`, `onError(e)`.
 
@@ -122,7 +122,7 @@ The package provide those built-in and ready to use Event Handlers:
 import React from 'react';
 import { observer } from 'mobx-react';
 
-const FormComponent = ({ form, events }) => (
+export default observer(({ form, events }) => (
   <form onSubmit={form.onSubmit}>
     <input
       type="text"
@@ -141,9 +141,7 @@ const FormComponent = ({ form, events }) => (
 
     <p>{form.error}</p>
   </form>
-);
-
-export default observer(FormComponent);
+));
 ```
 
 <br>
