@@ -25,6 +25,16 @@ const fields = {
   password: {
     label: 'Password',
     value: 'thinkdifferent',
+    rules: 'confirmed',
+  },
+  passwordConfirmation1: {
+    label: 'Password Confirmation 1',
+    value: 'thinkdifferent',
+    rules: 'required|same:password',
+  },
+  password_confirmation: {
+    label: 'Password Confirmation 2',
+    value: 'thinkdifferent',
   },
   terms: {
     label: 'Accept Terms',

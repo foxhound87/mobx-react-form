@@ -324,4 +324,51 @@ export default $this => ({
       check.push(utils.check({ type: $, data: $deep }));
       return check;
     }, []),
+
+  /**
+     * Iterates deeply over fields and invokes `iteratee` for each element.
+     * The iteratee is invoked with three arguments: (value, index|key, depth).
+     *
+     * @param {Function} The function invoked per iteration.
+     * @param {Array|Object} [fields=form.fields] fields to iterate over.
+     * @param {number} [depth=1] The recursion depth for internal use.
+     * @returns {Array} Returns [fields.values()] of input [fields] parameter.
+     * @example
+     *
+     * JSON.stringify(form)
+     * // => {
+     *   "fields": {
+     *     "state": {
+     *       "fields": {
+     *         "city": {
+     *           "fields": { "places": {
+     *                "fields": {},
+     *                "key": "places", "path": "state.city.places", "$value": "NY Places"
+     *              }
+     *           },
+     *           "key": "city", "path": "state.city", "$value": "New York"
+     *         }
+     *       },
+     *       "key": "state", "path": "state", "$value": "USA"
+     *     }
+     *   }
+     * }
+     *
+     * const data = {};
+     * form.forEach(formField => data[formField.path] = formField.value);
+     * // => {
+     *   "state": "USA",
+     *   "state.city": "New York",
+     *   "state.city.places": "NY Places"
+     * }
+     *
+     */
+  forEach: (iteratee, fields = $this.fields, depth = 0) =>
+    _.each(fields.values(), (field, index) => {
+      iteratee(field, index, depth);
+
+      if (field.fields.size !== 0) {
+        $this.forEach(iteratee, field.fields, depth + 1);
+      }
+    }),
 });
