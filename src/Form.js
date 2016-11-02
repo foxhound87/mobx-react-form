@@ -55,12 +55,11 @@ export default class Form {
   }
 
   initPropsState(initial) {
-    const initialPropsState = _.omit(initial, [
-      'fields', 'options', 'plugins',
-    ]);
+    const $props = _.union(utils.iprops, utils.vprops);
+    const initialProps = _.pick(initial, $props);
 
     this.state = new State();
-    this.state.set('initial', 'props', initialPropsState);
+    this.state.set('initial', 'props', initialProps);
 
     if (utils.isStruct(initial.fields)) {
       this.state.struct(initial.fields);
