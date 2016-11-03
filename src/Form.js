@@ -199,14 +199,6 @@ export default class Form {
   */
   @action
   add(path = null) {
-  // add(path = null, val = null) {
-    // if (path && val) {
-    //   // path is the key here
-    //   console.log('this.path', this.path);
-    //   this.initField(path, [this.path, path].join('.'));
-    //   return;
-    // }
-
     const keys = _.split(path, '.');
     const last = _.last(keys);
     const $path = _.trimEnd(path, `.${last}`);

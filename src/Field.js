@@ -141,21 +141,18 @@ export default class Field {
   */
   @action
   add(path = null) {
-  // add(path = null, val = null) {
-    // if (path && val) {
-    //   // path is the key here
-    //   console.log('this.path', this.path);
-    //   this.initField(path, [this.path, path].join('.'));
-    //   return;
-    // }
-
     if (_.isString(path)) {
       this.select(path).add();
       return;
     }
 
     const $n = this.maxKey() + 1;
-    this.initField($n, [this.path, $n].join('.'));
+    const tree = this.pathToFiledsTree(this.path);
+    const $path = key => _.trimStart([this.path, key].join('.'), '.');
+
+    _.each(tree, field => this.fields.merge({
+      [$n]: new Field($n, $path($n), field, this.state),
+    }));
   }
 
   /**

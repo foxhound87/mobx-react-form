@@ -13,12 +13,12 @@ export default $this => ({
     return $values;
   },
 
-  pathToFiledsTree: (path) => {
+  pathToFiledsTree: (path, n = 0) => {
     const $ss = $this.state.struct();
     const structPath = utils.pathToStruct(path);
     const structArray = _.filter($ss, item => _.startsWith(item, structPath));
     const tree = $this.handleFieldsArrayOfStrings(structArray);
-    const struct = _.replace(structPath, new RegExp('\\[]', 'g'), '[0]');
+    const struct = _.replace(structPath, new RegExp('\\[]', 'g'), `[${n}]`);
     return $this.handleFieldsNested(_.get(tree, struct));
   },
 
