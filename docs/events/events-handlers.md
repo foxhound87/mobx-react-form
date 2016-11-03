@@ -2,7 +2,7 @@
 
 ---
 
-### Sync Field Value Hanlder
+### Sync Field Value Handler
 
 Use the `sync(e)` handler to update the state of the field:
 
