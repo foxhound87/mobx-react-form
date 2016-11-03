@@ -110,9 +110,15 @@ export default $this => ({
   /**
     Init Form Fields and Nested Fields
   */
-  init: action((fields) => {
+  init: action(($fields = null) => {
     _.set($this, 'fields', asMap({}));
-    $this.initFields({ fields });
+
+    $this.state.initial.props.values = $fields; // eslint-disable-line
+    $this.state.current.props.values = $fields; // eslint-disable-line
+
+    $this.initFields({
+      fields: $fields || $this.state.struct(),
+    });
   }),
 
   /**
