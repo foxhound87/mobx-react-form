@@ -82,6 +82,8 @@ or you can use the alias `$()` as shortcut:
 .$('address.city');
 ```
 
+> $(path) is like of select(path) but doesn't trow error if can not find the field.
+
 or you can retrive items from arrays:
 
 ```javascript
@@ -114,9 +116,7 @@ or filtering by a prop (with nested fields as collections):
 
 You can get these props: `value`, `label`, `initial`, `default`, `disabled`, `related`,
 
-or these computed props: `error`, `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched`.
-
-and the validation props as well: `rules` and `validate`.
+or these computed props: `error`, `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched` and the validation props as well (`rules` and `validate`).
 
 If you want to get nested fields as `fields` objects instead of collections pass the prop as array:
 
@@ -189,9 +189,11 @@ Iterate each field and nested fields recursively.
 
 The callback get each field in input.
 
+```javascript
 .forEach(field => {
   // do some stuff with the field
 });
+``
 
 ### Add & Del
 
