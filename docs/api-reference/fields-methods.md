@@ -15,8 +15,10 @@
 | **setValid()** | - | - | Set the field as valid. | - |
 | **setInvalid(errorMessage = null, showError = true)** | **errorMessage**: string <br> **showErrors**: boolean | - | Mark the field as invalid. Pass an optional `errorMessage` or a default error will be shown. Set `showError` to `false` and the message will be hidden.  | - |
 | **resetValidation()** | - | - | Reset the field validation status. | - |
+| **map(callback)** | (function) | - | Map Nested Fields | - |
+| **forEach(callback)** | (function) | - | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | - |
 
-> $(path) is an alias of select(path)
+> $(path) is like of select(path) but doesn't trow error if can not find the field.
 
 <br>
 

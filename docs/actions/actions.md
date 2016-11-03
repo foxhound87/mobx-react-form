@@ -6,14 +6,18 @@ The actions can be used on form or every field and nested field.
 
 ### Init the fields
 
-It works like passing the `fields` or the `structure` to the [Form Constructor](../api-reference/form-initialization.md).
+It works like passing the pasising the `fields` or `values` to the [Form Constructor](../api-reference/form-initialization.md).
 
-Nested fields can be initalized as well.
-
-You can create the fields after the form is initialized too, or you can re-init them.
+Empty Fields can be re-initalized if a `struct` was provided when initialized.
 
 ```javascript
-form.init({
+.init();
+```
+
+You can re-init them with new `values` or `struct` after the form is already initialized:
+
+```javascript
+.init({
   username: 'NewUsername',
   password: 'NewPassword',
 });
@@ -22,7 +26,7 @@ form.init({
 or using the selector for nested fields:
 
 ```javascript
-form.$('credentials').init({
+.$('credentials').init({
   username: 'NewUsername',
   password: 'NewPassword',
 });
@@ -33,7 +37,7 @@ form.$('credentials').init({
 Update values from the form instance:
 
 ```javascript
-form.update({
+.update({
   address: {
     city: 'Los Angeles'
   },
@@ -43,7 +47,7 @@ form.update({
 or the same selecting a field:
 
 ```javascript
-form.$('address').update({
+.$('address').update({
   city: 'Los Angeles'
 });
 ```
@@ -52,7 +56,7 @@ form.$('address').update({
 
 These computed values are allowed:
 
-`hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`.
+`hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched`.
 
 ```javascript
 .check('isValid');
@@ -110,7 +114,7 @@ or filtering by a prop (with nested fields as collections):
 
 You can get these props: `value`, `label`, `initial`, `default`, `disabled`, `related`,
 
-or these computed props: `error`, `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`,
+or these computed props: `error`, `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched`.
 
 and the validation props as well: `rules` and `validate`.
 
@@ -179,15 +183,28 @@ or
 });
 ```
 
+### For Each
+
+Iterate each field and nested fields recursively.
+
+The callback get each field in input.
+
+.forEach(field => {
+  // do some stuff with the field
+});
+
 ### Add & Del
 
 Provide the `key` to add or delete a field.
 
 ```javascript
-.add(key);
+.add();
+
+// or
+.add(path);
 ```
 
 ```javascript
-.del(key);
+.del(path);
 ```
 

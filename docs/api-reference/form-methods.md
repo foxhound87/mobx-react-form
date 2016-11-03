@@ -14,8 +14,10 @@
 | **validate(field)** | (string) | promise | Check if the field is valid and return a promise. | - |
 | **invalidate(err)** | (string) | - | Invalidate the form passing a generic error message. | - |
 | **submit(obj)** | (object) | - | Perform fields validation. After successful validation triggers onSuccess event and onError event in case of validation error. | - |
+| **map(callback)** | (function) | - | Map Nested Fields | - |
+| **forEach(callback)** | (function) | - | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | - |
 
-> $(path) is an alias of select(path)
+> $(path) is like of select(path) but doesn't trow error if can not find the field.
 
 <br>
 
