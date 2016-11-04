@@ -13,7 +13,7 @@ export default $this => ({
     return $values;
   },
 
-  pathToFiledsTree: (path, n = 0) => {
+  pathToFieldsTree: (path, n = 0) => {
     const $ss = $this.state.struct();
     const structPath = utils.pathToStruct(path);
     const structArray = _.filter($ss, item => _.startsWith(item, structPath));

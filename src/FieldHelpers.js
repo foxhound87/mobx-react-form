@@ -153,7 +153,7 @@ export default $this => ({
 
       if (_.isNil(field)) {
         // handle nested fields if undefined or null
-        const $fields = $this.pathToFiledsTree($fullPath);
+        const $fields = $this.pathToFieldsTree($fullPath);
         $this.deepUpdate($fields, $fullPath);
       }
 

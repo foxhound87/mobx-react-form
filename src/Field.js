@@ -147,7 +147,7 @@ export default class Field {
     }
 
     const $n = this.maxKey() + 1;
-    const tree = this.pathToFiledsTree(this.path);
+    const tree = this.pathToFieldsTree(this.path);
     const $path = key => _.trimStart([this.path, key].join('.'), '.');
 
     _.each(tree, field => this.fields.merge({
