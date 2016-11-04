@@ -193,7 +193,7 @@ The callback get each field in input.
 .forEach(field => {
   // do some stuff with the field
 });
-``
+```
 
 ### Add & Del
 

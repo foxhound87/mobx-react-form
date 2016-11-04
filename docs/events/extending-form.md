@@ -8,7 +8,7 @@ you can extend the form implementing the `onInit()` mehtod:
 ```javascript
 import Form from 'mobx-react-form';
 
-export default class MyForm extends MobxReactForm {
+class MyForm extends MobxReactForm {
 
   onInit(form) {
     // do staff on the form
@@ -27,7 +27,7 @@ Extend the Form Class with `onSuccess` and `onError` methods:
 ```javascript
 import MobxReactForm from 'mobx-react-form';
 
-export default class MyForm extends MobxReactForm {
+class MyForm extends MobxReactForm {
 
   onSuccess(form) {
     alert('Form is valid! Send the request here.');
