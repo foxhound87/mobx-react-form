@@ -67,11 +67,11 @@ export default class DVR {
     const Validator = this.validator;
     const validation = new Validator(data, rules);
     // set label into errors messages instead key
-    validation.setAttributeNames({ [field.key]: field.label });
+    validation.setAttributeNames({ [field.path]: field.label });
     // check validation
     if (validation.passes()) return;
     // the validation is failed, set the field errorbre
-    field.setInvalid(_.first(validation.errors.get(field.key)));
+    field.setInvalid(_.first(validation.errors.get(field.path)));
   }
 
   validateFieldAsync(field, form, data) {
@@ -79,12 +79,12 @@ export default class DVR {
     // exit if no rules found
     if (_.isEmpty($rules[0])) return;
     // get field rules
-    const rules = { [field.key]: $rules };
+    const rules = { [field.path]: $rules };
     // create the validator instance
     const Validator = this.validator;
     const validation = new Validator(data, rules);
     // set label into errors messages instead key
-    validation.setAttributeNames({ [field.key]: field.label });
+    validation.setAttributeNames({ [field.path]: field.label });
     // handle async fails
     if (!field.hasError) field.setInvalid(this.loadingMessage(), true);
 
@@ -105,7 +105,7 @@ export default class DVR {
   handleAsyncFails(field, validation, resolve) {
     field.setValidationAsyncData({
       valid: false,
-      message: _.first(validation.errors.get(field.key)),
+      message: _.first(validation.errors.get(field.path)),
     });
     this.executeAsyncValidation(field);
     field.showAsyncErrors();

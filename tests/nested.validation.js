@@ -43,3 +43,43 @@ describe('Check Nested $H validation', () => {
   it('$H state.city.places isValid should be false', () =>
     expect($.$H.$('state.city.places').isValid).to.be.false);
 });
+
+describe('Check Nested $R validation', () => {
+  it('$R club.name isValid should be true', () =>
+    expect($.$R.$('club.name').isValid).to.be.true);
+
+  it('$R club.city isValid should be true', () =>
+    expect($.$R.$('club.city').isValid).to.be.true);
+
+  it('$R members[1].firstname isValid should be true', () =>
+    expect($.$R.$('members[1].firstname').isValid).to.be.true);
+
+  it('$R members[1].lastname isValid should be true', () =>
+    expect($.$R.$('members[1].lastname').isValid).to.be.true);
+
+  it('$R members[1].hobbies[0] isValid should be true', () =>
+    expect($.$R.$('members[1].hobbies[1]').isValid).to.be.true);
+
+  it('$R members[1].hobbies[1] isValid should be true', () =>
+    expect($.$R.$('members[1].hobbies[1]').isValid).to.be.true);
+});
+
+describe('Check Nested $S validation', () => {
+  it('$S club.name isValid should be false', () =>
+    expect($.$S.$('club.name').isValid).to.be.false);
+
+  it('$S club.city isValid should be false', () =>
+    expect($.$S.$('club.city').isValid).to.be.false);
+
+  it('$S members[1].firstname isValid should be false', () =>
+    expect($.$S.$('members[1].firstname').isValid).to.be.false);
+
+  it('$S members[1].lastname isValid should be false', () =>
+    expect($.$S.$('members[1].lastname').isValid).to.be.false);
+
+  it('$S members[1].hobbies[0] isValid should be false', () =>
+    expect($.$S.$('members[1].hobbies[1]').isValid).to.be.false);
+
+  it('$S members[1].hobbies[1] isValid should be false', () =>
+    expect($.$S.$('members[1].hobbies[1]').isValid).to.be.false);
+});

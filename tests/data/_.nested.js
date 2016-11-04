@@ -16,9 +16,11 @@ import $N from './forms/nested/form.n';
 import $O from './forms/nested/form.o';
 import $P from './forms/nested/form.p';
 import $Q from './forms/nested/form.q';
+import $R from './forms/nested/form.r';
+import $S from './forms/nested/form.s';
 
 export default {
 
-  $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q,
+  $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q, $R, $S,
 
 };

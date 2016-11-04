@@ -1,7 +1,5 @@
 import { expect } from 'chai';
 
-// ⁄it('$N isValid should be false', () => expect($.$N.isValid).to.be.false);
-
 export default ($) => {
   describe('Form validate()', () => {
     // $L
