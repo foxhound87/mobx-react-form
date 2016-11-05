@@ -93,6 +93,6 @@
     "rimraf": "2.5.4",
     "semantic-release": "4.3.5",
     "validatorjs": "3.7.0",
-    "webpack": "1.13.2"
+    "webpack": "1.13.3"
   }
 }
