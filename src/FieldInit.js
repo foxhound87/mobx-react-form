@@ -19,6 +19,7 @@ export default $this => ({
   },
 
   initField: action((key, path, data, fields = null, update = false) => {
+    const $form = $this.constructor.name === 'Field' ? $this.form : $this;
     const $fields = fields || $this.fields;
     const initial = $this.state.get('current', 'props');
 
@@ -35,8 +36,9 @@ export default $this => ({
       $rules: $try('rules'),
     };
 
+
     $fields.merge({
-      [key]: new Field(key, path, data, $this.state, props, update),
+      [key]: new Field(key, path, data, $this.state, props, update, $form),
     });
   }),
 });

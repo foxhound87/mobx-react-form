@@ -87,9 +87,9 @@ export default class Form {
     });
   }
 
-  observeFields() {
+  observeFields(fields = null) {
     // deep observe and validate each field
-    this.observeFieldsDeep(this.fields);
+    this.observeFieldsDeep(fields || this.fields);
   }
 
   observeFieldsDeep(fields) {

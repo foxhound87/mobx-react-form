@@ -8,6 +8,7 @@ import fieldHelpers from './FieldHelpers';
 export default class Field {
 
   fields = asMap({});
+  form;
   state;
   path;
   key;
@@ -34,7 +35,8 @@ export default class Field {
   @observable validationFunctionsData = [];
   @observable validationAsyncData = {};
 
-  constructor(key, path, field = {}, state, props = {}, update = false) {
+  constructor(key, path, field = {}, state, props = {}, update = false, form) {
+    this.form = form;
     this.state = state;
 
     this.extend();
@@ -150,9 +152,9 @@ export default class Field {
     const tree = this.pathToFieldsTree(this.path);
     const $path = key => _.trimStart([this.path, key].join('.'), '.');
 
-    _.each(tree, field => this.fields.merge({
-      [$n]: new Field($n, $path($n), field, this.state),
-    }));
+    _.each(tree, field => this.initField($n, $path($n), field));
+
+    this.form.observeFields(this.fields);
   }
 
   /**
