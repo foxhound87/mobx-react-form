@@ -125,7 +125,7 @@ export default class DVR {
 
   rules(rules, type) {
     let diff = [];
-    const $rules = _.split(rules, '|');
+    const $rules = _.isString(rules) ? _.split(rules, '|') : rules;
     if (type === 'sync') diff = _.difference($rules, this.asyncRules);
     if (type === 'async') diff = _.intersection($rules, this.asyncRules);
     return diff;

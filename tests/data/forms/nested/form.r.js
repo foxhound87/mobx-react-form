@@ -14,6 +14,7 @@ const fields = [
 ];
 
 const rules = {
+  'email': ['required', 'regex:^[A-Za-z0-9](([_.-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([.-]?[a-zA-Z0-9]+)*).([A-Za-z]{2,})$'],
   'club.name': 'required|string',
   'club.city': 'required|string',
   'members[].firstname': 'required|string',
@@ -23,6 +24,7 @@ const rules = {
 };
 
 const values = {
+  email: 's.jobs@apple.com',
   club: {
     name: 'HELLO',
     city: 'NY',

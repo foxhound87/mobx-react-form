@@ -45,6 +45,9 @@ describe('Check Nested $H validation', () => {
 });
 
 describe('Check Nested $R validation', () => {
+  it('$R email isValid should be true', () =>
+    expect($.$R.$('email').isValid).to.be.true);
+
   it('$R club.name isValid should be true', () =>
     expect($.$R.$('club.name').isValid).to.be.true);
 
