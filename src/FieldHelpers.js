@@ -147,7 +147,7 @@ export default $this => ({
       }
 
       if (!_.isNil($container)) {
-        // init filed into the container field
+        // init field into the container field
         $container.initField(key, $fullPath, field, null, true);
       }
 
