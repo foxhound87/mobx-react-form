@@ -200,7 +200,7 @@ export default $this => ({
     }
 
     // UPDATE CUSTOM PROP
-    if ($this.constructor.name === 'Field') {
+    if (_.has($this, 'form')) {
       if (_.isString($) && !_.isNil(data)) {
         utils.allowed('props', [$]);
         _.set($this, `$${$}`, data);

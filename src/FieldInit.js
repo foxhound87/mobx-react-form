@@ -19,7 +19,7 @@ export default $this => ({
   },
 
   initField: action((key, path, data, fields = null, update = false) => {
-    const $form = $this.constructor.name === 'Field' ? $this.form : $this;
+    const $form = _.has($this, 'form') ? $this.form : $this;
     const $fields = fields || $this.fields;
     const initial = $this.state.get('current', 'props');
 
