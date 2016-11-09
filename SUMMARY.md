@@ -4,6 +4,7 @@
 * [Introduction](README.md)
 * [Getting Started](docs/getting-started.md)
 * [DevTools](docs/devtools.md)
+* [FAQ](docs/faq.md)
 
 ## Start
 * [Defining Fields](docs/defining-fields.md)
