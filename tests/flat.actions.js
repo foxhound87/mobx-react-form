@@ -31,10 +31,10 @@ describe('$H Form fields', () => {
 });
 
 describe('$O Form fields', () => {
-  it('$O username.value hould be equal to "TestUser"', () =>
+  it('$O username.value should be equal to "TestUser"', () =>
     expect($.$O.$('username').value).to.be.equal('TestUser'));
 
-  it('$O email.value hould be equal to "s.jobs@apple.com"', () =>
+  it('$O email.value should be equal to "s.jobs@apple.com"', () =>
     expect($.$O.$('email').value).to.be.equal('s.jobs@apple.com'));
 
   it('$O email.label should be equal to "E-mail"', () =>
@@ -45,13 +45,13 @@ describe('$O Form fields', () => {
 });
 
 describe('$P Form fields', () => {
-  it('$P username.value hould be equal to "TestUser"', () =>
+  it('$P username.value should be equal to "TestUser"', () =>
     expect($.$P.$('username').value).to.be.equal('TestUser'));
 
-  it('$P email.value hould be equal to "s.jobs@apple.com"', () =>
+  it('$P email.value should be equal to "s.jobs@apple.com"', () =>
     expect($.$P.$('email').value).to.be.equal('s.jobs@apple.com'));
 
-  it('$P username.label hould be equal to "UserName"', () =>
+  it('$P username.label should be equal to "UserName"', () =>
     expect($.$P.$('username').label).to.be.equal('UserName'));
 
   it('$P passwordConfirm.label should be equal to "Confirm Password"', () =>
@@ -71,21 +71,21 @@ describe('$P Form fields', () => {
 });
 
 describe('$Q Form fields', () => {
-  it('$Q username.value hould be equal to "SteveJobs"', () =>
+  it('$Q username.value should be equal to "SteveJobs"', () =>
     expect($.$Q.$('username').value).to.be.equal('SteveJobs'));
 
-  it('$Q username.label hould be equal to "Username"', () =>
+  it('$Q username.label should be equal to "Username"', () =>
     expect($.$Q.$('username').label).to.be.equal('Username'));
 
-  it('$Q email.value hould be equal to "s.jobs@apple.com"', () =>
+  it('$Q email.value should be equal to "s.jobs@apple.com"', () =>
     expect($.$Q.$('email').value).to.be.equal('s.jobs@apple.com'));
 
-  it('$Q email.label hould be equal to "Email"', () =>
+  it('$Q email.label should be equal to "Email"', () =>
     expect($.$Q.$('email').label).to.be.equal('Email'));
 });
 
 describe('$R Form fields', () => {
-  it('$R email.value hould be equal to "invalid"', () =>
+  it('$R email.value should be equal to "invalid"', () =>
     expect($.$R.$('email').value).to.be.equal('invalid'));
 
   it('$R email.hasError should be true', () =>

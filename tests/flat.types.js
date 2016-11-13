@@ -3,10 +3,27 @@ import { expect, assert } from 'chai';
 
 import $forms from './data/_.flat'; // FORMS
 
-describe('Check validate() returns promise', () => {
-  _.each($forms, (form, key) => it(`${key} validate() is promise`, () =>
-    expect(form.validate()).to.be.a('promise')));
+describe('Check validate() returns promise that resolves to boolean', () => {
+  _.each($forms, (form, key) => (
+    it(`${key} validate() is promise that resolves to boolean`, () => {
+      const promise = form.validate();
+      expect(promise).to.be.a('promise');
+      return promise.then(result => expect(result).to.be.a('boolean'));
+    })
+  ));
 });
+
+describe('Check validate(key) returns promise that resolves to boolean', () => (
+  _.each($forms, (form, formKey) => describe(`${formKey} form`, () => (
+    form.fields.forEach((field, fieldKey) => (
+      it(`validate('${fieldKey}') is promise that resolves to boolean`, () => {
+        const promise = form.validate(fieldKey);
+        expect(promise).to.be.a('promise');
+        return promise.then(result => expect(result).to.be.a('boolean'));
+      })
+    ))
+  )))
+));
 
 describe('Check options() returns object', () => {
   _.each($forms, (form, key) => it(`${key} options() is object`, () =>

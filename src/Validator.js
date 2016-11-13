@@ -21,7 +21,7 @@ export default class Validator {
     vjf: null,
     svk: null,
     dvr: null,
-  }
+  };
 
   @observable genericErrorMessage = null;
 
@@ -95,6 +95,7 @@ export default class Validator {
     });
   }
 
+  @action
   validateField({ form = null, field = null, key, showErrors = true, related = false }) {
     const $field = field || form.fields.get(key) || this.select(key, form.fields);
     // reset field validation
