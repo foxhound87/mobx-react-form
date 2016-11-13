@@ -146,6 +146,5 @@ export default class Validator {
     }
     // if no string provided, show default error.
     this.genericErrorMessage = this.getDefaultErrorMessage();
-    return;
   }
 }
