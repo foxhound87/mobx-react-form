@@ -1,4 +1,4 @@
-# FAQ
+# Frequent Asked Questions
 
 ---
 
@@ -11,3 +11,5 @@
 * [What is the current use case of onAdd?](https://github.com/foxhound87/mobx-react-form/issues/145)
 
 * [How to define/override validation error messages text?](https://github.com/foxhound87/mobx-react-form/issues/49)
+
+* [Unable to update() array field values](https://github.com/foxhound87/mobx-react-form/issues/148)

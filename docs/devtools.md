@@ -8,6 +8,10 @@
 npm install --save mobx-react-form-devtools
 ```
 
+## Demo
+
+[MobX React Form DevTools Demo](https://foxhound87.github.io/mobx-react-form/demo.html)
+
 ## Usage
 
 ```javascript
@@ -23,13 +27,12 @@ MobxReactFormDevTools.register({
 // select form to show into the devtools
 MobxReactFormDevTools.select('registerForm');
 
+// open the devtools (closed by default)
+MobxReactFormDevTools.open(true);
+
 // render the component
 <MobxReactFormDevTools.UI />
 ```
-
-## Screenshot
-
-![DevTools](https://github.com/foxhound87/mobx-react-form-devtools/blob/master/screenshot.png?raw=true)
 
 ## Theme
 
@@ -54,3 +57,7 @@ MobxReactFormDevTools.theme({
   base0F: '#ab7967',
 });
 ```
+
+## Screenshot
+
+![DevTools](https://github.com/foxhound87/mobx-react-form-devtools/blob/master/screenshot.png?raw=true)
