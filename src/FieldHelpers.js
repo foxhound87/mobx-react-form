@@ -228,7 +228,6 @@ export default $this => ({
       // $ is the prop key
       $this.deepSet($, data, '', true);
       if (!recursion) Events.setRunning($e, false);
-      return;
     }
   }),
 
