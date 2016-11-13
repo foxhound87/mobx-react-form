@@ -105,7 +105,6 @@ export default class Field {
       this.$disabled = $disabled || disabled || false;
       this.$related = $related || related || [];
       this.$validate = toJS($validate || validate || null);
-      return;
     }
   }
 
@@ -389,7 +388,6 @@ export default class Field {
 
     // text
     this.value = e.target.value;
-    return;
   };
 
   onChange = (e) => {
