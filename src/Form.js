@@ -113,8 +113,21 @@ export default class Form {
     this.validator.resetGenericError();
 
     const $key = _.has(opt, 'key') ? opt.key : opt;
-    const $field = _.has(opt, 'field') ? opt.field : null;
-    const showErrors = _.has(opt, 'showErrors') ? opt.showErrors : obj.showErrors || true;
+
+    let $field = null;
+    if (_.has(opt, 'field')) {
+      $field = opt.field;
+    } else if (_.isString($key)) {
+      $field = this.select($key);
+    }
+
+    let showErrors = true;
+    if (_.has(opt, 'showErrors')) {
+      showErrors = opt.showErrors;
+    } else if (_.has(obj, 'showErrors')) {
+      showErrors = obj.showErrors;
+    }
+
     const related = _.has(opt, 'related') ? opt.related : obj.related || false;
 
     Events.setRunning('validate', true, $field ? $field.path : null);

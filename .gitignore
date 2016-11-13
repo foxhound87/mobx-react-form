@@ -10,3 +10,4 @@ npm-debug.log
 coverage.lcov
 codecov.yml
 yarn.lock
+/.idea
