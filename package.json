@@ -10,7 +10,7 @@
     "clean:build": "rimraf lib && rimraf umd",
     "clean:modules": "rimraf node_modules && npm cache clean",
     "clean:all": "npm run clean:build && npm run clean:modules",
-    "lint": "eslint . --ext .jsx,.js --ignore-path .gitignore",
+    "lint": "eslint . demo --ext .jsx,.js --ignore-path .gitignore",
     "build": "npm-run-all --parallel build:*",
     "build:main": "babel -d lib/ src/",
     "build:umd": "webpack --output-filename mobx-react-form.umd.js",
