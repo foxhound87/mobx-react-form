@@ -142,33 +142,6 @@ export default class Field {
   /* ------------------------------------------------------------------ */
   /* ACTIONS */
 
-  /**
-    Add Field
-  */
-  @action
-  add(path = null) {
-    if (_.isString(path)) {
-      this.select(path).add();
-      return;
-    }
-
-    const $n = this.maxKey() + 1;
-    const tree = this.pathToFieldsTree(this.path);
-    const $path = key => _.trimStart([this.path, key].join('.'), '.');
-
-    _.each(tree, field => this.initField($n, $path($n), field));
-
-    this.form.observeFields(this.fields);
-  }
-
-  /**
-    Del Field
-  */
-  @action
-  del(key = null) {
-    this.fields.delete(key);
-  }
-
   @action
   setInvalid(message, async = false) {
     if (async === true) {
@@ -427,7 +400,7 @@ export default class Field {
   /**
     Event: On Add
   */
-  onAdd = (e, key) => {
+  onAdd = (e, key = null) => {
     e.preventDefault();
     this.add(key);
   };
@@ -435,8 +408,8 @@ export default class Field {
   /**
     Event: On Del
   */
-  onDel = (e, key) => {
+  onDel = (e, path = null) => {
     e.preventDefault();
-    this.del(key);
+    this.del(path || this.path);
   };
 }

@@ -144,3 +144,11 @@ describe('Check Nested $D props after state clear()', () => {
   it('$D state.city.places.brooklynBridge isEmpty should be true', () =>
     expect($.$D.$('state.city.places.brooklynBridge').isEmpty).to.be.true);
 });
+
+describe('Check Nested $T add() and del()', () => {
+  it('$T hobbies fields.size should be equal to 3', () =>
+    expect($.$T.$('hobbies').fields.size).to.equal(3));
+
+  it('$T member.hobbies fields.size should be equal to 3', () =>
+    expect($.$T.$('member.hobbies').fields.size).to.equal(3));
+});

@@ -203,28 +203,6 @@ export default class Form {
         : execOnError(this));
   }
 
-  /**
-    Add Field
-  */
-  @action
-  add(path = null) {
-    const keys = _.split(path, '.');
-    const last = _.last(keys);
-    const $path = _.trimEnd(path, `.${last}`);
-    this.select($path).add(last);
-  }
-
-  /**
-    Del Field
-  */
-  @action
-  del(path = null) {
-    const keys = _.split(path, '.');
-    const last = _.last(keys);
-    const $path = _.trimEnd(path, `.${last}`);
-    this.select($path).del(last);
-  }
-
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
 
@@ -295,7 +273,7 @@ export default class Form {
   /**
     Event: On Add
   */
-  onAdd = (e, key) => {
+  onAdd = (e, key = null) => {
     e.preventDefault();
     this.add(key);
   };
@@ -303,7 +281,7 @@ export default class Form {
   /**
     Event: On Del
   */
-  onDel = (e, key) => {
+  onDel = (e, key = null) => {
     e.preventDefault();
     this.del(key);
   };
