@@ -18,7 +18,7 @@ The helpers can be used on form or every field and nested field.
 
 ### Get all Field Errors
 
-> Returns an `object` with all fields `key:err` pairs.
+> Returns an `object` with all fields `key:val` pairs.
 
 ```javascript
 .errors();
@@ -32,23 +32,23 @@ The helpers can be used on form or every field and nested field.
 
 ### Get all Field Labels
 
-> Returns an `object` with all fields `key:err` pairs.
+> Returns an `object` with all fields `key:val` pairs.
 
 ```javascript
 .labels();
 ```
 
-### Get all Field Defaults
+### Get all Field Defaults Values
 
-> Returns an `object` with all fields `key:err` pairs.
+> Returns an `object` with all fields `key:val` pairs.
 
 ```javascript
 .defaults();
 ```
 
-### Get all Field Initials
+### Get all Field Initials Values
 
-> Returns an `object` with all fields `key:err` pairs.
+> Returns an `object` with all fields `key:val` pairs.
 
 ```javascript
 .initials();

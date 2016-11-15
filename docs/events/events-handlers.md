@@ -65,13 +65,13 @@ We have these methods: `onAdd(e)` and `onDel(e)`.
 You have to specify the field `key` as second argument:
 
 ```html
-onClick={e => fields.onAdd(e, 'hobbies')}
+onClick={hobbies.onAdd}
 ```
 
 or using the field `selector`:
 
 ```html
-onClick={e => fields.$('hobbies').onAdd(e)}
+onClick={form.$('hobbies').onAdd}
 ```
 
 ##### Deleting a Field
@@ -79,5 +79,11 @@ onClick={e => fields.$('hobbies').onAdd(e)}
 You have to specify the field `key` as second argument.
 
 ```html
-onClick={e => form.onDel(e, hobby.path)}
+onClick={hobby.onDel}
+```
+
+or using the field `selector`:
+
+```html
+onClick={form.$('hobbies').$(3).onDel}
 ```

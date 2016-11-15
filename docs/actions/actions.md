@@ -167,7 +167,7 @@ Clear or Reset the whole Form, a single Field, or Nested Fields recursively.
 .reset();
 ```
 
-### Map Nested Fields
+### Map Fields and Nested Fields
 
 ```javascript
 $('hobbies').map((fields) => {
@@ -183,7 +183,7 @@ or
 });
 ```
 
-### For Each
+### forEach()
 
 Iterate each field and nested fields recursively.
 
@@ -195,18 +195,29 @@ The callback get each field in input.
 });
 ```
 
-### Add & Del
+### add() & del()
 
-Provide the `key` to add or delete a field.
+Add fields or nested fields:
 
 ```javascript
-.add();
-
-// or
-.add(path);
+form.$('hobbies').add();
 ```
 
+or provide the `key` to add or delete a field:
+
 ```javascript
-.del(path);
+form.add('hobbies');
+```
+
+Delete a field:
+
+```javascript
+form.del('hobbies[1]');
+```
+
+or
+
+```javascript
+form.$('hobbies').del(1);
 ```
 
