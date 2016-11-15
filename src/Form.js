@@ -115,20 +115,16 @@ export default class Form {
     const $key = _.has(opt, 'key') ? opt.key : opt;
 
     let $field = null;
-    if (_.has(opt, 'field')) {
-      $field = opt.field;
-    } else if (_.isString($key)) {
-      $field = this.select($key);
-    }
+    if (_.has(opt, 'field')) $field = opt.field;
+    else if (_.isString($key)) $field = this.select($key);
 
     let showErrors = true;
-    if (_.has(opt, 'showErrors')) {
-      showErrors = opt.showErrors;
-    } else if (_.has(obj, 'showErrors')) {
-      showErrors = obj.showErrors;
-    }
+    if (_.has(opt, 'showErrors')) showErrors = opt.showErrors;
+    else if (_.has(obj, 'showErrors')) showErrors = obj.showErrors;
 
-    const related = _.has(opt, 'related') ? opt.related : obj.related || false;
+    let related = false;
+    if (_.has(opt, 'related')) related = opt.related;
+    else if (_.has(obj, 'related')) related = obj.related;
 
     Events.setRunning('validate', true, $field ? $field.path : null);
 
