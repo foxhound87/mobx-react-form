@@ -113,8 +113,7 @@ export default $this => ({
   init: action(($fields = null) => {
     _.set($this, 'fields', asMap({}));
 
-    $this.state.initial.props.values = $fields; // eslint-disable-line
-    $this.state.current.props.values = $fields; // eslint-disable-line
+    $this.state.set('initial', 'props', { values: $fields });
 
     $this.initFields({
       fields: $fields || $this.state.struct(),
@@ -334,7 +333,7 @@ export default $this => ({
      * Iterates deeply over fields and invokes `iteratee` for each element.
      * The iteratee is invoked with three arguments: (value, index|key, depth).
      *
-     * @param {Function} The function invoked per iteration.
+     * @param {Function} iteratee The function invoked per iteration.
      * @param {Array|Object} [fields=form.fields] fields to iterate over.
      * @param {number} [depth=1] The recursion depth for internal use.
      * @returns {Array} Returns [fields.values()] of input [fields] parameter.

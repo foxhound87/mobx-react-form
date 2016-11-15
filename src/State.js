@@ -5,12 +5,12 @@ export default class State {
   initial = {
     props: {},
     fields: {},
-  }
+  };
 
   current = {
     props: {},
     fields: {},
-  }
+  };
 
   /**
     Get/Set Fields Structure
