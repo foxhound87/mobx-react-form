@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import mixins from './mixins';
 
 const computed = ['error', 'hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focus', 'touched'];
 const props = ['value', 'label', 'disabled', 'initial', 'default', 'related'];
@@ -54,11 +53,13 @@ const isStruct = data =>
 const pathToStruct = path =>
   _.trimEnd(_.replace(path, new RegExp('[.]\\d($|.)', 'g'), '[].'), '.');
 
+const hasSome = (obj, keys) => _.some(keys, _.partial(_.has, obj));
+
 const hasUnifiedProps = field =>
-  (mixins.hasSome(field, props) || mixins.hasSome(field, vprops));
+  (hasSome(field, props) || hasSome(field, vprops));
 
 const hasSeparatedProps = initial =>
-  (mixins.hasSome(initial, iprops) || mixins.hasSome(initial, vprops));
+  (hasSome(initial, iprops) || hasSome(initial, vprops));
 
 export default {
   computed,
