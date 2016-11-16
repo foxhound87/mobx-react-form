@@ -6,7 +6,7 @@
 
 Use the `sync(e)` handler to update the state of the field:
 
-```html
+```javascript
 onChange={form.$('username').sync}
 ```
 
@@ -62,28 +62,36 @@ We have these methods: `onAdd(e)` and `onDel(e)`.
 
 ##### Adding a Field
 
-You have to specify the field `key` as second argument:
-
-```html
+```javascript
 onClick={hobbies.onAdd}
 ```
 
 or using the field `selector`:
 
-```html
+```javascript
 onClick={form.$('hobbies').onAdd}
+```
+
+or specify the field `path` as second argument:
+
+```javascript
+onClick={e => form.onAdd(e, 'hobbies')}
 ```
 
 ##### Deleting a Field
 
-You have to specify the field `key` as second argument.
-
-```html
+```javascript
 onClick={hobby.onDel}
 ```
 
 or using the field `selector`:
 
-```html
+```javascript
 onClick={form.$('hobbies').$(3).onDel}
+```
+
+or specify the field `path` as second argument:
+
+```javascript
+onClick={e => form.onDel(e, 'hobbies[3]')}
 ```
