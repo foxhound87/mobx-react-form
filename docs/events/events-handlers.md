@@ -8,8 +8,11 @@ All Event Handlers methods take the `Proxy` object in input as first argument an
 
 Use the `sync(e)` handler to update the state of the field:
 
-```javascript
-onChange={form.$('username').sync}
+```html
+<input
+  ...
+  onChange={form.$('username').sync}
+/>
 ```
 
 > `onChange(e)` and `onToggle(e)` are aliases of `sync(e)`;
@@ -54,6 +57,8 @@ You can easly include the `onSubmit` handler in your component:
 <button type="submit" onClick={form.onSubmit}>Submit</button>
 ```
 
+---
+
 ### Clear & Reset
 
 ```html
@@ -77,36 +82,36 @@ We have these methods: `onAdd(e)` and `onDel(e)`.
 
 ##### Adding a Field
 
-```javascript
+```html
 <button type="button" onClick={hobbies.onAdd}>Add Hobby</button>
 ```
 
 or using the field `selector`:
 
-```javascript
+```html
 <button type="button" onClick={form.$('hobbies').onAdd}>Add Hobby</button>
 ```
 
 or specify the field `path` as second argument:
 
-```javascript
+```html
 <button type="button" onClick={e => form.onAdd(e, 'hobbies')}>Add Hobby</button>
 ```
 
 ##### Deleting a Field
 
-```javascript
+```html
 <button type="button" onClick={hobby.onDel}>Delete Hobby</button>
 ```
 
 or using the field `selector`:
 
-```javascript
+```html
 <button type="button" onClick={form.$('hobbies').$(3).onDel}>Delete Hobby</button>
 ```
 
 or specify the field `path` as second argument:
 
-```javascript
+```html
 <button type="button" onClick={e => form.onDel(e, 'hobbies[3]')}>Delete Hobby</button>
 ```
