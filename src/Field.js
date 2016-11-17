@@ -230,8 +230,13 @@ export default class Field {
   }
 
   @computed
+  get hasNestedFields() {
+    return (this.fields.size !== 0);
+  }
+
+  @computed
   get value() {
-    if (this.incremental) {
+    if (this.incremental || this.hasNestedFields) {
       return this.get('value');
     }
 
@@ -338,9 +343,9 @@ export default class Field {
 
   @computed
   get isEmpty() {
-    if (_.isNumber(this.$value)) return false;
-    if (_.isBoolean(this.$value)) return !this.$value;
-    return _.isEmpty(this.$value);
+    if (_.isNumber(this.value)) return false;
+    if (_.isBoolean(this.value)) return !this.$value;
+    return _.isEmpty(this.value);
   }
 
   /* ------------------------------------------------------------------ */

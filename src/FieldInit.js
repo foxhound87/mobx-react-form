@@ -36,7 +36,6 @@ export default $this => ({
       $rules: $try('rules'),
     };
 
-
     $fields.merge({
       [key]: new Field(key, path, data, $this.state, props, update, $form),
     });

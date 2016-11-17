@@ -18,3 +18,8 @@ export function isEmail({ field }) {
   const isValid = (field.value.indexOf('@') > 0);
   return [isValid, `The ${field.label} should be an email address.`];
 }
+
+export function isInt({ field }) {
+  const isValid = Number.isInteger(field.value);
+  return [isValid, `The ${field.label} should be an Integer.`];
+}

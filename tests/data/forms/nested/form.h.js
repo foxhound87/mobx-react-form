@@ -1,5 +1,5 @@
 import Form from '../../../../src';
-import { isEmail } from '../../extension/vjf';
+import { isInt } from '../../extension/vjf';
 
 const fields = {
   state: {
@@ -39,9 +39,9 @@ const fields = {
 };
 
 const validate = {
-  'state': isEmail,
-  'state.city': isEmail,
-  'state.city.places': isEmail,
+  'state': isInt,
+  'state.city': isInt,
+  'state.city.places': isInt,
 };
 
 export default new Form({ fields, validate }, 'Nested-H');

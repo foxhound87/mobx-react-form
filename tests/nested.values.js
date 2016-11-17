@@ -4,8 +4,17 @@ import $ from './data/_.nested'; // FORMS
 
 
 describe('Check Nested $F Unified Properties (values)', () => {
-  it('$F state.city value should be equal "New York"', () =>
-    expect($.$F.$('state.city').value).to.be.equal('New York'));
+  it('$F state.city value should be an object', () =>
+    expect($.$F.$('state.city').value).to.be.an('object'));
+
+  it('$F state.city value should be an object', () =>
+    expect($.$F.$('state.city').value).to.have.property('places'));
+
+  it('$F state.city.places value should be an object', () =>
+    expect($.$F.$('state.city.places').value).to.be.an('object'));
+
+  it('$F state.city.places value should be an object', () =>
+    expect($.$F.$('state.city.places').value).to.have.property('statueOfLiberty'));
 });
 
 describe('Check Nested $I Separated Properties (values)', () => {
