@@ -51,6 +51,13 @@ const isPromise = obj => (!!obj && typeof obj.then === 'function'
 const isStruct = data =>
   (_.isArray(data) && _.every(data, _.isString));
 
+const parsePath = (path) => {
+  let $path = path;
+  $path = _.replace($path, new RegExp('\\[', 'g'), '.');
+  $path = _.replace($path, new RegExp('\\]', 'g'), '');
+  return $path;
+};
+
 const pathToStruct = path =>
   _.trimEnd(_.replace(path, new RegExp('[.]\\d($|.)', 'g'), '[].'), '.');
 
@@ -71,6 +78,7 @@ export default {
   throwError,
   isPromise,
   isStruct,
+  parsePath,
   pathToStruct,
   hasUnifiedProps,
   hasSeparatedProps,

@@ -77,10 +77,7 @@ export default $this => ({
     Fields Selector
   */
   select: (path, fields = null, isStrict = true) => {
-    let $path = path;
-
-    $path = _.replace($path, new RegExp('\\[', 'g'), '.');
-    $path = _.replace($path, new RegExp('\\]', 'g'), '');
+    const $path = utils.parsePath(path);
 
     const keys = _.split($path, '.');
     const head = _.head(keys);
@@ -375,4 +372,48 @@ export default $this => ({
         $this.forEach(iteratee, field.fields, depth + 1);
       }
     }),
+
+  /**
+    Add Field
+  */
+  add: action((path = null) => {
+    if (_.isString(path)) {
+      const $path = utils.parsePath(path);
+      $this.select($path, null, true).add();
+      return;
+    }
+
+    if (_.has($this, 'form')) {
+      const $n = $this.maxKey() + 1;
+      const tree = $this.pathToFieldsTree($this.path);
+      const $path = key => _.trimStart([$this.path, key].join('.'), '.');
+
+      _.each(tree, field => $this.initField($n, $path($n), field));
+
+      $this.form.observeFields($this.fields);
+    }
+  }),
+
+  /**
+    Del Field
+  */
+  del: action((path = null) => {
+    if (_.isInteger(_.parseInt(path))) {
+      $this.fields.delete(path);
+      return;
+    }
+
+    const $path = utils.parsePath(path);
+    const keys = _.split($path, '.');
+    const last = _.last(keys);
+    const cpath = _.trimEnd($path, `.${last}`);
+
+    if (_.has($this, 'form')) {
+      $this.form.select(cpath, null, true).del(last);
+      return;
+    }
+
+    $this.select(cpath, null, true).del(last);
+  }),
+
 });

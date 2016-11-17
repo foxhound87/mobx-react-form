@@ -17,14 +17,11 @@ describe('Check $B Nested Fields', () => {
   it('$B state.city label should be equal to "City"', () =>
     expect($.$B.$('state.city').label).to.be.equal('City'));
 
-  it('$B state.city value should be equal to "New York"', () =>
-    expect($.$B.$('state.city').value).to.be.equal('New York'));
+  it('$B state.city.places value should not be empty', () =>
+    expect($.$B.$('state.city.places').value).to.not.be.empty);
 
-  it('$B state.city.places value should be empty', () =>
-    expect($.$B.$('state.city.places').value).to.be.empty);
-
-  it('$B state.city.places isEmpty should be true', () =>
-    expect($.$B.$('state.city.places').isEmpty).to.be.true);
+  it('$B state.city.places isEmpty should be false', () =>
+    expect($.$B.$('state.city.places').isEmpty).to.be.false);
 
   it('$B state.city.places label should be equal to "NY Cool Places"', () =>
     expect($.$B.$('state.city.places').label).to.be.equal('NY Cool Places'));
@@ -46,17 +43,20 @@ describe('Check $C Nested Fields', () => {
   it('$C state.city label should be equal to "City"', () =>
     expect($.$C.$('state.city').label).to.be.equal('City'));
 
-  it('$C state.city value should be equal to "New York"', () =>
-    expect($.$C.$('state.city').value).to.be.equal('New York'));
+  it('$C state.city value should be be object', () =>
+    expect($.$C.$('state.city').value).to.be.an('object'));
 
-  it('$C state.city.places value should be empty', () =>
-    expect($.$C.$('state.city.places').value).to.be.empty);
+  it('$C state.city value should have prop "places"', () =>
+    expect($.$C.$('state.city').value).to.have.property('places'));
 
-  it('$C state.city.places isEmpty should be true', () =>
-    expect($.$C.$('state.city.places').isEmpty).to.be.true);
+  it('$C state.city.places value should be object', () =>
+    expect($.$C.$('state.city.places').value).to.be.an('object'));
 
-  it('$C state.city.places isEmpty should be true', () =>
-    expect($.$C.$('state.city.places').isEmpty).to.be.true);
+  it('$C state.city.places value should have prop "statueOfLiberty"', () =>
+    expect($.$C.$('state.city.places').value).to.have.property('statueOfLiberty'));
+
+  it('$C state.city.places isEmpty should be false', () =>
+    expect($.$C.$('state.city.places').isEmpty).to.be.false);
 
   it('$C state.city.places label should be equal to "NY Cool Places"', () =>
     expect($.$C.$('state.city.places').label).to.be.equal('NY Cool Places'));
@@ -77,7 +77,9 @@ describe('Check $C Nested Fields', () => {
   const deepPropLabel = 'state.fields.city.label';
 
   it(`$C get([label, value]) ${deepPropValue} should be equal to "New York"`, () =>
-    expect($.$C.get(['label', 'value'])).to.have.deep.property(deepPropValue, 'New York'));
+    expect($.$C.get(['label', 'value']))
+      .to.have.deep.property(deepPropValue)
+      .that.is.an('object'));
 
   it(`$C get([label, value]) ${deepPropLabel} should be equal to "City"`, () =>
     expect($.$C.get(['label', 'value'])).to.have.deep.property(deepPropLabel, 'City'));
@@ -135,12 +137,20 @@ describe('Check Nested $D props after state clear()', () => {
   it('$D state isEmpty should be false', () =>
   expect($.$D.$('state').isEmpty).to.be.false);
 
-  it('$D state.city isEmpty should be true', () =>
-  expect($.$D.$('state.city').isEmpty).to.be.true);
+  it('$D state.city isEmpty should be false', () =>
+  expect($.$D.$('state.city').isEmpty).to.be.false);
 
-  it('$D state.city.places isEmpty should be true', () =>
-    expect($.$D.$('state.city.places').isEmpty).to.be.true);
+  it('$D state.city.places isEmpty should be false', () =>
+    expect($.$D.$('state.city.places').isEmpty).to.be.false);
 
   it('$D state.city.places.brooklynBridge isEmpty should be true', () =>
     expect($.$D.$('state.city.places.brooklynBridge').isEmpty).to.be.true);
+});
+
+describe('Check Nested $T add() and del()', () => {
+  it('$T hobbies fields.size should be equal to 3', () =>
+    expect($.$T.$('hobbies').fields.size).to.equal(3));
+
+  it('$T member.hobbies fields.size should be equal to 3', () =>
+    expect($.$T.$('member.hobbies').fields.size).to.equal(3));
 });
