@@ -333,7 +333,6 @@ export default $this => ({
      * @param {Function} iteratee The function invoked per iteration.
      * @param {Array|Object} [fields=form.fields] fields to iterate over.
      * @param {number} [depth=1] The recursion depth for internal use.
-     * @returns {Array} Returns [fields.values()] of input [fields] parameter.
      * @example
      *
      * JSON.stringify(form)

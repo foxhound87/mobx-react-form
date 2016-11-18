@@ -17,8 +17,6 @@ export default class DVR {
 
   asyncRules = [];
 
-  validators = {};
-
   validator = null;
 
   extend = null;
