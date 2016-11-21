@@ -176,24 +176,21 @@ export default class Form {
   /**
     Clear Form Fields
   */
-  @action
-  clear() {
+  @action clear() {
     this.deepAction('clear', this.fields);
   }
 
   /**
     Reset Form Fields
   */
-  @action
-  reset() {
+  @action reset() {
     this.deepAction('reset', this.fields);
   }
 
   /**
     Submit Form
   */
-  @action
-  submit(o = {}) {
+  @action submit(o = {}) {
     const execOnSuccess = _.has(o, 'onSuccess') ? o.onSuccess : this.onSuccess;
     const execOnError = _.has(o, 'onError') ? o.onError : this.onError;
 
@@ -206,40 +203,45 @@ export default class Form {
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
 
-  @computed
-  get hasError() {
-    return _.some(this.deepCheck('some', 'hasError', this.fields))
+  @computed get hasError() {
+    return this.check('hasError', true)
       || _.isString(this.validator.genericErrorMessage);
   }
 
-  @computed
-  get isValid() {
-    return _.every(this.deepCheck('every', 'isValid', this.fields))
+  @computed get isValid() {
+    return this.check('isValid', true)
       && !_.isString(this.validator.genericErrorMessage);
   }
 
-  @computed
-  get isDirty() {
-    return _.some(this.deepCheck('some', 'isDirty', this.fields));
+  @computed get isDirty() {
+    return this.check('isDirty', true);
   }
 
-  @computed
-  get isPristine() {
-    return _.every(this.deepCheck('every', 'isPristine', this.fields));
+  @computed get isPristine() {
+    return this.check('isPristine', true);
   }
 
-  @computed
-  get isDefault() {
-    return _.every(this.deepCheck('every', 'isDefault', this.fields));
+  @computed get isDefault() {
+    return this.check('isDefault', true);
   }
 
-  @computed
-  get isEmpty() {
-    return _.every(this.deepCheck('every', 'isEmpty', this.fields));
+  @computed get isEmpty() {
+    return this.check('isEmpty', true);
   }
 
-  @computed
-  get error() {
+  @computed get focus() {
+    return this.check('focus', true);
+  }
+
+  @computed get touched() {
+    return this.check('touched', true);
+  }
+
+  @computed get changed() {
+    return this.check('changed', true);
+  }
+
+  @computed get error() {
     return this.validator.genericErrorMessage;
   }
 

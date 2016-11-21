@@ -26,6 +26,7 @@ export default class Field {
   @observable $disabled = false;
   @observable $focus = false;
   @observable $touched = false;
+  @observable $changed = false;
 
   @observable errorSync = null;
   @observable errorAsync = null;
@@ -287,16 +288,6 @@ export default class Field {
   }
 
   @computed
-  get focus() {
-    return this.$focus;
-  }
-
-  @computed
-  get touched() {
-    return this.$touched;
-  }
-
-  @computed
   get rules() {
     return this.$rules;
   }
@@ -328,30 +319,59 @@ export default class Field {
 
   @computed
   get isDirty() {
-    return !_.isEqual(this.$default, this.value);
+    return this.hasNestedFields
+      ? this.check('isDirty', true)
+      : !_.isEqual(this.$default, this.value);
   }
 
   @computed
   get isPristine() {
-    return _.isEqual(this.$default, this.value);
+    return this.hasNestedFields
+      ? this.check('isPristine', true)
+      : _.isEqual(this.$default, this.value);
   }
 
   @computed
   get isDefault() {
-    return _.isEqual(this.$default, this.value);
+    return this.hasNestedFields
+      ? this.check('isDefault', true)
+      : _.isEqual(this.$default, this.value);
   }
 
   @computed
   get isEmpty() {
+    if (this.hasNestedFields) return this.check('isEmpty', true);
+    if (_.isBoolean(this.value)) return !!this.$value;
     if (_.isNumber(this.value)) return false;
-    if (_.isBoolean(this.value)) return !this.$value;
     return _.isEmpty(this.value);
   }
 
+  @computed
+  get focus() {
+    return this.hasNestedFields
+      ? this.check('focus', true)
+      : this.$focus;
+  }
+
+  @computed
+  get touched() {
+    return this.hasNestedFields
+      ? this.check('touched', true)
+      : this.$touched;
+  }
+
+  @computed
+  get changed() {
+    return this.hasNestedFields
+      ? this.check('changed', true)
+      : this.$changed;
+  }
   /* ------------------------------------------------------------------ */
   /* EVENTS */
 
-  sync = (e) => {
+  sync = action((e) => {
+    this.$changed = true;
+
     // assume "e" is the value
     if (_.isNil(e.target)) {
       this.value = e;
@@ -366,15 +386,15 @@ export default class Field {
 
     // text
     this.value = e.target.value;
-  };
+  });
 
-  onChange = (e) => {
+  onChange = action((e) => {
     this.sync(e);
-  };
+  });
 
-  onToggle = (e) => {
+  onToggle = action((e) => {
     this.sync(e);
-  }
+  });
 
   onFocus = action(() => {
     this.$focus = true;
@@ -389,32 +409,32 @@ export default class Field {
   /**
     Event: On Clear
   */
-  onClear = (e) => {
+  onClear = action((e) => {
     e.preventDefault();
     this.clear(true);
-  };
+  });
 
   /**
     Event: On Reset
   */
-  onReset = (e) => {
+  onReset = action((e) => {
     e.preventDefault();
     this.reset(true);
-  };
+  });
 
   /**
     Event: On Add
   */
-  onAdd = (e, key = null) => {
+  onAdd = action((e, key = null) => {
     e.preventDefault();
     this.add(key);
-  };
+  });
 
   /**
     Event: On Del
   */
-  onDel = (e, path = null) => {
+  onDel = action((e, path = null) => {
     e.preventDefault();
     this.del(path || this.path);
-  };
+  });
 }

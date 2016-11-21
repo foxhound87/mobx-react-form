@@ -64,6 +64,9 @@ export default $this => ({
       isPristine: 'every',
       isDefault: 'every',
       isEmpty: 'every',
+      focus: 'some',
+      touched: 'some',
+      changed: 'some',
     };
 
     return deep
