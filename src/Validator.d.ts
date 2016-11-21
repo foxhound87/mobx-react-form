@@ -42,7 +42,7 @@ declare class Validator {
 
     public resetGenericError(): void;
 
-    public invalidate(message?: string|null);
+    public invalidate(message?: string|null): void;
 }
 
 declare namespace Validator {

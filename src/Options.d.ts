@@ -2,7 +2,7 @@ export = Options;
 
 declare class Options {
     protected options: Options.Props;
-    public get(key?: string|null): string|null|boolean|undefined|Options.Props;
+    public get(key?: string|null): any|Options.Props;
     public set(options: Options.Props): void;
 }
 
