@@ -56,7 +56,7 @@ or the same selecting a field:
 
 These computed values are allowed:
 
-`hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched`.
+`hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched`, `changed`.
 
 ```javascript
 .check('isValid');
@@ -116,7 +116,7 @@ or filtering by a prop (with nested fields as collections):
 
 You can get these props: `value`, `label`, `initial`, `default`, `disabled`, `related`,
 
-or these computed props: `error`, `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched` and the validation props as well (`rules` and `validate`).
+or these computed props: `error`, `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched`, `changed` and the validation props as well (`rules` and `validate`).
 
 If you want to get nested fields as `fields` objects instead of collections pass the prop as array:
 

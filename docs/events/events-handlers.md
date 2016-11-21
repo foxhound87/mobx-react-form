@@ -19,7 +19,7 @@ Use the `sync(e)` handler to update the state of the field:
 
 ### onFocus(e) & onBlur(e)
 
-If you need to track `touched` and `focus` state, you can use `onFocus(e)` or `onBlur(e)` handlers:
+If you need to track `touched` or `focus` state, you can use `onFocus(e)` or `onBlur(e)` handlers:
 
 ```html
 <input
