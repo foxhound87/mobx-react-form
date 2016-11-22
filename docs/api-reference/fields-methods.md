@@ -12,7 +12,6 @@
 | **check(computed)** | (string) | - | Check field computed property. | - |
 | **clear()** | - | - | Clear the field to empty value. | - |
 | **reset()** | - | - | Reset the field to initial value. | - |
-| **setValid()** | - | - | Set the field as valid. | - |
 | **setInvalid(errorMessage = null, showError = true)** | **errorMessage**: string <br> **showErrors**: boolean | - | Mark the field as invalid. Pass an optional `errorMessage` or a default error will be shown. Set `showError` to `false` and the message will be hidden.  | - |
 | **resetValidation()** | - | - | Reset the field validation status. | - |
 | **map(callback)** | (function) | - | Map Nested Fields | - |
