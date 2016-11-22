@@ -142,9 +142,6 @@ describe('Check Nested $D props after state clear()', () => {
 
   it('$D state.city.places isEmpty should be false', () =>
     expect($.$D.$('state.city.places').isEmpty).to.be.false);
-
-  it('$D state.city.places.brooklynBridge isEmpty should be true', () =>
-    expect($.$D.$('state.city.places.brooklynBridge').isEmpty).to.be.true);
 });
 
 describe('Check Nested $T add() and del()', () => {
