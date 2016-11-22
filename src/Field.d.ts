@@ -1,17 +1,9 @@
 import {ObservableMap} from "mobx";
-import * as fieldHelpers from "./FieldHelpers";
-import * as fieldInit from "./FieldInit";
-import * as fieldParser from "./FieldParser";
 import * as Form from "./Form";
-import * as State from "./State";
 
 export = Field;
 
-declare class Field implements fieldHelpers.Interface, fieldInit.Interface, fieldParser.Interface {
-
-    public readonly hasIncrementalNestedFields: boolean;
-
-    public readonly hasNestedFields: boolean;
+declare class Field {
     public value?: any;
     public readonly label?: string;
     public readonly related?: any;
@@ -20,6 +12,7 @@ declare class Field implements fieldHelpers.Interface, fieldInit.Interface, fiel
     public readonly initial?: any;
     public readonly focus: boolean;
     public readonly touched: boolean;
+    public readonly changed: boolean;
     public readonly rules?: any;
     public readonly validate?: any;
     public readonly error: string|null;
@@ -29,39 +22,15 @@ declare class Field implements fieldHelpers.Interface, fieldInit.Interface, fiel
     public readonly isPristine: boolean;
     public readonly isDefault: boolean;
     public readonly isEmpty: boolean;
-
-    protected fields: ObservableMap<Field>;
-    protected incremental: boolean;
-
-    protected form?: Form|null;
-    protected state?: State|null;
-    protected path?: string;
-    protected key?: string;
-    protected name?: string;
-
-    protected $rules?: any;
-    protected $validate?: any;
-    protected $related?: any;
-
-    protected $label?: string;
-    protected $value?: any;
-    protected $default?: any;
-    protected $initial?: any;
-    protected $disabled: boolean;
-    protected $focus: boolean;
-    protected $touched: boolean;
-    protected errorSync: string | null;
-    protected errorAsync: string | null;
-    protected showError: boolean;
-    protected validationErrorStack: string[];
-    protected validationFunctionsData: any[];
-    protected validationAsyncData: {};
+    public readonly fields: ObservableMap<Field>;
+    public readonly form?: Form|null;
+    public readonly path?: string;
+    public readonly key?: string;
+    public readonly name?: string;
 
     public constructor($key: string, $path: string, $field: any, props?: {}, update?: boolean, form?: Form);
 
     public setInvalid(message: string, async?: boolean): void;
-
-    public setValidationAsyncData(obj?: {}): void;
 
     public resetValidation(deep?: boolean): void;
 
@@ -70,8 +39,6 @@ declare class Field implements fieldHelpers.Interface, fieldInit.Interface, fiel
     public reset(deep?: boolean): void;
 
     public showErrors(showErrors?: boolean): void;
-
-    public showAsyncErrors(): void;
 
     public sync(e: any): void;
 
@@ -121,62 +88,13 @@ declare class Field implements fieldHelpers.Interface, fieldInit.Interface, fiel
     public map<T>(callback: (field: Field, index: number, fields: Field[]) => T): T[];
     public map<T>(path: string, callback: (field: Field, index: number, fields: Field[]) => T): T[];
 
-    public forEach(iteratee: fieldHelpers.Iterator, fields?: ObservableMap<Field>, depth?: number): void;
+    public forEach(iteratee: (field: Field, index: number, depth: number) => any,
+                   fields?: ObservableMap<Field>,
+                   depth?: number): void;
 
     public add(path?: string|null): void;
 
     public del(path?: string|null): void;
-
-    public extend(): void;
-
-    public initNestedFields(field?: null|{}, update?: boolean): void;
-
-    public setupField($key: string, $path: string, $field: any, props?: {}, update?: boolean): void;
-
-    public parseInitialValue(unified?: any, separated?: any): any;
-
-    public parseDefaultValue(unified?: any, separated?: any): any;
-
-    public deepUpdate(fields: {}, path?: string): void;
-
-    public deepSet(prop: string, data: {}, path?: string, recursion?: boolean): void;
-
-    public deepGet(prop: string|string[], fields: ObservableMap<Field>): {};
-
-    public deepMap(prop: string, fields: ObservableMap<Field>): {};
-
-    public deepAction($action: string, fields: ObservableMap<Field>, recursion?: boolean): void;
-
-    public deepCheck($: "some"|"every"|any, prop: string, fields: ObservableMap<Field>): boolean|any[];
-
-    public initFields(initial: {}, update: boolean): void;
-
-    public initField(key: string, path: string, data: null|{},
-                     fields?: ObservableMap<Field>, update?: boolean): void;
-
-    public parseProp<T>($val: {}, $prop: string): T[];
-
-    public pathToFieldsTree(path: string, n?: number): {};
-
-    public prepareFieldsData(initial: {}): {};
-
-    public defineFieldsFromStruct(struct: any): {};
-
-    public handleFieldsValuesFallback(fields: any, initial: any): {};
-
-    public handleFieldsArrayOfStrings($fields: any): {};
-
-    public handleFieldsArrayOfObjects($fields: any): {};
-
-    public handleFieldsNested(fields: any, initial: any): {};
-
-    public mergeSchemaDefaults(fields: {}): {};
-
-    public hasIntKeys(): boolean;
-
-    public parseIntKeys(): number[];
-
-    public maxKey(): number;
 }
 
 declare namespace Field {

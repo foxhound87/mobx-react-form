@@ -5,8 +5,9 @@ import {IOptions, Promises} from "../Validator";
 export = VJF;
 
 declare class VJF {
+    public readonly options: IOptions;
+
     protected validator: any|null;
-    protected options: IOptions;
 
     public constructor(plugin: VJF.IPluginProps, config: VJF.IConfigProps);
 

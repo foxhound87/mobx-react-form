@@ -6,10 +6,11 @@ export = SVK;
 declare class SVK {
     public readonly schema: SVK.ISchema;
 
+    public readonly options: IOptions;
+
     protected validate: any;
     protected promises: Promises;
     protected extend: Function|null;
-    protected options: IOptions;
 
     public constructor(plugin: SVK.IPluginProps, config?: SVK.IConfigProps);
 

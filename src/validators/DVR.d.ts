@@ -5,15 +5,18 @@ import {IOptions, Promises} from "../Validator";
 export = DVR;
 
 declare class DVR {
+    public readonly options: IOptions;
+
     protected promises: Promises;
     protected asyncRules: string[];
     protected validator: any|null;
     protected extend: Function|null;
-    protected options: IOptions;
 
     public constructor(plugin: DVR.IPluginProps, config?: DVR.IConfigProps);
 
     public validateField(field: Field, form: Form): void;
+
+    public registerAsyncRule(key: string, callback: Function): void;
 
     public loadingMessage(): string;
 
@@ -30,8 +33,6 @@ declare class DVR {
     protected handleAsyncFails(field: Field, validation: any, resolve: Function): void;
 
     protected executeAsyncValidation(field: Field): void;
-
-    protected registerAsyncRule(key: string, callback: Function): void;
 
     protected rules(rules?: string|string[], type?: "sync"|"async"): string[];
 }

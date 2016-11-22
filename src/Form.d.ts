@@ -1,17 +1,12 @@
 import {ObservableMap} from "mobx";
 import * as Field from "./Field";
-import * as fieldHelpers from "./FieldHelpers";
-import * as fieldInit from "./FieldInit";
-import * as fieldParser from "./FieldParser";
 import * as Options from "./Options";
-import * as State from "./State";
-import * as Validator from "./Validator";
 
 export = Form;
 
-declare class Form implements fieldHelpers.Interface, fieldInit.Interface, fieldParser.Interface {
+declare class Form {
 
-    public name: string|null;
+    public readonly name: string|null;
     public readonly hasError: boolean;
     public readonly isValid: boolean;
     public readonly isDirty: boolean;
@@ -19,11 +14,7 @@ declare class Form implements fieldHelpers.Interface, fieldInit.Interface, field
     public readonly isDefault: boolean;
     public readonly isEmpty: boolean;
     public readonly error: string|null;
-
-    protected state: State;
-    protected validator: Validator;
-    protected $options: Options;
-    protected fields: ObservableMap<Field>;
+    public readonly fields: ObservableMap<Field>;
 
     public constructor(initial?: {}, name?: string|null);
 
@@ -83,59 +74,13 @@ declare class Form implements fieldHelpers.Interface, fieldInit.Interface, field
     public map<T>(callback: (field: Field, index: number, fields: Field[]) => T): T[];
     public map<T>(path: string, callback: (field: Field, index: number, fields: Field[]) => T): T[];
 
-    public forEach(iteratee: fieldHelpers.Iterator, fields?: ObservableMap<Field>, depth?: number): void;
+    public forEach(iteratee: (field: Field, index: number, depth: number) => any,
+                   fields?: ObservableMap<Field>,
+                   depth?: number): void;
 
     public add(path?: string|null): void;
 
     public del(path?: string|null): void;
-
-    public extend(): void;
-
-    public initOptions(initial?: {}): void;
-
-    public initValidator(initial?: {}): void;
-
-    public initPropsState(initial?: {}): void;
-
-    public observeFields(fields?: ObservableMap<Field>): void;
-
-    public observeFieldsDeep(fields: ObservableMap<Field>): void;
-
-    public validateOnInit(): void;
-
-    public deepUpdate(fields: {}, path?: string): void;
-
-    public deepSet(prop: string, data: {}, path?: string, recursion?: boolean): void;
-
-    public deepGet(prop: string|string[], fields: ObservableMap<Field>): {};
-
-    public deepMap(prop: string, fields: ObservableMap<Field>): {};
-
-    public deepAction($action: string, fields: ObservableMap<Field>, recursion?: boolean): void;
-
-    public deepCheck($: "some"|"every"|any, prop: string, fields: ObservableMap<Field>): boolean|any[];
-
-    public initFields(initial: {}, update: boolean): void;
-
-    public initField(key: string, path: string, data: null|{}, fields?: ObservableMap<Field>, update?: boolean): void;
-
-    public parseProp<T>($val: {}, $prop: string): T[];
-
-    public pathToFieldsTree(path: string, n?: number): {};
-
-    public prepareFieldsData(initial: {}): {};
-
-    public defineFieldsFromStruct(struct: any): {};
-
-    public handleFieldsValuesFallback(fields: any, initial: any): {};
-
-    public handleFieldsArrayOfStrings($fields: any): {};
-
-    public handleFieldsArrayOfObjects($fields: any): {};
-
-    public handleFieldsNested(fields: any, initial: any): {};
-
-    public mergeSchemaDefaults(fields: {}): {};
 }
 
 declare namespace Form {
