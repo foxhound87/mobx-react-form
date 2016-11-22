@@ -1,6 +1,7 @@
 import {ObservableMap} from "mobx";
 import * as Field from "./Field";
 import * as Options from "./Options";
+import * as Validator from "./Validator";
 
 export = Form;
 
@@ -15,7 +16,21 @@ declare class Form {
     public readonly isEmpty: boolean;
     public readonly error: string|null;
     public readonly fields: ObservableMap<Field>;
+    public readonly validator: Validator|null;
 
+    public constructor();
+    public constructor(unified: {fields: {}|Array<{}>});
+    public constructor(separated: {
+        fields?: {}|string[],
+        values?: {},
+        labels?: {},
+        defaults?: {},
+        disabled?: {},
+        related?: {},
+        validate?: {},
+        rules?: {},
+        schema?: {},
+    });
     public constructor(initial?: {}, name?: string|null);
 
     public options(options: Options.IOptionsProps): Options.IOptionsProps;
