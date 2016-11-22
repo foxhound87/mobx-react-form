@@ -1,19 +1,23 @@
 export = State;
 
 declare class State {
-    protected $struct: State.Struct;
-    protected initial: State.Substate;
-    protected current: State.Substate;
-    public struct(): State.Struct;
-    public struct(data: State.Struct): void;
-    public get(type: 'initial'|'current', subtype: 'props' | 'fields'): {};
-    public set(type: 'initial'|'current', subtype: 'props' | 'fields', state: {});
+    protected $struct: State.IStruct;
+    protected initial: State.ISubstate;
+    protected current: State.ISubstate;
+
+    public struct(): State.IStruct;
+    public struct(data: State.IStruct): void;
+
+    public get(type: "initial"|"current", subtype: "props" | "fields"): {};
+
+    public set(type: "initial"|"current", subtype: "props" | "fields", state: {}): void;
 }
 
 declare namespace State {
-    export type Struct = string[];
-    export interface Substate {
-        readonly props: {},
-        readonly fields: {}
+    export type IStruct = string[];
+
+    export interface ISubstate {
+        readonly props: {};
+        readonly fields: {};
     }
 }

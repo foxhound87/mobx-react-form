@@ -1,5 +1,5 @@
-import * as Field from './Field';
-import {ObservableMap} from 'mobx';
+import {ObservableMap} from "mobx";
+import * as Field from "./Field";
 
 export = fieldHelpers;
 
@@ -9,7 +9,7 @@ declare namespace fieldHelpers {
     export interface Iterator {
         (field: Field, index: number, depth: number): any;
     }
-    
+
     export interface Interface {
         values(): {};
         errors(): {};
@@ -18,7 +18,7 @@ declare namespace fieldHelpers {
         initials(): {};
 
         init($fields?: {}): void;
-        update(fields: {}): void
+        update(fields: {}): void;
         deepUpdate(fields: {}, path?: string): void;
 
         $(key: string): Field | any[] | undefined;
@@ -34,7 +34,7 @@ declare namespace fieldHelpers {
         deepGet(prop: string|string[], fields: ObservableMap<Field>): {};
         deepMap(prop: string, fields: ObservableMap<Field>): {};
         deepAction($action: string, fields: ObservableMap<Field>, recursion?: boolean): void;
-        deepCheck($: 'some'|'every'|any, prop: string, fields: ObservableMap<Field>): boolean|any[];
+        deepCheck($: "some"|"every"|any, prop: string, fields: ObservableMap<Field>): boolean|any[];
 
         map<T>(callback: (field: Field, index: number, fields: Field[]) => T): T[];
         map<T>(path: string, callback: (field: Field, index: number, fields: Field[]) => T): T[];

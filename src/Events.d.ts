@@ -1,19 +1,19 @@
-declare const events: events.Events;
+export = Events;
 
-export = events;
+declare const Events: Events.IEvents;
 
-export namespace events {
-    export type Key = 'clear' | 'reset' | 'update' | 'validate';
+declare namespace Events {
+    export type Key = "clear" | "reset" | "update" | "validate";
 
-    export interface Running {
+    export interface IRunning {
         clear: boolean;
         reset: boolean;
         update: boolean;
         validate: boolean;
     }
 
-    export interface Events {
-        getRunning(key?: Key|null): boolean|Running;
+    export interface IEvents {
+        getRunning(key?: Key|null): boolean|IRunning;
         setRunning(key: Key, flag: boolean, path?: string): void;
         path(key: Key): string | null;
         running(events: Key[]): boolean;

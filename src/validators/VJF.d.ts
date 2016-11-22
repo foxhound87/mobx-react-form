@@ -1,14 +1,14 @@
-import * as Field from '../Field';
-import * as Form from '../Form';
-import {Options, Promises} from '../Validator';
+import * as Field from "../Field";
+import * as Form from "../Form";
+import {IOptions, Promises} from "../Validator";
 
 export = VJF;
 
 declare class VJF {
     protected validator: any|null;
-    protected options: Options;
+    protected options: IOptions;
 
-    public constructor(plugin: VJF.Plugin, config: VJF.Config);
+    public constructor(plugin: VJF.IPluginProps, config: VJF.IConfigProps);
 
     public validateField(field: Field, form: Form): void;
 
@@ -24,9 +24,9 @@ declare class VJF {
 }
 
 declare namespace VJF {
-    export type Plugin = {}|any;
-    export interface Config {
-        options?: Options,
-        promises?: Promises
+    export type IPluginProps = {}|any;
+    export interface IConfigProps {
+        options?: IOptions;
+        promises?: Promises;
     }
 }

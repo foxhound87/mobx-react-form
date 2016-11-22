@@ -1,6 +1,6 @@
-import * as Field from '../Field';
-import * as Form from '../Form';
-import {Options, Promises} from '../Validator';
+import * as Field from "../Field";
+import * as Form from "../Form";
+import {IOptions, Promises} from "../Validator";
 
 export = DVR;
 
@@ -9,15 +9,15 @@ declare class DVR {
     protected asyncRules: string[];
     protected validator: any|null;
     protected extend: Function|null;
-    protected options: Options;
+    protected options: IOptions;
 
-    public constructor(plugin: DVR.Plugin, config?: DVR.Config);
+    public constructor(plugin: DVR.IPluginProps, config?: DVR.IConfigProps);
 
     public validateField(field: Field, form: Form): void;
 
     public loadingMessage(): string;
 
-    protected assignInitData(plugin: DVR.Plugin, config?: DVR.Config): void;
+    protected assignInitData(plugin: DVR.IPluginProps, config?: DVR.IConfigProps): void;
 
     protected extendValidator(): void;
 
@@ -33,16 +33,16 @@ declare class DVR {
 
     protected registerAsyncRule(key: string, callback: Function): void;
 
-    protected rules(rules?: string|string[], type?: 'sync'|'async'): string[];
+    protected rules(rules?: string|string[], type?: "sync"|"async"): string[];
 }
 
 declare namespace DVR {
-    export interface Plugin {
-        'package'?: any,
-        extend?: Function
+    export interface IPluginProps {
+        "package"?: any;
+        extend?: Function;
     }
-    export interface Config {
-        options?: Options,
-        promises?: Promises
+    export interface IConfigProps {
+        options?: IOptions;
+        promises?: Promises;
     }
 }

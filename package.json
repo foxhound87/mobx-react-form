@@ -10,7 +10,9 @@
     "clean:build": "rimraf lib && rimraf umd",
     "clean:modules": "rimraf node_modules && npm cache clean",
     "clean:all": "npm run clean:build && npm run clean:modules",
-    "lint": "eslint . --ext .jsx,.js --ignore-path .gitignore",
+    "lint:js": "eslint . --ext .jsx,.js --ignore-path .gitignore",
+    "lint:ts": "tslint \"./src/**/*.ts\" \"./tests/**/*.ts\"",
+    "lint": "npm run lint:js && npm run lint:ts",
     "build": "npm-run-all --parallel build:*",
     "build:main": "babel -d lib/ src/",
     "build:umd": "webpack --output-filename mobx-react-form.umd.js",
@@ -19,7 +21,9 @@
     "commit": "git add . && git-cz && git push origin",
     "watch:build": "babel --watch -d lib/ src/",
     "watch:test": "npm run test -- -w",
-    "test": "TEST=true mocha tests --compilers js:babel-register",
+    "test:js": "TEST=true mocha tests --compilers js:babel-register",
+    "test:ts": "tsc ./tests/**/*.ts --noEmit --noImplicitAny --strictNullChecks --target ES6 --moduleResolution node",
+    "test": "npm run test:js && npm run test:ts",
     "cover": "nyc npm test",
     "coverage:check": "nyc check-coverage --satements 85 --branches 70 --functions 85 --lines 85",
     "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
@@ -63,7 +67,6 @@
     "mobx": "^2.6.0"
   },
   "devDependencies": {
-    "@types/es6-promise": "0.0.32",
     "ajv": "4.8.2",
     "babel-cli": "6.18.0",
     "babel-core": "6.18.2",
@@ -93,6 +96,8 @@
     "nyc": "8.4.0",
     "rimraf": "2.5.4",
     "semantic-release": "4.3.5",
+    "tslint": "^4.0.1",
+    "typescript": "^2.0.10",
     "validatorjs": "3.8.0",
     "webpack": "1.13.3"
   }
