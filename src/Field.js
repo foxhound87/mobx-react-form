@@ -388,13 +388,8 @@ export default class Field {
     this.value = e.target.value;
   });
 
-  onChange = action((e) => {
-    this.sync(e);
-  });
-
-  onToggle = action((e) => {
-    this.sync(e);
-  });
+  onChange = this.sync
+  onToggle = this.sync;
 
   onFocus = action(() => {
     this.$focus = true;
@@ -409,32 +404,32 @@ export default class Field {
   /**
     Event: On Clear
   */
-  onClear = action((e) => {
+  onClear = (e) => {
     e.preventDefault();
     this.clear(true);
-  });
+  };
 
   /**
     Event: On Reset
   */
-  onReset = action((e) => {
+  onReset = (e) => {
     e.preventDefault();
     this.reset(true);
-  });
+  };
 
   /**
     Event: On Add
   */
-  onAdd = action((e, key = null) => {
+  onAdd = (e, key = null) => {
     e.preventDefault();
     this.add(key);
-  });
+  };
 
   /**
     Event: On Del
   */
-  onDel = action((e, path = null) => {
+  onDel = (e, path = null) => {
     e.preventDefault();
     this.del(path || this.path);
-  });
+  };
 }
