@@ -1,7 +1,4 @@
+import * as FormAsExportedByIndex from "../../src";
 import * as Form from "../../src/Form";
 
-class MyForm extends Form {
-
-}
-
-const f: MyForm = new MyForm();
+const form: Form = new FormAsExportedByIndex();

@@ -19,18 +19,8 @@ declare class Form {
     public readonly validator: Validator|null;
 
     public constructor();
-    public constructor(unified: {fields: {}|Array<{}>});
-    public constructor(separated: {
-        fields?: {}|string[],
-        values?: {},
-        labels?: {},
-        defaults?: {},
-        disabled?: {},
-        related?: {},
-        validate?: {},
-        rules?: {},
-        schema?: {},
-    });
+    public constructor(unified: {fields: {}|Array<{}>}, name?: string|null);
+    public constructor(separated: Form.ISeparatedProps, name?: string|null);
     public constructor(initial?: {}, name?: string|null);
 
     public options(options: Options.IOptionsProps): Options.IOptionsProps;
@@ -99,4 +89,15 @@ declare class Form {
 }
 
 declare namespace Form {
+    export interface ISeparatedProps {
+        fields?: {}|string[];
+        values?: {};
+        labels?: {};
+        defaults?: {};
+        disabled?: {};
+        related?: {};
+        validate?: {};
+        rules?: {};
+        schema?: {};
+    }
 }
