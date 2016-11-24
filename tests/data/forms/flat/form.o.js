@@ -1,4 +1,4 @@
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 
 const values = {
   username: 'SteveJobs',
@@ -14,7 +14,7 @@ const labels = {
   terms: 'Accept Terms of Service',
 };
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     form.invalidate();
@@ -31,4 +31,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ values, labels }, 'Flat-O');
+export default new NewForm({ values, labels }, 'Flat-O');

@@ -1,5 +1,5 @@
 import ajv from 'ajv';
-import Form from '../../../../src';
+import { Form } from '../../../../src';
 import { shouldBeEqualTo } from '../../extension/vjf';
 import svkExtend from '../../extension/svk';
 

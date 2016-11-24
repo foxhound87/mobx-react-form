@@ -1,5 +1,5 @@
 import ajv from 'ajv';
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 
 const options = { strictUpdate: true };
 
@@ -29,7 +29,7 @@ const schema = {
   },
 };
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     form.update({ username: 'JonathanIve' });
@@ -37,4 +37,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ fields, schema, plugins, options }, 'Flat-I');
+export default new NewForm({ fields, schema, plugins, options }, 'Flat-I');

@@ -1,5 +1,5 @@
 import validatorjs from 'validatorjs';
-import Form from '../../../../src';
+import { Form } from '../../../../src';
 
 const plugins = { dvr: validatorjs };
 

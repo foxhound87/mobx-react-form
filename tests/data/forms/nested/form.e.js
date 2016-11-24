@@ -1,5 +1,5 @@
 import ajv from 'ajv';
-import Form from '../../../../src';
+import { Form } from '../../../../src';
 import svkExtend from '../../extension/svk';
 
 const plugins = {

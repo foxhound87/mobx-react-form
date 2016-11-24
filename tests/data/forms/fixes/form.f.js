@@ -1,4 +1,4 @@
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 
 const fields = [
   'inventoryLevel',
@@ -18,7 +18,7 @@ const values = {
   ],
 };
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     form.update({ places: ['NY', 'NJ', 'AR'] });
@@ -35,4 +35,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ fields, values }, 'Fixes-F');
+export default new NewForm({ fields, values }, 'Fixes-F');

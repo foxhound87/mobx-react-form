@@ -1,5 +1,5 @@
 import ajv from 'ajv';
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 import svkExtend from '../../extension/svk';
 
 const plugins = {
@@ -34,11 +34,11 @@ const schema = {
   },
 };
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     form.clear(); // to empty values
   }
 }
 
-export default new Form({ fields, schema, plugins }, 'Flat-L');
+export default new NewForm({ fields, schema, plugins }, 'Flat-L');

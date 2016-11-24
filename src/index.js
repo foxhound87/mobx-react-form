@@ -1,5 +1,7 @@
 import { useStrict } from 'mobx';
+
 import Form from './Form';
+import Field from './Field';
 
 const { TEST } = process.env;
 
@@ -10,4 +12,4 @@ const { TEST } = process.env;
  */
 if (TEST) useStrict(true);
 
-export default Form;
+export default { Form, Field };
