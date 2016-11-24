@@ -57,8 +57,13 @@ const parsePath = (path) => {
   return $path;
 };
 
-const pathToStruct = path =>
-  _.trimEnd(_.replace(path, new RegExp('[.]\\d($|.)', 'g'), '[].'), '.');
+const pathToStruct = (path) => {
+  let struct;
+  struct = _.replace(path, new RegExp('[.]\\d($|.)', 'g'), '[].');
+  struct = _.replace(struct, '..', '.');
+  struct = _.trimEnd(struct, '.');
+  return struct;
+};
 
 const hasSome = (obj, keys) => _.some(keys, _.partial(_.has, obj));
 
