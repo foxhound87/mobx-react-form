@@ -1,27 +1,27 @@
 import { action } from 'mobx';
 import _ from 'lodash';
 import utils from './utils';
-import Field from './Field';
 
 /**
-  Fields Initializer
+  Field Init
 */
-export default $this => ({
+export default {
 
-  initFields: (initial, update) => {
-    const $path = key => _.trimStart([$this.path, key].join('.'), '.');
-    const fields = $this.prepareFieldsData(initial);
+  initFields(initial, update) {
+    const $path = key => _.trimStart([this.path, key].join('.'), '.');
+    const fields = this.prepareFieldsData(initial);
 
     // create fields
     _.each(fields, (field, key) =>
-      _.isNil($this.select($path(key), null, false))
-      && $this.initField(key, $path(key), field, null, update));
+    _.isNil(this.select($path(key), null, false))
+    && this.initField(key, $path(key), field, null, update));
   },
 
-  initField: action((key, path, data, fields = null, update = false) => {
-    const $form = _.has($this, 'form') ? $this.form : $this;
-    const $fields = fields || $this.fields;
-    const initial = $this.state.get('current', 'props');
+  @action
+  initField(key, path, data, fields = null, update = false) {
+    const $form = _.has(this, 'form') ? this.form : this;
+    const $fields = fields || this.fields;
+    const initial = this.state.get('current', 'props');
 
     // try to get props from separated objects
     const $try = prop => _.get(initial[prop], utils.pathToStruct(path));
@@ -37,7 +37,8 @@ export default $this => ({
     };
 
     $fields.merge({
-      [key]: new Field(key, path, data, $this.state, props, update, $form),
+      [key]: $form.makeField(key, path, data, this.state, props, update, $form),
     });
-  }),
-});
+  },
+
+};

@@ -6,55 +6,54 @@ import Events from './Events';
 /**
   Field Helpers
 */
-export default $this => ({
+export default {
+  /**
+   Fields Selector (alias of select)
+   */
+  $(key) { return this.select(key, null, false) || []; },
 
   /**
-    Fields Selector (alias of select)
-  */
-  $: key => $this.select(key, null, false) || [],
+   Fields Values (recursive with Nested Fields)
+   */
+  values() { return this.get('value'); },
 
   /**
-    Fields Values (recursive with Nested Fields)
-  */
-  values: () => $this.get('value'),
+   Fields Errors (recursive with Nested Fields)
+   */
+  errors() { return this.get('error'); },
 
   /**
-    Fields Errors (recursive with Nested Fields)
-  */
-  errors: () => $this.get('error'),
+   Fields Labels (recursive with Nested Fields)
+   */
+  labels() { return this.get('label'); },
 
   /**
-    Fields Labels (recursive with Nested Fields)
-  */
-  labels: () => $this.get('label'),
+   Fields Default Values (recursive with Nested Fields)
+   */
+  defaults() { return this.get('default'); },
 
   /**
-    Fields Default Values (recursive with Nested Fields)
-  */
-  defaults: () => $this.get('default'),
+   Fields Initial Values (recursive with Nested Fields)
+   */
+  initials() { return this.get('initial'); },
 
   /**
-    Fields Initial Values (recursive with Nested Fields)
-  */
-  initials: () => $this.get('initial'),
-
-  /**
-    Fields Iterator
-  */
-  map: (path, callback = null) => {
+   Fields Iterator
+   */
+  map(path, callback = null) {
     if (_.isFunction(path) && !callback) {
       // path is the callback here
-      return $this.fields.values().map(path);
+      return this.fields.values().map(path);
     }
 
-    const field = $this.select(path);
+    const field = this.select(path);
     return field.fields.values().map(callback);
   },
 
   /**
-    Check Field Computed Values
-  */
-  check: (computed, deep = false) => {
+   Check Field Computed Values
+   */
+  check(computed, deep = false) {
     utils.allowed('computed', [computed]);
 
     const $ = {
@@ -72,14 +71,15 @@ export default $this => ({
     return deep
       ? utils.check({
         type: $[computed],
-        data: $this.deepCheck($[computed], computed, $this.fields),
-      }) : $this[computed];
+        data: this.deepCheck($[computed], computed, this.fields),
+      })
+      : this[computed];
   },
 
   /**
-    Fields Selector
-  */
-  select: (path, fields = null, isStrict = true) => {
+   Fields Selector
+   */
+  select(path, fields = null, isStrict = true) {
     const $path = utils.parsePath(path);
 
     const keys = _.split($path, '.');
@@ -88,7 +88,7 @@ export default $this => ({
     keys.shift();
 
     let $fields = _.isNil(fields)
-      ? $this.fields.get(head)
+      ? this.fields.get(head)
       : fields.get(head);
 
     let stop = false;
@@ -108,32 +108,34 @@ export default $this => ({
   },
 
   /**
-    Init Form Fields and Nested Fields
-  */
-  init: action(($fields = null) => {
-    _.set($this, 'fields', asMap({}));
+   Init Form Fields and Nested Fields
+   */
+    @action
+  init($fields = null) {
+    _.set(this, 'fields', asMap({}));
 
-    $this.state.set('initial', 'props', { values: $fields });
+    this.state.set('initial', 'props', { values: $fields });
 
-    $this.initFields({
-      fields: $fields || $this.state.struct(),
+    this.initFields({
+      fields: $fields || this.state.struct(),
     });
-  }),
-
-  /**
-    Update Field Values recurisvely
-    OR Create Field if 'undefined'
-  */
-  update: (fields) => {
-    const $fields = $this.prepareFieldsData({ fields });
-    return $this.deepUpdate($fields);
   },
 
-  deepUpdate: action((fields, path = '', recursion = true) => {
+  /**
+   Update Field Values recurisvely
+   OR Create Field if 'undefined'
+   */
+  update(fields) {
+    const $fields = this.prepareFieldsData({ fields });
+    return this.deepUpdate($fields);
+  },
+
+  @action
+  deepUpdate(fields, path = '', recursion = true) {
     _.each(fields, (field, key) => {
       const $fullPath = _.trimStart(`${path}.${key}`, '.');
-      const $field = $this.select($fullPath, null, false);
-      const $container = $this.container(path);
+      const $field = this.select($fullPath, null, false);
+      const $container = this.container(path);
 
       if (!_.isNil($field) && !_.isNil(field)) {
         if (_.isArray($field.values())) {
@@ -152,65 +154,66 @@ export default $this => ({
 
       if (recursion) {
         // handle nested fields if undefined or null
-        const $fields = $this.pathToFieldsTree($fullPath);
-        $this.deepUpdate($fields, $fullPath, false);
+        const $fields = this.pathToFieldsTree($fullPath);
+        this.deepUpdate($fields, $fullPath, false);
       }
 
       if (recursion && _.has(field, 'fields') && !_.isNil(field.fields)) {
         // handle nested fields if defined
-        $this.deepUpdate(field.fields, $fullPath);
+        this.deepUpdate(field.fields, $fullPath);
       }
     });
-  }),
+  },
 
-  container: (path = null) => {
-    const $path = path || $this.path || '';
+  container(path = null) {
+    const $path = path || this.path || '';
     const cpath = _.trimEnd($path.replace(new RegExp('/[^./]+$/'), ''), '.');
-    return $this.select(cpath, null, false);
+    return this.select(cpath, null, false);
   },
 
   /**
-    Get Fields Props
-  */
-  get: (prop = null) => {
+   Get Fields Props
+   */
+  get(prop = null) {
     if (_.isNil(prop)) {
       const all = _.union(utils.computed, utils.props, utils.vprops);
-      return $this.deepGet(all, $this.fields);
+      return this.deepGet(all, this.fields);
     }
 
     utils.allowed('all', _.isArray(prop) ? prop : [prop]);
 
     if (!_.isArray(prop)) {
-      const data = $this.deepMap(prop, $this.fields);
-      return $this.hasIncrementalNestedFields
-        ? $this.parseProp(data, prop)
+      const data = this.deepMap(prop, this.fields);
+      return this.hasIncrementalNestedFields
+        ? this.parseProp(data, prop)
         : data;
     }
 
-    return $this.deepGet(prop, $this.fields);
+    return this.deepGet(prop, this.fields);
   },
 
   /**
-    Set Fields Props
-  */
-  set: action(($, data = null, recursion = false) => {
+   Set Fields Props
+   */
+    @action
+  set($, data = null, recursion = false) {
     const $e = 'update';
 
     if (!recursion) {
-      Events.setRunning($e, true, $this.path);
+      Events.setRunning($e, true, this.path);
     }
 
     // UPDATE CUSTOM PROP
-    if (_.has($this, 'form')) {
+    if (_.has(this, 'form')) {
       if (_.isString($) && !_.isNil(data)) {
         utils.allowed('props', [$]);
-        _.set($this, `$${$}`, data);
+        _.set(this, `$${$}`, data);
         if (!recursion) Events.setRunning($e, false);
         return;
       }
 
       // update just the value
-      // $this.value = $; // eslint-disable-line
+      // this.value = $; // eslint-disable-line
       // if (!recursion) Events.setRunning($e, false);
       // return;
     }
@@ -218,7 +221,7 @@ export default $this => ({
     // UPDATE NESTED FIELDS VALUE (recursive)
     if (_.isObject($) && !data) {
       // $ is the data
-      $this.deepSet('value', $, '', true);
+      this.deepSet('value', $, '', true);
       if (!recursion) Events.setRunning($e, false);
       return;
     }
@@ -227,22 +230,22 @@ export default $this => ({
     if (_.isString($) && _.isObject(data)) {
       utils.allowed('props', [$]);
       // $ is the prop key
-      $this.deepSet($, data, '', true);
+      this.deepSet($, data, '', true);
       if (!recursion) Events.setRunning($e, false);
     }
-  }),
+  },
 
   /**
-    Set Fields Props Recursively
-  */
-  deepSet: ($, data, path = '', recursion = false) => {
+   Set Fields Props Recursively
+   */
+  deepSet($, data, path = '', recursion = false) {
     const err = 'You are updating a not existent field:';
-    const isStrict = $this.$options.get('strictUpdate');
+    const isStrict = this.$options.get('strictUpdate');
 
     _.each(data, ($val, $key) => {
       const $path = _.trimStart(`${path}.${$key}`, '.');
       // get the field by path joining keys recursively
-      const field = $this.select($path, null, isStrict);
+      const field = this.select($path, null, isStrict);
       // if no field found when is strict update, throw error
       if (isStrict) utils.throwError($path, field, err);
       // update the field/fields if defined
@@ -252,7 +255,7 @@ export default $this => ({
         // update values recursively only if field has nested
         if (field.fields.size && _.isObject($val)) {
           if (field.fields.size !== 0) {
-            $this.deepSet($, $val, $key, recursion);
+            this.deepSet($, $val, $key, recursion);
           }
         }
       }
@@ -260,60 +263,62 @@ export default $this => ({
   },
 
   /**
-    Get Fields Props Recursively
-  */
-  deepGet: (prop, fields) =>
-  _.reduce(fields.values(), (obj, field) => {
-    const $nested = $fields => ($fields.size !== 0)
-      ? $this.deepGet(prop, $fields)
-      : undefined;
+   Get Fields Props Recursively
+   */
+  deepGet(prop, fields) {
+    return _.reduce(fields.values(), (obj, field) => {
+      const $nested = $fields => ($fields.size !== 0)
+        ? this.deepGet(prop, $fields)
+        : undefined;
 
-    Object.assign(obj, {
-      [field.key]: { fields: $nested(field.fields) },
-    });
-
-    if (_.isArray(prop)) {
-      _.each(prop, $prop =>
-        Object.assign(obj[field.key], {
-          [$prop]: field[$prop],
-        }));
-    }
-
-    // if (_.isString(prop)) {
-    //   Object.assign(obj[field.key], {
-    //     [prop]: field[prop],
-    //   });
-    // }
-
-    return obj;
-  }, {}),
-
-  deepMap: (prop, fields) =>
-  _.reduce(fields.values(), (obj, field) => {
-    if (field.fields.size === 0) {
-      return Object.assign(obj, {
-        [field.key]: field[prop],
+      Object.assign(obj, {
+        [field.key]: { fields: $nested(field.fields) },
       });
-    }
 
-    const data = $this.deepMap(prop, field.fields);
+      if (_.isArray(prop)) {
+        _.each(prop, $prop =>
+          Object.assign(obj[field.key], {
+            [$prop]: field[$prop],
+          }));
+      }
 
-    const value = field.hasIncrementalNestedFields
-      ? $this.parseProp(data, prop)
-      : data;
+      // if (_.isString(prop)) {
+      //   Object.assign(obj[field.key], {
+      //     [prop]: field[prop],
+      //   });
+      // }
 
-    return Object.assign(obj, { [field.key]: value });
-  }, {}),
+      return obj;
+    }, {});
+  },
 
-  deepAction: ($action, fields, recursion = false) => {
+  deepMap(prop, fields) {
+    return _.reduce(fields.values(), (obj, field) => {
+      if (field.fields.size === 0) {
+        return Object.assign(obj, {
+          [field.key]: field[prop],
+        });
+      }
+
+      const data = this.deepMap(prop, field.fields);
+
+      const value = field.hasIncrementalNestedFields
+        ? this.parseProp(data, prop)
+        : data;
+
+      return Object.assign(obj, { [field.key]: value });
+    }, {});
+  },
+
+  deepAction($action, fields, recursion = false) {
     if (!recursion) {
-      Events.setRunning($action, true, $this.path);
+      Events.setRunning($action, true, this.path);
     }
 
     if (fields.size !== 0) {
       fields.forEach((field) => {
         field[$action]();
-        $this.deepAction($action, field.fields, true);
+        this.deepAction($action, field.fields, true);
       });
     }
 
@@ -322,18 +327,20 @@ export default $this => ({
     }
   },
 
-  deepCheck: ($, prop, fields) =>
-    _.reduce(fields.values(), (check, field) => {
+  deepCheck($, prop, fields) {
+    return _.reduce(fields.values(), (check, field) => {
       if (field.fields.size === 0) {
         check.push(field[prop]);
         return check;
       }
-      const $deep = $this.deepCheck($, prop, field.fields);
+      const $deep = this.deepCheck($, prop, field.fields);
       check.push(utils.check({ type: $, data: $deep }));
       return check;
-    }, []),
+    }, []);
+  },
 
   /**
+<<<<<<< HEAD
      * Iterates deeply over fields and invokes `iteratee` for each element.
      * The iteratee is invoked with three arguments: (value, index|key, depth).
      *
@@ -344,6 +351,19 @@ export default $this => ({
      *
      * JSON.stringify(form)
      * // => {
+=======
+   * Iterates deeply over fields and invokes `iteratee` for each element.
+   * The iteratee is invoked with three arguments: (value, index|key, depth).
+   *
+   * @param {Function} iteratee The function invoked per iteration.
+   * @param {Array|Object} [fields=form.fields] fields to iterate over.
+   * @param {number} [depth=1] The recursion depth for internal use.
+   * @returns {Array} Returns [fields.values()] of input [fields] parameter.
+   * @example
+   *
+   * JSON.stringify(form)
+   * // => {
+>>>>>>> master
      *   "fields": {
      *     "state": {
      *       "fields": {
@@ -360,52 +380,56 @@ export default $this => ({
      *     }
      *   }
      * }
-     *
-     * const data = {};
-     * form.forEach(formField => data[formField.path] = formField.value);
-     * // => {
+   *
+   * const data = {};
+   * form.forEach(formField => data[formField.path] = formField.value);
+   * // => {
      *   "state": "USA",
      *   "state.city": "New York",
      *   "state.city.places": "NY Places"
      * }
-     *
-     */
-  forEach: (iteratee, fields = $this.fields, depth = 0) =>
-    _.each(fields.values(), (field, index) => {
+   *
+   */
+  forEach(iteratee, fields = null, depth = 0) {
+    const $fields = fields || this.fields;
+    _.each($fields.values(), (field, index) => {
       iteratee(field, index, depth);
 
       if (field.fields.size !== 0) {
-        $this.forEach(iteratee, field.fields, depth + 1);
+        this.forEach(iteratee, field.fields, depth + 1);
       }
-    }),
+    });
+  },
 
   /**
-    Add Field
-  */
-  add: action((path = null) => {
+   Add Field
+   */
+    @action
+  add(path = null) {
     if (_.isString(path)) {
       const $path = utils.parsePath(path);
-      $this.select($path, null, true).add();
+      this.select($path, null, true).add();
       return;
     }
 
-    if (_.has($this, 'form')) {
-      const $n = $this.maxKey() + 1;
-      const tree = $this.pathToFieldsTree($this.path);
-      const $path = key => _.trimStart([$this.path, key].join('.'), '.');
+    if (_.has(this, 'form')) {
+      const $n = this.maxKey() + 1;
+      const tree = this.pathToFieldsTree(this.path);
+      const $path = key => _.trimStart([this.path, key].join('.'), '.');
 
-      _.each(tree, field => $this.initField($n, $path($n), field));
+      _.each(tree, field => this.initField($n, $path($n), field));
 
-      $this.form.observeFields($this.fields);
+      this.form.observeFields(this.fields);
     }
-  }),
+  },
 
   /**
-    Del Field
-  */
-  del: action((path = null) => {
+   Del Field
+   */
+    @action
+  del(path = null) {
     if (_.isInteger(_.parseInt(path))) {
-      $this.fields.delete(path);
+      this.fields.delete(path);
       return;
     }
 
@@ -414,12 +438,12 @@ export default $this => ({
     const last = _.last(keys);
     const cpath = _.trimEnd($path, `.${last}`);
 
-    if (_.has($this, 'form')) {
-      $this.form.select(cpath, null, true).del(last);
+    if (_.has(this, 'form')) {
+      this.form.select(cpath, null, true).del(last);
       return;
     }
 
-    $this.select(cpath, null, true).del(last);
-  }),
+    this.select(cpath, null, true).del(last);
+  },
 
-});
+};
