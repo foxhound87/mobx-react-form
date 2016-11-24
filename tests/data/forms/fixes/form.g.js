@@ -1,4 +1,4 @@
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 
 const fields = [
   'items[].name',
@@ -9,7 +9,7 @@ const labels = {
   'items[].name': 'ItemsNameLabel',
 };
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     const items = form.$('items');
@@ -17,4 +17,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ fields, labels }, 'Fixes-G');
+export default new NewForm({ fields, labels }, 'Fixes-G');

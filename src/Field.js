@@ -37,12 +37,12 @@ export default class Field {
   @observable validationFunctionsData = [];
   @observable validationAsyncData = {};
 
-  constructor(key, path, field = {}, state, props = {}, update = false, form) {
+  constructor({ key, path, data = {}, props = {}, update = false, form, state }) {
     this.form = form;
     this.state = state;
 
-    this.setupField(key, path, field, props, update);
-    this.initNestedFields(field, update);
+    this.setupField(key, path, data, props, update);
+    this.initNestedFields(data, update);
 
     if (this.hasIncrementalNestedFields !== false) {
       this.incremental = this.hasIncrementalNestedFields;

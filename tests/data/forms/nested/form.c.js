@@ -1,4 +1,4 @@
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 
 const fields = {
   state: {
@@ -36,7 +36,7 @@ const fields = {
   },
 };
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     form.$('state.city.places').set('label', 'NY Cool Places');
@@ -48,4 +48,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ fields }, 'Nested-C');
+export default new NewForm({ fields }, 'Nested-C');

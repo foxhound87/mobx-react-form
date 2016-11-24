@@ -1,5 +1,5 @@
 import ajv from 'ajv';
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 import svkExtend from '../../extension/svk';
 
 const plugins = {
@@ -39,7 +39,7 @@ const schema = {
   },
 };
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     form.update({
@@ -52,4 +52,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ fields, labels, schema, plugins }, 'Flat-D');
+export default new NewForm({ fields, labels, schema, plugins }, 'Flat-D');

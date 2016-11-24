@@ -1,4 +1,4 @@
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 
 const fields = [
   'items[].name',
@@ -20,7 +20,7 @@ const values = {
 
 };
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     form.update({
@@ -34,4 +34,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ fields, labels, values }, 'Fixes-H');
+export default new NewForm({ fields, labels, values }, 'Fixes-H');

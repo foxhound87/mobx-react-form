@@ -1,11 +1,11 @@
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 
 const fields = [
   'itineraryItems[].hotel.name',
   'itineraryItems[].hotel.starRating',
 ];
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     form.update({
@@ -35,4 +35,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ fields }, 'Fixes-C');
+export default new NewForm({ fields }, 'Fixes-C');

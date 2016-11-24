@@ -1,4 +1,4 @@
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 
 const fields = [{
   name: 'address',
@@ -14,7 +14,7 @@ const fields = [{
   }],
 }];
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     form.update({ address: { city: 'Los Angeles' } });
@@ -22,4 +22,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ fields }, 'Nested-A');
+export default new NewForm({ fields }, 'Nested-A');

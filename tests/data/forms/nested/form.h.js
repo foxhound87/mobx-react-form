@@ -1,4 +1,4 @@
-import Form from '../../../../src';
+import { Form } from '../../../../src';
 import { isInt } from '../../extension/vjf';
 
 const fields = {

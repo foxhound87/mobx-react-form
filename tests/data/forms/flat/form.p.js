@@ -1,5 +1,5 @@
 import validatorjs from 'validatorjs';
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 import dvrExtend from '../../extension/dvr';
 import { shouldBeEqualTo } from '../../extension/vjf';
 
@@ -38,7 +38,7 @@ const disabled = {
   terms: true,
 };
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     form.$('username').set('label', 'UserName');
@@ -47,7 +47,7 @@ class Form extends MobxReactForm {
 }
 
 
-export default new Form({
+export default new NewForm({
 
   fields, values, defaults, labels, disabled, validate, rules, plugins,
 

@@ -19,8 +19,8 @@ export default {
 
   @action
   initField(key, path, data, fields = null, update = false) {
-    const $form = _.has(this, 'form') ? this.form : this;
     const $fields = fields || this.fields;
+    const form = _.has(this, 'form') ? this.form : this;
     const initial = this.state.get('current', 'props');
 
     // try to get props from separated objects
@@ -37,7 +37,9 @@ export default {
     };
 
     $fields.merge({
-      [key]: $form.makeField(key, path, data, this.state, props, update, $form),
+      [key]: form.makeField({
+        key, path, data, props, update, form, state: this.state,
+      }),
     });
   },
 

@@ -1,7 +1,7 @@
 import ajv from 'ajv';
 import validatorjs from 'validatorjs';
 
-import Form from '../../../../src';
+import { Form } from '../../../../src';
 import svkExtend from '../../extension/svk';
 
 const plugins = {

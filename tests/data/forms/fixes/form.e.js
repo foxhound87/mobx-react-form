@@ -1,4 +1,4 @@
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 
 const fields = [
   'places[]',
@@ -11,11 +11,11 @@ const values = {
   ],
 };
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     form.$('places').clear();
   }
 }
 
-export default new Form({ fields, values }, 'Fixes-E');
+export default new NewForm({ fields, values }, 'Fixes-E');
