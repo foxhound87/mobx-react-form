@@ -39,8 +39,8 @@ export default class Form {
     if (_.isFunction(this.onInit)) this.onInit(this);
   }
 
-  makeField(data) {
-    return new Field(data);
+  makeField({ key, path, data, props, update, state }) {
+    return new Field({ key, path, data, props, update, state, form: this });
   }
 
   initOptions(initial = {}) {
