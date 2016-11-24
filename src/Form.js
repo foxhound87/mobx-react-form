@@ -27,7 +27,6 @@ export default class Form {
   constructor(initial = {}, name = null) {
     this.name = name;
 
-    this.extend();
     this.initOptions(initial);
     this.initValidator(initial);
     this.initPropsState(initial);
@@ -38,12 +37,6 @@ export default class Form {
 
     // execute onInit if exist
     if (_.isFunction(this.onInit)) this.onInit(this);
-  }
-
-  extend() {
-    Object.assign(this, fieldParser(this));
-    // Object.assign(this, fieldHelpers(this));
-    // Object.assign(this, fieldInitializer(this));
   }
 
   makeField(key, path, data, state, props, update, $form) {
@@ -295,7 +288,7 @@ export default class Form {
 }
 
 // Cannot use Object.assign as @action methods on mixins are non-enumerable
-([fieldInitializer, fieldHelpers]).forEach((mixin) => {
+([fieldInitializer, fieldHelpers, fieldParser]).forEach((mixin) => {
   Object.getOwnPropertyNames(mixin).forEach((name) => {
     Form.prototype[name] = mixin[name];
   });

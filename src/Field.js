@@ -41,19 +41,12 @@ export default class Field {
     this.form = form;
     this.state = state;
 
-    this.extend();
     this.setupField(key, path, field, props, update);
     this.initNestedFields(field, update);
 
     if (this.hasIncrementalNestedFields !== false) {
       this.incremental = this.hasIncrementalNestedFields;
     }
-  }
-
-  extend() {
-    Object.assign(this, fieldParser(this));
-    // Object.assign(this, fieldHelpers(this));
-    // Object.assign(this, fieldInitializer(this));
   }
 
   @action
@@ -435,7 +428,7 @@ export default class Field {
 }
 
 // Cannot use Object.assign as @action methods on mixins are non-enumerable
-([fieldInitializer, fieldHelpers]).forEach((mixin) => {
+([fieldInitializer, fieldHelpers, fieldParser]).forEach((mixin) => {
   Object.getOwnPropertyNames(mixin).forEach((name) => {
     Field.prototype[name] = mixin[name];
   });
