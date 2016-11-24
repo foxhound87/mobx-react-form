@@ -129,7 +129,7 @@ export default $this => ({
     return $this.deepUpdate($fields);
   },
 
-  deepUpdate: action((fields, path = '') => {
+  deepUpdate: action((fields, path = '', recursion = true) => {
     _.each(fields, (field, key) => {
       const $fullPath = _.trimStart(`${path}.${key}`, '.');
       const $field = $this.select($fullPath, null, false);
@@ -150,13 +150,13 @@ export default $this => ({
         $container.initField(key, $fullPath, field, null, true);
       }
 
-      if (_.isNil(field)) {
+      if (recursion) {
         // handle nested fields if undefined or null
         const $fields = $this.pathToFieldsTree($fullPath);
-        $this.deepUpdate($fields, $fullPath);
+        $this.deepUpdate($fields, $fullPath, false);
       }
 
-      if (_.has(field, 'fields') && !_.isNil(field.fields)) {
+      if (recursion && _.has(field, 'fields') && !_.isNil(field.fields)) {
         // handle nested fields if defined
         $this.deepUpdate(field.fields, $fullPath);
       }
@@ -182,7 +182,9 @@ export default $this => ({
 
     if (!_.isArray(prop)) {
       const data = $this.deepMap(prop, $this.fields);
-      return $this.incremental ? $this.parseProp(data, prop) : data;
+      return $this.hasIncrementalNestedFields
+        ? $this.parseProp(data, prop)
+        : data;
     }
 
     return $this.deepGet(prop, $this.fields);
@@ -296,9 +298,11 @@ export default $this => ({
 
     const data = $this.deepMap(prop, field.fields);
 
-    return Object.assign(obj, {
-      [field.key]: field.incremental ? $this.parseProp(data, prop) : data,
-    });
+    const value = field.hasIncrementalNestedFields
+      ? $this.parseProp(data, prop)
+      : data;
+
+    return Object.assign(obj, { [field.key]: value });
   }, {}),
 
   deepAction: ($action, fields, recursion = false) => {

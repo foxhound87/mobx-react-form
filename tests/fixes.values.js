@@ -70,7 +70,7 @@ describe('$D Form values() method checks', () => {
 
 describe('Check Nested $E values()', () => {
   it('$E places values() should be array', () =>
-    expect($.$E.$('places').values()).to.be.array);
+    expect($.$E.$('places').values()).to.be.instanceof(Array));
 
   it('$E places values() should be length of 0', () =>
     expect($.$E.values().places).to.have.lengthOf(0));
@@ -84,8 +84,31 @@ describe('Check Nested $F value computed check', () => {
     expect($.$F.$('inventoryLevel.value').value).to.be.equal(2));
 
   it('$F places value should be array', () =>
-    expect($.$F.$('places').value).to.be.array);
+    expect($.$F.$('places').value).to.be.instanceof(Array));
 
   it('$F places value should be length of 2', () =>
     expect($.$F.$('places').value).to.have.lengthOf(2));
+
+  it('$F skills value should be array', () =>
+    expect($.$F.$('skills').value).to.be.instanceof(Array));
+
+  it('$F skills value should be length of 0', () =>
+    expect($.$F.$('skills').value).to.have.lengthOf(0));
+
+  it('$F members[0].hobbies value should be array', () =>
+    expect($.$F.$('members[0].hobbies').value).to.be.instanceof(Array));
+
+  it('$F members[0].hobbies value should be length of 3', () =>
+    expect($.$F.$('members[0].hobbies').value).to.have.lengthOf(3));
+
+  it('$F members[1].hobbies value should be array', () =>
+    expect($.$F.$('members[1].hobbies').value).to.be.instanceof(Array));
+});
+
+describe('Check Nested $H value computed check', () => {
+  it('$H items[0].name value should be equal to "Item #A"', () =>
+    expect($.$H.$('items[0].name').value).to.be.equal('Item #A'));
+
+  it('$H items[2].name value should be equal to "Item #3"', () =>
+    expect($.$H.$('items[2].name').value).to.be.equal('Item #3'));
 });
