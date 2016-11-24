@@ -52,7 +52,7 @@ export default class Field {
 
   extend() {
     Object.assign(this, fieldParser(this));
-    Object.assign(this, fieldHelpers(this));
+    // Object.assign(this, fieldHelpers(this));
     // Object.assign(this, fieldInitializer(this));
   }
 
@@ -435,6 +435,8 @@ export default class Field {
 }
 
 // Cannot use Object.assign as @action methods on mixins are non-enumerable
-Object.getOwnPropertyNames(fieldInitializer).forEach((name) => {
-  Field.prototype[name] = fieldInitializer[name];
+([fieldInitializer, fieldHelpers]).forEach((mixin) => {
+  Object.getOwnPropertyNames(mixin).forEach((name) => {
+    Field.prototype[name] = mixin[name];
+  });
 });
