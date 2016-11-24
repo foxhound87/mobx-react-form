@@ -340,18 +340,6 @@ export default {
   },
 
   /**
-<<<<<<< HEAD
-     * Iterates deeply over fields and invokes `iteratee` for each element.
-     * The iteratee is invoked with three arguments: (value, index|key, depth).
-     *
-     * @param {Function} iteratee The function invoked per iteration.
-     * @param {Array|Object} [fields=form.fields] fields to iterate over.
-     * @param {number} [depth=1] The recursion depth for internal use.
-     * @example
-     *
-     * JSON.stringify(form)
-     * // => {
-=======
    * Iterates deeply over fields and invokes `iteratee` for each element.
    * The iteratee is invoked with three arguments: (value, index|key, depth).
    *
@@ -363,31 +351,30 @@ export default {
    *
    * JSON.stringify(form)
    * // => {
->>>>>>> master
-     *   "fields": {
-     *     "state": {
-     *       "fields": {
-     *         "city": {
-     *           "fields": { "places": {
-     *                "fields": {},
-     *                "key": "places", "path": "state.city.places", "$value": "NY Places"
-     *              }
-     *           },
-     *           "key": "city", "path": "state.city", "$value": "New York"
-     *         }
-     *       },
-     *       "key": "state", "path": "state", "$value": "USA"
-     *     }
-     *   }
-     * }
+   *   "fields": {
+   *     "state": {
+   *       "fields": {
+   *         "city": {
+   *           "fields": { "places": {
+   *                "fields": {},
+   *                "key": "places", "path": "state.city.places", "$value": "NY Places"
+   *              }
+   *           },
+   *           "key": "city", "path": "state.city", "$value": "New York"
+   *         }
+   *       },
+   *       "key": "state", "path": "state", "$value": "USA"
+   *     }
+   *   }
+   * }
    *
    * const data = {};
    * form.forEach(formField => data[formField.path] = formField.value);
    * // => {
-     *   "state": "USA",
-     *   "state.city": "New York",
-     *   "state.city.places": "NY Places"
-     * }
+   *   "state": "USA",
+   *   "state.city": "New York",
+   *   "state.city.places": "NY Places"
+   * }
    *
    */
   forEach(iteratee, fields = null, depth = 0) {
