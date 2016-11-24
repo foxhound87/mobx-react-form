@@ -1,10 +1,10 @@
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 
 const fields = ['qwerty'];
 
 const values = { qwerty: 0 };
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     form.options({
@@ -13,4 +13,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ fields, values }, 'Fixes-A');
+export default new NewForm({ fields, values }, 'Fixes-A');

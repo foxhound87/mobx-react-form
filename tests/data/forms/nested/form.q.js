@@ -1,4 +1,4 @@
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 
 const fields = [
   'club.name',
@@ -10,7 +10,7 @@ const fields = [
   'members[].hobbies[]',
 ];
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     form.init({
@@ -34,4 +34,4 @@ class Form extends MobxReactForm {
 }
 
 
-export default new Form({ fields }, 'Nested-Q');
+export default new NewForm({ fields }, 'Nested-Q');

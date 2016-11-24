@@ -1,7 +1,7 @@
 import ajv from 'ajv';
 import validatorjs from 'validatorjs';
 
-import MobxReactForm from '../../../../src';
+import { Form } from '../../../../src';
 import dvrExtend from '../../extension/dvr';
 
 const plugins = {
@@ -38,7 +38,7 @@ const schema = {
   },
 };
 
-class Form extends MobxReactForm {
+class NewForm extends Form {
 
   onInit(form) {
     // subsequent clear and reset
@@ -47,4 +47,4 @@ class Form extends MobxReactForm {
   }
 }
 
-export default new Form({ fields, schema, plugins }, 'Flat-M');
+export default new NewForm({ fields, schema, plugins }, 'Flat-M');
