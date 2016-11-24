@@ -18,7 +18,6 @@ const FieldInit = {
     const $form = _.has(this, 'form') ? this.form : this;
     const $fields = fields || this.fields;
     const initial = this.state.get('current', 'props');
-    const makeField = $form.makeField;
 
     // try to get props from separated objects
     const $try = prop => _.get(initial[prop], utils.pathToStruct(path));
@@ -34,7 +33,7 @@ const FieldInit = {
     };
 
     $fields.merge({
-      [key]: makeField(key, path, data, this.state, props, update, $form),
+      [key]: $form.makeField(key, path, data, this.state, props, update, $form),
     });
   },
 };
