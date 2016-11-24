@@ -130,7 +130,7 @@ export default $this => ({
     return $this.deepUpdate($fields);
   },
 
-  deepUpdate: action((fields, path = '') => {
+  deepUpdate: action((fields, path = '', recursion = true) => {
     _.each(fields, (field, key) => {
       const $fullPath = _.trimStart(`${path}.${key}`, '.');
       const $field = $this.select($fullPath, null, false);
@@ -151,11 +151,13 @@ export default $this => ({
         $container.initField(key, $fullPath, field, null, true);
       }
 
-      // handle nested fields if undefined or null
-      const $fields = $this.pathToFieldsTree($fullPath);
-      $this.deepUpdate($fields, $fullPath);
+      if (recursion) {
+        // handle nested fields if undefined or null
+        const $fields = $this.pathToFieldsTree($fullPath);
+        $this.deepUpdate($fields, $fullPath, false);
+      }
 
-      if (_.has(field, 'fields') && !_.isNil(field.fields)) {
+      if (recursion && _.has(field, 'fields') && !_.isNil(field.fields)) {
         // handle nested fields if defined
         $this.deepUpdate(field.fields, $fullPath);
       }

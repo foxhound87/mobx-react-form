@@ -17,6 +17,7 @@ const values = {
   }, {
     name: 'Item #B',
   }],
+
 };
 
 class Form extends MobxReactForm {
