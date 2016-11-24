@@ -6,6 +6,7 @@ import Validator from './Validator';
 import Options from './Options';
 import Events from './Events';
 import State from './State';
+import Field from './Field';
 
 import fieldInitializer from './FieldInit';
 import fieldParser from './FieldParser';
@@ -42,7 +43,11 @@ export default class Form {
   extend() {
     Object.assign(this, fieldParser(this));
     Object.assign(this, fieldHelpers(this));
-    Object.assign(this, fieldInitializer(this));
+    // Object.assign(this, fieldInitializer(this));
+  }
+
+  makeField(key, path, data, state, props, update, $form) {
+    return new Field(key, path, data, state, props, update, $form);
   }
 
   initOptions(initial = {}) {
@@ -288,3 +293,8 @@ export default class Form {
     this.del(key);
   };
 }
+
+// Cannot use Object.assign as @action methods on mixins are non-enumerable
+Object.getOwnPropertyNames(fieldInitializer).forEach((name) => {
+  Form.prototype[name] = fieldInitializer[name];
+});

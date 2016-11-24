@@ -53,7 +53,7 @@ export default class Field {
   extend() {
     Object.assign(this, fieldParser(this));
     Object.assign(this, fieldHelpers(this));
-    Object.assign(this, fieldInitializer(this));
+    // Object.assign(this, fieldInitializer(this));
   }
 
   @action
@@ -388,7 +388,7 @@ export default class Field {
     this.value = e.target.value;
   });
 
-  onChange = this.sync
+  onChange = this.sync;
   onToggle = this.sync;
 
   onFocus = action(() => {
@@ -433,3 +433,8 @@ export default class Field {
     this.del(path || this.path);
   };
 }
+
+// Cannot use Object.assign as @action methods on mixins are non-enumerable
+Object.getOwnPropertyNames(fieldInitializer).forEach((name) => {
+  Field.prototype[name] = fieldInitializer[name];
+});
