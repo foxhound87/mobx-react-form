@@ -1,8 +1,10 @@
 import {ObservableMap} from "mobx";
 import * as Field from "../../src/Field";
 import * as Form from "../../src/Form";
+import * as State from "../../src/State";
 
-const test = (title: string, fn: Function) => { /* do nothing */ };
+const test = (title: string, fn: Function) => { /* do nothing */
+};
 
 test("Form", () => {
     let f: Form = new Form();
@@ -219,5 +221,9 @@ test("Form", () => {
         f.del();
         f.del(null);
         f.del("path");
+    });
+
+    test("makeField()", () => {
+        let field: Field = f.makeField("key", "path", {}, new State(), {}, false, f);
     });
 });

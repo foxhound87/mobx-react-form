@@ -1,6 +1,7 @@
 import {ObservableMap} from "mobx";
 import * as Field from "./Field";
 import * as Options from "./Options";
+import * as State from "./State";
 import * as Validator from "./Validator";
 
 export = Form;
@@ -86,6 +87,14 @@ declare class Form {
     public add(path?: string|null): void;
 
     public del(path?: string|null): void;
+
+    public makeField(key: string,
+                     path: string,
+                     data: any,
+                     state: State,
+                     props: any,
+                     update: boolean,
+                     $form: Form): Field;
 }
 
 declare namespace Form {
