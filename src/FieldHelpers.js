@@ -151,11 +151,9 @@ export default $this => ({
         $container.initField(key, $fullPath, field, null, true);
       }
 
-      if (_.isNil(field)) {
-        // handle nested fields if undefined or null
-        const $fields = $this.pathToFieldsTree($fullPath);
-        $this.deepUpdate($fields, $fullPath);
-      }
+      // handle nested fields if undefined or null
+      const $fields = $this.pathToFieldsTree($fullPath);
+      $this.deepUpdate($fields, $fullPath);
 
       if (_.has(field, 'fields') && !_.isNil(field.fields)) {
         // handle nested fields if defined

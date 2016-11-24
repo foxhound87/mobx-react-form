@@ -27,3 +27,11 @@ describe('Check Nested $G props check', () => {
   it('$G items[20].name label should be equal to "ItemsNameLabel"', () =>
     expect($.$G.$('items[20].name').label).to.be.equal('ItemsNameLabel'));
 });
+
+describe('Check Nested $H value computed check', () => {
+  it('$H items[0].alternateName label should be equal to "Alternate Name Label"', () =>
+    expect($.$H.select('items[0].alternateName').label).to.be.equal('Alternate Name Label'));
+
+  it('$H items[2].alternateName label should be equal to "Alternate Name Label"', () =>
+    expect($.$H.select('items[2].alternateName').label).to.be.equal('Alternate Name Label'));
+});

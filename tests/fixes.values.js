@@ -89,3 +89,11 @@ describe('Check Nested $F value computed check', () => {
   it('$F places value should be length of 2', () =>
     expect($.$F.$('places').value).to.have.lengthOf(2));
 });
+
+describe('Check Nested $H value computed check', () => {
+  it('$H items[0].name value should be equal to "Item #A"', () =>
+    expect($.$H.$('items[0].name').value).to.be.equal('Item #A'));
+
+  it('$H items[2].name value should be equal to "Item #3"', () =>
+    expect($.$H.$('items[2].name').value).to.be.equal('Item #3'));
+});
