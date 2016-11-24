@@ -2,7 +2,11 @@ import { action } from 'mobx';
 import _ from 'lodash';
 import utils from './utils';
 
-const FieldInit = {
+/**
+  Field Init
+*/
+export default {
+
   initFields(initial, update) {
     const $path = key => _.trimStart([this.path, key].join('.'), '.');
     const fields = this.prepareFieldsData(initial);
@@ -36,6 +40,5 @@ const FieldInit = {
       [key]: $form.makeField(key, path, data, this.state, props, update, $form),
     });
   },
-};
 
-export default FieldInit;
+};

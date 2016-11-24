@@ -1,7 +1,11 @@
 import _ from 'lodash';
 import utils from './utils';
 
-const FieldParser = {
+/**
+  Field Parser
+*/
+export default {
+
   parseProp($val, $prop) {
     const $values = _.values($val);
     if ($prop === 'value') {
@@ -108,6 +112,6 @@ const FieldParser = {
     }
     return fields;
   },
+
 };
 
-export default FieldParser;

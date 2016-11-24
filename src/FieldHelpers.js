@@ -4,9 +4,9 @@ import utils from './utils';
 import Events from './Events';
 
 /**
- Field Helpers
- */
-const FieldHelpers = {
+  Field Helpers
+*/
+export default {
   /**
    Fields Selector (alias of select)
    */
@@ -433,6 +433,5 @@ const FieldHelpers = {
 
     this.select(cpath, null, true).del(last);
   },
-};
 
-export default FieldHelpers;
+};
