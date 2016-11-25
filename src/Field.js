@@ -5,8 +5,8 @@ export default class Field {
 
   fields = asMap({});
   incremental = false;
+  isField = true;
   state;
-  form;
   path;
   key;
   name;
@@ -35,7 +35,6 @@ export default class Field {
 
   constructor({ key, path, data = {}, props = {}, update = false, state }) {
     this.state = state;
-    this.form = state.form();
 
     this.setupField(key, path, data, props, update);
     this.initNestedFields(data, update);
