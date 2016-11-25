@@ -18,7 +18,7 @@
 ## API Reference
 * [API Reference](docs/api-reference/README.md)
     * [Form Initialization](docs/api-reference/form-initialization.md)
-    * [Extend Field](docs/api-reference/extend-field.md)
+    * [Extend Form & Field](docs/api-reference/extend.md)
     * [Form Options](docs/api-reference/form-options.md)
     * [Form Properties](docs/api-reference/form-properties.md)
     * [Form Methods](docs/api-reference/form-methods.md)
