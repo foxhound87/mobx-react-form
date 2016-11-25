@@ -38,7 +38,7 @@ export default {
 
     $fields.merge({
       [key]: form.makeField({
-        key, path, data, props, update, form, state: this.state,
+        key, path, data, props, update, state: this.state,
       }),
     });
   },
