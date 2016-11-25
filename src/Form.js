@@ -57,6 +57,7 @@ export default class Form {
     const initialProps = _.pick(initial, $props);
 
     this.state = new State();
+    this.state.form(this);
     this.state.set('initial', 'props', initialProps);
 
     if (utils.isStruct(initial.fields)) {

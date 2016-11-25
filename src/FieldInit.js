@@ -13,14 +13,14 @@ export default {
 
     // create fields
     _.each(fields, (field, key) =>
-    _.isNil(this.select($path(key), null, false))
-    && this.initField(key, $path(key), field, null, update));
+      _.isNil(this.select($path(key), null, false))
+      && this.initField(key, $path(key), field, null, update));
   },
 
   @action
   initField(key, path, data, fields = null, update = false) {
     const $fields = fields || this.fields;
-    const form = _.has(this, 'form') ? this.form : this;
+    const form = this.state.form();
     const initial = this.state.get('current', 'props');
 
     // try to get props from separated objects
@@ -38,7 +38,7 @@ export default {
 
     $fields.merge({
       [key]: form.makeField({
-        key, path, data, props, update, form, state: this.state,
+        key, path, data, props, update, state: this.state,
       }),
     });
   },

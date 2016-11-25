@@ -35,3 +35,4 @@ describe('Check Nested $H value computed check', () => {
   it('$H items[2].alternateName label should be equal to "Alternate Name Label"', () =>
     expect($.$H.select('items[2].alternateName').label).to.be.equal('Alternate Name Label'));
 });
+

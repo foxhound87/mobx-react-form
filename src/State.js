@@ -2,6 +2,8 @@ export default class State {
 
   $struct = [];
 
+  $form = {};
+
   initial = {
     props: {},
     fields: {},
@@ -10,6 +12,14 @@ export default class State {
   current = {
     props: {},
     fields: {},
+  }
+
+  /**
+    Get/Set Form
+  */
+  form(data = null) {
+    if (data) this.$form = data;
+    return this.$form;
   }
 
   /**

@@ -241,7 +241,10 @@ export default {
    */
   deepSet($, data, path = '', recursion = false) {
     const err = 'You are updating a not existent field:';
-    const isStrict = this.$options.get('strictUpdate');
+
+    const isStrict = _.has(this, 'form')
+      ? this.form.$options.get('strictUpdate')
+      : this.$options.get('strictUpdate');
 
     _.each(data, ($val, $key) => {
       const $path = _.trimStart(`${path}.${$key}`, '.');
