@@ -37,7 +37,7 @@ export default class Field {
   @observable validationFunctionsData = [];
   @observable validationAsyncData = {};
 
-  constructor({ key, path, data = {}, props = {}, update = false, form, state }) {
+  constructor(form, { key, path, data = {}, props = {}, update = false, state }) {
     this.form = form;
     this.state = state;
 
