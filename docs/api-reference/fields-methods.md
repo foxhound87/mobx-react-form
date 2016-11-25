@@ -29,8 +29,3 @@
 | **set(data)** | (object) | - | Provide an object to set nested fields values. | - |
 | **set(prop, data)** | (string, object) | - | Provide a prop key and object to set nested fields properties. | - |
 | **check(computed, deep)** | (string, boolean) | - | Provide a computed key. Check all nested fields computed property if `deep` is `true` | - |
-| **values()** | - | object | Get all Nested Fields Values. | - |
-| **errors()** | - | object | Get all Nested Fields Errors. | - |
-| **labels()** | - | object | Get all Nested Fields Labels. | - |
-| **default()** | - | object | Get all Nested Fields Default Values. | - |
-| **initial()** | - | object | Get all Nested Fields Initial Values. | - |
