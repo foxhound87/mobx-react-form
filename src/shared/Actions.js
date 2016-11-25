@@ -1,41 +1,13 @@
 import { action, asMap } from 'mobx';
 import _ from 'lodash';
-import utils from './utils';
-import Events from './Events';
+import utils from '../utils';
+import parser from '../parser';
+import Events from '../Events';
 
 /**
-  Field Helpers
+  Field Actions
 */
 export default {
-  /**
-   Fields Selector (alias of select)
-   */
-  $(key) { return this.select(key, null, false) || []; },
-
-  /**
-   Fields Values (recursive with Nested Fields)
-   */
-  values() { return this.get('value'); },
-
-  /**
-   Fields Errors (recursive with Nested Fields)
-   */
-  errors() { return this.get('error'); },
-
-  /**
-   Fields Labels (recursive with Nested Fields)
-   */
-  labels() { return this.get('label'); },
-
-  /**
-   Fields Default Values (recursive with Nested Fields)
-   */
-  defaults() { return this.get('default'); },
-
-  /**
-   Fields Initial Values (recursive with Nested Fields)
-   */
-  initials() { return this.get('initial'); },
 
   /**
    Fields Iterator
@@ -93,7 +65,7 @@ export default {
 
     let stop = false;
     _.each(keys, ($key) => {
-      if (stop) { return; }
+      if (stop) return;
       if (_.isNil($fields)) {
         $fields = undefined;
         stop = true;
@@ -127,7 +99,9 @@ export default {
    OR Create Field if 'undefined'
    */
   update(fields) {
-    const $fields = this.prepareFieldsData({ fields });
+    let $fields;
+    $fields = parser.prepareFieldsData({ fields });
+    $fields = parser.mergeSchemaDefaults($fields, this.validator);
     return this.deepUpdate($fields);
   },
 
@@ -186,7 +160,7 @@ export default {
     if (!_.isArray(prop)) {
       const data = this.deepMap(prop, this.fields);
       return this.hasIncrementalNestedFields
-        ? this.parseProp(data, prop)
+        ? parser.parseProp(data, prop)
         : data;
     }
 
@@ -243,8 +217,8 @@ export default {
     const err = 'You are updating a not existent field:';
 
     const isStrict = _.has(this, 'form')
-      ? this.form.$options.get('strictUpdate')
-      : this.$options.get('strictUpdate');
+      ? this.form.state.options.get('strictUpdate')
+      : this.state.options.get('strictUpdate');
 
     _.each(data, ($val, $key) => {
       const $path = _.trimStart(`${path}.${$key}`, '.');
@@ -307,7 +281,7 @@ export default {
       const data = this.deepMap(prop, field.fields);
 
       const value = field.hasIncrementalNestedFields
-        ? this.parseProp(data, prop)
+        ? parser.parseProp(data, prop)
         : data;
 
       return Object.assign(obj, { [field.key]: value });

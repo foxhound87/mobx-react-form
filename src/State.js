@@ -1,4 +1,8 @@
+import Options from './Options';
+
 export default class State {
+
+  options;
 
   $struct = [];
 
@@ -12,6 +16,11 @@ export default class State {
   current = {
     props: {},
     fields: {},
+  }
+
+  initOptions(initial = {}) {
+    this.options = new Options();
+    this.options.set(initial.options);
   }
 
   /**

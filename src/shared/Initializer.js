@@ -1,15 +1,19 @@
 import { action } from 'mobx';
 import _ from 'lodash';
-import utils from './utils';
+import utils from '../utils';
+import parser from '../parser';
 
 /**
-  Field Init
+  Field Initializer
 */
 export default {
 
   initFields(initial, update) {
     const $path = key => _.trimStart([this.path, key].join('.'), '.');
-    const fields = this.prepareFieldsData(initial);
+
+    let fields;
+    fields = parser.prepareFieldsData(initial);
+    fields = parser.mergeSchemaDefaults(fields, this.validator);
 
     // create fields
     _.each(fields, (field, key) =>

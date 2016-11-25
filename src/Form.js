@@ -3,14 +3,9 @@ import _ from 'lodash';
 import utils from './utils';
 
 import Validator from './Validator';
-import Options from './Options';
 import Events from './Events';
 import State from './State';
 import Field from './Field';
-
-import fieldInitializer from './FieldInit';
-import fieldParser from './FieldParser';
-import fieldHelpers from './FieldHelpers';
 
 export default class Form {
 
@@ -20,14 +15,13 @@ export default class Form {
 
   validator;
 
-  $options;
-
   @observable fields = asMap({});
 
   constructor(initial = {}, name = null) {
     this.name = name;
+    this.state = new State();
 
-    this.initOptions(initial);
+    this.state.initOptions(initial);
     this.initValidator(initial);
     this.initPropsState(initial);
     this.initFields(initial);
@@ -43,11 +37,6 @@ export default class Form {
     return new Field(data);
   }
 
-  initOptions(initial = {}) {
-    this.$options = new Options();
-    this.$options.set(initial.options);
-  }
-
   initValidator(initial = {}) {
     this.validator = new Validator(initial);
   }
@@ -56,7 +45,6 @@ export default class Form {
     const $props = _.union(utils.iprops, utils.vprops);
     const initialProps = _.pick(initial, $props);
 
-    this.state = new State();
     this.state.form(this);
     this.state.set('initial', 'props', initialProps);
 
@@ -66,9 +54,9 @@ export default class Form {
   }
 
   options(options = null) {
-    if (_.isObject(options)) this.$options.set(options);
-    if (_.isString(options)) return this.$options.get(options);
-    return this.$options.get();
+    if (_.isObject(options)) this.state.options.set(options);
+    if (_.isString(options)) return this.state.options.get(options);
+    return this.state.options.get();
   }
 
   on(event, callback) {
@@ -94,7 +82,7 @@ export default class Form {
   observeFieldsDeep(fields) {
     fields.forEach((field, key) => {
       observe(fields.get(key), '$value', () => {
-        if (this.$options.get('validateOnChange') === false) return;
+        if (this.state.options.get('validateOnChange') === false) return;
         this.validate({ key, field, showErrors: true, related: true });
       });
       // recursive observe and validate each field
@@ -103,9 +91,9 @@ export default class Form {
   }
 
   validateOnInit() {
-    if (this.$options.get('validateOnInit') === false) return;
+    if (this.state.options.get('validateOnInit') === false) return;
     // execute validation on form initialization
-    this.validate({ showErrors: this.$options.get('showErrorsOnInit') });
+    this.validate({ showErrors: this.state.options.get('showErrorsOnInit') });
   }
 
   validate(opt = {}, obj = {}) {
@@ -129,7 +117,7 @@ export default class Form {
 
     // look running events and choose when show errors messages
     const notShowErrorsEvents = ['clear', 'reset'];
-    if (this.$options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
+    if (this.state.options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
     const $showErrors = showErrors && !Events.running(notShowErrorsEvents);
 
     if (_.isObject(opt) && !_.isString($key)) {
@@ -287,10 +275,3 @@ export default class Form {
     this.del(key);
   };
 }
-
-// Cannot use Object.assign as @action methods on mixins are non-enumerable
-([fieldInitializer, fieldHelpers, fieldParser]).forEach((mixin) => {
-  Object.getOwnPropertyNames(mixin).forEach((name) => {
-    Form.prototype[name] = mixin[name];
-  });
-});

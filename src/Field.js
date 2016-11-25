@@ -1,10 +1,6 @@
 import { action, observable, computed, isObservableArray, toJS, asMap } from 'mobx';
 import _ from 'lodash';
 
-import fieldInitializer from './FieldInit';
-import fieldParser from './FieldParser';
-import fieldHelpers from './FieldHelpers';
-
 export default class Field {
 
   fields = asMap({});
@@ -426,10 +422,3 @@ export default class Field {
     this.del(path || this.path);
   };
 }
-
-// Cannot use Object.assign as @action methods on mixins are non-enumerable
-([fieldInitializer, fieldHelpers, fieldParser]).forEach((mixin) => {
-  Object.getOwnPropertyNames(mixin).forEach((name) => {
-    Field.prototype[name] = mixin[name];
-  });
-});
