@@ -12,4 +12,5 @@ const { TEST } = process.env;
  */
 if (TEST) useStrict(true);
 
-export default { Form, Field };
+export default Form;
+export { Form, Field };
