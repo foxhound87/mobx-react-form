@@ -217,7 +217,7 @@ export default {
     const err = 'You are updating a not existent field:';
 
     const isStrict = _.has(this, 'isField')
-      ? this.state.form().options.get('strictUpdate')
+      ? this.state.form.options.get('strictUpdate')
       : this.state.options.get('strictUpdate');
 
     _.each(data, ($val, $key) => {
@@ -384,7 +384,7 @@ export default {
 
       _.each(tree, field => this.initField($n, $path($n), field));
 
-      this.state.form().observeFields(this.fields);
+      this.state.form.observeFields(this.fields);
     }
   },
 
@@ -404,7 +404,7 @@ export default {
     const cpath = _.trimEnd($path, `.${last}`);
 
     if (_.has(this, 'isField')) {
-      this.state.form().select(cpath, null, true).del(last);
+      this.state.form.select(cpath, null, true).del(last);
       return;
     }
 

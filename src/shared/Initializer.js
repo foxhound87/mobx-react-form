@@ -24,7 +24,6 @@ export default {
   @action
   initField(key, path, data, fields = null, update = false) {
     const $fields = fields || this.fields;
-    const form = this.state.form();
     const initial = this.state.get('current', 'props');
 
     // try to get props from separated objects
@@ -41,7 +40,7 @@ export default {
     };
 
     $fields.merge({
-      [key]: form.makeField({
+      [key]: this.state.form.makeField({
         key, path, data, props, update, state: this.state,
       }),
     });
