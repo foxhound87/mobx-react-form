@@ -40,7 +40,7 @@ export default class Form {
   }
 
   makeField({ key, path, data, props, update, state }) {
-    return new Field(this, { key, path, data, props, update, state });
+    return new Field({ key, path, data, props, update, state }, this);
   }
 
   initOptions(initial = {}) {
