@@ -1,4 +1,4 @@
-import { Form } from '../../../../src';
+import MobxReactForm, { Field } from '../../../../src';
 import { isEmail, shouldBeEqualTo } from '../../extension/vjf';
 
 const fields = {
@@ -15,7 +15,22 @@ const fields = {
   },
 };
 
-class NewForm extends Form {
+class NewField extends Field {
+
+  newFieldProp = false;
+
+  constructor(data) {
+    super(data);
+
+    this.newFieldProp = true;
+  }
+}
+
+class NewForm extends MobxReactForm {
+
+  makeField(data) {
+    return new NewField(data);
+  }
 
   onInit(form) {
     form.update({

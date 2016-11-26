@@ -1,4 +1,10 @@
+import Options from './Options';
+
 export default class State {
+
+  form;
+
+  options;
 
   $struct = [];
 
@@ -11,6 +17,11 @@ export default class State {
     props: {},
     fields: {},
   };
+
+  initOptions(initial = {}) {
+    this.options = new Options();
+    this.options.set(initial.options);
+  }
 
   /**
     Get/Set Fields Structure
@@ -30,7 +41,12 @@ export default class State {
   /**
     Set Props/Fields
   */
-  set(type, subtype, state) {
+  set(type, subtype, state = null) {
+    if (type === 'form') {
+      // subtype is the form here
+      this.form = subtype;
+    }
+
     if (type === 'initial') {
       Object.assign(this.initial[subtype], state);
       Object.assign(this.current[subtype], state);
