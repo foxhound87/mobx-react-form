@@ -65,13 +65,25 @@ const pathToStruct = (path) => {
   return struct;
 };
 
-const hasSome = (obj, keys) => _.some(keys, _.partial(_.has, obj));
+const hasSome = (obj, keys) =>
+  _.some(keys, _.partial(_.has, obj));
 
 const hasUnifiedProps = field =>
   (hasSome(field, props) || hasSome(field, vprops));
 
 const hasSeparatedProps = initial =>
   (hasSome(initial, iprops) || hasSome(initial, vprops));
+
+const parseIntKeys = fields =>
+ _.map(fields.keys(), _.ary(parseInt, 1));
+
+const hasIntKeys = fields =>
+  _.every(parseIntKeys(fields), _.isInteger);
+
+const maxKey = (fields) => {
+  const max = _.max(parseIntKeys(fields));
+  return _.isUndefined(max) ? 0 : max;
+};
 
 export default {
   computed,
@@ -88,4 +100,7 @@ export default {
   pathToStruct,
   hasUnifiedProps,
   hasSeparatedProps,
+  parseIntKeys,
+  hasIntKeys,
+  maxKey,
 };

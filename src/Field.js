@@ -1,16 +1,13 @@
 import { action, observable, computed, isObservableArray, toJS, asMap } from 'mobx';
 import _ from 'lodash';
-
-import fieldInitializer from './FieldInit';
-import fieldParser from './FieldParser';
-import fieldHelpers from './FieldHelpers';
+import utils from './utils';
 
 export default class Field {
 
   fields = asMap({});
   incremental = false;
+  isField = true;
   state;
-  form;
   path;
   key;
   name;
@@ -39,7 +36,6 @@ export default class Field {
 
   constructor({ key, path, data = {}, props = {}, update = false, state }) {
     this.state = state;
-    this.form = state.form();
 
     this.setupField(key, path, data, props, update);
     this.initNestedFields(data, update);
@@ -115,22 +111,6 @@ export default class Field {
     if (separated === 0) return separated;
     const $value = separated || initial;
     return !_.isNil($value) ? $value : this.$initial;
-  }
-
-  /* ------------------------------------------------------------------ */
-  /* INDEX / KEYS */
-
-  hasIntKeys() {
-    return _.every(this.parseIntKeys(), _.isInteger);
-  }
-
-  parseIntKeys() {
-    return _.map(this.fields.keys(), _.ary(parseInt, 1));
-  }
-
-  maxKey() {
-    const max = _.max(this.parseIntKeys());
-    return _.isUndefined(max) ? 0 : max;
   }
 
   /* ------------------------------------------------------------------ */
@@ -220,7 +200,7 @@ export default class Field {
 
   @computed
   get hasIncrementalNestedFields() {
-    return (this.hasIntKeys() && this.fields.size);
+    return (utils.hasIntKeys(this.fields) && this.fields.size);
   }
 
   @computed
@@ -359,6 +339,7 @@ export default class Field {
       ? this.check('changed', true)
       : this.$changed;
   }
+
   /* ------------------------------------------------------------------ */
   /* EVENTS */
 
@@ -426,10 +407,3 @@ export default class Field {
     this.del(path || this.path);
   };
 }
-
-// Cannot use Object.assign as @action methods on mixins are non-enumerable
-([fieldInitializer, fieldHelpers, fieldParser]).forEach((mixin) => {
-  Object.getOwnPropertyNames(mixin).forEach((name) => {
-    Field.prototype[name] = mixin[name];
-  });
-});

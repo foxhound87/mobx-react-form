@@ -1,8 +1,12 @@
+import Options from './Options';
+
 export default class State {
 
-  $struct = [];
+  form;
 
-  $form = {};
+  options;
+
+  $struct = [];
 
   initial = {
     props: {},
@@ -14,12 +18,9 @@ export default class State {
     fields: {},
   }
 
-  /**
-    Get/Set Form
-  */
-  form(data = null) {
-    if (data) this.$form = data;
-    return this.$form;
+  initOptions(initial = {}) {
+    this.options = new Options();
+    this.options.set(initial.options);
   }
 
   /**
@@ -40,7 +41,12 @@ export default class State {
   /**
     Set Props/Fields
   */
-  set(type, subtype, state) {
+  set(type, subtype, state = null) {
+    if (type === 'form') {
+      // subtype is the form here
+      this.form = subtype;
+    }
+
     if (type === 'initial') {
       Object.assign(this.initial[subtype], state);
       Object.assign(this.current[subtype], state);
