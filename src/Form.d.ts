@@ -88,13 +88,14 @@ declare class Form {
 
     public del(path?: string|null): void;
 
-    public makeField(key: string,
-                     path: string,
-                     data: any,
-                     state: State,
-                     props: any,
-                     update: boolean,
-                     $form: Form): Field;
+    public makeField(obj: {
+        key: string,
+        path: string,
+        state: State,
+        data?: {},
+        props?: {},
+        update?: boolean,
+    }): Field;
 }
 
 declare namespace Form {

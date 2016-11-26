@@ -224,6 +224,34 @@ test("Form", () => {
     });
 
     test("makeField()", () => {
-        let field: Field = f.makeField("key", "path", {}, new State(), {}, false, f);
+        let field: Field;
+
+        field = f.makeField({
+            key: "key",
+            path: "path",
+            state: new State(),
+        });
+
+        field = f.makeField({
+            data: {},
+            key: "key",
+            path: "path",
+            state: new State(),
+        });
+
+        field = f.makeField({
+            key: "key",
+            path: "path",
+            props: {},
+            state: new State(),
+        });
+
+        field = f.makeField({
+            key: "key",
+            path: "path",
+            state: new State(),
+            update: true,
+        });
     });
+
 });

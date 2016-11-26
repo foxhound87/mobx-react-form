@@ -1,9 +1,14 @@
+import * as Form from "./Form";
+import * as Options from "./Options";
+
 export = State;
 
 declare class State {
     protected $struct: State.IStruct;
     protected initial: State.ISubstate;
     protected current: State.ISubstate;
+    protected form: Form;
+    protected options: Options;
 
     public struct(): State.IStruct;
     public struct(data: State.IStruct): void;

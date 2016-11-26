@@ -1,4 +1,7 @@
-import * as FormAsExportedByIndex from "../../src";
-import * as Form from "../../src/Form";
+import {Field, Form} from "../../src";
+import * as Field0 from "../../src/Field";
+import * as Form0 from "../../src/Form";
 
-const form: Form = new FormAsExportedByIndex();
+let form: Form0 = new Form();
+let field: Field|undefined = form.select("field");
+let field0: Field0|undefined = form.select("field");

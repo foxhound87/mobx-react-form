@@ -1,5 +1,6 @@
 import {ObservableMap} from "mobx";
 import * as Form from "./Form";
+import * as State from "./State";
 
 export = Field;
 
@@ -28,7 +29,14 @@ declare class Field {
     public readonly key?: string;
     public readonly name?: string;
 
-    public constructor($key: string, $path: string, $field: any, props?: {}, update?: boolean, form?: Form);
+    public constructor(obj: {
+        key: string,
+        path: string,
+        state: State,
+        data?: {},
+        props?: {},
+        update?: boolean,
+    });
 
     public setInvalid(message: string, async?: boolean): void;
 
