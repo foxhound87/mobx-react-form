@@ -1,5 +1,6 @@
 import { action, observable, computed, isObservableArray, toJS, asMap } from 'mobx';
 import _ from 'lodash';
+import utils from './utils';
 
 export default class Field {
 
@@ -113,22 +114,6 @@ export default class Field {
   }
 
   /* ------------------------------------------------------------------ */
-  /* INDEX / KEYS */
-
-  hasIntKeys() {
-    return _.every(this.parseIntKeys(), _.isInteger);
-  }
-
-  parseIntKeys() {
-    return _.map(this.fields.keys(), _.ary(parseInt, 1));
-  }
-
-  maxKey() {
-    const max = _.max(this.parseIntKeys());
-    return _.isUndefined(max) ? 0 : max;
-  }
-
-  /* ------------------------------------------------------------------ */
   /* ACTIONS */
 
   @action
@@ -215,7 +200,7 @@ export default class Field {
 
   @computed
   get hasIncrementalNestedFields() {
-    return (this.hasIntKeys() && this.fields.size);
+    return (utils.hasIntKeys(this.fields) && this.fields.size);
   }
 
   @computed
@@ -354,6 +339,7 @@ export default class Field {
       ? this.check('changed', true)
       : this.$changed;
   }
+
   /* ------------------------------------------------------------------ */
   /* EVENTS */
 

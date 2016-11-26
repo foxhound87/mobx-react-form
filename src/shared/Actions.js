@@ -375,7 +375,7 @@ export default {
     }
 
     if (_.has(this, 'isField')) {
-      const $n = this.maxKey() + 1;
+      const $n = utils.maxKey(this.fields) + 1;
       const tree = this.pathToFieldsTree(this.path);
       const $path = key => _.trimStart([this.path, key].join('.'), '.');
 
