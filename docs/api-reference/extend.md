@@ -12,7 +12,7 @@ or you can import the base `Form` like this:
 import { Form, Field } from 'mobx-react-form';
 ```
 
-extend it (for example with custom props):
+extend the `Field` (for example with custom props):
 
 ```javascript
 class MyField extends Field {

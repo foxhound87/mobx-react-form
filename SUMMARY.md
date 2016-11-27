@@ -5,6 +5,7 @@
 * [Getting Started](docs/getting-started.md)
 * [DevTools](docs/devtools.md)
 * [FAQ](docs/faq.md)
+* [UMD Setup](docs/umd-setup.md)
 
 ## Start
 * [Defining Fields](docs/defining-fields.md)
