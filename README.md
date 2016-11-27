@@ -23,6 +23,10 @@
 - Support for Material UI, React Widgets, React Select
 - Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package
 
+## Typescript Support
+
+A [typescript branch](https://github.com/foxhound87/mobx-react-form/tree/typescript/) has been created. Feel free to contribute!
+
 <br>
 
 ## Documentation
@@ -35,7 +39,6 @@
 
 ## Tutorial
 [Automagically manage React forms state and automatic validation with MobX](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769)
-
 
 ## Install
 
