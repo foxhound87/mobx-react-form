@@ -6,7 +6,7 @@ export default {
   /**
    Fields Selector (alias of select)
    */
-  $(key) { return this.select(key, null, false) || []; },
+  $(key) { return this.select(key); },
 
   /**
    Fields Values (recursive with Nested Fields)
