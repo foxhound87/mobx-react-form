@@ -82,7 +82,7 @@ or you can use the alias `$()` as shortcut:
 .$('address.city');
 ```
 
-> $(path) is like of select(path) but doesn't trow error if can not find the field.
+> $(path) is like of select(path).
 
 or you can retrive items from arrays:
 
@@ -203,10 +203,10 @@ Add fields or nested fields:
 form.$('hobbies').add();
 ```
 
-or provide the `key` to add or delete a field:
+or provide the initial value to the new added field:
 
 ```javascript
-form.add('hobbies');
+form.$('hobbies').add('soccer');
 ```
 
 Delete a field:
