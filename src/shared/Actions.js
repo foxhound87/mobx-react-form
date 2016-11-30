@@ -367,21 +367,20 @@ export default {
    Add Field
    */
     @action
-  add(path = null) {
-    if (_.isString(path)) {
-      const $path = utils.parsePath(path);
-      this.select($path, null, true).add();
-      return;
-    }
+  add(value = null) {
+    const $n = utils.maxKey(this.fields) + 1;
+    const tree = this.pathToFieldsTree(this.path);
+    const $path = key => _.trimStart([this.path, key].join('.'), '.');
 
-    if (_.has(this, 'isField')) {
-      const $n = utils.maxKey(this.fields) + 1;
-      const tree = this.pathToFieldsTree(this.path);
-      const $path = key => _.trimStart([this.path, key].join('.'), '.');
+    _.each(tree, field => this.initField($n, $path($n), field));
 
-      _.each(tree, field => this.initField($n, $path($n), field));
+    this.state.form.observeFields(this.fields);
 
-      this.state.form.observeFields(this.fields);
+    if (!_.isNil(value)) {
+      const field = this.select($n);
+      field.initial = value;
+      field.default = value;
+      field.value = value;
     }
   },
 

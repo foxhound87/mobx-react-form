@@ -2,7 +2,7 @@ import { expect } from 'chai';
 
 import $ from './data/_.fixes'; // FORMS
 
-describe('Check Nested $G props check', () => {
+describe('Check Fixes $G props check', () => {
   it('$G items[0] label should be equal to "ItemLabel"', () =>
     expect($.$G.$('items[0]').label).to.be.equal('ItemLabel'));
 
@@ -28,7 +28,7 @@ describe('Check Nested $G props check', () => {
     expect($.$G.$('items[20].name').label).to.be.equal('ItemsNameLabel'));
 });
 
-describe('Check Nested $H value computed check', () => {
+describe('Check Fixes $H value computed check', () => {
   it('$H items[0].alternateName label should be equal to "Alternate Name Label"', () =>
     expect($.$H.select('items[0].alternateName').label).to.be.equal('Alternate Name Label'));
 

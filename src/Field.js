@@ -52,7 +52,7 @@ export default class Field {
   }
 
   @action
-  setupField($key, $path, $field, {
+  setupField($key, $path, $data, {
     $value = null,
     $label = null,
     $default = null,
@@ -64,17 +64,17 @@ export default class Field {
     this.key = $key;
     this.path = $path;
 
-    if (_.isNil($field)) $field = ''; // eslint-disable-line
+    if (_.isNil($data)) $data = ''; // eslint-disable-line
 
     if (
-    _.isBoolean($field) ||
-    _.isArray($field) ||
-    _.isString($field) ||
-    _.isNumber($field)) {
+    _.isBoolean($data) ||
+    _.isArray($data) ||
+    _.isString($data) ||
+    _.isNumber($data)) {
       /* The field IS the value here */
       this.name = $key;
-      this.$initial = this.parseInitialValue($field, $value);
-      this.$default = update ? '' : this.parseDefaultValue($field.default, $default);
+      this.$initial = this.parseInitialValue($data, $value);
+      this.$default = update ? '' : this.parseDefaultValue($data.default, $default);
       this.$value = this.$initial;
       this.$label = $label || $key;
       this.$rules = $rules || null;
@@ -84,10 +84,10 @@ export default class Field {
       return;
     }
 
-    if (_.isObject($field)) {
-      const { name, label, disabled, rules, validate, related } = $field;
-      this.$initial = this.parseInitialValue($field.value, $value);
-      this.$default = update ? '' : this.parseDefaultValue($field.default, $default);
+    if (_.isObject($data)) {
+      const { name, label, disabled, rules, validate, related } = $data;
+      this.$initial = this.parseInitialValue($data.value, $value);
+      this.$default = update ? '' : this.parseDefaultValue($data.default, $default);
       this.name = name || $key;
       this.$value = this.$initial;
       this.$label = $label || label || this.name;
@@ -236,6 +236,24 @@ export default class Field {
   }
 
   @computed
+  get initial() {
+    return this.$initial;
+  }
+
+  set initial(val) {
+    this.$initial = this.parseInitialValue(null, val);
+  }
+
+  @computed
+  get default() {
+    return this.$default;
+  }
+
+  set default(val) {
+    this.$default = this.parseDefaultValue(null, val);
+  }
+
+  @computed
   get label() {
     return this.$label;
   }
@@ -248,16 +266,6 @@ export default class Field {
   @computed
   get disabled() {
     return this.$disabled;
-  }
-
-  @computed
-  get default() {
-    return this.$default;
-  }
-
-  @computed
-  get initial() {
-    return this.$initial;
   }
 
   @computed

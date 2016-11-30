@@ -151,3 +151,17 @@ describe('Check Nested $T add() and del()', () => {
   it('$T member.hobbies fields.size should be equal to 3', () =>
     expect($.$T.$('member.hobbies').fields.size).to.equal(3));
 });
+
+describe('Check Nested $T value on add()', () => {
+  it('$T member.hobbies value should be array', () =>
+    expect($.$T.$('member.hobbies').value).to.be.instanceof(Array));
+
+  it('$T member.hobbies value should have length of 3', () =>
+    expect($.$T.$('member.hobbies').value).to.have.lengthOf(3));
+
+  it('$T member.hobbies[1] initial should be equal to "AAA"', () =>
+    expect($.$T.$('member.hobbies[1]').initial).to.equal('AAA'));
+
+  it('$T member.hobbies[1] default should be equal to "AAA"', () =>
+    expect($.$T.$('member.hobbies[1]').default).to.equal('AAA'));
+});
