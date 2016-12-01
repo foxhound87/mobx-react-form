@@ -378,6 +378,11 @@ export default {
 
     if (!_.isNil(value)) {
       const field = this.select($n);
+
+      if (_.isObject(value)) {
+        field.update(value);
+      }
+
       field.initial = value;
       field.default = value;
       field.value = value;

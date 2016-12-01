@@ -164,4 +164,16 @@ describe('Check Nested $T value on add()', () => {
 
   it('$T member.hobbies[1] default should be equal to "AAA"', () =>
     expect($.$T.$('member.hobbies[1]').default).to.equal('AAA'));
+
+  it('$T member.info[1] default should be an object', () =>
+    expect($.$T.$('member.info[1]').default).to.be.an('object'));
+
+  it('$T member.info[1] initial should be an object', () =>
+    expect($.$T.$('member.info[1]').initial).to.be.an('object'));
+
+  it('$T member.info[1].firstname value should be equal to "AAA"', () =>
+    expect($.$T.$('member.info[1].firstname').value).to.equal('AAA'));
+
+  it('$T member.info[1].lastname value should be equal to "BBB"', () =>
+    expect($.$T.$('member.info[1].lastname').value).to.equal('BBB'));
 });

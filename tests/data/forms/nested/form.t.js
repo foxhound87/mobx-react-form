@@ -1,11 +1,11 @@
 import { Form } from '../../../../src';
 
 const fields = [
-  'hobbies',
   'hobbies[]',
-  'member',
-  'member.hobbies',
   'member.hobbies[]',
+  'member.info[]',
+  'member.info[].firstname',
+  'member.info[].lastname',
 ];
 
 class NewForm extends Form {
@@ -35,6 +35,11 @@ class NewForm extends Form {
     form.del('member.hobbies[2]');
     form.$('member.hobbies').del(3);
     // hobbies[] length should be 3
+
+    form.$('member.info').add({
+      firstname: 'AAA',
+      lastname: 'BBB',
+    });
   }
 }
 
