@@ -22,7 +22,7 @@ class MyForm extends MobxReactForm {
 
 These methods are called when the form validation is done.
 
-Extend the Form Class with `onSuccess` and `onError` methods:
+Extend the Form Class with `onSuccess(form)` and `onError(form)` methods:
 
 ```javascript
 import MobxReactForm from 'mobx-react-form';

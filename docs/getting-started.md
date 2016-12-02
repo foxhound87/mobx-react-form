@@ -67,7 +67,7 @@ export default new MyForm({ fields, plugins });
 
 The package provide those built-in and ready to use Event Handlers:
 
-`onSubmit(e)`, `onSuccess(e)`, `onError(e)`.
+`onSubmit(e)`, `onClear(e)`, `onReset(e)`.
 
 ```javascript
 import React from 'react';

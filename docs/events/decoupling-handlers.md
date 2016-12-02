@@ -1,6 +1,6 @@
 ## Decopling the Events Handlers from the Form Object
 
-Define an `event` object with `onSuccess()` or `onError()` mehtods.
+Define an `event` object with `onSuccess(form)` or `onError(form)` methods.
 
 ```javascript
 const events = {

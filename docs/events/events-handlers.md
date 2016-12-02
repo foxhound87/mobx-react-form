@@ -41,17 +41,12 @@ If you need to track `touched` or `focus` state, you can use `onFocus(e)` or `on
 
 We can choose to use the Built-In handlers, override them or reimplement them for more flexibility.
 
-The package provide those ready to use event handlers:
-
-`onSubmit(e)`, `onSuccess(e)`, `onError(e)`.
+The `onSubmit(e)` will `validate` the form and will call respectively `onSuccess(form)` or `onError(form)` methods if they are implemented in the `extended` class.
 
 
-> The `onSubmit` will `validate` the form and will call respectively `onSuccess` or `onError` mehtods if they are implemented in the `extended` class.
+The `onSuccess(form)` and `onError(form)` methods takes the `form` object in input. So you can perform more actions after the validation occurs.
 
-
-The `onSuccess` and `onError` mehtods takes the `form` object in input. So you can perform more actions after the validation occurs.
-
-You can easly include the `onSubmit` handler in your component:
+You can easly include the `onSubmit(e)` handler in your component:
 
 ```html
 <button type="submit" onClick={form.onSubmit}>Submit</button>

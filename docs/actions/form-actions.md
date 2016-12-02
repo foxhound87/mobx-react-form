@@ -40,7 +40,7 @@ form.invalidate('This is a generic error message!');
 
 ### Manual Form Submit
 
-Provide an object with `onSuccess()` and `onError()` functions.
+Provide an object with `onSuccess(form)` and `onError(form)` functions.
 
 ```javascript
 form.submit({
