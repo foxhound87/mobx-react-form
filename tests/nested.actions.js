@@ -8,9 +8,6 @@ describe('Check $A Nested Fields', () => {
 
   it('$A user.emailConfirm.value should be equal to "s.jobs@apple.com"', () =>
     expect($.$A.$('user.emailConfirm').value).to.be.equal('s.jobs@apple.com'));
-
-  it('$A user.emailConfirm.label should be equal to "User Email"', () =>
-    expect($.$A.$('user.emailConfirm').label).to.be.equal('User Email'));
 });
 
 describe('Check $B Nested Fields', () => {
@@ -176,4 +173,12 @@ describe('Check Nested $T value on add()', () => {
 
   it('$T member.info[1].lastname value should be equal to "BBB"', () =>
     expect($.$T.$('member.info[1].lastname').value).to.equal('BBB'));
+});
+
+describe('Check $U Nested Fields', () => {
+  it('$U user.email.value should be equal to "notAnEmail"', () =>
+    expect($.$U.$('user.email').value).to.be.equal('notAnEmail'));
+
+  it('$U user.emailConfirm.value should be equal to "s.jobs@apple.com"', () =>
+    expect($.$U.$('user.emailConfirm').value).to.be.equal('s.jobs@apple.com'));
 });

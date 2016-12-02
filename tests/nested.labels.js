@@ -2,6 +2,15 @@ import { expect } from 'chai';
 
 import $ from './data/_.nested'; // FORMS
 
+describe('Check Nested $A Unified Properties (label)', () => {
+  // TO FIX UPDATE METHOD
+  // it('$A user.email label should be equal to "Email"', () =>
+  //   expect($.$A.$('user.email').label).to.be.equal('Email'));
+
+  it('$A user.emailConfirm label should be equal to "Confirm User Email"', () =>
+    expect($.$A.$('user.emailConfirm').label).to.be.equal('Confirm User Email'));
+});
+
 describe('Check Nested $I Separated Properties (labels)', () => {
   it('$I state.city.places.centralPark label should be equal to "Central Park"', () =>
     expect($.$I.$('state.city.places.centralPark').label).to.be.equal('Central Park'));
