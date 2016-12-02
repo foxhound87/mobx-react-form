@@ -51,7 +51,7 @@ new Form({ options, plugins, values, labels, rules, ... });
 ## onInit()
 
 If you need to execute some code just after the form is initialized,
-you can extend the form implementing the `onInit()` mehtod:
+you can extend the form implementing the `onInit(form)` mehtod:
 
 ```javascript
 import Form from 'mobx-react-form';
