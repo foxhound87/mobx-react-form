@@ -31,7 +31,7 @@ If you need to track `touched` or `focus` state, you can use `onFocus(e)` or `on
 
 ---
 
-### Validation Handlers
+### Submit & Validation Handlers
 
 ###### We have two alternatives to deal with events:
 
