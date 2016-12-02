@@ -3,14 +3,14 @@ import { expect } from 'chai';
 import $ from './data/_.nested'; // FORMS
 
 describe('Check $A Nested Fields', () => {
-  it('$A address.street.value should be equal to "Broadway"', () =>
-    expect($.$A.$('address.street').value).to.be.equal('Broadway'));
+  it('$A user.email.value should be equal to "notAnEmail"', () =>
+    expect($.$A.$('user.email').value).to.be.equal('notAnEmail'));
 
-  it('$A address.city.value should be equal to "Los Angeles"', () =>
-    expect($.$A.$('address.city').value).to.be.equal('Los Angeles'));
+  it('$A user.emailConfirm.value should be equal to "s.jobs@apple.com"', () =>
+    expect($.$A.$('user.emailConfirm').value).to.be.equal('s.jobs@apple.com'));
 
-  it('$A address.city.label should be equal to "Cool City"', () =>
-    expect($.$A.$('address.city').label).to.be.equal('Cool City'));
+  it('$A user.emailConfirm.label should be equal to "User Email"', () =>
+    expect($.$A.$('user.emailConfirm').label).to.be.equal('User Email'));
 });
 
 describe('Check $B Nested Fields', () => {
@@ -101,7 +101,7 @@ describe('Check form.values() for Nested Fields', () => {
 
 describe('Check Nested Fields path property', () => {
   const path = {
-    a: 'address.city',
+    a: 'user.email',
     b: 'state.city.places',
     c: 'state.city.places.statueOfLiberty',
   };

@@ -97,7 +97,7 @@ export default class Validator {
 
   @action
   validateField({ form = null, field = null, key, showErrors = true, related = false }) {
-    const $field = field || form.fields.get(key) || this.select(key, form.fields);
+    const $field = field || form.fields.get(key) || form.select(key, form.fields);
     // reset field validation
     $field.resetValidation();
     // get all validators

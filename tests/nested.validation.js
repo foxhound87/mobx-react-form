@@ -3,6 +3,15 @@ import { expect } from 'chai';
 import $ from './data/_.nested'; // FORMS
 
 describe('Check Nested $E validation', () => {
+  it('$A user.emailConfirm isValid should be false', () =>
+    expect($.$A.$('user.emailConfirm').isValid).to.be.false);
+
+  it('$A user.emailConfirm error should be false', () =>
+    expect($.$A.$('user.emailConfirm').error)
+      .to.be.equal('The Confirm Email should be equals to Email'));
+});
+
+describe('Check Nested $E validation', () => {
   it('$E state isValid should be false', () =>
     expect($.$E.$('state').isValid).to.be.false);
 
