@@ -98,7 +98,7 @@ const fields = [
 
 const validate = {
   'user.email': isEmail,
-  'user.emailConfirm': [isEmail, shouldBeEqualTo('email')],
+  'user.emailConfirm': [isEmail, shouldBeEqualTo('user.email')],
 }
 
 const related = {
