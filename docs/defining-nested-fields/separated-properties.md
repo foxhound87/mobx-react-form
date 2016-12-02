@@ -46,9 +46,9 @@ You can use this object as the `fields` if you want to omit the fields `structur
 
 ### Defining Nested Property
 
-You can do it for these properties: `labels`, `defaults`, `disabled`, `related`.
+You can define these properties: `labels`, `defaults`, `disabled`, `related`.
 
-And for the validation as well using `rules` for DVR Mode and `validate` for VJF Mode.
+Validation properties `rules` (DVR) and `validate` (VJF) can be defined as well.
 
 ###### Using Dot Notation & Array Notation
 
@@ -84,3 +84,27 @@ const labels = {
   },
 };
 ```
+
+### Set `related` Nested Fields to be validated at the same time
+
+A Nested Field can be checked as well using its `path`.
+
+```javascript
+const fields = [
+  'user',
+  'user.email',
+  'user.emailConfirm',
+];
+
+const validate = {
+  'user.email': isEmail,
+  'user.emailConfirm': [isEmail, shouldBeEqualTo('email')],
+}
+
+const related = {
+  'user.email': ['user.emailConfirm'],
+};
+
+new Form({ fields, validate, related });
+```
+

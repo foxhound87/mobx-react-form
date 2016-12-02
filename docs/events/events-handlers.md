@@ -95,7 +95,7 @@ or using the field `selector`:
 or specify the field `path` as second argument:
 
 ```html
-<button type="button" onClick={e => form.onAdd(e, 'hobbies')}>Add Hobby</button>
+<button type="button" onClick={e => form.$('hobbies').onAdd(e, 'soccer')}>Add Hobby</button>
 ```
 
 ##### Deleting a Field

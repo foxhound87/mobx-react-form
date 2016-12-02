@@ -6,6 +6,10 @@ You can define each nested object property in one place:
 
 A Field can handle a collection of Nested Fields using the `fields` property.
 
+You can define these properties: `name`, `label`, `default`, `disabled`, `related`.
+
+Validation properties `rules` (DVR) and `validate` (VJF) can be defined as well.
+
 ```javascript
 const fields = [{
   name: 'address',
@@ -14,6 +18,7 @@ const fields = [{
     name: 'street',
     label: 'Street',
     value: 'Broadway',
+    default: '5th Avenue',
   }, {
     name: 'city',
     label: 'City',
@@ -24,4 +29,25 @@ const fields = [{
 new Form({ fields, ... });
 ```
 
-Validation properties `rules` (DVR) and `validate` (VJF) can be defined as well.
+> The `name` property is required, it will be the field `key`.
+
+### Set `related` Nested Fields to be validated at the same time
+
+A Nested Field can be checked as well using its `path`.
+
+```javascript
+const fields = [{
+  name: 'user',
+  label: 'User',
+  fields: [{
+    name: 'email',
+    label: 'Email',
+    validate: isEmail,
+    related: ['user.emailConfirm'], // <<---
+  }, {
+    name: 'emailConfirm',
+    label: 'Confirm Email',
+    validate: [isEmail, shouldBeEqualTo('email')],
+  }],
+}];
+```
