@@ -90,11 +90,12 @@ const labels = {
 A Nested Field can be checked as well using its `path`.
 
 ```javascript
-const fields = [
-  'user',
-  'user.email',
-  'user.emailConfirm',
-];
+const values = {
+  user: {
+    email: ''
+    emailConfirm: ''
+  },
+};
 
 const validate = {
   'user.email': isEmail,
@@ -105,6 +106,6 @@ const related = {
   'user.email': ['user.emailConfirm'],
 };
 
-new Form({ fields, validate, related });
+new Form({ values, validate, related });
 ```
 
