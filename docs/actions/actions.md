@@ -167,6 +167,9 @@ Clear or Reset the whole Form, a single Field, or Nested Fields recursively.
 .reset();
 ```
 
+> These are not an Event Handlers.
+> If you need the `onClear(e)` or `onReset(e)` read the [Event Handlers](../events/events-handlers.md) section.
+
 ### Map Fields and Nested Fields
 
 ```javascript
@@ -220,4 +223,9 @@ or
 ```javascript
 form.$('hobbies').del(1);
 ```
+
+> These are not an Event Handlers.
+> If you need the `onAdd(e)` or `onDel(e)` read the [Event Handlers](../events/events-handlers.md) section.
+
+You can use it, for example, if you want to reimplement the `onAdd(e)` or `onDel(e)` Event Handlers.
 

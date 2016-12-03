@@ -48,3 +48,8 @@ form.submit({
   onError: (form) => {},
 });
 ```
+
+> This is not an Event Handler.
+> If you need the `onSubimt(e)` read the [Event Handlers](../events/events-handlers.md) section.
+
+You can use it, for example, if you want to reimplement the `onSubimt(e)` Event Handler.

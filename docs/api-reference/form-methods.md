@@ -43,3 +43,15 @@
 | **labels()** | - | object | Get all Nested Fields Labels. | - |
 | **default()** | - | object | Get all Nested Fields Default Values. | - |
 | **initial()** | - | object | Get all Nested Fields Initial Values. | - |
+
+#### Event Handlers
+
+| Property | Input | Output | Info | Help |
+|---|---|---|---|---|
+| **onSubmit(e)** | - | object | Validate the form and call `onSuccess(form)` or `onError(form)`. | - |
+| **onClear(e)** | - | object | Clear all the Fields and Nested Fields to `empty` value. | - |
+| **onReset(e)** | - | object | Reset all the Fields and Nested Fields to `default` value. | - |
+| **onAdd(e)** | - | object | Add a Field or Nested Fields. | - |
+| **onDel(e)** | - | object | Delete a Field or Nested Fields. | - |
+
+> All Event Handlers takes the Proxy object in input.

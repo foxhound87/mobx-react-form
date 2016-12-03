@@ -39,3 +39,19 @@
 | **labels()** | - | object | Get all Nested Fields Labels. | - |
 | **default()** | - | object | Get all Nested Fields Default Values. | - |
 | **initial()** | - | object | Get all Nested Fields Initial Values. | - |
+
+#### Event Handlers
+
+| Property | Input | Output | Info | Help |
+|---|---|---|---|---|
+| **sync(e)** | - | object | Update the `value` of the field. | - |
+| **onChange(e)** | - | object | Update the `value` of the field. (alias of `sync(e)`) | - |
+| **onToggle(e)** | - | object | Update the `value` of the field. (alias of `sync(e)`) | - |
+| **onFocus(e)** | - | object | Track the `focus` property of the field. | - |
+| **onBlur(e)** | - | object | Track the `touched` property of the field. | - |
+| **onClear(e)** | - | object | Clear all the Fields and Nested Fields to `empty` value. | - |
+| **onReset(e)** | - | object | Reset all the Fields and Nested Fields to `default` value. | - |
+| **onAdd(e)** | - | object | Add a Field or Nested Fields. | - |
+| **onDel(e)** | - | object | Delete a Field or Nested Fields. | - |
+
+> All Event Handlers takes the Proxy object in input.

@@ -87,7 +87,7 @@ or using the field `selector`:
 <button type="button" onClick={form.$('hobbies').onAdd}>Add Hobby</button>
 ```
 
-or specify the field `path` as second argument:
+or specify the field `value` as second argument:
 
 ```html
 <button type="button" onClick={e => form.$('hobbies').onAdd(e, 'soccer')}>Add Hobby</button>
@@ -99,7 +99,7 @@ or specify the field `path` as second argument:
 <button type="button" onClick={hobby.onDel}>Delete Hobby</button>
 ```
 
-or using the field `selector`:
+or using the field `selector` with a field `key`:
 
 ```html
 <button type="button" onClick={form.$('hobbies').$(3).onDel}>Delete Hobby</button>
