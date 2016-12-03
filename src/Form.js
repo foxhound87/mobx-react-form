@@ -191,13 +191,13 @@ export default class Form {
   /* COMPUTED */
 
   @computed get hasError() {
-    return this.check('hasError', true)
-      || _.isString(this.validator.genericErrorMessage);
+    return _.isString(this.validator.genericErrorMessage)
+     || this.check('hasError', true);
   }
 
   @computed get isValid() {
-    return this.check('isValid', true)
-      && !_.isString(this.validator.genericErrorMessage);
+    return !_.isString(this.validator.genericErrorMessage)
+      && this.check('isValid', true);
   }
 
   @computed get isDirty() {
@@ -262,9 +262,9 @@ export default class Form {
   /**
     Event: On Add
   */
-  onAdd = (e, key = null) => {
+  onAdd = (e, val = null) => {
     e.preventDefault();
-    this.add(key);
+    this.add(val);
   };
 
   /**

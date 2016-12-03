@@ -112,7 +112,6 @@ export default {
       const $field = this.select($fullPath, null, false);
       const $container = this.container(path);
 
-
       if (!_.isNil($field) && !_.isNil(field)) {
         if (_.isArray($field.values())) {
           _.each($field.fields.values(), $f =>

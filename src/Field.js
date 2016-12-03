@@ -402,9 +402,9 @@ export default class Field {
   /**
     Event: On Add
   */
-  onAdd = (e, key = null) => {
+  onAdd = (e, val = null) => {
     e.preventDefault();
-    this.add(key);
+    this.add(val);
   };
 
   /**
