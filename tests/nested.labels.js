@@ -3,9 +3,8 @@ import { expect } from 'chai';
 import $ from './data/_.nested'; // FORMS
 
 describe('Check Nested $A Unified Properties (label)', () => {
-  // TO FIX UPDATE METHOD
-  // it('$A user.email label should be equal to "Email"', () =>
-  //   expect($.$A.$('user.email').label).to.be.equal('Email'));
+  it('$A user.email label should be equal to "Email"', () =>
+    expect($.$A.$('user.email').label).to.be.equal('Email'));
 
   it('$A user.emailConfirm label should be equal to "Confirm User Email"', () =>
     expect($.$A.$('user.emailConfirm').label).to.be.equal('Confirm User Email'));

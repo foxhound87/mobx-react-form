@@ -3,8 +3,9 @@ import { isEmail, shouldBeEqualTo } from '../../extension/vjf';
 
 const fields = [
   'user',
-  'user.email',
-  'user.emailConfirm',
+  // TO FIX
+  // 'user.email',
+  // 'user.emailConfirm',
 ];
 
 const labels = {
@@ -33,8 +34,7 @@ const related = {
 class NewForm extends Form {
 
   onInit(form) {
-    // form.update({ user: { email: 'notAnEmail' } }); // TO FIX
-    form.$('user').update({ email: 'notAnEmail' });
+    form.update({ user: { email: 'notAnEmail' } });
   }
 }
 

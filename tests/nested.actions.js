@@ -176,9 +176,9 @@ describe('Check Nested $T value on add()', () => {
 });
 
 describe('Check $U Nested Fields', () => {
-  it('$U user.email.value should be equal to "notAnEmail"', () =>
+  it('$U user.email value should be equal to "notAnEmail"', () =>
     expect($.$U.$('user.email').value).to.be.equal('notAnEmail'));
 
-  it('$U user.emailConfirm.value should be equal to "s.jobs@apple.com"', () =>
+  it('$U user.emailConfirm value should be equal to "s.jobs@apple.com"', () =>
     expect($.$U.$('user.emailConfirm').value).to.be.equal('s.jobs@apple.com'));
 });
