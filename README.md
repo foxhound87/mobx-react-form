@@ -23,9 +23,9 @@
 - Support for Material UI, React Widgets, React Select
 - Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package
 
-## Typescript Support
+## TypeScript Support
 
-A [typescript branch](https://github.com/foxhound87/mobx-react-form/tree/typescript/) has been created. Feel free to contribute!
+A [TypeScript Branch](https://github.com/foxhound87/mobx-react-form/tree/typescript/) has been created. Feel free to contribute!
 
 <br>
 
