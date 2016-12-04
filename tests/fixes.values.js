@@ -103,6 +103,12 @@ describe('Check Nested $F value computed check', () => {
 
   it('$F members[1].hobbies value should be array', () =>
     expect($.$F.$('members[1].hobbies').value).to.be.instanceof(Array));
+
+  it('$F ids value should be length of 3', () =>
+    expect($.$F.$('ids').value).to.have.lengthOf(3));
+
+  it('$F ids value should be array', () =>
+    expect($.$F.$('ids').value).to.be.instanceof(Array));
 });
 
 describe('Check Nested $H value computed check', () => {

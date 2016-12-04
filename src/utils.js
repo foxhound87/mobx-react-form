@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
 const computed = ['error', 'hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focus', 'touched', 'changed'];
-const props = ['value', 'label', 'disabled', 'initial', 'default', 'related'];
-const iprops = ['values', 'labels', 'disabled', 'initials', 'defaults', 'related'];
+const props = ['value', 'initial', 'default', 'label', 'disabled', 'related'];
+const iprops = ['values', 'initials', 'defaults', 'labels', 'disabled', 'related'];
 const vprops = ['rules', 'validate'];
 
 const check = ({ type, data }) => {

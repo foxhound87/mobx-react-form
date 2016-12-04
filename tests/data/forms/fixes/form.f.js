@@ -1,6 +1,7 @@
 import { Form } from '../../../../src';
 
 const fields = [
+  'ids[]',
   'inventoryLevel',
   'inventoryLevel.value',
   'places[]',
@@ -21,6 +22,7 @@ const values = {
 class NewForm extends Form {
 
   onInit(form) {
+    form.update({ ids: [1, 2, 3] });
     form.update({ places: ['NY', 'NJ', 'AR'] });
     form.update({ places: ['NY', 'NJ'] });
     form.update({ skills: [] });

@@ -3,10 +3,8 @@ import utils from './utils';
 
 const parseProp = ($val, $prop) => {
   const $values = _.values($val);
-  if ($prop === 'value') {
-    if (_.every($values, (_.isEmpty || _.isNil))) {
-      return [];
-    }
+  if ($prop === 'value' || $prop === 'initial' || $prop === 'default') {
+    return _.without($values, null, undefined, '');
   }
   return $values;
 };
