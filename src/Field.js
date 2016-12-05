@@ -125,10 +125,12 @@ export default class Field {
 
     if (_.isArray(message)) {
       this.validationErrorStack = message;
+      this.showErrors(true);
       return;
     }
 
     this.validationErrorStack.unshift(message);
+    this.showErrors(true);
   }
 
   @action
@@ -177,13 +179,9 @@ export default class Field {
 
   @action
   showErrors(showErrors = true) {
-    if (showErrors === false) {
-      this.showError = false;
-      return;
-    }
-
+    this.showError = showErrors;
     this.errorSync = _.head(this.validationErrorStack);
-    this.validationErrorStack = [];
+    // this.validationErrorStack = [];
   }
 
   @action

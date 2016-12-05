@@ -8,6 +8,15 @@ describe('Check $A Nested Fields', () => {
 
   it('$A user.emailConfirm.value should be equal to "s.jobs@apple.com"', () =>
     expect($.$A.$('user.emailConfirm').value).to.be.equal('s.jobs@apple.com'));
+
+  it('$A user.password error should be equal to "Password Invalid"', () =>
+    expect($.$A.$('user.password').error).to.be.equal('Password Invalid'));
+
+  it('$A user.password hasError should be true', () =>
+    expect($.$A.$('user.password').hasError).to.be.true);
+
+  it('$A user.password isValid should be false', () =>
+    expect($.$A.$('user.password').isValid).to.be.false);
 });
 
 describe('Check $B Nested Fields', () => {

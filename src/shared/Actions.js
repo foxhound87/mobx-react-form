@@ -12,7 +12,7 @@ export default {
   /**
    Init Form Fields and Nested Fields
    */
-    @action
+  @action
   init($fields = null) {
     _.set(this, 'fields', asMap({}));
 
@@ -390,7 +390,7 @@ export default {
   /**
    Add Field
    */
-    @action
+  @action
   add(value = null) {
     const $n = utils.maxKey(this.fields) + 1;
     const tree = this.pathToFieldsTree(this.path);
@@ -416,7 +416,7 @@ export default {
   /**
    Del Field
    */
-    @action
+  @action
   del(path = null) {
     if (_.isInteger(_.parseInt(path))) {
       this.fields.delete(path);

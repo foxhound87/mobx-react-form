@@ -14,6 +14,10 @@ const fields = [{
     label: 'Confirm Email',
     value: 's.jobs@apple.com',
     validate: [isEmail, shouldBeEqualTo('user.email')],
+  }, {
+    name: 'password',
+    label: 'Password',
+    value: 'thinkdifferent',
   }],
 }];
 
@@ -22,6 +26,7 @@ class NewForm extends Form {
   onInit(form) {
     form.update({ user: { email: 'notAnEmail' } });
     form.set('label', { user: { emailConfirm: 'Confirm User Email' } });
+    form.$('user.password').setInvalid('Password Invalid');
   }
 }
 
