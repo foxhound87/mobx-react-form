@@ -391,17 +391,21 @@ export default {
    Add Field
    */
   @action
-  add(value = null) {
-    const $n = utils.maxKey(this.fields) + 1;
+  add(value = null, opt = {}) {
+    let $key;
+
+    if (_.has(opt, 'key')) $key = opt.key;
+    else $key = utils.maxKey(this.fields) + 1;
+
     const tree = this.pathToFieldsTree(this.path);
     const $path = key => _.trimStart([this.path, key].join('.'), '.');
 
-    _.each(tree, field => this.initField($n, $path($n), field));
+    _.each(tree, field => this.initField($key, $path($key), field));
 
     this.observeFields(this.fields);
 
     if (!_.isNil(value)) {
-      const field = this.select($n);
+      const field = this.select($key);
 
       if (_.isObject(value)) {
         field.update(value);
@@ -411,6 +415,8 @@ export default {
       field.default = value;
       field.value = value;
     }
+
+    return $key;
   },
 
   /**

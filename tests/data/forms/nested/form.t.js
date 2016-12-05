@@ -6,6 +6,7 @@ const fields = [
   'member.info[]',
   'member.info[].firstname',
   'member.info[].lastname',
+  'notIncrementalFields[]',
 ];
 
 class NewForm extends Form {
@@ -39,6 +40,10 @@ class NewForm extends Form {
     form.$('member.info').add({
       firstname: 'AAA',
       lastname: 'BBB',
+    });
+
+    form.$('notIncrementalFields').add('XXX', {
+      key: 'notIncrementalKey',
     });
   }
 }

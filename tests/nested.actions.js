@@ -182,6 +182,15 @@ describe('Check Nested $T value on add()', () => {
 
   it('$T member.info[1].lastname value should be equal to "BBB"', () =>
     expect($.$T.$('member.info[1].lastname').value).to.equal('BBB'));
+
+  it('$T notIncrementalFields fields.get(notIncrementalKey) should be an object', () =>
+    expect($.$T.$('notIncrementalFields').fields.get('notIncrementalKey')).to.be.an('object'));
+
+  it('$T notIncrementalFields[notIncrementalKey] value should be equal to "XXX"', () =>
+    expect($.$T.$('notIncrementalFields[notIncrementalKey]').value).to.equal('XXX'));
+
+  it('$T notIncrementalFields add() return value should be equal to "anotherKey"', () =>
+    expect($.$T.$('notIncrementalFields').add('YYY', { key: 'anotherKey' })).to.equal('anotherKey'));
 });
 
 describe('Check $U Nested Fields', () => {
