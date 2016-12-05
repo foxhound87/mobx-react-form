@@ -1,4 +1,4 @@
-import { action, asMap } from 'mobx';
+import { action, observe, asMap } from 'mobx';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';
@@ -10,42 +10,18 @@ import Events from '../Events';
 export default {
 
   /**
-   Fields Iterator
+   Init Form Fields and Nested Fields
    */
-  map(path, callback = null) {
-    if (_.isFunction(path) && !callback) {
-      // path is the callback here
-      return this.fields.values().map(path);
-    }
+    @action
+  init($fields = null) {
+    _.set(this, 'fields', asMap({}));
 
-    const field = this.select(path);
-    return field.fields.values().map(callback);
-  },
+    this.state.initial.props.values = $fields; // eslint-disable-line
+    this.state.current.props.values = $fields; // eslint-disable-line
 
-  /**
-   Check Field Computed Values
-   */
-  check(computed, deep = false) {
-    utils.allowed('computed', [computed]);
-
-    const $ = {
-      hasError: 'some',
-      isValid: 'every',
-      isDirty: 'some',
-      isPristine: 'every',
-      isDefault: 'every',
-      isEmpty: 'every',
-      focus: 'some',
-      touched: 'some',
-      changed: 'some',
-    };
-
-    return deep
-      ? utils.check({
-        type: $[computed],
-        data: this.deepCheck($[computed], computed, this.fields),
-      })
-      : this[computed];
+    this.initFields({
+      fields: $fields || this.state.struct(),
+    });
   },
 
   /**
@@ -80,18 +56,69 @@ export default {
   },
 
   /**
-   Init Form Fields and Nested Fields
+    Get Container
    */
-    @action
-  init($fields = null) {
-    _.set(this, 'fields', asMap({}));
+  container(path = null) {
+    const $path = path || this.path || '';
+    const cpath = _.trimEnd($path.replace(new RegExp('/[^./]+$/'), ''), '.');
+    return this.select(cpath, null, false);
+  },
 
-    this.state.initial.props.values = $fields; // eslint-disable-line
-    this.state.current.props.values = $fields; // eslint-disable-line
+  /**
+   Observe Fields and Validate
+  */
+  observeFields(fields = null) {
+    // deep observe and validate each field
+    this.deepObserveFields(fields || this.fields);
+  },
 
-    this.initFields({
-      fields: $fields || this.state.struct(),
+  deepObserveFields(fields) {
+    fields.forEach((field, key) => {
+      observe(fields.get(key), '$value', () => {
+        if (this.state.options.get('validateOnChange') === false) return;
+        this.state.form.validate({ key, field, showErrors: true, related: true });
+      });
+      // recursive observe and validate each field
+      if (field.fields.size) this.deepObserveFields(field.fields);
     });
+  },
+
+  /**
+   Check Field Computed Values
+   */
+  check(computed, deep = false) {
+    utils.allowed('computed', [computed]);
+
+    const $ = {
+      hasError: 'some',
+      isValid: 'every',
+      isDirty: 'some',
+      isPristine: 'every',
+      isDefault: 'every',
+      isEmpty: 'every',
+      focus: 'some',
+      touched: 'some',
+      changed: 'some',
+    };
+
+    return deep
+      ? utils.check({
+        type: $[computed],
+        data: this.deepCheck($[computed], computed, this.fields),
+      })
+      : this[computed];
+  },
+
+  deepCheck($, prop, fields) {
+    return _.reduce(fields.values(), (check, field) => {
+      if (field.fields.size === 0) {
+        check.push(field[prop]);
+        return check;
+      }
+      const $deep = this.deepCheck($, prop, field.fields);
+      check.push(utils.check({ type: $, data: $deep }));
+      return check;
+    }, []);
   },
 
   /**
@@ -99,9 +126,7 @@ export default {
    OR Create Field if 'undefined'
    */
   update(fields) {
-    let $fields;
-    $fields = parser.prepareFieldsData({ fields });
-    $fields = parser.mergeSchemaDefaults($fields, this.validator);
+    const $fields = parser.prepareFieldsData({ fields });
     return this.deepUpdate($fields);
   },
 
@@ -141,14 +166,39 @@ export default {
     });
   },
 
-  container(path = null) {
-    const $path = path || this.path || '';
-    const cpath = _.trimEnd($path.replace(new RegExp('/[^./]+$/'), ''), '.');
-    return this.select(cpath, null, false);
+  /**
+   Map Fields
+  */
+  map(path, callback = null) {
+    if (_.isFunction(path) && !callback) {
+      // path is the callback here
+      return this.fields.values().map(path);
+    }
+
+    const field = this.select(path);
+    return field.fields.values().map(callback);
+  },
+
+  deepMap(prop, fields) {
+    return _.reduce(fields.values(), (obj, field) => {
+      if (field.fields.size === 0) {
+        return Object.assign(obj, {
+          [field.key]: field[prop],
+        });
+      }
+
+      const data = this.deepMap(prop, field.fields);
+
+      const value = field.hasIncrementalNestedFields
+        ? parser.parseProp(data, prop)
+        : data;
+
+      return Object.assign(obj, { [field.key]: value });
+    }, {});
   },
 
   /**
-   Get Fields Props
+    Get Fields Props
    */
   get(prop = null) {
     if (_.isNil(prop)) {
@@ -169,9 +219,39 @@ export default {
   },
 
   /**
+    Get Fields Props Recursively
+   */
+  deepGet(prop, fields) {
+    return _.reduce(fields.values(), (obj, field) => {
+      const $nested = $fields => ($fields.size !== 0)
+        ? this.deepGet(prop, $fields)
+        : undefined;
+
+      Object.assign(obj, {
+        [field.key]: { fields: $nested(field.fields) },
+      });
+
+      if (_.isArray(prop)) {
+        _.each(prop, $prop =>
+          Object.assign(obj[field.key], {
+            [$prop]: field[$prop],
+          }));
+      }
+
+      // if (_.isString(prop)) {
+      //   Object.assign(obj[field.key], {
+      //     [prop]: field[prop],
+      //   });
+      // }
+
+      return obj;
+    }, {});
+  },
+
+  /**
    Set Fields Props
    */
-    @action
+  @action
   set($, data = null, recursion = false) {
     const $e = 'update';
 
@@ -212,7 +292,7 @@ export default {
   },
 
   /**
-   Set Fields Props Recursively
+    Set Fields Props Recursively
    */
   deepSet($, data, path = '', recursion = false) {
     const err = 'You are updating a not existent field:';
@@ -239,53 +319,8 @@ export default {
   },
 
   /**
-   Get Fields Props Recursively
-   */
-  deepGet(prop, fields) {
-    return _.reduce(fields.values(), (obj, field) => {
-      const $nested = $fields => ($fields.size !== 0)
-        ? this.deepGet(prop, $fields)
-        : undefined;
-
-      Object.assign(obj, {
-        [field.key]: { fields: $nested(field.fields) },
-      });
-
-      if (_.isArray(prop)) {
-        _.each(prop, $prop =>
-          Object.assign(obj[field.key], {
-            [$prop]: field[$prop],
-          }));
-      }
-
-      // if (_.isString(prop)) {
-      //   Object.assign(obj[field.key], {
-      //     [prop]: field[prop],
-      //   });
-      // }
-
-      return obj;
-    }, {});
-  },
-
-  deepMap(prop, fields) {
-    return _.reduce(fields.values(), (obj, field) => {
-      if (field.fields.size === 0) {
-        return Object.assign(obj, {
-          [field.key]: field[prop],
-        });
-      }
-
-      const data = this.deepMap(prop, field.fields);
-
-      const value = field.hasIncrementalNestedFields
-        ? parser.parseProp(data, prop)
-        : data;
-
-      return Object.assign(obj, { [field.key]: value });
-    }, {});
-  },
-
+    Call field method recursively
+  */
   deepAction($action, fields, recursion = false) {
     if (!recursion) {
       Events.setRunning($action, true, this.path);
@@ -301,18 +336,6 @@ export default {
     if (!recursion) {
       Events.setRunning($action, false);
     }
-  },
-
-  deepCheck($, prop, fields) {
-    return _.reduce(fields.values(), (check, field) => {
-      if (field.fields.size === 0) {
-        check.push(field[prop]);
-        return check;
-      }
-      const $deep = this.deepCheck($, prop, field.fields);
-      check.push(utils.check({ type: $, data: $deep }));
-      return check;
-    }, []);
   },
 
   /**
@@ -375,7 +398,7 @@ export default {
 
     _.each(tree, field => this.initField($n, $path($n), field));
 
-    this.state.form.observeFields(this.fields);
+    this.observeFields(this.fields);
 
     if (!_.isNil(value)) {
       const field = this.select($n);

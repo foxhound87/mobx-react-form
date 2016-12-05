@@ -74,22 +74,6 @@ export default class Form {
     });
   }
 
-  observeFields(fields = null) {
-    // deep observe and validate each field
-    this.observeFieldsDeep(fields || this.fields);
-  }
-
-  observeFieldsDeep(fields) {
-    fields.forEach((field, key) => {
-      observe(fields.get(key), '$value', () => {
-        if (this.state.options.get('validateOnChange') === false) return;
-        this.validate({ key, field, showErrors: true, related: true });
-      });
-      // recursive observe and validate each field
-      if (field.fields.size) this.observeFieldsDeep(field.fields);
-    });
-  }
-
   validateOnInit() {
     if (this.state.options.get('validateOnInit') === false) return;
     // execute validation on form initialization
