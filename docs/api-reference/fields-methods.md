@@ -6,7 +6,7 @@
 | **reset()** | - | - | Reset the Field or Nested Fields to initial value. | - |
 | **hasNestedFields()** | - | - | Check if the field has Nested Fields. | - |
 | **resetValidation()** | - | - | Reset the field validation status. | - |
-| **setInvalid(errorMessage = null, showError = true)** | **errorMessage**: string <br> **showErrors**: boolean | - | Mark the field as invalid. Pass an optional `errorMessage` or a default error will be shown. Set `showError` to `false` and the message will be hidden.  | - |
+| **setInvalid(message)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | - |
 
 #### Shared Methods
 
