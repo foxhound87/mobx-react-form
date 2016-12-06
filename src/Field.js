@@ -216,7 +216,7 @@ export default class Field {
       return [].slice.call(this.$value);
     }
 
-    return this.$value;
+    return toJS(this.$value);
   }
 
   set value(newVal) {
@@ -235,7 +235,7 @@ export default class Field {
 
   @computed
   get initial() {
-    return this.$initial;
+    return toJS(this.$initial);
   }
 
   set initial(val) {
@@ -244,7 +244,7 @@ export default class Field {
 
   @computed
   get default() {
-    return this.$default;
+    return toJS(this.$default);
   }
 
   set default(val) {
