@@ -13,3 +13,5 @@
 * [How to define/override validation error messages text?](https://github.com/foxhound87/mobx-react-form/issues/49)
 
 * [Unable to update() array field values](https://github.com/foxhound87/mobx-react-form/issues/148)
+
+* [Support for older browsers - Babel polyfills](https://github.com/foxhound87/mobx-react-form/issues/171)
