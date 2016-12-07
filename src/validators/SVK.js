@@ -60,7 +60,7 @@ export default class SVK {
     const validate = this.validate(this.parseValues(data));
     // check if is $async schema
     if (utils.isPromise(validate)) {
-      if (!field.hasError) field.setInvalid(this.loadingMessage(), true);
+      if (!field.hasError) field.invalidate(this.loadingMessage(), true);
       const $p = validate
         .then(() => field.setValidationAsyncData({ valid: true, message: '' }))
         .catch(err => err && this.handleAsyncError(field, err.errors))
@@ -84,7 +84,7 @@ export default class SVK {
     // add additional info to the message
     const msg = `${field.label} ${fieldErrorObj.message}`;
     // invalidate the current field with message
-    field.setInvalid(msg);
+    field.invalidate(msg);
   }
 
   handleAsyncError(field, errors) {
@@ -102,7 +102,7 @@ export default class SVK {
 
   executeAsyncValidation(field) {
     if (field.validationAsyncData.valid === false) {
-      field.setInvalid(field.validationAsyncData.message, true);
+      field.invalidate(field.validationAsyncData.message, true);
     }
   }
 

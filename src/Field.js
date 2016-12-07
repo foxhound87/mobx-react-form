@@ -117,7 +117,7 @@ export default class Field {
   /* ACTIONS */
 
   @action
-  setInvalid(message, async = false) {
+  invalidate(message, async = false) {
     if (async === true) {
       this.errorAsync = message;
       return;
@@ -132,6 +132,8 @@ export default class Field {
     this.validationErrorStack.unshift(message);
     this.showErrors(true);
   }
+
+  setInvalid = this.invalidate;
 
   @action
   setValidationAsyncData(obj = {}) {
