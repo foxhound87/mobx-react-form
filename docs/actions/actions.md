@@ -167,6 +167,24 @@ Clear or Reset the whole Form, a single Field, or Nested Fields recursively.
 .reset();
 ```
 
+### Invalidate the Form or a Field
+
+The `invalidate(msg)` method can be used on both forms or fields.
+
+> Pass an optional `string` in input and a custom error message will be shown for the `error` property.
+
+To invalidate the whole form:
+
+```javascript
+form.invalidate('This is a generic error message!');
+```
+
+To invalidate a single field:
+
+```javascript
+form.$('password').invalidate('The password is wrong!');
+```
+
 > These are not an Event Handlers.
 > If you need the `onClear(e)` or `onReset(e)` read the [Event Handlers](../events/events-handlers.md) section.
 
