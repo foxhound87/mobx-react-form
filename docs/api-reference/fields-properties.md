@@ -5,7 +5,8 @@
 | **path** | string | - | Field path (for nested fields). | - |
 | **key** | string | - | Field key (same of `name` if not provided) | - |
 | **name** | string | - | Field name (same of `key` if not provided). | - |
-| **label** | string | computed | Field label name. If it is not specified, the `name` will be returned instead. | - |
+| **label** | string | computed | Field label. If it is not specified, the `name` will be returned instead. | - |
+| **placeholder** | string | computed | Field placeholder. | - |
 | **default** | boolean | computed | The default/initial value of the field. | - |
 | **disabled** | boolean | computed | The disabled state of the field. | - |
 | **value** | mixed | computed | Computed value of the field. | - |

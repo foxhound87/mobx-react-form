@@ -46,7 +46,7 @@ You can use this object as the `fields` if you want to omit the fields `structur
 
 ### Defining Nested Property
 
-You can define these properties: `labels`, `defaults`, `disabled`, `related`.
+You can define these properties: `labels`, `placeholders`, `defaults`, `disabled`, `related`.
 
 Validation properties `rules` (DVR) and `validate` (VJF) can be defined as well.
 

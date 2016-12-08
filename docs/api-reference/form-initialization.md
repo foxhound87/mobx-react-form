@@ -14,9 +14,12 @@
 |---|---|---|
 | **values**    | Object which represents the `value`property for each field key - if you want to provide them separately from the `fields` object. | [flat](../defining-flat-fields/separated-properties.md#defining-values) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-values) |
 | **labels**    | Object which represents the `label` property for each field key - if you want to provide them separately from the `fields` object. | [flat](../defining-flat-fields/separated-properties.md#defining-labels) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **placeholders**    | Object which represents the `placeholder` property for each field key - if you want to provide them separately from the `fields` object. | [flat](../defining-flat-fields/separated-properties.md#defining-placeholders) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **defaults**  | Object which represents the `default` property for each field key - if you want to provide them separately from the `fields` object. | [flat](../defining-flat-fields/separated-properties.md#defining-defaults) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **disabled**  | Object which represents the `disabled` property for each field key - if you want to provide them separately from the `fields` object. | [flat](../defining-flat-fields/separated-properties.md#defining-disabled) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **related**  | Object which represents the `related` property to validate others fields at the same time for each field key - if you want to provide them separately from the `fields` object. | [flat](../defining-flat-fields/separated-properties.md#defining-related) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
+
+> Some of these initialization properties are plurals.
 
 ###### Validation
 

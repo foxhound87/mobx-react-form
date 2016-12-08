@@ -21,10 +21,12 @@ Define the `fields` as a collection with a `rules` property for the validation.
 const fields = [{
   name: 'email',
   label: 'Email',
+  placeholder: 'Insert your Email',
   rules: 'required|email|string|between:5,25',
 }, {
   name: 'password',
   label: 'Password',
+  placeholder: 'Insert your Password',
   rules: 'required|string|between:5,25',
 }];
 ```
@@ -75,11 +77,12 @@ import { observer } from 'mobx-react';
 
 const FormComponent = ({ form, events }) => (
   <form onSubmit={form.onSubmit}>
+    <div>{form.$('username').label}</div>
     <input
       type="text"
       name={form.$('username').name}
       value={form.$('username').value}
-      placeholder={form.$('username').label}
+      placeholder={form.$('username').placeholder}
       onChange={form.$('username').sync}
     />
     <p>{form.$('username').error}</p>

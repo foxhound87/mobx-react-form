@@ -37,8 +37,11 @@
 | **values()** | - | object | Get all Nested Fields Values. | - |
 | **errors()** | - | object | Get all Nested Fields Errors. | - |
 | **labels()** | - | object | Get all Nested Fields Labels. | - |
+| **placeholder()** | - | object | Get all Nested Fields Placeholders. | - |
 | **default()** | - | object | Get all Nested Fields Default Values. | - |
 | **initial()** | - | object | Get all Nested Fields Initial Values. | - |
+
+> Some of these Helpers methods are plurals.
 
 #### Event Handlers
 
