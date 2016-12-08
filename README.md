@@ -15,19 +15,24 @@
 
 ## Features
 
-- Automatic Reactive Form State Management with MobX Magic
-- Automatic Reactive Validation & Error Messages
-- Validation Plugins & Multiple Validation Styles
-- Sync & Async Validation functions
-- Nested Fields (w/ Serialization & Validation)
-- Support for Material UI, React Widgets, React Select
-- Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package
+- Automatic Reactive Form State Management with MobX Magic.
+- Automatic Reactive Validation & Error Messages.
+- Validation Plugins & Multiple Validation Styles.
+- Nested Fields (w/ Serialization & Validation).
+- Support for Sync & Async Validation functions (w/ Promises).
+- Support for Material UI, React Widgets, React Select & more.
+- Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
 
-## Demo
+## Live Demo
 
 [https://foxhound87.github.io/mobx-react-form/demo.html](https://foxhound87.github.io/mobx-react-form/demo.html)
 
+## Demo Code
+
+[https://github.com/foxhound87/mobx-react-form-demo](https://github.com/foxhound87/mobx-react-form-demo)
+
 ## Tutorial
+
 [Automagically manage React forms state and automatic validation with MobX](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769)
 
 ## Install
