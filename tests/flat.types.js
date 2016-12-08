@@ -50,6 +50,11 @@ describe('Check labels() returns object', () => {
     assert.isObject(form.labels(), `${key}.labels() is not object`)));
 });
 
+describe('Check placeholders() returns object', () => {
+  _.each($forms, (form, key) => it(`${key} placeholders() is object`, () =>
+    assert.isObject(form.placeholders(), `${key}.placeholders() is not object`)));
+});
+
 describe('Check defaults() returns object', () => {
   _.each($forms, (form, key) => it(`${key} defaults() is object`, () =>
     assert.isObject(form.defaults(), `${key}.defaults() is not object`)));

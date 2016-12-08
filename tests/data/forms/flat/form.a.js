@@ -17,6 +17,7 @@ const fields = {
     label: 'Username',
     value: 'SteveJobs',
     rules: 'alpha|between:6,20',
+    placeholder: 'Username Placeholder',
   },
   email: {
     label: 'Email',

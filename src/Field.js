@@ -16,8 +16,9 @@ export default class Field {
   $validate;
   $related;
 
-  @observable $label;
   @observable $value;
+  @observable $label;
+  @observable $placeholder;
   @observable $default;
   @observable $initial = undefined;
   @observable $disabled = false;
@@ -55,6 +56,7 @@ export default class Field {
   setupField($key, $path, $data, {
     $value = null,
     $label = null,
+    $placeholder = null,
     $default = null,
     $disabled = null,
     $related = null,
@@ -77,6 +79,7 @@ export default class Field {
       this.$default = update ? '' : this.parseDefaultValue($data.default, $default);
       this.$value = this.$initial;
       this.$label = $label || $key;
+      this.$placeholder = $placeholder || '';
       this.$rules = $rules || null;
       this.$disabled = $disabled || false;
       this.$related = $related || [];
@@ -85,12 +88,13 @@ export default class Field {
     }
 
     if (_.isObject($data)) {
-      const { name, label, disabled, rules, validate, related } = $data;
+      const { name, label, placeholder, disabled, rules, validate, related } = $data;
       this.$initial = this.parseInitialValue($data.value, $value);
       this.$default = update ? '' : this.parseDefaultValue($data.default, $default);
       this.name = name || $key;
       this.$value = this.$initial;
       this.$label = $label || label || this.name;
+      this.$placeholder = $placeholder || placeholder || '';
       this.$rules = $rules || rules || null;
       this.$disabled = $disabled || disabled || false;
       this.$related = $related || related || [];
@@ -198,18 +202,15 @@ export default class Field {
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
 
-  @computed
-  get hasIncrementalNestedFields() {
+  @computed get hasIncrementalNestedFields() {
     return (utils.hasIntKeys(this.fields) && this.fields.size);
   }
 
-  @computed
-  get hasNestedFields() {
+  @computed get hasNestedFields() {
     return (this.fields.size !== 0);
   }
 
-  @computed
-  get value() {
+  @computed get value() {
     if (this.incremental || this.hasNestedFields) {
       return this.get('value');
     }
@@ -235,8 +236,7 @@ export default class Field {
     this.$value = newVal;
   }
 
-  @computed
-  get initial() {
+  @computed get initial() {
     return toJS(this.$initial);
   }
 
@@ -244,8 +244,7 @@ export default class Field {
     this.$initial = this.parseInitialValue(null, val);
   }
 
-  @computed
-  get default() {
+  @computed get default() {
     return toJS(this.$default);
   }
 
@@ -253,39 +252,36 @@ export default class Field {
     this.$default = this.parseDefaultValue(null, val);
   }
 
-  @computed
-  get label() {
+  @computed get label() {
     return this.$label;
   }
 
-  @computed
-  get related() {
+  @computed get placeholder() {
+    return this.$placeholder;
+  }
+
+  @computed get related() {
     return this.$related;
   }
 
-  @computed
-  get disabled() {
+  @computed get disabled() {
     return this.$disabled;
   }
 
-  @computed
-  get rules() {
+  @computed get rules() {
     return this.$rules;
   }
 
-  @computed
-  get validate() {
+  @computed get validate() {
     return this.$validate;
   }
 
-  @computed
-  get error() {
+  @computed get error() {
     if (this.showError === false) return null;
     return (this.errorAsync || this.errorSync);
   }
 
-  @computed
-  get hasError() {
+  @computed get hasError() {
     return ((this.validationAsyncData.valid === false)
       && !_.isEmpty(this.validationAsyncData))
       || !_.isEmpty(this.validationErrorStack)
@@ -293,56 +289,48 @@ export default class Field {
       || _.isString(this.errorSync);
   }
 
-  @computed
-  get isValid() {
+  @computed get isValid() {
     return !this.hasError;
   }
 
-  @computed
-  get isDirty() {
+  @computed get isDirty() {
     return this.hasNestedFields
       ? this.check('isDirty', true)
       : !_.isEqual(this.$default, this.value);
   }
 
-  @computed
-  get isPristine() {
+  @computed get isPristine() {
     return this.hasNestedFields
       ? this.check('isPristine', true)
       : _.isEqual(this.$default, this.value);
   }
 
-  @computed
-  get isDefault() {
+  @computed get isDefault() {
     return this.hasNestedFields
       ? this.check('isDefault', true)
       : _.isEqual(this.$default, this.value);
   }
 
-  @computed
-  get isEmpty() {
+  @computed get isEmpty() {
     if (this.hasNestedFields) return this.check('isEmpty', true);
     if (_.isBoolean(this.value)) return !!this.$value;
     if (_.isNumber(this.value)) return false;
     return _.isEmpty(this.value);
   }
 
-  @computed
-  get focus() {
+  @computed get focus() {
     return this.hasNestedFields
       ? this.check('focus', true)
       : this.$focus;
   }
 
-  @computed
-  get touched() {
+  @computed get touched() {
     return this.hasNestedFields
       ? this.check('touched', true)
       : this.$touched;
   }
 
-  @computed
-  get changed() {
+  @computed get changed() {
     return this.hasNestedFields
       ? this.check('changed', true)
       : this.$changed;

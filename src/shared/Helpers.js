@@ -24,6 +24,11 @@ export default {
   labels() { return this.get('label'); },
 
   /**
+   Fields Placeholders (recursive with Nested Fields)
+   */
+  placeholders() { return this.get('placeholder'); },
+
+  /**
    Fields Default Values (recursive with Nested Fields)
    */
   defaults() { return this.get('default'); },

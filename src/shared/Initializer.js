@@ -32,6 +32,7 @@ export default {
     const props = {
       $value: $try('values'),
       $label: $try('labels'),
+      $placeholder: $try('placeholders'),
       $default: $try('defaults'),
       $disabled: $try('disabled'),
       $related: $try('related'),
