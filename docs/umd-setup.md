@@ -14,8 +14,8 @@ Import `mobx` and `mobx-react-form` into your html:
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <script src="https://unpkg.com/mobx@2.6.0/lib/mobx.umd.js"></script>
-    <script src="https://unpkg.com/mobx-react-form@1.15.0/umd/mobx-react-form.umd.min.js"></script>
+    <script src="https://unpkg.com/mobx@2.6.5/lib/mobx.umd.js"></script>
+    <script src="https://unpkg.com/mobx-react-form@1.16.8/umd/mobx-react-form.umd.min.js"></script>
     <script src="source.js"></script>
   </body>
 </html>
