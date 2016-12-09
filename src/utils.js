@@ -85,6 +85,9 @@ const maxKey = (fields) => {
   return _.isUndefined(max) ? 0 : max;
 };
 
+const makeId = path =>
+  _.uniqueId([_.replace(path, new RegExp('\\.', 'g'), '-'), '--'].join(''));
+
 export default {
   computed,
   props,
@@ -103,4 +106,5 @@ export default {
   parseIntKeys,
   hasIntKeys,
   maxKey,
+  makeId,
 };

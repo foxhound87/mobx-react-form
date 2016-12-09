@@ -4,6 +4,9 @@ import $ from './data/_.nested'; // FORMS
 
 
 describe('Check Nested $F Unified Properties (values)', () => {
+  it('$F state.city id should be a string', () =>
+    expect($.$F.$('state.city').id).to.be.a('string'));
+
   it('$F state.city value should be an object', () =>
     expect($.$F.$('state.city').value).to.be.an('object'));
 

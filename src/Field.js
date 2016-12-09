@@ -9,8 +9,9 @@ export default class Field {
   isField = true;
   state;
   path;
-  key;
   name;
+  key;
+  id;
 
   $rules;
   $validate;
@@ -65,6 +66,7 @@ export default class Field {
   } = {}, update) {
     this.key = $key;
     this.path = $path;
+    this.id = utils.makeId(this.path);
 
     if (_.isNil($data)) $data = ''; // eslint-disable-line
 
