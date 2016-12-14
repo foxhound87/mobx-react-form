@@ -6,8 +6,7 @@
 /node_modules
 /umd
 /.nyc_output
+/.idea
 npm-debug.log
 coverage.lcov
 codecov.yml
-yarn.lock
-/.idea
