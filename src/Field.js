@@ -2,6 +2,11 @@ import { action, observable, computed, isObservableArray, toJS, asMap } from 'mo
 import _ from 'lodash';
 import utils from './utils';
 
+import {
+  parseInitialValue,
+  parseDefaultValue,
+  parseGetLabel } from './parser';
+
 export default class Field {
 
   fields = asMap({});
@@ -77,8 +82,18 @@ export default class Field {
     _.isNumber($data)) {
       /* The field IS the value here */
       this.name = $key;
-      this.$initial = this.parseInitialValue($data, $value);
-      this.$default = update ? '' : this.parseDefaultValue($data.default, $default);
+
+      this.$initial = parseInitialValue({
+        unified: $data,
+        separated: $value,
+      });
+
+      this.$default = parseDefaultValue({
+        unified: update ? '' : $data.default,
+        separated: $default,
+        initial: this.$initial,
+      });
+
       this.$value = this.$initial;
       this.$label = $label || $key;
       this.$placeholder = $placeholder || '';
@@ -91,8 +106,18 @@ export default class Field {
 
     if (_.isObject($data)) {
       const { name, label, placeholder, disabled, rules, validate, related } = $data;
-      this.$initial = this.parseInitialValue($data.value, $value);
-      this.$default = update ? '' : this.parseDefaultValue($data.default, $default);
+
+      this.$initial = parseInitialValue({
+        unified: $data.value,
+        separated: $value,
+      });
+
+      this.$default = parseDefaultValue({
+        unified: update ? '' : $data.default,
+        separated: $default,
+        initial: this.$initial,
+      });
+
       this.name = name || $key;
       this.$value = this.$initial;
       this.$label = $label || label || this.name;
@@ -102,21 +127,6 @@ export default class Field {
       this.$related = $related || related || [];
       this.$validate = toJS($validate || validate || null);
     }
-  }
-
-  parseInitialValue(unified, separated) {
-    if (separated === 0) return separated;
-    const $value = separated || unified;
-    // handle boolean
-    if (_.isBoolean($value)) return $value;
-    // handle others types
-    return !_.isNil($value) ? $value : '';
-  }
-
-  parseDefaultValue(initial, separated) {
-    if (separated === 0) return separated;
-    const $value = separated || initial;
-    return !_.isNil($value) ? $value : this.$initial;
   }
 
   /* ------------------------------------------------------------------ */
@@ -243,7 +253,7 @@ export default class Field {
   }
 
   set initial(val) {
-    this.$initial = this.parseInitialValue(null, val);
+    this.$initial = parseInitialValue({ separated: val });
   }
 
   @computed get default() {
@@ -251,11 +261,11 @@ export default class Field {
   }
 
   set default(val) {
-    this.$default = this.parseDefaultValue(null, val);
+    this.$default = parseDefaultValue({ separated: val });
   }
 
   @computed get label() {
-    return this.$label;
+    return parseGetLabel(this.$label);
   }
 
   @computed get placeholder() {

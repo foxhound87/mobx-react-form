@@ -150,7 +150,7 @@ export default {
       const data = this.deepMap(prop, field.fields);
 
       const value = field.hasIncrementalNestedFields
-        ? parser.parseProp(data, prop)
+        ? parser.parseArrayProp(data, prop)
         : data;
 
       return Object.assign(obj, { [field.key]: value });
@@ -171,7 +171,7 @@ export default {
     if (!_.isArray(prop)) {
       const data = this.deepMap(prop, this.fields);
       return this.hasIncrementalNestedFields
-        ? parser.parseProp(data, prop)
+        ? parser.parseArrayProp(data, prop)
         : data;
     }
 
