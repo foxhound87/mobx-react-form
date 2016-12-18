@@ -81,7 +81,7 @@ const fields = [{
   label: 'Password',
   rules: 'required|string|between:5,25',
 }, {
-  name: 'confirm_password',
+  name: 'passwordConfirm',
   label: 'Password Confirmation',
   rules: 'same:password',
 }];
