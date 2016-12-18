@@ -1,3 +1,11 @@
+# 1.16
+
+* Allow add() to include initial value
+* Allow add() to assign custom field key
+* Introduced Field invalidate() method
+* Introduced Field placeholder
+* Introduced unique Field ID
+
 # 1.15
 
 * Extensible Field
