@@ -5,6 +5,7 @@
 * Introduced Field invalidate() method
 * Introduced Field placeholder
 * Introduced unique Field ID
+* Introduced autoParseNumbers option
 
 # 1.15
 
