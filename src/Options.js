@@ -9,6 +9,7 @@ export default class Options {
     defaultGenericError: null,
     loadingMessage: null,
     allowRequired: false,
+    autoParseNumbers: true,
   };
 
   get(key = null) {

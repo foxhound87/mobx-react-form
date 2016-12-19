@@ -237,11 +237,13 @@ export default class Field {
   set value(newVal) {
     if (this.$value === newVal) return;
     // handle numbers
-    if (_.isNumber(this.$initial) && !_.endsWith(newVal, '.')) {
-      const numericVal = _.toNumber(newVal);
-      if (!_.isString(numericVal) && !_.isNaN(numericVal)) {
-        this.$value = numericVal;
-        return;
+    if (this.state.options.get('autoParseNumbers') === true) {
+      if (_.isNumber(this.$initial) && !_.endsWith(newVal, '.')) {
+        const numericVal = _.toNumber(newVal);
+        if (!_.isString(numericVal) && !_.isNaN(numericVal)) {
+          this.$value = numericVal;
+          return;
+        }
       }
     }
     // handle other types
