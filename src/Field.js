@@ -238,11 +238,13 @@ export default class Field {
     if (this.$value === newVal) return;
     // handle numbers
     if (this.state.options.get('autoParseNumbers') === true) {
-      if (_.isNumber(this.$initial) && !_.endsWith(newVal, '.')) {
-        const numericVal = _.toNumber(newVal);
-        if (!_.isString(numericVal) && !_.isNaN(numericVal)) {
-          this.$value = numericVal;
-          return;
+      if (_.isNumber(this.$initial)) {
+        if (!_.endsWith(newVal, '.') && !_.endsWith(_.split(newVal, '.', 2)[1], '0')) {
+          const numericVal = _.toNumber(newVal);
+          if (!_.isString(numericVal) && !_.isNaN(numericVal)) {
+            this.$value = numericVal;
+            return;
+          }
         }
       }
     }
