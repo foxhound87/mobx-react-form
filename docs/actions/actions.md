@@ -236,6 +236,8 @@ provide a custom key as field index:
 form.$('hobbies').add(fieldValue, { key: customKey });
 ```
 
+> If the field contains other nested fields, the value can be an object. It will work as `update()`.
+
 Delete a field:
 
 ```javascript
