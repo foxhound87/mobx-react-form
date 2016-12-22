@@ -359,7 +359,7 @@ export default class Field {
     this.$changed = true;
 
     // assume "e" is the value
-    if (_.isNil(e.target)) {
+    if (!utils.isEvent(e)) {
       this.value = e;
       return;
     }
@@ -408,7 +408,8 @@ export default class Field {
   */
   onAdd = (e, val = null) => {
     e.preventDefault();
-    this.add(val);
+    const $val = !utils.isEvent(val) ? val : null;
+    this.add($val);
   };
 
   /**
@@ -416,6 +417,7 @@ export default class Field {
   */
   onDel = (e, path = null) => {
     e.preventDefault();
-    this.del(path || this.path);
+    const $path = !utils.isEvent(path) ? path : this.path;
+    this.del($path);
   };
 }

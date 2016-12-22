@@ -47,6 +47,9 @@ const throwError = (path, fields, msg = null) => {
 const isPromise = obj => (!!obj && typeof obj.then === 'function'
   && (typeof obj === 'object' || typeof obj === 'function'));
 
+const isEvent = obj =>
+  (obj instanceof Event || !_.isNil(obj.target)); // eslint-disable-line
+
 const isStruct = data =>
   (_.isArray(data) && _.every(data, _.isString));
 
@@ -98,6 +101,7 @@ export default {
   allowed,
   throwError,
   isPromise,
+  isEvent,
   isStruct,
   parsePath,
   pathToStruct,
