@@ -52,6 +52,8 @@ or the same selecting a field:
 });
 ```
 
+> The update() method accepts only an object describing the fields keys with their values.
+
 ### Check Field Computed Values
 
 These computed values are allowed:

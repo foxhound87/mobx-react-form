@@ -16,8 +16,8 @@
 
 | Method | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **init(obj)** | (mixed) | - | Fields to initialize. | - |
-| **update(data)** | (mixed) | - | Update Fields Values. | - |
+| **init(obj)** | (object) | - | Fields to initialize. | - |
+| **update(obj)** | (object) | - | Update Fields Values. | - |
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
 | **get()** | - | - | Get all field and nested fields data with all props and computed values. | - |
 | **get(prop)** | (mixed) | - | Get all field filtering by certain `props` (string or array). | - |
