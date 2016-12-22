@@ -224,10 +224,16 @@ Add fields or nested fields:
 form.$('hobbies').add();
 ```
 
-or provide the initial value to the new added field:
+provide the initial value to the new added field:
 
 ```javascript
 form.$('hobbies').add('soccer');
+```
+
+provide a custom key as field index:
+
+```javascript
+form.$('hobbies').add(fieldValue, { key: customKey });
 ```
 
 Delete a field:
