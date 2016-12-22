@@ -22,6 +22,8 @@ export default {
     this.initFields({
       fields: $fields || this.state.struct(),
     });
+
+    this.observeFields(this.fields);
   },
 
   /**
@@ -87,7 +89,8 @@ export default {
    */
   update(fields) {
     const $fields = parser.prepareFieldsData({ fields });
-    return this.deepUpdate($fields);
+    this.deepUpdate($fields);
+    this.observeFields(this.fields);
   },
 
   @action
