@@ -36,3 +36,14 @@ describe('Check Fixes $H value computed check', () => {
     expect($.$H.select('items[2].alternateName').label).to.be.equal('Alternate Name Label'));
 });
 
+describe('Check Fixes $I rules check', () => {
+  it('$I layout.column1[0].title rules should be a equal to "string|required"', () =>
+    expect($.$I.$('layout.column1[0].title').rules).to.be.equal('string|required'));
+
+  it('$I deep.nested.column2[0].title rules should be a equal to "string|required"', () =>
+    expect($.$I.$('deep.nested.column2[0].title').rules).to.be.equal('string|required'));
+
+  it('$I deep.nested.column3[0].title rules should be a equal to "string|required"', () =>
+    expect($.$I.$('deep.nested.column3[0].title').rules).to.be.equal('string|required'));
+});
+

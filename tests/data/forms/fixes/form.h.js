@@ -17,7 +17,6 @@ const values = {
   }, {
     name: 'Item #B',
   }],
-
 };
 
 class NewForm extends Form {

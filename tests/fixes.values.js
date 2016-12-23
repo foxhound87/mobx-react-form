@@ -118,3 +118,14 @@ describe('Check Nested $H value computed check', () => {
   it('$H items[2].name value should be equal to "Item #3"', () =>
     expect($.$H.$('items[2].name').value).to.be.equal('Item #3'));
 });
+
+describe('Check Fixes $I values check', () => {
+  it('$I layout.column1[0].title value should be a equal to "THE NEW TITLE"', () =>
+    expect($.$I.$('layout.column1[0].title').value).to.be.equal('THE NEW TITLE'));
+
+  it('$I deep.nested.column2[0].title value should be a equal to "THE NEW TITLE"', () =>
+    expect($.$I.$('deep.nested.column2[0].title').value).to.be.equal('THE NEW TITLE'));
+
+  it('$I deep.nested.column3[0].title value should be a equal to "THE NEW TITLE"', () =>
+    expect($.$I.$('deep.nested.column3[0].title').value).to.be.equal('THE NEW TITLE'));
+});

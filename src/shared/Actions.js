@@ -112,8 +112,10 @@ export default {
       }
 
       if (!_.isNil($container)) {
+        // get real path when using update() with select() - FIX: #179
+        const $realPath = _.trimStart([this.path, $fullPath].join('.'), '.');
         // init field into the container field
-        $container.initField(key, $fullPath, field, null, true);
+        $container.initField(key, $realPath, field, null, true);
       }
 
       if (recursion) {

@@ -9,10 +9,11 @@ import $E from './forms/fixes/form.e';
 import $F from './forms/fixes/form.f';
 import $G from './forms/fixes/form.g';
 import $H from './forms/fixes/form.h';
+import $I from './forms/fixes/form.i';
 
 export default {
 
-  $A, $B, $C, $D, $E, $F, $G, $H,
+  $A, $B, $C, $D, $E, $F, $G, $H, $I,
 
 };
 
