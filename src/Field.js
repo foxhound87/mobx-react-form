@@ -214,6 +214,14 @@ export default class Field {
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
 
+  @computed get checkValidationErrors() {
+    return ((this.validationAsyncData.valid === false)
+      && !_.isEmpty(this.validationAsyncData))
+      || !_.isEmpty(this.validationErrorStack)
+      || _.isString(this.errorAsync)
+      || _.isString(this.errorSync);
+  }
+
   @computed get hasIncrementalNestedFields() {
     return (utils.hasIntKeys(this.fields) && this.fields.size);
   }
@@ -298,15 +306,13 @@ export default class Field {
   }
 
   @computed get hasError() {
-    return ((this.validationAsyncData.valid === false)
-      && !_.isEmpty(this.validationAsyncData))
-      || !_.isEmpty(this.validationErrorStack)
-      || _.isString(this.errorAsync)
-      || _.isString(this.errorSync);
+    return this.checkValidationErrors
+      || this.check('hasError', true);
   }
 
   @computed get isValid() {
-    return !this.hasError;
+    return !this.checkValidationErrors
+      && this.check('isValid', true);
   }
 
   @computed get isDirty() {

@@ -45,10 +45,4 @@ const fields = {
   },
 };
 
-const rules = {
-  'state': 'integer',
-  'state.city': 'integer',
-  'state.city.places': 'integer',
-};
-
-export default new Form({ fields, plugins, rules }, 'Nested-F');
+export default new Form({ fields, plugins }, 'Nested-F');

@@ -71,13 +71,13 @@ export default {
       : this[computed];
   },
 
-  deepCheck($, prop, fields) {
+  deepCheck($, computed, fields) {
     return _.reduce(fields.values(), (check, field) => {
       if (field.fields.size === 0) {
-        check.push(field[prop]);
+        check.push(field[computed]);
         return check;
       }
-      const $deep = this.deepCheck($, prop, field.fields);
+      const $deep = this.deepCheck($, computed, field.fields);
       check.push(utils.check({ type: $, data: $deep }));
       return check;
     }, []);
