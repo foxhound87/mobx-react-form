@@ -79,7 +79,8 @@ export default class Field {
     _.isBoolean($data) ||
     _.isArray($data) ||
     _.isString($data) ||
-    _.isNumber($data)) {
+    _.isNumber($data) ||
+    _.isDate($data)) {
       /* The field IS the value here */
       this.name = $key;
 
@@ -173,6 +174,7 @@ export default class Field {
   clear(deep = true) {
     this.resetValidation();
     if (isObservableArray(this.$value)) this.$value = [];
+    if (_.isDate(this.$value)) this.$value = null;
     if (_.isBoolean(this.$value)) this.$value = false;
     if (_.isNumber(this.$value)) this.$value = 0;
     if (_.isString(this.$value)) this.$value = '';
@@ -337,6 +339,7 @@ export default class Field {
     if (this.hasNestedFields) return this.check('isEmpty', true);
     if (_.isBoolean(this.value)) return !!this.$value;
     if (_.isNumber(this.value)) return false;
+    if (_.isDate(this.value)) return false;
     return _.isEmpty(this.value);
   }
 
