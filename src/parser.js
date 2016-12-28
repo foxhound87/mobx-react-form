@@ -1,6 +1,12 @@
 import _ from 'lodash';
 import utils from './utils';
 
+const parsePath = (path) => {
+  let $path = path;
+  $path = _.replace($path, new RegExp('\\[', 'g'), '.');
+  $path = _.replace($path, new RegExp('\\]', 'g'), '');
+  return $path;
+};
 
 // make integers labels empty
 const parseGetLabel = label =>
@@ -33,6 +39,7 @@ const defineFieldsFromStruct = struct =>
   _.reduceRight(struct, ($, name) => {
     if (_.endsWith(name, '[]')) {
       const obj = {};
+      // console.log(name, $);
       obj[_.trimEnd(name, '[]')] = [$];
       return obj;
     }
@@ -68,7 +75,7 @@ const handleFieldsArrayOfStrings = ($fields) => {
 const handleFieldsArrayOfObjects = ($fields) => {
   let fields = $fields;
   // handle array of objects (with unified props)
-  if (_.isArray(fields) && _.every(fields, _.isObject)) {
+  if (_.isArray(fields) && _.every(fields, _.isPlainObject)) {
     fields = _.reduce(fields, ($obj, $) => {
       if (!_.has($, 'name')) return undefined;
       return Object.assign($obj, { [$.name]: $ });
@@ -116,6 +123,7 @@ const prepareFieldsData = (initial) => {
 };
 
 export default {
+  parsePath,
   parseGetLabel,
   parseInitialValue,
   parseDefaultValue,

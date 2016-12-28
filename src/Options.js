@@ -5,11 +5,12 @@ export default class Options {
     validateOnInit: true,
     validateOnChange: true,
     strictUpdate: false,
+    strictDelete: true,
     showErrorsOnUpdate: true,
     defaultGenericError: null,
     loadingMessage: null,
     allowRequired: false,
-    autoParseNumbers: true,
+    autoParseNumbers: false,
   };
 
   get(key = null) {

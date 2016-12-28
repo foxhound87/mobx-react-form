@@ -1,8 +1,9 @@
 import { useStrict } from 'mobx';
 
-import Form from './Form';
-import Field from './Field';
+import Form, { prototypes as formPrototypes } from './Form';
+import Field, { prototypes as fieldPrototypes } from './Field';
 
+/* shared prototype methods */
 import fieldInitializer from './shared/Initializer';
 import fieldHelpers from './shared/Helpers';
 import fieldActions from './shared/Actions';
@@ -24,17 +25,19 @@ if (TEST) useStrict(true);
   Cannot use Object.assign as @action
   methods on mixins are non-enumerable
 */
-const extend = $class => ([
+const extend = ($class, $obj) => ($obj)
+  .forEach(mixin => Object.getOwnPropertyNames(mixin)
+    .forEach(name => $class.prototype[name] = mixin[name])); // eslint-disable-line
+
+const shared = [
   fieldInitializer,
   fieldActions,
   fieldHelpers,
   fieldUtils,
-])
-  .forEach(mixin => Object.getOwnPropertyNames(mixin)
-    .forEach(name => $class.prototype[name] = mixin[name])); // eslint-disable-line
+];
 
-extend(Form);
-extend(Field);
+extend(Form, shared.concat(formPrototypes));
+extend(Field, shared.concat(fieldPrototypes));
 
 export default Form;
 export { Form, Field };

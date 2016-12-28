@@ -18,7 +18,7 @@ export default {
     // create fields
     _.each(fields, (field, key) =>
       _.isNil(this.select($path(key), null, false))
-      && this.initField(key, $path(key), field, null, update));
+      && this.initField(key, $path(key), field, this.fields, update));
   },
 
   @action

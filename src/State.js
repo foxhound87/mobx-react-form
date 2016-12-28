@@ -1,4 +1,7 @@
+import _ from 'lodash';
+
 import Options from './Options';
+import utils from './utils';
 
 export default class State {
 
@@ -11,11 +14,26 @@ export default class State {
   initial = {
     props: {},
     fields: {},
-  }
+  };
 
   current = {
     props: {},
     fields: {},
+  };
+
+  constructor(form) {
+    this.set('form', form);
+  }
+
+  initProps(initial) {
+    const $props = _.union(utils.iprops, utils.vprops);
+    const initialProps = _.pick(initial, $props);
+
+    this.set('initial', 'props', initialProps);
+
+    if (utils.isStruct(initial.fields)) {
+      this.struct(initial.fields);
+    }
   }
 
   initOptions(initial = {}) {

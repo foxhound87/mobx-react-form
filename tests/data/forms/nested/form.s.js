@@ -38,4 +38,32 @@ const values = {
   }],
 };
 
-export default new Form({ plugins, fields, rules, values }, 'Nested-S');
+class NewForm extends Form {
+
+  onInit(form) {
+    form.set('value', {
+      club: {
+        name: 'club-name-set-value',
+        city: 'club-city-set-value',
+      },
+      members: [{
+        firstname: 'members-0-firstname-set-value',
+        lastname: 'members-0-lastname-set-value',
+        hobbies: [
+          'members-0-hobbies-0-set-value',
+          'members-0-hobbies-1-set-value',
+        ],
+      }, {
+        firstname: 'members-1-firstname-set-value',
+        lastname: 'members-1-lastname-set-value',
+        hobbies: [
+          'members-1-hobbies-0-set-value',
+          'members-1-hobbies-1-set-value',
+        ],
+      }],
+    });
+  }
+}
+
+
+export default new NewForm({ plugins, fields, rules, values }, 'Nested-S');

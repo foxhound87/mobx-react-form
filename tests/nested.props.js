@@ -2,6 +2,14 @@ import { expect } from 'chai';
 
 import $ from './data/_.nested'; // FORMS
 
+const checkDeepPropEqual = (target, prop, path, value) =>
+  it(`${target.state.form.name} get([${prop}]) ${path} should be equal to "${value}"`, () =>
+    expect(target.get(prop)).to.have.deep.property(path, value));
+
+const checkDeepPropType = (target, prop, path, type) =>
+  it(`${target.state.form.name} get([${prop}]) ${path} should be an "${type}"`, () =>
+    expect(target.get(prop)).to.have.deep.property(path).that.is.an(type));
+
 describe('Check $A Nested Fields', () => {
   it('$A user.email.value should be equal to "notAnEmail"', () =>
     expect($.$A.$('user.email').value).to.be.equal('notAnEmail'));
@@ -79,30 +87,14 @@ describe('Check $C Nested Fields', () => {
   it('$C state.city.places.empireStateBuilding value should be false', () =>
     expect($.$C.$('state.city.places.empireStateBuilding').value).to.be.false);
 
-  const deepPropValue = 'state.fields.city.value';
-  const deepPropLabel = 'state.fields.city.label';
-
-  it(`$C get([label, value]) ${deepPropValue} should be equal to "New York"`, () =>
-    expect($.$C.get(['label', 'value']))
-      .to.have.deep.property(deepPropValue)
-      .that.is.an('object'));
-
-  it(`$C get([label, value]) ${deepPropLabel} should be equal to "City"`, () =>
-    expect($.$C.get(['label', 'value'])).to.have.deep.property(deepPropLabel, 'City'));
+  checkDeepPropType($.$C, ['value'], 'state.fields.city.value', 'object');
+  checkDeepPropEqual($.$C, ['label'], 'state.fields.city.label', 'City');
 });
 
-describe('Check form.values() for Nested Fields', () => {
-  const deepProp = 'state.city.places.empireStateBuilding';
-
-  it(`$B values() ${deepProp} should be false`, () =>
-    expect($.$B.values()).to.have.deep.property(deepProp, false));
-
-  it(`$C values() ${deepProp} should be false`, () =>
-    expect($.$C.values()).to.have.deep.property(deepProp, false));
-
-  it('$C values() places.empireStateBuilding should be false', () =>
-    expect($.$C.$('state.city').values())
-      .to.have.deep.property('places.empireStateBuilding', false));
+describe('Check form get() values for Nested Fields', () => {
+  checkDeepPropEqual($.$B, 'value', 'state.city.places.empireStateBuilding', false);
+  checkDeepPropEqual($.$C, 'value', 'state.city.places.empireStateBuilding', false);
+  checkDeepPropEqual($.$C.$('state.city'), 'value', 'places.empireStateBuilding', false);
 });
 
 describe('Check Nested Fields path property', () => {
@@ -150,6 +142,23 @@ describe('Check Nested $D props after state clear()', () => {
     expect($.$D.$('state.city.places').isEmpty).to.be.false);
 });
 
+describe('Check Nested $S get() value after set() value', () => {
+  checkDeepPropEqual($.$S, ['value'], 'club.fields.name.value', 'club-name-set-value');
+  checkDeepPropEqual($.$S, ['value'], 'club.fields.name.value', 'club-name-set-value');
+
+  checkDeepPropEqual($.$S, ['value'], 'members.fields.0.fields.firstname.value', 'members-0-firstname-set-value');
+  checkDeepPropEqual($.$S, ['value'], 'members.fields.0.fields.lastname.value', 'members-0-lastname-set-value');
+
+  checkDeepPropEqual($.$S, ['value'], 'members.fields.0.fields.hobbies.fields.0.value', 'members-0-hobbies-0-set-value');
+  checkDeepPropEqual($.$S, ['value'], 'members.fields.0.fields.hobbies.fields.1.value', 'members-0-hobbies-1-set-value');
+
+  checkDeepPropEqual($.$S, ['value'], 'members.fields.1.fields.firstname.value', 'members-1-firstname-set-value');
+  checkDeepPropEqual($.$S, ['value'], 'members.fields.1.fields.lastname.value', 'members-1-lastname-set-value');
+
+  checkDeepPropEqual($.$S, ['value'], 'members.fields.1.fields.hobbies.fields.0.value', 'members-1-hobbies-0-set-value');
+  checkDeepPropEqual($.$S, ['value'], 'members.fields.1.fields.hobbies.fields.1.value', 'members-1-hobbies-1-set-value');
+});
+
 describe('Check Nested $T add() and del()', () => {
   it('$T hobbies fields.size should be equal to 3', () =>
     expect($.$T.$('hobbies').fields.size).to.equal(3));
@@ -188,6 +197,9 @@ describe('Check Nested $T value on add()', () => {
 
   it('$T notIncrementalFields[notIncrementalKey] value should be equal to "XXX"', () =>
     expect($.$T.$('notIncrementalFields[notIncrementalKey]').value).to.equal('XXX'));
+
+  it('$T notIncrementalFields .fields.size should be equal to 2', () =>
+    expect($.$T.$('notIncrementalFields').fields.size).to.equal(2));
 
   it('$T notIncrementalFields add() return value should be equal to "anotherKey"', () =>
     expect($.$T.$('notIncrementalFields').add('YYY', { key: 'anotherKey' })).to.equal('anotherKey'));

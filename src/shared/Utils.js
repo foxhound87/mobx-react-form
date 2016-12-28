@@ -11,7 +11,7 @@ export default {
    Fields Selector
    */
   select(path, fields = null, isStrict = true) {
-    const $path = utils.parsePath(path);
+    const $path = parser.parsePath(path);
 
     const keys = _.split($path, '.');
     const head = _.head(keys);

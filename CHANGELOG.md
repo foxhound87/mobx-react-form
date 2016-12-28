@@ -1,3 +1,11 @@
+# 1.17
+
+* Updated dependencies.
+* Code refactoring & optimization.
+* Reimplemented del(), observe(), validate().
+* Introduced field computed validators().
+* Introduced form computed validating().
+
 # 1.16
 
 * Allow add() to include initial value

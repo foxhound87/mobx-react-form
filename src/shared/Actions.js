@@ -1,4 +1,4 @@
-import { action, observe, asMap } from 'mobx';
+import { action, asMap } from 'mobx';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';
@@ -16,32 +16,13 @@ export default {
   init($fields = null) {
     _.set(this, 'fields', asMap({}));
 
-    this.state.initial.props.values = $fields; // eslint-disable-line
-    this.state.current.props.values = $fields; // eslint-disable-line
+    if (!_.has(this, 'isField')) {
+      this.state.initial.props.values = $fields; // eslint-disable-line
+      this.state.current.props.values = $fields; // eslint-disable-line
+    }
 
     this.initFields({
       fields: $fields || this.state.struct(),
-    });
-
-    this.observeFields(this.fields);
-  },
-
-  /**
-   Observe Fields and Validate
-  */
-  observeFields(fields = null) {
-    // deep observe and validate each field
-    this.deepObserveFields(fields || this.fields);
-  },
-
-  deepObserveFields(fields) {
-    fields.forEach((field, key) => {
-      observe(fields.get(key), '$value', () => {
-        if (this.state.options.get('validateOnChange') === false) return;
-        this.state.form.validate({ key, field, showErrors: true, related: true });
-      });
-      // recursive observe and validate each field
-      if (field.fields.size) this.deepObserveFields(field.fields);
     });
   },
 
@@ -71,13 +52,13 @@ export default {
       : this[computed];
   },
 
-  deepCheck($, computed, fields) {
+  deepCheck($, prop, fields) {
     return _.reduce(fields.values(), (check, field) => {
       if (field.fields.size === 0) {
-        check.push(field[computed]);
+        check.push(field[prop]);
         return check;
       }
-      const $deep = this.deepCheck($, computed, field.fields);
+      const $deep = this.deepCheck($, prop, field.fields);
       check.push(utils.check({ type: $, data: $deep }));
       return check;
     }, []);
@@ -90,14 +71,13 @@ export default {
   update(fields) {
     const $fields = parser.prepareFieldsData({ fields });
     this.deepUpdate($fields);
-    this.observeFields(this.fields);
   },
 
   @action
   deepUpdate(fields, path = '', recursion = true) {
     _.each(fields, (field, key) => {
-      const $fullPath = _.trimStart(`${path}.${key}`, '.');
-      const $field = this.select($fullPath, null, false);
+      const $path = _.trimStart(`${path}.${key}`, '.');
+      const $field = this.select($path, null, false);
       const $container = this.container(path);
 
       if (!_.isNil($field) && !_.isNil(field)) {
@@ -112,21 +92,21 @@ export default {
       }
 
       if (!_.isNil($container)) {
-        // get real path when using update() with select() - FIX: #179
-        const $realPath = _.trimStart([this.path, $fullPath].join('.'), '.');
+        // get full path when using update() with select() - FIX: #179
+        const $fullPath = _.trimStart([this.path, $path].join('.'), '.');
         // init field into the container field
-        $container.initField(key, $realPath, field, null, true);
+        $container.initField(key, $fullPath, field, null, true);
       }
 
       if (recursion) {
         // handle nested fields if undefined or null
-        const $fields = this.pathToFieldsTree($fullPath);
-        this.deepUpdate($fields, $fullPath, false);
+        const $fields = this.pathToFieldsTree($path);
+        this.deepUpdate($fields, $path, false);
       }
 
       if (recursion && _.has(field, 'fields') && !_.isNil(field.fields)) {
         // handle nested fields if defined
-        this.deepUpdate(field.fields, $fullPath);
+        this.deepUpdate(field.fields, $path);
       }
     });
   },
@@ -275,9 +255,7 @@ export default {
         field.set($, $val, recursion);
         // update values recursively only if field has nested
         if (field.fields.size && _.isObject($val)) {
-          if (field.fields.size !== 0) {
-            this.deepSet($, $val, $key, recursion);
-          }
+          this.deepSet($, $val, $path, recursion);
         }
       }
     });
@@ -318,12 +296,10 @@ export default {
 
     _.each(tree, field => this.initField($key, $path($key), field));
 
-    this.observeFields(this.fields);
-
     if (!_.isNil(value)) {
       const field = this.select($key);
 
-      if (_.isObject(value)) {
+      if (_.isPlainObject(value)) {
         field.update(value);
       }
 
@@ -339,23 +315,24 @@ export default {
    Del Field
    */
   @action
-  del(path = null) {
-    if (_.isInteger(_.parseInt(path))) {
-      this.fields.delete(path);
-      return;
-    }
-
-    const $path = utils.parsePath(path);
-    const keys = _.split($path, '.');
+  del(partialPath = null) {
+    const path = parser.parsePath(partialPath);
+    const keys = _.split(path, '.');
     const last = _.last(keys);
-    const cpath = _.trimEnd($path, `.${last}`);
+    const cpath = _.trimEnd(path, `.${last}`);
+    const isStrict = this.state.options.get('strictDelete');
 
-    if (_.has(this, 'isField')) {
-      this.state.form.select(cpath, null, true).del(last);
-      return;
+    const container = this.select(cpath, null, false)
+      || this.state.form.select(cpath, null, false)
+      || this.state.form.select(this.path, null, true);
+
+    if (isStrict && !container.fields.has(last)) {
+      const msg = `Key "${last}" not found when trying to delete field`;
+      const $path = _.trimStart([this.path, path].join('.'), '.');
+      utils.throwError($path, null, msg);
     }
 
-    this.select(cpath, null, true).del(last);
+    container.fields.delete(last);
   },
 
 };

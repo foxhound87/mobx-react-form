@@ -55,13 +55,6 @@ const isEvent = (obj) => {
 const isStruct = data =>
   (_.isArray(data) && _.every(data, _.isString));
 
-const parsePath = (path) => {
-  let $path = path;
-  $path = _.replace($path, new RegExp('\\[', 'g'), '.');
-  $path = _.replace($path, new RegExp('\\]', 'g'), '');
-  return $path;
-};
-
 const pathToStruct = (path) => {
   let struct;
   struct = _.replace(path, new RegExp('[.]\\d($|.)', 'g'), '[].');
@@ -105,7 +98,6 @@ export default {
   isPromise,
   isEvent,
   isStruct,
-  parsePath,
   pathToStruct,
   hasUnifiedProps,
   hasSeparatedProps,

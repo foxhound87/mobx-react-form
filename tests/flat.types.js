@@ -13,11 +13,23 @@ describe('Check validate() returns promise that resolves to boolean', () => {
   ));
 });
 
-describe('Check validate(key) returns promise that resolves to boolean', () => (
+describe('Check FORM validate(key) returns promise that resolves to boolean', () => (
   _.each($forms, (form, formKey) => describe(`${formKey} form`, () => (
-    form.fields.forEach((field, fieldKey) => (
-      it(`validate('${fieldKey}') is promise that resolves to boolean`, () => {
-        const promise = form.validate(fieldKey);
+    form.forEach(field => (
+      it(`validate('${field.path}') is promise that resolves to boolean`, () => {
+        const promise = form.validate(field.path);
+        expect(promise).to.be.a('promise');
+        return promise.then(result => expect(result).to.be.a('boolean'));
+      })
+    ))
+  )))
+));
+
+describe('Check FIELD validate(key) returns promise that resolves to boolean', () => (
+  _.each($forms, (form, formKey) => describe(`${formKey} form`, () => (
+    form.forEach(field => (
+      it(`validate('${field.path}') is promise that resolves to boolean`, () => {
+        const promise = field.validate();
         expect(promise).to.be.a('promise');
         return promise.then(result => expect(result).to.be.a('boolean'));
       })
@@ -94,8 +106,3 @@ describe('Check isEmpty returns boolean', () => {
   _.each($forms, (form, key) => it(`${key} isEmpty is boolean`, () =>
     assert.isBoolean(form.isEmpty, `${key}.isEmpty is not boolean`)));
 });
-
-// describe('Check eventsRunning() returns boolean', () => {
-//   _.each($forms, (form, key) => it(`${key} eventsRunning() is boolean`, () =>
-//     assert.isBoolean(form.eventsRunning(), `${key}.eventsRunning() is not boolean`)));
-// });

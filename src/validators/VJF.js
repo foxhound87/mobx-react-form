@@ -12,7 +12,7 @@ export default class VJF {
   options = {};
 
   constructor(plugin, { promises = [], options = {} }) {
-    if (_.isObject(plugin)) {
+    if (_.isPlainObject(plugin)) {
       this.validator = plugin;
     }
     this.promises = promises;
@@ -21,10 +21,10 @@ export default class VJF {
 
   validateField(field, form) {
     // exit if field does not have validation functions
-    if (!field.validate) return;
+    if (!field.validators) return;
 
     // get validators from validate property
-    const $fn = toJS(field.validate);
+    const $fn = toJS(field.validators);
 
     // map only if is an array of validator functions
     if (_.isArray($fn)) {

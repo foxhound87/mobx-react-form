@@ -33,5 +33,4 @@ class NewForm extends Form {
   }
 }
 
-
 export default new NewForm({ fields }, 'Nested-Q');

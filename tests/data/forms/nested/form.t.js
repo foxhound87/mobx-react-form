@@ -24,18 +24,21 @@ class NewForm extends Form {
     form.$('hobbies').del(3);
     // hobbies[] length should be 3
 
-    form.$('member.hobbies').add('AAA');
-    form.$('member.hobbies').add('BBB');
-    form.$('member.hobbies').add('CCC');
-    form.$('member.hobbies').add('DDD');
-    // form.add('member.hobbies'); // old
-    form.$('member.hobbies').add('EEE');
+    // form.add('member.hobbies'); // OLD
+    form.$('member.hobbies').$(0).set('value', '000');  // 0
+    form.$('member.hobbies').add('AAA');  // 1
+    form.$('member.hobbies').add('BBB');  // 2
+    form.$('member.hobbies').add('CCC');  // 3
+    form.$('member.hobbies').add('DDD');  // 4
+    form.$('member.hobbies').add('EEE');  // 5
+    form.$('member.hobbies').add('FFF');  // 6
     // member.hobbies[] length: 6
 
     form.del('member.hobbies[0]');
     form.del('member.hobbies[2]');
     form.$('member.hobbies').del(3);
-    // hobbies[] length should be 3
+    form.$('member').del('hobbies[4]');
+    // hobbies[] length should be 2
 
     form.$('member.info').add({
       firstname: 'AAA',
@@ -45,6 +48,17 @@ class NewForm extends Form {
     form.$('notIncrementalFields').add('XXX', {
       key: 'notIncrementalKey',
     });
+
+    form.$('notIncrementalFields').add('XXX', {
+      key: 'anotherNotIncrementalKey',
+    });
+
+    form.$('notIncrementalFields').add('XXX', {
+      key: 'anotherOneNotIncrementalKey',
+    });
+
+    form.del('notIncrementalFields[anotherOneNotIncrementalKey]');
+    form.$('notIncrementalFields').del('anotherNotIncrementalKey');
   }
 }
 
