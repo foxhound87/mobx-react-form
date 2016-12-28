@@ -169,6 +169,21 @@ Clear or Reset the whole Form, a single Field, or Nested Fields recursively.
 .reset();
 ```
 
+### Validate a Field
+
+The `validate()` action returns a `promise`.
+
+The callback takes a `boolean` (`isValid`) with the validation state of the **field**.
+
+```javascript
+$('password').validate()
+  .then((isValid) => {
+    ... // Use `isValid` to check the validation status
+  });
+```
+
+> This is an alternative syntax to [Form Actions - Validate Single Field](https://foxhound87.github.io/mobx-react-form/docs/actions/form-actions.html#validate-single-field).
+
 ### Invalidate the Form or a Field
 
 The `invalidate(msg)` method can be used on both forms or fields.
@@ -244,12 +259,16 @@ Delete a field:
 
 ```javascript
 form.del('hobbies[1]');
+
+form.$('hobbies').del(1); // same as previous
 ```
 
-or
+or deep nested fields:
 
 ```javascript
-form.$('hobbies').del(1);
+form.$('member').del('hobbies[3]');
+
+form.$('member.hobbies').del(3); // same as previous
 ```
 
 > These are not an Event Handlers.

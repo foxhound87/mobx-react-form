@@ -4,6 +4,7 @@
 |---|---|---|---|---|
 | **clear()** | - | - | Clear the Field or Nested Fields to empty value. | - |
 | **reset()** | - | - | Reset the Field or Nested Fields to initial value. | - |
+| **validate()** | - | - | Check if the field is valid and return a promise. | - |
 | **invalidate(msg)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | - |
 | **hasNestedFields()** | - | - | Check if the field has Nested Fields. | - |
 | **resetValidation()** | - | - | Reset the field validation status. | - |

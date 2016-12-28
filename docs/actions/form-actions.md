@@ -30,9 +30,17 @@ form.validate('email')
   });
 ```
 
+> This is an alternative syntax to [Form Actions - Validate Single Field](https://foxhound87.github.io/mobx-react-form/docs/actions/actions.html#validate-a-field).
+
 ### Manual Form Submit
 
-Provide an object with `onSuccess(form)` and `onError(form)` functions.
+Perform fields validation. After successful validation triggers `onSuccess` event or `onError` event in case of validation error.
+
+```javascript
+form.submit();
+```
+
+Provide an object with `onSuccess(form)` and `onError(form)` functions if not implemented in the Form class.
 
 ```javascript
 form.submit({

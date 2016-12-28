@@ -13,6 +13,9 @@
 | **focus** | boolean | computed | Check if the field is focused. | - |
 | **touched** | boolean | computed | Check if the field is touched. | - |
 | **changed** | boolean | computed | Check if the field is changed. | - |
+| **related** | boolean | computed | Get Related fields for validation. | - |
+| **rules** | boolean | computed | Get DVR Validation Rules. | - |
+| **validators** | boolean | computed | Get VJF Validation Functions. | - |
 | **isValid** | boolean | computed | Check if the field is valid. | - |
 | **isDirty** | boolean | computed | Check if the field is dirty. | - |
 | **isPristine** | boolean | computed | Check if the field is pristine. | - |
