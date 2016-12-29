@@ -35,12 +35,11 @@
 
 [Automagically manage React forms state and automatic validation with MobX](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769)
 
-## Install
-
-```bash
-npm install --save mobx-react-form
-```
-
 ## DevTools
 
 [https://github.com/foxhound87/mobx-react-form-devtools](https://github.com/foxhound87/mobx-react-form-devtools)
+
+## Quick Start
+
+[https://foxhound87.github.io/mobx-react-form/docs/getting-started.html](https://foxhound87.github.io/mobx-react-form/docs/getting-started.html)
+
