@@ -24,6 +24,9 @@ describe('$C Field values checks', () => {
 });
 
 describe('$D Field values checks', () => {
+  it('$D itineraryItem value value should be equal to "itinerary-item-value"', () =>
+    expect($.$D.$('itineraryItem').value).to.be.equal('itinerary-item-value'));
+
   it('$D itineraryItems[0].hotel.name value value should be equal to "New Test Name"', () =>
     expect($.$D.$('itineraryItems[0].hotel.name').value).to.be.equal('New Test Name'));
 

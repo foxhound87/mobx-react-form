@@ -1,6 +1,7 @@
 import { Form } from '../../../../src';
 
 const fields = [
+  'itineraryItem',
   'itineraryItems[].hotel.name',
   'itineraryItems[].hotel.starRating',
 ];
@@ -31,6 +32,12 @@ class NewForm extends Form {
           starRating: '5.0',
         },
       });
+    });
+
+    form.map((field) => { // eslint-disable-line
+      if (field.key === 'itineraryItem') {
+        field.set('itinerary-item-value');
+      }
     });
   }
 }

@@ -213,10 +213,12 @@ export default {
         return;
       }
 
-      // update just the value
-      // this.value = $; // eslint-disable-line
-      // if (!recursion) Events.setRunning($e, false);
-      // return;
+      if (_.isString($) && _.isNil(data)) {
+        // update just the value
+        this.set('value', $);
+        if (!recursion) Events.setRunning($e, false);
+        return;
+      }
     }
 
     // UPDATE NESTED FIELDS VALUE (recursive)
