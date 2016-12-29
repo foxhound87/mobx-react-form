@@ -123,9 +123,9 @@ export default new MyForm({ fields, plugins });
 
 #### Pass the form to a react component
 
-The package provide those built-in and ready to use Event Handlers:
+The package provide some built-in and ready to use Event Handlers:
 
-`onSubmit(e)`, `onClear(e)`, `onReset(e)`.
+`onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more...](https://foxhound87.github.io/mobx-react-form/docs/events/events-handlers.html)
 
 ```javascript
 import React from 'react';
@@ -133,12 +133,15 @@ import { observer } from 'mobx-react';
 
 export default observer(({ form, events }) => (
   <form onSubmit={form.onSubmit}>
-    <input
-      type="text"
+    <label htmlFor={form.$('username').id}>
+      {form.$('username').label}
+    </label>
+    <input type="text"
+      id={form.$('username').id}
       name={form.$('username').name}
       value={form.$('username').value}
-      placeholder={form.$('username').label}
-      onChange={form.$('username').sync}
+      placeholder={form.$('username').placeholder}
+      onChange={form.$('username').onChange}
     />
     <p>{form.$('username').error}</p>
 
@@ -152,6 +155,8 @@ export default observer(({ form, events }) => (
   </form>
 ));
 ```
+
+> Other Field Props are available. See the [docs](https://foxhound87.github.io/mobx-react-form/docs/api-reference/fields-properties.html) for more details.
 
 <br>
 
