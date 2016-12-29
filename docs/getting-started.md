@@ -41,7 +41,7 @@ const fields = [{
 
 > You can also define `fields` as an `object`.
 
-#### Define the Validation Events Handlers
+#### Define the Validation Handlers
 
 ```javascript
 import MobxReactForm from 'mobx-react-form';
@@ -63,7 +63,7 @@ class MyForm extends MobxReactForm {
 }
 ```
 
-> The Events Handler can be decoupled from the class as well.
+> The Validation Handlers can be decoupled from the class as well.
 
 #### Initialize the Form
 
