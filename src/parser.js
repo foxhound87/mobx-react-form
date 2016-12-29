@@ -83,10 +83,13 @@ const handleFieldsArrayOfObjects = ($fields) => {
   return fields;
 };
 
-const handleFieldsNested = (fields, initial) =>
+const handleFieldsNested = (fields, initial, strictProps) =>
   _.reduce(fields, (obj, field, key) => {
-    if (_.isObject(field) && !_.has(field, 'fields')
-      && (!utils.hasUnifiedProps(field) || utils.hasSeparatedProps(initial))) {
+    if (_.isObject(field)
+      && !_.has(field, 'fields')
+      && ((!utils.hasUnifiedProps(field))
+      || utils.hasSeparatedProps(initial)
+      || !strictProps)) {
       // define nested field
       return Object.assign(obj, {
         [key]: { fields: handleFieldsNested(field) },
@@ -112,12 +115,12 @@ const mergeSchemaDefaults = (fields, validator) => {
   return fields;
 };
 
-const prepareFieldsData = (initial) => {
+const prepareFieldsData = (initial, strictProps = true) => {
   let fields = initial.fields || {};
   fields = handleFieldsArrayOfStrings(fields);
   fields = handleFieldsArrayOfObjects(fields);
   fields = handleFieldsValuesFallback(fields, initial);
-  fields = handleFieldsNested(fields, initial);
+  fields = handleFieldsNested(fields, initial, strictProps);
   return fields;
 };
 

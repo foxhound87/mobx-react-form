@@ -69,7 +69,8 @@ export default {
    OR Create Field if 'undefined'
    */
   update(fields) {
-    const $fields = parser.prepareFieldsData({ fields });
+    const strictProps = (this.state.type === 'unified');
+    const $fields = parser.prepareFieldsData({ fields }, strictProps);
     this.deepUpdate($fields);
   },
 

@@ -10,6 +10,9 @@ describe('$A Field values checks', () => {
 describe('$B Field values checks', () => {
   it('$B inventoryLevel.value value should be equal to "2"', () =>
     expect($.$B.$('inventoryLevel.value').value).to.be.equal(2));
+
+  it('$B addOns[0].nested.value value should be equal to "3"', () =>
+    expect($.$B.$('addOns[0].nested.value').value).to.be.equal(3));
 });
 
 describe('$C Field values checks', () => {

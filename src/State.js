@@ -7,6 +7,8 @@ export default class State {
 
   form;
 
+  type;
+
   options;
 
   $struct = [];
@@ -31,8 +33,14 @@ export default class State {
 
     this.set('initial', 'props', initialProps);
 
-    if (utils.isStruct(initial.fields)) {
+    if (utils.isStruct(initial.fields) || utils.hasSeparatedProps(initial)) {
+      this.type = 'separated';
       this.struct(initial.fields);
+      return;
+    }
+
+    if (!utils.hasUnifiedProps(initial.fields)) {
+      this.type = 'unified';
     }
   }
 

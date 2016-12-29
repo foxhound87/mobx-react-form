@@ -7,6 +7,7 @@ const fields = [
   'people',
   'people[]',
   'inventoryLevel.value',
+  'addOns[].nested.value',
 ];
 
 const values = {
@@ -15,6 +16,12 @@ const values = {
   inventoryLevel: {
     value: 2,
   },
+
+  addOns: [{
+    nested: {
+      value: 3,
+    },
+  }],
 };
 
 const rules = {
