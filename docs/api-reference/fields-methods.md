@@ -13,7 +13,6 @@
 
 | Method | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **init(obj)** | (object) | - | Fields to initialize. | - |
 | **update(obj)** | (object) | - | Update Fields Values. | - |
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
 | **get()** | - | - | Get all field and nested fields data with all props and computed values. | - |

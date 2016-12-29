@@ -4,34 +4,6 @@ The actions can be used on form or every field and nested field.
 
 ---
 
-### Init the fields
-
-It works like passing the pasising the `fields` or `values` to the [Form Constructor](../api-reference/form-initialization.md).
-
-Empty Fields can be re-initalized if a `struct` was provided when initialized.
-
-```javascript
-.init();
-```
-
-You can re-init them with new `values` or `struct` after the form is already initialized:
-
-```javascript
-.init({
-  username: 'NewUsername',
-  password: 'NewPassword',
-});
-```
-
-or using the selector for nested fields:
-
-```javascript
-.$('credentials').init({
-  username: 'NewUsername',
-  password: 'NewPassword',
-});
-```
-
 ### Update the fields
 
 Update values from the form instance:
