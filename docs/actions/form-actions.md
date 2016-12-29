@@ -22,7 +22,7 @@ Re-init the form with empty values:
 .init();
 ```
 
-Re-init the form with **new values** (`unified props`):
+Use an object to Re-Init the form with **new values** (`unified props`):
 
 ```javascript
 form.init({
@@ -31,7 +31,7 @@ form.init({
 });
 ```
 
-Use the fields struct to re-initalized with **empty fields** (`separated props`):
+Use the fields struct to Re-Init with **empty fields** (`separated props`):
 
 ```javascript
 form.init([
