@@ -8,7 +8,7 @@
 | **DVR** | Declarative Validation Rules | NO | skaterdav85's **validatorjs** |
 | **SVK** | Json Schema Validation Keywords | NO | epoberezkin's **ajv** |
 
-> `SVK` Validation Mode for `Nested Fields` is not supported yet.
+> `SVK` Validation Mode supports only `flat` or nested `objects` fields, not nested `arrays` of fields.
 
 ###### VALIDATION MODES
 - [Enabling Vanilla Javascript Validation Functions (VJF)](modes/vjf-enable.md)
