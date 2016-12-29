@@ -39,7 +39,6 @@ const defineFieldsFromStruct = struct =>
   _.reduceRight(struct, ($, name) => {
     if (_.endsWith(name, '[]')) {
       const obj = {};
-      // console.log(name, $);
       obj[_.trimEnd(name, '[]')] = [$];
       return obj;
     }

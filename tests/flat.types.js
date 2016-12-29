@@ -3,6 +3,16 @@ import { expect, assert } from 'chai';
 
 import $forms from './data/_.flat'; // FORMS
 
+
+const checkHelperIsObject = helper =>
+  _.each($forms, (form, key) => it(`${key} ${helper}() is object`, () =>
+    assert.isObject(form[helper](), `${key}.${helper}() is not object`)));
+
+const checkComputedIsBoolean = computed =>
+  _.each($forms, (form, key) => it(`${key} ${computed} is boolean`, () =>
+    assert.isBoolean(form[computed], `${key}.${computed} is not boolean`)));
+
+
 describe('Check validate() returns promise that resolves to boolean', () => {
   _.each($forms, (form, key) => (
     it(`${key} validate() is promise that resolves to boolean`, () => {
@@ -37,72 +47,22 @@ describe('Check FIELD validate(key) returns promise that resolves to boolean', (
   )))
 ));
 
-describe('Check options() returns object', () => {
-  _.each($forms, (form, key) => it(`${key} options() is object`, () =>
-    assert.isObject(form.options(), `${key}.options() is not object`)));
+describe('Check form helpers returns object', () => {
+  checkHelperIsObject('options');
+  checkHelperIsObject('get');
+  checkHelperIsObject('values');
+  checkHelperIsObject('errors');
+  checkHelperIsObject('labels');
+  checkHelperIsObject('placeholders');
+  checkHelperIsObject('defaults');
+  checkHelperIsObject('initials');
 });
 
-describe('Check get() returns object', () => {
-  _.each($forms, (form, key) => it(`${key} get() is object`, () =>
-    assert.isObject(form.get(), `${key}.get() is not object`)));
-});
-
-describe('Check values() returns object', () => {
-  _.each($forms, (form, key) => it(`${key} values() is object`, () =>
-    assert.isObject(form.values(), `${key}.values() is not object`)));
-});
-
-describe('Check errors() returns object', () => {
-  _.each($forms, (form, key) => it(`${key} errors() is object`, () =>
-    assert.isObject(form.errors(), `${key}.errors() is not object`)));
-});
-
-describe('Check labels() returns object', () => {
-  _.each($forms, (form, key) => it(`${key} labels() is object`, () =>
-    assert.isObject(form.labels(), `${key}.labels() is not object`)));
-});
-
-describe('Check placeholders() returns object', () => {
-  _.each($forms, (form, key) => it(`${key} placeholders() is object`, () =>
-    assert.isObject(form.placeholders(), `${key}.placeholders() is not object`)));
-});
-
-describe('Check defaults() returns object', () => {
-  _.each($forms, (form, key) => it(`${key} defaults() is object`, () =>
-    assert.isObject(form.defaults(), `${key}.defaults() is not object`)));
-});
-
-describe('Check initials() returns object', () => {
-  _.each($forms, (form, key) => it(`${key} initials() is object`, () =>
-    assert.isObject(form.initials(), `${key}.initials() is not object`)));
-});
-
-describe('Check hasError returns boolean', () => {
-  _.each($forms, (form, key) => it(`${key} hasError is boolean`, () =>
-    assert.isBoolean(form.hasError, `${key}.hasError is not boolean`)));
-});
-
-describe('Check isDirty returns boolean', () => {
-  _.each($forms, (form, key) => it(`${key} isDirty is boolean`, () =>
-    assert.isBoolean(form.isDirty, `${key}.isDirty is not boolean`)));
-});
-
-describe('Check isPristine returns boolean', () => {
-  _.each($forms, (form, key) => it(`${key} isPristine is boolean`, () =>
-    assert.isBoolean(form.isPristine, `${key}.isPristine is not boolean`)));
-});
-
-describe('Check isDefault returns boolean', () => {
-  _.each($forms, (form, key) => it(`${key} isDefault is boolean`, () =>
-    assert.isBoolean(form.isDefault, `${key}.isDefault is not boolean`)));
-});
-
-describe('Check isValid returns boolean', () => {
-  _.each($forms, (form, key) => it(`${key} isValid is boolean`, () =>
-    assert.isBoolean(form.isValid, `${key}.isValid is not boolean`)));
-});
-
-describe('Check isEmpty returns boolean', () => {
-  _.each($forms, (form, key) => it(`${key} isEmpty is boolean`, () =>
-    assert.isBoolean(form.isEmpty, `${key}.isEmpty is not boolean`)));
+describe('Check form computed returns boolean', () => {
+  checkComputedIsBoolean('hasError');
+  checkComputedIsBoolean('isDirty');
+  checkComputedIsBoolean('isPristine');
+  checkComputedIsBoolean('isDefault');
+  checkComputedIsBoolean('isValid');
+  checkComputedIsBoolean('isEmpty');
 });

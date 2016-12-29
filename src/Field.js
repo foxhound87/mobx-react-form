@@ -80,10 +80,11 @@ export default class Field extends Base {
 
   @computed get value() {
     if (this.incremental || this.hasNestedFields) {
-      return this.get('value');
+      const value = this.get('value');
+      return !_.isEmpty(value) ? value : [];
     }
 
-    if (isObservableArray(this.$value)) {
+    if (_.isArray(this.$value) || isObservableArray(this.$value)) {
       return [].slice.call(this.$value);
     }
 
@@ -369,7 +370,7 @@ export const prototypes = {
   @action
   clear(deep = true) {
     this.resetValidation();
-    if (isObservableArray(this.$value)) this.$value = [];
+    if (_.isArray(this.$value)) this.$value = [];
     if (_.isDate(this.$value)) this.$value = null;
     if (_.isBoolean(this.$value)) this.$value = false;
     if (_.isNumber(this.$value)) this.$value = 0;
