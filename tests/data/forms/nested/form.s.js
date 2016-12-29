@@ -41,11 +41,15 @@ const values = {
 class NewForm extends Form {
 
   onInit(form) {
-    form.set('value', {
+    // same as form.set('value', { ... });
+    form.set({
       club: {
         name: 'club-name-set-value',
         city: 'club-city-set-value',
       },
+    });
+
+    form.set('value', {
       members: [{
         firstname: 'members-0-firstname-set-value',
         lastname: 'members-0-lastname-set-value',
