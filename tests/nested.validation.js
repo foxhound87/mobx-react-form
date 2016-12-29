@@ -24,9 +24,8 @@ describe('Check Nested $E validation', () => {
   it('$E state isValid should be false', () =>
     expect($.$E.$('state').isValid).to.be.false);
 
-  // AJV NESTED PROP (TO FIX)
-  // it('$E state.city isValid should be false', () =>
-  //   expect($.$E.$('state.city').isValid).to.be.false);
+  it('$E state.city isValid should be false', () =>
+    expect($.$E.$('state.city').isValid).to.be.false);
 });
 
 describe('Check Nested $F validation', () => {

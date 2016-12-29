@@ -48,13 +48,11 @@ const fields = {
 const schema = {
   type: 'object',
   properties: {
-    state: {
+    'state': {
       type: 'integer',
-      properties: {
-        city: {
-          type: 'integer',
-        },
-      },
+    },
+    'state.city': {
+      type: 'integer',
     },
   },
 };

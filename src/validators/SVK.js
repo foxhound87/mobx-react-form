@@ -56,7 +56,7 @@ export default class SVK {
   }
 
   validateField(field) {
-    const data = { [field.name]: field.value };
+    const data = { [field.path]: field.value };
     const validate = this.validate(this.parseValues(data));
     // check if is $async schema
     if (utils.isPromise(validate)) {
@@ -72,12 +72,11 @@ export default class SVK {
       return;
     }
     // check sync errors
-    this.handleSyncError(field);
+    this.handleSyncError(field, this.validate.errors);
   }
 
-  handleSyncError(field) {
-    const fieldErrorObj = _.find(this.validate.errors, item =>
-      _.includes(item.dataPath, `.${field.path}`));
+  handleSyncError(field, errors) {
+    const fieldErrorObj = this.findError(field.key, errors);
     // if fieldErrorObj is not undefined, the current field is invalid.
     if (_.isUndefined(fieldErrorObj)) return;
     // the current field is now invalid
@@ -89,8 +88,7 @@ export default class SVK {
 
   handleAsyncError(field, errors) {
     // find current field error message from ajv errors
-    const fieldErrorObj = _.find(errors, item =>
-      _.includes(item.dataPath, `.${field.path}`));
+    const fieldErrorObj = this.findError(field.path, errors);
     // if fieldErrorObj is not undefined, the current field is invalid.
     if (_.isUndefined(fieldErrorObj)) return;
     // the current field is now invalid
@@ -98,6 +96,16 @@ export default class SVK {
     const msg = `${field.label} ${fieldErrorObj.message}`;
     // set async validation data on the field
     field.setValidationAsyncData({ valid: false, message: msg });
+  }
+
+  findError(path, errors) {
+    return _.find(errors, ({ dataPath }) => {
+      let $dataPath;
+      $dataPath = _.trimStart(dataPath, '.');
+      $dataPath = _.trim($dataPath, '[\'');
+      $dataPath = _.trim($dataPath, '\']');
+      return _.includes($dataPath, `${path}`);
+    });
   }
 
   executeAsyncValidation(field) {
