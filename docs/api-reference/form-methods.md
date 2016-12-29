@@ -2,6 +2,7 @@
 
 | Method | Input | Output | Info | Help |
 |---|---|---|---|---|
+| **init(obj)** | (object) | - | Fields to initialize. | - |
 | **options()** | - | - | Get form options. | - |
 | **options(key)** | (string) | - | Get an option by key. | - |
 | **options(obj)** | (object) | - | Set form options after the form is initialied. | - |
@@ -16,7 +17,6 @@
 
 | Method | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **init(obj)** | (object) | - | Fields to initialize. | - |
 | **update(obj)** | (object) | - | Update Fields Values. | - |
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
 | **get()** | - | - | Get all field and nested fields data with all props and computed values. | - |
