@@ -6,10 +6,12 @@ const fields = [
   'inventoryLevel.value',
   'places[]',
   'skills[]',
+  'date[]',
   'members[].hobbies[]',
 ];
 
 const values = {
+  date: new Date(1976, 5, 2),
   inventoryLevel: {
     value: 2,
   },
@@ -26,6 +28,7 @@ class NewForm extends Form {
     form.update({ places: ['NY', 'NJ', 'AR'] });
     form.update({ places: ['NY', 'NJ'] });
     form.update({ skills: [] });
+    form.update({ date: new Date(1976, 6, 3) });
 
     form.update({
       members: [{

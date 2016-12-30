@@ -85,7 +85,7 @@ const handleFieldsArrayOfObjects = ($fields) => {
 
 const handleFieldsNested = (fields, initial, strictProps) =>
   _.reduce(fields, (obj, field, key) => {
-    if (_.isObject(field)
+    if (_.isObject(field) && !_.isDate(field)
       && !_.has(field, 'fields')
       && ((!utils.hasUnifiedProps(field))
       || utils.hasSeparatedProps(initial)

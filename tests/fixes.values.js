@@ -101,6 +101,9 @@ describe('Check Nested $F value computed check', () => {
   it('$F skills value should be length of 0', () =>
     expect($.$F.$('skills').value).to.have.lengthOf(0));
 
+  it('$F date value should be equal to "1976-07-02T22:00:00.000Z"', () =>
+    expect($.$F.$('date').value.getTime()).to.be.equal(new Date(1976, 6, 3).getTime()));
+
   it('$F members[0].hobbies value should be array', () =>
     expect($.$F.$('members[0].hobbies').value).to.be.instanceof(Array));
 
