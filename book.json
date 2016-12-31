@@ -1,0 +1,10 @@
+{
+    "plugins": [
+      "github"
+    ],
+    "pluginsConfig": {
+      "github": {
+        "url": "https://github.com/foxhound87/mobx-react-form/"
+      }
+    }
+}
