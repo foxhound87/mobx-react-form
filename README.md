@@ -23,23 +23,24 @@
 - Support for Material UI, React Widgets, React Select & more.
 - Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
 
-## Live Demo
+### Live Demo
 
 [https://foxhound87.github.io/mobx-react-form/demo.html](https://foxhound87.github.io/mobx-react-form/demo.html)
 
-## Demo Code
+### Demo Code
 
 [https://github.com/foxhound87/mobx-react-form-demo](https://github.com/foxhound87/mobx-react-form-demo)
 
-## Tutorial
-
-[Automagically manage React forms state and automatic validation with MobX](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769)
-
-## DevTools
+### DevTools
 
 [https://github.com/foxhound87/mobx-react-form-devtools](https://github.com/foxhound87/mobx-react-form-devtools)
 
-## Quick Start
+
+### Tutorial
+
+[Automagically manage React forms state and automatic validation with MobX](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769)
+
+### Quick Start
 
 [https://foxhound87.github.io/mobx-react-form/docs/getting-started.html](https://foxhound87.github.io/mobx-react-form/docs/getting-started.html)
 
