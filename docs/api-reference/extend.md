@@ -40,6 +40,8 @@ class MyForm extends Form {
 export default new MyForm( ... );
 ```
 
+<br>
+
 ### Extend particular custom Field
 
 In this example, you can see how to extend only a particular field:
@@ -58,7 +60,7 @@ class CustomSelectField extends Field {
 
 Into `makeField()` we have to match the `field.key` property with our sepcific field key/name.
 
-```
+```javascript
 class MyForm extends Form {
 
   makeField(field) {
@@ -71,3 +73,4 @@ class MyForm extends Form {
     }
   }
 }
+```
