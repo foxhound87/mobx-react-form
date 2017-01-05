@@ -7,6 +7,7 @@
 /umd
 /.nyc_output
 /.idea
+.DS_Store
 npm-debug.log
 coverage.lcov
 codecov.yml
