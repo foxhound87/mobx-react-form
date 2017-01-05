@@ -6,7 +6,7 @@
 | **reset()** | - | - | Reset the Field or Nested Fields to initial value. | - |
 | **validate()** | - | - | Check if the field is valid and return a promise. | - |
 | **invalidate(msg)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | - |
-| **hasNestedFields()** | - | - | Check if the field has Nested Fields. | - |
+| **hasNestedFields()** | - | boolean | Check if the field has Nested Fields. | - |
 | **resetValidation()** | - | - | Reset the field validation status. | - |
 
 #### Shared Methods
@@ -15,8 +15,8 @@
 |---|---|---|---|---|
 | **update(obj)** | (object) | - | Update Fields Values. Will create new fields auomatically. | - |
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
-| **get()** | - | - | Get all field and nested fields data with all props and computed values. | - |
-| **get(prop)** | (mixed) | - | Get all field filtering by certain `props` (string or array). | - |
+| **get()** | - | object | Get all field and nested fields data with all props and computed values. | - |
+| **get(prop)** | (mixed) | object | Get all field filtering by certain `props` (string or array). | - |
 | **set(val)** | (mixed) | - | Set field value. Takes the value. | - |
 | **set(obj)** | (object) | - | Provide an object to set nested fields values. | - |
 | **set(prop, val)** | (string, mixed) | - | Set field property. Takes prop key and prop value. | - |
