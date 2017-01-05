@@ -21,8 +21,8 @@
 | **set(obj)** | (object) | - | Provide an object to set nested fields values. | - |
 | **set(prop, val)** | (string, mixed) | - | Set field property. Takes prop key and prop value. | - |
 | **set(prop, obj)** | (string, object) | - | Provide a prop key and object to set nested fields properties. | - |
-| **check(computed)** | (string) | - | Check field computed property. | - |
-| **check(computed, deep)** | (string, boolean) | - | Check all nested fields computed property if `deep` is `true` | - |
+| **check(computed)** | (string) | boolean | Check field computed property. | - |
+| **check(computed, deep)** | (string, boolean) | boolean | Check all nested fields computed property if `deep` is `true` | - |
 | **map(callback)** | (function) | - | Map Nested Fields | - |
 | **forEach(callback)** | (function) | - | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | - |
 | **add(val)** | (mixed) | mixed | Add a Field or Nested Fields. Provide an optional initial value. | - |
