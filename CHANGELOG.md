@@ -5,6 +5,8 @@
 * Reimplemented del(), observe(), validate().
 * Introduced field computed validators().
 * Introduced form computed validating().
+* Iintroduced alwaysShowDefaultError option.
+* Introduced setup() method.
 
 # 1.16
 
