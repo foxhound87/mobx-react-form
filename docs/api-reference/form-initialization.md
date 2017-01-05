@@ -54,6 +54,25 @@ new Form({ options, plugins, fields });
 new Form({ options, plugins, values, labels, rules, ... });
 ```
 
+## setup()
+
+Normally you have to pass the initialization property to the constructor, or you can implement the `setup()` method inside your extended form class which will return the object of all properties:
+
+```javascript
+import Form from 'mobx-react-form';
+
+class MyForm extends MobxReactForm {
+
+  setup() {
+    // same of: new MyForm({ fields, ... });
+    return { fields, ... };
+  }
+}
+```
+
+> The object returned from the `setup()` method will be deep-merged to the object provieded to the constructor when initializing the instance.
+
+
 ## onInit()
 
 If you need to execute some code just after the form is initialized,

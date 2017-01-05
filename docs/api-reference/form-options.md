@@ -5,7 +5,7 @@
 | **showErrorsOnInit** | boolean | false | Show or hide error messages for `validateOnInit`. |
 | **validateOnInit** | boolean | true | Validate of the whole form on initilization. |
 | **validateOnChange** | boolean | true | Validate fields when their value changes. |
-| **strictUpdate** | boolean | false | Throw an error if trying to `update an undefined field. |
+| **strictUpdate** | boolean | false | Throw an error if trying to update an undefined field. |
 | **showErrorsOnUpdate** | boolean | true | Show validation errors after an update. |
 | **autoParseNumbers** | boolean | true | Try to parse strings to numbers automatically if the initial value of the field is a number. |
 | **alwaysShowDefaultError** | boolean | false | The `defaultGenericError` is shown only when `invalidate()` is called. Set this to `true` and it will be always shown on validation errors. |
