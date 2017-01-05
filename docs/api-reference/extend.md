@@ -67,7 +67,6 @@ class MyForm extends Form {
     switch(field.key) {
       case 'mySelectField':
         return new CustomSelectField(field);
-        break;
       default:
         return new Field(field);
     }
