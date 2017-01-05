@@ -17,11 +17,11 @@
 
 | Method | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **update(obj)** | (object) | - | Update Fields Values. | - |
+| **update(obj)** | (object) | - | Update Fields Values. Will create new fields auomatically. | - |
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
 | **get()** | - | - | Get all field and nested fields data with all props and computed values. | - |
 | **get(prop)** | (mixed) | - | Get all field filtering by certain `props` (string or array). | - |
-| **set(val)** | (mixed) | - | Set field value. Takes prop key and prop value. | - |
+| **set(val)** | (mixed) | - | Set field value. Takes the value. | - |
 | **set(obj)** | (object) | - | Provide an object to set nested fields values. | - |
 | **set(prop, val)** | (string, mixed) | - | Set field property. Takes prop key and prop value. | - |
 | **set(prop, obj)** | (string, object) | - | Provide a prop key and object to set nested fields properties. | - |
@@ -29,8 +29,8 @@
 | **check(computed, deep)** | (string, boolean) | - | Check all nested fields computed property if `deep` is `true` | - |
 | **map(callback)** | (function) | - | Map Nested Fields | - |
 | **forEach(callback)** | (function) | - | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | - |
-| **add(val)** | - | object | Add a Field or Nested Fields. Provide an optional initial value. | - |
-| **del(key)** | - | object | Delete a Field or Nested Fields by `key` or `path`. | - |
+| **add(val)** | (mixed) | mixed | Add a Field or Nested Fields. Provide an optional initial value. | - |
+| **del(key)** | (mixed) | - | Delete a Field or Nested Fields by `key` or `path`. | - |
 
 > $(path) is like of select(path).
 

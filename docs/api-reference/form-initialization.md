@@ -56,7 +56,7 @@ new Form({ options, plugins, values, labels, rules, ... });
 
 ## setup()
 
-Normally you have to pass the initialization property to the constructor, or you can implement the `setup()` method inside your extended form class which will return the object of all properties:
+Normally you have to pass the initialization object to the constructor, or you can implement the `setup()` method inside your extended form class which will return the object of all properties:
 
 ```javascript
 import Form from 'mobx-react-form';
