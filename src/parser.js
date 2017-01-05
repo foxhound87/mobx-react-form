@@ -101,8 +101,7 @@ const handleFieldsNested = (fields, initial, strictProps) =>
 
 const mergeSchemaDefaults = (fields, validator) => {
   if (validator) {
-    const schema = validator.schema();
-    const properties = schema.properties;
+    const properties = validator.schema.properties;
     if (_.isEmpty(fields) && !!properties) {
       _.each(properties, (prop, key) => {
         _.set(fields, key, {

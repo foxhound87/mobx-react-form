@@ -9,12 +9,13 @@ export default class VJF {
 
   validator = null;
 
-  options = {};
+  options;
 
   constructor(plugin, { promises = [], options = {} }) {
     if (_.isPlainObject(plugin)) {
       this.validator = plugin;
     }
+
     this.promises = promises;
     this.options = options;
   }

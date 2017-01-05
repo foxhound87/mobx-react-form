@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { computed, action, observable } from 'mobx';
 import _ from 'lodash';
 
 import VJF from './validators/VJF'; // Vanilla JavaScript Functions
@@ -10,6 +10,8 @@ export default class Validator {
   promises = [];
 
   options = {};
+
+  schema = {};
 
   plugins = {
     vjf: true,
@@ -23,19 +25,30 @@ export default class Validator {
     dvr: null,
   };
 
-  @observable genericErrorMessage = null;
+  @observable $genericErrorMessage = null;
 
   constructor(obj = {}) {
     this.assignInitData(obj);
-    this.initializePlugins(obj);
+    this.initializePlugins();
   }
 
-  assignInitData({ options = {}, plugins = {} }) {
-    _.merge(this.options, options);
+  assignInitData({ options = {}, plugins = {}, schema = {} }) {
     _.merge(this.plugins, plugins);
+    this.options = options;
+    this.schema = schema;
   }
 
-  initializePlugins({ schema = {}, fields = {} }) {
+  initializePlugins() {
+    /**
+     Declarative Validation Rules
+    */
+    if (this.plugins.dvr) {
+      this.validators.dvr = new DVR(this.plugins.dvr, {
+        promises: this.promises,
+        options: this.options,
+      });
+    }
+
     /**
       Vanilla JavaScript Functions
     */
@@ -43,7 +56,6 @@ export default class Validator {
       this.validators.vjf = new VJF(this.plugins.vjf, {
         promises: this.promises,
         options: this.options,
-        fields,
       });
     }
 
@@ -54,24 +66,9 @@ export default class Validator {
       this.validators.svk = new SVK(this.plugins.svk, {
         promises: this.promises,
         options: this.options,
-        schema,
+        schema: this.schema,
       });
     }
-
-    /**
-     Declarative Validation Rules
-    */
-    if (this.plugins.dvr) {
-      this.validators.dvr = new DVR(this.plugins.dvr, {
-        promises: this.promises,
-        options: this.options,
-      });
-    }
-  }
-
-  schema() {
-    if (_.isNull(this.validators.svk)) return {};
-    return this.validators.svk.schema;
   }
 
   @action
@@ -125,26 +122,32 @@ export default class Validator {
     }
   }
 
+  @computed get genericErrorMessage() {
+    return this.options.get('alwaysShowDefaultError')
+      ? (this.$genericErrorMessage || this.options.get('defaultGenericError'))
+      : this.$genericErrorMessage;
+  }
+
   getDefaultErrorMessage() {
     // set defaultGenericError message from options
-    const $default = this.options.defaultGenericError;
+    const $default = this.options.get('defaultGenericError');
     if (_.isString($default)) return $default;
     return 'The form is invalid';
   }
 
   @action
   resetGenericError() {
-    this.genericErrorMessage = null;
+    this.$genericErrorMessage = null;
   }
 
   @action
   invalidate(message = null) {
     // set custom genericErrorMessage if provided
     if (_.isString(message)) {
-      this.genericErrorMessage = message;
+      this.$genericErrorMessage = message;
       return;
     }
     // if no string provided, show default error.
-    this.genericErrorMessage = this.getDefaultErrorMessage();
+    this.$genericErrorMessage = this.getDefaultErrorMessage();
   }
 }

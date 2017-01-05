@@ -4,6 +4,11 @@ import validatorjs from 'validatorjs';
 import { Form } from '../../../../src';
 import svkExtend from '../../extension/svk';
 
+const options = {
+  alwaysShowDefaultError: true,
+  defaultGenericError: 'Custom Generic Error',
+};
+
 const plugins = {
   dvr: validatorjs,
   svk: {
@@ -38,4 +43,4 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema, plugins }, 'Flat-B');
+export default new Form({ fields, schema, plugins, options }, 'Flat-B');

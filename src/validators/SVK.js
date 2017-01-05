@@ -16,20 +16,13 @@ export default class SVK {
 
   validate = null;
 
+  extend = null;
+
   promises = [];
 
   schema = {};
 
-  extend = null;
-
-  options = {
-    ajv: {
-      v5: true,
-      allErrors: true,
-      coerceTypes: true,
-      errorDataPath: 'property',
-    },
-  };
+  options;
 
   constructor(plugin, obj = {}) {
     this.assignInitData(plugin, obj);
@@ -37,8 +30,17 @@ export default class SVK {
   }
 
   assignInitData(plugin, { options = {}, schema = {}, promises = [] }) {
-    _.merge(this.options, options);
-    _.merge(this.schema, schema);
+    options.set({
+      ajv: {
+        v5: true,
+        allErrors: true,
+        coerceTypes: true,
+        errorDataPath: 'property',
+      },
+    });
+
+    this.options = options;
+    this.schema = schema;
     this.promises = promises;
     this.extend = plugin.extend;
   }
@@ -48,7 +50,7 @@ export default class SVK {
     // get ajv package
     const AJV = plugin.package || plugin;
     // create ajv instance
-    const ajvInstance = new AJV(this.options.ajv);
+    const ajvInstance = new AJV(this.options.get('ajv'));
     // extend ajv using "extend" callback
     if (_.isFunction(this.extend)) this.extend(ajvInstance);
     // create ajvInstance validator (compiling rules)
@@ -115,13 +117,13 @@ export default class SVK {
   }
 
   parseValues(values) {
-    if (this.options.allowRequired === true) {
+    if (this.options.get('allowRequired') === true) {
       return _.omitBy(values, (_.isEmpty || _.isNull || _.isUndefined || _.isNaN));
     }
     return values;
   }
 
   loadingMessage() {
-    return this.options.loadingMessage || 'validating...';
+    return this.options.get('loadingMessage') || 'validating...';
   }
 }

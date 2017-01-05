@@ -7,6 +7,7 @@ export default class Options {
     strictUpdate: false,
     strictDelete: true,
     showErrorsOnUpdate: true,
+    alwaysShowDefaultError: false,
     defaultGenericError: null,
     loadingMessage: null,
     allowRequired: false,

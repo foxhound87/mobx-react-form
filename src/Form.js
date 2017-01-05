@@ -103,8 +103,12 @@ export const prototypes = {
     return new Field(data);
   },
 
-  initValidator(initial = {}) {
-    this.validator = new Validator(initial);
+  initValidator({ plugins = {}, schema = {} }) {
+    this.validator = new Validator({
+      options: this.state.options,
+      plugins,
+      schema,
+    });
   },
 
   options(options = null) {

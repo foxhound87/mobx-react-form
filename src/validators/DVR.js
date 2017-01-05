@@ -23,7 +23,7 @@ export default class DVR {
 
   extend = null;
 
-  options = {};
+  options;
 
   constructor(plugin, obj = {}) {
     this.assignInitData(plugin, obj);
@@ -31,7 +31,7 @@ export default class DVR {
   }
 
   assignInitData(plugin, { options = {}, promises = [] }) {
-    _.merge(this.options, options);
+    this.options = options;
     this.promises = promises;
     this.extend = plugin.extend;
     this.validator = plugin.package || plugin;
@@ -132,6 +132,6 @@ export default class DVR {
   }
 
   loadingMessage() {
-    return this.options.loadingMessage || 'validating...';
+    return this.options.get('loadingMessage') || 'validating...';
   }
 }
