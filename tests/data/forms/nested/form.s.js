@@ -40,6 +40,10 @@ const values = {
 
 class NewForm extends Form {
 
+  setup() {
+    return { plugins, fields, rules, values }; // omit "rules"
+  }
+
   onInit(form) {
     // same as form.set('value', { ... });
     form.set({
@@ -70,4 +74,4 @@ class NewForm extends Form {
 }
 
 
-export default new NewForm({ plugins, fields, rules, values }, 'Nested-S');
+export default new NewForm({ rules }, 'Nested-S');

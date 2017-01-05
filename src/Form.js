@@ -22,6 +22,10 @@ export default class Form extends Base {
   constructor(initial = {}, name = null) {
     super();
 
+    if (_.isFunction(this.setup)) {
+      _.merge(initial, this.setup(this));
+    }
+
     this.name = name;
     this.state = new State(this);
 
