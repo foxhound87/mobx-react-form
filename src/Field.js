@@ -369,7 +369,7 @@ export const prototypes = {
 
   @action
   clear(deep = true) {
-    this.resetValidation();
+    this.showErrors(false);
     if (_.isArray(this.$value)) this.$value = [];
     if (_.isDate(this.$value)) this.$value = null;
     if (_.isBoolean(this.$value)) this.$value = false;
