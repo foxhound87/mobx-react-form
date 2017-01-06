@@ -388,7 +388,7 @@ export const prototypes = {
     if (useDefaultValue) this.value = this.$default;
     if (!useDefaultValue) this.value = this.$initial;
 
-    // recursive clear fields
+    // recursive reset fields
     if (deep && this.fields.size) {
       this.deepAction('reset', this.fields);
     }
