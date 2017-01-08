@@ -42,11 +42,11 @@ const values = {
 new Form({ fields, values, ... });
 ```
 
-You can use this object as the `fields` if you want to omit the fields `structure`.
+You can use the `values` object as the `fields` if you want to omit the fields `structure` (not recommended).
 
 ### Defining Nested Property
 
-You can define these properties: `labels`, `placeholders`, `defaults`, `disabled`, `related`.
+You can define these properties: `fields`, `values`, `labels`, `placeholders`, `defaults`, `disabled`, `related`, `bindings`, `types`.
 
 Validation properties `rules` (DVR) and `validate` (VJF) can be defined as well.
 

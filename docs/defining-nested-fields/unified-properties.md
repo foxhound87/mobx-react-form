@@ -6,7 +6,7 @@ You can define each nested object property in one place:
 
 A Field can handle a collection of Nested Fields using the `fields` property.
 
-You can define these properties: `name`, `label`, `placeholder`, `default`, `disabled`, `related`.
+You can define these properties in each field definition: `name`, `value`, `label`, `placeholder`, `default`, `disabled`, `related`, `bindings`, `type`.
 
 Validation properties `rules` (DVR) and `validate` (VJF) can be defined as well.
 
