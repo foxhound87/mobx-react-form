@@ -122,7 +122,7 @@ class MyForm extends MobxReactForm {
 Simply pass the `fields` and `plugins` objects to the constructor
 
 ```javascript
-export default new MyForm({ fields, plugins });
+export default new MyForm({ fields }, { plugins });
 ```
 
 #### Pass the form to a react component
