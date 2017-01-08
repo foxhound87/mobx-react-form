@@ -7,6 +7,10 @@
 * Introduced form computed validating().
 * Iintroduced alwaysShowDefaultError option.
 * Introduced setup() method.
+* Introduced "disabled" computed prop
+* Introduced Fields Props Bindings
+* Introduced initial props: types, bindings.
+* Introduced field props: type, bindings.
 
 # 1.16
 

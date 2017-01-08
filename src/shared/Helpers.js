@@ -38,4 +38,8 @@ export default {
    */
   initials() { return this.get('initial'); },
 
+  /**
+   Fields Types (recursive with Nested Fields)
+   */
+  types() { return this.get('type'); },
 };

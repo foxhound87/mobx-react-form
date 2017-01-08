@@ -36,6 +36,8 @@ export default {
       $placeholder: $try('placeholders'),
       $default: $try('defaults'),
       $disabled: $try('disabled'),
+      $bindings: $try('bindings'),
+      $type: $try('types'),
       $related: $try('related'),
       $validate: $try('validate'),
       $rules: $try('rules'),

@@ -22,15 +22,19 @@ export default class Form extends Base {
   constructor(initial = {}, name = null) {
     super();
 
+    // use setup() method
     if (_.isFunction(this.setup)) {
       _.merge(initial, this.setup(this));
     }
 
     this.name = name;
-    this.state = new State(this);
+    this.state = new State(this, initial);
 
-    this.state.initOptions(initial);
-    this.state.initProps(initial);
+    // use bindings() method
+    if (_.isFunction(this.bindings)) {
+      this.state.bindings.register(this.bindings());
+    }
+
     this.initValidator(initial);
     this.initFields(initial);
 
@@ -83,6 +87,10 @@ export default class Form extends Base {
 
   @computed get changed() {
     return this.check('changed', true);
+  }
+
+  @computed get disabled() {
+    return this.check('disabled', true);
   }
 
   @computed get error() {

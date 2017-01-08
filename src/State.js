@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+import Bindings from './Bindings';
 import Options from './Options';
 import utils from './utils';
 
@@ -10,6 +11,8 @@ export default class State {
   type;
 
   options;
+
+  bindings;
 
   $struct = [];
 
@@ -23,8 +26,16 @@ export default class State {
     fields: {},
   };
 
-  constructor(form) {
+  constructor(form, initial) {
     this.set('form', form);
+    this.initOptions(initial);
+    this.initProps(initial);
+    this.initBindings();
+  }
+
+  initOptions(initial = {}) {
+    this.options = new Options();
+    this.options.set(initial.options);
   }
 
   initProps(initial) {
@@ -44,9 +55,8 @@ export default class State {
     }
   }
 
-  initOptions(initial = {}) {
-    this.options = new Options();
-    this.options.set(initial.options);
+  initBindings() {
+    this.bindings = new Bindings();
   }
 
   /**

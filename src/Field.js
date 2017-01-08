@@ -26,11 +26,14 @@ export default class Field extends Base {
   $validate;
   $related;
 
+
   @observable $value = undefined;
   @observable $label = undefined;
   @observable $placeholder = undefined;
   @observable $default = undefined;
   @observable $initial = undefined;
+  @observable $bindings = undefined;
+  @observable $type = undefined;
 
   @observable $disabled = false;
   @observable $focus = false;
@@ -132,6 +135,15 @@ export default class Field extends Base {
   @computed get placeholder() {
     return this.$placeholder;
   }
+
+  @computed get bindings() {
+    return this.$bindings;
+  }
+
+  @computed get type() {
+    return this.$type;
+  }
+
 
   @computed get related() {
     return this.$related;
@@ -257,6 +269,8 @@ export const prototypes = {
       $placeholder = null,
       $default = null,
       $disabled = null,
+      $bindings = null,
+      $type = null,
       $related = null,
       $validate = null,
       $rules = null,
@@ -265,7 +279,18 @@ export const prototypes = {
     if (_.isNil($data)) $data = ''; // eslint-disable-line
 
     if (_.isPlainObject($data)) {
-      const { value, name, label, placeholder, disabled, rules, validate, related } = $data;
+      const {
+        value,
+        name,
+        label,
+        placeholder,
+        disabled,
+        bindings,
+        type,
+        related,
+        validate,
+        rules,
+      } = $data;
 
       this.$initial = parseInitialValue({
         unified: value,
@@ -278,19 +303,21 @@ export const prototypes = {
         initial: this.$initial,
       });
 
-      this.name = name || $key;
+      this.name = _.toString(name || $key);
       this.$value = this.$initial;
       this.$label = $label || label || this.name;
       this.$placeholder = $placeholder || placeholder || '';
-      this.$rules = $rules || rules || null;
       this.$disabled = $disabled || disabled || false;
+      this.$bindings = $bindings || bindings || 'default';
+      this.$type = $type || type || 'text';
       this.$related = $related || related || [];
       this.$validate = toJS($validate || validate || null);
+      this.$rules = $rules || rules || null;
       return;
     }
 
     /* The field IS the value here */
-    this.name = $key;
+    this.name = _.toString($key);
 
     this.$initial = parseInitialValue({
       unified: $data,
@@ -306,10 +333,12 @@ export const prototypes = {
     this.$value = this.$initial;
     this.$label = $label || $key;
     this.$placeholder = $placeholder || '';
-    this.$rules = $rules || null;
     this.$disabled = $disabled || false;
+    this.$bindings = $bindings || 'default';
+    this.$type = $type || 'text';
     this.$related = $related || [];
     this.$validate = toJS($validate || null);
+    this.$rules = $rules || null;
   },
 
   @action
@@ -407,6 +436,10 @@ export const prototypes = {
       return;
     }
     this.errorAsync = null;
+  },
+
+  bind(props = {}) {
+    return this.state.bindings.load(this, this.bindings, props);
   },
 
 };

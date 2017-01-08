@@ -42,6 +42,7 @@ export default {
       focus: 'some',
       touched: 'some',
       changed: 'some',
+      disabled: 'every',
     };
 
     return deep

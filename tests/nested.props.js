@@ -142,6 +142,35 @@ describe('Check Nested $D props after state clear()', () => {
     expect($.$D.$('state.city.places').isEmpty).to.be.false);
 });
 
+describe('Check Nested $N bindings props', () => {
+  const membersFirstNameBindings = $.$N
+    .$('members').$(0).$('firstname')
+    .bind();
+
+  it('$N membersFirstNameBindings floatingLabelText should be equal to empty string', () =>
+      expect(membersFirstNameBindings).to.have.property('floatingLabelText', 'firstname'));
+
+  it('$N membersFirstNameBindings value should be equal to "Clint"', () =>
+      expect(membersFirstNameBindings).to.have.property('value', 'Clint'));
+
+  it('$N membersFirstNameBindings hintText should be equal to "Insert First Name"', () =>
+      expect(membersFirstNameBindings).to.have.property('hintText', 'Insert First Name'));
+
+  const hobbiesBindings = $.$N
+    .$('members').$(1)
+    .$('hobbies').$(0)
+    .bind();
+
+  it('$N hobbiesBindings floatingLabelText should be equal to empty string', () =>
+      expect(hobbiesBindings).to.have.property('floatingLabelText', ''));
+
+  it('$N hobbiesBindings value should be equal to "Golf"', () =>
+      expect(hobbiesBindings).to.have.property('value', 'Golf'));
+
+  it('$N hobbiesBindings hintText should be equal to "Insert Hobbies"', () =>
+      expect(hobbiesBindings).to.have.property('hintText', 'Insert Hobbies'));
+});
+
 describe('Check Nested $S get() value after set() value', () => {
   checkDeepPropEqual($.$S, ['value'], 'club.fields.name.value', 'club-name-set-value');
   checkDeepPropEqual($.$S, ['value'], 'club.fields.name.value', 'club-name-set-value');
