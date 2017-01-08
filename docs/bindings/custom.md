@@ -58,7 +58,7 @@ import TextField from 'material-ui/TextField';
 
 export default observer(({ field }) => (
   <div>
-    <TextField {...field.bind()} /><br />
+    <TextField {...field.bind()} />
   </div>
 ));
 
@@ -71,7 +71,7 @@ import TextField from 'material-ui/TextField';
 
 export default observer(({ field, type = 'password', placeholder = 'Insert Password' }) => (
   <div>
-    <TextField {...field.bind({ type, placeholder })} /><br />
+    <TextField {...field.bind({ type, placeholder })} />
   </div>
 ));
 
