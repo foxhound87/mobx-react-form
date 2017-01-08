@@ -39,6 +39,11 @@
    * [Extending the Form](docs/events/extending-form.md)
    * [Decupling the Handlers](docs/events/decoupling-handlers.md)
 
+## Bindings
+* [Bindings](docs/bindings/README.md)
+ * [Default Bindings](docs/bindings/default.md)
+ * [Custom Bindings](docs/bindings/custom.md)
+
 ## Validation
 * [Validation](docs/validation/README.md)
     * [Plugins & Modes](docs/validation/plugins.md)

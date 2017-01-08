@@ -88,9 +88,9 @@ or filtering by a prop (with nested fields as collections):
 .get('label');
 ```
 
-You can get these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `error`.
+You can get these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error`.
 
-or these computed props: `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched`, `changed` and the validation props as well (`rules` and `validate`).
+or these computed props: `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched`, `changed`, `disabled` and the validation props as well (`rules` and `validate`).
 
 If you want to get nested fields as `fields` objects instead of collections pass the prop as array:
 
@@ -108,7 +108,7 @@ or if you need to filter multiple props:
 
 > Takes in input the prop name `string` and an `object` with fields `key:val` pairs.
 
-You can pass these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `error`.
+You can pass these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error`.
 
 Or passing `validate` and  `rules` for the validation.
 

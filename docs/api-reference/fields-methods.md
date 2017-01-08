@@ -2,6 +2,7 @@
 
 | Property | Input | Output | Info | Help |
 |---|---|---|---|---|
+| **bind()** | - | object | Get the current field bindings. | [Bindings](../bindings/README.md) |
 | **clear()** | - | - | Clear the Field or Nested Fields to empty value. | - |
 | **reset()** | - | - | Reset the Field or Nested Fields to initial value. | - |
 | **validate()** | - | - | Check if the field is valid and return a promise. | - |
@@ -34,12 +35,13 @@
 
 | Property | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **values()** | - | object | Get all Nested Fields Values. | - |
-| **errors()** | - | object | Get all Nested Fields Errors. | - |
-| **labels()** | - | object | Get all Nested Fields Labels. | - |
-| **placeholder()** | - | object | Get all Nested Fields Placeholders. | - |
-| **default()** | - | object | Get all Nested Fields Default Values. | - |
-| **initial()** | - | object | Get all Nested Fields Initial Values. | - |
+| **values()** | - | object | Get Field & Nested Fields Values. | - |
+| **errors()** | - | object | Get Field & Nested Fields Errors. | - |
+| **labels()** | - | object | Get Field & Nested Fields Labels. | - |
+| **placeholder()** | - | object | Get Field & Nested Fields Placeholders. | - |
+| **defaults()** | - | object | Get Field & Nested Fields Default Values. | - |
+| **initials()** | - | object | Get Field & Nested Fields Initial Values. | - |
+| **types()** | - | object | Get Field & Nested Fields Type. | - |
 
 > Some of these Helpers methods are plurals.
 

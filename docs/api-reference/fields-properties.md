@@ -2,9 +2,11 @@
 
 | Property | Type | MobX Type | Info | Help |
 |---|---|---|---|---|
+| **bindings** | string | computed | The key of the registered bindings to use for the current field. | [Bindings](../bindings/README.md) |
 | **path** | string | - | Field path (for nested fields). | - |
 | **key** | string | - | Field key (same of `name` if not provided) | - |
 | **name** | string | - | Field name (same of `key` if not provided). | - |
+| **type** | string | computed | Field type (default: `text`). | - |
 | **label** | string | computed | Field label. If it is not specified, the `name` will be returned instead. | - |
 | **placeholder** | string | computed | Field placeholder. | - |
 | **default** | boolean | computed | The default/initial value of the field. | - |

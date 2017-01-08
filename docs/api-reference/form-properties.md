@@ -9,7 +9,8 @@
 | **isPristine** | boolean | computed | Check if the form is in pristine state. | - |
 | **isDefault** | boolean | computed | Check if the form is to default state. | - |
 | **isEmpty** | boolean | computed | Check if the form is empty. | - |
-| **focus** | boolean | computed | Check if the field is focused. | - |
-| **touched** | boolean | computed | Check if the field is touched. | - |
-| **changed** | boolean | computed | Check if the field is changed. | - |
-| **error** | string | computed | Generic error message (not related to fields). | - |
+| **disabled** | boolean | computed | Check if the form is disabled. | - |
+| **focus** | boolean | computed | Check if the form is focused. | - |
+| **touched** | boolean | computed | Check if the form is touched. | - |
+| **changed** | boolean | computed | Check if the form is changed. | - |
+| **error** | string | computed | A default/generic error message (not related to fields). | - |
