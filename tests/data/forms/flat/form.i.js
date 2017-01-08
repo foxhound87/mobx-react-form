@@ -1,8 +1,6 @@
 import ajv from 'ajv';
 import { Form } from '../../../../src';
 
-const options = { strictUpdate: true };
-
 const plugins = { svk: ajv };
 
 const fields = {
@@ -31,10 +29,16 @@ const schema = {
 
 class NewForm extends Form {
 
+  options() {
+    return {
+      strictUpdate: true,
+    };
+  }
+
   onInit(form) {
     form.update({ username: 'JonathanIve' });
     form.reset(); // to default or initial values
   }
 }
 
-export default new NewForm({ fields, schema, plugins, options }, 'Flat-I');
+export default new NewForm({ fields, schema }, { plugins, name: 'Flat-I' });

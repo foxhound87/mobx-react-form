@@ -13,4 +13,4 @@ const fields = {
   }],
 };
 
-export default new Form({ fields }, 'Nested-M');
+export default new Form({ fields }, { name: 'Nested-M' });

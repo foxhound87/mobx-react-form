@@ -33,4 +33,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, labels, values }, 'Fixes-H');
+export default new NewForm({ fields, labels, values }, { name: 'Fixes-H' });

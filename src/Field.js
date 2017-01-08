@@ -25,7 +25,7 @@ export default class Field extends Base {
   $rules;
   $validate;
   $related;
-
+  $options;
 
   @observable $value = undefined;
   @observable $label = undefined;
@@ -136,6 +136,10 @@ export default class Field extends Base {
     return this.$placeholder;
   }
 
+  @computed get options() {
+    return this.$options;
+  }
+
   @computed get bindings() {
     return this.$bindings;
   }
@@ -143,7 +147,6 @@ export default class Field extends Base {
   @computed get type() {
     return this.$type;
   }
-
 
   @computed get related() {
     return this.$related;
@@ -271,6 +274,7 @@ export const prototypes = {
       $disabled = null,
       $bindings = null,
       $type = null,
+      $options = null,
       $related = null,
       $validate = null,
       $rules = null,
@@ -287,6 +291,7 @@ export const prototypes = {
         disabled,
         bindings,
         type,
+        options,
         related,
         validate,
         rules,
@@ -310,6 +315,7 @@ export const prototypes = {
       this.$disabled = $disabled || disabled || false;
       this.$bindings = $bindings || bindings || 'default';
       this.$type = $type || type || 'text';
+      this.$options = $options || options || null;
       this.$related = $related || related || [];
       this.$validate = toJS($validate || validate || null);
       this.$rules = $rules || rules || null;
@@ -336,6 +342,7 @@ export const prototypes = {
     this.$disabled = $disabled || false;
     this.$bindings = $bindings || 'default';
     this.$type = $type || 'text';
+    this.$options = $options || null;
     this.$related = $related || [];
     this.$validate = toJS($validate || null);
     this.$rules = $rules || null;

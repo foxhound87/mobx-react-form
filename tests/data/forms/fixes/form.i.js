@@ -1,8 +1,6 @@
 import validatorjs from 'validatorjs';
 import { Form } from '../../../../src';
 
-const plugins = { dvr: validatorjs };
-
 const fields = [
   'deep',
   'deep.nested',
@@ -23,6 +21,12 @@ const rules = {
 
 class NewForm extends Form {
 
+  plugins() {
+    return {
+      dvr: validatorjs,
+    };
+  }
+
   onInit(form) {
     form.$('layout').update({
       column1: [{
@@ -41,4 +45,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ plugins, fields, rules }, 'Fixes-I');
+export default new NewForm({ fields, rules }, { name: 'Fixes-I' });

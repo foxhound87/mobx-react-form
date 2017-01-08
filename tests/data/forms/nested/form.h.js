@@ -44,4 +44,4 @@ const validate = {
   'state.city.places': isInt,
 };
 
-export default new Form({ fields, validate }, 'Nested-H');
+export default new Form({ fields, validate }, { name: 'Nested-H' });

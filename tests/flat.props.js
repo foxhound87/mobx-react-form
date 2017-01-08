@@ -13,14 +13,6 @@ describe('Check Flat $A placeholder field prop', () => {
     expect($.$A.$('username').bindings).to.be.equal('default'));
 });
 
-describe('Check Flat $B error prop', () => {
-  it('$B state.options.defaultGenericError should be equal to "Custom Generic Error"', () =>
-    expect($.$B.options('defaultGenericError')).to.be.equal('Custom Generic Error'));
-
-  it('$B error should be equal to "Custom Generic Error"', () =>
-    expect($.$B.error).to.be.equal('Custom Generic Error'));
-});
-
 describe('Check Flat $R extended field prop', () => {
   it('$R email should have property newFieldProp', () =>
     expect($.$R.$('email')).to.have.property('newFieldProp'));

@@ -2,6 +2,15 @@ import { expect } from 'chai';
 
 import $ from './data/_.fixes'; // FORMS
 
+
+describe('Check Fixes $E props check', () => {
+  it('$E places options should be array', () =>
+    expect($.$E.$('places').options).to.be.instanceof(Array));
+
+  it('$E places options should have length of 3', () =>
+    expect($.$E.$('places').options).to.have.lengthOf(3));
+});
+
 describe('Check Fixes $G props check', () => {
   it('$G items[0] label should be equal to "ItemLabel"', () =>
     expect($.$G.$('items[0]').label).to.be.equal('ItemLabel'));

@@ -57,4 +57,4 @@ const schema = {
   },
 };
 
-export default new Form({ fields, plugins, schema }, 'Nested-E');
+export default new Form({ fields, schema }, { plugins, name: 'Nested-E' });

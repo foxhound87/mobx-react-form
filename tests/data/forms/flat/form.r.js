@@ -40,4 +40,4 @@ class NewForm extends MobxReactForm {
 }
 
 
-export default new NewForm({ fields }, 'Flat-R');
+export default new NewForm({ fields }, { name: 'Flat-R' });

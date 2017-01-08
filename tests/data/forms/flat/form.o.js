@@ -31,4 +31,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ values, labels }, 'Flat-O');
+export default new NewForm({ values, labels }, { name: 'Flat-O' });

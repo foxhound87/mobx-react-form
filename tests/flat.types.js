@@ -50,7 +50,6 @@ describe('Check FIELD validate(key) returns promise that resolves to boolean', (
 describe('Check form helpers returns object', () => {
   checkHelperIsObject('types');
   checkHelperIsObject('get');
-  checkHelperIsObject('options');
   checkHelperIsObject('values');
   checkHelperIsObject('errors');
   checkHelperIsObject('labels');

@@ -42,4 +42,4 @@ class NewForm extends Form {
 }
 
 
-export default new NewForm({ fields, labels }, 'Nested-O');
+export default new NewForm({ fields, labels }, { name: 'Nested-O' });

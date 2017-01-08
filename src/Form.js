@@ -19,7 +19,14 @@ export default class Form extends Base {
 
   @observable fields = asMap({});
 
-  constructor(initial = {}, name = null) {
+  constructor(initial = {}, {
+
+    options = {},
+    plugins = {},
+    bindings = {},
+    name = {},
+
+  }) {
     super();
 
     // use setup() method
@@ -27,15 +34,25 @@ export default class Form extends Base {
       _.merge(initial, this.setup(this));
     }
 
-    this.name = name;
-    this.state = new State(this, initial);
+    // use plugins() method
+    if (_.isFunction(this.plugins)) {
+      _.merge(plugins, this.plugins(this));
+    }
+
+    // use options() method
+    if (_.isFunction(this.options)) {
+      _.merge(options, this.options(this));
+    }
 
     // use bindings() method
     if (_.isFunction(this.bindings)) {
-      this.state.bindings.register(this.bindings());
+      _.merge(bindings, this.bindings(this));
     }
 
-    this.initValidator(initial);
+    this.name = name;
+    this.state = new State(this, initial, { options, bindings, name });
+
+    this.initValidator({ plugins, schema: initial.schema });
     this.initFields(initial);
 
     this.validateOnInit();
@@ -115,18 +132,12 @@ export const prototypes = {
     return new Field(data);
   },
 
-  initValidator({ plugins = {}, schema = {} }) {
+  initValidator({ schema = {}, plugins = {} }) {
     this.validator = new Validator({
       options: this.state.options,
       plugins,
       schema,
     });
-  },
-
-  options(options = null) {
-    if (_.isPlainObject(options)) this.state.options.set(options);
-    if (_.isString(options)) return this.state.options.get(options);
-    return this.state.options.get();
   },
 
   on(event, callback) {

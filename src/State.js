@@ -26,16 +26,16 @@ export default class State {
     fields: {},
   };
 
-  constructor(form, initial) {
+  constructor(form, initial, { options, bindings }) {
     this.set('form', form);
-    this.initOptions(initial);
     this.initProps(initial);
-    this.initBindings();
+    this.initOptions(options);
+    this.initBindings(bindings);
   }
 
-  initOptions(initial = {}) {
+  initOptions(options) {
     this.options = new Options();
-    this.options.set(initial.options);
+    this.options.set(options);
   }
 
   initProps(initial) {
@@ -55,8 +55,9 @@ export default class State {
     }
   }
 
-  initBindings() {
+  initBindings(bindings) {
     this.bindings = new Bindings();
+    this.bindings.register(bindings);
   }
 
   /**

@@ -3,13 +3,6 @@ import { Form } from '../../../../src';
 import dvrExtend from '../../extension/dvr';
 import { shouldBeEqualTo } from '../../extension/vjf';
 
-const plugins = {
-  dvr: {
-    package: validatorjs,
-    extend: dvrExtend,
-  },
-};
-
 const fields = ['username', 'email', 'password', 'passwordConfirm', 'terms'];
 
 const values = {
@@ -40,6 +33,15 @@ const disabled = {
 
 class NewForm extends Form {
 
+  plugins() {
+    return {
+      dvr: {
+        package: validatorjs,
+        extend: dvrExtend,
+      },
+    };
+  }
+
   onInit(form) {
     form.$('username').set('label', 'UserName');
     form.reset();
@@ -49,6 +51,6 @@ class NewForm extends Form {
 
 export default new NewForm({
 
-  fields, values, defaults, labels, disabled, validate, rules, plugins,
+  fields, values, defaults, labels, disabled, validate, rules,
 
-}, 'Flat-P');
+}, { name: 'Flat-P' });

@@ -38,6 +38,7 @@ export default {
       $disabled: $try('disabled'),
       $bindings: $try('bindings'),
       $type: $try('types'),
+      $options: $try('options'),
       $related: $try('related'),
       $validate: $try('validate'),
       $rules: $try('rules'),

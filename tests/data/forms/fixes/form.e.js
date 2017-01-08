@@ -4,6 +4,10 @@ const fields = [
   'places[]',
 ];
 
+const options = {
+  places: ['a', 'b', 'c'],
+};
+
 const values = {
   places: [
     'NY',
@@ -18,4 +22,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, values }, 'Fixes-E');
+export default new NewForm({ fields, values, options }, { name: 'Fixes-E' });

@@ -45,4 +45,4 @@ const fields = {
   },
 };
 
-export default new Form({ fields, plugins }, 'Nested-F');
+export default new Form({ fields }, { plugins, name: 'Nested-F' });

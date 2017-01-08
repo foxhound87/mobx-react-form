@@ -48,4 +48,4 @@ const rules = {
   'state.city.places': 'integer',
 };
 
-export default new Form({ fields, plugins, rules }, 'Nested-G');
+export default new Form({ fields, rules }, { plugins, name: 'Nested-G' });

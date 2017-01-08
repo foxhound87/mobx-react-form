@@ -30,4 +30,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields }, 'Nested-A');
+export default new NewForm({ fields }, { name: 'Nested-A' });

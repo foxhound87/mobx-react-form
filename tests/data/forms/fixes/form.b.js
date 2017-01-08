@@ -29,4 +29,4 @@ const rules = {
   people: 'required|array|between:3,5',
 };
 
-export default new Form({ plugins, fields, values, rules }, 'Fixes-B');
+export default new Form({ fields, values, rules }, { plugins, name: 'Fixes-B' });

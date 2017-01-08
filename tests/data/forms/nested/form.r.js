@@ -40,4 +40,4 @@ const values = {
   }],
 };
 
-export default new Form({ plugins, fields, rules, values }, 'Nested-R');
+export default new Form({ fields, rules, values }, { plugins, name: 'Nested-R' });

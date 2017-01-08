@@ -26,4 +26,4 @@ const labels = {
   },
 };
 
-export default new Form({ values, labels }, 'Nested-I');
+export default new Form({ values, labels }, { name: 'Nested-I' });

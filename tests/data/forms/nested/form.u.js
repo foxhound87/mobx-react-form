@@ -38,5 +38,5 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, values, labels, validate, related }, 'Nested-U');
+export default new NewForm({ fields, values, labels, validate, related }, { name: 'Nested-U' });
 

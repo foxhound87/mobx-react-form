@@ -1,3 +1,12 @@
+# 1.18
+
+* Ability to pass 'plugins' with plugins() method
+* Ability to pass 'options' with options() method
+* Ability to pass 'options' as fields prop
+* Ability to pass 'bindings' to Form constructor
+* Form 'options' moved on the second argument of the Form constrcutor
+* Form 'plugins' moved on the second argument of the Form constrcutor
+
 # 1.17
 
 * Updated dependencies.

@@ -42,4 +42,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields }, 'Fixes-C');
+export default new NewForm({ fields }, { name: 'Fixes-C' });

@@ -47,4 +47,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, schema, plugins }, 'Flat-M');
+export default new NewForm({ fields, schema }, { plugins, name: 'Flat-M' });

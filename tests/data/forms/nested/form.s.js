@@ -1,8 +1,6 @@
 import validatorjs from 'validatorjs';
 import { Form } from '../../../../src';
 
-const plugins = { dvr: validatorjs };
-
 const fields = [
   'club.name',
   'club.city',
@@ -40,8 +38,14 @@ const values = {
 
 class NewForm extends Form {
 
+  plugins() {
+    return {
+      dvr: validatorjs,
+    };
+  }
+
   setup() {
-    return { plugins, fields, rules, values }; // omit "rules"
+    return { fields, rules, values }; // omit "rules"
   }
 
   onInit(form) {
@@ -74,4 +78,4 @@ class NewForm extends Form {
 }
 
 
-export default new NewForm({ rules }, 'Nested-S');
+export default new NewForm({ rules }, { name: 'Nested-S' });
