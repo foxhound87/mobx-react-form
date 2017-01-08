@@ -9,7 +9,7 @@ The **Default Bindings** can be used on any input component using the fields `bi
 ```javascript
 export default observer(({ field, type = 'text' }) => (
   <div>
-    <input type={type} {... field.bind()} />
+    <input type={type} {...field.bind()} />
   </div>
 ));
 ```
@@ -23,7 +23,7 @@ The `bind()` method has a **priority** functionality for any **property**, just 
 ```javascript
 export default observer(({ field, type = 'password', placeholder="Insert Password" }) => (
   <div>
-    <input {... field.bind({ type, placeholder })} />
+    <input {...field.bind({ type, placeholder })} />
   </div>
 ));
 ```
