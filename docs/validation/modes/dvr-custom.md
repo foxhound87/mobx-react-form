@@ -35,6 +35,6 @@ const plugins = {
 };
 
 // create the form using extended plugins
-new Form({ plugins, ... });
+new Form({ ... }, { plugins });
 
 ```

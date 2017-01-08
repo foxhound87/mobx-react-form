@@ -36,7 +36,7 @@ const plugins = {
 };
 
 // create the form using extended plugins
-new Form({ plugins, ... });
+new Form({ ... }, { plugins });
 ```
 
 > Read more about [Asynchronous Validation](https://github.com/skaterdav85/validatorjs#asynchronous-validation) on the official ValidatorJS documentation.

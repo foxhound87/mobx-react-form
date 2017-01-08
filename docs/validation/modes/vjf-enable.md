@@ -31,3 +31,5 @@ export function isEmail({ field, validator }) {
   return [isValid, `The ${field.label} should be an email address.`];
 }
 ```
+
+Check out how to define [Custom VJF Validation Function](vjf-custom.md)

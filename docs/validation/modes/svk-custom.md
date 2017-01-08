@@ -47,7 +47,7 @@ const plugins = {
 
 // create the form using extended plugins
 
-new Form({ fields, schema, plugins });
+new Form({ fields, schema }, { plugins });
 
 ```
 

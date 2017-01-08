@@ -41,5 +41,5 @@ const fields = {
 #### Create the form passing all the objects
 
 ```javascript
-new Form({ fields, plugins });
+new Form({ fields }, { plugins });
 ```
