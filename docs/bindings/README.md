@@ -1,4 +1,4 @@
-# Properties Fields Bindings
+# Fields Properties Bindings
 
 With **Bindings** you can easly pass the fields properties to the input components.
 
