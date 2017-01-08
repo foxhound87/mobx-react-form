@@ -32,13 +32,13 @@ const options = {
   allowRequired: false,
 };
 
-new Form({ options, ... });
+new Form({ ... }, { options });
 ```
 
 ### Set Options After Form Initialization
 
 ```javascript
-form.options({
+form.state.options.set({
   validateOnInit: false,
   validateOnChange: false,
   strictUpdate: true,
@@ -48,7 +48,7 @@ form.options({
 ### Get Current Form Options
 
 ```javascript
-form.options();
+form.state.options.get();
 ```
 ```
 => {
@@ -66,7 +66,7 @@ form.options();
 ### Get Form Option by key
 
 ```javascript
-form.options('showErrorsOnInit');
+form.options.get('showErrorsOnInit');
 ```
 ```
 => true

@@ -1,26 +1,17 @@
-## Form Initialization
+# Form Initialization
 
-###### Initialization
+The Form Constructor can take 2 arguments in input.
 
+## First Argument
+
+The first argument is an object which expects the following properties:
+
+###### Fields Definition
 | Property | Description | Help |
 |---|---|---|
-| **plugins**   | Enable additional functionalities using external libraries. | [validation plugins](../validation/plugins.md) |
-| **options**   | Options used by the `form` or the imported `plugins` which may alter the validation behavior. | [form options](form-options.md) |
 | **fields**    | Using **Unified Properties** mode: an object which represents the fields with all their properties. Using **Separated Properties** mode: an array which represents the fields structure. | [defining fields](../defining-fields.md) |
 
-###### Validation
-If you need to validate fields use the following properties according to the choosen [validation plugin](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html)
-
-| Property | Description | Help |
-|---|---|---|
-| **validate**  | The validation functions for the **VJF** mode. | [VJF](../validation/modes/vjf-enable.md) |
-| **rules**    | The rules for the validation (if **DVR** mode is active). | [DVR](../validation/modes/dvr-enable.md) |
-| **schema**    | The json-schema for the validation (if **SVK** mode is active). | [SVK](../validation/modes/svk-enable.md) |
-
-
-###### Field Properties
-If you are using the **Separated Properties** mode, provide the following properties:
-
+###### Properties Definition
 | Property | Description | Help |
 |---|---|---|
 | **values**    | Object which represents the `value`property for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-values) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-values) |
@@ -29,8 +20,36 @@ If you are using the **Separated Properties** mode, provide the following proper
 | **defaults**  | Object which represents the `default` property for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-defaults) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **disabled**  | Object which represents the `disabled` property for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-disabled) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **related**  | Object which represents the `related` property to validate others fields at the same time for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-related) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **options**  | Additional options data for the field (useful for a select input). | [flat](../defining-flat-fields/separated-properties.md#defining-related) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
+
+
+###### Validation Properties
+| Property | Description | Help |
+|---|---|---|
+| **validate**  | The validation functions for the **VJF** mode. | [VJF](../validation/modes/vjf-enable.md) |
+| **rules**    | The rules for the validation (if **DVR** mode is active). | [DVR](../validation/modes/dvr-enable.md) |
+| **schema**    | The json-schema for the validation (if **SVK** mode is active). | [SVK](../validation/modes/svk-enable.md) |
+
 
 > Some of these initialization properties are plurals.
+
+> If you need to validate fields use the `validate`, `rules`, or `schema` props according to the choosen [validation plugin](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html)
+
+> If you are using the **Unified Properties** mode, you will need only the `fields` property.
+
+> If you are using the **Separated Properties** mode, the `fields` property should be defined as structure.
+
+## Second Argument
+
+The second argument is an object which expects the following properties:
+
+| Property | Description | Help |
+|---|---|---|
+| **options**   | Options used by the `form` or the imported `plugins` which may alter the validation behavior. | [Form Options](form-options.md) |
+| **plugins**   | Enable additional functionalities using external libraries. | [Validation Plugins](../validation/plugins.md) |
+| **bindings**   | Enable additional functionalities using external libraries. | [Props Bindings](../bindings/README.md) |
+
+<br>
 
 ## Usage
 
@@ -41,22 +60,25 @@ import Form from 'mobx-react-form';
 
 ... // define all needed objects
 
-// using options and unified fields properties
-new Form({ options, fields, ... });
+// using unified fields properties
+new Form({ fields, ... });
 
-// using options and separated fields properties
-new Form({ options, values, labels, ... });
+// using form options and separated fields properties
+new Form({ values, labels, options, ... }, { options });
 
-// using validators with plugins and unified fields properties
-new Form({ options, plugins, fields });
+// using validators with plugins, bindings and unified fields properties
+new Form({ fields }, { plugins, bindings });
 
 // using validators with plugins and separated fields properties
-new Form({ options, plugins, values, labels, rules, ... });
+new Form({ values, labels, rules, ... }, { plugins });
 ```
 
-## setup()
+## Initialization Methods
+#### setup(), options(), plugins(), bindings().
 
-Normally you have to pass the initialization object to the constructor, or you can implement the `setup()` method inside your extended form class which will return the object of all properties:
+Normally you have to pass the the initialization properties to the constructor, or you can implement the one of these methods inside your extended form class which will return the object of all properties.
+
+For example, using the `setup()` method you can initialize the fields properties:
 
 ```javascript
 import Form from 'mobx-react-form';
@@ -64,13 +86,15 @@ import Form from 'mobx-react-form';
 class MyForm extends MobxReactForm {
 
   setup() {
-    // same of: new MyForm({ fields, ... });
-    return { fields, ... };
+    // same of: new MyForm({ fields, values, labels,  ... });
+    return { fields, values, labels, ... };
   }
 }
 ```
 
-> The object returned from the `setup()` method will be deep-merged to the object provieded to the constructor when initializing the instance.
+This can be done with `options`, `plugins` and `bindings` as well.
+
+> The object returned from the methods will be deep-merged to the object provieded to the constructor when initializing the instance.
 
 
 ## onInit()
