@@ -88,7 +88,7 @@ The `Template` is useful if you need to change how the properties are obtained, 
 
 In the Form Class implement a `bindings()` methods which will return an object with our **Template** function.
 
-In the following example some fields props will be the fallback of the ones passed to the `bind()` method and the `onChange` Handler is reimplemented by providing a custom function.
+In the following example some props passed to the `bind()` method will be the fallback of the `fields` ones and the `onChange` Handler is reimplemented by providing a custom function.
 
 ```javascript
 class MyForm extends MobxReactForm {
