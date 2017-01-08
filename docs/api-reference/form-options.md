@@ -66,7 +66,7 @@ form.state.options.get();
 ### Get Form Option by key
 
 ```javascript
-form.options.get('showErrorsOnInit');
+form.state.options.get('showErrorsOnInit');
 ```
 ```
 => true

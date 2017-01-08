@@ -7,7 +7,7 @@
 * [FAQ](docs/faq.md)
 * [UMD Setup](docs/umd-setup.md)
 
-## Start
+## Fields
 * [Defining Fields](docs/defining-fields.md)
     * Flat Fields
         * [As Unified Properties](docs/defining-flat-fields/unified-properties.md)
