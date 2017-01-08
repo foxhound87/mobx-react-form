@@ -16,9 +16,9 @@ export default observer(({ field, type = 'text' }) => (
 
 <br>
 
-## Properties Priority
+## Properties Overwrite
 
-The `bind()` method has a **priority** functionality for any **property**, just pass to it an object with all properties you want to overwrite:
+The `bind()` method will **overwrite any property**, just pass to it an object with all properties you want to overwrite:
 
 ```javascript
 export default observer(({ field, type = 'password', placeholder="Insert Password" }) => (

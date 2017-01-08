@@ -64,7 +64,7 @@ export default observer(({ field }) => (
 
 ```
 
-Eventually we can use properties priority:
+Eventually we can use properties overwrite:
 
 ```javascript
 import TextField from 'material-ui/TextField';
@@ -104,7 +104,7 @@ class MyForm extends MobxReactForm {
         hintText: field.placeholder || props.placeholder,
         errorText: field.error || props.error,
         disabled: field.disabled || props.disabled,
-        onChange: myOnChange(props.onChange || field.onChange)),
+        onChange: myOnChange(props.onChange || field.onChange),
         onFocus: props.onFocus || field.onFocus,
         onBlur: props.onBlur || field.onBlur,
       }),
@@ -115,4 +115,4 @@ class MyForm extends MobxReactForm {
 
 > In the default `Template` the `props` takes precedence on `field`.
 
-Now we can use pass `MaterialTextField` as `bindings` prop on a field and use the `bind()` method on our components.
+Now we can use `MaterialTextField` as `bindings` prop on a field and use the `bind()` method on our components.
