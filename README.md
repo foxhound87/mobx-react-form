@@ -140,13 +140,7 @@ export default observer(({ form, events }) => (
     <label htmlFor={form.$('username').id}>
       {form.$('username').label}
     </label>
-    <input type="text"
-      id={form.$('username').id}
-      name={form.$('username').name}
-      value={form.$('username').value}
-      placeholder={form.$('username').placeholder}
-      onChange={form.$('username').onChange}
-    />
+    <input {...form.$('username').bind()} />
     <p>{form.$('username').error}</p>
 
     ...
