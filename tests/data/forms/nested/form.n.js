@@ -15,7 +15,7 @@ const values = {
   club: 'HELLO',
   members: [{
     firstname: 'Clint',
-    lastname: 'Eastwood',
+    lastname: '',
     hobbies: ['Soccer', 'Baseball'],
   }, {
     firstname: null,
@@ -35,11 +35,11 @@ const placeholders = {
 };
 
 const bindings = {
-  'club.name': 'MaterialTextField',
-  'club.city': 'MaterialTextField',
-  'members[].firstname': 'MaterialTextFieldReimplemented',
-  'members[].lastname': 'MaterialTextFieldReimplemented',
-  'members[].hobbies[]': 'MaterialTextField',
+  'club.name': 'MaterialTextFieldRewriter',
+  'club.city': 'MaterialTextFieldRewriter',
+  'members[].firstname': 'MaterialTextFieldTemplate',
+  'members[].lastname': 'MaterialTextFieldTemplate',
+  'members[].hobbies[]': 'MaterialTextFieldRewriter',
 };
 
 class NewForm extends Form {

@@ -3,21 +3,21 @@
 */
 export default {
 
-  MaterialTextFieldReimplemented: ({ field, props }) => ({
-    type: props.type || field.type,
-    id: props.id || field.id,
-    name: props.name || field.name,
-    value: props.value || field.value,
-    floatingLabelText: props.label || field.label,
-    hintText: props.placeholder || field.placeholder,
-    errorText: props.error || field.error,
-    disabled: props.disabled || field.disabled,
-    onChange: props.onChange || field.onChange,
-    onFocus: props.onFocus || field.onFocus,
-    onBlur: props.onBlur || field.onBlur,
+  MaterialTextFieldTemplate: ({ field, props, $try }) => ({
+    type: $try(props.type, field.type),
+    id: $try(props.id, field.id),
+    name: $try(props.name, field.name),
+    value: $try(field.value, props.value),
+    floatingLabelText: $try(props.label, field.label),
+    hintText: $try(props.placeholder, field.placeholder),
+    errorText: $try(props.error, field.error),
+    disabled: $try(props.disabled, field.disabled),
+    onChange: $try(props.onChange, field.onChange),
+    onFocus: $try(props.onFocus, field.onFocus),
+    onBlur: $try(props.onBlur, field.onBlur),
   }),
 
-  MaterialTextField: {
+  MaterialTextFieldRewriter: {
     id: 'id',
     name: 'name',
     type: 'type',

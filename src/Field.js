@@ -331,7 +331,7 @@ export const prototypes = {
     });
 
     this.$value = this.$initial;
-    this.$label = $label || $key;
+    this.$label = $label || this.name;
     this.$placeholder = $placeholder || '';
     this.$disabled = $disabled || false;
     this.$bindings = $bindings || 'default';

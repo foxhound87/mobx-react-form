@@ -18,17 +18,17 @@ export default class Bindings {
   };
 
   templates = {
-    default: ({ field, props, keys }) => ({
-      [keys.id]: props.id || field.id,
-      [keys.name]: props.name || field.name,
-      [keys.type]: props.type || field.type,
-      [keys.value]: props.value || field.value,
-      [keys.label]: props.label || field.label,
-      [keys.placeholder]: props.placeholder || field.placeholder,
-      [keys.disabled]: props.disabled || field.disabled,
-      [keys.onChange]: props.onChange || field.onChange,
-      [keys.onFocus]: props.onFocus || field.onFocus,
-      [keys.onBlur]: props.onBlur || field.onBlur,
+    default: ({ field, props, keys, $try }) => ({
+      [keys.id]: $try(props.id, field.id),
+      [keys.name]: $try(props.name, field.name),
+      [keys.type]: $try(props.type, field.type),
+      [keys.value]: $try(props.value, field.value),
+      [keys.label]: $try(props.label, field.label),
+      [keys.placeholder]: $try(props.placeholder, field.placeholder),
+      [keys.disabled]: $try(props.disabled, field.disabled),
+      [keys.onChange]: $try(props.onChange, field.onChange),
+      [keys.onFocus]: $try(props.onFocus, field.onFocus),
+      [keys.onBlur]: $try(props.onBlur, field.onBlur),
     }),
   };
 
@@ -37,12 +37,17 @@ export default class Bindings {
       const $bindings = {};
 
       _.each(this.rewriters[name], ($v, $k) =>
-        _.merge($bindings, { [$v]: props[$k] || field[$k] }));
+        _.merge($bindings, { [$v]: this.try(props[$k], field[$k]) }));
 
       return $bindings;
     }
 
-    return this.templates[name]({ field, props, keys: this.rewriters[name] });
+    return this.templates[name]({
+      keys: this.rewriters[name],
+      $try: this.try,
+      field,
+      props,
+    });
   }
 
   register(bindings) {
@@ -52,5 +57,13 @@ export default class Bindings {
     });
 
     return this;
+  }
+
+  try(/* arguments */) {
+    let found = null;
+    _.each(arguments, (val, key) => { // eslint-disable-line
+      if (!found && !_.isNil(val)) found = val;
+    });
+    return found;
   }
 }

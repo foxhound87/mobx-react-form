@@ -11,6 +11,7 @@
 * Introduced Fields Props Bindings
 * Introduced initial props: types, bindings.
 * Introduced field props: type, bindings.
+* Introduced $try helper for bindings.
 
 # 1.16
 

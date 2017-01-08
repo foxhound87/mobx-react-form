@@ -156,6 +156,13 @@ describe('Check Nested $N bindings props', () => {
   it('$N membersFirstNameBindings hintText should be equal to "Insert First Name"', () =>
       expect(membersFirstNameBindings).to.have.property('hintText', 'Insert First Name'));
 
+  const membersLastNameBindings = $.$N
+    .$('members').$(0).$('lastname')
+    .bind({ value: 'Hello!!!' });
+
+  it('$N membersLastNameBindings value should be equal to "Hello"', () =>
+      expect(membersLastNameBindings).to.have.property('value', 'Hello!!!'));
+
   const hobbiesBindings = $.$N
     .$('members').$(1)
     .$('hobbies').$(0)
