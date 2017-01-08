@@ -13,7 +13,8 @@ class MyForm extends MobxReactForm {
 
   bindings() {
     return {
-      MaterialTextField: { // we can choose a name as key
+      // we can choose a name as key
+      MaterialTextField: {
         id: 'id',
         name: 'name',
         type: 'type',
@@ -95,23 +96,25 @@ class MyForm extends MobxReactForm {
 
   bindings() {
     return {
-      MaterialTextField: ({ field, props }) => ({
-        type: field.type || props.type,
-        id: field.id || props.id,
-        name: field.name || props.name,
-        value: field.value || props.value,
-        floatingLabelText: field.label || props.label,
-        hintText: field.placeholder || props.placeholder,
-        errorText: field.error || props.error,
-        disabled: field.disabled || props.disabled,
-        onChange: myOnChange(props.onChange || field.onChange),
-        onFocus: props.onFocus || field.onFocus,
-        onBlur: props.onBlur || field.onBlur,
+      MaterialTextField: ({ $try, field, props }) => ({
+        type: $try(field.type, props.type, 'text'),
+        id: $try(field.id, props.id),
+        name: $try(field.name, props.name),
+        value: $try(field.value, props.value),
+        floatingLabelText: $try(field.label, props.label),
+        hintText: $try(field.placeholder, props.placeholder, 'Insert Something...'),
+        errorText: $try(field.error, props.error),
+        disabled: $try(field.disabled, props.disabled),
+        onChange: myOnChange($try(props.onChange, field.onChange)),
+        onFocus: $try(props.onFocus, field.onFocus),
+        onBlur: $try(props.onBlur, field.onBlur),
       }),
     };
   }
 }
 ```
+
+> `$try()` is a small helper function which takes unlimited arguments in input, it returns the first defined.
 
 > In the default `Template` the `props` takes precedence on `field`.
 
