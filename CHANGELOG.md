@@ -4,8 +4,8 @@
 * Ability to pass 'options' with options() method
 * Ability to pass 'options' as fields prop
 * Ability to pass 'bindings' to Form constructor
-* Form 'options' moved on the second argument of the Form constrcutor
-* Form 'plugins' moved on the second argument of the Form constrcutor
+* Form 'options' moved on the second argument of the Form constructor
+* Form 'plugins' moved on the second argument of the Form constructor
 
 # 1.17
 
@@ -14,7 +14,7 @@
 * Reimplemented del(), observe(), validate().
 * Introduced field computed validators().
 * Introduced form computed validating().
-* Iintroduced alwaysShowDefaultError option.
+* Introduced alwaysShowDefaultError option.
 * Introduced setup() method.
 * Introduced "disabled" computed prop
 * Introduced Fields Props Bindings
