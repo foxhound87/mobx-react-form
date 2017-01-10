@@ -102,7 +102,7 @@ export default {
 
       if (recursion) {
         // handle nested fields if undefined or null
-        const $fields = this.pathToFieldsTree($path);
+        const $fields = parser.pathToFieldsTree(this.state.struct(), $path);
         this.deepUpdate($fields, $path, false);
       }
 
@@ -295,7 +295,7 @@ export default {
     if (_.has(opt, 'key')) $key = opt.key;
     else $key = utils.maxKey(this.fields) + 1;
 
-    const tree = this.pathToFieldsTree(this.path);
+    const tree = parser.pathToFieldsTree(this.state.struct(), this.path);
     const $path = key => _.trimStart([this.path, key].join('.'), '.');
 
     _.each(tree, field => this.initField($key, $path($key), field));

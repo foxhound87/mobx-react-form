@@ -79,22 +79,22 @@ export default class Validator {
     this.validateAllDeep(form, form.fields, showErrors, related);
   }
 
-  validateAllDeep(form, fields, showErrors, related, path = '') {
+  validateAllDeep(form, fields, showErrors, related, $path = '') {
     if (!fields.size) return;
 
     fields.forEach((field, key) => {
-      const $path = _.trimStart(`${path}.${key}`, '.');
-      this.validateField({ form, field, key, showErrors, related });
+      const path = _.trimStart([$path, key].join('.'), '.');
+      this.validateField({ form, field, path, showErrors, related });
       // recursive validation for nested fields
       if (field.fields.size) {
-        this.validateAllDeep(form, field.fields, showErrors, related, $path);
+        this.validateAllDeep(form, field.fields, showErrors, related, path);
       }
     });
   }
 
   @action
-  validateField({ form = null, field = null, key, showErrors = true, related = false }) {
-    const $field = field || form.fields.get(key) || form.select(key, form.fields);
+  validateField({ form = null, field = null, path, showErrors = true, related = false }) {
+    const $field = field || form.select(path);
     // reset field validation
     $field.resetValidation();
     // get all validators
@@ -117,8 +117,8 @@ export default class Validator {
       and related validation allowed (recursive)
     */
     if (!_.isEmpty(field.related)) {
-      _.each(field.related, key =>
-        this.validateField({ form, key, showErrors, related: false }));
+      _.each(field.related, path =>
+        this.validateField({ form, path, showErrors, related: false }));
     }
   }
 

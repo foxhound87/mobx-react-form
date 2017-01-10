@@ -17,6 +17,9 @@ describe('Check Flat $B error prop', () => {
 });
 
 describe('Check Flat $I error prop', () => {
-  it('Flat $I state.options strictUpdate should be true', () =>
+  it('Flat $I state.options.get(strictUpdate) should be true', () =>
     expect($flat.$I.state.options.get('strictUpdate')).to.be.true);
+
+  it('Flat $I state.options.get() should be an object', () =>
+    expect($flat.$I.state.options.get()).to.be.an('object'));
 });

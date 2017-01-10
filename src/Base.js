@@ -23,8 +23,7 @@ export default class Base {
   */
   onAdd = (e, val = null) => {
     e.preventDefault();
-    const $val = !utils.isEvent(val) ? val : null;
-    this.add($val);
+    this.add(utils.isEvent(val) ? null : val);
   };
 
   /**
@@ -32,8 +31,7 @@ export default class Base {
   */
   onDel = (e, path = null) => {
     e.preventDefault();
-    const $path = !utils.isEvent(path) ? path : this.path;
-    this.del($path);
+    this.del(utils.isEvent(path) ? this.path : path);
   };
 
 }

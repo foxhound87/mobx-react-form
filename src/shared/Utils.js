@@ -48,18 +48,6 @@ export default {
   },
 
   /**
-    Trasform a path to a tree
-   */
-  pathToFieldsTree(path, n = 0) {
-    const $ss = this.state.struct();
-    const structPath = utils.pathToStruct(path);
-    const structArray = _.filter($ss, item => _.startsWith(item, structPath));
-    const tree = parser.handleFieldsArrayOfStrings(structArray);
-    const struct = _.replace(structPath, new RegExp('\\[]', 'g'), `[${n}]`);
-    return parser.handleFieldsNested(_.get(tree, struct));
-  },
-
-  /**
    * Iterates deeply over fields and invokes `iteratee` for each element.
    * The iteratee is invoked with three arguments: (value, index|key, depth).
    *

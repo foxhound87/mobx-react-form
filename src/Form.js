@@ -24,40 +24,36 @@ export default class Form extends Base {
     options = {},
     plugins = {},
     bindings = {},
-    name = {},
 
   }) {
     super();
 
-    // use setup() method
-    if (_.isFunction(this.setup)) {
-      _.merge(initial, this.setup(this));
-    }
+    const data = _.merge({ options, plugins, bindings }, { setup: initial });
 
-    // use plugins() method
-    if (_.isFunction(this.plugins)) {
-      _.merge(plugins, this.plugins(this));
-    }
+    _.map(data, (val, key) =>
+      _.isFunction(this[key])
+        && _.merge(data, { [key]: this[key](this) }));
 
-    // use options() method
-    if (_.isFunction(this.options)) {
-      _.merge(options, this.options(this));
-    }
+    this.name = data.name;
 
-    // use bindings() method
-    if (_.isFunction(this.bindings)) {
-      _.merge(bindings, this.bindings(this));
-    }
+    this.state = new State({
+      form: this,
+      initial: data.setup,
+      options: data.options,
+      bindings: data.bindings,
+    });
 
-    this.name = name;
-    this.state = new State(this, initial, { options, bindings, name });
+    this.validator = new Validator({
+      options: this.state.options,
+      plugins: data.plugins,
+      schema: data.setup.schema,
+    });
 
-    this.initValidator({ plugins, schema: initial.schema });
-    this.initFields(initial);
+    this.initFields(data.setup);
 
     this.validateOnInit();
 
-    // execute onInit if exist
+    // execute onInit() if exist
     if (_.isFunction(this.onInit)) this.onInit(this);
   }
 
@@ -132,14 +128,6 @@ export const prototypes = {
     return new Field(data);
   },
 
-  initValidator({ schema = {}, plugins = {} }) {
-    this.validator = new Validator({
-      options: this.state.options,
-      plugins,
-      schema,
-    });
-  },
-
   on(event, callback) {
     observe(Events.getRunning(), ({ name, oldValue, object }) => {
       if (!event.includes('@')) return;
@@ -165,11 +153,11 @@ export const prototypes = {
     action(() => (this.$validating = true))();
     this.validator.resetGenericError();
 
-    const $key = _.has(opt, 'key') ? opt.key : opt;
+    const $path = _.has(opt, 'path') ? opt.path : opt;
 
     let $field = null;
     if (_.has(opt, 'field')) $field = opt.field;
-    else if (_.isString($key)) $field = this.select($key);
+    else if (_.isString($path)) $field = this.select($path);
 
     let showErrors = true;
     if (_.has(opt, 'showErrors')) showErrors = opt.showErrors;
@@ -186,7 +174,7 @@ export const prototypes = {
     if (this.state.options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
     const $showErrors = showErrors && !Events.running(notShowErrorsEvents);
 
-    if (_.isPlainObject(opt) && !_.isString($key)) {
+    if (_.isPlainObject(opt) && !_.isString($path)) {
       // validate all fields
       return new Promise((resolve) => {
         this.validator.validateAll({
@@ -204,12 +192,12 @@ export const prototypes = {
 
     // validate single field
     return new Promise((resolve) => {
-      // validate single field by key
+      // validate single field by path
       this.validator
         .validateField({
           related,
           form: this,
-          key: $key,
+          path: $path,
           field: $field,
           showErrors: $showErrors,
         });

@@ -361,7 +361,7 @@ export const prototypes = {
 
   validate() {
     return this.state.form.validate({
-      key: this.key,
+      path: this.path,
       field: this,
       showErrors: true,
       related: true,

@@ -123,6 +123,14 @@ const prepareFieldsData = (initial, strictProps = true) => {
   return fields;
 };
 
+const pathToFieldsTree = (struct, path, n = 0) => {
+  const structPath = utils.pathToStruct(path);
+  const structArray = _.filter(struct, item => _.startsWith(item, structPath));
+  const $tree = handleFieldsArrayOfStrings(structArray);
+  const $struct = _.replace(structPath, new RegExp('\\[]', 'g'), `[${n}]`);
+  return handleFieldsNested(_.get($tree, $struct));
+};
+
 export default {
   parsePath,
   parseGetLabel,
@@ -133,4 +141,5 @@ export default {
   handleFieldsNested,
   handleFieldsArrayOfStrings,
   prepareFieldsData,
+  pathToFieldsTree,
 };
