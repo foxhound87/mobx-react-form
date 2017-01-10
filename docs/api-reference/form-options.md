@@ -14,26 +14,39 @@
 | **allowRequired** | false | boolean | The json-schema `required` property can work only if the object does not contain the field key/value pair, `allowRequired` can remove it when needed to make `required` work properly. Be careful because enabling it will make `minLength` uneffective when the `string` is `empty`. |
 | **ajv** | object | - | Additional options for AJV. See all the details of [ajv options](https://github.com/epoberezkin/ajv#options) on the official github page of AJV. |
 
-### Set Options On Form Initialization
+### Set Options On Form Constructor
 
 ```javascript
 import Form from 'mobx-react-form';
 
-// these are the default options
 const options = {
-  showErrorsOnInit: false,
-  validateOnInit: true,
-  validateOnChange: true,
-  strictUpdate: false,
-  showErrorsOnUpdate: true,
-  autoParseNumbers: true,
-  defaultGenericError: null,
-  loadingMessage: null,
-  allowRequired: false,
+  showErrorsOnInit: true,
+  showErrorsOnUpdate: false,
+  autoParseNumbers: false,
+  allowRequired: true,
 };
 
 new Form({ ... }, { options });
 ```
+
+### Set Options On Extended Form Class
+
+Using the `options()` method you can initialize the form options:
+
+```javascript
+class MyForm extends MobxReactForm {
+
+  options() {
+    return {
+      showErrorsOnInit: true,
+      autoParseNumbers: false,
+    };
+  }
+}
+```
+
+> The object returned from the method will be deep-merged to the object provieded to the constructor when initializing the instance.
+
 
 ### Set Options After Form Initialization
 
