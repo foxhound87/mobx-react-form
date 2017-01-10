@@ -25,7 +25,7 @@ export default class Form extends Base {
     plugins = {},
     bindings = {},
 
-  }) {
+  } = {}) {
     super();
 
     const data = _.merge({ options, plugins, bindings }, { setup: initial });
