@@ -11,7 +11,7 @@ The first argument is an object which expects the following properties:
 |---|---|---|
 | **fields**    | Using **Unified Properties** mode: an object which represents the fields with all their properties. Using **Separated Properties** mode: an array which represents the fields structure. | [defining fields](../defining-fields.md) |
 
-###### Properties Definition
+###### Fields Properties
 | Property | Description | Help |
 |---|---|---|
 | **values**    | Object which represents the `value`property for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-values) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-values) |
@@ -47,7 +47,7 @@ The second argument is an object which expects the following properties:
 |---|---|---|
 | **options**   | Options used by the `form` or the imported `plugins` which may alter the validation behavior. | [Form Options](form-options.md) |
 | **plugins**   | Enable additional functionalities using external libraries. | [Validation Plugins](../validation/plugins.md) |
-| **bindings**   | Enable additional functionalities using external libraries. | [Props Bindings](../bindings/README.md) |
+| **bindings**   | Define how the fields properties are passed the input components. | [Props Bindings](../bindings/README.md) |
 
 <br>
 
