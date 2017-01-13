@@ -76,7 +76,7 @@ new Form({ values, labels, rules, ... }, { plugins });
 ## Initialization Methods
 #### setup(), options(), plugins(), bindings().
 
-Normally you have to pass the the initialization properties to the constructor, or you can implement one of these methods inside your extended form class which will return the object of all properties.
+Normally you have to pass the the initialization properties to the constructor, or you can implement one of these methods inside your extended form class which will return an object with all needed properties.
 
 For example, using the `setup()` method you can initialize the fields properties:
 
