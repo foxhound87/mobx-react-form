@@ -47,7 +47,7 @@ The second argument is an object which expects the following properties:
 |---|---|---|
 | **options**   | Options used by the `form` or the imported `plugins` which may alter the validation behavior. | [Form Options](form-options.md) |
 | **plugins**   | Enable additional functionalities using external libraries. | [Validation Plugins](../validation/plugins.md) |
-| **bindings**   | Define how the fields properties are passed the input components. | [Props Bindings](../bindings/README.md) |
+| **bindings**   | Define how the fields properties are passed to the input components. | [Props Bindings](../bindings/README.md) |
 
 <br>
 
