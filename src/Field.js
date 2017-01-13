@@ -11,7 +11,7 @@ import {
 
 export default class Field extends Base {
 
-  fields = asMap({});
+  fields = observable.map({}) || asMap({});
   incremental = false;
   isField = true;
 

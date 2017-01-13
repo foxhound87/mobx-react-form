@@ -1,4 +1,4 @@
-import { action, asMap } from 'mobx';
+import { action, observable, asMap } from 'mobx';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';
@@ -14,7 +14,7 @@ export default {
    */
   @action
   init($fields = null) {
-    _.set(this, 'fields', asMap({}));
+    _.set(this, 'fields', observable.map({}) || asMap({}));
 
     if (!_.has(this, 'isField')) {
       this.state.initial.props.values = $fields; // eslint-disable-line
