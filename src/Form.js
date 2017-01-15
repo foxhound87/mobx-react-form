@@ -17,7 +17,7 @@ export default class Form extends Base {
 
   @observable $validating = false;
 
-  @observable fields = observable.map({}) || asMap({});
+  @observable fields = observable.map ? observable.map({}) : asMap({});
 
   constructor(initial = {}, {
 

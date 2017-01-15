@@ -14,7 +14,9 @@ export default {
    */
   @action
   init($fields = null) {
-    _.set(this, 'fields', observable.map({}) || asMap({}));
+    _.set(this, 'fields', observable.map
+      ? observable.map({})
+      : asMap({}));
 
     if (!_.has(this, 'isField')) {
       this.state.initial.props.values = $fields; // eslint-disable-line
