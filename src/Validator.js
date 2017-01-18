@@ -15,14 +15,14 @@ export default class Validator {
 
   plugins = {
     vjf: true,
-    svk: false,
     dvr: false,
+    svk: false,
   };
 
   validators = {
     vjf: null,
-    svk: null,
     dvr: null,
+    svk: null,
   };
 
   @observable $genericErrorMessage = null;
@@ -39,36 +39,16 @@ export default class Validator {
   }
 
   initializePlugins() {
-    /**
-     Declarative Validation Rules
-    */
-    if (this.plugins.dvr) {
-      this.validators.dvr = new DVR(this.plugins.dvr, {
+    _.map({
+      vjf: VJF,
+      dvr: DVR,
+      svk: SVK,
+    }, (Class, key) => this.plugins[key] &&
+      (this.validators[key] = new Class(this.plugins[key], {
+        schema: (key === 'svk') ? this.schema : null,
         promises: this.promises,
         options: this.options,
-      });
-    }
-
-    /**
-      Vanilla JavaScript Functions
-    */
-    if (this.plugins.vjf) {
-      this.validators.vjf = new VJF(this.plugins.vjf, {
-        promises: this.promises,
-        options: this.options,
-      });
-    }
-
-    /**
-     Schema Validation Keywords
-    */
-    if (this.plugins.svk) {
-      this.validators.svk = new SVK(this.plugins.svk, {
-        promises: this.promises,
-        options: this.options,
-        schema: this.schema,
-      });
-    }
+      })));
   }
 
   @action
@@ -76,19 +56,14 @@ export default class Validator {
     // reset generic error message
     this.resetGenericError();
     // validate all fields and nested fields
-    this.validateAllDeep(form, form.fields, showErrors, related);
-  }
-
-  validateAllDeep(form, fields, showErrors, related) {
-    if (!fields.size) return;
-
-    fields.forEach((field) => {
-      this.validateField({ form, field, path: field.path, showErrors, related });
-      // recursive validation for nested fields
-      if (field.fields.size) {
-        this.validateAllDeep(form, field.fields, showErrors, related);
-      }
-    });
+    form.forEach(field =>
+      this.validateField({
+        path: field.path,
+        form,
+        field,
+        showErrors,
+        related,
+      }));
   }
 
   @action
@@ -110,15 +85,15 @@ export default class Validator {
     if (related) this.relatedFieldValidation(form, $field, showErrors);
   }
 
+  /**
+    Validate 'related' fields if specified
+    and related validation allowed (recursive)
+  */
   relatedFieldValidation(form, field, showErrors) {
-    /*
-      validate 'related' fields if specified
-      and related validation allowed (recursive)
-    */
-    if (!_.isEmpty(field.related)) {
-      _.each(field.related, path =>
-        this.validateField({ form, path, showErrors, related: false }));
-    }
+    if (!field.related || !field.related.length) return;
+
+    _.each(field.related, path =>
+      this.validateField({ form, path, showErrors, related: false }));
   }
 
   @computed get genericErrorMessage() {
