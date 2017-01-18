@@ -19,7 +19,7 @@ export default class Form extends Base {
 
   @observable fields = observable.map ? observable.map({}) : asMap({});
 
-  constructor(initial = {}, {
+  constructor(setup = {}, {
 
     options = {},
     plugins = {},
@@ -28,33 +28,35 @@ export default class Form extends Base {
   } = {}) {
     super();
 
-    const data = _.merge({ options, plugins, bindings }, { setup: initial });
+    const initial = { setup, options, plugins, bindings };
 
-    _.map(data, (val, key) =>
+    _.map(initial, (val, key) =>
       _.isFunction(this[key])
-        && _.merge(data, { [key]: this[key](this) }));
+        && _.merge(initial, { [key]: this[key].apply(this, [this]) }));
 
-    this.name = data.name;
+    this.name = initial.name || null;
 
     this.state = new State({
       form: this,
-      initial: data.setup,
-      options: data.options,
-      bindings: data.bindings,
+      initial: initial.setup,
+      options: initial.options,
+      bindings: initial.bindings,
     });
 
     this.validator = new Validator({
       options: this.state.options,
-      plugins: data.plugins,
-      schema: data.setup.schema,
+      plugins: initial.plugins,
+      schema: initial.setup.schema,
     });
 
-    this.initFields(data.setup);
+    this.initFields(initial.setup);
 
     this.validateOnInit();
 
     // execute onInit() if exist
-    if (_.isFunction(this.onInit)) this.onInit(this);
+    if (_.isFunction(this.onInit)) {
+      this.onInit.apply(this, [this]);
+    }
   }
 
   /* ------------------------------------------------------------------ */
@@ -62,6 +64,10 @@ export default class Form extends Base {
 
   @computed get validating() {
     return this.$validating;
+  }
+
+  @computed get error() {
+    return this.validator.genericErrorMessage;
   }
 
   @computed get hasError() {
@@ -104,10 +110,6 @@ export default class Form extends Base {
 
   @computed get disabled() {
     return this.check('disabled', true);
-  }
-
-  @computed get error() {
-    return this.validator.genericErrorMessage;
   }
 
   /* ------------------------------------------------------------------ */
@@ -167,7 +169,7 @@ export const prototypes = {
     if (_.has(opt, 'related')) related = opt.related;
     else if (_.has(obj, 'related')) related = obj.related;
 
-    Events.setRunning('validate', true, $field ? $field.path : null);
+    Events.setRunning('validate', true, $field ? $field.path : $path);
 
     // look running events and choose when show errors messages
     const notShowErrorsEvents = ['clear', 'reset'];
@@ -239,8 +241,8 @@ export const prototypes = {
 
     this.validate()
       .then(isValid => isValid
-        ? execOnSuccess(this)
-        : execOnError(this));
+        ? execOnSuccess.apply(this, [this])
+        : execOnError.apply(this, [this]));
   },
 
 };

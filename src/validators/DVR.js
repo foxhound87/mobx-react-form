@@ -49,10 +49,7 @@ export default class DVR {
   validateField(field, form) {
     // get form fields data
     const data = {};
-    form.forEach((formField) => {
-      data[formField.path] = formField.value;
-    });
-
+    form.forEach($field => (data[$field.path] = $field.value));
     this.validateFieldAsync(field, form, data);
     this.validateFieldSync(field, form, data);
   }

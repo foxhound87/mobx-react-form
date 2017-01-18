@@ -77,7 +77,7 @@ export default {
      * }
    *
    * const data = {};
-   * form.forEach(formField => data[formField.path] = formField.value);
+   * form.forEach(field => data[field.path] = field.value);
    * // => {
      *   "state": "USA",
      *   "state.city": "New York",

@@ -79,15 +79,14 @@ export default class Validator {
     this.validateAllDeep(form, form.fields, showErrors, related);
   }
 
-  validateAllDeep(form, fields, showErrors, related, $path = '') {
+  validateAllDeep(form, fields, showErrors, related) {
     if (!fields.size) return;
 
-    fields.forEach((field, key) => {
-      const path = _.trimStart([$path, key].join('.'), '.');
-      this.validateField({ form, field, path, showErrors, related });
+    fields.forEach((field) => {
+      this.validateField({ form, field, path: field.path, showErrors, related });
       // recursive validation for nested fields
       if (field.fields.size) {
-        this.validateAllDeep(form, field.fields, showErrors, related, path);
+        this.validateAllDeep(form, field.fields, showErrors, related);
       }
     });
   }

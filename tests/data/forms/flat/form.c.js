@@ -40,8 +40,8 @@ const schema = {
 
 class NewForm extends Form {
 
-  onInit(form) {
-    form.invalidate('The user already exist');
+  onInit() {
+    this.invalidate('The user already exist');
   }
 }
 

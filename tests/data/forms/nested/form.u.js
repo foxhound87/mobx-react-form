@@ -33,8 +33,8 @@ const related = {
 
 class NewForm extends Form {
 
-  onInit(form) {
-    form.update({ user: { email: 'notAnEmail' } });
+  onInit() {
+    this.update({ user: { email: 'notAnEmail' } });
   }
 }
 
