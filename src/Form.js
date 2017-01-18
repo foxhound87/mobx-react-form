@@ -203,6 +203,7 @@ export const prototypes = {
         });
       // wait all promises then resolve
       return Promise.all(this.validator.promises)
+        .then(action(() => (this.$validating = false)))
         .then(() => Events.setRunning('validate', false))
         .then(() => resolve($field.isValid));
     });
