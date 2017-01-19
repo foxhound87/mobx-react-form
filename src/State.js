@@ -39,7 +39,7 @@ export default class State {
   }
 
   initProps(initial) {
-    const $props = _.union(utils.iprops, utils.vprops);
+    const $props = utils.iprops.concat(utils.vprops);
     const initialProps = _.pick(initial, $props);
 
     this.set('initial', 'props', initialProps);

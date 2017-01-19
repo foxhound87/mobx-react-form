@@ -2,6 +2,12 @@ import _ from 'lodash';
 
 export default class Bindings {
 
+  templates = {
+    // default: ({ field, props, keys, $try }) => ({
+    //   [keys.id]: $try(props.id, field.id),
+    // }),
+  };
+
   rewriters = {
     default: {
       id: 'id',
@@ -15,21 +21,6 @@ export default class Bindings {
       onFocus: 'onFocus',
       onBlur: 'onBlur',
     },
-  };
-
-  templates = {
-    default: ({ field, props, keys, $try }) => ({
-      [keys.id]: $try(props.id, field.id),
-      [keys.name]: $try(props.name, field.name),
-      [keys.type]: $try(props.type, field.type),
-      [keys.value]: $try(props.value, field.value),
-      [keys.label]: $try(props.label, field.label),
-      [keys.placeholder]: $try(props.placeholder, field.placeholder),
-      [keys.disabled]: $try(props.disabled, field.disabled),
-      [keys.onChange]: $try(props.onChange, field.onChange),
-      [keys.onFocus]: $try(props.onFocus, field.onFocus),
-      [keys.onBlur]: $try(props.onBlur, field.onBlur),
-    }),
   };
 
   load(field, name = 'default', props) {
@@ -61,7 +52,8 @@ export default class Bindings {
 
   try(/* arguments */) {
     let found = null;
-    _.each(arguments, (val, key) => { // eslint-disable-line
+    // eslint-disable-next-line
+    _.each(arguments, (val, key) => {
       if (!found && !_.isNil(val)) found = val;
     });
     return found;

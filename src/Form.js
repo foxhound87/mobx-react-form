@@ -28,11 +28,11 @@ export default class Form extends Base {
   } = {}) {
     super();
 
-    const initial = { setup, options, plugins, bindings };
-
-    _.map(initial, (val, key) =>
-      _.isFunction(this[key])
-        && _.merge(initial, { [key]: this[key].apply(this, [this]) }));
+    // load data from initializers methods
+    const initial = _.each({ setup, options, plugins, bindings },
+      (val, key) => _.isFunction(this[key])
+      ? _.merge(val, this[key].apply(this, [this]))
+      : val);
 
     this.name = initial.name || null;
 
