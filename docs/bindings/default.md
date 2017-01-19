@@ -21,7 +21,7 @@ export default observer(({ field, type = 'text' }) => (
 The `bind()` method will **overwrite any property**, just pass to it an object with all properties you want to overwrite:
 
 ```javascript
-export default observer(({ field, type = 'password', placeholder="Insert Password" }) => (
+export default observer(({ field, type = 'password', placeholder = 'Insert Password' }) => (
   <div>
     <input {...field.bind({ type, placeholder })} />
   </div>
@@ -80,20 +80,22 @@ Then these keys are assigned to the template which will handle the props values 
 
 ```javascript
 export default {
-  default: ({ field, props, keys }) => ({
-    [keys.id]: props.id || field.id,
-    [keys.name]: props.name || field.name,
-    [keys.type]: props.type || field.type,
-    [keys.value]: props.value || field.value,
-    [keys.label]: props.label || field.label,
-    [keys.placeholder]: props.placeholder || field.placeholder,
-    [keys.disabled]: props.disabled || field.disabled,
-    [keys.onChange]: props.onChange || field.onChange,
-    [keys.onFocus]: props.onFocus || field.onFocus,
-    [keys.onBlur]: props.onBlur || field.onBlur,
+  default: ({ $try, field, props, keys }) => ({
+    [keys.id]: $try(props.id, field.id),
+    [keys.name]: $try(props.name, field.name),
+    [keys.type]: $try(props.type, field.type),
+    [keys.value]: $try(props.value, field.value),
+    [keys.label]: $try(props.label, field.label),
+    [keys.placeholder]: $try(props.placeholder, field.placeholder),
+    [keys.disabled]: $try(props.disabled, field.disabled),
+    [keys.onChange]: $try(props.onChange, field.onChange),
+    [keys.onFocus]: $try(props.onFocus, field.onFocus),
+    [keys.onBlur]: $try(props.onBlur, field.onBlur),
   }),
 }
 ```
+
+> `$try()` is a small helper function which takes unlimited arguments in input, it returns the first defined.
 
 The function takes in input an object with the following props:
 
