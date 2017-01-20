@@ -151,7 +151,7 @@ export default {
    */
   get(prop = null) {
     if (_.isNil(prop)) {
-      const all = utils.computed.concat(utils.props, utils.vprops);
+      const all = [...utils.computed, ...utils.props, ...utils.vprops];
       return this.deepGet(all, this.fields);
     }
 

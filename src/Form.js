@@ -176,25 +176,28 @@ export const prototypes = {
     if (this.state.options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
     const $showErrors = showErrors && !Events.running(notShowErrorsEvents);
 
+    // wait all promises then resolve
+    const $wait = resolve => Promise.all(this.validator.promises)
+      .then(action(() => (this.$validating = false)))
+      .then(() => Events.setRunning('validate', false))
+      .then(() => resolve(this.isValid));
+
     if (_.isPlainObject(opt) && !_.isString($path)) {
       // validate all fields
       return new Promise((resolve) => {
-        this.validator.validateAll({
-          related,
-          form: this,
-          showErrors: $showErrors,
-        });
-        // wait all promises then resolve
-        return Promise.all(this.validator.promises)
-          .then(action(() => (this.$validating = false)))
-          .then(() => Events.setRunning('validate', false))
-          .then(() => resolve(this.isValid));
+        this.validator
+          .validateAll({
+            related,
+            form: this,
+            showErrors: $showErrors,
+          });
+
+        return $wait(resolve);
       });
     }
 
-    // validate single field
+    // validate single field by path
     return new Promise((resolve) => {
-      // validate single field by path
       this.validator
         .validateField({
           related,
@@ -203,11 +206,8 @@ export const prototypes = {
           field: $field,
           showErrors: $showErrors,
         });
-      // wait all promises then resolve
-      return Promise.all(this.validator.promises)
-        .then(action(() => (this.$validating = false)))
-        .then(() => Events.setRunning('validate', false))
-        .then(() => resolve($field.isValid));
+
+      return $wait(resolve);
     });
   },
 
