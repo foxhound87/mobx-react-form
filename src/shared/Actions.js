@@ -295,7 +295,7 @@ export default {
     let $key;
 
     if (_.has(opt, 'key')) $key = opt.key;
-    else $key = utils.maxKey(this.fields) + 1;
+    else $key = utils.maxKey(this.fields);
 
     const tree = parser.pathToFieldsTree(this.state.struct(), this.path);
     const $path = key => _.trimStart([this.path, key].join('.'), '.');

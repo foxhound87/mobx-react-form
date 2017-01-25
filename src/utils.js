@@ -80,7 +80,7 @@ const hasIntKeys = fields =>
 
 const maxKey = (fields) => {
   const max = _.max(parseIntKeys(fields));
-  return _.isUndefined(max) ? 0 : max;
+  return _.isUndefined(max) ? 0 : max + 1;
 };
 
 const makeId = path =>
