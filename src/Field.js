@@ -226,12 +226,12 @@ export default class Field extends Base {
   /* ------------------------------------------------------------------ */
   /* EVENTS */
 
-  sync = action((e) => {
+  sync = action((e, val = null) => {
     this.$changed = true;
 
-    // assume "e" is the value
-    if (_.isNil(e.target)) {
-      this.value = e;
+    // assume "v" or "e" are the values
+    if (_.isNil(e) || _.isNil(e.target)) {
+      this.value = e || val;
       return;
     }
 
