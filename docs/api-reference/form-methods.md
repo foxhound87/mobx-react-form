@@ -3,9 +3,6 @@
 | Method | Input | Output | Info | Help |
 |---|---|---|---|---|
 | **init(obj)** | (object) | - | Fields to initialize. | - |
-| **options()** | - | - | Get form options. | - |
-| **options(key)** | (string) | mixed | Get an option by key. | - |
-| **options(obj)** | (object) | - | Set form options after the form is initialied. | - |
 | **clear()** | - | - | Clear the Form to empty values. | - |
 | **reset()** | - | - | Reset the Form to initial values. | - |
 | **validate()** | - | promise | Check if the form is valid and return a promise. | - |
