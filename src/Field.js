@@ -226,23 +226,36 @@ export default class Field extends Base {
   /* ------------------------------------------------------------------ */
   /* EVENTS */
 
-  sync = action((e, val = null) => {
+  sync = action((e, v = null) => {
     this.$changed = true;
+
+    const $isBool = $ =>
+      _.isBoolean(this.$value) &&
+      _.isBoolean($.target.checked);
 
     // assume "v" or "e" are the values
     if (_.isNil(e) || _.isNil(e.target)) {
-      this.value = e || val;
-      return;
-    }
+      if (!_.isNil(v) && !_.isNil(v.target)) {
+        // eslint-disable-next-line
+        v = $isBool(v)
+          ? v.target.checked
+          : v.target.value;
+      }
 
-    // checkbox
-    if (_.isBoolean(this.$value) && _.isBoolean(e.target.checked)) {
-      this.value = e.target.checked;
+      this.value = e || v;
       return;
     }
 
     // text
-    this.value = e.target.value;
+    if (!_.isNil(e.target)) {
+      this.value = $isBool(e)
+        ? e.target.checked
+        : e.target.value;
+
+      return;
+    }
+
+    this.value = e;
   });
 
   onChange = this.sync;
