@@ -20,6 +20,7 @@
 - Validation Plugins & Multiple Validation Styles.
 - Nested Fields (w/ Serialization & Validation).
 - Support for Sync & Async Validation functions (w/ Promises).
+- Fields Props Bindings for custom Components.
 - Support for Material UI, React Widgets, React Select & more.
 - Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
 
