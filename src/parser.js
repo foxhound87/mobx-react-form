@@ -89,7 +89,7 @@ const handleFieldsNested = (fields, initial, strictProps) =>
       && !_.has(field, 'fields')
       && ((!utils.hasUnifiedProps(field))
       || utils.hasSeparatedProps(initial)
-      || !strictProps)) {
+      || strictProps)) {
       // define nested field
       return Object.assign(obj, {
         [key]: { fields: handleFieldsNested(field) },

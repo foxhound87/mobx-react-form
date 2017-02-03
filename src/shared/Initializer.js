@@ -12,8 +12,7 @@ export default {
     const $path = key => _.trimStart([this.path, key].join('.'), '.');
 
     let fields;
-    const strictProps = (this.state.type === 'unified');
-    fields = parser.prepareFieldsData(initial, strictProps);
+    fields = parser.prepareFieldsData(initial, this.state.strict);
     fields = parser.mergeSchemaDefaults(fields, this.validator);
 
     // create fields

@@ -6,6 +6,8 @@ import utils from './utils';
 
 export default class State {
 
+  strict = false;
+
   form;
 
   type;
@@ -45,12 +47,13 @@ export default class State {
     this.set('initial', 'props', initialProps);
 
     if (utils.isStruct(initial.fields) || utils.hasSeparatedProps(initial)) {
+      this.strict = true;
       this.type = 'separated';
       this.struct(initial.fields);
       return;
     }
 
-    if (!utils.hasUnifiedProps(initial.fields)) {
+    if (utils.hasUnifiedProps(initial.fields)) {
       this.type = 'unified';
     }
   }
