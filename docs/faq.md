@@ -2,7 +2,9 @@
 
 ---
 
-* [Understanding the intended usage scenario.](https://github.com/foxhound87/mobx-react-form/issues/120)
+* [Validate Field onBlur](https://github.com/foxhound87/mobx-react-form/issues/198)
+
+* [Understanding the intended usage scenario](https://github.com/foxhound87/mobx-react-form/issues/120)
 
 * [Defining and array field?](https://github.com/foxhound87/mobx-react-form/issues/116)
 

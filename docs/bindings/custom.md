@@ -89,25 +89,33 @@ The `Template` is useful if you need to change how the properties are obtained, 
 
 In the Form Class implement a `bindings()` methods which will return an object with our **Template** function.
 
-In the following example some props passed to the `bind()` method will be the fallback of the `fields` ones and the `onChange` Handler is reimplemented by providing a custom function.
+In the following example some props passed to the `bind()` method will get priority over the `fields` ones and for enabling validation on the `onBlur` handler, it is reimplemented by providing a custom function:
 
 ```javascript
+// custom onBlur with field validation
+const onBlur = field => (e) => {
+  e.preventDefault();
+  field.onBlur();
+  field.validate();
+};
+
+// define bindings templates
 class MyForm extends MobxReactForm {
 
   bindings() {
     return {
       MaterialTextField: ({ $try, field, props }) => ({
-        type: $try(field.type, props.type, 'text'),
-        id: $try(field.id, props.id),
-        name: $try(field.name, props.name),
-        value: $try(field.value, props.value),
-        floatingLabelText: $try(field.label, props.label),
-        hintText: $try(field.placeholder, props.placeholder, 'Insert Something...'),
-        errorText: $try(field.error, props.error),
-        disabled: $try(field.disabled, props.disabled),
-        onChange: myOnChange($try(props.onChange, field.onChange)),
+        type: $try(props.type, field.type),
+        id: $try(props.id, field.id),
+        name: $try(props.name, field.name),
+        value: $try(props.value, field.value),
+        floatingLabelText: $try(props.label, field.label),
+        hintText: $try(props.placeholder, field.placeholder),
+        errorText: $try(props.error, field.error),
+        disabled: $try(props.disabled, field.disabled),
         onFocus: $try(props.onFocus, field.onFocus),
-        onBlur: $try(props.onBlur, field.onBlur),
+        onChange: $try(props.onChange, field.onChange),
+        onBlur: $try(props.onBlur, onBlur(field)),
       }),
     };
   }
