@@ -131,6 +131,23 @@ const related = {
 new Form({ fields, related, ... });
 ```
 
+### Defining Bindings
+
+You can define the **bindings** name of a pre-defined `rewriter` or `template`.
+
+```javascript
+const fields = ['email'];
+
+const bindings = {
+  email: 'EmailBinding', // <<---
+};
+
+new Form({ fields, bindings, ... });
+```
+
+[Read more about bidings here.](https://foxhound87.github.io/mobx-react-form/docs/bindings/)
+
+
 <br>
 
 ## Define Separated Validation Objects

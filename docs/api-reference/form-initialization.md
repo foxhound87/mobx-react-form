@@ -20,7 +20,8 @@ The first argument is an object which expects the following properties:
 | **defaults**  | Object which represents the `default` property for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-defaults) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **disabled**  | Object which represents the `disabled` property for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-disabled) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **related**  | Object which represents the `related` property to validate others fields at the same time for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-related) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
-| **options**  | Additional options data for the field (useful for a select input). | [flat](../defining-flat-fields/separated-properties.md#defining-related) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **options**  | Additional options data for the field (useful for a select input). | [flat](../defining-flat-fields/separated-properties.md#defining-options) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **bindings**  | The name of the binding rewriter or template which will be used for the current field. | [flat](../defining-flat-fields/separated-properties.md#defining-bindings) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
 
 
 ###### Validation Properties

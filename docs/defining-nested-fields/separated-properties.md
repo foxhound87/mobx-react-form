@@ -85,27 +85,22 @@ const labels = {
 };
 ```
 
-### Set `related` Nested Fields to be validated at the same time
+### Set `bindings` for Nested Fields
 
-A Nested Field can be checked as well using its `path`.
+You can define the **bindings** name of a pre-defined `rewriter` or `template`.
 
 ```javascript
-const values = {
-  user: {
-    email: ''
-    emailConfirm: ''
-  },
-};
+...
 
-const validate = {
-  'user.email': isEmail,
-  'user.emailConfirm': [isEmail, shouldBeEqualTo('user.email')],
+const bindings = {
+  'club.name': 'MaterialTextField',
+  'club.city': 'MaterialTextField',
+  'members[].firstname': 'MaterialTextField',
+  'members[].lastname': 'MaterialTextField',
+  'members[].hobbies': 'MaterialTextField',
 }
 
-const related = {
-  'user.email': ['user.emailConfirm'],
-};
-
-new Form({ values, validate, related });
+new Form({ bindings, ... });
 ```
 
+[Read more about bidings here.](https://foxhound87.github.io/mobx-react-form/docs/bindings/)
