@@ -284,6 +284,7 @@ export const prototypes = {
       $label = null,
       $placeholder = null,
       $default = null,
+      $initial = null,
       $disabled = null,
       $bindings = null,
       $type = null,
@@ -312,7 +313,7 @@ export const prototypes = {
 
       this.$initial = parseInitialValue({
         unified: value,
-        separated: $value,
+        separated: $initial,
       });
 
       this.$default = parseDefaultValue({

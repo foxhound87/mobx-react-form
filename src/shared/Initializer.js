@@ -34,6 +34,7 @@ export default {
       $label: $try('labels'),
       $placeholder: $try('placeholders'),
       $default: $try('defaults'),
+      $initial: $try('initials'),
       $disabled: $try('disabled'),
       $bindings: $try('bindings'),
       $type: $try('types'),

@@ -54,5 +54,17 @@ describe('Check Fixes $I rules check', () => {
 
   it('$I deep.nested.column3[0].title rules should be a equal to "string|required"', () =>
     expect($.$I.$('deep.nested.column3[0].title').rules).to.be.equal('string|required'));
+
+  it('$I users[0].settings[0].name default should be a equal to "Default Name"', () =>
+    expect($.$I.$('users[0].settings[0].name').default).to.be.equal('Default Name'));
+
+  it('$I users[0].settings[0].active default should be true', () =>
+    expect($.$I.$('users[0].settings[0].active').default).to.be.true);
+
+  it('$I users[0].settings[0].name initial should be a equal to "Initial Name"', () =>
+    expect($.$I.$('users[0].settings[0].name').initial).to.be.equal('Initial Name'));
+
+  it('$I users[0].settings[0].active initial should be true', () =>
+    expect($.$I.$('users[0].settings[0].active').initial).to.be.true);
 });
 

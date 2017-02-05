@@ -10,6 +10,8 @@ const fields = [
   'deep.nested.column3[].title',
   'layout.column1',
   'layout.column1[].title',
+  'users[].settings[].name',
+  'users[].settings[].active',
 ];
 
 const rules = {
@@ -17,6 +19,16 @@ const rules = {
   'layout.column2[].title': 'string|required',
   'deep.nested.column2[].title': 'string|required',
   'deep.nested.column3[].title': 'string|required',
+};
+
+const defaults = {
+  'users[].settings[].name': 'Default Name',
+  'users[].settings[].active': true,
+};
+
+const initials = {
+  'users[].settings[].name': 'Initial Name',
+  'users[].settings[].active': true,
 };
 
 class NewForm extends Form {
@@ -45,4 +57,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, rules }, { name: 'Fixes-I' });
+export default new NewForm({ fields, rules, defaults, initials }, { name: 'Fixes-I' });
