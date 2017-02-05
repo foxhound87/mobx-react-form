@@ -40,6 +40,20 @@ class NewForm extends Form {
   }
 
   onInit(form) {
+    // form.update({
+    //   users: [{
+    //     settings: [{
+    //       active: false,
+    //     }],
+    //   }],
+    // });
+
+    // form.$('users[0].settings[0]').update({
+    //   active: false,
+    // });
+
+    form.$('users[0].settings[0].active').set('value', false);
+
     form.$('layout').update({
       column1: [{
         title: 'THE NEW TITLE',

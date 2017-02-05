@@ -66,5 +66,8 @@ describe('Check Fixes $I rules check', () => {
 
   it('$I users[0].settings[0].active initial should be true', () =>
     expect($.$I.$('users[0].settings[0].active').initial).to.be.true);
+
+  it('$I users[0].settings[0].active value should be false', () =>
+    expect($.$I.$('users[0].settings[0].active').value).to.be.false);
 });
 
