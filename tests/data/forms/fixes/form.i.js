@@ -12,6 +12,7 @@ const fields = [
   'layout.column1[].title',
   'users[].settings[].name',
   'users[].settings[].active',
+  'users[].settings[].bool',
 ];
 
 const rules = {
@@ -24,11 +25,13 @@ const rules = {
 const defaults = {
   'users[].settings[].name': 'Default Name',
   'users[].settings[].active': true,
+  'users[].settings[].bool': true,
 };
 
 const initials = {
   'users[].settings[].name': 'Initial Name',
   'users[].settings[].active': true,
+  'users[].settings[].bool': true,
 };
 
 class NewForm extends Form {
