@@ -82,9 +82,28 @@ const labels = {
 new Form({ fields, values, labels });
 ```
 
+### Defining Initials
+
+You can pass **initials values** separately defining a `initials` object to pass to the form initializer.
+
+The Initial values are applied on init only if the value property is not provided.
+
+```javascript
+const fields = ['username', 'email'];
+
+const initials = {
+  username: 'SteveJobs',
+  email: 's.jobs@apple.com',
+};
+
+new Form({ fields, initials, ... });
+```
+
+> This is useful for handling initial values for deep nested fields.
+
 ### Defining Defaults
 
-You can pass **default values** separately defining a `defaults` object to pass to the form initializer.
+You can pass **defaults values** separately defining a `defaults` object to pass to the form initializer.
 
 In the example below, the fields does not have initial state, so when the form is initialized, the fields value will be empty.
 
