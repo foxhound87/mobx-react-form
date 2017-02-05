@@ -12,17 +12,15 @@ const parsePath = (path) => {
 const parseGetLabel = label =>
   _.isInteger(_.parseInt(label)) ? '' : label;
 
-const parseInitialValue = ({ unified = null, separated }) => {
-  if (separated === 0) return separated;
+const parseInitialValue = ({ unified = null, separated, initial }) => {
+  if (separated === 0 || _.isBoolean(separated)) return separated;
   const $value = separated || unified;
-  // handle boolean
-  if (_.isBoolean($value)) return $value;
   // handle others types
-  return !_.isNil($value) ? $value : '';
+  return !_.isNil($value) ? $value : initial;
 };
 
 const parseDefaultValue = ({ unified = null, separated, initial }) => {
-  if (separated === 0) return separated;
+  if (separated === 0 || _.isBoolean(separated)) return separated;
   const $value = separated || unified;
   return !_.isNil($value) ? $value : initial;
 };

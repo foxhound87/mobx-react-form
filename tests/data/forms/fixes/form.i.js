@@ -31,7 +31,7 @@ const defaults = {
 const initials = {
   'users[].settings[].name': 'Initial Name',
   'users[].settings[].active': true,
-  'users[].settings[].bool': true,
+  'users[].settings[].bool': false,
 };
 
 class NewForm extends Form {

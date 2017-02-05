@@ -70,10 +70,10 @@ describe('Check Fixes $I rules check', () => {
   it('$I users[0].settings[0].active value should be false', () =>
     expect($.$I.$('users[0].settings[0].active').value).to.be.false);
 
-  it('$I users[0].settings[0].bool initial should be true', () =>
-    expect($.$I.$('users[0].settings[0].bool').initial).to.be.true);
+  it('$I users[0].settings[0].bool initial should be false', () =>
+    expect($.$I.$('users[0].settings[0].bool').initial).to.be.false);
 
-  it('$I users[0].settings[0].bool value should be true', () =>
-    expect($.$I.$('users[0].settings[0].bool').value).to.be.true);
+  it('$I users[0].settings[0].bool value should be false', () =>
+    expect($.$I.$('users[0].settings[0].bool').value).to.be.false);
 });
 
