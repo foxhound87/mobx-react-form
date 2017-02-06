@@ -5,6 +5,7 @@ import utils from './utils';
 import Base from './Base';
 
 import {
+  defaultClearValue,
   parseInitialValue,
   parseDefaultValue,
   parseGetLabel } from './parser';
@@ -311,12 +312,16 @@ export const prototypes = {
         rules,
       } = $data;
 
+      this.$type = $type || type || 'text';
+
       this.$initial = parseInitialValue({
+        type: this.type,
         unified: value,
         separated: $initial,
       });
 
       this.$default = parseDefaultValue({
+        type: this.type,
         unified: update ? '' : $data.default,
         separated: $default,
         initial: this.$initial,
@@ -328,7 +333,6 @@ export const prototypes = {
       this.$placeholder = $placeholder || placeholder || '';
       this.$disabled = $disabled || disabled || false;
       this.$bindings = $bindings || bindings || 'default';
-      this.$type = $type || type || 'text';
       this.$options = $options || options || null;
       this.$related = $related || related || [];
       this.$validate = toJS($validate || validate || null);
@@ -338,13 +342,16 @@ export const prototypes = {
 
     /* The field IS the value here */
     this.name = _.toString($key);
+    this.$type = $type || 'text';
 
     this.$initial = parseInitialValue({
+      type: this.type,
       unified: $data,
       separated: $value,
     });
 
     this.$default = parseDefaultValue({
+      type: this.type,
       unified: update ? '' : $data.default,
       separated: $default,
       initial: this.$initial,
@@ -355,7 +362,6 @@ export const prototypes = {
     this.$placeholder = $placeholder || '';
     this.$disabled = $disabled || false;
     this.$bindings = $bindings || 'default';
-    this.$type = $type || 'text';
     this.$options = $options || null;
     this.$related = $related || [];
     this.$validate = toJS($validate || null);
@@ -420,11 +426,7 @@ export const prototypes = {
   @action
   clear(deep = true) {
     this.showErrors(false);
-    if (_.isArray(this.$value)) this.$value = [];
-    if (_.isDate(this.$value)) this.$value = null;
-    if (_.isBoolean(this.$value)) this.$value = false;
-    if (_.isNumber(this.$value)) this.$value = 0;
-    if (_.isString(this.$value)) this.$value = '';
+    this.$value = defaultClearValue({ value: this.$value });
 
     // recursive clear fields
     if (deep && this.fields.size) {

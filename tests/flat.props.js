@@ -13,6 +13,11 @@ describe('Check Flat $A placeholder field prop', () => {
     expect($.$A.$('username').bindings).to.be.equal('default'));
 });
 
+describe('Check Flat $B value field prop', () => {
+  it('$B username value should be empty string', () =>
+    expect($.$B.$('username').value).to.be.equal(''));
+});
+
 describe('Check Flat $R extended field prop', () => {
   it('$R email should have property newFieldProp', () =>
     expect($.$R.$('email')).to.have.property('newFieldProp'));

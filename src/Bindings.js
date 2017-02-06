@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { $try } from './parser';
 
 export default class Bindings {
 
@@ -28,14 +29,14 @@ export default class Bindings {
       const $bindings = {};
 
       _.each(this.rewriters[name], ($v, $k) =>
-        _.merge($bindings, { [$v]: this.try(props[$k], field[$k]) }));
+        _.merge($bindings, { [$v]: $try(props[$k], field[$k]) }));
 
       return $bindings;
     }
 
     return this.templates[name]({
       keys: this.rewriters[name],
-      $try: this.try,
+      $try,
       field,
       props,
     });
@@ -48,14 +49,5 @@ export default class Bindings {
     });
 
     return this;
-  }
-
-  try(/* arguments */) {
-    let found = null;
-    // eslint-disable-next-line
-    _.each(arguments, (val, key) => {
-      if (!found && !_.isNil(val)) found = val;
-    });
-    return found;
   }
 }

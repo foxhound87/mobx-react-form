@@ -1,6 +1,31 @@
 import _ from 'lodash';
 import utils from './utils';
 
+const $try = (...args) => {
+  let found = null;
+  // eslint-disable-next-line
+  _.each(args, (val, key) => {
+    if (!found && !_.isNil(val)) found = val;
+  });
+  return found;
+};
+
+const defaultClearValue = ({ value }) => {
+  if (_.isArray(value)) return [];
+  if (_.isDate(value)) return null;
+  if (_.isBoolean(value)) return false;
+  if (_.isNumber(value)) return 0;
+  if (_.isString(value)) return '';
+  return undefined;
+};
+
+const defaultValue = ({ type }) => {
+  if (type === 'date') return null;
+  if (type === 'checkbox') return false;
+  if (type === 'number') return 0;
+  return '';
+};
+
 const parsePath = (path) => {
   let $path = path;
   $path = _.replace($path, new RegExp('\\[', 'g'), '.');
@@ -12,18 +37,15 @@ const parsePath = (path) => {
 const parseGetLabel = label =>
   _.isInteger(_.parseInt(label)) ? '' : label;
 
-const parseInitialValue = ({ unified = null, separated, initial }) => {
+const parseFieldValue = ({ type, unified = null, separated, initial }) => {
   if (separated === 0 || _.isBoolean(separated)) return separated;
+  if (unified === 0 || _.isBoolean(unified)) return unified;
   const $value = separated || unified;
-  // handle others types
-  return !_.isNil($value) ? $value : initial;
+  return !_.isNil($value) ? $value : initial || defaultValue({ type });
 };
 
-const parseDefaultValue = ({ unified = null, separated, initial }) => {
-  if (separated === 0 || _.isBoolean(separated)) return separated;
-  const $value = separated || unified;
-  return !_.isNil($value) ? $value : initial;
-};
+const parseInitialValue = parseFieldValue;
+const parseDefaultValue = parseFieldValue;
 
 const parseArrayProp = ($val, $prop) => {
   const $values = _.values($val);
@@ -130,6 +152,9 @@ const pathToFieldsTree = (struct, path, n = 0) => {
 };
 
 export default {
+  $try,
+  defaultValue,
+  defaultClearValue,
   parsePath,
   parseGetLabel,
   parseInitialValue,

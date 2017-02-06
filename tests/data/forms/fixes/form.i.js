@@ -13,7 +13,12 @@ const fields = [
   'users[].settings[].name',
   'users[].settings[].active',
   'users[].settings[].bool',
+  'users[].settings[].anotherBool',
 ];
+
+const types = {
+  'users[].settings[].anotherBool': 'checkbox',
+};
 
 const rules = {
   'layout.column1[].title': 'string|required',
@@ -74,4 +79,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, rules, defaults, initials }, { name: 'Fixes-I' });
+export default new NewForm({ fields, rules, defaults, initials, types }, { name: 'Fixes-I' });

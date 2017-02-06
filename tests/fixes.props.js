@@ -75,5 +75,8 @@ describe('Check Fixes $I rules check', () => {
 
   it('$I users[0].settings[0].bool value should be false', () =>
     expect($.$I.$('users[0].settings[0].bool').value).to.be.false);
+
+  it('$I users[0].settings[0].anotherBool value should be false', () =>
+    expect($.$I.$('users[0].settings[0].anotherBool').value).to.be.false);
 });
 
