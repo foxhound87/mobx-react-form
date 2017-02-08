@@ -7,7 +7,7 @@ export default {
     type: $try(props.type, field.type),
     id: $try(props.id, field.id),
     name: $try(props.name, field.name),
-    value: $try(field.value, props.value),
+    value: $try(props.value, field.value),
     floatingLabelText: $try(props.label, field.label),
     hintText: $try(props.placeholder, field.placeholder),
     errorText: $try(props.error, field.error),

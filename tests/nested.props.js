@@ -160,7 +160,7 @@ describe('Check Nested $N bindings props', () => {
     .$('members').$(0).$('lastname')
     .bind({ value: 'Hello!!!' });
 
-  it('$N membersLastNameBindings value should be equal to "Hello"', () =>
+  it('$N membersLastNameBindings value should be equal to "Hello!!!"', () =>
       expect(membersLastNameBindings).to.have.property('value', 'Hello!!!'));
 
   const hobbiesBindings = $.$N

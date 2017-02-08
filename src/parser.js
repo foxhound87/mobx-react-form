@@ -3,10 +3,11 @@ import utils from './utils';
 
 const $try = (...args) => {
   let found = null;
-  // eslint-disable-next-line
-  _.each(args, (val, key) => {
-    if (!found && !_.isNil(val)) found = val;
-  });
+
+  args.map(val =>
+    ((found === null) && !_.isNil(val))
+      && (found = val));
+
   return found;
 };
 
@@ -33,19 +34,15 @@ const parsePath = (path) => {
   return $path;
 };
 
-// make integers labels empty
-const parseGetLabel = label =>
-  _.isInteger(_.parseInt(label)) ? '' : label;
-
-const parseFieldValue = ({ type, unified = null, separated, initial }) => {
-  if (separated === 0 || _.isBoolean(separated)) return separated;
-  if (unified === 0 || _.isBoolean(unified)) return unified;
-  const $value = separated || unified;
-  return !_.isNil($value) ? $value : initial || defaultValue({ type });
-};
+const parseFieldValue = ({ type, separated, unified, initial }) =>
+  $try(separated, unified, initial, defaultValue({ type }));
 
 const parseInitialValue = parseFieldValue;
 const parseDefaultValue = parseFieldValue;
+
+// make integers labels empty
+const parseGetLabel = label =>
+  _.isInteger(_.parseInt(label)) ? '' : label;
 
 const parseArrayProp = ($val, $prop) => {
   const $values = _.values($val);
