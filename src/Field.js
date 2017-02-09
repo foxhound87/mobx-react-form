@@ -5,6 +5,7 @@ import utils from './utils';
 import Base from './Base';
 
 import {
+  $try,
   defaultClearValue,
   parseInitialValue,
   parseDefaultValue,
@@ -235,25 +236,22 @@ export default class Field extends Base {
       _.isBoolean(this.$value) &&
       _.isBoolean($.target.checked);
 
+    const $get = $ => $isBool($)
+        ? $.target.checked
+        : $.target.value;
+
     // assume "v" or "e" are the values
     if (_.isNil(e) || _.isNil(e.target)) {
       if (!_.isNil(v) && !_.isNil(v.target)) {
-        // eslint-disable-next-line
-        v = $isBool(v)
-          ? v.target.checked
-          : v.target.value;
+        v = $get(v); // eslint-disable-line
       }
 
-      this.value = e || v;
+      this.value = $try(e, v);
       return;
     }
 
-    // text
     if (!_.isNil(e.target)) {
-      this.value = $isBool(e)
-        ? e.target.checked
-        : e.target.value;
-
+      this.value = $get(e);
       return;
     }
 

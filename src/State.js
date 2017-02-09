@@ -34,7 +34,7 @@ export default class State {
     this.initProps(initial);
     this.initOptions(options);
     this.initBindings(bindings);
-    this.observeOptions(bindings);
+    this.observeOptions();
   }
 
   initOptions(options) {
