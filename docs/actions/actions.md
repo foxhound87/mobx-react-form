@@ -72,6 +72,17 @@ const n = 3;
 .$('members').$(n).$('firstname');
 ```
 
+
+### Field Container
+
+Select the parent field container.
+
+```javascript
+.$('members[3].firstname').container(); // members[3]
+.$('members[3]').container(); // members
+.$('address.city').container(); // address
+```
+
 ### Get the Fields Properties
 
 > Return an `object` with fields `key:val` pairs (with nested fields).
