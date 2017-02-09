@@ -5,6 +5,13 @@ const props = ['value', 'initial', 'default', 'label', 'placeholder', 'disabled'
 const iprops = ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'bindings', 'types'];
 const vprops = ['rules', 'validate'];
 
+const checkObserveItem = change => ({ key, to, type, exec }) =>
+  (change.type === type && change.name === key && change.newValue === to)
+    && exec.apply(change, [change]);
+
+const checkObserve = collection => change =>
+  collection.map(checkObserveItem(change));
+
 const check = ({ type, data }) => {
   let $check;
   switch (type) {
@@ -14,6 +21,7 @@ const check = ({ type, data }) => {
   }
   return $check(data);
 };
+
 
 const has = ($type, $data) => {
   let $;
@@ -87,6 +95,7 @@ const makeId = path =>
   _.uniqueId([_.replace(path, new RegExp('\\.', 'g'), '-'), '--'].join(''));
 
 export default {
+  checkObserve,
   computed,
   props,
   iprops,

@@ -15,6 +15,7 @@ export default class Field extends Base {
   fields = observable.map ? observable.map({}) : asMap({});
   incremental = false;
   isField = true;
+  dispose = null;
 
   id;
   key;
@@ -376,7 +377,7 @@ export const prototypes = {
 
   observe() {
     if (this.state.options.get('validateOnChange') === false) return;
-    observe(this, '$value', () => this.validate());
+    this.dispose = observe(this, '$value', () => this.validate());
   },
 
   validate() {

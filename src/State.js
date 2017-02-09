@@ -1,3 +1,4 @@
+import { observe } from 'mobx';
 import _ from 'lodash';
 
 import Bindings from './Bindings';
@@ -33,6 +34,7 @@ export default class State {
     this.initProps(initial);
     this.initOptions(options);
     this.initBindings(bindings);
+    this.observeOptions(bindings);
   }
 
   initOptions(options) {
@@ -95,5 +97,22 @@ export default class State {
     if (type === 'current') {
       Object.assign(this.current[subtype], state);
     }
+  }
+
+  observeOptions() {
+    // Fix Issue #201
+    observe(this.options.options, utils.checkObserve([{
+      // start observing fields
+      key: 'validateOnChange',
+      to: true,
+      type: 'update',
+      exec: () => this.form.forEach(field => field.observe()),
+    }, {
+      // stop observing fields
+      key: 'validateOnChange',
+      to: false,
+      type: 'update',
+      exec: () => this.form.forEach(field => field.dispose()),
+    }]));
   }
 }

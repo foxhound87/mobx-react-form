@@ -1,6 +1,8 @@
+import { observable, action, toJS, extendObservable } from 'mobx';
+
 export default class Options {
 
-  options = {
+  @observable options = {
     showErrorsOnInit: false,
     validateOnInit: true,
     validateOnChange: true,
@@ -16,10 +18,11 @@ export default class Options {
 
   get(key = null) {
     if (key) return this.options[key];
-    return this.options;
+    return toJS(this.options);
   }
 
+  @action
   set(options) {
-    Object.assign(this.options, options);
+    extendObservable(this.options, options);
   }
 }
