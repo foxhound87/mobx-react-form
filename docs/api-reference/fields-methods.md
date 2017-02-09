@@ -16,6 +16,7 @@
 |---|---|---|---|---|
 | **update(obj)** | (object) | - | Update Fields Values. Will create new fields auomatically. | - |
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
+| **container()** | (object) | - | Get Parent Field Container. | - |
 | **get()** | - | object | Get all field and nested fields data with all props and computed values. | - |
 | **get(prop)** | (mixed) | object | Get all field filtering by certain `props` (string or array). | - |
 | **set(val)** | (mixed) | - | Set field value. Takes the value. | - |
