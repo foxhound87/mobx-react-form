@@ -17,3 +17,5 @@
 * [Unable to update() array field values](https://github.com/foxhound87/mobx-react-form/issues/148)
 
 * [Support for older browsers - Babel polyfills](https://github.com/foxhound87/mobx-react-form/issues/171)
+
+* [Specific PropType for mobx-react-form?](https://github.com/foxhound87/mobx-react-form/issues/184)
