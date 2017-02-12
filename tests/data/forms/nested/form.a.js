@@ -32,6 +32,7 @@ const parse = {
 };
 
 const format = {
+  'user': () => {},
   'user.devSkills': value => Number(value),
 };
 

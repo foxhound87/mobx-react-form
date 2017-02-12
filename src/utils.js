@@ -28,7 +28,7 @@ const has = ($type, $data) => {
   switch ($type) {
     case 'props': $ = props; break;
     case 'computed': $ = computed; break;
-    case 'all': $ = [...computed, ...props, ...vprops]; break;
+    case 'all': $ = ['id', ...computed, ...props, ...vprops]; break;
     default: $ = null;
   }
   return _.intersection($data, $).length > 0;

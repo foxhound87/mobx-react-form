@@ -170,7 +170,8 @@ export default {
           });
         }
 
-        const value = field.$formatter(this.deepGet(prop, field.fields));
+        let value = this.deepGet(prop, field.fields);
+        if (prop === 'value') value = field.$formatter(value);
 
         return Object.assign(obj, {
           [field.key]: parser.parseCheckArray(field, value, prop),

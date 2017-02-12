@@ -37,6 +37,12 @@ describe('Check $A Nested Fields', () => {
 
   it('$A user.devSkills get(value) should be a number', () =>
     expect($.$A.$('user.devSkills').get('value')).to.be.a('number'));
+
+  it('$A get(id) should exist', () =>
+    expect($.$A.get('id').user).to.exist);
+
+  it('$A get(value) should exist', () =>
+    expect($.$A.get('value').user).to.empty);
 });
 
 describe('Check $B Nested Fields', () => {
