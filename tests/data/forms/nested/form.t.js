@@ -17,15 +17,14 @@ class NewForm extends Form {
     form.$('hobbies').add('CCC');
     form.$('hobbies').add('DDD');
     form.$('hobbies').add('EEE');
-    // hobbies[] length: 6
+    // hobbies[] length: 5
 
     form.del('hobbies[0]');
     form.del('hobbies[2]');
     form.$('hobbies').del(3);
-    // hobbies[] length should be 3
+    // hobbies[] length should be 2
 
     // form.add('member.hobbies'); // OLD
-    form.$('member.hobbies').$(0).set('value', '000');  // 0
     form.$('member.hobbies').add('AAA');  // 1
     form.$('member.hobbies').add('BBB');  // 2
     form.$('member.hobbies').add('CCC');  // 3

@@ -196,25 +196,25 @@ describe('Check Nested $S get() value after set() value', () => {
 });
 
 describe('Check Nested $T add() and del()', () => {
-  it('$T hobbies fields.size should be equal to 3', () =>
-    expect($.$T.$('hobbies').fields.size).to.equal(3));
+  it('$T hobbies fields.size should be equal to 2', () =>
+    expect($.$T.$('hobbies').fields.size).to.equal(2));
 
-  it('$T member.hobbies fields.size should be equal to 3', () =>
-    expect($.$T.$('member.hobbies').fields.size).to.equal(3));
+  it('$T member.hobbies fields.size should be equal to 2', () =>
+    expect($.$T.$('member.hobbies').fields.size).to.equal(2));
 });
 
 describe('Check Nested $T value on add()', () => {
   it('$T member.hobbies value should be array', () =>
     expect($.$T.$('member.hobbies').value).to.be.instanceof(Array));
 
-  it('$T member.hobbies value should have length of 3', () =>
-    expect($.$T.$('member.hobbies').value).to.have.lengthOf(3));
+  it('$T member.hobbies value should have length of 2', () =>
+    expect($.$T.$('member.hobbies').value).to.have.lengthOf(2));
 
-  it('$T member.hobbies[1] initial should be equal to "AAA"', () =>
-    expect($.$T.$('member.hobbies[1]').initial).to.equal('AAA'));
+  it('$T member.hobbies[1] initial should be equal to "BBB"', () =>
+    expect($.$T.$('member.hobbies[1]').initial).to.equal('BBB'));
 
-  it('$T member.hobbies[1] default should be equal to "AAA"', () =>
-    expect($.$T.$('member.hobbies[1]').default).to.equal('AAA'));
+  it('$T member.hobbies[1] default should be equal to "BBB"', () =>
+    expect($.$T.$('member.hobbies[1]').default).to.equal('BBB'));
 
   it('$T member.info[1] default should be an object', () =>
     expect($.$T.$('member.info[1]').default).to.be.an('object'));
@@ -234,8 +234,8 @@ describe('Check Nested $T value on add()', () => {
   it('$T notIncrementalFields[notIncrementalKey] value should be equal to "XXX"', () =>
     expect($.$T.$('notIncrementalFields[notIncrementalKey]').value).to.equal('XXX'));
 
-  it('$T notIncrementalFields .fields.size should be equal to 2', () =>
-    expect($.$T.$('notIncrementalFields').fields.size).to.equal(2));
+  it('$T notIncrementalFields .fields.size should be equal to 1', () =>
+    expect($.$T.$('notIncrementalFields').fields.size).to.equal(1));
 
   it('$T notIncrementalFields add() return value should be equal to "anotherKey"', () =>
     expect($.$T.$('notIncrementalFields').add('YYY', { key: 'anotherKey' })).to.equal('anotherKey'));

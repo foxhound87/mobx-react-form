@@ -296,7 +296,7 @@ export default {
     if (_.has(opt, 'key')) $key = opt.key;
     else $key = utils.maxKey(this.fields);
 
-    const tree = parser.pathToFieldsTree(this.state.struct(), this.path);
+    const tree = parser.pathToFieldsTree(this.state.struct(), this.path, 0, true);
     const $path = key => _.trimStart([this.path, key].join('.'), '.');
 
     _.each(tree, field => this.initField($key, $path($key), field));

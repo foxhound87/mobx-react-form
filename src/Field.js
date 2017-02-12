@@ -5,8 +5,7 @@ import utils from './utils';
 import Base from './Base';
 
 import {
-  parseInitialValue,
-  parseDefaultValue,
+  parseFieldValue,
   parseGetLabel } from './parser';
 
 export default class Field extends Base {
@@ -117,7 +116,7 @@ export default class Field extends Base {
   }
 
   set initial(val) {
-    this.$initial = parseInitialValue({ separated: val });
+    this.$initial = parseFieldValue({ separated: val });
   }
 
   @computed get default() {
@@ -125,7 +124,7 @@ export default class Field extends Base {
   }
 
   set default(val) {
-    this.$default = parseDefaultValue({ separated: val });
+    this.$default = parseFieldValue({ separated: val });
   }
 
   @computed get label() {
@@ -279,6 +278,8 @@ export const prototypes = {
     this.path = $path;
     this.id = utils.makeId(this.path);
 
+    const isEmptyArray = (_.has($data, 'fields') && _.isArray($data.fields));
+
     const {
       $value = null,
       $label = null,
@@ -294,7 +295,8 @@ export const prototypes = {
       $rules = null,
     } = $props;
 
-    if (_.isNil($data)) $data = ''; // eslint-disable-line
+    // eslint-disable-next-line
+    if (_.isNil($data)) $data = '';
 
     if (_.isPlainObject($data)) {
       const {
@@ -311,12 +313,12 @@ export const prototypes = {
         rules,
       } = $data;
 
-      this.$initial = parseInitialValue({
-        unified: value,
+      this.$initial = parseFieldValue({
+        unified: isEmptyArray ? [] : value,
         separated: $initial,
       });
 
-      this.$default = parseDefaultValue({
+      this.$default = parseFieldValue({
         unified: update ? '' : $data.default,
         separated: $default,
         initial: this.$initial,
@@ -339,12 +341,12 @@ export const prototypes = {
     /* The field IS the value here */
     this.name = _.toString($key);
 
-    this.$initial = parseInitialValue({
-      unified: $data,
+    this.$initial = parseFieldValue({
+      unified: isEmptyArray ? [] : $data,
       separated: $value,
     });
 
-    this.$default = parseDefaultValue({
+    this.$default = parseFieldValue({
       unified: update ? '' : $data.default,
       separated: $default,
       initial: this.$initial,

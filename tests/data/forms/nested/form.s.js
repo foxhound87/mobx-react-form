@@ -45,7 +45,8 @@ class NewForm extends Form {
   }
 
   setup() {
-    return { fields, rules, values }; // omit "rules"
+    // omit "rules" (use constructor)
+    return { fields, values };
   }
 
   onInit(form) {
