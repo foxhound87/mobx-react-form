@@ -140,7 +140,7 @@ export default {
 
     if (_.isString(prop)) {
       if (this.fields.size === 0) {
-        return this.$formatter(this[prop]);
+        return parser.parseCheckFormatter(this, prop);
       }
 
       const value = this.deepGet(prop, this.fields);
@@ -166,7 +166,7 @@ export default {
       if (_.isString(prop)) {
         if (field.fields.size === 0) {
           return Object.assign(obj, {
-            [field.key]: field.$formatter(field[prop]),
+            [field.key]: parser.parseCheckFormatter(field, prop),
           });
         }
 

@@ -23,7 +23,6 @@ const check = ({ type, data }) => {
   return $check(data);
 };
 
-
 const has = ($type, $data) => {
   let $;
   switch ($type) {

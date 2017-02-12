@@ -54,6 +54,11 @@ const parseCheckArray = (field, value, prop) =>
     ? parseArrayProp(value, prop)
     : value;
 
+const parseCheckFormatter = ($field, $prop) =>
+  ($prop === 'value')
+    ? $field.$formatter($field[$prop])
+    : $field[$prop];
+
 const defineFieldsFromStruct = struct =>
   _.reduceRight(struct, ($, name) => {
     if (_.endsWith(name, '[]')) {
@@ -159,6 +164,7 @@ export default {
   parseGetLabel,
   parseArrayProp,
   parseCheckArray,
+  parseCheckFormatter,
   mergeSchemaDefaults,
   handleFieldsNested,
   handleFieldsArrayOfStrings,
