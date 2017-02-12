@@ -18,8 +18,22 @@ const fields = [{
     name: 'password',
     label: 'Password',
     value: 'thinkdifferent',
+  }, {
+    name: 'devSkills',
+    label: 'Dev Skills',
+    value: 5,
+    // parse: value => value.toString(),   // (user to store)
+    // format: value => Number(value),     // (store to user)
   }],
 }];
+
+const parse = {
+  'user.devSkills': value => value.toString(),
+};
+
+const format = {
+  'user.devSkills': value => Number(value),
+};
 
 class NewForm extends Form {
 
@@ -30,4 +44,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields }, { name: 'Nested-A' });
+export default new NewForm({ fields, parse, format }, { name: 'Nested-A' });
