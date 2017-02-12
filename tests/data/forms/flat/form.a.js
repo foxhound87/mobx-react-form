@@ -44,6 +44,8 @@ const fields = {
   devSkills: {
     label: 'Dev Skills',
     value: 5,
+    parse: value => value.toString(),   // (user to store)
+    format: value => Number(value),     // (store to user)
   },
   revenue: {
     label: 'Revenue (Billion $)',
