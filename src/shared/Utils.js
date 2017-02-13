@@ -1,3 +1,4 @@
+import { observe } from 'mobx';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';
@@ -6,6 +7,21 @@ import parser from '../parser';
   Field Utils
 */
 export default {
+
+  /**
+   Fields Observer
+   */
+  observe({ path = null, key, call }) {
+    const $field = _.has(this, 'isField') ? this : this.select(path);
+    const $path = $field ? $field.path : path;
+    const params = { form: this.state.form, path: $path, field: $field };
+
+    _.merge(this.disposers, {
+      [$path]: (key === 'fields')
+        ? $field.fields.observe(change => call.apply(null, [{ ...params, change }]))
+        : observe($field, key, change => call.apply(null, [{ ...params, change }])),
+    });
+  },
 
   /**
    Fields Selector

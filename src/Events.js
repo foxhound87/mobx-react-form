@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import _ from 'lodash';
 
-class Events {
+export default class Events {
 
   @observable $running = {
     clear: false,
@@ -10,33 +10,22 @@ class Events {
     validate: false,
   };
 
-  $path = {
-    clear: null,
-    reset: null,
-    update: null,
-    validate: null,
-  };
-
-  getRunning(key = null) {
+  get(key = null) {
     if (key) return this.$running[key];
     return this.$running;
   }
 
   @action
-  setRunning(key, flag, path = null) {
+  set(key = null, flag) {
     this.$running[key] = flag;
-    if (path) this.$path[key] = path;
-    else this.$path[key] = null;
   }
 
-  path(key) {
-    return this.$path[key];
-  }
+  // path(key) {
+  //   return this.$path[key];
+  // }
 
   running(events) {
-    const running = _.keys(_.omitBy(this.getRunning(), e => e === false));
+    const running = _.keys(_.omitBy(this.get(), e => e === false));
     return _.intersection(events, running).length > 0;
   }
 }
-
-export default new Events();

@@ -16,7 +16,8 @@ export default class Field extends Base {
   fields = observable.map ? observable.map({}) : asMap({});
   incremental = false;
   isField = true;
-  dispose = null;
+  disposeValidation = null;
+  dispose = {};
 
   id;
   key;
@@ -62,7 +63,7 @@ export default class Field extends Base {
 
     this.incremental = (this.hasIncrementalNestedFields !== 0);
 
-    this.observe();
+    this.observeValidation();
   }
 
   /* ------------------------------------------------------------------ */
@@ -246,16 +247,16 @@ export default class Field extends Base {
         v = $get(v); // eslint-disable-line
       }
 
-      this.value = $try(e, v);
+      this.set('value', $try(e, v));
       return;
     }
 
     if (!_.isNil(e.target)) {
-      this.value = $get(e);
+      this.set('value', $get(e));
       return;
     }
 
-    this.value = e;
+    this.set('value', e);
   });
 
   onChange = this.sync;
@@ -373,11 +374,6 @@ export const prototypes = {
     this.initFields({ fields }, update);
   },
 
-  observe() {
-    if (this.state.options.get('validateOnChange') === false) return;
-    this.dispose = observe(this, '$value', () => this.validate());
-  },
-
   validate() {
     return this.state.form.validate({
       path: this.path,
@@ -458,6 +454,11 @@ export const prototypes = {
       return;
     }
     this.errorAsync = null;
+  },
+
+  observeValidation() {
+    if (this.state.options.get('validateOnChange') === false) return;
+    this.disposeValidation = observe(this, '$value', () => this.validate());
   },
 
   bind(props = {}) {
