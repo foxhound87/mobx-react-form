@@ -137,11 +137,13 @@ export const prototypes = {
 
   on(event, callback) {
     observe(this.state.events.$running, change =>
-      (event === change.name) && callback({
-        change: _.omit(change, 'type', 'object'),
-        form: this,
-        event,
-      }));
+      (event === change.name && this.state.events.$running[event])
+        && callback({
+          path: this.state.events.$running[event],
+          change: _.omit(change, 'type', 'object'),
+          form: this,
+          event,
+        }));
   },
 
   validate(opt = {}, obj = {}) {
@@ -162,7 +164,7 @@ export const prototypes = {
     if (_.has(opt, 'related')) related = opt.related;
     else if (_.has(obj, 'related')) related = obj.related;
 
-    this.state.events.set('validate', true);
+    this.state.events.set('validate', $path || $field.path);
 
     // look running events and choose when show errors messages
     const notShowErrorsEvents = ['clear', 'reset'];
