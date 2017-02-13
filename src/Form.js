@@ -164,7 +164,7 @@ export const prototypes = {
     if (_.has(opt, 'related')) related = opt.related;
     else if (_.has(obj, 'related')) related = obj.related;
 
-    this.state.events.set('validate', $path || $field.path);
+    this.state.events.set('validate', $path || $field.path || true);
 
     // look running events and choose when show errors messages
     const notShowErrorsEvents = ['clear', 'reset'];

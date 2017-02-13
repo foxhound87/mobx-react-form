@@ -203,7 +203,7 @@ export default {
     const $e = 'update';
 
     if (!recursion) {
-      this.state.events.set($e, this.path);
+      this.state.events.set($e, this.path || true);
     }
 
     // UPDATE CUSTOM PROP
@@ -270,7 +270,7 @@ export default {
   */
   deepAction($action, fields, recursion = false) {
     if (!recursion) {
-      this.state.events.set($action, this.path);
+      this.state.events.set($action, this.path || true);
     }
 
     if (fields.size !== 0) {
