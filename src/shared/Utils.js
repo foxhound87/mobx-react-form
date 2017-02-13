@@ -13,11 +13,10 @@ export default {
    */
   observe({ path = null, key, call }) {
     const $field = _.has(this, 'isField') ? this : this.select(path);
-    const $path = $field ? $field.path : path;
-    const params = { form: this.state.form, path: $path, field: $field };
+    const params = { form: this.state.form, path: $field.path, $field };
 
-    _.merge(this.disposers, {
-      [$path]: (key === 'fields')
+    _.merge(this.state.form.dispose, {
+      [utils.pathToStruct($field.path)]: (key === 'fields')
         ? $field.fields.observe(change => call.apply(null, [{ ...params, change }]))
         : observe($field, key, change => call.apply(null, [{ ...params, change }])),
     });

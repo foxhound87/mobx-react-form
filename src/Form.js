@@ -14,7 +14,7 @@ export default class Form extends Base {
 
   validator;
 
-  disposers = {};
+  dispose = {};
 
   @observable $validating = false;
 

@@ -17,7 +17,6 @@ export default class Field extends Base {
   incremental = false;
   isField = true;
   disposeValidation = null;
-  dispose = {};
 
   id;
   key;

@@ -1,3 +1,4 @@
+import { expect } from 'chai';
 import { Form } from '../../../../src';
 import { isEmail, shouldBeEqualTo } from '../../extension/vjf';
 
@@ -34,6 +35,18 @@ const related = {
 class NewForm extends Form {
 
   onInit() {
+    this.on('update', ({ event, change }) =>
+      it('Nested-U on("update") check event', () =>
+          expect(event).to.be.equal(change.name)));
+
+    this.observe({
+      path: 'user.email',
+      key: 'value',
+      call: ({ change }) =>
+        it('Nested-U user.email value should change to "notAnEmail"', () =>
+          expect(change.newValue).to.be.equal('notAnEmail')),
+    });
+
     this.update({ user: { email: 'notAnEmail' } });
   }
 }
