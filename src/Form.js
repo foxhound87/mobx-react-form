@@ -137,7 +137,9 @@ export const prototypes = {
 
   on(event, callback) {
     observe(this.state.events.$running, change =>
-      (event === change.name && this.state.events.$running[event])
+      (event === change.name &&
+      (change.newValue !== false) &&
+      (this.state.events.$running[event] !== false))
         && callback({
           path: this.state.events.$running[event],
           change: _.omit(change, 'type', 'object'),
