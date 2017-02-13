@@ -20,10 +20,6 @@ export default class Events {
     this.$running[key] = flag;
   }
 
-  // path(key) {
-  //   return this.$path[key];
-  // }
-
   running(events) {
     const running = _.keys(_.omitBy(this.get(), e => e === false));
     return _.intersection(events, running).length > 0;
