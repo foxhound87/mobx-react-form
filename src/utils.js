@@ -4,7 +4,7 @@ const computed = ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', '
 const props = ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'bindings', 'type', 'error'];
 const iprops = ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'bindings', 'types'];
 const vprops = ['rules', 'validate'];
-const fprops = ['observers'];
+const fprops = ['observer'];
 
 const checkObserveItem = change => ({ key, to, type, exec }) =>
   (change.type === type && change.name === key && change.newValue === to)

@@ -9,18 +9,29 @@ import parser from '../parser';
 export default {
 
   /**
-   Fields Observer
+   Observer
    */
   observe({ path = null, key, call }) {
     const $field = _.has(this, 'isField') ? this : this.select(path);
     const params = { form: this.state.form, path: $field.path, $field };
+    const disposer = `${key}@${$field.path}`;
 
-    _.merge(this.state.form.dispose, {
-      [utils.pathToStruct($field.path)]: (key === 'fields')
+    _.merge(this.state.form.disposers, {
+      [disposer]: (key === 'fields')
         ? $field.fields.observe(change => call.apply(null, [{ ...params, change }]))
         : observe($field, key, change => call.apply(null, [{ ...params, change }])),
     });
   },
+
+  /**
+   Disposer
+   */
+  dispose(key, path = null) {
+    const $path = parser.parsePath(path || this.path);
+    this.state.form.disposers[`${key}@${$path}`]();
+    delete this.state.form.disposers[`${key}@${$path}`];
+  },
+
 
   /**
    Fields Selector

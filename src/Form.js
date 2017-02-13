@@ -14,7 +14,7 @@ export default class Form extends Base {
 
   validator;
 
-  dispose = {};
+  disposers = {};
 
   @observable $validating = false;
 
@@ -128,6 +128,9 @@ export default class Form extends Base {
   };
 }
 
+/**
+  Prototypes
+*/
 export const prototypes = {
 
   makeField(data) {

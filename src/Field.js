@@ -29,6 +29,7 @@ export default class Field extends Base {
   $validate;
   $related;
   $options;
+  $observer;
 
   @observable $value = undefined;
   @observable $label = undefined;
@@ -63,6 +64,7 @@ export default class Field extends Base {
     this.incremental = (this.hasIncrementalNestedFields !== 0);
 
     this.observeValidation();
+    this.initObserver();
   }
 
   /* ------------------------------------------------------------------ */
@@ -271,6 +273,9 @@ export default class Field extends Base {
   });
 }
 
+/**
+  Prototypes
+*/
 export const prototypes = {
 
   @action
@@ -292,9 +297,11 @@ export const prototypes = {
       $related = null,
       $validate = null,
       $rules = null,
+      $observer = null,
     } = $props;
 
-    if (_.isNil($data)) $data = ''; // eslint-disable-line
+    // eslint-disable-next-line
+    if (_.isNil($data)) $data = '';
 
     if (_.isPlainObject($data)) {
       const {
@@ -309,6 +316,7 @@ export const prototypes = {
         related,
         validate,
         rules,
+        observer,
       } = $data;
 
       this.$type = $type || type || 'text';
@@ -336,6 +344,7 @@ export const prototypes = {
       this.$related = $related || related || [];
       this.$validate = toJS($validate || validate || null);
       this.$rules = $rules || rules || null;
+      this.$observer = $observer || observer || null;
       return;
     }
 
@@ -365,6 +374,7 @@ export const prototypes = {
     this.$related = $related || [];
     this.$validate = toJS($validate || null);
     this.$rules = $rules || null;
+    this.$observer = $observer || null;
   },
 
   @action
@@ -458,6 +468,11 @@ export const prototypes = {
   observeValidation() {
     if (this.state.options.get('validateOnChange') === false) return;
     this.disposeValidation = observe(this, '$value', () => this.validate());
+  },
+
+  initObserver() {
+    if (!_.isArray(this.$observer)) return;
+    this.$observer.map(obj => this.observe(obj));
   },
 
   bind(props = {}) {
