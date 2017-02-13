@@ -14,8 +14,6 @@ export default class Form extends Base {
 
   validator;
 
-  disposers = {};
-
   @observable $validating = false;
 
   @observable fields = observable.map ? observable.map({}) : asMap({});

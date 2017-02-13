@@ -20,6 +20,8 @@ export default class State {
 
   events;
 
+  disposers = {};
+
   $struct = [];
 
   initial = {

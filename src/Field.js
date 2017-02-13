@@ -29,7 +29,7 @@ export default class Field extends Base {
   $validate;
   $related;
   $options;
-  $observer;
+  $observers;
 
   @observable $value = undefined;
   @observable $label = undefined;
@@ -64,7 +64,7 @@ export default class Field extends Base {
     this.incremental = (this.hasIncrementalNestedFields !== 0);
 
     this.observeValidation();
-    this.initObserver();
+    this.initObservers();
   }
 
   /* ------------------------------------------------------------------ */
@@ -297,7 +297,7 @@ export const prototypes = {
       $related = null,
       $validate = null,
       $rules = null,
-      $observer = null,
+      $observers = null,
     } = $props;
 
     // eslint-disable-next-line
@@ -316,7 +316,7 @@ export const prototypes = {
         related,
         validate,
         rules,
-        observer,
+        observers,
       } = $data;
 
       this.$type = $type || type || 'text';
@@ -344,7 +344,7 @@ export const prototypes = {
       this.$related = $related || related || [];
       this.$validate = toJS($validate || validate || null);
       this.$rules = $rules || rules || null;
-      this.$observer = $observer || observer || null;
+      this.$observers = $observers || observers || null;
       return;
     }
 
@@ -374,7 +374,7 @@ export const prototypes = {
     this.$related = $related || [];
     this.$validate = toJS($validate || null);
     this.$rules = $rules || null;
-    this.$observer = $observer || null;
+    this.$observers = $observers || null;
   },
 
   @action
@@ -470,9 +470,9 @@ export const prototypes = {
     this.disposeValidation = observe(this, '$value', () => this.validate());
   },
 
-  initObserver() {
-    if (!_.isArray(this.$observer)) return;
-    this.$observer.map(obj => this.observe(obj));
+  initObservers() {
+    if (!_.isArray(this.$observers)) return;
+    this.$observers.map(obj => this.observe(_.omit(obj, 'path')));
   },
 
   bind(props = {}) {

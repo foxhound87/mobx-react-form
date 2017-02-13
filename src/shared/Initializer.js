@@ -42,7 +42,7 @@ export default {
       $related: $try('related'),
       $validate: $try('validate'),
       $rules: $try('rules'),
-      $observer: $try('observer'),
+      $observers: $try('observers'),
     };
 
     $fields.merge({

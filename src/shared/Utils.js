@@ -16,7 +16,7 @@ export default {
     const params = { form: this.state.form, path: $field.path, $field };
     const disposer = `${key}@${$field.path}`;
 
-    _.merge(this.state.form.disposers, {
+    _.merge(this.state.disposers, {
       [disposer]: (key === 'fields')
         ? $field.fields.observe(change => call.apply(null, [{ ...params, change }]))
         : observe($field, key, change => call.apply(null, [{ ...params, change }])),
@@ -28,10 +28,9 @@ export default {
    */
   dispose(key, path = null) {
     const $path = parser.parsePath(path || this.path);
-    this.state.form.disposers[`${key}@${$path}`]();
-    delete this.state.form.disposers[`${key}@${$path}`];
+    this.state.disposers[`${key}@${$path}`]();
+    delete this.state.disposers[`${key}@${$path}`];
   },
-
 
   /**
    Fields Selector
