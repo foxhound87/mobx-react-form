@@ -1,4 +1,4 @@
-import { action, computed, observe, observable, asMap } from 'mobx';
+import { action, computed, observable, asMap } from 'mobx';
 import _ from 'lodash';
 
 import Base from './Base';
@@ -133,19 +133,6 @@ export const prototypes = {
 
   makeField(data) {
     return new Field(data);
-  },
-
-  on(event, callback) {
-    observe(this.state.events.$running, change =>
-      (event === change.name &&
-      (change.newValue !== false) &&
-      (this.state.events.$running[event] !== false))
-        && callback({
-          path: this.state.events.$running[event],
-          change: _.omit(change, 'type', 'object'),
-          form: this,
-          event,
-        }));
   },
 
   validate(opt = {}, obj = {}) {

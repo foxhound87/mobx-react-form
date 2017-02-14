@@ -35,14 +35,15 @@ const related = {
 class NewForm extends Form {
 
   onInit() {
-    this.on('update', ({ path, event, change }) => {
-      describe('Check Nested-U on("update") hook', () => {
-        it('event should be equal to change.name', () =>
-            expect(event).to.be.equal(change.name));
-        it('event should be equal to change.name', () =>
-            expect(path).to.be.equal('user.email'));
+    this.$('user.email')
+      .on('update', ({ path, event, change }) => {
+        describe('Check Nested-U $("user.email").on("update") hook', () => {
+          it('event should be equal to change.name', () =>
+              expect(event).to.be.equal(change.name));
+          it('event should be equal to change.name', () =>
+              expect(path).to.be.equal('user.email'));
+        });
       });
-    });
 
     this.observe({
       path: 'user.email',

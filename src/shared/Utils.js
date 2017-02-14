@@ -8,6 +8,19 @@ import parser from '../parser';
 */
 export default {
 
+  on(event, callback) {
+    observe(this.state.events.$running, change =>
+      (event === change.name &&
+      (change.newValue !== false) &&
+      (this.state.events.$running[event] === this.path))
+        && callback({
+          path: this.state.events.$running[event],
+          change: _.omit(change, 'type', 'object'),
+          form: this,
+          event,
+        }));
+  },
+
   /**
    Observer
    */
