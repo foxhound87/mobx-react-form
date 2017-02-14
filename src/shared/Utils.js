@@ -9,7 +9,7 @@ import parser from '../parser';
 export default {
 
   on(event, callback) {
-    observe(this.state.events.$running, change =>
+    return observe(this.state.events.$running, change =>
       (event === change.name &&
       (change.newValue !== false) &&
       (this.state.events.$running[event] === this.path))
