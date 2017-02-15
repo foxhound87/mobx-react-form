@@ -58,6 +58,7 @@ export default class Field extends Base {
     this.state = state;
 
     this.setupField(key, path, data, props, update);
+    this.checkDVRValidationPlugin();
     this.initNestedFields(data, update);
 
     this.incremental = (this.hasIncrementalNestedFields !== 0);
@@ -365,6 +366,18 @@ export const prototypes = {
     this.$related = $related || [];
     this.$validate = toJS($validate || null);
     this.$rules = $rules || null;
+  },
+
+  checkDVRValidationPlugin() {
+    const validators = this.state.form.validator.validators;
+    if (_.isNil(validators.dvr) && !_.isNil(this.rules)) {
+      // eslint-disable-next-line
+      console.warn(
+        'The DVR validation rules are defined',
+        'but no plugin provided (DVR). Field:',
+        this.path,
+      );
+    }
   },
 
   @action

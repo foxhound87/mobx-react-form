@@ -30,6 +30,7 @@ export default class Validator {
   constructor(obj = {}) {
     this.assignInitData(obj);
     this.initializePlugins();
+    this.checkSVKValidationPlugin();
   }
 
   assignInitData({ options = {}, plugins = {}, schema = {} }) {
@@ -123,5 +124,15 @@ export default class Validator {
     }
     // if no string provided, show default error.
     this.$genericErrorMessage = this.getDefaultErrorMessage();
+  }
+
+  checkSVKValidationPlugin() {
+    if (_.isNil(this.validators.svk) && !_.isEmpty(this.schema)) {
+      // eslint-disable-next-line
+      console.warn(
+        'The SVK validation schema is defined',
+        'but no plugin provided (SVK).',
+      );
+    }
   }
 }
