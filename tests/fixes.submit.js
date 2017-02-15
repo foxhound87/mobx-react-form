@@ -21,9 +21,31 @@ describe('Form submit() decoupled callback', () => {
             expect(form.$('email').hasError).to.be.true);
         });
 
-        expect(form.isValid).to.be.false; // eslint-disable-line
+        // eslint-disable-next-line
+        expect(form.isValid).to.be.false;
         done();
       },
     });
   });
+
+  // $M
+  describe('Check Fixes-L jobs[0] ', () => {
+    it('Check Fixes-L jobs[0]', (done) => {
+      $.$M.$('jobs[0]').validate()
+        .then((isValid) => {
+          // eslint-disable-next-line
+          expect(isValid).to.be.false;
+          done();
+        });
+    });
+  });
+
+  // $M
+  // describe('Check Fixes-L jobs[0] ', () => {
+  //   it('Check Fixes-L jobs[0]', (done) => {
+  //     // eslint-disable-next-line
+  //     async () => expect(await $.$M.$('jobs[0]').validate()).to.be.false;
+  //     done();
+  //   });
+  // });
 });

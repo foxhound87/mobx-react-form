@@ -26,6 +26,7 @@ class NewForm extends Form {
   onInit(form) {
     form.update({ user: { email: 'notAnEmail' } });
     form.set('label', { user: { emailConfirm: 'Confirm User Email' } });
+    form.set('default', { user: { emailConfirm: 'Default Value' } });
     form.$('user.password').invalidate('Password Invalid');
   }
 }

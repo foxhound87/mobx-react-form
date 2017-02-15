@@ -8,6 +8,9 @@ describe('Check Nested $A Unified Properties (label)', () => {
 
   it('$A user.emailConfirm label should be equal to "Confirm User Email"', () =>
     expect($.$A.$('user.emailConfirm').label).to.be.equal('Confirm User Email'));
+
+  it('$A user.emailConfirm default should be equal to "Default Value"', () =>
+    expect($.$A.$('user.emailConfirm').default).to.be.equal('Default Value'));
 });
 
 describe('Check Nested $I Separated Properties (labels)', () => {
