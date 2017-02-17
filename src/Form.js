@@ -240,13 +240,14 @@ export const prototypes = {
     Submit Form
   */
   @action submit(o = {}) {
-    const execOnSuccess = _.has(o, 'onSuccess') ? o.onSuccess : this.onSuccess;
-    const execOnError = _.has(o, 'onError') ? o.onError : this.onError;
+    const noop = () => {};
+    const onSuccess = o.onSuccess || this.onSuccess || noop;
+    const onError = o.onError || this.onError || noop;
 
     this.validate()
       .then(isValid => isValid
-        ? execOnSuccess.apply(this, [this])
-        : execOnError.apply(this, [this]));
+        ? onSuccess.apply(this, [this])
+        : onError.apply(this, [this]));
   },
 
 };

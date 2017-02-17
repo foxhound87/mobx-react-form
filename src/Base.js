@@ -1,6 +1,15 @@
+import { computed } from 'mobx';
 import utils from './utils';
 
 export default class Base {
+
+  @computed get hasIncrementalNestedFields() {
+    return (utils.hasIntKeys(this.fields) && this.fields.size);
+  }
+
+  @computed get hasNestedFields() {
+    return (this.fields.size !== 0);
+  }
 
   /**
     Event: On Clear

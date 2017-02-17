@@ -81,13 +81,13 @@ export default class Field extends Base {
       || _.isString(this.errorSync);
   }
 
-  @computed get hasIncrementalNestedFields() {
-    return (utils.hasIntKeys(this.fields) && this.fields.size);
-  }
+  // @computed get hasIncrementalNestedFields() {
+  //   return (utils.hasIntKeys(this.fields) && this.fields.size);
+  // }
 
-  @computed get hasNestedFields() {
-    return (this.fields.size !== 0);
-  }
+  // @computed get hasNestedFields() {
+  //   return (this.fields.size !== 0);
+  // }
 
   @computed get value() {
     if (this.incremental || this.hasNestedFields) {

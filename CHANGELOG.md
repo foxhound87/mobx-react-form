@@ -2,6 +2,7 @@
 
 * Introduced Observers.
 * Introduced Converters (parse & format).
+* Optional submit() onSuccess/onError callbacks.
 * Fixed Empty Array Handling in Field Container.
 * Removed Initial Array element "0" (no more del(0)).
 
