@@ -1,3 +1,10 @@
+# 1.19
+
+* Introduced Observers.
+* Introduced Converters (parse & format).
+* Fixed Empty Array Handling in Field Container.
+* Removed Initial Array element "0" (no more del(0)).
+
 # 1.18
 
 * Ability to pass 'plugins' with plugins() method

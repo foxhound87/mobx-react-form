@@ -1,4 +1,4 @@
-import { action, observable, asMap } from 'mobx';
+import { action } from 'mobx';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';
@@ -7,25 +7,6 @@ import parser from '../parser';
   Field Actions
 */
 export default {
-
-  /**
-   Init Form Fields and Nested Fields
-   */
-  @action
-  init($fields = null) {
-    _.set(this, 'fields', observable.map
-      ? observable.map({})
-      : asMap({}));
-
-    if (!_.has(this, 'isField')) {
-      this.state.initial.props.values = $fields; // eslint-disable-line
-      this.state.current.props.values = $fields; // eslint-disable-line
-    }
-
-    this.initFields({
-      fields: $fields || this.state.struct(),
-    });
-  },
 
   /**
    Check Field Computed Values

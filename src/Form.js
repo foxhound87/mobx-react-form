@@ -204,6 +204,25 @@ export const prototypes = {
   /* ACTIONS */
 
   /**
+   Init Form Fields and Nested Fields
+   */
+  @action
+  init($fields = null) {
+    _.set(this, 'fields', observable.map
+      ? observable.map({})
+      : asMap({}));
+
+    if (!_.has(this, 'isField')) {
+      this.state.initial.props.values = $fields; // eslint-disable-line
+      this.state.current.props.values = $fields; // eslint-disable-line
+    }
+
+    this.initFields({
+      fields: $fields || this.state.struct(),
+    });
+  },
+
+  /**
     Clear Form Fields
   */
   @action clear() {
