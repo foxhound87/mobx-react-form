@@ -200,8 +200,9 @@ export default {
    Set Fields Props
    */
   @action
-  set($, data = null, recursion = false) {
+  set($, data, recursion = false) {
     const $e = 'update';
+    // console.log('a', $, data);
 
     if (!recursion) {
       Events.setRunning($e, true, this.path);
@@ -209,14 +210,14 @@ export default {
 
     // UPDATE CUSTOM PROP
     if (_.has(this, 'isField')) {
-      if (_.isString($) && !_.isNil(data)) {
+      if (_.isString($) && !_.isUndefined(data)) {
         utils.allowed('props', [$]);
         _.set(this, `$${$}`, data);
         if (!recursion) Events.setRunning($e, false);
         return;
       }
 
-      if (_.isString($) && _.isNil(data)) {
+      if (_.isString($) && _.isUndefined(data)) {
         // update just the value
         this.set('value', $);
         if (!recursion) Events.setRunning($e, false);
@@ -255,8 +256,9 @@ export default {
       // if no field found when is strict update, throw error
       if (isStrict) utils.throwError($path, field, err);
       // update the field/fields if defined
-      if (!_.isNil(field)) {
+      if (!_.isUndefined(field)) {
         // update field values or others props
+        // console.log('c', $, $val);
         field.set($, $val, recursion);
         // update values recursively only if field has nested
         if (field.fields.size && _.isObject($val)) {

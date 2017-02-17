@@ -138,3 +138,23 @@ describe('Check Fixes $I values check', () => {
   it('$I deep.nested.column3[0].title value should be a equal to "THE NEW TITLE"', () =>
     expect($.$I.$('deep.nested.column3[0].title').value).to.be.equal('THE NEW TITLE'));
 });
+
+describe('Check Fixes $M values check', () => {
+  it('$M people[0].name value should be null', () =>
+    expect($.$M.$('people[0].name').value).to.be.null);
+
+  it('$M array value should be length of 3', () =>
+    expect($.$M.$('array').value).to.have.lengthOf(3));
+
+  it('$M array value should be array', () =>
+    expect($.$M.$('array').value).to.be.instanceof(Array));
+
+  it('$M array[0].name value should be a equal to ""', () =>
+    expect($.$M.$('array[0].name').value).to.be.equal(''));
+
+  it('$M array[1].name value should be a equal to ""', () =>
+    expect($.$M.$('array[0].name').value).to.be.equal(''));
+
+  it('$M array[2].name value should be a equal to ""', () =>
+    expect($.$M.$('array[0].name').value).to.be.equal(''));
+});

@@ -5,10 +5,18 @@ const fields = [
   'jobs',
   'jobs[].jobId',
   'jobs[].companyName',
+  'people[].name',
+  'array[].name',
 ];
 
 const values = {
   jobs: [],
+  people: [{
+    name: 'bob',
+  }],
+  array: [{
+    name: 'bob',
+  }],
 };
 
 const rules = {
@@ -21,11 +29,19 @@ const plugins = {
 
 class NewForm extends Form {
 
-  // plugins() {
-  //   return {
-  //     dvr: validatorjs,
-  //   };
-  // }
+  onInit() {
+    this.$('people').set([
+      { name: null },
+    ]);
+
+    this.update({
+      array: [
+        { name: null },
+        { name: null },
+        { name: null },
+      ],
+    });
+  }
 }
 
 export default new NewForm({ fields, values, rules }, { plugins, name: 'Fixes-M' });
