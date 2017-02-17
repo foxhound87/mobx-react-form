@@ -41,7 +41,6 @@ const parseFieldValue = ({ parser, type, separated, unified, initial }) =>
 const parseGetLabel = label =>
   _.isInteger(_.parseInt(label)) ? '' : label;
 
-
 const parseArrayProp = ($val, $prop) => {
   const $values = _.values($val);
   if ($prop === 'value' || $prop === 'initial' || $prop === 'default') {
@@ -117,8 +116,9 @@ const handleFieldsNested = (fields, initial, strictProps) =>
       || utils.hasSeparatedProps(initial)
       || strictProps)) {
       // define nested field
+      const isEmptyArray = (_.isEmpty(field) && _.isArray(field));
       return Object.assign(obj, {
-        [key]: { fields: _.isEmpty(field) ? [] : handleFieldsNested(field) },
+        [key]: { fields: isEmptyArray ? [] : handleFieldsNested(field) },
       });
     }
     return Object.assign(obj, { [key]: field });
@@ -164,7 +164,6 @@ export default {
   parseFieldValue,
   parsePath,
   parseGetLabel,
-  parseFieldValue,
   parseArrayProp,
   parseCheckArray,
   parseCheckFormatter,

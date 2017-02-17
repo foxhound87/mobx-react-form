@@ -78,7 +78,7 @@ class NewForm extends Form {
 
   setup() {
     // omit "rules" (use constructor)
-    return { fields, values };
+    return { fields, values, observers };
   }
 
   onInit(form) {
