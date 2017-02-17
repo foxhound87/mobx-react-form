@@ -110,7 +110,7 @@ export default {
   /**
     Get Fields Props
    */
-  get(prop = null) {
+  get(prop = null, strict = true) {
     if (_.isNil(prop)) {
       const all = [...utils.computed, ...utils.props, ...utils.vprops];
       return this.deepGet(all, this.fields);
@@ -119,7 +119,7 @@ export default {
     utils.allowed('all', _.isArray(prop) ? prop : [prop]);
 
     if (_.isString(prop)) {
-      if (this.fields.size === 0) {
+      if (strict && this.fields.size === 0) {
         return parser.parseCheckFormatter(this, prop);
       }
 

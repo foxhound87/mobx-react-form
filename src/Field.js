@@ -91,7 +91,7 @@ export default class Field extends Base {
 
   @computed get value() {
     if (this.incremental || this.hasNestedFields) {
-      const value = this.get('value');
+      const value = this.get('value', false);
       return !_.isEmpty(value) ? value : [];
     }
 
