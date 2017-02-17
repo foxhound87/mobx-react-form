@@ -20,11 +20,11 @@ const defaultClearValue = ({ value }) => {
   return undefined;
 };
 
-const defaultValue = ({ type }) => {
+const defaultValue = ({ type, isEmptyArray = false }) => {
   if (type === 'date' || type === 'file') return null;
   if (type === 'checkbox') return false;
   if (type === 'number') return 0;
-  return '';
+  return isEmptyArray ? [] : '';
 };
 
 const parsePath = (path) => {
@@ -34,8 +34,8 @@ const parsePath = (path) => {
   return $path;
 };
 
-const parseFieldValue = ({ parser, type, separated, unified, initial }) =>
-  parser($try(separated, unified, initial, defaultValue({ type })));
+const parseFieldValue = (parser, { type, isEmptyArray, separated, unified, initial }) =>
+  parser($try(separated, unified, initial, defaultValue({ type, isEmptyArray })));
 
 // make integers labels empty
 const parseGetLabel = label =>

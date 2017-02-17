@@ -1,4 +1,4 @@
-import { observable, observe, action, computed, isObservableArray, toJS, asMap } from 'mobx';
+import { observable, observe, action, computed, isObservableArray, toJS, asMap, untracked } from 'mobx';
 import _ from 'lodash';
 import utils from './utils';
 
@@ -90,16 +90,7 @@ export default class Field extends Base {
   // }
 
   @computed get value() {
-    if (this.incremental || this.hasNestedFields) {
-      const value = this.get('value', false);
-      return !_.isEmpty(value) ? value : [];
-    }
-
-    if (_.isArray(this.$value) || isObservableArray(this.$value)) {
-      return [].slice.call(this.$value);
-    }
-
-    return toJS(this.$value);
+    return this.getComputedProp('value');
   }
 
   set value(newVal) {
@@ -121,25 +112,19 @@ export default class Field extends Base {
   }
 
   @computed get initial() {
-    return toJS(this.$initial);
+    return this.getComputedProp('initial');
   }
 
   set initial(val) {
-    this.$initial = parseFieldValue({
-      parser: this.$parser,
-      separated: val,
-    });
+    this.$initial = parseFieldValue(this.$parser, { separated: val });
   }
 
   @computed get default() {
-    return toJS(this.$default);
+    return this.getComputedProp('default');
   }
 
   set default(val) {
-    this.$default = parseFieldValue({
-      parser: this.$parser,
-      separated: val,
-    });
+    this.$default = parseFieldValue(this.$parser, { separated: val });
   }
 
   @computed get label() {
@@ -294,6 +279,7 @@ export const prototypes = {
     this.id = utils.makeId(this.path);
 
     const isEmptyArray = (_.has($data, 'fields') && _.isArray($data.fields));
+    const checkArray = val => isEmptyArray ? [] : val;
 
     const {
       $value = null,
@@ -338,18 +324,18 @@ export const prototypes = {
       this.$parser = $try($parse, parse, this.$parser);
       this.$formatter = $try($format, format, this.$formatter);
 
-      this.$initial = parseFieldValue({
-        parser: this.$parser,
+      this.$initial = parseFieldValue(this.$parser, {
+        isEmptyArray,
         type: this.type,
-        unified: isEmptyArray ? [] : value,
+        unified: checkArray(value),
         separated: $initial,
       });
 
-      this.$default = parseFieldValue({
-        parser: this.$parser,
+      this.$default = parseFieldValue(this.$parser, {
+        isEmptyArray,
         type: this.type,
-        unified: update ? '' : $data.default,
-        separated: $default,
+        unified: update ? '' : checkArray($data.default),
+        separated: checkArray($default),
         initial: this.$initial,
       });
 
@@ -371,18 +357,18 @@ export const prototypes = {
     this.name = _.toString($key);
     this.$type = $type || 'text';
 
-    this.$initial = parseFieldValue({
-      parser: this.$parser,
+    this.$initial = parseFieldValue(this.$parser, {
+      isEmptyArray,
       type: this.type,
-      unified: isEmptyArray ? [] : $data,
-      separated: $value,
+      unified: checkArray($data),
+      separated: checkArray($value),
     });
 
-    this.$default = parseFieldValue({
-      parser: this.$parser,
+    this.$default = parseFieldValue(this.$parser, {
+      isEmptyArray,
       type: this.type,
-      unified: update ? '' : $data.default,
-      separated: $default,
+      unified: update ? '' : checkArray($data.default),
+      separated: checkArray($default),
       initial: this.$initial,
     });
 
@@ -396,6 +382,24 @@ export const prototypes = {
     this.$validate = toJS($validate || null);
     this.$rules = $rules || null;
     this.$observers = $observers || null;
+  },
+
+  getComputedProp(key) {
+    if (this.incremental || this.hasNestedFields) {
+      const $val = (key === 'value')
+        ? this.get(key, false)
+        : untracked(() => this.get(key, false));
+
+      return !_.isEmpty($val) ? $val : [];
+    }
+
+    const val = this[`$${key}`];
+
+    if (_.isArray(val) || isObservableArray(val)) {
+      return [].slice.call(val);
+    }
+
+    return toJS(val);
   },
 
   checkDVRValidationPlugin() {
