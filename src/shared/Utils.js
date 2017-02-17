@@ -1,3 +1,4 @@
+import { observe } from 'mobx';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';
@@ -6,6 +7,44 @@ import parser from '../parser';
   Field Utils
 */
 export default {
+
+  on(event, callback) {
+    const path = _.has(this, 'isField') ? this.path : true;
+    return observe(this.state.events.$running, change =>
+      (event === change.name &&
+      (change.newValue !== false) &&
+      (this.state.events.$running[event] === path))
+        && callback({
+          path: this.state.events.$running[event],
+          change: _.omit(change, 'type', 'object'),
+          form: this,
+          event,
+        }));
+  },
+
+  /**
+   Observer
+   */
+  observe({ path = null, key, call }) {
+    const $field = _.has(this, 'isField') ? this : this.select(path);
+    const params = { form: this.state.form, path: $field.path, $field };
+    const disposer = `${key}@${$field.path}`;
+
+    _.merge(this.state.disposers, {
+      [disposer]: (key === 'fields')
+        ? $field.fields.observe(change => call.apply(null, [{ ...params, change }]))
+        : observe($field, key, change => call.apply(null, [{ ...params, change }])),
+    });
+  },
+
+  /**
+   Disposer
+   */
+  dispose(key, path = null) {
+    const $path = parser.parsePath(path || this.path);
+    this.state.disposers[`${key}@${$path}`]();
+    delete this.state.disposers[`${key}@${$path}`];
+  },
 
   /**
    Fields Selector

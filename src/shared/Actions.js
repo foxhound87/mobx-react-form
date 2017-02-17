@@ -2,7 +2,6 @@ import { action, observable, asMap } from 'mobx';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';
-import Events from '../Events';
 
 /**
   Field Actions
@@ -196,7 +195,7 @@ export default {
     // console.log('a', $, data);
 
     if (!recursion) {
-      Events.setRunning($e, true, this.path);
+      this.state.events.set($e, this.path || true);
     }
 
     // UPDATE CUSTOM PROP
@@ -204,14 +203,14 @@ export default {
       if (_.isString($) && !_.isUndefined(data)) {
         utils.allowed('props', [$]);
         _.set(this, `$${$}`, data);
-        if (!recursion) Events.setRunning($e, false);
+        if (!recursion) this.state.events.set($e, false);
         return;
       }
 
       if (_.isString($) && _.isUndefined(data)) {
         // update just the value
         this.set('value', $);
-        if (!recursion) Events.setRunning($e, false);
+        if (!recursion) this.state.events.set($e, false);
         return;
       }
     }
@@ -220,7 +219,7 @@ export default {
     if (_.isObject($) && !data) {
       // $ is the data
       this.deepSet('value', $, '', true);
-      if (!recursion) Events.setRunning($e, false);
+      if (!recursion) this.state.events.set($e, false);
       return;
     }
 
@@ -229,7 +228,7 @@ export default {
       utils.allowed('props', [$]);
       // $ is the prop key
       this.deepSet($, data, '', true);
-      if (!recursion) Events.setRunning($e, false);
+      if (!recursion) this.state.events.set($e, false);
     }
   },
 
@@ -264,7 +263,7 @@ export default {
   */
   deepAction($action, fields, recursion = false) {
     if (!recursion) {
-      Events.setRunning($action, true, this.path);
+      this.state.events.set($action, this.path || true);
     }
 
     if (fields.size !== 0) {
@@ -275,7 +274,7 @@ export default {
     }
 
     if (!recursion) {
-      Events.setRunning($action, false);
+      this.state.events.set($action, false);
     }
   },
 
@@ -303,7 +302,7 @@ export default {
 
       field.initial = value;
       field.default = value;
-      field.value = value;
+      field.set('value', value);
     }
 
     return $key;

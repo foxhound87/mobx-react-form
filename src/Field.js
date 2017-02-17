@@ -15,7 +15,7 @@ export default class Field extends Base {
   fields = observable.map ? observable.map({}) : asMap({});
   incremental = false;
   isField = true;
-  dispose = null;
+  disposeValidation = null;
 
   id;
   key;
@@ -28,6 +28,7 @@ export default class Field extends Base {
   $validate;
   $related;
   $options;
+  $observers;
 
   $parser = $ => $;
   $formatter = $ => $;
@@ -65,7 +66,8 @@ export default class Field extends Base {
 
     this.incremental = (this.hasIncrementalNestedFields !== 0);
 
-    this.observe();
+    this.observeValidation();
+    this.initObservers();
   }
 
   /* ------------------------------------------------------------------ */
@@ -255,16 +257,16 @@ export default class Field extends Base {
         v = $get(v); // eslint-disable-line
       }
 
-      this.value = $try(e, v);
+      this.set('value', $try(e, v));
       return;
     }
 
     if (!_.isNil(e.target)) {
-      this.value = $get(e);
+      this.set('value', $get(e));
       return;
     }
 
-    this.value = e;
+    this.set('value', e);
   });
 
   onChange = this.sync;
@@ -280,6 +282,9 @@ export default class Field extends Base {
   });
 }
 
+/**
+  Prototypes
+*/
 export const prototypes = {
 
   @action
@@ -305,6 +310,7 @@ export const prototypes = {
       $rules = null,
       $parse = null,
       $format = null,
+      $observers = null,
     } = $props;
 
     // eslint-disable-next-line
@@ -325,6 +331,7 @@ export const prototypes = {
         rules,
         parse,
         format,
+        observers,
       } = $data;
 
       this.$type = $type || type || 'text';
@@ -356,6 +363,7 @@ export const prototypes = {
       this.$related = $related || related || [];
       this.$validate = toJS($validate || validate || null);
       this.$rules = $rules || rules || null;
+      this.$observers = $observers || observers || null;
       return;
     }
 
@@ -387,6 +395,7 @@ export const prototypes = {
     this.$related = $related || [];
     this.$validate = toJS($validate || null);
     this.$rules = $rules || null;
+    this.$observers = $observers || null;
   },
 
   checkDVRValidationPlugin() {
@@ -405,11 +414,6 @@ export const prototypes = {
   initNestedFields(field, update) {
     const fields = _.isNil(field) ? '' : field.fields;
     this.initFields({ fields }, update);
-  },
-
-  observe() {
-    if (this.state.options.get('validateOnChange') === false) return;
-    this.dispose = observe(this, '$value', () => this.validate());
   },
 
   validate() {
@@ -492,6 +496,16 @@ export const prototypes = {
       return;
     }
     this.errorAsync = null;
+  },
+
+  observeValidation() {
+    if (this.state.options.get('validateOnChange') === false) return;
+    this.disposeValidation = observe(this, '$value', () => this.validate());
+  },
+
+  initObservers() {
+    if (!_.isArray(this.$observers)) return;
+    this.$observers.map(obj => this.observe(_.omit(obj, 'path')));
   },
 
   bind(props = {}) {

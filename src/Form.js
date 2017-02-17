@@ -1,9 +1,8 @@
-import { action, computed, observe, observable, asMap } from 'mobx';
+import { action, computed, observable, asMap } from 'mobx';
 import _ from 'lodash';
 
 import Base from './Base';
 import Validator from './Validator';
-import Events from './Events';
 import State from './State';
 import Field from './Field';
 
@@ -52,7 +51,10 @@ export default class Form extends Base {
 
     this.initFields(initial.setup);
 
-    this.validateOnInit();
+    // execute validation on form initialization
+    if (this.state.options.get('validateOnInit') === true) {
+      this.validate({ showErrors: this.state.options.get('showErrorsOnInit') });
+    }
 
     // execute onInit() if exist
     if (_.isFunction(this.onInit)) {
@@ -125,31 +127,13 @@ export default class Form extends Base {
   };
 }
 
+/**
+  Prototypes
+*/
 export const prototypes = {
 
   makeField(data) {
     return new Field(data);
-  },
-
-  on(event, callback) {
-    observe(Events.getRunning(), ({ name, oldValue, object }) => {
-      if (!event.includes('@')) return;
-
-      const $event = _.split(event, '@');
-      const $path = Events.path(name);
-
-      if ($event[0] === name
-        && $event[1] === $path
-        && oldValue && !object[name]) {
-        callback({ form: this, path: $path });
-      }
-    });
-  },
-
-  validateOnInit() {
-    if (this.state.options.get('validateOnInit') === false) return;
-    // execute validation on form initialization
-    this.validate({ showErrors: this.state.options.get('showErrorsOnInit') });
   },
 
   validate(opt = {}, obj = {}) {
@@ -170,17 +154,17 @@ export const prototypes = {
     if (_.has(opt, 'related')) related = opt.related;
     else if (_.has(obj, 'related')) related = obj.related;
 
-    Events.setRunning('validate', true, $field ? $field.path : $path);
+    this.state.events.set('validate', $field ? $field.path : true);
 
     // look running events and choose when show errors messages
     const notShowErrorsEvents = ['clear', 'reset'];
     if (this.state.options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
-    const $showErrors = showErrors && !Events.running(notShowErrorsEvents);
+    const $showErrors = showErrors && !this.state.events.running(notShowErrorsEvents);
 
     // wait all promises then resolve
     const $wait = resolve => Promise.all(this.validator.promises)
       .then(action(() => (this.$validating = false)))
-      .then(() => Events.setRunning('validate', false))
+      .then(() => this.state.events.set('validate', false))
       .then(() => resolve(this.isValid));
 
     if (_.isPlainObject(opt) && !_.isString($path)) {

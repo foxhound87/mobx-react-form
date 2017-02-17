@@ -1,8 +1,9 @@
 import { observe } from 'mobx';
 import _ from 'lodash';
 
-import Bindings from './Bindings';
 import Options from './Options';
+import Bindings from './Bindings';
+import Events from './Events';
 import utils from './utils';
 
 export default class State {
@@ -16,6 +17,10 @@ export default class State {
   options;
 
   bindings;
+
+  events;
+
+  disposers = {};
 
   $struct = [];
 
@@ -34,6 +39,7 @@ export default class State {
     this.initProps(initial);
     this.initOptions(options);
     this.initBindings(bindings);
+    this.initEvents();
     this.observeOptions();
   }
 
@@ -63,6 +69,10 @@ export default class State {
   initBindings(bindings) {
     this.bindings = new Bindings();
     this.bindings.register(bindings);
+  }
+
+  initEvents() {
+    this.events = new Events();
   }
 
   /**
@@ -103,16 +113,16 @@ export default class State {
     // Fix Issue #201
     observe(this.options.options, utils.checkObserve([{
       // start observing fields
+      type: 'update',
       key: 'validateOnChange',
       to: true,
-      type: 'update',
-      exec: () => this.form.forEach(field => field.observe()),
+      exec: () => this.form.forEach(field => field.observeValidation()),
     }, {
       // stop observing fields
+      type: 'update',
       key: 'validateOnChange',
       to: false,
-      type: 'update',
-      exec: () => this.form.forEach(field => field.dispose()),
+      exec: () => this.form.forEach(field => field.disposeValidation()),
     }]));
   }
 }
