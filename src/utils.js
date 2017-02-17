@@ -4,6 +4,7 @@ const computed = ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', '
 const props = ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'bindings', 'type', 'error'];
 const iprops = ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'bindings', 'types'];
 const vprops = ['rules', 'validate'];
+const fprops = ['parse', 'format'];
 
 const checkObserveItem = change => ({ key, to, type, exec }) =>
   (change.type === type && change.name === key && change.newValue === to)
@@ -22,13 +23,12 @@ const check = ({ type, data }) => {
   return $check(data);
 };
 
-
 const has = ($type, $data) => {
   let $;
   switch ($type) {
     case 'props': $ = props; break;
     case 'computed': $ = computed; break;
-    case 'all': $ = [...computed, ...props, ...vprops]; break;
+    case 'all': $ = ['id', ...computed, ...props, ...vprops]; break;
     default: $ = null;
   }
   return _.intersection($data, $).length > 0;
@@ -100,6 +100,7 @@ export default {
   props,
   iprops,
   vprops,
+  fprops,
   check,
   has,
   allowed,

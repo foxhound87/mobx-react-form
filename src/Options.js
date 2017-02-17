@@ -3,12 +3,12 @@ import { observable, action, toJS, extendObservable } from 'mobx';
 export default class Options {
 
   @observable options = {
+    showErrorsOnUpdate: true,
     showErrorsOnInit: false,
     validateOnInit: true,
     validateOnChange: true,
     strictUpdate: false,
     strictDelete: true,
-    showErrorsOnUpdate: true,
     alwaysShowDefaultError: false,
     defaultGenericError: null,
     loadingMessage: null,

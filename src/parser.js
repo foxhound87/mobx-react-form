@@ -34,11 +34,8 @@ const parsePath = (path) => {
   return $path;
 };
 
-const parseFieldValue = ({ type, separated, unified, initial }) =>
-  $try(separated, unified, initial, defaultValue({ type }));
-
-const parseInitialValue = parseFieldValue;
-const parseDefaultValue = parseFieldValue;
+const parseFieldValue = ({ parser, type, separated, unified, initial }) =>
+  parser($try(separated, unified, initial, defaultValue({ type })));
 
 // make integers labels empty
 const parseGetLabel = label =>
@@ -51,6 +48,16 @@ const parseArrayProp = ($val, $prop) => {
   }
   return $values;
 };
+
+const parseCheckArray = (field, value, prop) =>
+  field.hasIncrementalNestedFields
+    ? parseArrayProp(value, prop)
+    : value;
+
+const parseCheckFormatter = ($field, $prop) =>
+  ($prop === 'value')
+    ? $field.$formatter($field[$prop])
+    : $field[$prop];
 
 const defineFieldsFromStruct = struct =>
   _.reduceRight(struct, ($, name) => {
@@ -152,11 +159,12 @@ export default {
   $try,
   defaultValue,
   defaultClearValue,
+  parseFieldValue,
   parsePath,
   parseGetLabel,
-  parseInitialValue,
-  parseDefaultValue,
   parseArrayProp,
+  parseCheckArray,
+  parseCheckFormatter,
   mergeSchemaDefaults,
   handleFieldsNested,
   handleFieldsArrayOfStrings,

@@ -11,6 +11,18 @@ describe('Check Flat $A placeholder field prop', () => {
 
   it('$A username bindings should be equal to "default"', () =>
     expect($.$A.$('username').bindings).to.be.equal('default'));
+
+  it('$A devSkills value should be equal to "5" (string)', () =>
+    expect($.$A.$('devSkills').value).to.be.equal('5'));
+
+  it('$A devSkills value should be a string', () =>
+    expect($.$A.$('devSkills').value).to.be.a('string'));
+
+  it('$A devSkills get(value) should be equal to 5 (number)', () =>
+    expect($.$A.$('devSkills').get('value')).to.be.equal(5));
+
+  it('$A devSkills get(value) should be a number', () =>
+    expect($.$A.$('devSkills').get('value')).to.be.a('number'));
 });
 
 describe('Check Flat $B value field prop', () => {

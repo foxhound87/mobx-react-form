@@ -25,6 +25,24 @@ describe('Check $A Nested Fields', () => {
 
   it('$A user.password isValid should be false', () =>
     expect($.$A.$('user.password').isValid).to.be.false);
+
+  it('$A user.devSkills value should be equal to "5" (string)', () =>
+    expect($.$A.$('user.devSkills').value).to.be.equal('5'));
+
+  it('$A user.devSkills value should be a string', () =>
+    expect($.$A.$('user.devSkills').value).to.be.a('string'));
+
+  it('$A user.devSkills get(value) should be equal to 5 (number)', () =>
+    expect($.$A.$('user.devSkills').get('value')).to.be.equal(5));
+
+  it('$A user.devSkills get(value) should be a number', () =>
+    expect($.$A.$('user.devSkills').get('value')).to.be.a('number'));
+
+  it('$A get(id) should exist', () =>
+    expect($.$A.get('id').user).to.exist);
+
+  it('$A get(value) should exist', () =>
+    expect($.$A.get('value').user).to.empty);
 });
 
 describe('Check $B Nested Fields', () => {

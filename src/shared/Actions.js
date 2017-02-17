@@ -127,24 +127,6 @@ export default {
     return field.fields.values().map(callback);
   },
 
-  deepMap(prop, fields) {
-    return _.reduce(fields.values(), (obj, field) => {
-      if (field.fields.size === 0) {
-        return Object.assign(obj, {
-          [field.key]: field[prop],
-        });
-      }
-
-      const data = this.deepMap(prop, field.fields);
-
-      const value = field.hasIncrementalNestedFields
-        ? parser.parseArrayProp(data, prop)
-        : data;
-
-      return Object.assign(obj, { [field.key]: value });
-    }, {});
-  },
-
   /**
     Get Fields Props
    */
@@ -156,11 +138,13 @@ export default {
 
     utils.allowed('all', _.isArray(prop) ? prop : [prop]);
 
-    if (!_.isArray(prop)) {
-      const data = this.deepMap(prop, this.fields);
-      return this.hasIncrementalNestedFields
-        ? parser.parseArrayProp(data, prop)
-        : data;
+    if (_.isString(prop)) {
+      if (this.fields.size === 0) {
+        return parser.parseCheckFormatter(this, prop);
+      }
+
+      const value = this.deepGet(prop, this.fields);
+      return parser.parseCheckArray(this, value, prop);
     }
 
     return this.deepGet(prop, this.fields);
@@ -179,18 +163,25 @@ export default {
         [field.key]: { fields: $nested(field.fields) },
       });
 
-      if (_.isArray(prop)) {
-        _.each(prop, $prop =>
-          Object.assign(obj[field.key], {
-            [$prop]: field[$prop],
-          }));
+      if (_.isString(prop)) {
+        if (field.fields.size === 0) {
+          return Object.assign(obj, {
+            [field.key]: parser.parseCheckFormatter(field, prop),
+          });
+        }
+
+        let value = this.deepGet(prop, field.fields);
+        if (prop === 'value') value = field.$formatter(value);
+
+        return Object.assign(obj, {
+          [field.key]: parser.parseCheckArray(field, value, prop),
+        });
       }
 
-      // if (_.isString(prop)) {
-      //   Object.assign(obj[field.key], {
-      //     [prop]: field[prop],
-      //   });
-      // }
+      _.each(prop, $prop =>
+        Object.assign(obj[field.key], {
+          [$prop]: field[$prop],
+        }));
 
       return obj;
     }, {});

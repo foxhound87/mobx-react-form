@@ -7,8 +7,7 @@ import Base from './Base';
 import {
   $try,
   defaultClearValue,
-  parseInitialValue,
-  parseDefaultValue,
+  parseFieldValue,
   parseGetLabel } from './parser';
 
 export default class Field extends Base {
@@ -29,6 +28,9 @@ export default class Field extends Base {
   $validate;
   $related;
   $options;
+
+  $parser = $ => $;
+  $formatter = $ => $;
 
   @observable $value = undefined;
   @observable $label = undefined;
@@ -112,7 +114,7 @@ export default class Field extends Base {
         }
       }
     }
-    // handle other types
+    // handle parse value
     this.$value = newVal;
   }
 
@@ -121,7 +123,10 @@ export default class Field extends Base {
   }
 
   set initial(val) {
-    this.$initial = parseInitialValue({ separated: val });
+    this.$initial = parseFieldValue({
+      parser: this.$parser,
+      separated: val,
+    });
   }
 
   @computed get default() {
@@ -129,7 +134,10 @@ export default class Field extends Base {
   }
 
   set default(val) {
-    this.$default = parseDefaultValue({ separated: val });
+    this.$default = parseFieldValue({
+      parser: this.$parser,
+      separated: val,
+    });
   }
 
   @computed get label() {
@@ -293,9 +301,12 @@ export const prototypes = {
       $related = null,
       $validate = null,
       $rules = null,
+      $parse = null,
+      $format = null,
     } = $props;
 
-    if (_.isNil($data)) $data = ''; // eslint-disable-line
+    // eslint-disable-next-line
+    if (_.isNil($data)) $data = '';
 
     if (_.isPlainObject($data)) {
       const {
@@ -310,17 +321,23 @@ export const prototypes = {
         related,
         validate,
         rules,
+        parse,
+        format,
       } = $data;
 
       this.$type = $type || type || 'text';
+      this.$parser = $try($parse, parse, this.$parser);
+      this.$formatter = $try($format, format, this.$formatter);
 
-      this.$initial = parseInitialValue({
+      this.$initial = parseFieldValue({
+        parser: this.$parser,
         type: this.type,
         unified: value,
         separated: $initial,
       });
 
-      this.$default = parseDefaultValue({
+      this.$default = parseFieldValue({
+        parser: this.$parser,
         type: this.type,
         unified: update ? '' : $data.default,
         separated: $default,
@@ -344,13 +361,15 @@ export const prototypes = {
     this.name = _.toString($key);
     this.$type = $type || 'text';
 
-    this.$initial = parseInitialValue({
+    this.$initial = parseFieldValue({
+      parser: this.$parser,
       type: this.type,
       unified: $data,
       separated: $value,
     });
 
-    this.$default = parseDefaultValue({
+    this.$default = parseFieldValue({
+      parser: this.$parser,
       type: this.type,
       unified: update ? '' : $data.default,
       separated: $default,
