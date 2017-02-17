@@ -4,7 +4,7 @@
 |---|---|---|---|---|
 | **init(obj)** | (object) | - | Fields to initialize. | - |
 | **clear()** | - | - | Clear the Form to empty values. | - |
-| **reset()** | - | - | Reset the Form to initial values. | - |
+| **reset()** | - | - | Reset the Form to default values. | - |
 | **validate()** | - | promise | Check if the form is valid and return a promise. | - |
 | **validate(path)** | (string) | promise | Takes a field `path` in input. Check if the field is valid and return a promise. | - |
 | **invalidate(msg)** | (string) | - | Invalidate the form passing a generic error message. | - |
@@ -28,6 +28,9 @@
 | **forEach(callback)** | (function) | - | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | - |
 | **add(val)** | (mixed) | mixed | Add a Field or Nested Fields. Provide an optional initial value. | - |
 | **del(key)** | (mixed) | - | Delete a Field or Nested Fields by `key` or `path`. | - |
+| **observe(obj)** | (object) | - | Define an Observer on Field Props or Field Map. | - |
+| **hasNestedFields()** | - | boolean | Check if the form has Nested Fields. | - |
+| **hasIncrementalNestedFields()** | - | boolean | Check if the nested fields have incremental keys. | - |
 
 > $(path) is like of select(path).
 

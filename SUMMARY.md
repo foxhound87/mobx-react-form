@@ -20,6 +20,7 @@
 * [API Reference](docs/api-reference/README.md)
     * [Form Initialization](docs/api-reference/form-initialization.md)
     * [Form Options](docs/api-reference/form-options.md)
+    * [Converters](docs/api-reference/converters.md)
     * [Extend Form & Field](docs/api-reference/extend.md)
     * [Form Properties](docs/api-reference/form-properties.md)
     * [Form Methods](docs/api-reference/form-methods.md)
@@ -28,12 +29,13 @@
 
 ## Actions
 * [Actions](docs/actions/README.md)
-    * [Form Actions](docs/actions/form-actions.md)
+    * [Form Actions](docs/actions/form.md)
     * [Actions (Form & Fields)](docs/actions/shared.md)
     * [Helpers (Form & Fields)](docs/actions/helpers.md)
 
 ## Events
 * [Events](docs/events/README.md)
+ * [Observe Fields Props](docs/events/observe.md)
  * [Events Hooks](docs/events/events-hooks.md)
  * [Events Handlers](docs/events/events-handlers.md)
    * [Extending the Form](docs/events/extending-form.md)

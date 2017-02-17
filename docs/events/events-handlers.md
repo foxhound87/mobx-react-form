@@ -1,6 +1,6 @@
 # Events Handlers
 
-All Event Handlers methods take the `Proxy` object in input as first argument and can be easly included in yours components.
+All Event Handlers methods takes the `Proxy` object in input as first argument and can be easly included in yours components.
 
 ---
 
@@ -39,7 +39,7 @@ If you need to track `touched` or `focus` state, you can use `onFocus(e)` or `on
 
 - [Decopling the Events Handlers from Form object](decoupling-handlers.md)
 
-We can choose to use the Built-In handlers, override them or reimplement them for more flexibility.
+We can choose to use the Built-In **Event Handlers**, override them or reimplement them for more flexibility.
 
 The `onSubmit(e)` will `validate` the form and will call respectively `onSuccess(form)` or `onError(form)` methods if they are implemented in the `extended` class.
 

@@ -23,6 +23,9 @@ The first argument is an object which expects the following properties:
 | **related**  | Object which represents the `related` property to validate others fields at the same time for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-related) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **options**  | Additional options data for the field (useful for a select input). | [flat](../defining-flat-fields/separated-properties.md#defining-options) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **bindings**  | The name of the binding rewriter or template which will be used for the current field. | [flat](../defining-flat-fields/separated-properties.md#defining-bindings) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **observers**  | The mobx observers to listen on **Fields Props** or **Fields Map** changes. | |
+| **parse**  | Parse the Field `value` when it is saved in the Field store. | |
+| **format**  | Format the Field `value` when it is retrieved from the Field store. | |
 
 
 ###### Validation Properties

@@ -4,10 +4,9 @@
 |---|---|---|---|---|
 | **bind()** | - | object | Get the current field bindings. | [Bindings](../bindings/README.md) |
 | **clear()** | - | - | Clear the Field or Nested Fields to empty value. | - |
-| **reset()** | - | - | Reset the Field or Nested Fields to initial value. | - |
+| **reset()** | - | - | Reset the Field or Nested Fields to default value. | - |
 | **validate()** | - | - | Check if the field is valid and return a promise. | - |
 | **invalidate(msg)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | - |
-| **hasNestedFields()** | - | boolean | Check if the field has Nested Fields. | - |
 | **resetValidation()** | - | - | Reset the field validation status. | - |
 
 #### Shared Methods
@@ -29,6 +28,10 @@
 | **forEach(callback)** | (function) | - | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | - |
 | **add(val)** | (mixed) | mixed | Add a Field or Nested Fields. Provide an optional initial value. | - |
 | **del(key)** | (mixed) | - | Delete a Field or Nested Fields by `key` or `path`. | - |
+| **on(event, callback)** | (string, function) | disposer | Define an Event Hook. | - |
+| **observe(obj)** | (object) | - | Define an Observer on Field Props or Field Map. | - |
+| **hasNestedFields()** | - | boolean | Check if the field has Nested Fields. | - |
+| **hasIncrementalNestedFields()** | - | boolean | Check if the nested fields have incremental keys. | - |
 
 > $(path) is like of select(path).
 

@@ -8,9 +8,9 @@ The following actions can be used on the form instance.
 
 The `init()` method will re-init the form with empty or new values and all previous data will be discarded.
 
-If you don't need to re-init the form fields and values, just use the `update()` method.
+> If you don't need to re-init the form fields and values, just use the [update()](../api-reference/shared.md#update-the-fields) method.
 
-It works like passing the pasising the `fields` or `values` to the [Form Constructor](../api-reference/form-initialization.md).
+It works like passing the passing the `fields` or `values` to the [Form Constructor](../api-reference/form-initialization.md).
 
 It accept the **fields struct** if using `separated props` or **fields values** if using `unified props`.
 
@@ -48,7 +48,7 @@ then you can update the fields values normally using the `update()` method.
 
 The `validate()` action returns a `promise`.
 
-The callback takes a `boolean` (`isValid`) with the validation state of the **form**.
+The callback takes a `boolean` (`isValid`) with the validation state of the **Form**.
 
 ```javascript
 form.validate()
@@ -61,7 +61,7 @@ form.validate()
 
 The `validate(path)` action get an optional field `path` in input and returns a `promise`.
 
-The callback takes a `boolean` (`isValid`) with the validation state of the **field**.
+The callback takes a `boolean` (`isValid`) with the validation state of the **Field**.
 
 ```javascript
 form.validate('email')
@@ -80,7 +80,7 @@ Perform fields validation. After successful validation triggers `onSuccess` even
 form.submit();
 ```
 
-Provide an object with `onSuccess(form)` and `onError(form)` functions if not implemented in the Form class.
+Provide an object with `onSuccess(form)` and `onError(form)` functions if need to override those implemented in the Form Class.
 
 ```javascript
 form.submit({

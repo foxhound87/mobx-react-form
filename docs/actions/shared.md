@@ -6,23 +6,31 @@ The actions can be used on form or every field and nested field.
 
 ### Update the fields
 
+The `update()` method is intended to be used to recreate the fields tree (for example add/del fields array) and provide new values.
+
+If you need to change the properties of existent/selected fields, consider to use the `set()` method instead.
+
+> This method only accept an `object` and will updated all fields `values`.
+
 Update values from the form instance:
 
 ```javascript
-.update({
+form.update({
   address: {
     city: 'Los Angeles'
   },
 });
 ```
 
-or the same selecting a field:
+or the same selecting a nested field:
 
 ```javascript
-.$('address').update({
+form.$('address').update({
   city: 'Los Angeles'
 });
 ```
+
+> Array notation can be used as well.
 
 > The update() method accepts only an object describing the fields keys with their values.
 
@@ -117,6 +125,10 @@ or if you need to filter multiple props:
 
 ### Set Fields Properties
 
+The `set()` method is intended to be used to change the properties of existent/selected fields.
+
+If you need to recreate the fields tree (for example add/del fields array) and provide new values, consider to use the `update()` method instead.
+
 > Takes in input the prop name `string` and an `object` with fields `key:val` pairs.
 
 You can pass these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error`.
@@ -156,7 +168,7 @@ Clear or Reset the whole Form, a single Field, or Nested Fields recursively.
 
 The `validate()` action returns a `promise`.
 
-The callback takes a `boolean` (`isValid`) with the validation state of the **field**.
+The callback takes a `boolean` (`isValid`) with the validation state of the **Field**.
 
 ```javascript
 $('password').validate()
@@ -224,7 +236,7 @@ Add fields or nested fields:
 form.$('hobbies').add();
 ```
 
-provide the initial value to the new added field:
+provide the initial value to the new added field:
 
 ```javascript
 form.$('hobbies').add('soccer');
