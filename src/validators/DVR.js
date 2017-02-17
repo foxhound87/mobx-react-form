@@ -86,8 +86,10 @@ export default class DVR {
     if (!field.hasError) field.invalidate(this.loadingMessage(), true);
 
     const $p = new Promise((resolve) => {
-      validation.passes(() => this.handleAsyncPasses(field, resolve));
-      validation.fails(() => this.handleAsyncFails(field, validation, resolve));
+      validation.checkAsync(
+        () => this.handleAsyncPasses(field, resolve),
+        () => this.handleAsyncFails(field, validation, resolve),
+      );
     });
 
     this.promises.push($p);
