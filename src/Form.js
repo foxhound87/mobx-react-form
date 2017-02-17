@@ -226,14 +226,14 @@ export const prototypes = {
     Clear Form Fields
   */
   @action clear() {
-    this.deepAction('clear', this.fields);
+    this.deepAction('clear');
   },
 
   /**
     Reset Form Fields
   */
   @action reset() {
-    this.deepAction('reset', this.fields);
+    this.deepAction('reset');
   },
 
   /**

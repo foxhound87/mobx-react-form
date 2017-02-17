@@ -242,7 +242,9 @@ export default {
   /**
     Call field method recursively
   */
-  deepAction($action, fields, recursion = false) {
+  deepAction($action, $fields, recursion = false) {
+    const fields = $fields || this.fields;
+
     if (!recursion) {
       this.state.events.set($action, this.path || true);
     }

@@ -81,14 +81,6 @@ export default class Field extends Base {
       || _.isString(this.errorSync);
   }
 
-  // @computed get hasIncrementalNestedFields() {
-  //   return (utils.hasIntKeys(this.fields) && this.fields.size);
-  // }
-
-  // @computed get hasNestedFields() {
-  //   return (this.fields.size !== 0);
-  // }
-
   @computed get value() {
     return this.getComputedProp('value');
   }
@@ -459,20 +451,16 @@ export const prototypes = {
     this.validationAsyncData = {};
     this.validationFunctionsData = [];
     this.validationErrorStack = [];
-
     // recursive resetValidation
-    if (deep) this.deepAction('resetValidation', this.fields);
+    if (deep) this.deepAction('resetValidation');
   },
 
   @action
   clear(deep = true) {
     this.showErrors(false);
     this.$value = defaultClearValue({ value: this.$value });
-
     // recursive clear fields
-    if (deep && this.fields.size) {
-      this.deepAction('clear', this.fields);
-    }
+    if (deep && this.fields.size) this.deepAction('clear');
   },
 
   @action
@@ -480,11 +468,8 @@ export const prototypes = {
     const useDefaultValue = (this.$default !== this.$initial);
     if (useDefaultValue) this.value = this.$default;
     if (!useDefaultValue) this.value = this.$initial;
-
     // recursive reset fields
-    if (deep && this.fields.size) {
-      this.deepAction('reset', this.fields);
-    }
+    if (deep && this.fields.size) this.deepAction('reset');
   },
 
   @action
