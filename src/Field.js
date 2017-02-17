@@ -288,6 +288,8 @@ export const prototypes = {
     this.path = $path;
     this.id = utils.makeId(this.path);
 
+    const isEmptyArray = (_.has($data, 'fields') && _.isArray($data.fields));
+
     const {
       $value = null,
       $label = null,
@@ -332,7 +334,7 @@ export const prototypes = {
       this.$initial = parseFieldValue({
         parser: this.$parser,
         type: this.type,
-        unified: value,
+        unified: isEmptyArray ? [] : value,
         separated: $initial,
       });
 
@@ -364,7 +366,7 @@ export const prototypes = {
     this.$initial = parseFieldValue({
       parser: this.$parser,
       type: this.type,
-      unified: $data,
+      unified: isEmptyArray ? [] : $data,
       separated: $value,
     });
 

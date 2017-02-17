@@ -21,6 +21,7 @@ export default class Form extends Base {
 
   constructor(setup = {}, {
 
+    name = null,
     options = {},
     plugins = {},
     bindings = {},
@@ -28,13 +29,13 @@ export default class Form extends Base {
   } = {}) {
     super();
 
+    this.name = name;
+
     // load data from initializers methods
     const initial = _.each({ setup, options, plugins, bindings },
       (val, key) => _.isFunction(this[key])
       ? _.merge(val, this[key].apply(this, [this]))
       : val);
-
-    this.name = initial.name || null;
 
     this.state = new State({
       form: this,

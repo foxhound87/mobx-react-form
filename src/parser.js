@@ -41,6 +41,7 @@ const parseFieldValue = ({ parser, type, separated, unified, initial }) =>
 const parseGetLabel = label =>
   _.isInteger(_.parseInt(label)) ? '' : label;
 
+
 const parseArrayProp = ($val, $prop) => {
   const $values = _.values($val);
   if ($prop === 'value' || $prop === 'initial' || $prop === 'default') {
@@ -59,11 +60,12 @@ const parseCheckFormatter = ($field, $prop) =>
     ? $field.$formatter($field[$prop])
     : $field[$prop];
 
-const defineFieldsFromStruct = struct =>
+const defineFieldsFromStruct = (struct, add = false) =>
   _.reduceRight(struct, ($, name) => {
     if (_.endsWith(name, '[]')) {
       const obj = {};
-      obj[_.trimEnd(name, '[]')] = [$];
+      const val = (add || !_.isEmpty($)) ? [$] : [];
+      obj[_.trimEnd(name, '[]')] = val;
       return obj;
     }
 
@@ -80,7 +82,7 @@ const handleFieldsValuesFallback = (fields, initial) => {
   return _.merge(fields, initial.values);
 };
 
-const handleFieldsArrayOfStrings = ($fields) => {
+const handleFieldsArrayOfStrings = ($fields, add = false) => {
   let fields = $fields;
   // handle array with field struct (strings)
   if (utils.isStruct(fields)) {
@@ -89,7 +91,7 @@ const handleFieldsArrayOfStrings = ($fields) => {
       // as array of strings (with empty values)
       if (!pathStruct.length) return Object.assign($obj, { [$]: '' });
       // define flat or nested fields from pathStruct
-      return _.merge($obj, defineFieldsFromStruct(pathStruct));
+      return _.merge($obj, defineFieldsFromStruct(pathStruct, add));
     }, {});
   }
   return fields;
@@ -116,7 +118,7 @@ const handleFieldsNested = (fields, initial, strictProps) =>
       || strictProps)) {
       // define nested field
       return Object.assign(obj, {
-        [key]: { fields: handleFieldsNested(field) },
+        [key]: { fields: _.isEmpty(field) ? [] : handleFieldsNested(field) },
       });
     }
     return Object.assign(obj, { [key]: field });
@@ -147,10 +149,10 @@ const prepareFieldsData = (initial, strictProps = true) => {
   return fields;
 };
 
-const pathToFieldsTree = (struct, path, n = 0) => {
+const pathToFieldsTree = (struct, path, n = 0, add = false) => {
   const structPath = utils.pathToStruct(path);
   const structArray = _.filter(struct, item => _.startsWith(item, structPath));
-  const $tree = handleFieldsArrayOfStrings(structArray);
+  const $tree = handleFieldsArrayOfStrings(structArray, add);
   const $struct = _.replace(structPath, new RegExp('\\[]', 'g'), `[${n}]`);
   return handleFieldsNested(_.get($tree, $struct));
 };
@@ -162,6 +164,7 @@ export default {
   parseFieldValue,
   parsePath,
   parseGetLabel,
+  parseFieldValue,
   parseArrayProp,
   parseCheckArray,
   parseCheckFormatter,
