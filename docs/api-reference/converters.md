@@ -3,7 +3,7 @@
 Convert Fields `value` property:
 
 * **parse**: from `input` to `store`.
-* **Format**: from `store` to `output`.
+* **format**: from `store` to `output`.
 
 The functions can be defined when defining the fields properties.
 
