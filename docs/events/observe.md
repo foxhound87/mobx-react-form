@@ -20,6 +20,8 @@ form.observe({
 
 > Specify the Field `path`, the prop `key` to observe and the function (`call`) to fire when the event occur.
 
+> Specify `fields` as `key` and the nested fields map will be observed (add/del).
+
 The `call` function will receive the `Form` instance, the `Field` instance and the **mobx event object** (`change`).
 
 > For more info on the mobx `change` event object take a look at the mobx [Event Overview Table](http://mobxjs.github.io/mobx/refguide/observe.html) for the `observe` method.
@@ -34,6 +36,8 @@ form.$('password').observe({
 ```
 
 > The `path` is omitted. It's defined by the selector.
+
+> Specify `fields` as `key` and the nested fields map will be observed (add/del).
 
 ## Observe with `observers` Init Prop
 

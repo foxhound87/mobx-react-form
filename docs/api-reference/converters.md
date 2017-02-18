@@ -2,12 +2,14 @@
 
 Convert Fields `value` property:
 
-* **Parse**: from `input` to `store`.
+* **parse**: from `input` to `store`.
 * **Format**: from `store` to `output`.
 
 The functions can be defined when defining the fields properties.
 
 > Both converters functions takes in input the field value and must return it.
+
+###### Example
 
 ```javascript
   ...
@@ -21,10 +23,10 @@ The functions can be defined when defining the fields properties.
 
 > The converters can be defined for the separated mode and nested fields as well.
 
-The provided value will be `parsed` from number to string, to be used in a `text` input.
+In the example above, the provided value will be `parsed` from number to string, to be used in a `text` input.
 
-`form.$('devSkills').value; // number`
+`form.$('devSkills').value; // string`
 
-When you serialize the form values using `get()`, the returned value will be `formatted` back to a number.
+Afterward, when you serialize the form values using `get()`, the returned value will be `formatted` back to a number.
 
-`form.$('devSkills').get('value'); // string`
+`form.$('devSkills').get('value'); // number`
