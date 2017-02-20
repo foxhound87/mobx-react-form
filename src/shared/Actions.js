@@ -28,7 +28,7 @@ export default {
     };
 
     return deep
-      ? utils.check({
+      ? utils.checkProp({
         type: $[computed],
         data: this.deepCheck($[computed], computed, this.fields),
       })
@@ -42,7 +42,7 @@ export default {
         return check;
       }
       const $deep = this.deepCheck($, prop, field.fields);
-      check.push(utils.check({ type: $, data: $deep }));
+      check.push(utils.checkProp({ type: $, data: $deep }));
       return check;
     }, []);
   },
@@ -112,8 +112,11 @@ export default {
    */
   get(prop = null, strict = true) {
     if (_.isNil(prop)) {
-      const all = [...utils.computed, ...utils.props, ...utils.vprops];
-      return this.deepGet(all, this.fields);
+      return this.deepGet([
+        ...utils.props.computed,
+        ...utils.props.field,
+        ...utils.props.validation,
+      ], this.fields);
     }
 
     utils.allowed('all', _.isArray(prop) ? prop : [prop]);
@@ -182,7 +185,7 @@ export default {
     // UPDATE CUSTOM PROP
     if (_.has(this, 'isField')) {
       if (_.isString($) && !_.isUndefined(data)) {
-        utils.allowed('props', [$]);
+        utils.allowed('field', [$]);
         _.set(this, `$${$}`, data);
         if (!recursion) this.state.events.set($e, false);
         return;
@@ -206,7 +209,7 @@ export default {
 
     // UPDATE NESTED CUSTOM PROP (recursive)
     if (_.isString($) && _.isObject(data)) {
-      utils.allowed('props', [$]);
+      utils.allowed('field', [$]);
       // $ is the prop key
       this.deepSet($, data, '', true);
       if (!recursion) this.state.events.set($e, false);

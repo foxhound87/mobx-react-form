@@ -1,10 +1,12 @@
 import _ from 'lodash';
 
-const computed = ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focus', 'touched', 'changed', 'disabled'];
-const props = ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'bindings', 'type', 'error'];
-const iprops = ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'bindings', 'types'];
-const vprops = ['rules', 'validate'];
-const fprops = ['observers', 'parse', 'format'];
+const props = {
+  computed: ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focus', 'touched', 'changed', 'disabled'],
+  field: ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'bindings', 'type', 'error'],
+  initial: ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'bindings', 'types'],
+  function: ['observers', 'parse', 'format'],
+  validation: ['rules', 'validate'],
+};
 
 const checkObserveItem = change => ({ key, to, type, exec }) =>
   (change.type === type && change.name === key && change.newValue === to)
@@ -13,7 +15,7 @@ const checkObserveItem = change => ({ key, to, type, exec }) =>
 const checkObserve = collection => change =>
   collection.map(checkObserveItem(change));
 
-const check = ({ type, data }) => {
+const checkProp = ({ type, data }) => {
   let $check;
   switch (type) {
     case 'some': $check = $data => _.some($data, Boolean); break;
@@ -23,12 +25,12 @@ const check = ({ type, data }) => {
   return $check(data);
 };
 
-const has = ($type, $data) => {
+const hasProps = ($type, $data) => {
   let $;
   switch ($type) {
-    case 'props': $ = props; break;
-    case 'computed': $ = computed; break;
-    case 'all': $ = ['id', ...computed, ...props, ...vprops]; break;
+    case 'field': $ = props.field; break;
+    case 'computed': $ = props.computed; break;
+    case 'all': $ = ['id', ...props.computed, ...props.field, ...props.validation]; break;
     default: $ = null;
   }
   return _.intersection($data, $).length > 0;
@@ -38,7 +40,7 @@ const has = ($type, $data) => {
   Check Allowed Properties
 */
 const allowed = (type, data) => {
-  if (has(type, data)) return;
+  if (hasProps(type, data)) return;
   const $msg = 'The selected property is not allowed';
   throw new Error(`${$msg} (${JSON.stringify(data)})`);
 };
@@ -75,10 +77,10 @@ const hasSome = (obj, keys) =>
   _.some(keys, _.partial(_.has, obj));
 
 const hasUnifiedProps = field =>
-  (hasSome(field, props) || hasSome(field, vprops));
+  (hasSome(field, props.field) || hasSome(field, props.validation));
 
 const hasSeparatedProps = initial =>
-  (hasSome(initial, iprops) || hasSome(initial, vprops));
+  (hasSome(initial, props.initial) || hasSome(initial, props.validation));
 
 const parseIntKeys = fields =>
  _.map(fields.keys(), _.ary(parseInt, 1));
@@ -96,13 +98,9 @@ const makeId = path =>
 
 export default {
   checkObserve,
-  computed,
   props,
-  iprops,
-  vprops,
-  fprops,
-  check,
-  has,
+  checkProp,
+  hasProps,
   allowed,
   throwError,
   isPromise,
