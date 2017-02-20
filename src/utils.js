@@ -30,7 +30,11 @@ const hasProps = ($type, $data) => {
   switch ($type) {
     case 'field': $ = props.field; break;
     case 'computed': $ = props.computed; break;
-    case 'all': $ = ['id', ...props.computed, ...props.field, ...props.validation]; break;
+    case 'all': $ = ['id',
+      ...props.computed,
+      ...props.field,
+      ...props.validation,
+    ]; break;
     default: $ = null;
   }
   return _.intersection($data, $).length > 0;
@@ -39,7 +43,7 @@ const hasProps = ($type, $data) => {
 /**
   Check Allowed Properties
 */
-const allowed = (type, data) => {
+const allowedProps = (type, data) => {
   if (hasProps(type, data)) return;
   const $msg = 'The selected property is not allowed';
   throw new Error(`${$msg} (${JSON.stringify(data)})`);
@@ -101,7 +105,7 @@ export default {
   props,
   checkProp,
   hasProps,
-  allowed,
+  allowedProps,
   throwError,
   isPromise,
   isEvent,

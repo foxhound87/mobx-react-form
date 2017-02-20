@@ -12,7 +12,7 @@ export default {
    Check Field Computed Values
    */
   check(computed, deep = false) {
-    utils.allowed('computed', [computed]);
+    utils.allowedProps('computed', [computed]);
 
     const $ = {
       hasError: 'some',
@@ -119,7 +119,7 @@ export default {
       ], this.fields);
     }
 
-    utils.allowed('all', _.isArray(prop) ? prop : [prop]);
+    utils.allowedProps('all', _.isArray(prop) ? prop : [prop]);
 
     if (_.isString(prop)) {
       if (strict && this.fields.size === 0) {
@@ -185,7 +185,7 @@ export default {
     // UPDATE CUSTOM PROP
     if (_.has(this, 'isField')) {
       if (_.isString($) && !_.isUndefined(data)) {
-        utils.allowed('field', [$]);
+        utils.allowedProps('field', [$]);
         _.set(this, `$${$}`, data);
         if (!recursion) this.state.events.set($e, false);
         return;
@@ -209,7 +209,7 @@ export default {
 
     // UPDATE NESTED CUSTOM PROP (recursive)
     if (_.isString($) && _.isObject(data)) {
-      utils.allowed('field', [$]);
+      utils.allowedProps('field', [$]);
       // $ is the prop key
       this.deepSet($, data, '', true);
       if (!recursion) this.state.events.set($e, false);
