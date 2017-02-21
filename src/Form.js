@@ -6,8 +6,6 @@ import Validator from './Validator';
 import State from './State';
 import Field from './Field';
 
-import { $try } from './parser';
-
 export default class Form extends Base {
 
   name;
@@ -52,6 +50,12 @@ export default class Form extends Base {
     });
 
     this.initFields(initial.setup);
+
+    this.debouncedValidation = _.debounce(
+      this.validator.validate.bind(this.validator),
+      this.state.options.get('validationDebounceWait'),
+      this.state.options.get('validationDebounceOptions'),
+    );
 
     // execute validation on form initialization
     if (this.state.options.get('validateOnInit') === true) {
@@ -139,53 +143,7 @@ export const prototypes = {
   },
 
   validate(opt = {}, obj = {}) {
-    action(() => (this.$validating = true))();
-    this.validator.resetGenericError();
-
-    const path = $try(opt.path, opt);
-    const field = $try(opt.field, this.select(path, null, null));
-    const related = $try(opt.related, obj.related, false);
-    const $showErrors = $try(opt.showErrors, obj.showErrors, true);
-
-    this.state.events.set('validate', field ? field.path : true);
-    // look running events and choose when show errors messages
-    const notShowErrorsEvents = ['clear', 'reset'];
-    if (this.state.options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
-    const showErrors = $showErrors && !this.state.events.running(notShowErrorsEvents);
-
-    // wait all promises then resolve
-    const $wait = resolve => Promise.all(this.validator.promises)
-      .then(action(() => (this.$validating = false)))
-      .then(() => this.state.events.set('validate', false))
-      .then(() => resolve(this.isValid));
-
-    if (_.isPlainObject(opt) && !_.isString(path)) {
-      // validate all fields
-      return new Promise((resolve) => {
-        this.validator
-          .validateAll({
-            form: this,
-            showErrors,
-            related,
-          });
-
-        return $wait(resolve);
-      });
-    }
-
-    // validate single field by path
-    return new Promise((resolve) => {
-      this.validator
-        .validateField({
-          form: this,
-          showErrors,
-          related,
-          field,
-          path,
-        });
-
-      return $wait(resolve);
-    });
+    return this.debouncedValidation(_.merge(opt, { form: this }), obj);
   },
 
   invalidate(message) {

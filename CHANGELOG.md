@@ -1,3 +1,7 @@
+# 1.20
+
+* Introduced debounced validation
+
 # 1.19
 
 * Introduced Observers.

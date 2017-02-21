@@ -66,6 +66,12 @@ export default class Field extends Base {
 
     this.incremental = (this.hasIncrementalNestedFields !== 0);
 
+    this.debouncedValidation = _.debounce(
+      this.validate,
+      this.state.options.get('validationDebounceWait'),
+      this.state.options.get('validationDebounceOptions'),
+    );
+
     this.observeValidation();
     this.initObservers();
   }
@@ -413,7 +419,8 @@ export const prototypes = {
   },
 
   validate() {
-    return this.state.form.validate({
+    return this.state.form.validator.validate({
+      form: this.state.form,
       path: this.path,
       field: this,
       showErrors: true,
@@ -489,7 +496,7 @@ export const prototypes = {
 
   observeValidation() {
     if (this.state.options.get('validateOnChange') === false) return;
-    this.disposeValidation = observe(this, '$value', () => this.validate());
+    this.disposeValidation = observe(this, '$value', () => this.debouncedValidation());
   },
 
   initObservers() {

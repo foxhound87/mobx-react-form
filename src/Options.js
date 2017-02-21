@@ -14,6 +14,8 @@ export default class Options {
     loadingMessage: null,
     allowRequired: false,
     autoParseNumbers: false,
+    validationDebounceWait: 250,
+    validationDebounceOptions: { leading: true },
   };
 
   get(key = null) {
