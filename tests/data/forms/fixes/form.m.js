@@ -3,6 +3,7 @@ import { Form } from '../../../../src';
 
 const fields = [
   'jobs',
+  'number',
   'jobs[].jobId',
   'jobs[].companyName',
   'people[].name',
@@ -12,6 +13,7 @@ const fields = [
 
 const values = {
   jobs: [],
+  number: 1,
   people: [{
     name: 'bob',
   }],
@@ -34,6 +36,8 @@ const plugins = {
 class NewForm extends Form {
 
   onInit() {
+    this.$('number').set(0);
+
     this.$('people').set([
       { name: null },
     ]);

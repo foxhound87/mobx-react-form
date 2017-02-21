@@ -146,6 +146,9 @@ describe('Check Fixes $M values check', () => {
   it('$M items[0].name value should be equal to zero', () =>
     expect($.$M.$('items[0].name').value).to.be.equal(0));
 
+  it('$M number value should be equal to zero', () =>
+    expect($.$M.$('number').value).to.be.equal(0));
+
   it('$M array value should be length of 3', () =>
     expect($.$M.$('array').value).to.have.lengthOf(3));
 
