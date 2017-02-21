@@ -14,8 +14,6 @@ export default class Form extends Base {
 
   validator;
 
-  @observable $validating = false;
-
   @observable fields = observable.map ? observable.map({}) : asMap({});
 
   constructor(setup = {}, {
@@ -72,7 +70,7 @@ export default class Form extends Base {
   /* COMPUTED */
 
   @computed get validating() {
-    return this.$validating;
+    return this.validator.$validating;
   }
 
   @computed get error() {

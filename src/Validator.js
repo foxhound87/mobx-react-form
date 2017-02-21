@@ -26,6 +26,8 @@ export default class Validator {
     svk: null,
   };
 
+  @observable $validating = false;
+
   @observable $genericErrorMessage = null;
 
   constructor(obj = {}) {
@@ -54,10 +56,10 @@ export default class Validator {
   }
 
   validate(opt = {}, obj = {}) {
-    const form = opt.form;
-    action(() => (form.$validating = true))();
+    action(() => (this.$validating = true))();
     action(() => (this.$genericErrorMessage = null))();
 
+    const form = opt.form;
     const path = $try(opt.path, opt);
     const field = $try(opt.field, form.select(path, null, null));
     const related = $try(opt.related, obj.related, false);
@@ -71,7 +73,7 @@ export default class Validator {
 
     // wait all promises then resolve
     const $wait = resolve => Promise.all(this.promises)
-      .then(action(() => (form.$validating = false)))
+      .then(action(() => (this.$validating = false)))
       .then(() => form.state.events.set('validate', false))
       .then(() => resolve(form.isValid));
 
