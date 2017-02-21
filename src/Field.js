@@ -234,16 +234,16 @@ export default class Field extends Base {
         v = $get(v); // eslint-disable-line
       }
 
-      this.set('value', $try(e, v));
+      this.value = $try(e, v);
       return;
     }
 
     if (!_.isNil(e.target)) {
-      this.set('value', $get(e));
+      this.value = $get(e);
       return;
     }
 
-    this.set('value', e);
+    this.value = e;
   });
 
   onChange = this.sync;
