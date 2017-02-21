@@ -418,13 +418,13 @@ export const prototypes = {
     this.initFields({ fields }, update);
   },
 
-  validate() {
+  validate(opt = {}) {
     return this.state.form.validator.validate({
+      showErrors: $try(opt.related, true),
+      related: $try(opt.showErrors, true),
       form: this.state.form,
       path: this.path,
       field: this,
-      showErrors: true,
-      related: true,
     });
   },
 

@@ -62,7 +62,7 @@ export default class Validator {
     const form = opt.form;
     const path = $try(opt.path, opt);
     const field = $try(opt.field, form.select(path, null, null));
-    const related = $try(opt.related, obj.related, false);
+    const related = $try(opt.related, obj.related, true);
     const $showErrors = $try(opt.showErrors, obj.showErrors, true);
 
     form.state.events.set('validate', field ? field.path : true);
