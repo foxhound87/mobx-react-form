@@ -176,44 +176,27 @@ export default {
   @action
   set($, data, recursion = false) {
     const $e = 'update';
-    // console.log('a', $, data);
 
     if (!recursion) {
       this.state.events.set($e, this.path || true);
     }
 
     // UPDATE CUSTOM PROP
-    if (_.has(this, 'isField')) {
-      if (_.isString($) && !_.isUndefined(data)) {
-        utils.allowedProps('field', [$]);
-        _.set(this, `$${$}`, data);
-        if (!recursion) this.state.events.set($e, false);
-        return;
-      }
-
-      if (_.isString($) && _.isUndefined(data)) {
-        // update just the value
-        this.set('value', $);
-        if (!recursion) this.state.events.set($e, false);
-        return;
-      }
-    }
-
-    // UPDATE NESTED FIELDS VALUE (recursive)
-    if (_.isObject($) && !data) {
-      // $ is the data
-      this.deepSet('value', $, '', true);
-      if (!recursion) this.state.events.set($e, false);
+    if (_.isString($) && !_.isUndefined(data)) {
+      utils.allowedProps('field', [$]);
+      if (_.isObject(data)) this.deepSet($, data, '', true);
+      else _.set(this, `$${$}`, data);
       return;
     }
 
-    // UPDATE NESTED CUSTOM PROP (recursive)
-    if (_.isString($) && _.isObject(data)) {
-      utils.allowedProps('field', [$]);
-      // $ is the prop key
-      this.deepSet($, data, '', true);
-      if (!recursion) this.state.events.set($e, false);
+    // NO PROP NAME PROVIDED
+    if (_.isNil(data)) {
+      if (_.isObject($)) this.deepSet('value', $, '', true);
+      else this.set('value', $);
+      return;
     }
+
+    if (!recursion) this.state.events.set($e, false);
   },
 
   /**
@@ -232,7 +215,6 @@ export default {
       // update the field/fields if defined
       if (!_.isUndefined(field)) {
         // update field values or others props
-        // console.log('c', $, $val);
         field.set($, $val, recursion);
         // update values recursively only if field has nested
         if (field.fields.size && _.isObject($val)) {

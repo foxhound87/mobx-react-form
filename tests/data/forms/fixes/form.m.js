@@ -7,6 +7,7 @@ const fields = [
   'jobs[].companyName',
   'people[].name',
   'array[].name',
+  'items[].name',
 ];
 
 const values = {
@@ -15,6 +16,9 @@ const values = {
     name: 'bob',
   }],
   array: [{
+    name: 'bob',
+  }],
+  items: [{
     name: 'bob',
   }],
 };
@@ -32,6 +36,10 @@ class NewForm extends Form {
   onInit() {
     this.$('people').set([
       { name: null },
+    ]);
+
+    this.$('items').set('value', [
+      { name: 0 },
     ]);
 
     this.update({
