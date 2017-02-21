@@ -135,7 +135,7 @@ The package provide some built-in and ready to use Event Handlers:
 import React from 'react';
 import { observer } from 'mobx-react';
 
-export default observer(({ form, events }) => (
+export default observer(({ form }) => (
   <form onSubmit={form.onSubmit}>
     <label htmlFor={form.$('username').id}>
       {form.$('username').label}

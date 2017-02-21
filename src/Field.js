@@ -274,21 +274,21 @@ export const prototypes = {
     const checkArray = val => isEmptyArray ? [] : val;
 
     const {
-      $value = null,
-      $label = null,
-      $placeholder = null,
-      $default = null,
-      $initial = null,
-      $disabled = null,
-      $bindings = null,
-      $type = null,
-      $options = null,
-      $related = null,
-      $validate = null,
-      $rules = null,
-      $parse = null,
-      $format = null,
-      $observers = null,
+      $value,
+      $label,
+      $placeholder,
+      $default,
+      $initial,
+      $disabled,
+      $bindings,
+      $type,
+      $options,
+      $related,
+      $validate,
+      $rules,
+      $parse,
+      $format,
+      $observers,
     } = $props;
 
     // eslint-disable-next-line

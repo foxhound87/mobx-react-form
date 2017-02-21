@@ -6,6 +6,8 @@ import Validator from './Validator';
 import State from './State';
 import Field from './Field';
 
+import { $try } from './parser';
+
 export default class Form extends Base {
 
   name;
@@ -140,26 +142,16 @@ export const prototypes = {
     action(() => (this.$validating = true))();
     this.validator.resetGenericError();
 
-    const $path = _.has(opt, 'path') ? opt.path : opt;
+    const path = $try(opt.path, opt);
+    const field = $try(opt.field, this.select(path, null, null));
+    const related = $try(opt.related, obj.related, false);
+    const $showErrors = $try(opt.showErrors, obj.showErrors, true);
 
-    let $field = null;
-    if (_.has(opt, 'field')) $field = opt.field;
-    else if (_.isString($path)) $field = this.select($path);
-
-    let showErrors = true;
-    if (_.has(opt, 'showErrors')) showErrors = opt.showErrors;
-    else if (_.has(obj, 'showErrors')) showErrors = obj.showErrors;
-
-    let related = false;
-    if (_.has(opt, 'related')) related = opt.related;
-    else if (_.has(obj, 'related')) related = obj.related;
-
-    this.state.events.set('validate', $field ? $field.path : true);
-
+    this.state.events.set('validate', field ? field.path : true);
     // look running events and choose when show errors messages
     const notShowErrorsEvents = ['clear', 'reset'];
     if (this.state.options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
-    const $showErrors = showErrors && !this.state.events.running(notShowErrorsEvents);
+    const showErrors = $showErrors && !this.state.events.running(notShowErrorsEvents);
 
     // wait all promises then resolve
     const $wait = resolve => Promise.all(this.validator.promises)
@@ -167,14 +159,14 @@ export const prototypes = {
       .then(() => this.state.events.set('validate', false))
       .then(() => resolve(this.isValid));
 
-    if (_.isPlainObject(opt) && !_.isString($path)) {
+    if (_.isPlainObject(opt) && !_.isString(path)) {
       // validate all fields
       return new Promise((resolve) => {
         this.validator
           .validateAll({
-            related,
             form: this,
-            showErrors: $showErrors,
+            showErrors,
+            related,
           });
 
         return $wait(resolve);
@@ -185,11 +177,11 @@ export const prototypes = {
     return new Promise((resolve) => {
       this.validator
         .validateField({
-          related,
           form: this,
-          path: $path,
-          field: $field,
-          showErrors: $showErrors,
+          showErrors,
+          related,
+          field,
+          path,
         });
 
       return $wait(resolve);
