@@ -89,7 +89,7 @@ The `Template` is useful if you need to change how the properties are obtained, 
 
 In the Form Class implement a `bindings()` methods which will return an object with our **Template** function.
 
-In the following example some props passed to the `bind()` method will get priority over the `fields` ones and for enabling validation on the `onBlur` handler, it is reimplemented by providing a custom function:
+In the following example some props passed to the `bind()` method will get priority over the `fields` ones. The new bindings will enable validation on `onBlur` handler (it is reimplemented by providing a custom function), and ErrorText & ErrorStyle are henanched to display a custom loading indicator for async calls.
 
 ```javascript
 // custom onBlur with field validation
@@ -111,7 +111,8 @@ class MyForm extends MobxReactForm {
         value: $try(props.value, field.value),
         floatingLabelText: $try(props.label, field.label),
         hintText: $try(props.placeholder, field.placeholder),
-        errorText: $try(props.error, field.error),
+        errorText: field.validating ? props.validatingText : $try(props.error, field.error),
+        errorStyle: field.validating ? { background: 'yellow', color: 'black' } : {},
         disabled: $try(props.disabled, field.disabled),
         onFocus: $try(props.onFocus, field.onFocus),
         onChange: $try(props.onChange, field.onChange),

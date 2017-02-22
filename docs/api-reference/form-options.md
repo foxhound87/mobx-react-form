@@ -12,7 +12,9 @@
 | **alwaysShowDefaultError** | boolean | false | The `defaultGenericError` is shown only when `invalidate()` is called. Set this to `true` and it will be always shown on validation errors. |
 | **defaultGenericError** | string | null | Set e default message to show when a generic error occurs. |
 | **loadingMessage** | string | null | Set a global loading message to show during async calls. |
-| **allowRequired** | false | boolean | The json-schema `required` property can work only if the object does not contain the field key/value pair, `allowRequired` can remove it when needed to make `required` work properly. Be careful because enabling it will make `minLength` uneffective when the `string` is `empty`. |
+| **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
+| **validationDebounceOptions** | object | { leading: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |
+| **allowRequired** | boolean | false | The json-schema `required` property can work only if the object does not contain the field key/value pair, `allowRequired` can remove it when needed to make `required` work properly. Be careful because enabling it will make `minLength` uneffective when the `string` is `empty`. |
 | **ajv** | object | - | Additional options for AJV. See all the details of [ajv options](https://github.com/epoberezkin/ajv#options) on the official github page of AJV. |
 
 ### Set Options On Form Constructor

@@ -1,7 +1,7 @@
 # Observe Fields Props
 
 * [Observe with `observe()` Method]()
-* [Observe with `observers` Init Prop]()
+* [Observe with `observers` Object]()
 * [Disposers]()
 
 ---
@@ -39,9 +39,11 @@ form.$('password').observe({
 
 > Specify `fields` as `key` and the nested fields map will be observed (add/del).
 
-## Observe with `observers` Init Prop
+## Observe with `observers` Object
 
-This method is useful if you need to handle nested fields or add/del fields dynamically.
+This method is useful if you need to handle nested fields. The observers will be automatically loaded when add/del fields dynamically.
+
+The difference from using the `observe()` method is that you can specify an array with one or more observers objects for each field.
 
 Define an `observers` object like this:
 
@@ -57,6 +59,8 @@ const observers = {
   }],
 };
 ```
+
+then add it to the object in the first argument of the form constructor.
 
 ## Disposers
 

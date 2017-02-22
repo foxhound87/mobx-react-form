@@ -2,6 +2,8 @@
 
 ---
 
+* [How to pass form instance to react component](https://github.com/foxhound87/mobx-react-form/issues/217)
+
 * [Validate Field onBlur](https://github.com/foxhound87/mobx-react-form/issues/198)
 
 * [Understanding the intended usage scenario](https://github.com/foxhound87/mobx-react-form/issues/120)
