@@ -11,7 +11,6 @@ export default class Options {
     strictDelete: true,
     alwaysShowDefaultError: false,
     defaultGenericError: null,
-    loadingMessage: null,
     allowRequired: false,
     autoParseNumbers: false,
     validationDebounceWait: 250,

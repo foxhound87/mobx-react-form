@@ -82,8 +82,6 @@ export default class DVR {
     const validation = new Validator(data, rules);
     // set label into errors messages instead key
     validation.setAttributeNames({ [field.path]: field.label });
-    // handle async fails
-    if (!field.hasError) field.invalidate(this.loadingMessage(), true);
 
     const $p = new Promise((resolve) => {
       validation.checkAsync(
@@ -96,16 +94,13 @@ export default class DVR {
   }
 
   handleAsyncPasses(field, resolve) {
-    field.setValidationAsyncData({ valid: true, message: '' });
+    field.setValidationAsyncData(true);
     field.showAsyncErrors();
     resolve();
   }
 
   handleAsyncFails(field, validation, resolve) {
-    field.setValidationAsyncData({
-      valid: false,
-      message: _.first(validation.errors.get(field.path)),
-    });
+    field.setValidationAsyncData(false, _.first(validation.errors.get(field.path)));
     this.executeAsyncValidation(field);
     field.showAsyncErrors();
     resolve();
@@ -128,9 +123,5 @@ export default class DVR {
     if (type === 'sync') diff = _.difference($rules, this.asyncRules);
     if (type === 'async') diff = _.intersection($rules, this.asyncRules);
     return diff;
-  }
-
-  loadingMessage() {
-    return this.options.get('loadingMessage') || 'validating...';
   }
 }

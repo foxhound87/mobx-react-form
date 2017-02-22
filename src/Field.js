@@ -33,6 +33,7 @@ export default class Field extends Base {
   $parser = $ => $;
   $formatter = $ => $;
 
+
   @observable $value = undefined;
   @observable $label = undefined;
   @observable $placeholder = undefined;
@@ -45,6 +46,8 @@ export default class Field extends Base {
   @observable $focus = false;
   @observable $touched = false;
   @observable $changed = false;
+
+  @observable $validating = false;
 
   @observable showError = true;
 
@@ -127,6 +130,10 @@ export default class Field extends Base {
 
   @computed get label() {
     return parseGetLabel(this.$label);
+  }
+
+  @computed get validating() {
+    return this.$validating;
   }
 
   @computed get placeholder() {
@@ -446,8 +453,8 @@ export const prototypes = {
   },
 
   @action
-  setValidationAsyncData(obj = {}) {
-    this.validationAsyncData = obj;
+  setValidationAsyncData(valid = false, message = '') {
+    this.validationAsyncData = { valid, message };
   },
 
   @action

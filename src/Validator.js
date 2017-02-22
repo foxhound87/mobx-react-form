@@ -55,9 +55,10 @@ export default class Validator {
       })));
   }
 
+  @action
   validate(opt = {}, obj = {}) {
-    action(() => (this.$validating = true))();
-    action(() => (this.$genericErrorMessage = null))();
+    this.$validating = true;
+    this.$genericErrorMessage = null;
 
     const form = opt.form;
     const path = $try(opt.path, opt);
@@ -73,7 +74,7 @@ export default class Validator {
 
     // wait all promises then resolve
     const $wait = resolve => Promise.all(this.promises)
-      .then(action(() => (this.$validating = false)))
+      .then(() => (this.$validating = false))
       .then(() => form.state.events.set('validate', false))
       .then(() => resolve(form.isValid));
 
@@ -90,6 +91,7 @@ export default class Validator {
       });
     }
 
+    field.$validating = true;
     // validate single field by path
     return new Promise((resolve) => {
       this.validateField({
@@ -101,7 +103,8 @@ export default class Validator {
       });
 
       return $wait(resolve);
-    });
+    })
+      .then(() => (field.$validating = false));
   }
 
   @action
@@ -122,6 +125,7 @@ export default class Validator {
     const $field = field || form.select(path);
     // reset field validation
     $field.resetValidation();
+
     // get all validators
     const { svk, dvr, vjf } = this.validators;
     // validate with vanilla js functions (vjf)
