@@ -75,7 +75,7 @@
     "babel-register": "6.23.0",
     "chai": "3.5.0",
     "codecov": "1.0.1",
-    "commitizen": "2.9.5",
+    "commitizen": "2.9.6",
     "cz-conventional-changelog": "1.2.0",
     "eslint": "3.15.0",
     "eslint-config-airbnb": "14.1.0",
