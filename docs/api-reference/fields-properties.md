@@ -2,7 +2,7 @@
 
 | Property | Type | MobX Type | Info | Help |
 |---|---|---|---|---|
-| **validating** | boolean | computed | Check if the form is in validation state. | - |
+| **validating** | boolean | computed | Check if the field is in validation state. | - |
 | **bindings** | string | computed | The key of the registered bindings to use for the current field. | [Bindings](../bindings/README.md) |
 | **path** | string | - | Field path (for nested fields). | - |
 | **key** | string | - | Field key (same of `name` if not provided) | - |
