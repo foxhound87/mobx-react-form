@@ -9,7 +9,8 @@ import parser from '../parser';
 export default {
 
   on(event, callback) {
-    const path = _.has(this, 'isField') ? this.path : true;
+    const isField = _.has(this, 'isField');
+    const path = isField ? this.path : true;
     return observe(this.state.events.$running, change =>
       (event === change.name &&
       (change.newValue !== false) &&
@@ -17,7 +18,8 @@ export default {
         && callback({
           path: this.state.events.$running[event],
           change: _.omit(change, 'type', 'object'),
-          form: this,
+          field: isField ? this : null,
+          form: this.state.form,
           event,
         }));
   },

@@ -33,6 +33,7 @@ export default class Field extends Base {
   $parser = $ => $;
   $formatter = $ => $;
 
+
   @observable $value = undefined;
   @observable $label = undefined;
   @observable $placeholder = undefined;
@@ -45,6 +46,8 @@ export default class Field extends Base {
   @observable $focus = false;
   @observable $touched = false;
   @observable $changed = false;
+
+  @observable $validating = false;
 
   @observable showError = true;
 
@@ -65,6 +68,12 @@ export default class Field extends Base {
     this.initNestedFields(data, update);
 
     this.incremental = (this.hasIncrementalNestedFields !== 0);
+
+    this.debouncedValidation = _.debounce(
+      this.validate,
+      this.state.options.get('validationDebounceWait'),
+      this.state.options.get('validationDebounceOptions'),
+    );
 
     this.observeValidation();
     this.initObservers();
@@ -121,6 +130,10 @@ export default class Field extends Base {
 
   @computed get label() {
     return parseGetLabel(this.$label);
+  }
+
+  @computed get validating() {
+    return this.$validating;
   }
 
   @computed get placeholder() {
@@ -412,12 +425,13 @@ export const prototypes = {
     this.initFields({ fields }, update);
   },
 
-  validate() {
-    return this.state.form.validate({
+  validate(opt = {}) {
+    return this.state.form.validator.validate({
+      showErrors: $try(opt.related, true),
+      related: $try(opt.showErrors, true),
+      form: this.state.form,
       path: this.path,
       field: this,
-      showErrors: true,
-      related: true,
     });
   },
 
@@ -439,8 +453,8 @@ export const prototypes = {
   },
 
   @action
-  setValidationAsyncData(obj = {}) {
-    this.validationAsyncData = obj;
+  setValidationAsyncData(valid = false, message = '') {
+    this.validationAsyncData = { valid, message };
   },
 
   @action
@@ -489,7 +503,7 @@ export const prototypes = {
 
   observeValidation() {
     if (this.state.options.get('validateOnChange') === false) return;
-    this.disposeValidation = observe(this, '$value', () => this.validate());
+    this.disposeValidation = observe(this, '$value', () => this.debouncedValidation());
   },
 
   initObservers() {

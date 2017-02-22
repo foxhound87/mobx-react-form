@@ -46,13 +46,8 @@ export default class VJF {
 
     // check and execute only if is a promise
     if (utils.isPromise(res)) {
-      if (!field.hasError) field.invalidate(this.loadingMessage(), true);
-
       const $p = res
-        .then($res => field.setValidationAsyncData({
-          valid: $res[0],
-          message: $res[1],
-        }))
+        .then($res => field.setValidationAsyncData($res[0], $res[1]))
         .then(() => this.executeAsyncValidation(field))
         .then(() => field.showAsyncErrors());
 
@@ -119,9 +114,5 @@ export default class VJF {
       Handle other cases
     */
     return [false, 'Error'];
-  }
-
-  loadingMessage() {
-    return this.options.loadingMessage || 'validating...';
   }
 }

@@ -1,3 +1,12 @@
+# 1.20
+
+* Introduced debounced validation
+* Introduced Form & Field `validating` mobx computed (async check).
+* Events Hooks: returned Form instance (was a Field instance)
+* Fixed Async error state (removed `loadingMessage`)
+* Fixed Async "validating..." Message (null as default)
+* `loadingMessage` option removed.
+
 # 1.19
 
 * Introduced Observers.

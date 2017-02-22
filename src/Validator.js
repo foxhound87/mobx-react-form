@@ -1,5 +1,6 @@
 import { computed, action, observable } from 'mobx';
 import _ from 'lodash';
+import { $try } from './parser';
 
 import VJF from './validators/VJF'; // Vanilla JavaScript Functions
 import SVK from './validators/SVK'; // Json Schema Validation Keywords
@@ -24,6 +25,8 @@ export default class Validator {
     dvr: null,
     svk: null,
   };
+
+  @observable $validating = false;
 
   @observable $genericErrorMessage = null;
 
@@ -53,9 +56,59 @@ export default class Validator {
   }
 
   @action
+  validate(opt = {}, obj = {}) {
+    this.$validating = true;
+    this.$genericErrorMessage = null;
+
+    const form = opt.form;
+    const path = $try(opt.path, opt);
+    const field = $try(opt.field, form.select(path, null, null));
+    const related = $try(opt.related, obj.related, true);
+    const $showErrors = $try(opt.showErrors, obj.showErrors, true);
+
+    form.state.events.set('validate', field ? field.path : true);
+    // look running events and choose when show errors messages
+    const notShowErrorsEvents = ['clear', 'reset'];
+    if (form.state.options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
+    const showErrors = $showErrors && !form.state.events.running(notShowErrorsEvents);
+
+    // wait all promises then resolve
+    const $wait = resolve => Promise.all(this.promises)
+      .then(() => (this.$validating = false))
+      .then(() => form.state.events.set('validate', false))
+      .then(() => resolve(form.isValid));
+
+    if (_.isPlainObject(opt) && !_.isString(path)) {
+      // validate all fields
+      return new Promise((resolve) => {
+        this.validateAll({
+          showErrors,
+          related,
+          form,
+        });
+
+        return $wait(resolve);
+      });
+    }
+
+    field.$validating = true;
+    // validate single field by path
+    return new Promise((resolve) => {
+      this.validateField({
+        showErrors,
+        related,
+        form,
+        field,
+        path,
+      });
+
+      return $wait(resolve);
+    })
+      .then(() => (field.$validating = false));
+  }
+
+  @action
   validateAll({ form, showErrors = true, related = false }) {
-    // reset generic error message
-    this.resetGenericError();
     // validate all fields and nested fields
     form.forEach(field =>
       this.validateField({
@@ -72,6 +125,7 @@ export default class Validator {
     const $field = field || form.select(path);
     // reset field validation
     $field.resetValidation();
+
     // get all validators
     const { svk, dvr, vjf } = this.validators;
     // validate with vanilla js functions (vjf)
@@ -108,11 +162,6 @@ export default class Validator {
     const $default = this.options.get('defaultGenericError');
     if (_.isString($default)) return $default;
     return 'The form is invalid';
-  }
-
-  @action
-  resetGenericError() {
-    this.$genericErrorMessage = null;
   }
 
   @action
