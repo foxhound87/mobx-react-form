@@ -30,7 +30,7 @@ export default class Base {
   /**
     Event: On Add
   */
-  onAdd = (e, val = null) => {
+  onAdd = (e, val) => {
     e.preventDefault();
     this.add(utils.isEvent(val) ? null : val);
   };
@@ -38,7 +38,7 @@ export default class Base {
   /**
     Event: On Del
   */
-  onDel = (e, path = null) => {
+  onDel = (e, path) => {
     e.preventDefault();
     this.del(utils.isEvent(path) ? this.path : path);
   };

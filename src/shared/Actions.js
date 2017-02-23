@@ -281,7 +281,7 @@ export default {
    */
   @action
   del(partialPath = null) {
-    const path = parser.parsePath(partialPath);
+    const path = parser.parsePath(partialPath || this.path);
     const keys = _.split(path, '.');
     const last = _.last(keys);
     const cpath = _.trimEnd(path, `.${last}`);
@@ -293,7 +293,7 @@ export default {
 
     if (isStrict && !container.fields.has(last)) {
       const msg = `Key "${last}" not found when trying to delete field`;
-      const $path = _.trimStart([this.path, path].join('.'), '.');
+      const $path = _.trim([this.path, path].join('.'), '.');
       utils.throwError($path, null, msg);
     }
 

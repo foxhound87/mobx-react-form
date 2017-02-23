@@ -62,7 +62,7 @@ const isPromise = obj => (!!obj && typeof obj.then === 'function'
   && (typeof obj === 'object' || typeof obj === 'function'));
 
 const isEvent = (obj) => {
-  if (typeof Event === 'undefined') return false;
+  if (_.isNil(obj) || typeof Event === 'undefined') return false;
   return (obj instanceof Event || !_.isNil(obj.target)); // eslint-disable-line
 };
 
