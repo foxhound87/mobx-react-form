@@ -74,7 +74,7 @@ export default class Validator {
 
     // wait all promises then resolve
     const $wait = resolve => Promise.all(this.promises)
-      .then(() => (this.$validating = false))
+      .then(action(() => (this.$validating = false)))
       .then(() => form.state.events.set('validate', false))
       .then(() => resolve(form.isValid));
 
