@@ -128,12 +128,12 @@ export default class Field extends Base {
     this.$default = parseFieldValue(this.$parser, { separated: val });
   }
 
-  @computed get label() {
-    return parseGetLabel(this.$label);
-  }
-
   @computed get validating() {
     return this.$validating;
+  }
+
+  @computed get label() {
+    return parseGetLabel(this.$label);
   }
 
   @computed get placeholder() {
