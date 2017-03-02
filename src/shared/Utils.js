@@ -29,7 +29,14 @@ export default {
    */
   observe({ path = null, key, call }) {
     const $field = _.has(this, 'isField') ? this : this.select(path);
-    const params = { form: this.state.form, path: $field.path, $field };
+
+    const params = {
+      form: this.state.form,
+      path: $field.path,
+      field: $field,
+      $field, // to be removed
+    };
+
     const disposer = `${key}@${$field.path}`;
 
     _.merge(this.state.disposers, {
