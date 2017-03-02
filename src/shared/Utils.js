@@ -82,9 +82,14 @@ export default {
   /**
     Get Container
    */
-  container(path = null) {
-    const $path = path || this.path || '';
-    const cpath = _.trimEnd($path.replace(new RegExp('/[^./]+$/'), ''), '.');
+  container(path) {
+    const $path = parser.parsePath(path || this.path || '');
+    const cpath = _.trim($path.replace(new RegExp('[^./]+$'), ''), '.');
+
+    if (_.has(this, 'isField') && _.isNil(path)) {
+      return this.state.form.select(cpath, null, false);
+    }
+
     return this.select(cpath, null, false);
   },
 

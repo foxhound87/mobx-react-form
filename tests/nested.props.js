@@ -11,6 +11,9 @@ const checkDeepPropType = (target, prop, path, type) =>
     expect(target.get(prop)).to.have.deep.property(path).that.is.an(type));
 
 describe('Check $A Nested Fields', () => {
+  it('$A user.email container() path should be equal to "user"', () =>
+    expect($.$A.$('user.email').container().path).to.be.equal('user'));
+
   it('$A user.email.value should be equal to "notAnEmail"', () =>
     expect($.$A.$('user.email').value).to.be.equal('notAnEmail'));
 
@@ -222,6 +225,24 @@ describe('Check Nested $T add() and del()', () => {
 });
 
 describe('Check Nested $T value on add()', () => {
+  it('$T member.hobbies container() path should be equal to "member"', () =>
+    expect($.$T.$('member.hobbies').container().path).to.equal('member'));
+
+  it('$T container(member.hobbies) path should be equal to "member"', () =>
+    expect($.$T.container('member.hobbies').path).to.equal('member'));
+
+  it('$T member.hobbies.1 container() path should be equal to "member.hobbies"', () =>
+    expect($.$T.$('member.hobbies').$(1).container().path).to.equal('member.hobbies'));
+
+  it('$T container(member.hobbies.1) path should be equal to "member.hobbies"', () =>
+    expect($.$T.container('member.hobbies.1').path).to.equal('member.hobbies'));
+
+  it('$T member container(hobbies.1) path should be equal to "member.hobbies"', () =>
+    expect($.$T.$('member').container('hobbies.1').path).to.equal('member.hobbies'));
+
+  it('$T member container(hobbies[1]) path should be equal to "member.hobbies"', () =>
+    expect($.$T.$('member').container('hobbies[1]').path).to.equal('member.hobbies'));
+
   it('$T member.hobbies value should be array', () =>
     expect($.$T.$('member.hobbies').value).to.be.instanceof(Array));
 

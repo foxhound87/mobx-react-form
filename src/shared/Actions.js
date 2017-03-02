@@ -61,7 +61,7 @@ export default {
     _.each(fields, (field, key) => {
       const $path = _.trimStart(`${path}.${key}`, '.');
       const $field = this.select($path, null, false);
-      const $container = this.container(path);
+      const $container = this.select(path, null, false);
 
       if (!_.isNil($field) && !_.isNil(field)) {
         if (_.isArray($field.values())) {
