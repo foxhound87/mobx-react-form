@@ -28,8 +28,11 @@ const checkProp = ({ type, data }) => {
 const hasProps = ($type, $data) => {
   let $;
   switch ($type) {
-    case 'field': $ = props.field; break;
     case 'computed': $ = props.computed; break;
+    case 'field': $ = [
+      ...props.field,
+      ...props.validation,
+    ]; break;
     case 'all': $ = ['id',
       ...props.computed,
       ...props.field,
