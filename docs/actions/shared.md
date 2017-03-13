@@ -136,7 +136,7 @@ You can pass these props: `value`, `label`, `placeholder`, `initial`, `default`,
 Or passing `validate` and  `rules` for the validation.
 
 ```javascript
-.set('values' {
+.set('value', {
   username: 'NewUsername',
   password: 'NewPassword',
 });

@@ -17,6 +17,8 @@ Use the `sync(e)` handler to update the state of the field:
 
 > `onChange(e)` and `onToggle(e)` are aliases of `sync(e)`;
 
+> If you are using a custom component which doesn't work with the package's built-in sync handler, [open an Issue](https://github.com/foxhound87/mobx-react-form/issues).
+
 ### onFocus(e) & onBlur(e)
 
 If you need to track `touched` or `focus` state, you can use `onFocus(e)` or `onBlur(e)` handlers:
