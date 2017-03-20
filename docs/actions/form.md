@@ -12,7 +12,7 @@ The `init()` method will re-init the form with empty or new values and all previ
 
 It works like passing the passing the `fields` or `values` to the [Form Constructor](../api-reference/form-initialization.md).
 
-It accept the **fields struct** if using `separated props` or **fields values** if using `unified props`.
+It accept the **fields struct** if using `separated properties definition` or **fields values** if using `unified properties definition`.
 
 <br>
 
@@ -22,7 +22,7 @@ Re-init the form with empty values:
 .init();
 ```
 
-Use an object to Re-Init the form with **new values** (`unified props`):
+Use an object to Re-Init the form with **new values** (`unified properties definition`):
 
 ```javascript
 form.init({
@@ -31,7 +31,7 @@ form.init({
 });
 ```
 
-Use the fields struct to Re-Init with **empty fields** (`separated props`):
+Use the fields struct to Re-Init with **empty fields** (`separated properties definition`):
 
 ```javascript
 form.init([
@@ -90,6 +90,6 @@ form.submit({
 ```
 
 > This is not an Event Handler.
-> If you need the `onSubimt(e)` read the [Event Handlers](../events/events-handlers.md) section.
+> If you need the `onSubmit(e)` read the [Event Handlers](../events/events-handlers.md) section.
 
-You can use it, for example, if you want to reimplement the `onSubimt(e)` Event Handler.
+You can use it, for example, if you want to reimplement the `onSubmit(e)` Event Handler.

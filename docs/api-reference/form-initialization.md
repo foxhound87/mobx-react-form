@@ -9,7 +9,7 @@ The first argument is an object which expects the following properties:
 ###### Fields Definition
 | Property | Description | Help |
 |---|---|---|
-| **fields**    | Using **Unified Properties** mode: an object which represents the fields with all their properties. Using **Separated Properties** mode: an array which represents the fields structure. | [defining fields](../defining-fields.md) |
+| **fields**    | Using **Unified Properties Definition** mode: an object which represents the fields with all their properties. Using **Separated Properties Definition** mode: an array which represents the fields structure. | [defining fields](../defining-fields.md) |
 
 ###### Fields Properties
 | Property | Description | Help |
@@ -40,9 +40,9 @@ The first argument is an object which expects the following properties:
 
 > If you need to validate fields use the `validate`, `rules`, or `schema` props according to the choosen [validation plugin](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html)
 
-> If you are using the **Unified Properties** mode, you will need only the `fields` property.
+> If you are using the **Unified Properties Definition** mode, you will need only the `fields` property.
 
-> If you are using the **Separated Properties** mode, the `fields` property should be defined as structure.
+> If you are using the **Separated Properties Definition** mode, the `fields` property should be defined as structure.
 
 ## Second Argument
 
@@ -68,13 +68,13 @@ import Form from 'mobx-react-form';
 // using unified fields properties
 new Form({ fields, ... });
 
-// using form options and separated fields properties
+// using form options and separated fields properties definition
 new Form({ values, labels, options, ... }, { options });
 
-// using validators with plugins, bindings and unified fields properties
+// using validators with plugins, bindings and unified fields properties definition
 new Form({ fields }, { plugins, bindings });
 
-// using validators with plugins and separated fields properties
+// using validators with plugins and separated fields properties definition
 new Form({ values, labels, rules, ... }, { plugins });
 ```
 
