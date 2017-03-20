@@ -1,8 +1,8 @@
 # Observe Fields Props
 
-* [Observe with `observe()` Method]()
-* [Observe with `observers` Object]()
-* [Disposers]()
+* [Observe with `observe()` Method](#observe-with-observe-method)
+* [Observe with `observers` Object](#observe-with-observers-object)
+* [Disposers](#disposers)
 
 ---
 

@@ -1,12 +1,42 @@
 # Events Handlers
 
-All Event Handlers methods takes the `Proxy` object in input as first argument and can be easly included in yours components.
+All Event Handlers methods takes the `Proxy` object `(e) in input as first argument and can be easly included in yours components.
+
+ * [Sync Field Value](#sync-field-value)
+ * [onChange(e) & onToggle(e)](#onchangee--ontogglee)
+
+
+ * [Focus & Touched State](#focus--touched-state)
+ * [onFocus(e) & onBlur(e)](#onfocuse--onblure)
+
+
+ * [Clear & Reset Form or Fields](#clear--reset)
+ * [onClear(e) & onReset(e)](events-handlers.md#onadde--ondele)
+
+
+ * [Nested Fields Handlers](#nested-array-elements)
+ * [onAdd(e) & onDel(e)](events-handlers.md#onadde--ondele)
+
+
+ * [Submitting the Form](#submitting-the-form)
+ * [onSubmit(e)](#onsubmite)
+ * [Validation Handlers](#validation-handlers)
 
 ---
 
-### Sync Field Value Handler
+## Sync Field Value
 
-Use the `sync(e)` handler to update the state of the field:
+#### onChange(e) & onToggle(e)
+
+| Handler | Affected Property |
+|---|---|
+| sync(e) | value |
+| onChange(e) | value |
+| onToggle(e) | value |
+
+<br>
+
+Use the `sync(e)` handler to update the state of the field.
 
 ```html
 <input
@@ -19,7 +49,18 @@ Use the `sync(e)` handler to update the state of the field:
 
 > If you are using a custom component which doesn't work with the package's built-in sync handler, [open an Issue](https://github.com/foxhound87/mobx-react-form/issues).
 
-### onFocus(e) & onBlur(e)
+---
+
+## Focus & Touched State
+
+#### onFocus(e) & onBlur(e)
+
+| Handler | Affected Property |
+|---|---|
+| onFocus(e) | focus |
+| onBlur(e) | touched |
+
+<br>
 
 If you need to track `touched` or `focus` state, you can use `onFocus(e)` or `onBlur(e)` handlers:
 
@@ -33,30 +74,18 @@ If you need to track `touched` or `focus` state, you can use `onFocus(e)` or `on
 
 ---
 
-### Submit & Validation Handlers
-
-###### We have two alternatives to deal with events:
-
-- [Extending the Form object with Events Handlers](extending-form.md)
-
-- [Decopling the Events Handlers from Form object](decoupling-handlers.md)
-
-We can choose to use the Built-In **Event Handlers**, override them or reimplement them for more flexibility.
-
-The `onSubmit(e)` will `validate` the form and will call respectively `onSuccess(form)` or `onError(form)` methods if they are implemented in the `extended` class.
-
-
-The `onSuccess(form)` and `onError(form)` methods takes the `form` object in input. So you can perform more actions after the validation occurs.
-
-You can easly include the `onSubmit(e)` handler in your component:
-
-```html
-<button type="submit" onClick={form.onSubmit}>Submit</button>
-```
-
----
-
 ### Clear & Reset
+
+#### onClear(e) & onReset(e)
+
+| Handler | Action | Affected Property | Result |
+|---|---|---|---|
+| onClear(e) | clear() | value | to empty values |
+| onReset(e) | reset() | value | to default values |
+
+<br>
+
+On the form instance:
 
 ```html
 <button type="button" onClick={form.onClear}>Clear</button>
@@ -73,9 +102,16 @@ or selecting Specific Field or Nested Fields:
 
 ---
 
-### Nested Fields Handlers
+### Nested Array Elements
 
-We have these methods: `onAdd(e)` and `onDel(e)`.
+#### onAdd(e) & onDel(e)
+
+| Handler | Action | Result | Affected Property |
+|---|---|---|---|
+| onAdd(e) | add() | Add an field element in an array container | fields |
+| onDel(e) | del() | Remove a field element in an array container | fields |
+
+<br>
 
 ##### Adding a Field
 
@@ -95,6 +131,8 @@ or specify the field `value` as second argument:
 <button type="button" onClick={e => form.$('hobbies').onAdd(e, 'soccer')}>Add Hobby</button>
 ```
 
+<br>
+
 ##### Deleting a Field
 
 ```html
@@ -112,3 +150,27 @@ or specify the field `path` as second argument:
 ```html
 <button type="button" onClick={e => form.onDel(e, 'hobbies[3]')}>Delete Hobby</button>
 ```
+
+
+---
+
+## Submitting the Form
+
+#### onSubmit(e)
+
+The `onSubmit(e)` will `validate` the form and will call respectively `onSuccess(form)` or `onError(form)` **Validation Handlers** if they are implemented.
+
+The `onSuccess(form)` and `onError(form)` methods takes the `form` object in input. So you can perform more actions after the validation occurs.
+
+You can easly include the `onSubmit(e)` handler in your component:
+
+```html
+<button type="submit" onClick={form.onSubmit}>Submit</button>
+```
+
+#### Validation Handlers
+
+We have two alternatives to deal with the validation events:
+
+* [Extending the Form with Validation Handlers](validation-handlers/extending.md)
+* [Decupling the Validation Handlers from the Form](validation-handlers/decoupling.md)

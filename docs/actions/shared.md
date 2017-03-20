@@ -1,6 +1,25 @@
-# Form Actions
+# Shared Actions
 
-The actions can be used on form or every field and nested field.
+The shared actions can be used on the form instance or every field and nested field.
+
+* [Update the fields](#update-the-fields)
+* [Field Selector](#field-selector)
+* [Field Container](#field-container)
+* [Check Field Computed Values](#check-field-computed-values)
+
+
+* [Get Fields Properties](#get-fields-properties)
+* [Set Fields Properties](#set-fields-properties)
+
+
+* [clear() & reset() Form or Fields](#clear--reset-form-or-fields)
+* [map() Fields & Nested Fields](#map-fields--nested-fields)
+* [forEach() Fields & Nested Fields](#foreach-fields--nested-fields)
+* [add() & del() Nested Array Elements](#add--del-nested-array-elements)
+
+
+* [Validate a Field](#validate-a-field)
+* [Invalidate the Form or a Field](#invalidate-the-form-or-a-field)
 
 ---
 
@@ -34,21 +53,7 @@ form.$('address').update({
 
 > The update() method accepts only an object describing the fields keys with their values.
 
-### Check Field Computed Values
-
-These computed values are allowed:
-
-`hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched`, `changed`.
-
-```javascript
-.check('isValid');
-```
-
-Use the second argument (boolean) if you want to check for nested fields too.
-
-```javascript
-.check('isValid', true);
-```
+---
 
 ### Field Selector
 
@@ -80,6 +85,7 @@ const n = 3;
 .$('members').$(n).$('firstname');
 ```
 
+---
 
 ### Field Container
 
@@ -91,7 +97,27 @@ Select the parent field container.
 .$('address.city').container(); // address
 ```
 
-### Get the Fields Properties
+---
+
+### Check Field Computed Values
+
+These computed values are allowed:
+
+`hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched`, `changed`.
+
+```javascript
+.check('isValid');
+```
+
+Use the second argument (boolean) if you want to check for nested fields too.
+
+```javascript
+.check('isValid', true);
+```
+
+---
+
+### Get Fields Properties
 
 > Return an `object` with fields `key:val` pairs (with nested fields).
 
@@ -123,6 +149,8 @@ or if you need to filter multiple props:
 .get(['value', 'label']);
 ```
 
+---
+
 ### Set Fields Properties
 
 The `set()` method is intended to be used to change the properties of existent/selected fields.
@@ -131,9 +159,7 @@ If you need to recreate the fields tree (for example add/del fields array) and p
 
 > Takes in input the prop name `string` and an `object` with fields `key:val` pairs.
 
-You can pass these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error`.
-
-Or passing `validate` and  `rules` for the validation.
+You can pass these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error` and the validation props as well (`rules` and `validate`).
 
 ```javascript
 .set('value', {
@@ -152,55 +178,23 @@ The object can be structured to set props of nested fields as well:
 });
 ```
 
-### Clear & Reset
+---
+
+### clear() & reset() Form or Fields
 
 Clear or Reset the whole Form, a single Field, or Nested Fields recursively.
 
 ```javascript
-.clear();
+.clear(); // to empty values
 ```
 
 ```javascript
-.reset();
+.reset(); // to default values
 ```
 
-### Validate a Field
+---
 
-The `validate()` action returns a `promise`.
-
-The callback takes a `boolean` (`isValid`) with the validation state of the **Field**.
-
-```javascript
-$('password').validate()
-  .then((isValid) => {
-    ... // Use `isValid` to check the validation status
-  });
-```
-
-> This is an alternative syntax to [Form Actions - Validate Single Field](https://foxhound87.github.io/mobx-react-form/docs/actions/form.html#validate-single-field).
-
-### Invalidate the Form or a Field
-
-The `invalidate(msg)` method can be used on both forms or fields.
-
-> Pass an optional `string` in input and a custom error message will be shown for the `error` property.
-
-To invalidate the whole form:
-
-```javascript
-form.invalidate('This is a generic error message!');
-```
-
-To invalidate a single field:
-
-```javascript
-form.$('password').invalidate('The password is wrong!');
-```
-
-> These are not an Event Handlers.
-> If you need the `onClear(e)` or `onReset(e)` read the [Event Handlers](../events/events-handlers.md) section.
-
-### Map Fields and Nested Fields
+### map() Fields & Nested Fields
 
 ```javascript
 $('hobbies').map((fields) => {
@@ -216,7 +210,9 @@ or
 });
 ```
 
-### forEach()
+---
+
+### forEach() Fields & Nested Fields
 
 Iterate each field and nested fields recursively.
 
@@ -228,7 +224,9 @@ The callback get each field in input.
 });
 ```
 
-### add() & del()
+---
+
+### add() & del() Nested Array Elements
 
 Add fields or nested fields:
 
@@ -271,3 +269,42 @@ form.$('member.hobbies').del(3); // same as previous
 
 You can use it, for example, if you want to reimplement the `onAdd(e)` or `onDel(e)` Event Handlers.
 
+---
+
+### Validate a Field
+
+The `validate()` action returns a `promise`.
+
+The callback takes a `boolean` (`isValid`) with the validation state of the **Field**.
+
+```javascript
+$('password').validate()
+  .then((isValid) => {
+    ... // Use `isValid` to check the validation status
+  });
+```
+
+> This is an alternative syntax to [Form Actions - Validate Single Field](https://foxhound87.github.io/mobx-react-form/docs/actions/form.html#validate-single-field).
+
+---
+
+### Invalidate the Form or a single Field
+
+The `invalidate(msg)` method can be used on both forms or fields.
+
+> Pass an optional `string` in input and a custom error message will be shown for the `error` property.
+
+To invalidate the whole form:
+
+```javascript
+form.invalidate('This is a generic error message!');
+```
+
+To invalidate a single field:
+
+```javascript
+form.$('password').invalidate('The password is wrong!');
+```
+
+> These are not an Event Handlers.
+> If you need the `onClear(e)` or `onReset(e)` read the [Event Handlers](../events/events-handlers.md) section.

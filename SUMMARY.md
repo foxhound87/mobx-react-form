@@ -38,8 +38,8 @@
  * [Observe Fields Props](docs/events/observe.md)
  * [Events Hooks](docs/events/events-hooks.md)
  * [Events Handlers](docs/events/events-handlers.md)
-   * [Extending the Form](docs/events/extending-form.md)
-   * [Decupling the Handlers](docs/events/decoupling-handlers.md)
+   * [Extending the Form](docs/events/validation-handlers/extending.md)
+   * [Decupling the Handlers](docs/events/validation-handlers/decoupling.md)
 
 ## Bindings
 * [Bindings](docs/bindings/README.md)
