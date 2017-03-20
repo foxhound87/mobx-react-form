@@ -33,11 +33,12 @@
     * [Shared Actions (Form & Fields)](docs/actions/shared.md)
     * [Helpers (Form & Fields)](docs/actions/helpers.md)
 
-## Events
-* [Events](docs/events/README.md)
+## Events & Handlers
+* [Events & Handlers](docs/events/README.md)
  * [Observe Fields Props](docs/events/observe.md)
  * [Events Hooks](docs/events/events-hooks.md)
  * [Events Handlers](docs/events/events-handlers.md)
+ * Validation Handlers
    * [Extending the Form](docs/events/validation-handlers/extending.md)
    * [Decupling the Handlers](docs/events/validation-handlers/decoupling.md)
 
