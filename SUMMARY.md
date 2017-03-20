@@ -7,6 +7,19 @@
 * [FAQ](docs/faq.md)
 * [UMD Setup](docs/umd-setup.md)
 
+## API Reference
+* [Form Properties](docs/api-reference/form-properties.md)
+* [Form Methods](docs/api-reference/form-methods.md)
+* [Fields Properties](docs/api-reference/fields-properties.md)
+* [Fields Methods](docs/api-reference/fields-methods.md)
+
+## Form
+* [Form Instance](docs/form/README.md)
+    * [Form Initialization](docs/form/form-initialization.md)
+    * [Form Options](docs/form/form-options.md)
+    * [Extend Form & Field](docs/form/extend/generic.md)
+    * [Extend custom Field](docs/form/extend/custom.md)
+
 ## Fields
 * [Defining Fields](docs/defining-fields.md)
     * Flat Fields
@@ -15,17 +28,6 @@
     * Nested Fields
         * [As Unified Properties](docs/defining-nested-fields/unified-properties.md)
         * [As Separated Properties](docs/defining-nested-fields/separated-properties.md)
-
-## API Reference
-* [API Reference](docs/api-reference/README.md)
-    * [Form Initialization](docs/api-reference/form-initialization.md)
-    * [Form Options](docs/api-reference/form-options.md)
-    * [Converters](docs/api-reference/converters.md)
-    * [Extend Form & Field](docs/api-reference/extend.md)
-    * [Form Properties](docs/api-reference/form-properties.md)
-    * [Form Methods](docs/api-reference/form-methods.md)
-    * [Fields Properties](docs/api-reference/fields-properties.md)
-    * [Fields Methods](docs/api-reference/fields-methods.md)
 
 ## Actions
 * [Actions](docs/actions/README.md)

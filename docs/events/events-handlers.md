@@ -3,24 +3,22 @@
 All Event Handlers methods takes the `Proxy` object `(e) in input as first argument and can be easly included in yours components.
 
  * [Sync Field Value](#sync-field-value)
- * [onChange(e) & onToggle(e)](#onchangee--ontogglee)
-
-
  * [Focus & Touched State](#focus--touched-state)
- * [onFocus(e) & onBlur(e)](#onfocuse--onblure)
-
-
  * [Clear & Reset Form or Fields](#clear--reset)
- * [onClear(e) & onReset(e)](events-handlers.md#onadde--ondele)
-
-
- * [Nested Fields Handlers](#nested-array-elements)
- * [onAdd(e) & onDel(e)](events-handlers.md#onadde--ondele)
-
-
+ * [Nested Array Elements](#nested-array-elements)
  * [Submitting the Form](#submitting-the-form)
+
+
+ * [onChange(e) & onToggle(e)](#onchangee--ontogglee)
+ * [onFocus(e) & onBlur(e)](#onfocuse--onblure)
+ * [onClear(e) & onReset(e)](#onadde--ondele)
+ * [onAdd(e) & onDel(e)](#onadde--ondele)
  * [onSubmit(e)](#onsubmite)
- * [Validation Handlers](#validation-handlers)
+
+##### Validation Handlers
+
+  * [Extending the Form Instance](validation-handlers/extending.md)
+  * [Decupling from the Form Instance](validation-handlers/decoupling.md)
 
 ---
 
@@ -172,5 +170,5 @@ You can easly include the `onSubmit(e)` handler in your component:
 
 We have two alternatives to deal with the validation events:
 
-* [Extending the Form with Validation Handlers](validation-handlers/extending.md)
-* [Decupling the Validation Handlers from the Form](validation-handlers/decoupling.md)
+* [Extending the Form Instance with Validation Handlers](validation-handlers/extending.md)
+* [Decupling the Validation Handlers from the Form Instance](validation-handlers/decoupling.md)

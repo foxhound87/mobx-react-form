@@ -2,7 +2,15 @@
 
 The Form Constructor can take 2 arguments in input.
 
-## First Argument
+* [First Constructor Argument](#first-constructor-argument)
+* [Second Constructor Argument](#second-constructor-argument)
+* [Constructor Usage](#constructor-usage)
+* [Initialization Methods](#initialization-methods)
+* [Execute code on Form Init](#execute-code-on-form-init)
+
+---
+
+## First Constructor Argument
 
 The first argument is an object which expects the following properties:
 
@@ -44,7 +52,7 @@ The first argument is an object which expects the following properties:
 
 > If you are using the **Separated Properties Definition** mode, the `fields` property should be defined as structure.
 
-## Second Argument
+## Second Constructor Argument
 
 The second argument is an object which expects the following properties:
 
@@ -56,7 +64,7 @@ The second argument is an object which expects the following properties:
 
 <br>
 
-## Usage
+## Constructor Usage
 
 > You can mix all the objects you need
 
@@ -79,7 +87,7 @@ new Form({ values, labels, rules, ... }, { plugins });
 ```
 
 ## Initialization Methods
-#### setup(), options(), plugins(), bindings().
+#### setup(), options(), plugins(), bindings().
 
 Normally you have to pass the the initialization properties to the constructor, or you can implement one of these methods inside your extended form class which will return an object with all needed properties.
 
@@ -102,7 +110,7 @@ This can be done with `options`, `plugins` and `bindings` as well.
 > The object returned from the methods will be deep-merged to the object provieded to the constructor when initializing the instance.
 
 
-## onInit()
+## Execute code on Form Init
 
 If you need to execute some code just after the form is initialized,
 you can extend the form implementing the `onInit(form)` mehtod:

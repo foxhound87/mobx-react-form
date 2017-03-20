@@ -1,7 +1,7 @@
 # Validation Handlers
 
-* [Extending the Form with Validation Handlers](extending.md)
-* [Decupling the Validation Handlers from the Form](decoupling.md)
+* [Extending the Form Instance with Validation Handlers](extending.md)
+* [Decupling the Validation Handlers from the Form Instance](decoupling.md)
 
 ## Decoupling the Validation Handlers
 #### onSuccess(form) & onError(form)

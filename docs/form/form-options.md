@@ -1,5 +1,16 @@
 # Form Options
 
+* [Option Object](#option-object)
+* [Set Options On Form Constructor](#set-options-on-form-constructor)
+* [Set Options On Extended Form Class](#set-options-on-extended-form-class)
+* [Set Options After Form Initialization](#set-options-after-form-initialization)
+* [Get Current Form Options](#get-current-form-options)
+* [Get Form Option by key](#get-form-option-by-key)
+
+---
+
+### Option Object
+
 | Option | Type | Default | Info |
 |---|---|---|---|
 | **showErrorsOnUpdate** | boolean | true | Show validation errors after an update. |
