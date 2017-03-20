@@ -177,7 +177,7 @@ $('password').validate()
   });
 ```
 
-> This is an alternative syntax to [Form Actions - Validate Single Field](https://foxhound87.github.io/mobx-react-form/docs/actions/form-actions.html#validate-single-field).
+> This is an alternative syntax to [Form Actions - Validate Single Field](https://foxhound87.github.io/mobx-react-form/docs/actions/form.html#validate-single-field).
 
 ### Invalidate the Form or a Field
 

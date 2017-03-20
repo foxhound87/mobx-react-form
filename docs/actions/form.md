@@ -70,7 +70,7 @@ form.validate('email')
   });
 ```
 
-> This is an alternative syntax to [Actions - Validate a Field](https://foxhound87.github.io/mobx-react-form/docs/actions/actions.html#validate-a-field).
+> This is an alternative syntax to [Actions - Validate a Field](https://foxhound87.github.io/mobx-react-form/docs/actions/shared.html#validate-a-field).
 
 ### Manual Form Submit
 
