@@ -2,7 +2,10 @@
 
 Here we can see how to register custom bindings for a **Material-UI TextField**
 
-<br>
+* [Implement a Rewriter](#implement-a-rewriter)
+* [Implement a Template](#implement-a-template)
+
+---
 
 ## Implement a `Rewriter`
 
@@ -82,6 +85,8 @@ export default observer(({ field, type = 'password', placeholder = 'Insert Passw
 
 
 <br>
+
+---
 
 ## Implement a `Template`
 

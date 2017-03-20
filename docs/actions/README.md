@@ -9,7 +9,7 @@
   * [Re-Initialize all Fields](form.md#re-init-all-fields)
 
 
-### [Actions (Form & Fields)](shared.md)
+### [Shared Actions (Form & Fields)](shared.md)
   The shared actions can be used on the form instance or every field and nested field.
 
   * [Update the fields](shared.md#update-the-fields)

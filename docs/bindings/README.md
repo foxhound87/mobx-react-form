@@ -3,12 +3,22 @@
 With **Bindings** you can easly pass the fields properties to the input components.
 
 
- * [Default Bindings](default.md)
- * [Custom Bindings](custom.md)
+### [Default Bindings](default.md)
+  * [Simple Usage](default.md#simple-usage)
+  * [Properties Overwrite](default.md#properties-overwrite)
 
-<br>
 
-## Why should I use it?
+  * [Defaults Bindings](default.md#warning)
+    * [Default Rewriter](default.md#default-rewriter)
+    * [Default Template](default.md#default-template)
+
+### [Custom Bindings](custom.md)
+  * [Implement a Rewriter](custom.md#implement-a-rewriter)
+  * [Implement a Template](custom.md#implement-a-template)
+
+---
+
+## Why should I use Bindings?
 
 Bindings has many advantages:
 

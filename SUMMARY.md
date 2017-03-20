@@ -30,7 +30,7 @@
 ## Actions
 * [Actions](docs/actions/README.md)
     * [Form Actions](docs/actions/form.md)
-    * [Actions (Form & Fields)](docs/actions/shared.md)
+    * [Shared Actions (Form & Fields)](docs/actions/shared.md)
     * [Helpers (Form & Fields)](docs/actions/helpers.md)
 
 ## Events

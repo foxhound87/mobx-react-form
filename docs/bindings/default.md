@@ -1,6 +1,14 @@
 # Default Bindings
 
-<br>
+* [Simple Usage](#simple-usage)
+* [Properties Overwrite](#properties-overwrite)
+
+
+* [Defaults Bindings](#warning)
+  * [Default Rewriter](#default-rewriter)
+  * [Default Template](#default-template)
+
+---
 
 ## Simple Usage
 
@@ -45,7 +53,7 @@ export default observer(({ field, type = 'password', placeholder = 'Insert Passw
 > You can eventually reimplement it if you need more flexibility registering a new binding with the `default` key. Check out how to create [Custom Bindings](custom.md).
 
 
-## BUILT-IN `default` Template & Rewriter.
+## BUILT-IN `default` Template & Rewriter
 
 Here you can see the structure of the `default` Template & Rewriter.
 
