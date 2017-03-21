@@ -1,6 +1,6 @@
 # Events Handlers
 
-All Event Handlers methods takes the `Proxy` object `(e) in input as first argument and can be easly included in yours components.
+All Event Handlers methods takes the `Proxy` object `(e)` in input as first argument and can be easly included in yours components.
 
  * [Sync Field Value](#sync-field-value)
  * [Focus & Touched State](#focus--touched-state)
@@ -11,7 +11,7 @@ All Event Handlers methods takes the `Proxy` object `(e) in input as first argum
 
  * [onChange(e) & onToggle(e)](#onchangee--ontogglee)
  * [onFocus(e) & onBlur(e)](#onfocuse--onblure)
- * [onClear(e) & onReset(e)](#onadde--ondele)
+ * [onClear(e) & onReset(e)](#oncleare--onresete)
  * [onAdd(e) & onDel(e)](#onadde--ondele)
  * [onSubmit(e)](#onsubmite)
 
@@ -106,7 +106,7 @@ or selecting Specific Field or Nested Fields:
 
 | Handler | Action | Result | Affected Property |
 |---|---|---|---|
-| onAdd(e) | add() | Add an field element in an array container | fields |
+| onAdd(e) | add() | Add a field element in an array container | fields |
 | onDel(e) | del() | Remove a field element in an array container | fields |
 
 <br>

@@ -51,8 +51,6 @@ form.$('address').update({
 
 > Array notation can be used as well.
 
-> The update() method accepts only an object describing the fields keys with their values.
-
 ---
 
 ### Field Selector

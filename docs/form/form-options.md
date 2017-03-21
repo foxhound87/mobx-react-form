@@ -1,6 +1,6 @@
 # Form Options
 
-* [Option Object](#option-object)
+* [Options Object Properties](#options-object-properties)
 * [Set Options On Form Constructor](#set-options-on-form-constructor)
 * [Set Options On Extended Form Class](#set-options-on-extended-form-class)
 * [Set Options After Form Initialization](#set-options-after-form-initialization)
@@ -9,7 +9,7 @@
 
 ---
 
-### Option Object
+### Options Object Properties
 
 | Option | Type | Default | Info |
 |---|---|---|---|
@@ -59,7 +59,7 @@ class MyForm extends MobxReactForm {
 }
 ```
 
-> The object returned from the method will be deep-merged to the object provieded to the constructor when initializing the instance.
+> The object returned from the method will be merged to the object provieded to the constructor when initializing the instance.
 
 
 ### Set Options After Form Initialization

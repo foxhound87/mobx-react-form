@@ -1,5 +1,3 @@
-# Form Events
-
 ### [Events Handlers](events-handlers.md)
   * [Sync Field Value](events-handlers.md#sync-field-value)
   * [Focus & Touched State](events-handlers.md#focus--touched-state)
@@ -10,7 +8,7 @@
 
   * [onChange(e) & onToggle(e)](events-handlers.md#onchangee--ontogglee)
   * [onFocus(e) & onBlur(e)](events-handlers.md#onfocuse--onblure)
-  * [onClear(e) & onReset(e)](events-handlers.md#onadde--ondele)
+  * [onClear(e) & onReset(e)](events-handlers.md#oncleare--onresete)
   * [onAdd(e) & onDel(e)](events-handlers.md#onadde--ondele)
   * [onSubmit(e)](events-handlers.md#onsubmite)
 

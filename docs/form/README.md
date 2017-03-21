@@ -8,7 +8,7 @@
   * [Execute code on Form Init](form-initialization.md#execute-code-on-form-init)
 
 ### [Form Options](form-options.md)
-  * [Option Object](form-options.md#option-object)
+  * [Options Object Properties](form-options.md#options-object-properties)
   * [Set Options On Form Constructor](form-options.md#set-options-on-form-constructor)
   * [Set Options On Extended Form Class](form-options.md#set-options-on-extended-form-class)
   * [Set Options After Form Initialization](form-options.md#set-options-after-form-initialization)

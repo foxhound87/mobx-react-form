@@ -31,9 +31,9 @@ The first argument is an object which expects the following properties:
 | **related**  | Object which represents the `related` property to validate others fields at the same time for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-related) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **options**  | Additional options data for the field (useful for a select input). | [flat](../defining-flat-fields/separated-properties.md#defining-options) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **bindings**  | The name of the binding rewriter or template which will be used for the current field. | [flat](../defining-flat-fields/separated-properties.md#defining-bindings) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
-| **observers**  | The mobx observers to listen on **Fields Props** or **Fields Map** changes. | |
-| **parse**  | Parse the Field `value` when it is saved in the Field store. | |
-| **format**  | Format the Field `value` when it is retrieved from the Field store. | |
+| **observers**  | The mobx observers to listen on **Fields Props** or **Fields Map** changes. | [nested](../events/observe.md#observe-with-observers-object) |
+| **parse**  | Parse the Field `value` when it is saved in the Field store. | - |
+| **format**  | Format the Field `value` when it is retrieved from the Field store. | - |
 
 
 ###### Validation Properties
@@ -73,14 +73,14 @@ import Form from 'mobx-react-form';
 
 ... // define all needed objects
 
-// using unified fields properties
-new Form({ fields, ... });
-
-// using form options and separated fields properties definition
-new Form({ values, labels, options, ... }, { options });
+// using unified fields properties definition
+new Form({ fields });
 
 // using validators with plugins, bindings and unified fields properties definition
 new Form({ fields }, { plugins, bindings });
+
+// using form options and separated fields properties definition
+new Form({ values, labels, ... }, { options });
 
 // using validators with plugins and separated fields properties definition
 new Form({ values, labels, rules, ... }, { plugins });
@@ -89,9 +89,9 @@ new Form({ values, labels, rules, ... }, { plugins });
 ## Initialization Methods
 #### setup(), options(), plugins(), bindings().
 
-Normally you have to pass the the initialization properties to the constructor, or you can implement one of these methods inside your extended form class which will return an object with all needed properties.
+Normally you have to pass the the fields properties to the constructor, otherwise you can implement one of these methods inside your extended Form Class.
 
-For example, using the `setup()` method you can initialize the fields properties:
+For example, using the `setup()` method you can define the fields properties:
 
 ```javascript
 import Form from 'mobx-react-form';
@@ -105,9 +105,11 @@ class MyForm extends MobxReactForm {
 }
 ```
 
+> The methods have to return an object with all needed props/data.
+
 This can be done with `options`, `plugins` and `bindings` as well.
 
-> The object returned from the methods will be deep-merged to the object provieded to the constructor when initializing the instance.
+> The object returned from the methods will be merged to the object provieded to the constructor when initializing the instance.
 
 
 ## Execute code on Form Init
