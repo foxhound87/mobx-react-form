@@ -1,5 +1,3 @@
-# Actions
-
 ### [Form Actions](form.md)
   The form actions can be used only on the form instance.
 
@@ -37,9 +35,9 @@
 
   * [Field Selector](#field-selector)
   * [Get all Fields Values](#get-all-fields-values)
-  * [Get all Field Errors](#get-all-field-errors)
-  * [Get all Field Labels](#get-all-field-labels)
-  * [Get all Field Placeholders](#get-all-field-placeholders)
-  * [Get all Field Defaults Values](#get-all-field-defaults-values)
-  * [Get all Field Initials Values](#get-all-field-initials-values)
-  * [Get all Field Types](#get-all-field-types)
+  * [Get all Fields Errors](#get-all-fields-errors)
+  * [Get all Fields Labels](#get-all-fields-labels)
+  * [Get all Fields Placeholders](#get-all-fields-placeholders)
+  * [Get all Fields Defaults Values](#get-all-fields-defaults-values)
+  * [Get all Fields Initials Values](#get-all-fields-initials-values)
+  * [Get all Fields Types](#get-all-fields-types)

@@ -4,12 +4,12 @@ The helpers can be used on the form instance or every field and nested field.
 
 * [Field Selector](#field-selector)
 * [Get all Fields Values](#get-all-fields-values)
-* [Get all Field Errors](#get-all-field-errors)
-* [Get all Field Labels](#get-all-field-labels)
-* [Get all Field Placeholders](#get-all-field-placeholders)
-* [Get all Field Defaults Values](#get-all-field-defaults-values)
-* [Get all Field Initials Values](#get-all-field-initials-values)
-* [Get all Field Types](#get-all-field-types)
+* [Get all Fields Errors](#get-all-fields-errors)
+* [Get all Fields Labels](#get-all-fields-labels)
+* [Get all Fields Placeholders](#get-all-fields-placeholders)
+* [Get all Fields Defaults Values](#get-all-fields-defaults-values)
+* [Get all Fields Initials Values](#get-all-fields-initials-values)
+* [Get all Fields Types](#get-all-fields-types)
 
 ---
 
@@ -41,7 +41,7 @@ Returns an `object` with all fields `key:val` pairs.
 
 ---
 
-### Get all Field Errors
+### Get all Fields Errors
 
 Returns an `object` with all fields `key:val` pairs.
 
@@ -60,7 +60,7 @@ Returns an `object` with all fields `key:val` pairs.
 
 ---
 
-### Get all Field Labels
+### Get all Fields Labels
 
 Returns an `object` with all fields `key:val` pairs.
 
@@ -73,7 +73,7 @@ Returns an `object` with all fields `key:val` pairs.
 
 ---
 
-### Get all Field Placeholders
+### Get all Fields Placeholders
 
 Returns an `object` with all fields `key:val` pairs.
 
@@ -85,7 +85,7 @@ Returns an `object` with all fields `key:val` pairs.
 
 ---
 
-### Get all Field Defaults Values
+### Get all Fields Defaults Values
 
 Returns an `object` with all fields `key:val` pairs.
 
@@ -97,7 +97,7 @@ Returns an `object` with all fields `key:val` pairs.
 
 ---
 
-### Get all Field Initials Values
+### Get all Fields Initials Values
 
 Returns an `object` with all fields `key:val` pairs.
 
@@ -108,7 +108,7 @@ Returns an `object` with all fields `key:val` pairs.
 
 ---
 
-### Get all Field Types
+### Get all Fields Types
 
 Returns an `object` with all fields `key:val` pairs.
 

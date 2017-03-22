@@ -1,5 +1,3 @@
-# Form
-
 ### [Form Initialization](form-initialization.md)
   * [First Constructor Argument](form-initialization.md#first-constructor-argument)
   * [Second Constructor Argument](form-initialization.md#second-constructor-argument)
