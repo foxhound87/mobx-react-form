@@ -12,7 +12,9 @@ The Form Constructor can take 2 arguments in input.
 
 ## First Constructor Argument
 
-The first argument is an object which expects the following properties:
+The first argument represent the fields data with their props.
+
+Provide an object which expects the following properties:
 
 ###### Fields Definition
 | Property | Description | Help |
@@ -53,7 +55,9 @@ The first argument is an object which expects the following properties:
 
 ## Second Constructor Argument
 
-The second argument is an object which expects the following properties:
+The second argument represents the form plugins and options.
+
+Provide an object which expects the following properties:
 
 | Property | Description | Help |
 |---|---|---|
