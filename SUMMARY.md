@@ -37,7 +37,7 @@
 
 ## Events & Handlers
 * [Events & Handlers](docs/events/README.md)
- * [Observe Fields Props](docs/events/observe.md)
+ * [Observe or Intercept](docs/events/mobx-events.md)
  * [Events Hooks](docs/events/events-hooks.md)
  * [Events Handlers](docs/events/events-handlers.md)
  * Validation Handlers

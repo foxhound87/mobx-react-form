@@ -156,6 +156,10 @@ or specify the field `path` as second argument:
 
 #### onSubmit(e)
 
+| Handler | Action | Affected Property | Result |
+|---|---|---|---|
+| onSubmit(e) | submit() > validate() | validating | Execute validation |
+
 The `onSubmit(e)` will `validate` the form and will call respectively `onSuccess(form)` or `onError(form)` **Validation Handlers** if they are implemented.
 
 The `onSuccess(form)` and `onError(form)` methods takes the `form` object in input. So you can perform more actions after the validation occurs.
@@ -168,7 +172,7 @@ You can easly include the `onSubmit(e)` handler in your component:
 
 #### Validation Handlers
 
-We have two alternatives to deal with the validation events:
+We have two alternatives to deal with the Validation Handlers:
 
 * [Extending the Form Instance with Validation Handlers](validation-handlers/extending.md)
 * [Decupling the Validation Handlers from the Form Instance](validation-handlers/decoupling.md)

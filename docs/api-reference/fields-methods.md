@@ -29,7 +29,8 @@
 | **add(val)** | (mixed) | mixed | Add a Field or Nested Fields. Provide an optional initial value. | - |
 | **del(key)** | (mixed) | - | Delete a Field or Nested Fields by `key` or `path`. | - |
 | **on(event, callback)** | (string, function) | disposer | Define an Event Hook. | - |
-| **observe(obj)** | (object) | - | Define an Observer on Field Props or Field Map. | - |
+| **observe(obj)** | (object) | - | Define a MobX Observer on Field Props or Field Map. | - |
+| **intercept(obj)** | (object) | - | Define a MobX Interceptor on Field Props or Field Map. | - |
 | **hasNestedFields()** | - | boolean | Check if the field has Nested Fields. | - |
 | **hasIncrementalNestedFields()** | - | boolean | Check if the nested fields have incremental keys. | - |
 

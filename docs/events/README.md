@@ -16,9 +16,9 @@
   * [Extending the Form Instance with Validation Handlers](validation-handlers/extending.md)
   * [Decupling the Validation Handlers from the Form Instance](validation-handlers/decoupling.md)
 
-### [Observe Fields Props](observe.md)
-  * [Observe with `observe()` Method](observe.md#observe-with-observe-method)
-  * [Observe with `observers` Object](observe.md#observe-with-observers-object)
-  * [Disposers](observe.md#disposers)
+### [Observe or Intercept Fields Props](mobx-events.md)
+  * [Using `observe()` / `inercept()` Methods](mobx-events.md#using-observe--intercept-methods)
+  * [Using `observers` / `interceptors` Objects](mobx-events.md#using-observers--interceptors-objects)
+  * [Disposers](mobx-events.md#disposers)
   * [Events Hooks](events-hooks.md)
 

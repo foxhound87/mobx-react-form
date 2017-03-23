@@ -19,7 +19,7 @@ The shared actions can be used on the form instance or every field and nested fi
 
 
 * [Validate a Field](#validate-a-field)
-* [Invalidate the Form or a Field](#invalidate-the-form-or-a-field)
+* [Invalidate the Form or a single Field](#invalidate-the-form-or-a-single-field)
 
 ---
 
