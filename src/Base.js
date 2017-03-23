@@ -1,4 +1,5 @@
 import { computed } from 'mobx';
+import _ from 'lodash';
 import utils from './utils';
 
 export default class Base {
@@ -10,6 +11,26 @@ export default class Base {
   @computed get hasNestedFields() {
     return (this.fields.size !== 0);
   }
+
+  /**
+   Interceptor
+   */
+  intercept = opt =>
+    this.MOBXEvent(
+      _.isFunction(opt)
+        ? { type: 'interceptor', call: opt }
+        : { type: 'interceptor', ...opt },
+    );
+
+  /**
+   Observer
+   */
+  observe = opt =>
+    this.MOBXEvent(
+      _.isFunction(opt)
+        ? { type: 'observer', call: opt }
+        : { type: 'observer', ...opt },
+    );
 
   /**
     Event: On Clear

@@ -1,4 +1,8 @@
 # 1.20
+* Introduced Interceptors.
+* disposer() API changed.
+
+# 1.20
 
 * Introduced debounced validation
 * Introduced Form & Field `validating` mobx computed (async check).

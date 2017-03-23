@@ -27,18 +27,31 @@ const checkObserverNewValue = (path, $path, newValue, $value) => {
     expect(newValue).to.be.equal($value));
 };
 
+const interceptors = {
+  'club.city': [{
+    key: 'value',
+    call: ({ form, change }) => {
+      describe('Check Nested-S $value@club.city Disposers', () =>
+      it('Disposers should have $value@club.city prop', () =>
+        expect(form.state.disposers.interceptor).to.have.property('$value@club.city')));
+
+      return change;
+    },
+  }],
+};
+
 const observers = {
   'club': [{
     key: 'value',
     call: ({ form }) => describe('Check Nested-S value@club Disposers', () =>
       it('Disposers should have value@club prop', () =>
-        expect(form.state.disposers).to.have.property('value@club'))),
+        expect(form.state.disposers.observer).to.have.property('value@club'))),
   }],
   'members': [{
     key: 'fields',
     call: ({ form }) => describe('Check Nested-S fields@members Disposers', () =>
       it('Disposers should have fields@members prop', () =>
-        expect(form.state.disposers).to.have.property('fields@members'))),
+        expect(form.state.disposers.observer).to.have.property('fields@members'))),
   }],
   'members[].hobbies[]': [{
     key: 'value',
@@ -78,10 +91,16 @@ class NewForm extends Form {
 
   setup() {
     // omit "rules" (use constructor)
-    return { fields, values, observers };
+    return { fields, values, observers, interceptors };
   }
 
   onInit(form) {
+    this.$('club.name').intercept((data) => {
+      // eslint-disable-next-line
+      data.change.newValue = data.change.newValue + '-intercepted';
+      return data.change;
+    });
+
     // same as form.set('value', { ... });
     form.set({
       club: {
@@ -111,11 +130,34 @@ class NewForm extends Form {
     // dispose all hobbies 'value' observers recursively
     this.$('members')
       .map(members => members.$('hobbies')
-        .map(hobbies => hobbies.dispose('value')));
+        .map(hobbies => hobbies.dispose({
+          type: 'observer',
+          key: 'value',
+        })));
 
-    describe('Check Nested-S value@members[].hobbies[] Disposers', () =>
+    this.$('club.name').dispose({
+      type: 'interceptor',
+    });
+
+    describe('Check Nested-S $value@club.name Disposers', () =>
+      it('Disposers should have $value@club.name prop', () =>
+        expect(form.state.disposers.interceptor).not.to.have.property('$value@club.name')));
+
+    describe('Check Nested-S value@club.name Disposers', () =>
+      it('Disposers should have value@club.name prop', () =>
+        expect(form.state.disposers.interceptor).not.to.have.property('value@club.name')));
+
+    describe('Check Nested-S $value@club.city Disposers', () =>
+      it('Disposers should have $value@club.city prop', () =>
+        expect(form.state.disposers.interceptor).to.have.property('$value@club.city')));
+
+    describe('Check Nested-S value@club.city Disposers', () =>
+      it('Disposers should have value@club.city prop', () =>
+        expect(form.state.disposers.interceptor).not.to.have.property('value@club.city')));
+
+    describe('Check Nested-S value@members.0.hobbies.0 Disposers', () =>
       it('Disposers should have value@members.0.hobbies.0 prop', () =>
-        expect(form.state.disposers).not.to.have.property('value@members.0.hobbies.0')));
+        expect(form.state.disposers.observer).not.to.have.property('value@members.0.hobbies.0')));
   }
 }
 

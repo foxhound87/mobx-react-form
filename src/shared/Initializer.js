@@ -45,6 +45,7 @@ export default {
       $parse: $try('parse'),
       $format: $try('format'),
       $observers: $try('observers'),
+      $interceptors: $try('interceptors'),
     };
 
     $fields.merge({

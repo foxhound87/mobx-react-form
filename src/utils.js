@@ -4,7 +4,7 @@ const props = {
   computed: ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focus', 'touched', 'changed', 'disabled'],
   field: ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'bindings', 'type', 'error'],
   initial: ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'bindings', 'types'],
-  function: ['observers', 'parse', 'format'],
+  function: ['observers', 'interceptors', 'parse', 'format'],
   validation: ['rules', 'validate'],
 };
 

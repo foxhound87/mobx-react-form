@@ -1,4 +1,4 @@
-import { observe } from 'mobx';
+import { observe, intercept } from 'mobx';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';
@@ -25,34 +25,49 @@ export default {
   },
 
   /**
-   Observer
+   MobX Event (observe/intercept)
    */
-  observe({ path = null, key, call }) {
+  MOBXEvent({ path = null, key = 'value', call, type }) {
     const $field = _.has(this, 'isField') ? this : this.select(path);
 
-    const params = {
+    const $call = change => call.apply(null, [{
+      change,
       form: this.state.form,
       path: $field.path,
       field: $field,
-      $field, // to be removed
-    };
+    }]);
 
-    const disposer = `${key}@${$field.path}`;
+    let fn;
+    let ffn;
 
-    _.merge(this.state.disposers, {
-      [disposer]: (key === 'fields')
-        ? $field.fields.observe(change => call.apply(null, [{ ...params, change }]))
-        : observe($field, key, change => call.apply(null, [{ ...params, change }])),
+    if (type === 'observer') {
+      fn = observe;
+      ffn = $field.fields.observe;
+    }
+
+    if (type === 'interceptor') {
+      // eslint-disable-next-line
+      key = `$${key}`;
+      fn = intercept;
+      ffn = $field.fields.intercept;
+    }
+
+    _.merge(this.state.disposers[type], {
+      [`${key}@${$field.path}`]: (key === 'fields')
+        ? ffn.apply(change => $call(change))
+        : fn($field, key, change => $call(change)),
     });
   },
 
   /**
    Disposer
    */
-  dispose(key, path = null) {
+  dispose({ type, key = 'value', path = null }) {
     const $path = parser.parsePath(path || this.path);
-    this.state.disposers[`${key}@${$path}`]();
-    delete this.state.disposers[`${key}@${$path}`];
+    // eslint-disable-next-line
+    if (type === 'interceptor') key = `$${key}`;
+    this.state.disposers[type][`${key}@${$path}`].apply();
+    delete this.state.disposers[type][`${key}@${$path}`];
   },
 
   /**

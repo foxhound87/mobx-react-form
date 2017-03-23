@@ -29,6 +29,7 @@ export default class Field extends Base {
   $related;
   $options;
   $observers;
+  $interceptors;
 
   $parser = $ => $;
   $formatter = $ => $;
@@ -76,7 +77,9 @@ export default class Field extends Base {
     );
 
     this.observeValidation();
-    this.initObservers();
+
+    this.initMOBXEvent('observers');
+    this.initMOBXEvent('interceptors');
   }
 
   /* ------------------------------------------------------------------ */
@@ -302,6 +305,7 @@ export const prototypes = {
       $parse,
       $format,
       $observers,
+      $interceptors,
     } = $props;
 
     // eslint-disable-next-line
@@ -323,6 +327,7 @@ export const prototypes = {
         parse,
         format,
         observers,
+        interceptors,
       } = $data;
 
       this.$type = $type || type || 'text';
@@ -355,6 +360,7 @@ export const prototypes = {
       this.$validate = toJS($validate || validate || null);
       this.$rules = $rules || rules || null;
       this.$observers = $observers || observers || null;
+      this.$interceptors = $interceptors || interceptors || null;
       return;
     }
 
@@ -387,6 +393,7 @@ export const prototypes = {
     this.$validate = toJS($validate || null);
     this.$rules = $rules || null;
     this.$observers = $observers || null;
+    this.$interceptors = $interceptors || null;
   },
 
   getComputedProp(key) {
@@ -506,9 +513,13 @@ export const prototypes = {
     this.disposeValidation = observe(this, '$value', () => this.debouncedValidation());
   },
 
-  initObservers() {
-    if (!_.isArray(this.$observers)) return;
-    this.$observers.map(obj => this.observe(_.omit(obj, 'path')));
+  initMOBXEvent(type) {
+    if (!_.isArray(this[`$${type}`])) return;
+
+    let fn;
+    if (type === 'observers') fn = this.observe;
+    if (type === 'interceptors') fn = this.intercept;
+    this[`$${type}`].map(obj => fn(_.omit(obj, 'path')));
   },
 
   bind(props = {}) {

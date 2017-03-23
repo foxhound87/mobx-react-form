@@ -200,8 +200,8 @@ describe('Check Nested $N bindings props', () => {
 });
 
 describe('Check Nested $S get() value after set() value', () => {
-  checkDeepPropEqual($.$S, ['value'], 'club.fields.name.value', 'club-name-set-value');
-  checkDeepPropEqual($.$S, ['value'], 'club.fields.name.value', 'club-name-set-value');
+  checkDeepPropEqual($.$S, ['value'], 'club.fields.name.value', 'club-name-set-value-intercepted');
+  checkDeepPropEqual($.$S, ['value'], 'club.fields.city.value', 'club-city-set-value');
 
   checkDeepPropEqual($.$S, ['value'], 'members.fields.0.fields.firstname.value', 'members-0-firstname-set-value');
   checkDeepPropEqual($.$S, ['value'], 'members.fields.0.fields.lastname.value', 'members-0-lastname-set-value');
