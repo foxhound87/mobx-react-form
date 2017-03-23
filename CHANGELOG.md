@@ -1,6 +1,6 @@
-# 1.20
+# 1.21
 * Introduced Interceptors.
-* disposer() API changed.
+* dispose() API changed.
 
 # 1.20
 
