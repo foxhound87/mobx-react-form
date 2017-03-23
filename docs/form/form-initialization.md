@@ -135,4 +135,4 @@ class MyForm extends MobxReactForm {
 
 > It takes the `form` parameter in input.
 
-[See Other Form Events](../events)
+[See Other Form Events](/docs/events)
