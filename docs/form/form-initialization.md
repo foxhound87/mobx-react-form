@@ -4,6 +4,8 @@ The Form Constructor can take 2 arguments in input.
 
 * [First Constructor Argument](#first-constructor-argument)
 * [Second Constructor Argument](#second-constructor-argument)
+
+
 * [Constructor Usage](#constructor-usage)
 * [Initialization Methods](#initialization-methods)
 * [Execute code on Form Init](#execute-code-on-form-init)
