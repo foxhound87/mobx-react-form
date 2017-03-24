@@ -172,7 +172,8 @@ You can easly include the `onSubmit(e)` handler in your component:
 
 #### Validation Handlers
 
-We have two alternatives to deal with the Validation Handlers:
+We have some alternatives to deal with the Validation Handlers:
 
-* [Extending the Form Instance with Validation Handlers](validation-handlers/extending.md)
-* [Decupling the Validation Handlers from the Form Instance](validation-handlers/decoupling.md)
+  * [Extending the Form Instance with Validation Handlers](validation-handlers/extending.md)
+  * [Passing the Validation Handlers to the Form constructor](validation-handlers/constructor.md)
+  * [Override the Validation Handlers with Manual Submit](validation-handlers/override.md)

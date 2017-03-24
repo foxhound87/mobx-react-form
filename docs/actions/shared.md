@@ -290,7 +290,7 @@ instance.submit({
 ```
 
 > This is not an Event Handler.
-> If you need the `onSubmit(e)` read the [Event Handlers](../events/events-handlers.md) section.
+> If you need the `onSubmit(e)` read the [Event Handlers](../events/events-handlers.md#onsubmite) section.
 
 You can use it, for example, if you want to reimplement the `onSubmit(e)` Event Handler.
 
