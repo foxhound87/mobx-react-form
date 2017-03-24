@@ -53,7 +53,7 @@ export default class Base {
    */
   onSubmit = (e, o = {}) => {
     e.preventDefault();
-    this.submit(o);
+    return this.submit(o);
   };
 
   /**
