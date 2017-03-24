@@ -8,14 +8,13 @@
 | **validate()** | - | promise | Check if the form is valid and return a promise. | - |
 | **validate(path)** | (string) | promise | Takes a field `path` in input. Check if the field is valid and return a promise. | - |
 | **invalidate(msg)** | (string) | - | Invalidate the form passing a generic error message. | - |
-| **submit(obj)** | (object) | - | Perform fields validation. After successful validation triggers onSuccess event and onError event in case of validation error. | - |
-
 #### Shared Methods
 
 | Method | Input | Output | Info | Help |
 |---|---|---|---|---|
 | **update(obj)** | (object) | - | Update Fields Values. Will create new fields auomatically. | - |
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
+| **submit(obj)** | (object) | - | Perform fields validation. After successful validation triggers onSuccess event and onError event in case of validation error. | - |
 | **get()** | - | object | Get all field and nested fields data with all props and computed values. | - |
 | **get(prop)** | (mixed) | object | Get all field filtering by certain `props` (string or array). | - |
 | **set(val)** | (mixed) | - | Set field value. Takes the value. | - |

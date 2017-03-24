@@ -14,7 +14,8 @@
 
 ### Validation Handlers
   * [Extending the Form Instance with Validation Handlers](validation-handlers/extending.md)
-  * [Decupling the Validation Handlers from the Form Instance](validation-handlers/decoupling.md)
+  * [Passing the Validation Handlers to the Form constructor](validation-handlers/constructor.md)
+  * [Override the Validation Handlers with Manual Submit](validation-handlers/override.md)
 
 ### [Observe or Intercept Fields Props](mobx-events.md)
   * [Using `observe()` / `inercept()` Methods](mobx-events.md#using-observe--intercept-methods)

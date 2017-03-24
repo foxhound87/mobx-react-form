@@ -41,8 +41,9 @@
  * [Events Hooks](docs/events/events-hooks.md)
  * [Events Handlers](docs/events/events-handlers.md)
  * Validation Handlers
-   * [Extending the Form](docs/events/validation-handlers/extending.md)
-   * [Decupling the Handlers](docs/events/validation-handlers/decoupling.md)
+   * [Extending the Form Instance](docs/events/validation-handlers/extending.md)
+   * [Using the Form Constructor](docs/events/validation-handlers/constructor.md)
+   * [Override with Manual Submit](docs/events/validation-handlers/override.md)
 
 ## Bindings
 * [Bindings](docs/bindings/README.md)

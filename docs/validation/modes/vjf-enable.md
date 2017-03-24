@@ -32,4 +32,10 @@ export function isEmail({ field, validator }) {
 }
 ```
 
+The function takes in input an object with the following props:
+
+* the `form` instance
+* the `field` instance
+* the `validator` instance
+
 Check out how to define [Custom VJF Validation Function](vjf-custom.md)

@@ -3,8 +3,8 @@
 
   * [Validate the Form](form.md#validate-the-form)
   * [Validate Single Field](form.md#validate-single-field)
-  * [Manual Form Submit](form.md#manual-form-submit)
   * [Re-Initialize all Fields](form.md#re-init-all-fields)
+  * [Manual Form Submit](shared.md#manual-submit)
 
 
 ### [Shared Actions (Form & Fields)](shared.md)
@@ -26,6 +26,7 @@
   * [add() & del() Nested Array Elements](shared.md#add--del-nested-array-elements)
 
 
+  * [Manual Submit](shared.md#manual-submit)
   * [Validate a Field](shared.md#validate-a-field)
   * [Invalidate the Form or a single Field](shared.md#invalidate-the-form-or-a-single-field)
 

@@ -1,14 +1,15 @@
 # Validation Handlers
 
 * [Extending the Form Instance with Validation Handlers](extending.md)
-* [Decupling the Validation Handlers from the Form Instance](decoupling.md)
+* [Passing the Validation Handlers to the Form constructor](constructor.md)
+* [Override the Validation Handlers with Manual Submit](override.md)
 
-## Decoupling the Validation Handlers
+## Override the Validation Handlers
 #### onSuccess(form) & onError(form)
 
 These methods are called when the form validation is done.
 
-Define an object with `onSuccess(form)` or `onError(form)` validaiton handlers.
+Define an object with `onSuccess(form)` or `onError(form)` Validation Handlers.
 
 ```javascript
 const validationHandlers = {
@@ -28,14 +29,27 @@ const validationHandlers = {
 
 > They takes the `form` instance as parameter in input.
 
-Then pass the Validation Handlers as second argument to the `onSubmit(e, { ... })` Event Handler:
+Then pass the Validation Handlers as second argument to the `submit(e, { ... })` Action:
+
+```javascript
+instance.submit(e, {
+  onSuccess: validationHandlers.onSuccess,
+  onError: validationHandlers.onError,
+})
+```
+
+or to the `onSubmit(e, { ... })` Event Handler:
 
 ```html
 <button
   type="submit"
-  onClick={e => form.onSubmit(e, {
+  onClick={e => instance.onSubmit(e, {
     onSuccess: validationHandlers.onSuccess,
     onError: validationHandlers.onError,
   })}
 >Submit</button>
 ```
+
+> `instance` can be a **Form** or a **Field**
+
+> These methods can be called on **Nested Fields** as well for **Sub-Form Submitting**.

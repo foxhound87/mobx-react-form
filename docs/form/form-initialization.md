@@ -37,6 +37,7 @@ Provide an object which expects the following properties:
 | **bindings**  | The name of the binding rewriter or template which will be used for the current field. | [flat](../defining-flat-fields/separated-properties.md#defining-bindings) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **observers**  | The mobx observers to listen on **Fields Props** or **Fields Map** changes. | [help](../events/mobx-events.md#using-observers--interceptors-objects) |
 | **interceptors**  | The mobx interceptors to listen on **Fields Props** or **Fields Map** changes. | [help](../events/mobx-events.md#using-observers--interceptors-objects) |
+| **onSubmit**  | An object with `onSuccess(form)` & `onError(form)` callbacks for each fields key to enable **Sub-Form Submissions**. | - |
 
 
 ###### Validation Properties
@@ -66,6 +67,7 @@ Provide an object which expects the following properties:
 | **options**   | Options used by the `form` or the imported `plugins` which may alter the validation behavior. | [Form Options](form-options.md) |
 | **plugins**   | Enable additional functionalities using external libraries. | [Validation Plugins](../validation/plugins.md) |
 | **bindings**   | Define how the fields properties are passed to the input components. | [Props Bindings](../bindings/README.md) |
+| **onSubmit**   | Define an object with `onSuccess(form)` & `onError(form)` callbacks to call on Form submission. | - |
 
 <br>
 

@@ -16,6 +16,7 @@
 | **update(obj)** | (object) | - | Update Fields Values. Will create new fields auomatically. | - |
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
 | **container()** | (object) | - | Get Parent Field Container. | - |
+| **submit(obj)** | (object) | - | Perform fields validation. After successful validation triggers onSuccess event and onError event in case of validation error. | - |
 | **get()** | - | object | Get all field and nested fields data with all props and computed values. | - |
 | **get(prop)** | (mixed) | object | Get all field filtering by certain `props` (string or array). | - |
 | **set(val)** | (mixed) | - | Set field value. Takes the value. | - |
@@ -59,6 +60,7 @@
 | **onToggle(e)** | - | object | Update the `value` of the field. (alias of `sync(e)`) | - |
 | **onFocus(e)** | - | object | Track the `focus` property of the field. | - |
 | **onBlur(e)** | - | object | Track the `touched` property of the field. | - |
+| **onSubmit(e)** | - | object | Sub-Form Submission: Validate the fieldset and call `onSuccess(fieldset)` or `onError(fieldset)`. | - |
 | **onClear(e)** | - | object | Clear all the Fields and Nested Fields to `empty` value. | - |
 | **onReset(e)** | - | object | Reset all the Fields and Nested Fields to `default` value. | - |
 | **onAdd(e)** | - | object | Add a Field or Nested Fields. | - |

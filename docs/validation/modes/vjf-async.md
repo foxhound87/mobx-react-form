@@ -12,3 +12,18 @@ export function checkUser({ field }) {
     .then((items) => [(items.length === 0), msg]);
 }
 ```
+
+---
+
+## Tips
+
+The async functions can be also written using arrow functions:
+
+```javascript
+export const checkUser = ({ field }) =>
+  simulateAsyncFindUserCall({ user: field.value })
+    .then(items => [
+      (items.length === 0),
+      `Hey! The username ${field.value} is already taken.`,
+    ]);
+```

@@ -37,3 +37,25 @@ const fields = {
 };
 ```
 
+---
+
+## Tips
+
+The functions can be also written using arrow functions:
+
+```javascript
+export const isEmail = ({ field, validator }) => ([
+  validator.isEmail(field.value),
+  `The ${field.label} should be an email address.`,
+]);
+```
+
+or can be invalidated using the `field.invalidate()` method:
+
+```javascript
+export function isEmail({ field, validator }) {
+  if (validator.isEmail(field.value)) return true;
+  return field.invalidate(`The ${field.label} should be an email address.`);
+}
+```
+

@@ -18,6 +18,7 @@ The shared actions can be used on the form instance or every field and nested fi
 * [add() & del() Nested Array Elements](#add--del-nested-array-elements)
 
 
+* [Manual Submit](#manual-submit)
 * [Validate a Field](#validate-a-field)
 * [Invalidate the Form or a single Field](#invalidate-the-form-or-a-single-field)
 
@@ -269,18 +270,46 @@ You can use it, for example, if you want to reimplement the `onAdd(e)` or `onDel
 
 ---
 
+### Manual Submit
+
+The Submission can be done on **Forms** or eventually **Fields** to enable **Sub-Form Submission**.
+
+Perform fields validation. After successful validation triggers `onSuccess` event or `onError` event in case of validation error.
+
+```javascript
+instance.submit();
+```
+
+Provide an object with `onSuccess(fieldset)` and `onError(fieldset)` functions if need to override those implemented in the class.
+
+```javascript
+instance.submit({
+  onSuccess: (fieldset) => {},
+  onError: (fieldset) => {},
+});
+```
+
+> This is not an Event Handler.
+> If you need the `onSubmit(e)` read the [Event Handlers](../events/events-handlers.md) section.
+
+You can use it, for example, if you want to reimplement the `onSubmit(e)` Event Handler.
+
+---
+
 ### Validate a Field
 
 The `validate()` action returns a `promise`.
 
-The callback takes a `boolean` (`isValid`) with the validation state of the **Field**.
+The callback takes the **Field Instance** with its `isValid` prop, which is the validation state of the **Field**.
 
 ```javascript
 $('password').validate()
-  .then((isValid) => {
+  .then(({ isValid }) => {
     ... // Use `isValid` to check the validation status
   });
 ```
+
+> The validation promise resolves the validated instance (Form or Field).
 
 > This is an alternative syntax to [Form Actions - Validate Single Field](https://foxhound87.github.io/mobx-react-form/docs/actions/form.html#validate-single-field).
 
