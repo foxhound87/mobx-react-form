@@ -30,6 +30,7 @@ export default class Field extends Base {
   $options;
   $observers;
   $interceptors;
+  $onSubmit;
 
   $parser = $ => $;
   $formatter = $ => $;
@@ -306,6 +307,7 @@ export const prototypes = {
       $format,
       $observers,
       $interceptors,
+      $onSubmit,
     } = $props;
 
     // eslint-disable-next-line
@@ -328,9 +330,12 @@ export const prototypes = {
         format,
         observers,
         interceptors,
+        onSubmit,
       } = $data;
 
       this.$type = $type || type || 'text';
+      this.$onSubmit = $onSubmit || onSubmit || null;
+
       this.$parser = $try($parse, parse, this.$parser);
       this.$formatter = $try($format, format, this.$formatter);
 
@@ -367,6 +372,10 @@ export const prototypes = {
     /* The field IS the value here */
     this.name = _.toString($key);
     this.$type = $type || 'text';
+    this.$onSubmit = $onSubmit || null;
+
+    this.$parser = $try($parse, this.$parser);
+    this.$formatter = $try($format, this.$formatter);
 
     this.$initial = parseFieldValue(this.$parser, {
       isEmptyArray,
@@ -430,16 +439,6 @@ export const prototypes = {
   initNestedFields(field, update) {
     const fields = _.isNil(field) ? '' : field.fields;
     this.initFields({ fields }, update);
-  },
-
-  validate(opt = {}) {
-    return this.state.form.validator.validate({
-      showErrors: $try(opt.related, true),
-      related: $try(opt.showErrors, true),
-      form: this.state.form,
-      path: this.path,
-      field: this,
-    });
   },
 
   @action

@@ -1,3 +1,4 @@
+import { expect } from 'chai';
 import validatorjs from 'validatorjs';
 import { Form } from '../../../../src';
 
@@ -40,4 +41,24 @@ const values = {
   }],
 };
 
-export default new Form({ fields, rules, values }, { plugins, name: 'Nested-R' });
+const checkFieldset = fieldset =>
+  describe('Nested Form onSuccess()', () =>
+    it('Fieldset should have "isField" prop', () =>
+      expect(fieldset).to.have.property('isField')));
+
+const submit = {
+  onSuccess(fieldset) {
+    checkFieldset(fieldset);
+  },
+  onError(fieldset) {
+    checkFieldset(fieldset);
+  },
+};
+
+const onSubmit = {
+  'club': submit,
+  'members': submit,
+  'members[]': submit,
+};
+
+export default new Form({ fields, rules, values, onSubmit }, { plugins, name: 'Nested-R' });

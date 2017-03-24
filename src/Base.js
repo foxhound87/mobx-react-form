@@ -33,7 +33,7 @@ export default class Base {
     );
 
   /**
-    Event: On Clear
+    Event Handler: On Clear
   */
   onClear = (e) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ export default class Base {
   };
 
   /**
-    Event: On Reset
+    Event Handler: On Reset
   */
   onReset = (e) => {
     e.preventDefault();
@@ -49,7 +49,15 @@ export default class Base {
   };
 
   /**
-    Event: On Add
+    Event Handler: On Submit
+   */
+  onSubmit = (e, o = {}) => {
+    e.preventDefault();
+    this.submit(o);
+  };
+
+  /**
+    Event Handler: On Add
   */
   onAdd = (e, val) => {
     e.preventDefault();
@@ -57,11 +65,10 @@ export default class Base {
   };
 
   /**
-    Event: On Del
+    Event Handler: On Del
   */
   onDel = (e, path) => {
     e.preventDefault();
     this.del(utils.isEvent(path) ? this.path : path);
   };
-
 }

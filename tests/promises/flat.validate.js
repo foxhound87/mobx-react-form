@@ -4,7 +4,7 @@ export default ($) => {
   describe('Form validate()', () => {
     // $L
     it('$L validate() should be false', (done) => {
-      $.$L.validate().then((isValid) => {
+      $.$L.validate().then(({ isValid }) => {
         expect(isValid).to.be.false; // eslint-disable-line
         done();
       });
@@ -12,7 +12,7 @@ export default ($) => {
 
     // $M
     it('$M validate() should be false', (done) => {
-      $.$M.validate().then((isValid) => {
+      $.$M.validate().then(({ isValid }) => {
         expect(isValid).to.be.false; // eslint-disable-line
         done();
       });
@@ -20,7 +20,7 @@ export default ($) => {
 
     // $N
     it('$N validate() should be false', (done) => {
-      $.$N.validate().then((isValid) => {
+      $.$N.validate().then(({ isValid }) => {
         expect(isValid).to.be.false; // eslint-disable-line
         done();
       });

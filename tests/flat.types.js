@@ -18,7 +18,7 @@ describe('Check validate() returns promise that resolves to boolean', () => {
     it(`${key} validate() is promise that resolves to boolean`, () => {
       const promise = form.validate();
       expect(promise).to.be.a('promise');
-      return promise.then(result => expect(result).to.be.a('boolean'));
+      return promise.then(result => expect(result.isValid).to.be.a('boolean'));
     })
   ));
 });
@@ -29,7 +29,7 @@ describe('Check FORM validate(key) returns promise that resolves to boolean', ()
       it(`validate('${field.path}') is promise that resolves to boolean`, () => {
         const promise = form.validate(field.path);
         expect(promise).to.be.a('promise');
-        return promise.then(result => expect(result).to.be.a('boolean'));
+        return promise.then(result => expect(result.isValid).to.be.a('boolean'));
       })
     ))
   )))
@@ -41,7 +41,7 @@ describe('Check FIELD validate(key) returns promise that resolves to boolean', (
       it(`validate('${field.path}') is promise that resolves to boolean`, () => {
         const promise = field.validate();
         expect(promise).to.be.a('promise');
-        return promise.then(result => expect(result).to.be.a('boolean'));
+        return promise.then(result => expect(result.isValid).to.be.a('boolean'));
       })
     ))
   )))

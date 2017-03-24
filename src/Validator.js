@@ -10,6 +10,8 @@ export default class Validator {
 
   promises = [];
 
+  form = {};
+
   options = {};
 
   schema = {};
@@ -26,8 +28,6 @@ export default class Validator {
     svk: null,
   };
 
-  @observable $validating = false;
-
   @observable $genericErrorMessage = null;
 
   constructor(obj = {}) {
@@ -36,8 +36,9 @@ export default class Validator {
     this.checkSVKValidationPlugin();
   }
 
-  assignInitData({ options = {}, plugins = {}, schema = {} }) {
+  assignInitData({ form, options = {}, plugins = {}, schema = {} }) {
     _.merge(this.plugins, plugins);
+    this.form = form;
     this.options = options;
     this.schema = schema;
   }
@@ -57,63 +58,60 @@ export default class Validator {
 
   @action
   validate(opt = {}, obj = {}) {
-    this.$validating = true;
     this.$genericErrorMessage = null;
 
-    const form = opt.form;
     const path = $try(opt.path, opt);
-    const field = $try(opt.field, form.select(path, null, null));
+    const field = $try(opt.field, this.form.select(path, null, null));
     const related = $try(opt.related, obj.related, true);
     const $showErrors = $try(opt.showErrors, obj.showErrors, true);
 
-    form.state.events.set('validate', field ? field.path : true);
+    this.form.state.events.set('validate', field ? field.path : true);
     // look running events and choose when show errors messages
     const notShowErrorsEvents = ['clear', 'reset'];
-    if (form.state.options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
-    const showErrors = $showErrors && !form.state.events.running(notShowErrorsEvents);
+    if (this.form.state.options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
+    const showErrors = $showErrors && !this.form.state.events.running(notShowErrorsEvents);
 
     // wait all promises then resolve
-    const $wait = resolve => Promise.all(this.promises)
-      .then(action(() => (this.$validating = false)))
-      .then(() => form.state.events.set('validate', false))
-      .then(() => resolve(form.isValid));
+    const $wait = (resolve, instance) => Promise.all(this.promises)
+      .then(action(() => (instance.$validating = false))) // eslint-disable-line
+      .then(() => this.form.state.events.set('validate', false))
+      .then(() => resolve(instance));
 
     if (_.isPlainObject(opt) && !_.isString(path)) {
+      // VALIDATE FORM
+      this.form.$validating = true;
       // validate all fields
       return new Promise((resolve) => {
         this.validateAll({
           showErrors,
           related,
-          form,
         });
 
-        return $wait(resolve);
+        return $wait(resolve, this.form);
       });
     }
 
+    // VALIDATE FIELD
     field.$validating = true;
     // validate single field by path
     return new Promise((resolve) => {
       this.validateField({
         showErrors,
         related,
-        form,
         field,
         path,
       });
 
-      return $wait(resolve);
-    })
-      .then(action(() => (field.$validating = false)));
+      return $wait(resolve, field);
+    });
   }
 
   @action
-  validateAll({ form, showErrors = true, related = false }) {
+  validateAll({ showErrors = true, related = false }) {
     // validate all fields and nested fields
-    form.forEach(field =>
+    this.form.forEach(field =>
       this.validateField({
         path: field.path,
-        form,
         field,
         showErrors,
         related,
@@ -121,34 +119,34 @@ export default class Validator {
   }
 
   @action
-  validateField({ form = null, field = null, path, showErrors = true, related = false }) {
-    const $field = field || form.select(path);
+  validateField({ field = null, path, showErrors = true, related = false }) {
+    const $field = field || this.form.select(path);
     // reset field validation
     $field.resetValidation();
 
     // get all validators
     const { svk, dvr, vjf } = this.validators;
     // validate with vanilla js functions (vjf)
-    if (vjf) vjf.validateField($field, form);
+    if (vjf) vjf.validateField($field, this.form);
     // validate with json schema validation keywords (dvr)
-    if (dvr) dvr.validateField($field, form);
+    if (dvr) dvr.validateField($field, this.form);
     // validate with json schema validation keywords (svk)
     if (svk) svk.validateField($field);
     // send error to the view
     $field.showErrors(showErrors);
     // related validation
-    if (related) this.relatedFieldValidation(form, $field, showErrors);
+    if (related) this.relatedFieldValidation($field, showErrors);
   }
 
   /**
     Validate 'related' fields if specified
     and related validation allowed (recursive)
   */
-  relatedFieldValidation(form, field, showErrors) {
+  relatedFieldValidation(field, showErrors) {
     if (!field.related || !field.related.length) return;
 
     _.each(field.related, path =>
-      this.validateField({ form, path, showErrors, related: false }));
+      this.validateField({ path, showErrors, related: false }));
   }
 
   @computed get genericErrorMessage() {

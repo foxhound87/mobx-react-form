@@ -116,6 +116,19 @@ export default {
   },
 
   /**
+   Map Fields
+  */
+  map(path, callback = null) {
+    if (_.isFunction(path) && !callback) {
+      // path is the callback here
+      return this.fields.values().map(path);
+    }
+
+    const field = this.select(path);
+    return field.fields.values().map(callback);
+  },
+
+  /**
    * Iterates deeply over fields and invokes `iteratee` for each element.
    * The iteratee is invoked with three arguments: (value, index|key, depth).
    *

@@ -42,10 +42,11 @@ export default {
       $related: $try('related'),
       $validate: $try('validate'),
       $rules: $try('rules'),
-      $parse: $try('parse'),
-      $format: $try('format'),
       $observers: $try('observers'),
       $interceptors: $try('interceptors'),
+      $onSubmit: $try('onSubmit'),
+      $parse: $try('parse'),
+      $format: $try('format'),
     };
 
     $fields.merge({

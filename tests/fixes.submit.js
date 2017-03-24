@@ -32,7 +32,7 @@ describe('Form submit() decoupled callback', () => {
   describe('Check Fixes-L jobs[0] ', () => {
     it('Check Fixes-L jobs[0]', (done) => {
       $.$M.$('jobs[0]').validate()
-        .then((isValid) => {
+        .then(({ isValid }) => {
           // eslint-disable-next-line
           expect(isValid).to.be.false;
           done();

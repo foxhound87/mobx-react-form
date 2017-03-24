@@ -4,7 +4,7 @@ export default ($) => {
   describe('Form validate()', () => {
     // $L
     it('$L validate() should be false', (done) => {
-      $.$L.validate().then((isValid) => {
+      $.$L.validate().then(({ isValid }) => {
         describe('Form $L checks after validate()', () => {
           it('$L state.option "validateOnChange" should be true', () =>
             expect($.$L.state.options.get('validateOnChange')).to.be.true);

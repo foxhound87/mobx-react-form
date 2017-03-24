@@ -14,6 +14,10 @@ export default class Form extends Base {
 
   validator;
 
+  $onSubmit;
+
+  @observable $validating = false;
+
   @observable fields = observable.map ? observable.map({}) : asMap({});
 
   constructor(setup = {}, {
@@ -22,11 +26,13 @@ export default class Form extends Base {
     options = {},
     plugins = {},
     bindings = {},
+    onSubmit = {},
 
   } = {}) {
     super();
 
     this.name = name;
+    this.$onSubmit = onSubmit;
 
     // load data from initializers methods
     const initial = _.each({ setup, options, plugins, bindings },
@@ -42,6 +48,7 @@ export default class Form extends Base {
     });
 
     this.validator = new Validator({
+      form: this,
       options: this.state.options,
       plugins: initial.plugins,
       schema: initial.setup.schema,
@@ -70,7 +77,7 @@ export default class Form extends Base {
   /* COMPUTED */
 
   @computed get validating() {
-    return this.validator.$validating;
+    return this.$validating;
   }
 
   @computed get error() {
@@ -118,17 +125,6 @@ export default class Form extends Base {
   @computed get disabled() {
     return this.check('disabled', true);
   }
-
-  /* ------------------------------------------------------------------ */
-  /* EVENTS */
-
-  /**
-    On Submit
-   */
-  onSubmit = (e, o = {}) => {
-    e.preventDefault();
-    this.submit(o);
-  };
 }
 
 /**
@@ -140,9 +136,9 @@ export const prototypes = {
     return new Field(data);
   },
 
-  validate(opt = {}, obj = {}) {
-    return this.debouncedValidation(_.merge(opt, { form: this }), obj);
-  },
+  // validate(opt = {}, obj = {}) {
+  //   return this.debouncedValidation(_.merge(opt, { form: this }), obj);
+  // },
 
   invalidate(message) {
     this.validator.invalidate(message);
@@ -182,20 +178,6 @@ export const prototypes = {
   */
   @action reset() {
     this.deepAction('reset');
-  },
-
-  /**
-    Submit Form
-  */
-  @action submit(o = {}) {
-    const noop = () => {};
-    const onSuccess = o.onSuccess || this.onSuccess || noop;
-    const onError = o.onError || this.onError || noop;
-
-    this.validate()
-      .then(isValid => isValid
-        ? onSuccess.apply(this, [this])
-        : onError.apply(this, [this]));
   },
 
 };

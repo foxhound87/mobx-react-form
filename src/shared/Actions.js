@@ -8,6 +8,29 @@ import parser from '../parser';
 */
 export default {
 
+  validate(opt = {}, obj = {}) {
+    const $opt = _.merge(opt, { path: this.path });
+    return this.state.form.validator.validate($opt, obj);
+  },
+
+  /**
+    Submit
+  */
+  @action
+  submit(o = {}) {
+    const noop = () => {};
+    const onSuccess = o.onSuccess || this.onSuccess || this.$onSubmit.onSuccess || noop;
+    const onError = o.onError || this.onError || this.$onSubmit.onError || noop;
+
+    const exec = isValid => isValid
+      ? onSuccess.apply(this, [this])
+      : onError.apply(this, [this]);
+
+    return this.state.form.validator.validate(this.path)
+      .then(({ isValid }) => exec(isValid))
+      .then(() => this);
+  },
+
   /**
    Check Field Computed Values
    */
@@ -92,19 +115,6 @@ export default {
         this.deepUpdate(field.fields, $path);
       }
     });
-  },
-
-  /**
-   Map Fields
-  */
-  map(path, callback = null) {
-    if (_.isFunction(path) && !callback) {
-      // path is the callback here
-      return this.fields.values().map(path);
-    }
-
-    const field = this.select(path);
-    return field.fields.values().map(callback);
   },
 
   /**

@@ -20,6 +20,7 @@
 - Automatic Reactive Validation & Error Messages.
 - Validation Plugins & Multiple Validation Styles.
 - Nested Fields (w/ Serialization & Validation).
+- Nested Forms (w/ Nested Submission & Validation Handlers).
 - Support for Sync & Async Validation functions (w/ Promises).
 - Fields Props Bindings for custom Components.
 - Support for Material UI, React Widgets, React Select & more.

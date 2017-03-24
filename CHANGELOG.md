@@ -1,3 +1,9 @@
+# 1.22
+* Introduced Sub-Form Submission
+* Register onSubmit callbacks with constructor
+* validate() resolves to object (not boolean)
+* Fixed Single Field Validation
+
 # 1.21
 * Introduced Interceptors.
 * dispose() API changed.
