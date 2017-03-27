@@ -15,7 +15,7 @@ The shared actions can be used on the form instance or every field and nested fi
 * [clear() & reset() Form or Fields](#clear--reset-form-or-fields)
 * [map() Fields & Nested Fields](#map-fields--nested-fields)
 * [forEach() Fields & Nested Fields](#foreach-fields--nested-fields)
-* [add() & del() Nested Array Elements](#add--del-nested-array-elements)
+* [add() & del() Fields & Nested Fields](#add--del-fields--nested-fields)
 
 
 * [Manual Submit](#manual-submit)
@@ -225,13 +225,18 @@ The callback get each field in input.
 
 ---
 
-### add() & del() Nested Array Elements
+### add() & del() Fields & Nested Fields
+
+You can add or remove normal Fields & Nested Fields or Array of Fields as well.
 
 Add fields or nested fields:
 
 ```javascript
 form.$('hobbies').add();
 ```
+
+> If you have specified an **Array of Fields** (`[]`) into the field **struct** you can call add() without input arguments to create a new empty field with its incremental array index as `key/name`.
+
 
 provide the initial value to the new added field:
 
@@ -242,8 +247,10 @@ form.$('hobbies').add('soccer');
 provide a custom key as field index:
 
 ```javascript
-form.$('hobbies').add(fieldValue, { key: customKey });
+form.$('hobbies').add(fieldValue, { key: 'customKey' });
 ```
+
+> Pass a custom key to create a new **Named Field**.
 
 > If the field contains other nested fields, the value can be an object. It will work as `update()`.
 
