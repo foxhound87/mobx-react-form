@@ -12,7 +12,7 @@ export default class State {
 
   form;
 
-  type;
+  mode;
 
   options;
 
@@ -53,23 +53,34 @@ export default class State {
 
   initProps(initial) {
     const initialProps = _.pick(initial, [
-      ...utils.props.initial,
+      ...utils.props.separated,
       ...utils.props.validation,
       ...utils.props.function,
     ]);
 
     this.set('initial', 'props', initialProps);
 
-    if (utils.isStruct(initial.fields) || utils.hasSeparatedProps(initial)) {
+    const isStruct = utils.isStruct(initial);
+    const $unified = utils.hasUnifiedProps(initial);
+    const $separated = utils.hasSeparatedProps(initial);
+
+    if ($unified && $separated) {
+      console.warn( // eslint-disable-line
+        'WARNING:',
+        'Your mobx-react-form instance is running in MIXED Mode',
+        '(Unified + Separated) for defining fields properties.',
+        'Run it at your own risk, or use only one mode.',
+      );
+    }
+
+    if (($separated || isStruct) && !$unified) {
       this.strict = true;
-      this.type = 'separated';
+      this.mode = 'separated';
       this.struct(initial.fields);
       return;
     }
 
-    if (utils.hasUnifiedProps(initial.fields)) {
-      this.type = 'unified';
-    }
+    this.mode = 'unified';
   }
 
   initBindings(bindings) {

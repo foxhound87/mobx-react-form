@@ -84,7 +84,7 @@ const handleFieldsValuesFallback = (fields, initial) => {
 const handleFieldsArrayOfStrings = ($fields, add = false) => {
   let fields = $fields;
   // handle array with field struct (strings)
-  if (utils.isStruct(fields)) {
+  if (utils.isStruct({ fields })) {
     fields = _.reduce(fields, ($obj, $) => {
       const pathStruct = _.split($, '.');
       // as array of strings (with empty values)
@@ -110,15 +110,10 @@ const handleFieldsArrayOfObjects = ($fields) => {
 
 const handleFieldsNested = (fields, initial, strictProps) =>
   _.reduce(fields, (obj, field, key) => {
-    if (_.isObject(field) && !_.isDate(field)
-      && !_.has(field, 'fields')
-      && ((!utils.hasUnifiedProps(field))
-      || utils.hasSeparatedProps(initial)
-      || strictProps)) {
+    if (utils.allowNested(field, strictProps)) {
       // define nested field
-      const isEmptyArray = (_.isEmpty(field) && _.isArray(field));
       return Object.assign(obj, {
-        [key]: { fields: isEmptyArray ? [] : handleFieldsNested(field) },
+        [key]: { fields: utils.isEmptyArray(field) ? [] : handleFieldsNested(field) },
       });
     }
     return Object.assign(obj, { [key]: field });

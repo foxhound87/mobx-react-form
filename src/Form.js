@@ -136,10 +136,6 @@ export const prototypes = {
     return new Field(data);
   },
 
-  // validate(opt = {}, obj = {}) {
-  //   return this.debouncedValidation(_.merge(opt, { form: this }), obj);
-  // },
-
   invalidate(message) {
     this.validator.invalidate(message);
   },

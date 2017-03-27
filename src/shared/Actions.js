@@ -8,6 +8,10 @@ import parser from '../parser';
 */
 export default {
 
+  $cond() {
+    return (this.state.form.name === 'Nested-T');
+  },
+
   validate(opt = {}, obj = {}) {
     const $opt = _.merge(opt, { path: this.path });
     return this.state.form.validator.validate($opt, obj);
@@ -34,38 +38,25 @@ export default {
   /**
    Check Field Computed Values
    */
-  check(computed, deep = false) {
-    utils.allowedProps('computed', [computed]);
-
-    const $ = {
-      hasError: 'some',
-      isValid: 'every',
-      isDirty: 'some',
-      isPristine: 'every',
-      isDefault: 'every',
-      isEmpty: 'every',
-      focus: 'some',
-      touched: 'some',
-      changed: 'some',
-      disabled: 'every',
-    };
+  check(prop, deep = false) {
+    utils.allowedProps('booleans', [prop]);
 
     return deep
-      ? utils.checkProp({
-        type: $[computed],
-        data: this.deepCheck($[computed], computed, this.fields),
+      ? utils.checkPropType({
+        type: utils.props.types[prop],
+        data: this.deepCheck(utils.props.types[prop], prop, this.fields),
       })
-      : this[computed];
+      : this[prop];
   },
 
-  deepCheck($, prop, fields) {
+  deepCheck(type, prop, fields) {
     return _.reduce(fields.values(), (check, field) => {
       if (field.fields.size === 0) {
         check.push(field[prop]);
         return check;
       }
-      const $deep = this.deepCheck($, prop, field.fields);
-      check.push(utils.checkProp({ type: $, data: $deep }));
+      const $deep = this.deepCheck(type, prop, field.fields);
+      check.push(utils.checkPropType({ type, data: $deep }));
       return check;
     }, []);
   },
@@ -84,7 +75,8 @@ export default {
     _.each(fields, (field, key) => {
       const $path = _.trimStart(`${path}.${key}`, '.');
       const $field = this.select($path, null, false);
-      const $container = this.select(path, null, false);
+      const $container = this.select(path, null, false)
+        || this.state.form.select(this.path, null, false);
 
       if (!_.isNil($field) && !_.isNil(field)) {
         if (_.isArray($field.values())) {
@@ -99,9 +91,9 @@ export default {
 
       if (!_.isNil($container)) {
         // get full path when using update() with select() - FIX: #179
-        const $fullPath = _.trimStart([this.path, $path].join('.'), '.');
+        const $newFieldPath = _.trimStart([this.path, $path].join('.'), '.');
         // init field into the container field
-        $container.initField(key, $fullPath, field, null, true);
+        $container.initField(key, $newFieldPath, field, null, true);
       }
 
       if (recursion) {
@@ -123,7 +115,7 @@ export default {
   get(prop = null, strict = true) {
     if (_.isNil(prop)) {
       return this.deepGet([
-        ...utils.props.computed,
+        ...utils.props.booleans,
         ...utils.props.field,
         ...utils.props.validation,
       ], this.fields);
@@ -278,8 +270,8 @@ export default {
         field.update(value);
       }
 
-      field.initial = value;
-      field.default = value;
+      field.set('initial', value);
+      field.set('default', value);
       field.set('value', value);
     }
 
