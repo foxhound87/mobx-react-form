@@ -93,7 +93,7 @@ export default {
         // get full path when using update() with select() - FIX: #179
         const $newFieldPath = _.trimStart([this.path, $path].join('.'), '.');
         // init field into the container field
-        $container.initField(key, $newFieldPath, field, null, true);
+        $container.initField(key, $newFieldPath, field, true);
       }
 
       if (recursion) {
@@ -264,7 +264,8 @@ export default {
     _.each(tree, field => this.initField($key, $path($key), field));
 
     if (!_.isNil(value)) {
-      const field = this.select($key);
+      const field = this.select($key, null, false)
+        || this.initField($key, $path($key));
 
       if (_.isPlainObject(value)) {
         field.update(value);
