@@ -237,12 +237,13 @@ form.$('hobbies').add();
 
 > If you have specified an **Array of Fields** (`[]`) into the field **struct** you can call add() without input arguments to create a new empty field with its incremental array index as `key/name`.
 
-
 provide the initial value to the new added field:
 
 ```javascript
 form.$('hobbies').add('soccer');
 ```
+
+> If the field contains other nested fields, the value can be an object. It will work as `update()`.
 
 provide a custom key as field index:
 
@@ -251,8 +252,6 @@ form.$('hobbies').add(fieldValue, { key: 'customKey' });
 ```
 
 > Pass a custom key to create a new **Named Field**.
-
-> If the field contains other nested fields, the value can be an object. It will work as `update()`.
 
 Delete a field:
 
