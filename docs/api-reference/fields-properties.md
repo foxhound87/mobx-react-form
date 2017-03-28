@@ -3,7 +3,10 @@
 | Property | Type | MobX Type | Info | Help |
 |---|---|---|---|---|
 | **validating** | boolean | computed | Check if the field is in validation state. | - |
-| **bindings** | string | computed | The key of the registered bindings to use for the current field. | [Bindings](../bindings/README.md) |
+| **bindings** | string | computed | The key of the registered bindings to use for the current field. | [help](../bindings/README.md) |
+| **observers** | object | - | The mobx observers to listen on Fields Props or Fields Map changes. | [help](../events/mobx-events.html#using-observers--interceptors-objects) |
+| **interceptors** | object | - | The mobx interceptors to listen on Fields Props or Fields Map changes. | [help](../events/mobx-events.html#using-observers--interceptors-objects) |
+| **onSubmit** | object | - | An object with onSuccess(form) & onError(form) callbacks for each fields key to enable Sub-Form Submissions. | - |
 | **path** | string | - | Field path (for nested fields). | - |
 | **key** | string | - | Field key (same of `name` if not provided) | - |
 | **name** | string | - | Field name (same of `key` if not provided). | - |

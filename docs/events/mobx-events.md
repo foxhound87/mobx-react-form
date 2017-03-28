@@ -90,6 +90,8 @@ const observers = {
 new Form({ observers, interceptors, ... });
 ```
 
+> This is an example using **Separated Field Properties Definition** mode but **Unified** mode is also supported.
+
 ## Disposers
 
 Each observer/interceptor will automatically create their own `disposer` which will stop the related observable events.

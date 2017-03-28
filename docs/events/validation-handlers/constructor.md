@@ -36,8 +36,6 @@ Even the Nested Field can be treated as Sub-Form, they can have their own Valida
 
 You can define Validation Handlers on the Fields you need, defining an `onSubmit` object for each Field to pass in the **First Argument** of the **Form Constructor**:
 
-This is an example using **Separated Field Properties Definition** mode:
-
 ```javascript
 const submit = {
   onSuccess(fieldset) {
@@ -60,3 +58,5 @@ const onSubmit = {
 
 new Form({ ..., onSubmit }, { ... }); <---
 ```
+
+> This is an example using **Separated Field Properties Definition** mode but **Unified** mode is also supported.
