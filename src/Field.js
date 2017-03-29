@@ -501,6 +501,7 @@ export const prototypes = {
   showErrors(showErrors = true) {
     this.showError = showErrors;
     this.errorSync = _.head(this.validationErrorStack);
+    this.deepAction('showErrors');
   },
 
   @action
