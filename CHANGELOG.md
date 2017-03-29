@@ -1,3 +1,9 @@
+# 1.23
+* Auto invalidate onSubmit > onError if defaultGenericError is defined.
+* Validation Handlers supports Promises
+* Introduced submitting prop
+* Introduced submitThrowsError option
+
 # 1.22
 * Introduced Sub-Form Submission
 * Register onSubmit callbacks with constructor

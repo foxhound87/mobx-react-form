@@ -29,13 +29,15 @@ export default {
 
     const validate = () =>
       this.state.form.validator.validate(this.path)
-        .then(({ isValid }) => exec(isValid))
-        .then(action(() => (this.$submitting = false)))
-        .then(() => {
+        .then(({ isValid }) => {
+          const handler = exec(isValid);
+          if (isValid) return handler;
           const $err = this.state.options.get('defaultGenericError');
           const $throw = this.state.options.get('submitThrowsError');
           if ($throw && $err) this.invalidate();
+          return handler;
         })
+        .then(action(() => (this.$submitting = false)))
         .then(() => this);
 
     return utils.isPromise(exec)
