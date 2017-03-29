@@ -13,6 +13,9 @@
 
 | Option | Type | Default | Info |
 |---|---|---|---|
+| **submitThrowsError** | boolean | true | If true and `defaultGenericError` is defined throws error and invalidate if validation fails on submit. |
+| **defaultGenericError** | string | null | Set e default message to show when a generic error occurs. |
+| **alwaysShowDefaultError** | boolean | false | The `defaultGenericError` is shown only when `invalidate()` is called. Set this to `true` and it will be always shown on validation errors. |
 | **showErrorsOnUpdate** | boolean | true | Show validation errors after an update. |
 | **showErrorsOnInit** | boolean | false | Show or hide error messages for `validateOnInit`. |
 | **validateOnInit** | boolean | true | Validate of the whole form on initilization. |
@@ -20,8 +23,6 @@
 | **strictUpdate** | boolean | false | Throw an error if trying to update an undefined field. |
 | **strictDelete** | boolean | true | Throw an error if trying to delete an undefined field. |
 | **autoParseNumbers** | boolean | false | Try to parse strings to numbers automatically if the initial value of the field is a number. |
-| **alwaysShowDefaultError** | boolean | false | The `defaultGenericError` is shown only when `invalidate()` is called. Set this to `true` and it will be always shown on validation errors. |
-| **defaultGenericError** | string | null | Set e default message to show when a generic error occurs. |
 | **loadingMessage** | string | null | Set a global loading message to show during async calls. |
 | **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
 | **validationDebounceOptions** | object | { leading: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |

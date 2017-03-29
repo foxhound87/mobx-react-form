@@ -2,6 +2,7 @@
 
 | Property | Type | MobX Type | Info | Help |
 |---|---|---|---|---|
+| **submitting** | boolean | computed | Check if the field is in submitting state. | - |
 | **validating** | boolean | computed | Check if the field is in validation state. | - |
 | **bindings** | string | computed | The key of the registered bindings to use for the current field. | [help](../bindings/README.md) |
 | **observers** | object | - | The mobx observers to listen on Fields Props or Fields Map changes. | [help](../events/mobx-events.html#using-observers--interceptors-objects) |

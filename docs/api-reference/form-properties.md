@@ -2,6 +2,7 @@
 
 | Property | Type | MobX Type | Info | Help |
 |---|---|---|---|---|
+| **submitting** | boolean | computed | Check if the form is in submitting state. | - |
 | **validating** | boolean | computed | Check if the form is in validation state. | - |
 | **hasErrors** | boolean | computed | Check if the form has errors. | - |
 | **isValid** | boolean | computed | Check if the form is valid. | - |

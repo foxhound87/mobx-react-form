@@ -9,6 +9,8 @@
 
 These methods are called when the form validation is done.
 
+> They can return promises to wait on submit.
+
 Define an object with `onSuccess(form)` or `onError(form)` Validation Handlers.
 
 ```javascript
