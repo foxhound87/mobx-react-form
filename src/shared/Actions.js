@@ -8,10 +8,6 @@ import parser from '../parser';
 */
 export default {
 
-  $cond() {
-    return (this.state.form.name === 'Nested-T');
-  },
-
   validate(opt = {}, obj = {}) {
     const $opt = _.merge(opt, { path: this.path });
     return this.state.form.validator.validate($opt, obj);
@@ -22,6 +18,7 @@ export default {
   */
   @action
   submit(o = {}) {
+    this.$submitting = true;
     const noop = () => {};
     const onSuccess = o.onSuccess || this.onSuccess || this.$onSubmit.onSuccess || noop;
     const onError = o.onError || this.onError || this.$onSubmit.onError || noop;
@@ -30,9 +27,20 @@ export default {
       ? onSuccess.apply(this, [this])
       : onError.apply(this, [this]);
 
-    return this.state.form.validator.validate(this.path)
-      .then(({ isValid }) => exec(isValid))
-      .then(() => this);
+    const validate = () =>
+      this.state.form.validator.validate(this.path)
+        .then(({ isValid }) => exec(isValid))
+        .then(action(() => (this.$submitting = false)))
+        .then(() => {
+          const $err = this.state.options.get('defaultGenericError');
+          const $throw = this.state.options.get('submitThrowsError');
+          if ($throw && $err) this.invalidate();
+        })
+        .then(() => this);
+
+    return utils.isPromise(exec)
+      ? exec.then(() => validate())
+      : validate();
   },
 
   /**

@@ -49,6 +49,7 @@ export default class Field extends Base {
   @observable $touched = false;
   @observable $changed = false;
 
+  @observable $submitting = false;
   @observable $validating = false;
 
   @observable showError = true;
@@ -130,6 +131,10 @@ export default class Field extends Base {
 
   set default(val) {
     this.$default = parseFieldValue(this.$parser, { separated: val });
+  }
+
+  @computed get submitting() {
+    return this.$submitting;
   }
 
   @computed get validating() {
