@@ -14,7 +14,6 @@ export default class Field extends Base {
 
   fields = observable.map ? observable.map({}) : asMap({});
   incremental = false;
-  isField = true;
   disposeValidation = null;
 
   id;
@@ -52,7 +51,7 @@ export default class Field extends Base {
   @observable $submitting = false;
   @observable $validating = false;
 
-  @observable showError = true;
+  @observable showError = false;
 
   @observable errorSync = null;
   @observable errorAsync = null;
@@ -79,6 +78,7 @@ export default class Field extends Base {
     );
 
     this.observeValidation();
+    this.observeShowErrors();
 
     this.initMOBXEvent('observers');
     this.initMOBXEvent('interceptors');
@@ -476,15 +476,13 @@ export const prototypes = {
     this.validationAsyncData = {};
     this.validationFunctionsData = [];
     this.validationErrorStack = [];
-    // recursive resetValidation
     if (deep) this.deepAction('resetValidation');
   },
 
   @action
   clear(deep = true) {
-    this.showErrors(false);
     this.$value = defaultClearValue({ value: this.$value });
-    // recursive clear fields
+    this.showErrors(this.state.options.get('showErrorsOnClear'));
     if (deep && this.fields.size) this.deepAction('clear');
   },
 
@@ -493,7 +491,7 @@ export const prototypes = {
     const useDefaultValue = (this.$default !== this.$initial);
     if (useDefaultValue) this.value = this.$default;
     if (!useDefaultValue) this.value = this.$initial;
-    // recursive reset fields
+    this.showErrors(this.state.options.get('showErrorsOnReset'));
     if (deep && this.fields.size) this.deepAction('reset');
   },
 
@@ -515,7 +513,15 @@ export const prototypes = {
 
   observeValidation() {
     if (this.state.options.get('validateOnChange') === false) return;
-    this.disposeValidation = observe(this, '$value', () => this.debouncedValidation());
+    this.disposeValidation = observe(this, '$value', () => this.debouncedValidation({
+      showErrors: this.state.options.get('showErrorsOnUpdate'),
+    }));
+  },
+
+  observeShowErrors() {
+    // showErrorsOnBlur
+    observe(this, '$focus', ({ newValue }) =>
+      (newValue === false) && this.showErrors(this.state.options.get('showErrorsOnBlur')));
   },
 
   initMOBXEvent(type) {

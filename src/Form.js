@@ -66,7 +66,7 @@ export default class Form extends Base {
 
     // execute validation on form initialization
     if (this.state.options.get('validateOnInit') === true) {
-      this.validate({ showErrors: this.state.options.get('showErrorsOnInit') });
+      this.validator.validate({ showErrors: this.state.options.get('showErrorsOnInit') });
     }
 
     // execute onInit() if exist
@@ -158,10 +158,8 @@ export const prototypes = {
       ? observable.map({})
       : asMap({}));
 
-    if (!_.has(this, 'isField')) {
-      this.state.initial.props.values = $fields; // eslint-disable-line
-      this.state.current.props.values = $fields; // eslint-disable-line
-    }
+    this.state.initial.props.values = $fields; // eslint-disable-line
+    this.state.current.props.values = $fields; // eslint-disable-line
 
     this.initFields({
       fields: $fields || this.state.struct(),

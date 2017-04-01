@@ -2,22 +2,20 @@ import { expect } from 'chai';
 
 import $ from './data/_.nested'; // FORMS
 
-const emailErrMsg = 'The Confirm Email should be equals to Email';
-
 describe('Check Nested $A validation', () => {
   it('$A user.emailConfirm isValid should be false', () =>
     expect($.$A.$('user.emailConfirm').isValid).to.be.false);
 
-  it(`$A user.emailConfirm error should be equal to ${emailErrMsg}`, () =>
-    expect($.$A.$('user.emailConfirm').error).to.be.equal(emailErrMsg));
+  it('$A user.emailConfirm error should be null', () =>
+    expect($.$A.$('user.emailConfirm').error).to.be.null);
 });
 
 describe('Check Nested $U validation', () => {
   it('$U user.emailConfirm isValid should be false', () =>
     expect($.$U.$('user.emailConfirm').isValid).to.be.false);
 
-  it(`$U user.emailConfirm error should be equal to ${emailErrMsg}`, () =>
-    expect($.$U.$('user.emailConfirm').error).to.be.equal(emailErrMsg));
+  it('$U user.emailConfirm error should be null', () =>
+    expect($.$U.$('user.emailConfirm').error).to.be.null);
 });
 
 describe('Check Nested $E validation', () => {

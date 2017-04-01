@@ -1,26 +1,35 @@
+# 1.24
+* `showErrors` on `Field` is `false` by default.
+* `showErrors` on `validate()` is `false` by default.
+* Introduced new showErrors options.
+* `showErrorsOnUpdate` is changed to `false` by default.
+* `showErrorsOnBlur` is now `true` by default.
+* Introduced new `observeShowErrors()` Field method.
+* Introduced `debouncedValidation` on `submit`.
+
 # 1.23
-* Auto invalidate onSubmit > onError if defaultGenericError is defined.
-* Validation Handlers supports Promises
-* Introduced submitting prop
-* Introduced submitThrowsError option
+* Auto invalidate `onSubmit` > `onError` if defaultGenericError is defined.
+* Validation Handlers supports Promises.
+* Introduced `submitting` prop
+* Introduced `submitThrowsError`. option.
 
 # 1.22
-* Introduced Sub-Form Submission
-* Register onSubmit callbacks with constructor
-* validate() resolves to object (not boolean)
-* Fixed Single Field Validation
+* Introduced Sub-Form Submission.
+* Register `onSubmit` callbacks with constructor.
+* `validate()` resolves to object (not boolean).
+* Fixed Single Field Validation.
 
 # 1.21
 * Introduced Interceptors.
-* dispose() API changed.
+* `dispose()` API changed.
 
 # 1.20
 
-* Introduced debounced validation
+* Introduced `debouncedValidation`.
 * Introduced Form & Field `validating` mobx computed (async check).
-* Events Hooks: returned Form instance (was a Field instance)
+* Events Hooks: returned Form instance (was a Field instance).
 * Fixed Async error state (removed `loadingMessage`)
-* Fixed Async "validating..." Message (null as default)
+* Fixed Async "validating..." Message (null as default).
 * `loadingMessage` option removed.
 
 # 1.19
@@ -28,7 +37,7 @@
 * Introduced Observers.
 * Introduced Converters (parse & format).
 * Better Array Handling.
-* Optional submit() onSuccess/onError callbacks.
+* Optional `submit()` onSuccess/onError callbacks.
 * Fixed Empty Array Handling in Field Container.
 * Removed Initial Array element "0" (no more del(0)).
 

@@ -58,18 +58,12 @@ export default class Validator {
 
   @action
   validate(opt = {}, obj = {}) {
-    this.$genericErrorMessage = null;
-
     const path = $try(opt.path, opt);
     const field = $try(opt.field, this.form.select(path, null, null));
     const related = $try(opt.related, obj.related, true);
-    const $showErrors = $try(opt.showErrors, obj.showErrors, true);
-
+    const showErrors = $try(opt.showErrors, obj.showErrors, false);
     this.form.state.events.set('validate', field ? field.path : true);
-    // look running events and choose when show errors messages
-    const notShowErrorsEvents = ['clear', 'reset'];
-    if (this.form.state.options.get('showErrorsOnUpdate') === false) notShowErrorsEvents.push('update');
-    const showErrors = $showErrors && !this.form.state.events.running(notShowErrorsEvents);
+    this.$genericErrorMessage = null;
 
     // wait all promises then resolve
     const $wait = (resolve, instance) => Promise.all(this.promises)
@@ -107,7 +101,7 @@ export default class Validator {
   }
 
   @action
-  validateAll({ showErrors = true, related = false }) {
+  validateAll({ showErrors = false, related = false }) {
     // validate all fields and nested fields
     this.form.forEach(field =>
       this.validateField({
@@ -119,7 +113,7 @@ export default class Validator {
   }
 
   @action
-  validateField({ field = null, path, showErrors = true, related = false }) {
+  validateField({ field = null, path, showErrors = false, related = false }) {
     const $field = field || this.form.select(path);
     // reset field validation
     $field.resetValidation();

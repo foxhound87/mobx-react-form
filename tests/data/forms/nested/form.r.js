@@ -43,8 +43,8 @@ const values = {
 
 const checkFieldset = fieldset =>
   describe('Nested Form onSuccess()', () =>
-    it('Fieldset should have "isField" prop', () =>
-      expect(fieldset).to.have.property('isField')));
+    it('Fieldset should have "path" prop', () =>
+      expect(fieldset).to.have.property('path')));
 
 const submit = {
   onSuccess(fieldset) {

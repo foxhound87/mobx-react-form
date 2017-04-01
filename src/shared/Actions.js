@@ -28,7 +28,10 @@ export default {
       : onError.apply(this, [this]);
 
     const validate = () =>
-      this.state.form.validator.validate(this.path)
+      this.debouncedValidation({
+        showErrors: this.state.options.get('showErrorsOnSubmit'),
+        path: this.path,
+      })
         .then(({ isValid }) => {
           const handler = exec(isValid);
           if (isValid) return handler;
@@ -239,7 +242,7 @@ export default {
   /**
     Call field method recursively
   */
-  deepAction($action, $fields, recursion = false) {
+  deepAction($action, args = null, $fields, recursion = false) {
     const fields = $fields || this.fields;
 
     if (!recursion) {
@@ -248,8 +251,8 @@ export default {
 
     if (fields.size !== 0) {
       fields.forEach((field) => {
-        field[$action]();
-        this.deepAction($action, field.fields, true);
+        field[$action](args);
+        this.deepAction($action, args, field.fields, true);
       });
     }
 

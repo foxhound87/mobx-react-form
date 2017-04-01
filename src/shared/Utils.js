@@ -9,7 +9,7 @@ import parser from '../parser';
 export default {
 
   on(event, callback) {
-    const isField = _.has(this, 'isField');
+    const isField = !!this.path;
     const path = isField ? this.path : true;
     return observe(this.state.events.$running, change =>
       (event === change.name &&
@@ -28,7 +28,7 @@ export default {
    MobX Event (observe/intercept)
    */
   MOBXEvent({ path = null, key = 'value', call, type }) {
-    const $field = _.has(this, 'isField') ? this : this.select(path);
+    const $field = this.path ? this : this.select(path);
 
     const $call = change => call.apply(null, [{
       change,
@@ -108,7 +108,7 @@ export default {
     const $path = parser.parsePath(path || this.path || '');
     const cpath = _.trim($path.replace(new RegExp('[^./]+$'), ''), '.');
 
-    if (_.has(this, 'isField') && _.isNil(path)) {
+    if (!!this.path && _.isNil(path)) {
       return this.state.form.select(cpath, null, false);
     }
 
