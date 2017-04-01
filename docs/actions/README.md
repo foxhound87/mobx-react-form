@@ -3,7 +3,8 @@
 
   * [Validate the Form](form.md#validate-the-form)
   * [Validate Single Field](form.md#validate-single-field)
-  * [Re-Initialize all Fields](form.md#re-init-all-fields)
+  * [Validation Errors](form.md#validation-errors)
+  * [Re-Initialize all Fields](form.md#re-initialize-all-fields)
   * [Manual Form Submit](shared.md#manual-submit)
 
 
@@ -28,6 +29,7 @@
 
   * [Manual Submit](shared.md#manual-submit)
   * [Validate a Field](shared.md#validate-a-field)
+  * [Validation Errors](shared.md#validation-errors)
   * [Invalidate the Form or a single Field](shared.md#invalidate-the-form-or-a-single-field)
 
 

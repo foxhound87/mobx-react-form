@@ -20,6 +20,7 @@ The shared actions can be used on the form instance or every field and nested fi
 
 * [Manual Submit](#manual-submit)
 * [Validate a Field](#validate-a-field)
+* [Validation Errors](#validation-errors)
 * [Invalidate the Form or a single Field](#invalidate-the-form-or-a-single-field)
 
 ---
@@ -318,6 +319,17 @@ $('password').validate()
 > The validation promise resolves the validated instance (Form or Field).
 
 > This is an alternative syntax to [Form Actions - Validate Single Field](https://foxhound87.github.io/mobx-react-form/docs/actions/form.html#validate-single-field).
+
+
+### Validation Errors
+
+The `validate()` method will not show errors by default.
+
+If you need to show errors after a validation you do:
+
+```javascript
+$('password').validate({ showErrors: true });
+```
 
 ---
 

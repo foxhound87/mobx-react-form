@@ -2,12 +2,14 @@
 
 | Method | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **init(obj)** | (object) | - | Fields to initialize. | - |
-| **clear()** | - | - | Clear the Form to empty values. | - |
-| **reset()** | - | - | Reset the Form to default values. | - |
-| **validate()** | - | promise | Check if the form is valid and return a promise. | - |
-| **validate(path)** | (string) | promise | Takes a field `path` in input. Check if the field is valid and return a promise. | - |
-| **invalidate(msg)** | (string) | - | Invalidate the form passing a generic error message. | - |
+| **init(obj)** | (object) | - | Fields to initialize. | [help](../actions/form.md#re-initialize-all-fields) |
+| **clear()** | - | - | Clear the Form to empty values. | [help](../actions/shared.md#clear--reset-form-or-fields) |
+| **reset()** | - | - | Reset the Form to default values. | [help](../actions/shared.md#clear--reset-form-or-fields) |
+| **validate()** | - | promise | Check if the form is valid and return a promise. | [help](../actions/form.md#validate-the-form) |
+| **validate(path)** | (string) | promise | Takes a field `path` in input. Check if the field is valid and return a promise. | [help](../actions/form.md#validate-the-form) |
+| **invalidate(msg)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | [help](../actions/shared.md#invalidate-the-form-or-a-single-field) |
+| **showErrors(bool)** | bool | - | Show or Hide Field Error Messages. | - |
+
 #### Shared Methods
 
 | Method | Input | Output | Info | Help |

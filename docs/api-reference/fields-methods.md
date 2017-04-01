@@ -2,12 +2,13 @@
 
 | Property | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **bind()** | - | object | Get the current field bindings. | [Bindings](../bindings/README.md) |
-| **clear()** | - | - | Clear the Field or Nested Fields to empty value. | - |
-| **reset()** | - | - | Reset the Field or Nested Fields to default value. | - |
-| **validate()** | - | - | Check if the field is valid and return a promise. | - |
-| **invalidate(msg)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | - |
+| **bind()** | - | object | Get the current field bindings. | [help](../bindings/README.md) |
+| **clear()** | - | - | Clear the Field or Nested Fields to empty value. | [help](../actions/shared.md#clear--reset-form-or-fields) |
+| **reset()** | - | - | Reset the Field or Nested Fields to default value. | [help](../actions/shared.md#clear--reset-form-or-fields) |
+| **validate()** | - | - | Check if the field is valid and return a promise. | [help](../actions/shared.md#validate-a-field) |
+| **invalidate(msg)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | [help](../actions/shared.md#invalidate-the-form-or-a-single-field) |
 | **resetValidation()** | - | - | Reset the field validation status. | - |
+| **showErrors(bool)** | bool | - | Show or Hide Field Error Messages. | - |
 
 #### Shared Methods
 
