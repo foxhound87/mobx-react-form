@@ -189,7 +189,7 @@ export default {
    Set Fields Props
    */
   @action
-  set($, data, recursion = false) {
+  set(prop, data, recursion = false) {
     const $e = 'update';
 
     if (!recursion) {
@@ -197,17 +197,18 @@ export default {
     }
 
     // UPDATE CUSTOM PROP
-    if (_.isString($) && !_.isUndefined(data)) {
-      utils.allowedProps('field', [$]);
-      if (_.isObject(data)) this.deepSet($, data, '', true);
-      else _.set(this, `$${$}`, data);
+    if (_.isString(prop) && !_.isUndefined(data)) {
+      utils.allowedProps('field', [prop]);
+      const deep = (_.isObject(data) && prop === 'value') || _.isPlainObject(data);
+      if (deep) this.deepSet(prop, data, '', true);
+      else _.set(this, `$${prop}`, data);
       return;
     }
 
-    // NO PROP NAME PROVIDED
+    // NO PROP NAME PROVIDED ("prop" is value)
     if (_.isNil(data)) {
-      if (_.isObject($)) this.deepSet('value', $, '', true);
-      else this.set('value', $);
+      if (_.isPlainObject(prop)) this.deepSet('value', prop, '', true);
+      else this.set('value', prop);
       return;
     }
 
