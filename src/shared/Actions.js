@@ -162,7 +162,13 @@ export default {
       });
 
       if (_.isString(prop)) {
+        const removeValue = (prop === 'value')
+          && this.state.options.get('retrieveOnlyDirtyValues')
+          && field.isPristine;
+
         if (field.fields.size === 0) {
+          delete obj[field.key]; // eslint-disable-line
+          if (removeValue) return obj;
           return Object.assign(obj, {
             [field.key]: parser.parseCheckFormatter(field, prop),
           });
@@ -171,6 +177,8 @@ export default {
         let value = this.deepGet(prop, field.fields);
         if (prop === 'value') value = field.$formatter(value);
 
+        delete obj[field.key]; // eslint-disable-line
+        if (removeValue) return obj;
         return Object.assign(obj, {
           [field.key]: parser.parseCheckArray(field, value, prop),
         });

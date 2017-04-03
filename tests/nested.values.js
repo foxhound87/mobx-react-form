@@ -142,6 +142,12 @@ describe('Check Nested $P Values after reset', () => {
     expect($.$P.$('members[1].hobbies[1]').value).to.be.empty);
 });
 
+describe('Check Nested $R values()', () => {
+  // retrieveOnlyDirtyValues: true
+  it('$R values() should be empty object', () =>
+    expect($.$R.values()).to.be.empty);
+});
+
 describe('Check Nested $Q Values after reset', () => {
   it('$Q club.name value should be equal to "HELLO"', () =>
     expect($.$Q.$('club.name').value).to.be.equal('HELLO'));

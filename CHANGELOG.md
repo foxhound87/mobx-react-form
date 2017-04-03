@@ -1,3 +1,6 @@
+# 1.26
+* Introduced `retrieveOnlyDirtyValues` option
+
 # 1.25
 * Introduced `extra` data
 

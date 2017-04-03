@@ -4,6 +4,8 @@ import { Form } from '../../../../src';
 
 const plugins = { dvr: validatorjs };
 
+const options = { retrieveOnlyDirtyValues: true };
+
 const fields = [
   'club.name',
   'club.city',
@@ -61,4 +63,4 @@ const onSubmit = {
   'members[]': submit,
 };
 
-export default new Form({ fields, rules, values, onSubmit }, { plugins, name: 'Nested-R' });
+export default new Form({ fields, rules, values, onSubmit }, { plugins, options, name: 'Nested-R' });
