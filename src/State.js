@@ -20,6 +20,8 @@ export default class State {
 
   events;
 
+  $extra;
+
   disposers = {
     interceptor: {},
     observer: {},
@@ -124,6 +126,13 @@ export default class State {
     if (type === 'current') {
       Object.assign(this.current[subtype], state);
     }
+  }
+
+  extra(data = null) {
+    if (_.isString(data)) return _.get(this.$extra, data);
+    if (data === null) return this.$extra;
+    this.$extra = data;
+    return null;
   }
 
   observeOptions() {

@@ -1,3 +1,6 @@
+# 1.25
+* Introduced `extra` data
+
 # 1.24
 * `showErrors` on `Field` is `false` by default.
 * `showErrors` on `validate()` is `false` by default.

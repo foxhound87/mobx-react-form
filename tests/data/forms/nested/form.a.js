@@ -39,6 +39,7 @@ const format = {
 class NewForm extends Form {
 
   onInit(form) {
+    form.state.extra({ foo: 'bar' });
     form.update({ user: { email: 'notAnEmail' } });
     form.set('label', { user: { emailConfirm: 'Confirm User Email' } });
     form.set('default', { user: { emailConfirm: 'Default Value' } });
