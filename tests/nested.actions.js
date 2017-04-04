@@ -12,3 +12,8 @@ describe('Form error test', () => {
   it('$T del() should throw error', () =>
     expect(() => $.$T.$('notIncrementalFields').del(99)).to.throw(Error));
 });
+
+describe('Form autoFocus test', () => {
+  it('$T notIncrementalFields autoFocus should be true', () =>
+    expect($.$T.$('notIncrementalFields').autoFocus).to.be.true);
+});

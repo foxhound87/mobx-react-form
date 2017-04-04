@@ -63,6 +63,7 @@ class NewForm extends Form {
 
     form.del('notIncrementalFields[anotherOneNotIncrementalKey]');
     form.$('notIncrementalFields').del('anotherNotIncrementalKey');
+    form.$('notIncrementalFields').focus();
   }
 }
 

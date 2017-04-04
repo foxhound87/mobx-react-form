@@ -1,3 +1,8 @@
+# 1.27
+* `focus` computed renamed `focused`.
+* Introduced `autoFocus` input support.
+* Introduced Field `focus()` method.
+
 # 1.26
 * Introduced `retrieveOnlyDirtyValues` option
 

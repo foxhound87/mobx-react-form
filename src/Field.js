@@ -44,13 +44,14 @@ export default class Field extends Base {
   @observable $type = undefined;
 
   @observable $disabled = false;
-  @observable $focus = false;
+  @observable $focused = false;
   @observable $touched = false;
   @observable $changed = false;
 
   @observable $submitting = false;
   @observable $validating = false;
 
+  @observable autoFocus = false;
   @observable showError = false;
 
   @observable errorSync = null;
@@ -218,10 +219,10 @@ export default class Field extends Base {
     return _.isEmpty(this.value);
   }
 
-  @computed get focus() {
+  @computed get focused() {
     return this.hasNestedFields
-      ? this.check('focus', true)
-      : this.$focus;
+      ? this.check('focused', true)
+      : this.$focused;
   }
 
   @computed get touched() {
@@ -271,13 +272,13 @@ export default class Field extends Base {
   onChange = this.sync;
   onToggle = this.sync;
 
-  onFocus = action(() => {
-    this.$focus = true;
-    this.$touched = true;
+  onBlur = action(() => {
+    this.$focused = false;
   });
 
-  onBlur = action(() => {
-    this.$focus = false;
+  onFocus = action(() => {
+    this.$focused = true;
+    this.$touched = true;
   });
 }
 
@@ -496,6 +497,13 @@ export const prototypes = {
   },
 
   @action
+  focus() {
+    // eslint-disable-next-line
+    this.state.form.forEach(field => (field.autoFocus = false));
+    this.autoFocus = true;
+  },
+
+  @action
   showErrors(showErrors = true) {
     this.showError = showErrors;
     this.errorSync = _.head(this.validationErrorStack);
@@ -520,7 +528,7 @@ export const prototypes = {
 
   observeShowErrors() {
     // showErrorsOnBlur
-    observe(this, '$focus', ({ newValue }) =>
+    observe(this, '$focused', ({ newValue }) =>
       (newValue === false) && this.showErrors(this.state.options.get('showErrorsOnBlur')));
   },
 

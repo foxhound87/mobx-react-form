@@ -116,8 +116,8 @@ export default class Form extends Base {
     return this.check('isEmpty', true);
   }
 
-  @computed get focus() {
-    return this.check('focus', true);
+  @computed get focused() {
+    return this.check('focused', true);
   }
 
   @computed get touched() {

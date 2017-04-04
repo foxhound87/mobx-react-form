@@ -66,7 +66,7 @@ describe('Check form computed returns boolean', () => {
   checkComputedIsBoolean('isDefault');
   checkComputedIsBoolean('isValid');
   checkComputedIsBoolean('isEmpty');
-  checkComputedIsBoolean('focus');
+  checkComputedIsBoolean('focused');
   checkComputedIsBoolean('touched');
   checkComputedIsBoolean('changed');
   checkComputedIsBoolean('disabled');

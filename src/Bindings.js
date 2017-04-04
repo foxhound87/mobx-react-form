@@ -19,8 +19,9 @@ export default class Bindings {
       placeholder: 'placeholder',
       disabled: 'disabled',
       onChange: 'onChange',
-      onFocus: 'onFocus',
       onBlur: 'onBlur',
+      onFocus: 'onFocus',
+      autoFocus: 'autoFocus',
     },
   };
 

@@ -2888,9 +2888,9 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   dependencies:
     minimist "0.0.8"
 
-mobx@^3.1.7:
-  version "3.1.7"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.1.7.tgz#910c01f6e2f7e88ec47baabefee5fe667d37ac00"
+mobx@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.0.0.tgz#6d9fb326d51bac9994dd8fe6762ace6ba2bef2ac"
 
 mocha@3.2.0:
   version "3.2.0"
