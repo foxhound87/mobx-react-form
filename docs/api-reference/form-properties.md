@@ -11,7 +11,7 @@
 | **isDefault** | boolean | computed | Check if the form is to default state. | - |
 | **isEmpty** | boolean | computed | Check if the form is empty. | - |
 | **disabled** | boolean | computed | Check if the form is disabled. | - |
-| **focus** | boolean | computed | Check if the form is focused. | - |
+| **focused** | boolean | computed | Check if the form is focused. | - |
 | **touched** | boolean | computed | Check if the form is touched. | - |
 | **changed** | boolean | computed | Check if the form is changed. | - |
 | **error** | string | computed | A default/generic error message (not related to fields). | - |

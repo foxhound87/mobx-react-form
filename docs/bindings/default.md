@@ -73,8 +73,9 @@ export default {
     placeholder: 'placeholder',
     disabled: 'disabled',
     onChange: 'onChange',
-    onFocus: 'onFocus',
     onBlur: 'onBlur',
+    onFocus: 'onFocus',
+    autoFocus: 'autoFocus',
   }
 }
 ```
@@ -97,8 +98,9 @@ export default {
     [keys.placeholder]: $try(props.placeholder, field.placeholder),
     [keys.disabled]: $try(props.disabled, field.disabled),
     [keys.onChange]: $try(props.onChange, field.onChange),
-    [keys.onFocus]: $try(props.onFocus, field.onFocus),
     [keys.onBlur]: $try(props.onBlur, field.onBlur),
+    [keys.onFocus]: $try(props.onFocus, field.onFocus),
+    [keys.autoFocus]: $try(props.autoFocus, field.autoFocus),
   }),
 }
 ```

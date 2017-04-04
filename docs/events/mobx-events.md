@@ -78,7 +78,7 @@ Define an `observers` / `interceptors` object like this:
 ```javascript
 const observers = {
   'club': [{
-    key: 'focus', // can be any field property
+    key: 'focused', // can be any field property
     call: ({ form, field, change }) => { ... },
   }],
   'members[].hobbies[]': [{

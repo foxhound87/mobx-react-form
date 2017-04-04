@@ -27,8 +27,9 @@ class MyForm extends MobxReactForm {
         disabled: 'disabled',
         error: 'errorText',
         onChange: 'onChange',
-        onFocus: 'onFocus',
         onBlur: 'onBlur',
+        onFocus: 'onFocus',
+        autoFocus: 'autoFocus',
       },
     };
   }
@@ -119,9 +120,10 @@ class MyForm extends MobxReactForm {
         errorText: field.validating ? props.validatingText : $try(props.error, field.error),
         errorStyle: field.validating ? { background: 'yellow', color: 'black' } : {},
         disabled: $try(props.disabled, field.disabled),
-        onFocus: $try(props.onFocus, field.onFocus),
         onChange: $try(props.onChange, field.onChange),
         onBlur: $try(props.onBlur, onBlur(field)),
+        onFocus: $try(props.onFocus, field.onFocus),
+        autoFocus: $try(props.autoFocus, field.autoFocus),
       }),
     };
   }

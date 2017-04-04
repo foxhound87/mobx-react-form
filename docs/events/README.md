@@ -1,6 +1,6 @@
 ### [Events Handlers](events-handlers.md)
   * [Sync Field Value](events-handlers.md#sync-field-value)
-  * [Focus & Touched State](events-handlers.md#focus--touched-state)
+  * [Focused & Touched State](events-handlers.md#focused--touched-state)
   * [Clear & Reset Form or Fields](events-handlers.md#clear--reset)
   * [Nested Array Elements](events-handlers.md#nested-array-elements)
   * [Submitting the Form](events-handlers.md#submitting-the-form)

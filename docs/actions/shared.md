@@ -6,6 +6,7 @@ The shared actions can be used on the form instance or every field and nested fi
 * [Field Selector](#field-selector)
 * [Field Container](#field-container)
 * [Check Field Computed Values](#check-field-computed-values)
+* [Programmatically Focus a Field](#programmatically-focus-a-field)
 
 
 * [Get Fields Properties](#get-fields-properties)
@@ -103,7 +104,7 @@ Select the parent field container.
 
 These computed values are allowed:
 
-`hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched`, `changed`.
+`hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focused`, `touched`, `changed`.
 
 ```javascript
 .check('isValid');
@@ -114,6 +115,18 @@ Use the second argument (boolean) if you want to check for nested fields too.
 ```javascript
 .check('isValid', true);
 ```
+
+---
+
+### Programmatically Focus a Field
+
+This will set Field `autoFocus` prop to `true`.
+
+```javascript
+field.focus();
+```
+
+> Remember to bind `autoFocus` to you input component.
 
 ---
 
@@ -135,7 +148,7 @@ or filtering by a prop (with nested fields as collections):
 
 You can get these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error`.
 
-or these computed props: `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focus`, `touched`, `changed`, `disabled` and the validation props as well (`rules` and `validate`).
+or these computed props: `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focused`, `touched`, `changed`, `disabled` and the validation props as well (`rules` and `validate`).
 
 If you want to get nested fields as `fields` objects instead of collections pass the prop as array:
 

@@ -15,6 +15,7 @@
   * [Field Selector](shared.md#field-selector)
   * [Field Container](shared.md#field-container)
   * [Check Field Computed Values](shared.md#check-field-computed-values)
+  * [Programmatically Focus a Field](shared.md#programmatically-focus-a-field)
 
 
   * [Get Fields Properties](shared.md#get-fields-properties)

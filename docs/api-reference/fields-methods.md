@@ -5,6 +5,7 @@
 | **bind()** | - | object | Get the current field bindings. | [help](../bindings/README.md) |
 | **clear()** | - | - | Clear the Field or Nested Fields to empty value. | [help](../actions/shared.md#clear--reset-form-or-fields) |
 | **reset()** | - | - | Reset the Field or Nested Fields to default value. | [help](../actions/shared.md#clear--reset-form-or-fields) |
+| **focus()** | - | - | Programmatically set focus on the field. | [help](../actions/shared.md#programmatically-focus-a-field) |
 | **validate()** | - | - | Check if the field is valid and return a promise. | [help](../actions/shared.md#validate-a-field) |
 | **invalidate(msg)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | [help](../actions/shared.md#invalidate-the-form-or-a-single-field) |
 | **resetValidation()** | - | - | Reset the field validation status. | - |
@@ -59,7 +60,7 @@
 | **sync(e)** | - | object | Update the `value` of the field. | - |
 | **onChange(e)** | - | object | Update the `value` of the field. (alias of `sync(e)`) | - |
 | **onToggle(e)** | - | object | Update the `value` of the field. (alias of `sync(e)`) | - |
-| **onFocus(e)** | - | object | Track the `focus` property of the field. | - |
+| **onFocus(e)** | - | object | Track the `focused` property of the field. | - |
 | **onBlur(e)** | - | object | Track the `touched` property of the field. | - |
 | **onSubmit(e)** | - | object | Sub-Form Submission: Validate the fieldset and call `onSuccess(fieldset)` or `onError(fieldset)`. | - |
 | **onClear(e)** | - | object | Clear all the Fields and Nested Fields to `empty` value. | - |

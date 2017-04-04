@@ -18,7 +18,7 @@
 | **disabled** | boolean | computed | The disabled state of the field. | - |
 | **value** | mixed | computed | Computed value of the field. | - |
 | **options** | mixed | computed | Additional options data for the field (useful for a select input). | - |
-| **focus** | boolean | computed | Check if the field is focused. | - |
+| **focused** | boolean | computed | Check if the field is focused. | - |
 | **touched** | boolean | computed | Check if the field is touched. | - |
 | **changed** | boolean | computed | Check if the field is changed. | - |
 | **related** | boolean | computed | Get Related fields for validation. | - |

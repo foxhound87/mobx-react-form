@@ -3,7 +3,7 @@
 All Event Handlers methods takes the `Proxy` object `(e)` in input as first argument and can be easly included in yours components.
 
  * [Sync Field Value](#sync-field-value)
- * [Focus & Touched State](#focus--touched-state)
+ * [Focused & Touched State](#focused--touched-state)
  * [Clear & Reset Form or Fields](#clear--reset)
  * [Nested Array Elements](#nested-array-elements)
  * [Submitting the Form](#submitting-the-form)
@@ -49,18 +49,18 @@ Use the `sync(e)` handler to update the state of the field.
 
 ---
 
-## Focus & Touched State
+## Focused & Touched State
 
 #### onFocus(e) & onBlur(e)
 
 | Handler | Affected Property |
 |---|---|
-| onFocus(e) | focus |
+| onFocus(e) | focused |
 | onBlur(e) | touched |
 
 <br>
 
-If you need to track `touched` or `focus` state, you can use `onFocus(e)` or `onBlur(e)` handlers:
+If you need to track `touched` or `focused` state, you can use `onFocus(e)` or `onBlur(e)` handlers:
 
 ```html
 <input
