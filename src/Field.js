@@ -13,6 +13,7 @@ import {
 export default class Field extends Base {
 
   fields = observable.map ? observable.map({}) : asMap({});
+  hasInitialNestedFields = false;
   incremental = false;
   disposeValidation = null;
 
@@ -443,7 +444,8 @@ export const prototypes = {
 
   @action
   initNestedFields(field, update) {
-    const fields = _.isNil(field) ? '' : field.fields;
+    const fields = _.isNil(field) ? null : field.fields;
+    if (_.isArray(fields)) this.hasInitialNestedFields = true;
     this.initFields({ fields }, update);
   },
 

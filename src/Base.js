@@ -5,11 +5,11 @@ import utils from './utils';
 export default class Base {
 
   @computed get hasIncrementalNestedFields() {
-    return (utils.hasIntKeys(this.fields) && this.fields.size);
+    return (this.fields.size && utils.hasIntKeys(this.fields));
   }
 
   @computed get hasNestedFields() {
-    return (this.fields.size !== 0);
+    return (this.hasInitialNestedFields || this.fields.size !== 0);
   }
 
   /**

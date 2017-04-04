@@ -126,6 +126,21 @@ describe('Check Nested $H value computed check', () => {
 
   it('$H items[2].name value should be equal to "Item #3"', () =>
     expect($.$H.$('items[2].name').value).to.be.equal('Item #3'));
+
+  it('$H singleFieldArray value should be array', () =>
+    expect($.$H.$('singleFieldArray').value).to.be.instanceof(Array));
+
+  it('$H singleFieldEmptyArray value should be array', () =>
+    expect($.$H.$('singleFieldEmptyArray').value).to.be.instanceof(Array));
+
+  it('$H singleFieldEmptyObject value should be object', () =>
+    expect($.$H.$('singleFieldEmptyObject').value).to.be.instanceof(Object));
+
+  it('$H singleFieldArray value should be array', () =>
+    expect($.$H.$('singleFieldArray').value).to.have.lengthOf(1));
+
+  it('$H singleFieldEmptyArray value should be array', () =>
+    expect($.$H.$('singleFieldEmptyArray').value).to.have.lengthOf(0));
 });
 
 describe('Check Fixes $I values check', () => {

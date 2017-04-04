@@ -2,6 +2,9 @@ import { Form } from '../../../../src';
 import { shouldBeEqualTo } from '../../extension/vjf';
 
 const fields = [
+  'singleFieldArray',
+  'singleFieldEmptyArray',
+  'singleFieldEmptyObject',
   'items[].name',
   'items[].alternateName',
 ];
@@ -31,6 +34,10 @@ class NewForm extends Form {
         },
       ],
     });
+
+    this.$('singleFieldArray').set(['x']);
+    this.$('singleFieldEmptyArray').set([]);
+    this.$('singleFieldEmptyObject').set({});
 
     this.$('items').$(0).$('name').set('validate', [shouldBeEqualTo('items[0].itemalternateName')]);
     this.$('items').$(0).$('name').set('related', ['items[0].itemalternateName']);

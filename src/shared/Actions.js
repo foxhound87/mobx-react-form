@@ -198,6 +198,7 @@ export default {
    */
   @action
   set(prop, data, recursion = false) {
+    const hasNested = (this.hasNestedFields || this.hasInitialNestedFields);
     const $e = 'update';
 
     if (!recursion) {
@@ -208,14 +209,14 @@ export default {
     if (_.isString(prop) && !_.isUndefined(data)) {
       utils.allowedProps('field', [prop]);
       const deep = (_.isObject(data) && prop === 'value') || _.isPlainObject(data);
-      if (deep) this.deepSet(prop, data, '', true);
+      if (deep && hasNested) this.deepSet(prop, data, '', true);
       else _.set(this, `$${prop}`, data);
       return;
     }
 
     // NO PROP NAME PROVIDED ("prop" is value)
     if (_.isNil(data)) {
-      if (_.isPlainObject(prop)) this.deepSet('value', prop, '', true);
+      if (hasNested) this.deepSet('value', prop, '', true);
       else this.set('value', prop);
       return;
     }
