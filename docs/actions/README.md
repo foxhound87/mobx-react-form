@@ -22,11 +22,11 @@
   * [Set Fields Properties](shared.md#set-fields-properties)
 
 
-  * [clear() & reset() Form or Fields](shared.md#clear--reset-form-or-fields)
-  * [has() Fields & Nested Fields](shared.md#has-fields--nested-fields)
-  * [map() Fields & Nested Fields](shared.md#map-fields--nested-fields)
-  * [each() Fields & Nested Fields](shared.md#each-fields--nested-fields)
-  * [add() & del() Fields & Nested Fields](shared.md#add--del-fields--nested-fields)
+  * [has()](shared.md#has)
+  * [map()](shared.md#map)
+  * [each()](shared.md#each)
+  * [add() & del()](shared.md#add--del)
+  * [clear() & reset()](shared.md#clear--reset)
 
 
   * [Manual Submit](shared.md#manual-submit)

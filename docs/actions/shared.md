@@ -13,11 +13,11 @@ The shared actions can be used on the form instance or every field and nested fi
 * [Set Fields Properties](#set-fields-properties)
 
 
-* [clear() & reset() Form or Fields](#clear--reset-form-or-fields)
-* [has() Fields & Nested Fields](#has-fields--nested-fields)
-* [map() Fields & Nested Fields](#map-fields--nested-fields)
-* [each() Fields & Nested Fields](#each-fields--nested-fields)
-* [add() & del() Fields & Nested Fields](#add--del-fields--nested-fields)
+* [has()](#has)
+* [map()](#map)
+* [each()](#each)
+* [add() & del()](#add--del)
+* [clear() & reset()](#clear--reset)
 
 
 * [Manual Submit](#manual-submit)
@@ -194,21 +194,7 @@ The object can be structured to set props of nested fields as well:
 
 ---
 
-### clear() & reset() Form or Fields
-
-Clear or Reset the whole Form, a single Field, or Nested Fields recursively.
-
-```javascript
-.clear(); // to empty values
-```
-
-```javascript
-.reset(); // to default values
-```
-
----
-
-### has() Fields & Nested Fields
+### has()
 
 Provide a field key to check if exists:
 
@@ -220,7 +206,7 @@ Provide a field key to check if exists:
 
 ---
 
-### map() Fields & Nested Fields
+### map()
 
 ```javascript
 $('hobbies').map((fields) => {
@@ -230,7 +216,7 @@ $('hobbies').map((fields) => {
 
 ---
 
-### each() Fields & Nested Fields
+### each()
 
 Iterate each field and nested fields recursively.
 
@@ -244,7 +230,7 @@ The callback get each field in input.
 
 ---
 
-### add() & del() Fields & Nested Fields
+### add() & del()
 
 You can add or remove normal Fields & Nested Fields or Array of Fields as well.
 
@@ -292,6 +278,20 @@ form.$('member.hobbies').del(3); // same as previous
 > If you need the `onAdd(e)` or `onDel(e)` read the [Event Handlers](../events/events-handlers.md) section.
 
 You can use it, for example, if you want to reimplement the `onAdd(e)` or `onDel(e)` Event Handlers.
+
+---
+
+### clear() & reset()
+
+Clear or Reset the whole Form, a single Field, or Nested Fields recursively.
+
+```javascript
+.clear(); // to empty values
+```
+
+```javascript
+.reset(); // to default values
+```
 
 ---
 
