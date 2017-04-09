@@ -240,7 +240,7 @@ export default class Field extends Base {
   }
 
   /* ------------------------------------------------------------------ */
-  /* EVENTS */
+  /* EVENTS HANDLERS */
 
   sync = action((e, v = null) => {
     this.$changed = true;
@@ -480,14 +480,14 @@ export const prototypes = {
     this.validationAsyncData = {};
     this.validationFunctionsData = [];
     this.validationErrorStack = [];
-    if (deep) this.deepAction('resetValidation');
+    if (deep) this.each(field => field.resetValidation());
   },
 
   @action
   clear(deep = true) {
     this.$value = defaultClearValue({ value: this.$value });
     this.showErrors(this.state.options.get('showErrorsOnClear'));
-    if (deep && this.fields.size) this.deepAction('clear');
+    if (deep) this.each(field => field.clear(true));
   },
 
   @action
@@ -496,7 +496,7 @@ export const prototypes = {
     if (useDefaultValue) this.value = this.$default;
     if (!useDefaultValue) this.value = this.$initial;
     this.showErrors(this.state.options.get('showErrorsOnReset'));
-    if (deep && this.fields.size) this.deepAction('reset');
+    if (deep) this.each(field => field.reset(true));
   },
 
   @action
@@ -507,10 +507,10 @@ export const prototypes = {
   },
 
   @action
-  showErrors(showErrors = true) {
-    this.showError = showErrors;
+  showErrors(show = true) {
+    this.showError = show;
     this.errorSync = _.head(this.validationErrorStack);
-    this.deepAction('showErrors');
+    this.each(field => field.showErrors(show));
   },
 
   @action

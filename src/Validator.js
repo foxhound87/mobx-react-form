@@ -63,13 +63,11 @@ export default class Validator {
     const field = $try(opt.field, this.form.select(path, null, null));
     const related = $try(opt.related, obj.related, true);
     const showErrors = $try(opt.showErrors, obj.showErrors, false);
-    this.form.state.events.set('validate', field ? field.path : true);
     this.$genericErrorMessage = null;
 
     // wait all promises then resolve
     const $wait = (resolve, instance) => Promise.all(this.promises)
       .then(action(() => (instance.$validating = false))) // eslint-disable-line
-      .then(() => this.form.state.events.set('validate', false))
       .then(() => resolve(instance));
 
     if (_.isPlainObject(opt) && !_.isString(path)) {

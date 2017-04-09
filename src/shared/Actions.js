@@ -197,13 +197,7 @@ export default {
    Set Fields Props
    */
   @action
-  set(prop, data, recursion = false) {
-    const $e = 'update';
-
-    if (!recursion) {
-      this.state.events.set($e, this.path || true);
-    }
-
+  set(prop, data) {
     // UPDATE CUSTOM PROP
     if (_.isString(prop) && !_.isUndefined(data)) {
       utils.allowedProps('field', [prop]);
@@ -217,10 +211,7 @@ export default {
     if (_.isNil(data)) {
       if (this.hasNestedFields) this.deepSet('value', prop, '', true);
       else this.set('value', prop);
-      return;
     }
-
-    if (!recursion) this.state.events.set($e, false);
   },
 
   /**
@@ -246,28 +237,6 @@ export default {
         }
       }
     });
-  },
-
-  /**
-    Call field method recursively
-  */
-  deepAction($action, args = null, $fields, recursion = false) {
-    const fields = $fields || this.fields;
-
-    if (!recursion) {
-      this.state.events.set($action, this.path || true);
-    }
-
-    if (fields.size !== 0) {
-      fields.forEach((field) => {
-        field[$action](args);
-        this.deepAction($action, args, field.fields, true);
-      });
-    }
-
-    if (!recursion) {
-      this.state.events.set($action, false);
-    }
   },
 
   /**

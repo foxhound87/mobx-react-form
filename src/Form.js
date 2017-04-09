@@ -142,14 +142,6 @@ export const prototypes = {
     return new Field(data);
   },
 
-  invalidate(message) {
-    this.validator.invalidate(message);
-  },
-
-  showErrors(show = true) {
-    this.each(field => field.showErrors(show));
-  },
-
   /**
    Init Form Fields and Nested Fields
    */
@@ -167,18 +159,26 @@ export const prototypes = {
     });
   },
 
+  invalidate(message) {
+    this.validator.invalidate(message);
+  },
+
+  showErrors(show = true) {
+    this.each(field => field.showErrors(show));
+  },
+
   /**
     Clear Form Fields
   */
   @action clear() {
-    this.deepAction('clear');
+    this.each(field => field.clear());
   },
 
   /**
     Reset Form Fields
   */
   @action reset() {
-    this.deepAction('reset');
+    this.each(field => field.reset());
   },
 
 };

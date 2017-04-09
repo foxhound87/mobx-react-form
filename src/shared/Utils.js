@@ -8,22 +8,6 @@ import parser from '../parser';
 */
 export default {
 
-  on(event, callback) {
-    const isField = !!this.path;
-    const path = isField ? this.path : true;
-    return observe(this.state.events.$running, change =>
-      (event === change.name &&
-      (change.newValue !== false) &&
-      (this.state.events.$running[event] === path))
-        && callback({
-          path: this.state.events.$running[event],
-          change: _.omit(change, 'type', 'object'),
-          field: isField ? this : null,
-          form: this.state.form,
-          event,
-        }));
-  },
-
   /**
    MobX Event (observe/intercept)
    */

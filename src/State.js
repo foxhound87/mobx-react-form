@@ -3,7 +3,6 @@ import _ from 'lodash';
 
 import Options from './Options';
 import Bindings from './Bindings';
-import Events from './Events';
 import utils from './utils';
 
 export default class State {
@@ -17,8 +16,6 @@ export default class State {
   options;
 
   bindings;
-
-  events;
 
   $extra;
 
@@ -44,7 +41,6 @@ export default class State {
     this.initProps(initial);
     this.initOptions(options);
     this.initBindings(bindings);
-    this.initEvents();
     this.observeOptions();
   }
 
@@ -88,10 +84,6 @@ export default class State {
   initBindings(bindings) {
     this.bindings = new Bindings();
     this.bindings.register(bindings);
-  }
-
-  initEvents() {
-    this.events = new Events();
   }
 
   /**
