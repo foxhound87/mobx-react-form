@@ -63,7 +63,7 @@ export default {
    Disposer
    */
   dispose({ type, key = 'value', path = null }) {
-    const $path = parser.parsePath(path || this.path);
+    const $path = parser.parsePath(utils.$try(path, this.path));
     // eslint-disable-next-line
     if (type === 'interceptor') key = `$${key}`;
     this.state.disposers[type][`${key}@${$path}`].apply();
@@ -105,7 +105,7 @@ export default {
     Get Container
    */
   container(path) {
-    const $path = parser.parsePath(path || this.path || '');
+    const $path = parser.parsePath(utils.$try(path, this.path));
     const cpath = _.trim($path.replace(new RegExp('[^./]+$'), ''), '.');
 
     if (!!this.path && _.isNil(path)) {
@@ -116,16 +116,17 @@ export default {
   },
 
   /**
+    Has Field
+   */
+  has(path) {
+    return this.fields.has(path);
+  },
+
+  /**
    Map Fields
   */
-  map(path, callback = null) {
-    if (_.isFunction(path) && !callback) {
-      // path is the callback here
-      return this.fields.values().map(path);
-    }
-
-    const field = this.select(path);
-    return field.fields.values().map(callback);
+  map(cb) {
+    return this.fields.values().map(cb);
   },
 
   /**
@@ -158,7 +159,7 @@ export default {
      * }
    *
    * const data = {};
-   * form.forEach(field => data[field.path] = field.value);
+   * form.each(field => data[field.path] = field.value);
    * // => {
      *   "state": "USA",
      *   "state.city": "New York",
@@ -166,13 +167,13 @@ export default {
      * }
    *
    */
-  forEach(iteratee, fields = null, depth = 0) {
+  each(iteratee, fields = null, depth = 0) {
     const $fields = fields || this.fields;
     _.each($fields.values(), (field, index) => {
       iteratee(field, index, depth);
 
       if (field.fields.size !== 0) {
-        this.forEach(iteratee, field.fields, depth + 1);
+        this.each(iteratee, field.fields, depth + 1);
       }
     });
   },

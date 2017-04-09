@@ -12,6 +12,10 @@ export default class Base {
     return (this.hasInitialNestedFields || this.fields.size !== 0);
   }
 
+  @computed get size() {
+    return this.fields.size;
+  }
+
   /**
    Interceptor
    */

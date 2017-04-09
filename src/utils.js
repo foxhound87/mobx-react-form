@@ -5,7 +5,7 @@ const props = {
   field: ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'bindings', 'type', 'error'],
   separated: ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'bindings', 'types'],
   function: ['onSubmit', 'observers', 'interceptors', 'parse', 'format'],
-  validation: ['rules', 'validate'],
+  validation: ['rules', 'validators'],
   types: {
     isDirty: 'some',
     isValid: 'every',
@@ -134,6 +134,16 @@ const maxKey = (fields) => {
 const makeId = path =>
   _.uniqueId([_.replace(path, new RegExp('\\.', 'g'), '-'), '--'].join(''));
 
+const $try = (...args) => {
+  let found = null;
+
+  args.map(val =>
+    ((found === null) && !_.isNil(val))
+      && (found = val));
+
+  return found;
+};
+
 export default {
   props,
   checkObserve,
@@ -153,4 +163,5 @@ export default {
   hasIntKeys,
   maxKey,
   makeId,
+  $try,
 };

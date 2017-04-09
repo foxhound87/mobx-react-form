@@ -25,7 +25,7 @@ describe('Check validate() returns promise that resolves to boolean', () => {
 
 describe('Check FORM validate(key) returns promise that resolves to boolean', () => (
   _.each($forms, (form, formKey) => describe(`${formKey} form`, () => (
-    form.forEach(field => (
+    form.each(field => (
       it(`validate('${field.path}') is promise that resolves to boolean`, () => {
         const promise = form.validate(field.path);
         expect(promise).to.be.a('promise');
@@ -37,7 +37,7 @@ describe('Check FORM validate(key) returns promise that resolves to boolean', ()
 
 describe('Check FIELD validate(key) returns promise that resolves to boolean', () => (
   _.each($forms, (form, formKey) => describe(`${formKey} form`, () => (
-    form.forEach(field => (
+    form.each(field => (
       it(`validate('${field.path}') is promise that resolves to boolean`, () => {
         const promise = field.validate();
         expect(promise).to.be.a('promise');

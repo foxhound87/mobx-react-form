@@ -29,8 +29,8 @@ describe('Form submit() decoupled callback', () => {
   });
 
   // $M
-  describe('Check Fixes-L jobs[0] ', () => {
-    it('Check Fixes-L jobs[0]', (done) => {
+  describe('$M Check jobs[0] ', () => {
+    it('$M Check jobs[0]', (done) => {
       $.$M.$('jobs[0]').validate()
         .then(({ isValid }) => {
           // eslint-disable-next-line

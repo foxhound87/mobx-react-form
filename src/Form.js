@@ -146,8 +146,9 @@ export const prototypes = {
     this.validator.invalidate(message);
   },
 
-  /* ------------------------------------------------------------------ */
-  /* ACTIONS */
+  showErrors(show = true) {
+    this.each(field => field.showErrors(show));
+  },
 
   /**
    Init Form Fields and Nested Fields

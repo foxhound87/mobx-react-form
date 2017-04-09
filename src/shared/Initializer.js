@@ -17,8 +17,8 @@ export default {
 
     // create fields
     _.each(fields, (field, key) =>
-      _.isNil(this.select($path(key), null, false))
-      && this.initField(key, $path(key), field, update));
+      _.isNil(this.select($path(key), null, false)) &&
+        this.initField(key, $path(key), field, update));
   },
 
   @action
@@ -39,7 +39,7 @@ export default {
       $type: $try('types'),
       $options: $try('options'),
       $related: $try('related'),
-      $validate: $try('validate'),
+      $validators: $try('validators'),
       $rules: $try('rules'),
       $observers: $try('observers'),
       $interceptors: $try('interceptors'),

@@ -19,7 +19,7 @@ const labels = {
   passwordConfirm: 'Confirm Password',
 };
 
-const validate = {
+const validators = {
   email: shouldBeEqualTo('username'), // should fail
 };
 
@@ -51,6 +51,6 @@ class NewForm extends Form {
 
 export default new NewForm({
 
-  fields, values, defaults, labels, disabled, validate, rules,
+  fields, values, defaults, labels, disabled, validators, rules,
 
 }, { name: 'Flat-P' });

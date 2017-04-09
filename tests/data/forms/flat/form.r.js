@@ -5,13 +5,13 @@ const fields = {
   email: {
     label: 'Username',
     value: 's.jobs@apple.com',
-    validate: [isEmail],
+    validators: [isEmail],
     related: ['emailConfirm'],
   },
   emailConfirm: {
     label: 'Email',
     value: 's.jobs@apple.com',
-    validate: [isEmail, shouldBeEqualTo('email')],
+    validators: [isEmail, shouldBeEqualTo('email')],
   },
 };
 

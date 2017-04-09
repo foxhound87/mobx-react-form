@@ -14,12 +14,12 @@ const fields = {
   username: {
     label: 'Username',
     value: 's.jobs@apple.com',
-    validate: [isEmail, shouldBeEqualTo('email')],
+    validators: [isEmail, shouldBeEqualTo('email')],
   },
   email: {
     label: 'Email',
     value: 's.jobs@apple.com',
-    validate: isEmail,
+    validators: isEmail,
   },
   password: {
     label: 'Password',

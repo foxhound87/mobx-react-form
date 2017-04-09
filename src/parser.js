@@ -1,16 +1,6 @@
 import _ from 'lodash';
 import utils from './utils';
 
-const $try = (...args) => {
-  let found = null;
-
-  args.map(val =>
-    ((found === null) && !_.isNil(val))
-      && (found = val));
-
-  return found;
-};
-
 const defaultClearValue = ({ value }) => {
   if (_.isArray(value)) return [];
   if (_.isDate(value)) return null;
@@ -35,7 +25,7 @@ const parsePath = (path) => {
 };
 
 const parseFieldValue = (parser, { type, isEmptyArray, separated, unified, initial }) =>
-  parser($try(separated, unified, initial, defaultValue({ type, isEmptyArray })));
+  parser(utils.$try(separated, unified, initial, defaultValue({ type, isEmptyArray })));
 
 // make integers labels empty
 const parseGetLabel = label =>
@@ -61,15 +51,16 @@ const parseCheckFormatter = ($field, $prop) =>
 
 const defineFieldsFromStruct = (struct, add = false) =>
   _.reduceRight(struct, ($, name) => {
+    const obj = {};
     if (_.endsWith(name, '[]')) {
-      const obj = {};
-      const val = (add || !_.isEmpty($)) ? [$] : [];
+      const val = (add) ? [$] : [];
       obj[_.trimEnd(name, '[]')] = val;
       return obj;
     }
-
     // no brakets
-    const obj = {};
+    const prev = struct[struct.indexOf(name) - 1];
+    const stop = _.endsWith(prev, '[]') && (_.last(struct) === name);
+    if (!add && stop) return obj;
     obj[name] = $;
     return obj;
   }, {});
@@ -137,7 +128,7 @@ const mergeSchemaDefaults = (fields, validator) => {
 
 const prepareFieldsData = (initial, strictProps = true) => {
   let fields = initial.fields || {};
-  fields = handleFieldsArrayOfStrings(fields);
+  fields = handleFieldsArrayOfStrings(fields, false);
   fields = handleFieldsArrayOfObjects(fields);
   fields = handleFieldsValuesFallback(fields, initial);
   fields = handleFieldsNested(fields, initial, strictProps);
@@ -153,7 +144,6 @@ const pathToFieldsTree = (struct, path, n = 0, add = false) => {
 };
 
 export default {
-  $try,
   defaultValue,
   defaultClearValue,
   parseFieldValue,

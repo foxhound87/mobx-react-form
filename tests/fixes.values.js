@@ -85,7 +85,7 @@ describe('Check Nested $E values()', () => {
     expect($.$E.$('places').values()).to.have.lengthOf(0));
 });
 
-describe('Check Nested $F value computed check', () => {
+describe('Check Nested $F value computed', () => {
   it('$F inventoryLevel.value value should be equal to "2"', () =>
     expect($.$F.$('inventoryLevel.value').value).to.be.equal(2));
 
@@ -120,7 +120,7 @@ describe('Check Nested $F value computed check', () => {
     expect($.$F.$('ids').value).to.be.instanceof(Array));
 });
 
-describe('Check Nested $H value computed check', () => {
+describe('Check Nested $H value computed', () => {
   it('$H items[0].name value should be equal to "Item #A"', () =>
     expect($.$H.$('items[0].name').value).to.be.equal('Item #A'));
 
@@ -143,7 +143,7 @@ describe('Check Nested $H value computed check', () => {
     expect($.$H.$('singleFieldEmptyArray').value).to.have.lengthOf(0));
 });
 
-describe('Check Fixes $I values check', () => {
+describe('Check Fixes $I values', () => {
   it('$I layout.column1[0].title value should be a equal to "THE NEW TITLE"', () =>
     expect($.$I.$('layout.column1[0].title').value).to.be.equal('THE NEW TITLE'));
 
@@ -154,7 +154,7 @@ describe('Check Fixes $I values check', () => {
     expect($.$I.$('deep.nested.column3[0].title').value).to.be.equal('THE NEW TITLE'));
 });
 
-describe('Check Fixes $M values check', () => {
+describe('Check Fixes $M values', () => {
   it('$M people[0].name value should be null', () =>
     expect($.$M.$('people[0].name').value).to.be.null);
 
@@ -178,4 +178,18 @@ describe('Check Fixes $M values check', () => {
 
   it('$M array[2].name value should be a equal to ""', () =>
     expect($.$M.$('array[0].name').value).to.be.equal(''));
+});
+
+describe('Check Fixes $O values', () => {
+  it('$O roles value should be an array', () =>
+    expect($.$O.$('roles').value).to.be.instanceof(Array));
+
+  it('$O roles value should be empty', () =>
+    expect($.$O.$('roles').value).to.be.empty);
+
+  it('$O roles value should be an array', () =>
+    expect($.$O.$('array').value).to.be.instanceof(Array));
+
+  it('$O roles value should be empty', () =>
+    expect($.$O.$('array').value).to.be.empty);
 });

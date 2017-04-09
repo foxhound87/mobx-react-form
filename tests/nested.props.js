@@ -255,20 +255,20 @@ describe('Check Nested $T value on add()', () => {
   it('$T member.hobbies[1] default should be equal to "BBB"', () =>
     expect($.$T.$('member.hobbies[1]').default).to.equal('BBB'));
 
-  it('$T member.info[1] default should be an object', () =>
-    expect($.$T.$('member.info[1]').default).to.be.an('object'));
+  it('$T member.info[0] default should be an object', () =>
+    expect($.$T.$('member.info[0]').default).to.be.an('object'));
 
-  it('$T member.info[1] initial should be an object', () =>
-    expect($.$T.$('member.info[1]').initial).to.be.an('object'));
+  it('$T member.info[0] initial should be an object', () =>
+    expect($.$T.$('member.info[0]').initial).to.be.an('object'));
 
-  it('$T member.info[1].firstname value should be equal to "AAA"', () =>
-    expect($.$T.$('member.info[1].firstname').value).to.equal('AAA'));
+  it('$T member.info[0].firstname value should be equal to "AAA"', () =>
+    expect($.$T.$('member.info[0].firstname').value).to.equal('AAA'));
 
-  it('$T member.info[1].lastname value should be equal to "BBB"', () =>
-    expect($.$T.$('member.info[1].lastname').value).to.equal('BBB'));
+  it('$T member.info[0].lastname value should be equal to "BBB"', () =>
+    expect($.$T.$('member.info[0].lastname').value).to.equal('BBB'));
 
-  it('$T member.info[1].type value should be equal to "XXX"', () =>
-    expect($.$T.$('member.info[1].type').value).to.equal('XXX'));
+  it('$T member.info[0].type value should be equal to "XXX"', () =>
+    expect($.$T.$('member.info[0].type').value).to.equal('XXX'));
 
   it('$T notIncrementalFields fields.get(notIncrementalKey) should be an object', () =>
     expect($.$T.$('notIncrementalFields').fields.get('notIncrementalKey')).to.be.an('object'));

@@ -142,13 +142,13 @@ export default class State {
       type: 'update',
       key: 'validateOnChange',
       to: true,
-      exec: () => this.form.forEach(field => field.observeValidation()),
+      exec: () => this.form.each(field => field.observeValidation()),
     }, {
       // stop observing fields
       type: 'update',
       key: 'validateOnChange',
       to: false,
-      exec: () => this.form.forEach(field => field.disposeValidation()),
+      exec: () => this.form.each(field => field.disposeValidation()),
     }]));
   }
 }

@@ -1,6 +1,7 @@
 import { computed, action, observable } from 'mobx';
 import _ from 'lodash';
-import { $try } from './parser';
+
+import { $try } from './utils';
 
 import VJF from './validators/VJF'; // Vanilla JavaScript Functions
 import SVK from './validators/SVK'; // Json Schema Validation Keywords
@@ -103,7 +104,7 @@ export default class Validator {
   @action
   validateAll({ showErrors = false, related = false }) {
     // validate all fields and nested fields
-    this.form.forEach(field =>
+    this.form.each(field =>
       this.validateField({
         path: field.path,
         field,

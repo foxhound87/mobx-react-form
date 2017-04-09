@@ -1,11 +1,12 @@
 import { observable, observe, action, computed, isObservableArray, toJS, asMap, untracked } from 'mobx';
 import _ from 'lodash';
-import utils from './utils';
-
 import Base from './Base';
 
 import {
   $try,
+  makeId } from './utils';
+
+import {
   defaultClearValue,
   parseFieldValue,
   parseGetLabel } from './parser';
@@ -25,7 +26,7 @@ export default class Field extends Base {
   state;
 
   $rules;
-  $validate;
+  $validators;
   $related;
   $options;
   $observers;
@@ -176,7 +177,7 @@ export default class Field extends Base {
   }
 
   @computed get validators() {
-    return this.$validate;
+    return this.$validators;
   }
 
   @computed get error() {
@@ -292,7 +293,7 @@ export const prototypes = {
   setupField($key, $path, $data, $props, update) {
     this.key = $key;
     this.path = $path;
-    this.id = utils.makeId(this.path);
+    this.id = makeId(this.path);
 
     const isEmptyArray = (_.has($data, 'fields') && _.isArray($data.fields));
     const checkArray = val => isEmptyArray ? [] : val;
@@ -308,7 +309,7 @@ export const prototypes = {
       $type,
       $options,
       $related,
-      $validate,
+      $validators,
       $rules,
       $parse,
       $format,
@@ -331,7 +332,7 @@ export const prototypes = {
         type,
         options,
         related,
-        validate,
+        validators,
         rules,
         parse,
         format,
@@ -369,7 +370,7 @@ export const prototypes = {
       this.$bindings = $bindings || bindings || 'default';
       this.$options = $options || options || null;
       this.$related = $related || related || [];
-      this.$validate = toJS($validate || validate || null);
+      this.$validators = toJS($validators || validators || null);
       this.$rules = $rules || rules || null;
       this.$observers = $observers || observers || null;
       this.$interceptors = $interceptors || interceptors || null;
@@ -406,7 +407,7 @@ export const prototypes = {
     this.$bindings = $bindings || 'default';
     this.$options = $options || null;
     this.$related = $related || [];
-    this.$validate = toJS($validate || null);
+    this.$validators = toJS($validators || null);
     this.$rules = $rules || null;
     this.$observers = $observers || null;
     this.$interceptors = $interceptors || null;
@@ -501,7 +502,7 @@ export const prototypes = {
   @action
   focus() {
     // eslint-disable-next-line
-    this.state.form.forEach(field => (field.autoFocus = false));
+    this.state.form.each(field => (field.autoFocus = false));
     this.autoFocus = true;
   },
 

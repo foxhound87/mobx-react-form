@@ -38,10 +38,10 @@ const fields = {
   },
 };
 
-const validate = {
+const validators = {
   'state': isInt,
   'state.city': isInt,
   'state.city.places': isInt,
 };
 
-export default new Form({ fields, validate }, { name: 'Nested-H' });
+export default new Form({ fields, validators }, { name: 'Nested-H' });

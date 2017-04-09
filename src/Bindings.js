@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { $try } from './parser';
+import { $try } from './utils';
 
 export default class Bindings {
 

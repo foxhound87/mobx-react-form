@@ -7,13 +7,13 @@ const fields = [{
   fields: [{
     name: 'email',
     label: 'Email',
-    validate: isEmail,
+    validators: isEmail,
     related: ['user.emailConfirm'],
   }, {
     name: 'emailConfirm',
     label: 'Confirm Email',
     value: 's.jobs@apple.com',
-    validate: [isEmail, shouldBeEqualTo('user.email')],
+    validators: [isEmail, shouldBeEqualTo('user.email')],
   }, {
     name: 'password',
     label: 'Password',

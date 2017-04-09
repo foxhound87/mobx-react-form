@@ -1,3 +1,12 @@
+# 1.28
+* Method `forEach()` renamed `each()`.
+* Refactored & semplified `map()`.
+* Introduced `has()` method.
+* Introduced Form `showError()` method.
+* Introduced `size` computed prop.
+* Prop `validate` renamed `validators` for consistency.
+* Fixed empty nested array element (index 0 no more added).
+
 # 1.27
 * `focus` computed renamed `focused`.
 * Introduced `autoFocus` input support.

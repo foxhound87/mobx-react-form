@@ -25,14 +25,13 @@ class NewForm extends Form {
       }],
     });
 
-    form.map('itineraryItems', (field) => {
+    form.$('itineraryItems').map(field =>
       field.update({
         hotel: {
           name: 'New Test Name',
           starRating: '5.0',
         },
-      });
-    });
+      }));
 
     form.map((field) => { // eslint-disable-line
       if (field.key === 'itineraryItem') {

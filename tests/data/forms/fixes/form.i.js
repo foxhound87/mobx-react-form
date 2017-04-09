@@ -60,6 +60,7 @@ class NewForm extends Form {
     //   active: false,
     // });
 
+    form.$('users').add();
     form.$('users[0].settings[0].active').set('value', false);
 
     form.$('layout').update({

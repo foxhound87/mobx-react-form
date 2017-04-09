@@ -8,7 +8,7 @@ const fields = {
   username: {
     label: 'Username',
     value: 'SteveJobs',
-    validate: [checkUser], // (promise) should fail
+    validators: [checkUser], // (promise) should fail
   },
   email: {
     label: 'Email',

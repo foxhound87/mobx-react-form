@@ -23,7 +23,7 @@ const values = {
   },
 };
 
-const validate = {
+const validators = {
   'user.email': isEmail,
   'user.emailConfirm': [isEmail, shouldBeEqualTo('user.email')],
 };
@@ -57,5 +57,5 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, values, labels, validate, related }, { name: 'Nested-U' });
+export default new NewForm({ fields, values, labels, validators, related }, { name: 'Nested-U' });
 
