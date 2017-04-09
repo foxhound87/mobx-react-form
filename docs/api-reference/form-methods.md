@@ -17,16 +17,17 @@
 | **update(obj)** | (object) | - | Update Fields Values. Will create new fields auomatically. | - |
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
 | **submit(obj)** | (object) | - | Perform fields validation. After successful validation triggers onSuccess event and onError event in case of validation error. | - |
+| **check(computed)** | (string) | boolean | Check field computed property. | - |
+| **check(computed, deep)** | (string, boolean) | boolean | Check all nested fields computed property if `deep` is `true` | - |
 | **get()** | - | object | Get all field and nested fields data with all props and computed values. | - |
 | **get(prop)** | (mixed) | object | Get all field filtering by certain `props` (string or array). | - |
 | **set(val)** | (mixed) | - | Set field value. Takes the value. | - |
 | **set(obj)** | (object) | - | Provide an object to set nested fields values. | - |
 | **set(prop, val)** | (string, mixed) | - | Set field property. Takes prop key and prop value. | - |
 | **set(prop, obj)** | (string, object) | - | Provide a prop key and object to set nested fields properties. | - |
-| **check(computed)** | (string) | boolean | Check field computed property. | - |
-| **check(computed, deep)** | (string, boolean) | boolean | Check all nested fields computed property if `deep` is `true` | - |
+| **has(key)** | (string) | - | Provide Field key to check if exist. | - |
 | **map(callback)** | (function) | - | Map Nested Fields | - |
-| **forEach(callback)** | (function) | - | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | - |
+| **each(callback)** | (function) | - | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | - |
 | **add(val)** | (mixed) | mixed | Add a Field or Nested Fields. Provide an optional initial value. | - |
 | **del(key)** | (mixed) | - | Delete a Field or Nested Fields by `key` or `path`. | - |
 | **observe(obj)** | (object) | - | Define a MobX Observer on Field Props or Field Map. | - |

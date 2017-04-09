@@ -48,7 +48,7 @@ You can use the `values` object as the `fields` if you want to omit the fields `
 
 You can define these properties: `fields`, `values`, `labels`, `placeholders`, `defaults`, `disabled`, `related`, `bindings`, `types`.
 
-Validation properties `rules` (DVR) and `validate` (VJF) can be defined as well.
+Validation properties `rules` (DVR) and `validators` (VJF) can be defined as well.
 
 ###### Using Dot Notation & Array Notation
 

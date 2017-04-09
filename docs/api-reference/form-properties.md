@@ -2,6 +2,7 @@
 
 | Property | Type | MobX Type | Info | Help |
 |---|---|---|---|---|
+| **size** | int | computed | Number of contained Fields. | - |
 | **submitting** | boolean | computed | Check if the form is in submitting state. | - |
 | **validating** | boolean | computed | Check if the form is in validation state. | - |
 | **hasErrors** | boolean | computed | Check if the form has errors. | - |

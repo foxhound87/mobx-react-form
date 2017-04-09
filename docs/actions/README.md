@@ -23,8 +23,9 @@
 
 
   * [clear() & reset() Form or Fields](shared.md#clear--reset-form-or-fields)
+  * [has() Fields & Nested Fields](shared.md##has-fields--nested-fields)
   * [map() Fields & Nested Fields](shared.md#map-fields--nested-fields)
-  * [forEach() Fields & Nested Fields](shared.md#foreach-fields--nested-fields)
+  * [each() Fields & Nested Fields](shared.md#each-fields--nested-fields)
   * [add() & del() Fields & Nested Fields](shared.md#add--del-fields--nested-fields)
 
 

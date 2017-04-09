@@ -14,8 +14,9 @@ The shared actions can be used on the form instance or every field and nested fi
 
 
 * [clear() & reset() Form or Fields](#clear--reset-form-or-fields)
+* [has() Fields & Nested Fields](#has-fields--nested-fields)
 * [map() Fields & Nested Fields](#map-fields--nested-fields)
-* [forEach() Fields & Nested Fields](#foreach-fields--nested-fields)
+* [each() Fields & Nested Fields](#each-fields--nested-fields)
 * [add() & del() Fields & Nested Fields](#add--del-fields--nested-fields)
 
 
@@ -148,7 +149,7 @@ or filtering by a prop (with nested fields as collections):
 
 You can get these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error`.
 
-or these computed props: `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focused`, `touched`, `changed`, `disabled` and the validation props as well (`rules` and `validate`).
+or these computed props: `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focused`, `touched`, `changed`, `disabled` and the validation props as well (`rules` and `validators`).
 
 If you want to get nested fields as `fields` objects instead of collections pass the prop as array:
 
@@ -172,7 +173,7 @@ If you need to recreate the fields tree (for example add/del fields array) and p
 
 > Takes in input the prop name `string` and an `object` with fields `key:val` pairs.
 
-You can pass these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error` and the validation props as well (`rules` and `validate`).
+You can pass these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error` and the validation props as well (`rules` and `validators`).
 
 ```javascript
 .set('value', {
@@ -207,6 +208,18 @@ Clear or Reset the whole Form, a single Field, or Nested Fields recursively.
 
 ---
 
+### has() Fields & Nested Fields
+
+Provide a field key to check if exists:
+
+```javascript
+.has('members');
+```
+
+> Returns `boolean`
+
+---
+
 ### map() Fields & Nested Fields
 
 ```javascript
@@ -215,24 +228,16 @@ $('hobbies').map((fields) => {
 });
 ```
 
-or
-
-```javascript
-.map('hobbies', (fields) => {
-  ... // access nested fields
-});
-```
-
 ---
 
-### forEach() Fields & Nested Fields
+### each() Fields & Nested Fields
 
 Iterate each field and nested fields recursively.
 
 The callback get each field in input.
 
 ```javascript
-.forEach(field => {
+.each(field => {
   // do some stuff with the field
 });
 ```

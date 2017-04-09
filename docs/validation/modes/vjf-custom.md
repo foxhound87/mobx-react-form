@@ -18,7 +18,7 @@ export function isEmail({ field }) {
 }
 ```
 
-### Pass them to the field's `validate` property as function or as an array of functions
+### Pass them to the field's `validators` property as function or as an array of functions
 
 > You can set `related` fields that you want to be validated at the same time.
 
@@ -31,7 +31,7 @@ const fields = {
   },
   emailConfirm: {
     label: 'Confirm Email',
-    validate: [isEmail, shouldBeEqualTo('email')],
+    validators: [isEmail, shouldBeEqualTo('email')],
   },
   ...
 };

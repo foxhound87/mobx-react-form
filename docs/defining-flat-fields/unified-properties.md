@@ -2,7 +2,7 @@
 
 Define a `fields` object, then you can define these properties in each field definition: `name`, `value`, `label`, `placeholder`, `default`, `disabled`, `related`, `bindings`, `type`.
 
-Validation properties `rules` (DVR) and `validate` (VJF) can be defined as well.
+Validation properties `rules` (DVR) and `validators` (VJF) can be defined as well.
 
 <br>
 
@@ -82,12 +82,12 @@ In this case the fields will be filled with the `value` property when the form i
 const fields = {
   email: {
     label: 'Email',
-    validate: isEmail,
+    validators: isEmail,
     related: ['emailConfirm'], // <<---
   },
   emailConfirm: {
     label: 'Confirm Email',
-    validate: [isEmail, shouldBeEqualTo('email')],
+    validators: [isEmail, shouldBeEqualTo('email')],
   },
 };
 

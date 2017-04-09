@@ -2,7 +2,7 @@
 
 You can define these properties: `fields`, `values`, `labels`, `placeholders`, `defaults`, `disabled`, `related`, `bindings`, `types`.
 
-Validation properties `rules` (DVR) and `validate` (VJF) can be defined as well.
+Validation properties `rules` (DVR) and `validators` (VJF) can be defined as well.
 
 You can eventuallu define the `fields` property as a fields `structure`.
 
@@ -176,12 +176,12 @@ new Form({ fields, bindings, ... });
 ```javascript
 const fields = ['email', 'emailConfirm'];
 
-const validate = {
+const validators = {
   email: isEmail,
   emailConfirm: [isEmail, shouldBeEqualTo('email')],
 };
 
-new Form({ fields, validate, ... });
+new Form({ fields, validators, ... });
 ```
 
 > Read more about how to [Enable Vanilla Javascript Validation Functions (VJF)](../validation/modes/vjf-enable)

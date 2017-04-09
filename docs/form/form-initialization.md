@@ -50,7 +50,7 @@ Provide an object which expects the following properties:
 
 > Some of these initialization properties are plurals.
 
-> If you need to validate fields use the `validate`, `rules`, or `schema` props according to the choosen [validation plugin](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html)
+> If you need to validate fields use the `validators`, `rules`, or `schema` props according to the choosen [validation plugin](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html)
 
 > If you are using the **Unified Properties Definition** mode, you will need only the `fields` property.
 

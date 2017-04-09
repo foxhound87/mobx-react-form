@@ -8,7 +8,7 @@ A Field can handle a collection of Nested Fields using the `fields` property.
 
 You can define these properties in each field definition: `name`, `value`, `label`, `placeholder`, `default`, `disabled`, `related`, `bindings`, `type`.
 
-Validation properties `rules` (DVR) and `validate` (VJF) can be defined as well.
+Validation properties `rules` (DVR) and `validators` (VJF) can be defined as well.
 
 ```javascript
 const fields = [{
@@ -42,12 +42,12 @@ const fields = [{
   fields: [{
     name: 'email',
     label: 'Email',
-    validate: isEmail,
+    validators: isEmail,
     related: ['user.emailConfirm'], // <<---
   }, {
     name: 'emailConfirm',
     label: 'Confirm Email',
-    validate: [isEmail, shouldBeEqualTo('email')],
+    validators: [isEmail, shouldBeEqualTo('email')],
   }],
 }];
 ```
