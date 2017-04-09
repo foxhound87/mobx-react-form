@@ -1,5 +1,7 @@
 # Events Hooks
 
+> Events Hooks are deprecated in version 1.29+
+
 Events Hooks can be used to catch an event when selecting a particular field or nested field.
 
 We can hook these events: `validate`, `update`, `clear`, `reset`.
