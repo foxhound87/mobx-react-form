@@ -1,3 +1,6 @@
+# 1.29
+* Event Hooks deprecated.
+
 # 1.28
 * Method `forEach()` renamed `each()`.
 * Refactored & semplified `map()`.
