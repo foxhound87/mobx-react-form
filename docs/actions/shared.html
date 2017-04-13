@@ -1,0 +1,1310 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Shared Actions (Form & Fields) · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="helpers.html" />
+    
+    
+    <link rel="prev" href="form.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Introduction</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../getting-started.html">
+            
+                <a href="../getting-started.html">
+            
+                    
+                    Getting Started
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../devtools.html">
+            
+                <a href="../devtools.html">
+            
+                    
+                    DevTools
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../faq.html">
+            
+                <a href="../faq.html">
+            
+                    
+                    FAQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../umd-setup.html">
+            
+                <a href="../umd-setup.html">
+            
+                    
+                    UMD Setup
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">API Reference</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../api-reference/form-properties.html">
+            
+                <a href="../api-reference/form-properties.html">
+            
+                    
+                    Form Properties
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../api-reference/form-methods.html">
+            
+                <a href="../api-reference/form-methods.html">
+            
+                    
+                    Form Methods
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../api-reference/fields-properties.html">
+            
+                <a href="../api-reference/fields-properties.html">
+            
+                    
+                    Fields Properties
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../api-reference/fields-methods.html">
+            
+                <a href="../api-reference/fields-methods.html">
+            
+                    
+                    Fields Methods
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Form</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../form/">
+            
+                <a href="../form/">
+            
+                    
+                    Form Instance
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../form/form-initialization.html">
+            
+                <a href="../form/form-initialization.html">
+            
+                    
+                    Form Initialization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../form/form-options.html">
+            
+                <a href="../form/form-options.html">
+            
+                    
+                    Form Options
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../form/extend/generic.html">
+            
+                <a href="../form/extend/generic.html">
+            
+                    
+                    Extend Form & Field
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../form/extend/custom.html">
+            
+                <a href="../form/extend/custom.html">
+            
+                    
+                    Extend custom Field
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Fields</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../defining-fields.html">
+            
+                <a href="../defining-fields.html">
+            
+                    
+                    Defining Fields
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" >
+            
+                <span>
+            
+                    
+                    Flat Fields
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1.1" data-path="../defining-flat-fields/unified-properties.html">
+            
+                <a href="../defining-flat-fields/unified-properties.html">
+            
+                    
+                    As Unified Properties
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.1.2" data-path="../defining-flat-fields/separated-properties.html">
+            
+                <a href="../defining-flat-fields/separated-properties.html">
+            
+                    
+                    As Separated Properties
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" >
+            
+                <span>
+            
+                    
+                    Nested Fields
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.2.1" data-path="../defining-nested-fields/unified-properties.html">
+            
+                <a href="../defining-nested-fields/unified-properties.html">
+            
+                    
+                    As Unified Properties
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2.2" data-path="../defining-nested-fields/separated-properties.html">
+            
+                <a href="../defining-nested-fields/separated-properties.html">
+            
+                    
+                    As Separated Properties
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Actions</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Actions
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="form.html">
+            
+                <a href="form.html">
+            
+                    
+                    Form Actions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="5.1.2" data-path="shared.html">
+            
+                <a href="shared.html">
+            
+                    
+                    Shared Actions (Form & Fields)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.3" data-path="helpers.html">
+            
+                <a href="helpers.html">
+            
+                    
+                    Helpers (Form & Fields)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Events & Handlers</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../events/">
+            
+                <a href="../events/">
+            
+                    
+                    Events & Handlers
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.1" data-path="../events/mobx-events.html">
+            
+                <a href="../events/mobx-events.html">
+            
+                    
+                    Observe or Intercept
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="../events/events-hooks.html">
+            
+                <a href="../events/events-hooks.html">
+            
+                    
+                    Events Hooks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3" data-path="../events/events-handlers.html">
+            
+                <a href="../events/events-handlers.html">
+            
+                    
+                    Events Handlers
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.4" >
+            
+                <span>
+            
+                    
+                    Validation Handlers
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.4.1" data-path="../events/validation-handlers/extending.html">
+            
+                <a href="../events/validation-handlers/extending.html">
+            
+                    
+                    Extending the Form Instance
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.4.2" data-path="../events/validation-handlers/constructor.html">
+            
+                <a href="../events/validation-handlers/constructor.html">
+            
+                    
+                    Using the Form Constructor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.4.3" data-path="../events/validation-handlers/override.html">
+            
+                <a href="../events/validation-handlers/override.html">
+            
+                    
+                    Override with Manual Submit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Bindings</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../bindings/">
+            
+                <a href="../bindings/">
+            
+                    
+                    Bindings
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1" data-path="../bindings/default.html">
+            
+                <a href="../bindings/default.html">
+            
+                    
+                    Default Bindings
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.2" data-path="../bindings/custom.html">
+            
+                <a href="../bindings/custom.html">
+            
+                    
+                    Custom Bindings
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Validation</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../validation/">
+            
+                <a href="../validation/">
+            
+                    
+                    Validation
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../validation/plugins.html">
+            
+                <a href="../validation/plugins.html">
+            
+                    
+                    Plugins & Modes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.2" data-path="../validation/supported-packages.html">
+            
+                <a href="../validation/supported-packages.html">
+            
+                    
+                    Supported Packages
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.3" >
+            
+                <span>
+            
+                    
+                    Validation Modes
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.3.1" data-path="../validation/modes/vjf-enable.html">
+            
+                <a href="../validation/modes/vjf-enable.html">
+            
+                    
+                    Enable VJF (Functions)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.3.2" data-path="../validation/modes/dvr-enable.html">
+            
+                <a href="../validation/modes/dvr-enable.html">
+            
+                    
+                    Enable DVR (Rules)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.3.3" data-path="../validation/modes/svk-enable.html">
+            
+                <a href="../validation/modes/svk-enable.html">
+            
+                    
+                    Enable SVK (Schema)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.4" >
+            
+                <span>
+            
+                    
+                    Extend Validation
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.4.1" data-path="../validation/modes/vjf-custom.html">
+            
+                <a href="../validation/modes/vjf-custom.html">
+            
+                    
+                    Custom VJF (Functions)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.4.2" data-path="../validation/modes/dvr-custom.html">
+            
+                <a href="../validation/modes/dvr-custom.html">
+            
+                    
+                    Custom DVR (Rules)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.4.3" data-path="../validation/modes/svk-custom.html">
+            
+                <a href="../validation/modes/svk-custom.html">
+            
+                    
+                    Custom SVK (Schema)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.5" >
+            
+                <span>
+            
+                    
+                    Async Validation
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.5.1" data-path="../validation/modes/vjf-async.html">
+            
+                <a href="../validation/modes/vjf-async.html">
+            
+                    
+                    Async VJF (Functions)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.5.2" data-path="../validation/modes/dvr-async.html">
+            
+                <a href="../validation/modes/dvr-async.html">
+            
+                    
+                    Async DVR (Rules)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.5.3" data-path="../validation/modes/svk-async.html">
+            
+                <a href="../validation/modes/svk-async.html">
+            
+                    
+                    Async SVK (Schema)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.6" >
+            
+                <span>
+            
+                    
+                    Custom Error Messages
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.6.1" data-path="../validation/modes/vjf-messages.md">
+            
+                <span>
+            
+                    
+                    VJF (Functions) Messages
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.6.2" data-path="../validation/modes/dvr-messages.md">
+            
+                <span>
+            
+                    
+                    DVR (Rules) Messages
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.6.3" data-path="../validation/modes/svk-messages.md">
+            
+                <span>
+            
+                    
+                    SVK (Schema) Messages
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Shared Actions (Form & Fields)</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="shared-actions">Shared Actions</h1>
+<p>The shared actions can be used on the form instance or every field and nested field.</p>
+<ul>
+<li><a href="#update-the-fields">Update the fields</a></li>
+<li><a href="#field-selector">Field Selector</a></li>
+<li><a href="#field-container">Field Container</a></li>
+<li><a href="#check-field-computed-values">Check Field Computed Values</a></li>
+<li><a href="#programmatically-focus-a-field">Programmatically Focus a Field</a></li>
+</ul>
+<ul>
+<li><a href="#get-fields-properties">Get Fields Properties</a></li>
+<li><a href="#set-fields-properties">Set Fields Properties</a></li>
+</ul>
+<ul>
+<li><a href="#has">has()</a></li>
+<li><a href="#map">map()</a></li>
+<li><a href="#each">each()</a></li>
+<li><a href="#add--del">add() &amp; del()</a></li>
+<li><a href="#clear--reset">clear() &amp; reset()</a></li>
+</ul>
+<ul>
+<li><a href="#manual-submit">Manual Submit</a></li>
+<li><a href="#validate-a-field">Validate a Field</a></li>
+<li><a href="#validation-errors">Validation Errors</a></li>
+<li><a href="#invalidate-the-form-or-a-single-field">Invalidate the Form or a single Field</a></li>
+</ul>
+<hr>
+<h3 id="update-the-fields">Update the fields</h3>
+<p>The <code>update()</code> method is intended to be used to recreate the fields tree (for example add/del fields array) and provide new values.</p>
+<p>If you need to change the properties of existent/selected fields, consider to use the <code>set()</code> method instead.</p>
+<blockquote>
+<p>This method only accept an <code>object</code> and will updated all fields <code>values</code>.</p>
+</blockquote>
+<p>Update values from the form instance:</p>
+<pre><code class="lang-javascript">form.update({
+  address: {
+    city: <span class="hljs-string">&apos;Los Angeles&apos;</span>
+  },
+});
+</code></pre>
+<p>or the same selecting a nested field:</p>
+<pre><code class="lang-javascript">form.$(<span class="hljs-string">&apos;address&apos;</span>).update({
+  city: <span class="hljs-string">&apos;Los Angeles&apos;</span>
+});
+</code></pre>
+<blockquote>
+<p>Array notation can be used as well.</p>
+</blockquote>
+<hr>
+<h3 id="field-selector">Field Selector</h3>
+<p>Select the field passing the path using the dot notation:</p>
+<pre><code class="lang-javascript">.select(<span class="hljs-string">&apos;address.city&apos;</span>);
+</code></pre>
+<p>or you can use the alias <code>$()</code> as shortcut:</p>
+<pre><code class="lang-javascript">.$(<span class="hljs-string">&apos;address.city&apos;</span>);
+</code></pre>
+<blockquote>
+<p>$(path) is like of select(path).</p>
+</blockquote>
+<p>or you can retrive items from arrays:</p>
+<pre><code class="lang-javascript">.$(<span class="hljs-string">&apos;members[3].firstname&apos;</span>);
+</code></pre>
+<p>or you can retrive items from arrays dynamically chaining the selector</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> n = <span class="hljs-number">3</span>;
+
+.$(<span class="hljs-string">&apos;members&apos;</span>).$(n).$(<span class="hljs-string">&apos;firstname&apos;</span>);
+</code></pre>
+<hr>
+<h3 id="field-container">Field Container</h3>
+<p>Select the parent field container.</p>
+<pre><code class="lang-javascript">.$(<span class="hljs-string">&apos;members[3].firstname&apos;</span>).container(); <span class="hljs-comment">// members[3]</span>
+.$(<span class="hljs-string">&apos;members[3]&apos;</span>).container(); <span class="hljs-comment">// members</span>
+.$(<span class="hljs-string">&apos;address.city&apos;</span>).container(); <span class="hljs-comment">// address</span>
+</code></pre>
+<hr>
+<h3 id="check-field-computed-values">Check Field Computed Values</h3>
+<p>These computed values are allowed:</p>
+<p><code>hasError</code>, <code>isValid</code>, <code>isDirty</code>, <code>isPristine</code>, <code>isDefault</code>, <code>isEmpty</code>, <code>focused</code>, <code>touched</code>, <code>changed</code>.</p>
+<pre><code class="lang-javascript">.check(<span class="hljs-string">&apos;isValid&apos;</span>);
+</code></pre>
+<p>Use the second argument (boolean) if you want to check for nested fields too.</p>
+<pre><code class="lang-javascript">.check(<span class="hljs-string">&apos;isValid&apos;</span>, <span class="hljs-literal">true</span>);
+</code></pre>
+<hr>
+<h3 id="programmatically-focus-a-field">Programmatically Focus a Field</h3>
+<p>This will set Field <code>autoFocus</code> prop to <code>true</code>.</p>
+<pre><code class="lang-javascript">field.focus();
+</code></pre>
+<blockquote>
+<p>Remember to bind <code>autoFocus</code> to you input component.</p>
+</blockquote>
+<hr>
+<h3 id="get-fields-properties">Get Fields Properties</h3>
+<blockquote>
+<p>Return an <code>object</code> with fields <code>key:val</code> pairs (with nested fields).</p>
+</blockquote>
+<p>This will get all fields prop (with nested fields as <code>fields</code> objects):</p>
+<pre><code class="lang-javascript">.get();
+</code></pre>
+<p>or filtering by a prop (with nested fields as collections):</p>
+<pre><code class="lang-javascript">.get(<span class="hljs-string">&apos;label&apos;</span>);
+</code></pre>
+<p>You can get these props: <code>value</code>, <code>label</code>, <code>placeholder</code>, <code>initial</code>, <code>default</code>, <code>disabled</code>, <code>related</code>, <code>bindings</code>, <code>type</code>, <code>error</code>.</p>
+<p>or these computed props: <code>hasError</code>, <code>isValid</code>, <code>isDirty</code>, <code>isPristine</code>, <code>isDefault</code>, <code>isEmpty</code>, <code>focused</code>, <code>touched</code>, <code>changed</code>, <code>disabled</code> and the validation props as well (<code>rules</code> and <code>validators</code>).</p>
+<p>If you want to get nested fields as <code>fields</code> objects instead of collections pass the prop as array:</p>
+<pre><code class="lang-javascript">.get([<span class="hljs-string">&apos;label&apos;</span>]);
+</code></pre>
+<p>or if you need to filter multiple props:</p>
+<pre><code class="lang-javascript">.get([<span class="hljs-string">&apos;value&apos;</span>, <span class="hljs-string">&apos;label&apos;</span>]);
+</code></pre>
+<hr>
+<h3 id="set-fields-properties">Set Fields Properties</h3>
+<p>The <code>set()</code> method is intended to be used to change the properties of existent/selected fields.</p>
+<blockquote>
+<p>It takes in input the prop name <code>string</code> and an <code>object</code> with fields <code>key:val</code> pairs.</p>
+</blockquote>
+<p>If you need to recreate the fields tree (for example add/del fields array) and provide new values, consider to use the <code>update()</code> method instead.</p>
+<p>You can pass these props: <code>value</code>, <code>label</code>, <code>placeholder</code>, <code>initial</code>, <code>default</code>, <code>disabled</code>, <code>related</code>, <code>bindings</code>, <code>type</code>, <code>error</code> and the validation props as well (<code>rules</code> and <code>validators</code>).</p>
+<pre><code class="lang-javascript">.set(<span class="hljs-string">&apos;value&apos;</span>, {
+  username: <span class="hljs-string">&apos;NewUsername&apos;</span>,
+  password: <span class="hljs-string">&apos;NewPassword&apos;</span>,
+});
+</code></pre>
+<p>The object can be structured to set props of nested fields as well:</p>
+<pre><code class="lang-javascript">.set(<span class="hljs-string">&apos;label&apos;</span>, {
+  address: {
+    city: <span class="hljs-string">&apos;Cool City&apos;</span>
+  },
+});
+</code></pre>
+<hr>
+<h3 id="has">has()</h3>
+<p>Provide a field key to check if exists:</p>
+<pre><code class="lang-javascript">.has(<span class="hljs-string">&apos;members&apos;</span>);
+</code></pre>
+<blockquote>
+<p>Returns <code>boolean</code></p>
+</blockquote>
+<hr>
+<h3 id="map">map()</h3>
+<pre><code class="lang-javascript">$(<span class="hljs-string">&apos;hobbies&apos;</span>).map((fields) =&gt; {
+  ... <span class="hljs-comment">// access nested fields</span>
+});
+</code></pre>
+<hr>
+<h3 id="each">each()</h3>
+<p>Iterate each field and nested fields recursively.</p>
+<p>The callback get each field in input.</p>
+<pre><code class="lang-javascript">.each(field =&gt; {
+  <span class="hljs-comment">// do some stuff with the field</span>
+});
+</code></pre>
+<hr>
+<h3 id="add--del">add() &amp; del()</h3>
+<p>You can add or remove normal Fields &amp; Nested Fields or Array of Fields as well.</p>
+<p>Add fields or nested fields:</p>
+<pre><code class="lang-javascript">form.$(<span class="hljs-string">&apos;hobbies&apos;</span>).add();
+</code></pre>
+<blockquote>
+<p>If you have specified an <strong>Array of Fields</strong> (<code>[]</code>) into the field <strong>struct</strong> you can call add() without input arguments to create a new empty field with its incremental array index as <code>key/name</code>.</p>
+</blockquote>
+<p>provide the initial value to the new added field:</p>
+<pre><code class="lang-javascript">form.$(<span class="hljs-string">&apos;hobbies&apos;</span>).add(<span class="hljs-string">&apos;soccer&apos;</span>);
+</code></pre>
+<blockquote>
+<p>If the field contains other nested fields, the value can be an object. It will work as <code>update()</code>.</p>
+</blockquote>
+<p>provide a custom key as field index:</p>
+<pre><code class="lang-javascript">form.$(<span class="hljs-string">&apos;hobbies&apos;</span>).add(fieldValue, { key: <span class="hljs-string">&apos;customKey&apos;</span> });
+</code></pre>
+<blockquote>
+<p>Pass a custom key to create a new <strong>Named Field</strong>.</p>
+</blockquote>
+<p>Delete a field:</p>
+<pre><code class="lang-javascript">form.del(<span class="hljs-string">&apos;hobbies[1]&apos;</span>);
+
+form.$(<span class="hljs-string">&apos;hobbies&apos;</span>).del(<span class="hljs-number">1</span>); <span class="hljs-comment">// same as previous</span>
+</code></pre>
+<p>or deep nested fields:</p>
+<pre><code class="lang-javascript">form.$(<span class="hljs-string">&apos;member&apos;</span>).del(<span class="hljs-string">&apos;hobbies[3]&apos;</span>);
+
+form.$(<span class="hljs-string">&apos;member.hobbies&apos;</span>).del(<span class="hljs-number">3</span>); <span class="hljs-comment">// same as previous</span>
+</code></pre>
+<blockquote>
+<p>These are not an Event Handlers.
+If you need the <code>onAdd(e)</code> or <code>onDel(e)</code> read the <a href="../events/events-handlers.html">Event Handlers</a> section.</p>
+</blockquote>
+<p>You can use it, for example, if you want to reimplement the <code>onAdd(e)</code> or <code>onDel(e)</code> Event Handlers.</p>
+<hr>
+<h3 id="clear--reset">clear() &amp; reset()</h3>
+<p>Clear or Reset the whole Form, a single Field, or Nested Fields recursively.</p>
+<pre><code class="lang-javascript">.clear(); <span class="hljs-comment">// to empty values</span>
+</code></pre>
+<pre><code class="lang-javascript">.reset(); <span class="hljs-comment">// to default values</span>
+</code></pre>
+<blockquote>
+<p>These are not an Event Handlers.
+If you need the <code>onClear(e)</code> or <code>onReset(e)</code> read the <a href="../events/events-handlers.html">Event Handlers</a> section.</p>
+</blockquote>
+<hr>
+<h3 id="manual-submit">Manual Submit</h3>
+<p>The Submission can be done on <strong>Forms</strong> or eventually <strong>Fields</strong> to enable <strong>Sub-Form Submission</strong>.</p>
+<p>Perform fields validation. After successful validation triggers <code>onSuccess</code> event or <code>onError</code> event in case of validation error.</p>
+<pre><code class="lang-javascript">instance.submit();
+</code></pre>
+<p>Provide an object with <code>onSuccess(fieldset)</code> and <code>onError(fieldset)</code> functions if need to override those implemented in the class.</p>
+<pre><code class="lang-javascript">instance.submit({
+  onSuccess: (fieldset) =&gt; {},
+  onError: (fieldset) =&gt; {},
+});
+</code></pre>
+<blockquote>
+<p>This is not an Event Handler.
+If you need the <code>onSubmit(e)</code> read the <a href="../events/events-handlers.html#onsubmite">Event Handlers</a> section.</p>
+</blockquote>
+<p>You can use it, for example, if you want to reimplement the <code>onSubmit(e)</code> Event Handler.</p>
+<hr>
+<h3 id="validate-a-field">Validate a Field</h3>
+<p>The <code>validate()</code> action returns a <code>promise</code>.</p>
+<p>The callback takes the <strong>Field Instance</strong> with its <code>isValid</code> prop, which is the validation state of the <strong>Field</strong>.</p>
+<pre><code class="lang-javascript">$(<span class="hljs-string">&apos;password&apos;</span>).validate()
+  .then(({ isValid }) =&gt; {
+    ... <span class="hljs-comment">// Use `isValid` to check the validation status</span>
+  });
+</code></pre>
+<blockquote>
+<p>The validation promise resolves the validated instance (Form or Field).</p>
+<p>This is an alternative syntax to <a href="https://foxhound87.github.io/mobx-react-form/docs/actions/form.html#validate-single-field" target="_blank">Form Actions - Validate Single Field</a>.</p>
+</blockquote>
+<h3 id="validation-errors">Validation Errors</h3>
+<p>The <code>validate()</code> method will not show errors by default.</p>
+<p>If you need to show errors after a validation you do:</p>
+<pre><code class="lang-javascript">$(<span class="hljs-string">&apos;password&apos;</span>).validate({ showErrors: <span class="hljs-literal">true</span> });
+</code></pre>
+<hr>
+<h3 id="invalidate-the-form-or-a-single-field">Invalidate the Form or a single Field</h3>
+<p>The <code>invalidate(msg)</code> method can be used on both forms or fields.</p>
+<blockquote>
+<p>Pass an optional <code>string</code> in input and a custom error message will be shown for the <code>error</code> property.</p>
+</blockquote>
+<p>To invalidate the whole form:</p>
+<pre><code class="lang-javascript">form.invalidate(<span class="hljs-string">&apos;This is a generic error message!&apos;</span>);
+</code></pre>
+<p>To invalidate a single field:</p>
+<pre><code class="lang-javascript">form.$(<span class="hljs-string">&apos;password&apos;</span>).invalidate(<span class="hljs-string">&apos;The password is wrong!&apos;</span>);
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="form.html" class="navigation navigation-prev " aria-label="Previous page: Form Actions">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="helpers.html" class="navigation navigation-next " aria-label="Next page: Helpers (Form & Fields)">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Shared Actions (Form & Fields)","level":"5.1.2","depth":2,"next":{"title":"Helpers (Form & Fields)","level":"5.1.3","depth":2,"path":"docs/actions/helpers.md","ref":"docs/actions/helpers.md","articles":[]},"previous":{"title":"Form Actions","level":"5.1.1","depth":2,"path":"docs/actions/form.md","ref":"docs/actions/form.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["github"],"pluginsConfig":{"github":{"url":"https://github.com/foxhound87/mobx-react-form/"},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/actions/shared.md","mtime":"2017-04-13T23:33:45.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-04-13T23:34:22.366Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
