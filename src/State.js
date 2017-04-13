@@ -54,6 +54,7 @@ export default class State {
       ...utils.props.separated,
       ...utils.props.validation,
       ...utils.props.function,
+      ...utils.props.hooks,
     ]);
 
     this.set('initial', 'props', initialProps);

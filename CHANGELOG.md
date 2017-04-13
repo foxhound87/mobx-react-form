@@ -1,3 +1,10 @@
+# 1.30
+* New `onClear` & `onReset` Form & Fields Hooks.
+* Introduced `retrieveAlsoDisabledFields` option.
+* `observe` / `intercept` now supports Form props.
+* `changed` & `touched` are now **false** after `clear` / `reset`.
+* Fixed **unified** mode `initial` prop handling.
+
 # 1.29
 * Event Hooks deprecated.
 

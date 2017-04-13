@@ -9,17 +9,15 @@ import Field from './Field';
 export default class Form extends Base {
 
   name;
-
   state;
-
   validator;
 
   $onSubmit;
+  $onClear;
+  $onReset;
 
   @observable $submitting = false;
-
   @observable $validating = false;
-
   @observable fields = observable.map ? observable.map({}) : asMap({});
 
   constructor(setup = {}, {
@@ -29,12 +27,16 @@ export default class Form extends Base {
     plugins = {},
     bindings = {},
     onSubmit = {},
+    onClear = () => {},
+    onReset = () => {},
 
   } = {}) {
     super();
 
     this.name = name;
     this.$onSubmit = onSubmit;
+    this.$onClear = onClear;
+    this.$onReset = onReset;
 
     // load data from initializers methods
     const initial = _.each({ setup, options, plugins, bindings },
@@ -171,14 +173,20 @@ export const prototypes = {
     Clear Form Fields
   */
   @action clear() {
-    this.each(field => field.clear());
+    this.$touched = false;
+    this.$changed = false;
+    this.each(field => field.clear(true, false));
+    this.$onClear.apply(this, [this]);
   },
 
   /**
     Reset Form Fields
   */
   @action reset() {
-    this.each(field => field.reset());
+    this.$touched = false;
+    this.$changed = false;
+    this.each(field => field.reset(true, false));
+    this.$onReset.apply(this, [this]);
   },
 
 };

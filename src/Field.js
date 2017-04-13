@@ -31,11 +31,14 @@ export default class Field extends Base {
   $options;
   $observers;
   $interceptors;
-  $onSubmit;
 
+  $onSubmit;
+  $onClear;
+  $onReset;
+
+  noop = () => {};
   $parser = $ => $;
   $formatter = $ => $;
-
 
   @observable $value = undefined;
   @observable $label = undefined;
@@ -316,6 +319,8 @@ export const prototypes = {
       $observers,
       $interceptors,
       $onSubmit,
+      $onClear,
+      $onReset,
     } = $props;
 
     // eslint-disable-next-line
@@ -339,10 +344,14 @@ export const prototypes = {
         observers,
         interceptors,
         onSubmit,
+        onClear,
+        onReset,
       } = $data;
 
       this.$type = $type || type || 'text';
       this.$onSubmit = $onSubmit || onSubmit || null;
+      this.$onClear = $onClear || onClear || this.noop;
+      this.$onReset = $onReset || onReset || this.noop;
 
       this.$parser = $try($parse, parse, this.$parser);
       this.$formatter = $try($format, format, this.$formatter);
@@ -351,7 +360,8 @@ export const prototypes = {
         isEmptyArray,
         type: this.type,
         unified: checkArray(value),
-        separated: $initial,
+        separated: checkArray($initial),
+        initial: checkArray($data.initial),
       });
 
       this.$default = parseFieldValue(this.$parser, {
@@ -359,7 +369,7 @@ export const prototypes = {
         type: this.type,
         unified: update ? '' : checkArray($data.default),
         separated: checkArray($default),
-        initial: this.$initial,
+        initial: checkArray(this.$initial),
       });
 
       this.name = _.toString(name || $key);
@@ -381,6 +391,8 @@ export const prototypes = {
     this.name = _.toString($key);
     this.$type = $type || 'text';
     this.$onSubmit = $onSubmit || null;
+    this.$onClear = $onClear || this.noop;
+    this.$onReset = $onReset || this.noop;
 
     this.$parser = $try($parse, this.$parser);
     this.$formatter = $try($format, this.$formatter);
@@ -484,19 +496,41 @@ export const prototypes = {
   },
 
   @action
-  clear(deep = true) {
+  clear(deep = true, call = true) {
+    this.$touched = false;
+    this.$changed = false;
+
     this.$value = defaultClearValue({ value: this.$value });
+
     this.showErrors(this.state.options.get('showErrorsOnClear'));
-    if (deep) this.each(field => field.clear(true));
+    if (deep) this.each(field => field.clear(true, false));
+
+    if (call) {
+      this.$onClear.apply(this, [{
+        form: this.state.form,
+        field: this,
+      }]);
+    }
   },
 
   @action
-  reset(deep = true) {
+  reset(deep = true, call = true) {
+    this.$touched = false;
+    this.$changed = false;
+
     const useDefaultValue = (this.$default !== this.$initial);
     if (useDefaultValue) this.value = this.$default;
     if (!useDefaultValue) this.value = this.$initial;
+
     this.showErrors(this.state.options.get('showErrorsOnReset'));
-    if (deep) this.each(field => field.reset(true));
+    if (deep) this.each(field => field.reset(true, false));
+
+    if (call) {
+      this.$onReset.apply(this, [{
+        form: this.state.form,
+        field: this,
+      }]);
+    }
   },
 
   @action

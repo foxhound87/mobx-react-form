@@ -17,6 +17,7 @@ export default class Options {
     strictUpdate: false,
     strictDelete: true,
     retrieveOnlyDirtyValues: false,
+    retrieveAlsoDisabledFields: true,
     autoParseNumbers: false,
     allowRequired: false,
     validationDebounceWait: 250,

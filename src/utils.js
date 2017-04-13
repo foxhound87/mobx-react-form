@@ -4,7 +4,8 @@ const props = {
   booleans: ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focused', 'touched', 'changed', 'disabled'],
   field: ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'bindings', 'type', 'error'],
   separated: ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'bindings', 'types'],
-  function: ['onSubmit', 'observers', 'interceptors', 'parse', 'format'],
+  function: ['observers', 'interceptors', 'parse', 'format'],
+  hooks: ['onSubmit', 'onReset', 'onClear'],
   validation: ['rules', 'validators'],
   types: {
     isDirty: 'some',

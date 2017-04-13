@@ -24,9 +24,9 @@ export default {
   @action
   initField(key, path, data, update = false) {
     const initial = this.state.get('current', 'props');
-
+    const struct = utils.pathToStruct(path);
     // try to get props from separated objects
-    const $try = prop => _.get(initial[prop], utils.pathToStruct(path));
+    const $try = prop => _.get(initial[prop], struct);
 
     const props = {
       $value: $try('values'),
@@ -44,6 +44,8 @@ export default {
       $observers: $try('observers'),
       $interceptors: $try('interceptors'),
       $onSubmit: $try('onSubmit'),
+      $onReset: $try('onReset'),
+      $onClear: $try('onClear'),
       $parse: $try('parse'),
       $format: $try('format'),
     };

@@ -162,9 +162,9 @@ export default {
       });
 
       if (_.isString(prop)) {
-        const removeValue = (prop === 'value')
-          && this.state.options.get('retrieveOnlyDirtyValues')
-          && field.isPristine;
+        const removeValue = (prop === 'value') &&
+          ((this.state.options.get('retrieveOnlyDirtyValues') && field.isPristine) ||
+          (!this.state.options.get('retrieveAlsoDisabledFields') && field.disabled));
 
         if (field.fields.size === 0) {
           delete obj[field.key]; // eslint-disable-line

@@ -12,13 +12,13 @@ export default {
    MobX Event (observe/intercept)
    */
   MOBXEvent({ path = null, key = 'value', call, type }) {
-    const $field = this.path ? this : this.select(path);
+    const $instance = this.select(path || this.path, null, null) || this;
 
     const $call = change => call.apply(null, [{
       change,
       form: this.state.form,
-      path: $field.path,
-      field: $field,
+      path: $instance.path || null,
+      field: $instance.path ? $instance : null,
     }]);
 
     let fn;
@@ -26,20 +26,24 @@ export default {
 
     if (type === 'observer') {
       fn = observe;
-      ffn = $field.fields.observe;
+      ffn = $instance.fields.observe;
     }
 
     if (type === 'interceptor') {
       // eslint-disable-next-line
       key = `$${key}`;
       fn = intercept;
-      ffn = $field.fields.intercept;
+      ffn = $instance.fields.intercept;
     }
 
+    const $dkey = $instance.path
+      ? `${key}@${$instance.path}`
+      : key;
+
     _.merge(this.state.disposers[type], {
-      [`${key}@${$field.path}`]: (key === 'fields')
+      [$dkey]: (key === 'fields')
         ? ffn.apply(change => $call(change))
-        : fn($field, key, change => $call(change)),
+        : fn($instance, key, change => $call(change)),
     });
   },
 
