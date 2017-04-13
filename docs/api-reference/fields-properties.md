@@ -7,7 +7,6 @@
 | **bindings** | string | computed | The key of the registered bindings to use for the current field. | [help](../bindings/README.md) |
 | **observers** | object | - | The mobx observers to listen on Fields Props or Fields Map changes. | [help](../events/mobx-events.html#using-observers--interceptors-objects) |
 | **interceptors** | object | - | The mobx interceptors to listen on Fields Props or Fields Map changes. | [help](../events/mobx-events.html#using-observers--interceptors-objects) |
-| **onSubmit** | object | - | An object with onSuccess(form) & onError(form) callbacks for each fields key to enable Sub-Form Submissions. | - |
 | **size** | int | computed | Number of contained Fields. | - |
 | **path** | string | - | Field path (for nested fields). | - |
 | **key** | string | - | Field key (same of `name` if not provided) | - |
