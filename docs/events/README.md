@@ -19,7 +19,7 @@
 
 ### [Observe or Intercept Fields Props](mobx-events.md)
   * [Using `observe()` / `inercept()` Methods](mobx-events.md#using-observe--intercept-methods)
-  * [Using `observers` / `interceptors` Objects](mobx-events.md#using-observers--interceptors-objects)
+  * [Using `observers` / `interceptors` Props](mobx-events.md#using-observers--interceptors-props)
   * [Disposers](mobx-events.md#disposers)
   * [Events Hooks](events-hooks.md)
 

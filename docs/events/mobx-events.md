@@ -1,7 +1,7 @@
 # Observe or Intercept Fields Props
 
 * [Using `observe()` / `intercept()` Methods](#using-observe--intercept-methods)
-* [Using `observers` / `interceptors` Objects](#using-observers--interceptors-objects)
+* [Using `observers` / `interceptors` Props](#using-observers--interceptors-props)
 * [Disposers](#disposers)
 
 ---
@@ -67,13 +67,13 @@ form.$('password')
 
 > The **intercept** function must return a new mobx `change` event object.
 
-## Using `observers` / `interceptors` Objects
+## Using `observers` / `interceptors` Props
 
 Here we are defining observers or interceptors to be passed in the [First Argument of the Form Constructor](../form/form-initialization.md#first-constructor-argument).
 
 This method is useful if you need to handle nested fields. The observers/interceptors will be automatically loaded when add/del fields dynamically.
 
-Define an `observers` / `interceptors` object like this:
+Define an `observers` / `interceptors` **object** like this:
 
 ```javascript
 const observers = {

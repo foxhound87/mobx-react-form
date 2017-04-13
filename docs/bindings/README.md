@@ -15,6 +15,7 @@ With **Bindings** you can easly pass the fields properties to the input componen
 ### [Custom Bindings](custom.md)
   * [Implement a Rewriter](custom.md#implement-a-rewriter)
   * [Implement a Template](custom.md#implement-a-template)
+  * [Tips](tips.md)
 
 ---
 

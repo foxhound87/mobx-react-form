@@ -85,7 +85,7 @@ const labels = {
 };
 ```
 
-### Set `bindings` for Nested Fields
+### Define `bindings` prop for Nested Fields
 
 You can define the **bindings** name of a pre-defined `rewriter` or `template`.
 
@@ -103,4 +103,4 @@ const bindings = {
 new Form({ bindings, ... });
 ```
 
-[Read more about bidings here.](https://foxhound87.github.io/mobx-react-form/docs/bindings/)
+[Read how to create new bidings here.](https://foxhound87.github.io/mobx-react-form/docs/bindings/)

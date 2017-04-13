@@ -4,6 +4,7 @@ Here we can see how to register custom bindings for a **Material-UI TextField**
 
 * [Implement a Rewriter](#implement-a-rewriter)
 * [Implement a Template](#implement-a-template)
+* [Tips](tips.md)
 
 ---
 

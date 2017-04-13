@@ -169,9 +169,9 @@ or if you need to filter multiple props:
 
 The `set()` method is intended to be used to change the properties of existent/selected fields.
 
-If you need to recreate the fields tree (for example add/del fields array) and provide new values, consider to use the `update()` method instead.
+> It takes in input the prop name `string` and an `object` with fields `key:val` pairs.
 
-> Takes in input the prop name `string` and an `object` with fields `key:val` pairs.
+If you need to recreate the fields tree (for example add/del fields array) and provide new values, consider to use the `update()` method instead.
 
 You can pass these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error` and the validation props as well (`rules` and `validators`).
 
@@ -293,6 +293,9 @@ Clear or Reset the whole Form, a single Field, or Nested Fields recursively.
 .reset(); // to default values
 ```
 
+> These are not an Event Handlers.
+> If you need the `onClear(e)` or `onReset(e)` read the [Event Handlers](../events/events-handlers.md) section.
+
 ---
 
 ### Manual Submit
@@ -368,6 +371,3 @@ To invalidate a single field:
 ```javascript
 form.$('password').invalidate('The password is wrong!');
 ```
-
-> These are not an Event Handlers.
-> If you need the `onClear(e)` or `onReset(e)` read the [Event Handlers](../events/events-handlers.md) section.
