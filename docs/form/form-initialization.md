@@ -42,8 +42,8 @@ Provide an object which expects the following properties:
 | Property | Description | Help |
 |---|---|---|
 | **onSubmit**  | An object with `onSuccess(form)` & `onError(form)` callbacks for each fields key to enable **Sub-Form Submissions**. | - |
-| **onClear**  | A function to call on Field `clear` | - |
-| **onReset**  | A function to call on Field `reset` | - |
+| **onClear**  | An object with a function for each fields key to call on Field `clear` | - |
+| **onReset**  | An object with a function for each fields key to call on Field `reset` | - |
 
 
 ###### Validation Properties
