@@ -2,10 +2,10 @@ import _ from 'lodash';
 
 const props = {
   booleans: ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focused', 'touched', 'changed', 'disabled'],
-  field: ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'bindings', 'type', 'error'],
-  separated: ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'bindings', 'types'],
+  field: ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'extra', 'bindings', 'type', 'error'],
+  separated: ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'extra', 'bindings', 'types'],
   function: ['observers', 'interceptors', 'parse', 'format'],
-  hooks: ['onSubmit', 'onReset', 'onClear'],
+  hooks: ['onDrop', 'onSubmit', 'onReset', 'onClear'],
   validation: ['rules', 'validators'],
   types: {
     isDirty: 'some',
@@ -74,14 +74,6 @@ const throwError = (path, fields, msg = null) => {
   throw new Error(`${$msg} (${path})`);
 };
 
-const isPromise = obj => (!!obj && typeof obj.then === 'function'
-  && (typeof obj === 'object' || typeof obj === 'function'));
-
-const isEvent = (obj) => {
-  if (_.isNil(obj) || typeof Event === 'undefined') return false;
-  return (obj instanceof Event || !_.isNil(obj.target)); // eslint-disable-line
-};
-
 const pathToStruct = (path) => {
   let struct;
   struct = _.replace(path, new RegExp('[.]\\d($|.)', 'g'), '[].');
@@ -92,6 +84,9 @@ const pathToStruct = (path) => {
 
 const hasSome = (obj, keys) =>
   _.some(keys, _.partial(_.has, obj));
+
+const isPromise = obj => (!!obj && typeof obj.then === 'function'
+  && (typeof obj === 'object' || typeof obj === 'function'));
 
 const isStruct = ({ fields }) => (
   _.isArray(fields) &&
@@ -135,6 +130,18 @@ const maxKey = (fields) => {
 const makeId = path =>
   _.uniqueId([_.replace(path, new RegExp('\\.', 'g'), '-'), '--'].join(''));
 
+const $isEvent = (obj) => {
+  if (_.isNil(obj) || typeof Event === 'undefined') return false;
+  return (obj instanceof Event || !_.isNil(obj.target)); // eslint-disable-line
+};
+
+const $hasFiles = $ =>
+  ($.target.files && $.target.files.length !== 0);
+
+const $isBool = ($, val) =>
+  _.isBoolean(val) &&
+  _.isBoolean($.target.checked);
+
 const $try = (...args) => {
   let found = null;
 
@@ -153,7 +160,6 @@ export default {
   allowedProps,
   throwError,
   isPromise,
-  isEvent,
   isStruct,
   isEmptyArray,
   pathToStruct,
@@ -164,5 +170,8 @@ export default {
   hasIntKeys,
   maxKey,
   makeId,
+  $isEvent,
+  $hasFiles,
+  $isBool,
   $try,
 };

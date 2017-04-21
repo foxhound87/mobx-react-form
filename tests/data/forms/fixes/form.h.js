@@ -43,7 +43,7 @@ class NewForm extends Form {
 
     this.$('items').$(0).$('name').set('validators', [shouldBeEqualTo('items[0].alternateName')]);
     this.$('items').$(0).$('name').set('related', ['items[0].alternateName']);
-    this.$('items').$(0).$('name').set('options', ['a', 'b', 'c']);
+    this.$('items').$(0).$('name').set('extra', ['a', 'b', 'c']);
   }
 }
 

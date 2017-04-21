@@ -4,7 +4,7 @@ const fields = [
   'places[]',
 ];
 
-const options = {
+const extra = {
   places: ['a', 'b', 'c'],
 };
 
@@ -22,4 +22,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, values, options }, { name: 'Fixes-E' });
+export default new NewForm({ fields, values, extra }, { name: 'Fixes-E' });

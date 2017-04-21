@@ -42,7 +42,7 @@ export default class DVR {
     _.extend(this.validator, {
       registerAsyncRule: (key, callback) => this.registerAsyncRule(key, callback),
     });
-    // extend ajv using "extend" callback
+    // extend using "extend" callback
     if (_.isFunction(this.extend)) this.extend(this.validator);
   }
 

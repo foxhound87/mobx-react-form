@@ -1,4 +1,5 @@
 import { observable, action, toJS, extendObservable } from 'mobx';
+import _ from 'lodash';
 
 export default class Options {
 
@@ -9,7 +10,7 @@ export default class Options {
     showErrorsOnInit: false,
     showErrorsOnSubmit: true,
     showErrorsOnBlur: true,
-    showErrorsOnUpdate: false,
+    showErrorsOnChange: false,
     showErrorsOnClear: false,
     showErrorsOnReset: true,
     validateOnInit: true,
@@ -17,14 +18,22 @@ export default class Options {
     strictUpdate: false,
     strictDelete: true,
     retrieveOnlyDirtyValues: false,
-    retrieveAlsoDisabledFields: true,
+    retrieveOnlyEnabledFields: false,
     autoParseNumbers: false,
     allowRequired: false,
     validationDebounceWait: 250,
     validationDebounceOptions: { leading: true },
   };
 
-  get(key = null) {
+  get(key = null, field = null) {
+    // handle field option
+    if (_.has(field, 'path')) {
+      if (_.has(field.$options, key)) {
+        return field.$options[key];
+      }
+    }
+
+    // fallback on global form options
     if (key) return this.options[key];
     return toJS(this.options);
   }

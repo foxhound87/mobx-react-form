@@ -22,7 +22,7 @@
     "watch:test": "npm run test -- -w",
     "test": "TEST=true mocha tests --compilers js:babel-register",
     "cover": "nyc npm test",
-    "coverage:check": "nyc check-coverage --satements 90 --branches 75 --functions 95 --lines 95",
+    "coverage:check": "nyc check-coverage --satements 95 --branches 80 --functions 95 --lines 95",
     "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "release": "semantic-release pre && npm publish && semantic-release post"
   },
@@ -42,7 +42,7 @@
     "ajv"
   ],
   "files": [
-    "es6",
+    "src",
     "lib",
     "umd"
   ],

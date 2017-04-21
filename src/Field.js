@@ -4,6 +4,9 @@ import Base from './Base';
 
 import {
   $try,
+  $hasFiles,
+  $isBool,
+  $isEvent,
   makeId } from './utils';
 
 import {
@@ -25,13 +28,10 @@ export default class Field extends Base {
   type;
   state;
 
-  $rules;
-  $validators;
-  $related;
-  $options;
   $observers;
   $interceptors;
 
+  $onDrop;
   $onSubmit;
   $onClear;
   $onReset;
@@ -40,13 +40,19 @@ export default class Field extends Base {
   $parser = $ => $;
   $formatter = $ => $;
 
-  @observable $value = undefined;
-  @observable $label = undefined;
-  @observable $placeholder = undefined;
-  @observable $default = undefined;
-  @observable $initial = undefined;
-  @observable $bindings = undefined;
-  @observable $type = undefined;
+  @observable $options;
+  @observable $type;
+  @observable $value;
+  @observable $label;
+  @observable $placeholder;
+  @observable $default;
+  @observable $initial;
+  @observable $bindings;
+  @observable $extra;
+  @observable $related;
+
+  @observable $rules;
+  @observable $validators;
 
   @observable $disabled = false;
   @observable $focused = false;
@@ -66,6 +72,8 @@ export default class Field extends Base {
   @observable validationFunctionsData = [];
   @observable validationAsyncData = {};
 
+  @observable files;
+
   constructor({ key, path, data = {}, props = {}, update = false, state }) {
     super();
 
@@ -79,8 +87,8 @@ export default class Field extends Base {
 
     this.debouncedValidation = _.debounce(
       this.validate,
-      this.state.options.get('validationDebounceWait'),
-      this.state.options.get('validationDebounceOptions'),
+      this.state.options.get('validationDebounceWait', this),
+      this.state.options.get('validationDebounceOptions', this),
     );
 
     this.observeValidation();
@@ -108,7 +116,7 @@ export default class Field extends Base {
   set value(newVal) {
     if (this.$value === newVal) return;
     // handle numbers
-    if (this.state.options.get('autoParseNumbers') === true) {
+    if (this.state.options.get('autoParseNumbers', this) === true) {
       if (_.isNumber(this.$initial)) {
         if (!_.endsWith(newVal, '.') && !_.endsWith(_.split(newVal, '.', 2)[1], '0')) {
           const numericVal = _.toNumber(newVal);
@@ -140,11 +148,11 @@ export default class Field extends Base {
   }
 
   @computed get submitting() {
-    return this.$submitting;
+    return toJS(this.$submitting);
   }
 
   @computed get validating() {
-    return this.$validating;
+    return toJS(this.$validating);
   }
 
   @computed get label() {
@@ -152,35 +160,39 @@ export default class Field extends Base {
   }
 
   @computed get placeholder() {
-    return this.$placeholder;
+    return toJS(this.$placeholder);
+  }
+
+  @computed get extra() {
+    return toJS(this.$extra);
   }
 
   @computed get options() {
-    return this.$options;
+    return toJS(this.$options);
   }
 
   @computed get bindings() {
-    return this.$bindings;
+    return toJS(this.$bindings);
   }
 
   @computed get type() {
-    return this.$type;
+    return toJS(this.$type);
   }
 
   @computed get related() {
-    return this.$related;
+    return toJS(this.$related);
   }
 
   @computed get disabled() {
-    return this.$disabled;
+    return toJS(this.$disabled);
   }
 
   @computed get rules() {
-    return this.$rules;
+    return toJS(this.$rules);
   }
 
   @computed get validators() {
-    return this.$validators;
+    return toJS(this.$validators);
   }
 
   @computed get error() {
@@ -248,11 +260,7 @@ export default class Field extends Base {
   sync = action((e, v = null) => {
     this.$changed = true;
 
-    const $isBool = $ =>
-      _.isBoolean(this.$value) &&
-      _.isBoolean($.target.checked);
-
-    const $get = $ => $isBool($)
+    const $get = $ => $isBool($, this.value)
         ? $.target.checked
         : $.target.value;
 
@@ -276,6 +284,18 @@ export default class Field extends Base {
 
   onChange = this.sync;
   onToggle = this.sync;
+
+  onDrop = action((...all) => {
+    const e = all[0];
+    let files = null;
+
+    if ($isEvent(e) && $hasFiles(e)) {
+      files = _.map(e.target.files);
+    }
+
+    this.files = files || all;
+    this.$onDrop.apply(this, [this]);
+  });
 
   onBlur = action(() => {
     this.$focused = false;
@@ -302,6 +322,8 @@ export const prototypes = {
     const checkArray = val => isEmptyArray ? [] : val;
 
     const {
+      $options,
+      $extra,
       $value,
       $label,
       $placeholder,
@@ -310,7 +332,6 @@ export const prototypes = {
       $disabled,
       $bindings,
       $type,
-      $options,
       $related,
       $validators,
       $rules,
@@ -318,6 +339,7 @@ export const prototypes = {
       $format,
       $observers,
       $interceptors,
+      $onDrop,
       $onSubmit,
       $onClear,
       $onReset,
@@ -328,6 +350,8 @@ export const prototypes = {
 
     if (_.isPlainObject($data)) {
       const {
+        options,
+        extra,
         value,
         name,
         label,
@@ -335,7 +359,6 @@ export const prototypes = {
         disabled,
         bindings,
         type,
-        options,
         related,
         validators,
         rules,
@@ -343,12 +366,14 @@ export const prototypes = {
         format,
         observers,
         interceptors,
+        onDrop,
         onSubmit,
         onClear,
         onReset,
       } = $data;
 
       this.$type = $type || type || 'text';
+      this.$onDrop = $onDrop || onDrop || null;
       this.$onSubmit = $onSubmit || onSubmit || null;
       this.$onClear = $onClear || onClear || this.noop;
       this.$onReset = $onReset || onReset || this.noop;
@@ -378,18 +403,20 @@ export const prototypes = {
       this.$placeholder = $placeholder || placeholder || '';
       this.$disabled = $disabled || disabled || false;
       this.$bindings = $bindings || bindings || 'default';
-      this.$options = $options || options || null;
       this.$related = $related || related || [];
       this.$validators = toJS($validators || validators || null);
       this.$rules = $rules || rules || null;
       this.$observers = $observers || observers || null;
       this.$interceptors = $interceptors || interceptors || null;
+      this.$extra = $extra || extra || null;
+      this.$options = $options || options || {};
       return;
     }
 
     /* The field IS the value here */
     this.name = _.toString($key);
     this.$type = $type || 'text';
+    this.$onDrop = $onDrop || null;
     this.$onSubmit = $onSubmit || null;
     this.$onClear = $onClear || this.noop;
     this.$onReset = $onReset || this.noop;
@@ -417,12 +444,13 @@ export const prototypes = {
     this.$placeholder = $placeholder || '';
     this.$disabled = $disabled || false;
     this.$bindings = $bindings || 'default';
-    this.$options = $options || null;
     this.$related = $related || [];
     this.$validators = toJS($validators || null);
     this.$rules = $rules || null;
     this.$observers = $observers || null;
     this.$interceptors = $interceptors || null;
+    this.$extra = $extra || null;
+    this.$options = $options || {};
   },
 
   getComputedProp(key) {
@@ -501,8 +529,9 @@ export const prototypes = {
     this.$changed = false;
 
     this.$value = defaultClearValue({ value: this.$value });
+    this.files = undefined;
 
-    this.showErrors(this.state.options.get('showErrorsOnClear'));
+    this.showErrors(this.state.options.get('showErrorsOnClear', this));
     if (deep) this.each(field => field.clear(true, false));
 
     if (call) {
@@ -521,8 +550,9 @@ export const prototypes = {
     const useDefaultValue = (this.$default !== this.$initial);
     if (useDefaultValue) this.value = this.$default;
     if (!useDefaultValue) this.value = this.$initial;
+    this.files = undefined;
 
-    this.showErrors(this.state.options.get('showErrorsOnReset'));
+    this.showErrors(this.state.options.get('showErrorsOnReset', this));
     if (deep) this.each(field => field.reset(true, false));
 
     if (call) {
@@ -557,16 +587,16 @@ export const prototypes = {
   },
 
   observeValidation() {
-    if (this.state.options.get('validateOnChange') === false) return;
+    if (this.state.options.get('validateOnChange', this) === false) return;
     this.disposeValidation = observe(this, '$value', () => this.debouncedValidation({
-      showErrors: this.state.options.get('showErrorsOnUpdate'),
+      showErrors: this.state.options.get('showErrorsOnChange', this),
     }));
   },
 
   observeShowErrors() {
     // showErrorsOnBlur
     observe(this, '$focused', ({ newValue }) =>
-      (newValue === false) && this.showErrors(this.state.options.get('showErrorsOnBlur')));
+      (newValue === false) && this.showErrors(this.state.options.get('showErrorsOnBlur', this)));
   },
 
   initMOBXEvent(type) {

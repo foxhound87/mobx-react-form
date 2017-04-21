@@ -11,7 +11,7 @@ const defaultClearValue = ({ value }) => {
 };
 
 const defaultValue = ({ type, isEmptyArray = false }) => {
-  if (type === 'date' || type === 'file') return null;
+  if (type === 'date') return null;
   if (type === 'checkbox') return false;
   if (type === 'number') return 0;
   return isEmptyArray ? [] : '';

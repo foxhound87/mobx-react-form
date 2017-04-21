@@ -29,14 +29,14 @@ export default {
 
     const validate = () =>
       this.debouncedValidation({
-        showErrors: this.state.options.get('showErrorsOnSubmit'),
+        showErrors: this.state.options.get('showErrorsOnSubmit', this),
         path: this.path,
       })
         .then(({ isValid }) => {
           const handler = exec(isValid);
           if (isValid) return handler;
-          const $err = this.state.options.get('defaultGenericError');
-          const $throw = this.state.options.get('submitThrowsError');
+          const $err = this.state.options.get('defaultGenericError', this);
+          const $throw = this.state.options.get('submitThrowsError', this);
           if ($throw && $err) this.invalidate();
           return handler;
         })
@@ -163,8 +163,8 @@ export default {
 
       if (_.isString(prop)) {
         const removeValue = (prop === 'value') &&
-          ((this.state.options.get('retrieveOnlyDirtyValues') && field.isPristine) ||
-          (!this.state.options.get('retrieveAlsoDisabledFields') && field.disabled));
+          ((this.state.options.get('retrieveOnlyDirtyValues', this) && field.isPristine) ||
+          (this.state.options.get('retrieveOnlyEnabledFields', this) && field.disabled));
 
         if (field.fields.size === 0) {
           delete obj[field.key]; // eslint-disable-line
@@ -219,7 +219,7 @@ export default {
    */
   deepSet($, data, path = '', recursion = false) {
     const err = 'You are updating a not existent field:';
-    const isStrict = this.state.options.get('strictUpdate');
+    const isStrict = this.state.options.get('strictUpdate', this);
 
     _.each(data, ($val, $key) => {
       const $path = _.trimStart(`${path}.${$key}`, '.');
@@ -279,7 +279,7 @@ export default {
     const keys = _.split(path, '.');
     const last = _.last(keys);
     const cpath = _.trimEnd(path, `.${last}`);
-    const isStrict = this.state.options.get('strictDelete');
+    const isStrict = this.state.options.get('strictDelete', this);
 
     const container = this.select(cpath, null, false)
       || this.state.form.select(cpath, null, false)

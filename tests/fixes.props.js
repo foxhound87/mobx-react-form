@@ -4,11 +4,11 @@ import $ from './data/_.fixes'; // FORMS
 
 
 describe('Check Fixes $E props check', () => {
-  it('$E places options should be array', () =>
-    expect($.$E.$('places').options).to.be.instanceof(Array));
+  it('$E places extra should be array', () =>
+    expect($.$E.$('places').extra).to.be.instanceof(Array));
 
-  it('$E places options should have length of 3', () =>
-    expect($.$E.$('places').options).to.have.lengthOf(3));
+  it('$E places extra should have length of 3', () =>
+    expect($.$E.$('places').extra).to.have.lengthOf(3));
 });
 
 describe('Check Fixes $G props check', () => {
@@ -52,11 +52,17 @@ describe('Check Fixes $H props check', () => {
   it('$H items[0].name related should be array', () =>
     expect($.$H.select('items[0].name').related).to.be.instanceof(Array));
 
+  it('$H items[0].name validators should not be empty array', () =>
+    expect($.$H.select('items[0].name').validators).to.not.be.empty);
+
   it('$H items[0].name validators should be array', () =>
     expect($.$H.select('items[0].name').validators).to.be.instanceof(Array));
 
-  it('$H items[0].name options should be array', () =>
-    expect($.$H.select('items[0].name').options).to.be.instanceof(Array));
+  it('$H items[0].name extra should not be empty array', () =>
+    expect($.$H.select('items[0].name').extra).to.not.be.empty);
+
+  it('$H items[0].name extra should be array', () =>
+    expect($.$H.select('items[0].name').extra).to.be.instanceof(Array));
 });
 
 
