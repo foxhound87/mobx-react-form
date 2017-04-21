@@ -21,7 +21,7 @@
 | **showErrorsOnBlur** | boolean | true | Show or hide error messages `on blur`. |
 | **showErrorsOnUpdate** | boolean | false | Show or hide errors `on update`. |
 | **showErrorsOnClear** | boolean | false | Show or hide errors `on clear`. |
-| **showErrorsOnReset** | boolean | true | Show or hide errors `on clear`. |
+| **showErrorsOnReset** | boolean | true | Show or hide errors `on reset`. |
 | **validateOnInit** | boolean | true | Validate of the whole form on initilization. |
 | **validateOnChange** | boolean | true | Validate fields when their value changes. |
 | **strictUpdate** | boolean | false | Throw an error if trying to update an undefined field. |
