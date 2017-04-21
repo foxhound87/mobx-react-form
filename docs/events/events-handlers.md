@@ -7,6 +7,7 @@ All Event Handlers methods takes the `Proxy` object `(e)` in input as first argu
  * [Clear & Reset Form or Fields](#clear--reset)
  * [Nested Array Elements](#nested-array-elements)
  * [Submitting the Form](#submitting-the-form)
+ * [Handle Files](#handle-files)
 
 
  * [onChange(e) & onToggle(e)](#onchangee--ontogglee)
@@ -154,27 +155,6 @@ or specify the field `path` as second argument:
 
 ## Submitting the Form
 
-#### onDrop(e)
-
-| Handler | Affected Property | Executed Hook | Result |
-|---|---|---|---|
-| onDrop(e) | files | onDrop | Retrieve the files |
-
-Delegate the input `onChange` event with the `onDrop(e)` Event Handler and it will retrive the files into the `files` Field prop and exeute the `onDrop` Hook function.
-
-```javascript
-<input
-  multiple=true
-  {...field.bind({
-    onChange: field.onDrop,
-  })}
-/>
-```
-
----
-
-## Submitting the Form
-
 #### onSubmit(e)
 
 | Handler | Action | Affected Property | Executed Hook | Result |
@@ -198,3 +178,24 @@ We have some alternatives to deal with the Validation Handlers:
   * [Extending the Form Instance with Validation Handlers](validation-handlers/extending.md)
   * [Passing the Validation Handlers to the Form constructor](validation-handlers/constructor.md)
   * [Override the Validation Handlers with Manual Submit](validation-handlers/override.md)
+
+---
+
+## Handle Files
+
+#### onDrop(e)
+
+| Handler | Affected Property | Executed Hook | Result |
+|---|---|---|---|
+| onDrop(e) | files | onDrop | Retrieve the files |
+
+Delegate the input `onChange` event with the `onDrop(e)` Event Handler and it will retrive the files into the `files` Field prop and exeute the `onDrop` Hook function.
+
+```javascript
+<input
+  multiple=true
+  {...field.bind({
+    onChange: field.onDrop,
+  })}
+/>
+```
