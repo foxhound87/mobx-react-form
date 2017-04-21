@@ -17,7 +17,6 @@
 | **default** | boolean | computed | The default/initial value of the field. | - |
 | **disabled** | boolean | computed | The disabled state of the field. | - |
 | **value** | mixed | computed | Computed value of the field. | - |
-| **options** | mixed | computed | Additional options data for the field (useful for a select input). | - |
 | **focused** | boolean | computed | Check if the field is focused. | - |
 | **touched** | boolean | computed | Check if the field is touched. | - |
 | **changed** | boolean | computed | Check if the field is changed. | - |
@@ -31,3 +30,6 @@
 | **isEmpty** | boolean | computed | Check if the field is empty. | - |
 | **hasError** | boolean | computed | Check if the field has errors. | - |
 | **error** | string | computed | Field error message. | - |
+| **options** | mixed | computed | Individual Field Options, with fallback on Form Options. | - |
+| **extra** | mixed | computed | Additional extra data for the field (useful for a select input). | - |
+| **files** | string | computed | Use the `onDrop` Event Handler to retrieve the file data. | - |

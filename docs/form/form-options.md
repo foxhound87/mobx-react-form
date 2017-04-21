@@ -19,7 +19,7 @@
 | **showErrorsOnInit** | boolean | false | Show or hide error messages `on init` for `validateOnInit`. |
 | **showErrorsOnSubmit** | boolean | true | Show or hide error messages `on submit`. |
 | **showErrorsOnBlur** | boolean | true | Show or hide error messages `on blur`. |
-| **showErrorsOnUpdate** | boolean | false | Show or hide errors `on update`. |
+| **showErrorsOnChange** | boolean | false | Show or hide errors `on change`. |
 | **showErrorsOnClear** | boolean | false | Show or hide errors `on clear`. |
 | **showErrorsOnReset** | boolean | true | Show or hide errors `on reset`. |
 | **validateOnInit** | boolean | true | Validate of the whole form on initilization. |
@@ -29,7 +29,7 @@
 | **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
 | **validationDebounceOptions** | object | { leading: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |
 | **retrieveOnlyDirtyValues** | boolean | false | Get only Dirty Values when using `get('value')` or the `values()` helper. |
-| **retrieveAlsoDisabledFields** | boolean | true | Get also Disabled Fields Values when using `get('value')` or the `values()` helper. |
+| **retrieveOnlyEnabledFields** | boolean | false | Get only Enabled Fields Values when using `get('value')` or the `values()` helper. |
 | **autoParseNumbers** | boolean | false | Try to parse strings to numbers automatically if the initial value of the field is a number. |
 | **allowRequired** | boolean | false | The json-schema `required` property can work only if the object does not contain the field key/value pair, `allowRequired` can remove it when needed to make `required` work properly. Be careful because enabling it will make `minLength` uneffective when the `string` is `empty`. |
 | **ajv** | object | - | Additional options for AJV. See all the details of [ajv options](https://github.com/epoberezkin/ajv#options) on the official github page of AJV. |
@@ -41,7 +41,7 @@ import Form from 'mobx-react-form';
 
 const options = {
   showErrorsOnInit: true,
-  showErrorsOnUpdate: false,
+  showErrorsOnChange: false,
   autoParseNumbers: false,
   allowRequired: true,
 };
@@ -89,7 +89,7 @@ form.state.options.get();
   validateOnInit: `false,
   validateOnChange: true,
   strictUpdate: false,
-  showErrorsOnUpdate: false,
+  showErrorsOnChange: false,
   defaultGenericError: true,
   allowRequired: false,
 }

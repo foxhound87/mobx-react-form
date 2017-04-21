@@ -13,6 +13,7 @@ All Event Handlers methods takes the `Proxy` object `(e)` in input as first argu
  * [onFocus(e) & onBlur(e)](#onfocuse--onblure)
  * [onClear(e) & onReset(e)](#oncleare--onresete)
  * [onAdd(e) & onDel(e)](#onadde--ondele)
+ * [onDrop(e)](#ondrope)
  * [onSubmit(e)](#onsubmite)
 
 ##### Validation Handlers
@@ -76,10 +77,10 @@ If you need to track `touched` or `focused` state, you can use `onFocus(e)` or `
 
 #### onClear(e) & onReset(e)
 
-| Handler | Action | Affected Property | Result |
+| Handler | Action | Affected Property | Executed Hook |Result |
 |---|---|---|---|
-| onClear(e) | clear() | value | to empty values |
-| onReset(e) | reset() | value | to default values |
+| onClear(e) | clear() | value | onClear | to empty values |
+| onReset(e) | reset() | value | onReset | to default values |
 
 <br>
 
@@ -149,6 +150,26 @@ or specify the field `path` as second argument:
 <button type="button" onClick={e => form.onDel(e, 'hobbies[3]')}>Delete Hobby</button>
 ```
 
+---
+
+## Submitting the Form
+
+#### onDrop(e)
+
+| Handler | Affected Property | Executed Hook | Result |
+|---|---|---|---|
+| onDrop(e) | files | onDrop | Retrieve the files |
+
+Delegate the input `onChange` event with the `onDrop(e)` Event Handler and it will retrive the files into the `files` Field prop and exeute the `onDrop` Hook function.
+
+```javascript
+<input
+  multiple=true
+  {...field.bind({
+    onChange: field.onDrop,
+  })}
+/>
+```
 
 ---
 
@@ -156,9 +177,9 @@ or specify the field `path` as second argument:
 
 #### onSubmit(e)
 
-| Handler | Action | Affected Property | Result |
+| Handler | Action | Affected Property | Executed Hook | Result |
 |---|---|---|---|
-| onSubmit(e) | submit() > validate() | validating | Execute validation |
+| onSubmit(e) | submit() > validate() | validating | onSubmit | Execute validation |
 
 The `onSubmit(e)` will `validate` the form and will call respectively `onSuccess(form)` or `onError(form)` **Validation Handlers** if they are implemented.
 
