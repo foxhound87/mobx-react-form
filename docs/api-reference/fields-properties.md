@@ -30,6 +30,6 @@
 | **isEmpty** | boolean | computed | Check if the field is empty. | - |
 | **hasError** | boolean | computed | Check if the field has errors. | - |
 | **error** | string | computed | Field error message. | - |
-| **options** | mixed | computed | Individual Field Options, with fallback on Form Options. | - |
+| **options** | object | computed | Individual Field Options, with fallback on Form Options. | - |
 | **extra** | mixed | computed | Additional extra data for the field (useful for a select input). | - |
-| **files** | string | computed | Use the `onDrop` Event Handler to retrieve the file data. | - |
+| **files** | string | computed | Use the `onDrop` Event Handler to retrieve the files data. | - |
