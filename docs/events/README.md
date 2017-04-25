@@ -4,7 +4,7 @@
   * [Clear & Reset Form or Fields](events-handlers.md#clear--reset)
   * [Nested Array Elements](events-handlers.md#nested-array-elements)
   * [Submitting the Form](events-handlers.md#submitting-the-form)
-  * [Handle Files](events-handlers.md##handle-files)
+  * [Handle Files](events-handlers.md#handle-files)
 
 
   * [onChange(e) & onToggle(e)](events-handlers.md#onchangee--ontogglee)
@@ -12,7 +12,7 @@
   * [onClear(e) & onReset(e)](events-handlers.md#oncleare--onresete)
   * [onAdd(e) & onDel(e)](events-handlers.md#onadde--ondele)
   * [onSubmit(e)](events-handlers.md#onsubmite)
-  * [onDrop(e)](events-handlers.md##ondrope)
+  * [onDrop(e)](events-handlers.md#ondrope)
 
 ### Validation Handlers
   * [Extending the Form Instance with Validation Handlers](validation-handlers/extending.md)
