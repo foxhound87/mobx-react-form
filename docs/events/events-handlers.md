@@ -14,8 +14,8 @@ All Event Handlers methods takes the `Proxy` object `(e)` in input as first argu
  * [onFocus(e) & onBlur(e)](#onfocuse--onblure)
  * [onClear(e) & onReset(e)](#oncleare--onresete)
  * [onAdd(e) & onDel(e)](#onadde--ondele)
- * [onDrop(e)](#ondrope)
  * [onSubmit(e)](#onsubmite)
+ * [onDrop(e)](#ondrope)
 
 ##### Validation Handlers
 
