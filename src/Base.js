@@ -1,11 +1,14 @@
 import { computed } from 'mobx';
 import _ from 'lodash';
-import utils from './utils';
+
+import {
+  $isEvent,
+  hasIntKeys } from './utils';
 
 export default class Base {
 
   @computed get hasIncrementalNestedFields() {
-    return (this.fields.size && utils.hasIntKeys(this.fields));
+    return (this.fields.size && hasIntKeys(this.fields));
   }
 
   @computed get hasNestedFields() {
@@ -65,7 +68,7 @@ export default class Base {
   */
   onAdd = (e, val) => {
     e.preventDefault();
-    this.add(utils.isEvent(val) ? null : val);
+    this.add($isEvent(val) ? null : val);
   };
 
   /**
@@ -73,6 +76,6 @@ export default class Base {
   */
   onDel = (e, path) => {
     e.preventDefault();
-    this.del(utils.isEvent(path) ? this.path : path);
+    this.del($isEvent(path) ? this.path : path);
   };
 }
