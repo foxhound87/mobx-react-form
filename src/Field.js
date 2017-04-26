@@ -19,7 +19,6 @@ export default class Field extends Base {
   fields = observable.map ? observable.map({}) : asMap({});
   hasInitialNestedFields = false;
   incremental = false;
-  disposeValidation = null;
 
   id;
   key;
@@ -92,7 +91,6 @@ export default class Field extends Base {
     );
 
     this.observeValidation();
-    this.observeShowErrors();
 
     this.initMOBXEvent('observers');
     this.initMOBXEvent('interceptors');
@@ -586,17 +584,21 @@ export const prototypes = {
     this.errorAsync = null;
   },
 
-  observeValidation() {
-    if (this.state.options.get('validateOnChange', this) === false) return;
-    this.disposeValidation = observe(this, '$value', () => this.debouncedValidation({
-      showErrors: this.state.options.get('showErrorsOnChange', this),
-    }));
-  },
+  observeValidation(type) {
+    const validateOnChange = this.state.options.get('validateOnChange', this);
+    const showErrorsOnChange = this.state.options.get('showErrorsOnChange', this);
+    const validateOnBlur = this.state.options.get('validateOnBlur', this);
+    const showErrorsOnBlur = this.state.options.get('showErrorsOnBlur', this);
 
-  observeShowErrors() {
-    // showErrorsOnBlur
-    observe(this, '$focused', ({ newValue }) =>
-      (newValue === false) && this.showErrors(this.state.options.get('showErrorsOnBlur', this)));
+    if (type === 'onBlur' || (validateOnBlur && !validateOnChange)) {
+      this.disposeValidationOnBlur = observe(this, '$focused', ({ newValue }) =>
+        (newValue === false) && this.debouncedValidation({ showErrors: showErrorsOnBlur }));
+    }
+
+    if (type === 'onChange' || validateOnChange) {
+      this.disposeValidationOnChange = observe(this, '$value', () =>
+        this.debouncedValidation({ showErrors: showErrorsOnChange }));
+    }
   },
 
   initMOBXEvent(type) {

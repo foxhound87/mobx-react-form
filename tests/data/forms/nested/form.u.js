@@ -34,6 +34,12 @@ const related = {
 
 class NewForm extends Form {
 
+  options() {
+    return {
+      validateOnChange: true,
+    };
+  }
+
   onInit() {
     // this.$('user.email')
     //   .on('update', ({ path, event, change }) => {

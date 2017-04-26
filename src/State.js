@@ -131,17 +131,29 @@ export default class State {
   observeOptions() {
     // Fix Issue #201
     observe(this.options.options, utils.checkObserve([{
-      // start observing fields
+      // start observing fields validateOnChange
       type: 'update',
       key: 'validateOnChange',
       to: true,
-      exec: () => this.form.each(field => field.observeValidation()),
+      exec: () => this.form.each(field => field.observeValidation('onChange')),
     }, {
-      // stop observing fields
+      // stop observing fields validateOnChange
       type: 'update',
       key: 'validateOnChange',
       to: false,
-      exec: () => this.form.each(field => field.disposeValidation()),
+      exec: () => this.form.each(field => field.disposeValidationOnChange()),
+    }, {
+      // start observing fields validateOnBlur
+      type: 'update',
+      key: 'validateOnBlur',
+      to: true,
+      exec: () => this.form.each(field => field.observeValidation('onBlur')),
+    }, {
+      // stop observing fields validateOnBlur
+      type: 'update',
+      key: 'validateOnBlur',
+      to: false,
+      exec: () => this.form.each(field => field.disposeValidationOnBlur()),
     }]));
   }
 }

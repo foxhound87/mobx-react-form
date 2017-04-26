@@ -16,6 +16,12 @@ const labels = {
 
 class NewForm extends Form {
 
+  options() {
+    return {
+      validateOnChange: true,
+    };
+  }
+
   onInit(form) {
     form.invalidate();
 

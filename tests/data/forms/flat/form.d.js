@@ -2,13 +2,6 @@ import ajv from 'ajv';
 import { Form } from '../../../../src';
 import svkExtend from '../../extension/svk';
 
-const plugins = {
-  svk: {
-    package: ajv,
-    extend: svkExtend,
-  },
-};
-
 const fields = {
   username: 'SteveJobs',
   email: 's.jobs@apple.com',
@@ -41,6 +34,21 @@ const schema = {
 
 class NewForm extends Form {
 
+  plugins() {
+    return {
+      svk: {
+        package: ajv,
+        extend: svkExtend,
+      },
+    };
+  }
+
+  options() {
+    return {
+      validateOnChange: true,
+    };
+  }
+
   onInit(form) {
     form.update({
       username: 'JonathanIve',
@@ -52,4 +60,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, labels, schema }, { plugins, name: 'Flat-D' });
+export default new NewForm({ fields, labels, schema }, { name: 'Flat-D' });

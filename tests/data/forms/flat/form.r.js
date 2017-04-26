@@ -32,6 +32,12 @@ class NewForm extends MobxReactForm {
     return new NewField(data);
   }
 
+  options() {
+    return {
+      validateOnChange: true,
+    };
+  }
+
   onInit(form) {
     form.update({
       email: 'invalid',

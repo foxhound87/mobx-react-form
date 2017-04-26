@@ -35,6 +35,12 @@ const plugins = {
 
 class NewForm extends Form {
 
+  options() {
+    return {
+      validateOnChange: true,
+    };
+  }
+
   onInit() {
     this.$('jobs').add({
       jobId: 1,

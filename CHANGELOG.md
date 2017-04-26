@@ -1,4 +1,6 @@
 # 1.31
+* Option `validateOnBlur` added.
+* Option `validateOnChange` is `false` by default.
 * Option `showErrorsOnUpdate` renamed `showErrorsOnChange`.
 * Option `retrieveAlsoDisabledFields` renamed `retrieveOnlyEnabledFields`.
 * Option `retrieveOnlyEnabledFields` is `false` by default.
