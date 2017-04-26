@@ -2,9 +2,10 @@
 * Option `validateOnBlur` added.
 * Option `validateOnChange` is `false` by default.
 * Option `showErrorsOnUpdate` renamed `showErrorsOnChange`.
+* Option `showErrorsOnChange` is `true` by default.
 * Option `retrieveAlsoDisabledFields` renamed `retrieveOnlyEnabledFields`.
 * Option `retrieveOnlyEnabledFields` is `false` by default.
-* `option` Field prop renamed `extra`.
+* `options` Field prop renamed `extra`.
 * `options` Field prop handle individual **Field Options**.
 * **Field Options** will fallback on **Form Options**.
 * Implemented input **file** `type` handling.

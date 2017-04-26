@@ -10,7 +10,7 @@ export default class Options {
     showErrorsOnInit: false,
     showErrorsOnSubmit: true,
     showErrorsOnBlur: true,
-    showErrorsOnChange: false,
+    showErrorsOnChange: true,
     showErrorsOnClear: false,
     showErrorsOnReset: true,
     validateOnInit: true,

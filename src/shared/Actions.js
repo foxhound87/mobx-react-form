@@ -29,7 +29,7 @@ export default {
 
     const validate = () =>
       this.debouncedValidation({
-        showErrors: this.state.options.get('showErrorsOnSubmit'),
+        showErrors: this.state.options.get('showErrorsOnSubmit', this),
         path: this.path,
       })
         .then(({ isValid }) => {
