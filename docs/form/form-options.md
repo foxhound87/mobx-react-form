@@ -19,7 +19,7 @@
 | **showErrorsOnInit** | boolean | false | Show or hide error messages `on init` for `validateOnInit`. |
 | **showErrorsOnSubmit** | boolean | true | Show or hide error messages `on submit`. |
 | **showErrorsOnBlur** | boolean | true | Show or hide error messages `on blur`. |
-| **showErrorsOnChange** | boolean | false | Show or hide errors `on change`. |
+| **showErrorsOnChange** | boolean | true | Show or hide errors `on change`. |
 | **showErrorsOnClear** | boolean | false | Show or hide errors `on clear`. |
 | **showErrorsOnReset** | boolean | true | Show or hide errors `on reset`. |
 | **validateOnInit** | boolean | true | Validate of the whole form `on init`. |
