@@ -28,7 +28,7 @@
 | **strictUpdate** | boolean | false | Throw an error if trying to update an undefined field. |
 | **strictDelete** | boolean | true | Throw an error if trying to delete an undefined field. |
 | **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
-| **validationDebounceOptions** | object | { leading: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |
+| **validationDebounceOptions** | object | { leading: false, trailing: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |
 | **retrieveOnlyDirtyValues** | boolean | false | Get only Dirty Values when using `get('value')` or the `values()` helper. |
 | **retrieveOnlyEnabledFields** | boolean | false | Get only Enabled Fields Values when using `get('value')` or the `values()` helper. |
 | **autoParseNumbers** | boolean | false | Try to parse strings to numbers automatically if the initial value of the field is a number. |
