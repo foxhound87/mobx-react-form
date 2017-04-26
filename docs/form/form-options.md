@@ -22,8 +22,9 @@
 | **showErrorsOnChange** | boolean | false | Show or hide errors `on change`. |
 | **showErrorsOnClear** | boolean | false | Show or hide errors `on clear`. |
 | **showErrorsOnReset** | boolean | true | Show or hide errors `on reset`. |
-| **validateOnInit** | boolean | true | Validate of the whole form on initilization. |
-| **validateOnChange** | boolean | true | Validate fields when their value changes. |
+| **validateOnInit** | boolean | true | Validate of the whole form `on init`. |
+| **validateOnBlur** | boolean | true | Validate fields value `on blur`. |
+| **validateOnChange** | boolean | false | Validate fields value `on change`. |
 | **strictUpdate** | boolean | false | Throw an error if trying to update an undefined field. |
 | **strictDelete** | boolean | true | Throw an error if trying to delete an undefined field. |
 | **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
