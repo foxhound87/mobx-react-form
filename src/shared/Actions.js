@@ -28,9 +28,8 @@ export default {
       : onError.apply(this, [this]);
 
     const validate = () =>
-      this.debouncedValidation({
+      this.validate({
         showErrors: this.state.options.get('showErrorsOnSubmit', this),
-        path: this.path,
       })
         .then(({ isValid }) => {
           const handler = exec(isValid);
@@ -42,6 +41,7 @@ export default {
         })
         .then(action(() => (this.$submitting = false)))
         .then(() => this);
+
 
     return utils.isPromise(exec)
       ? exec.then(() => validate())

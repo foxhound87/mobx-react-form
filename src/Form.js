@@ -61,7 +61,7 @@ export default class Form extends Base {
     this.initFields(initial.setup);
 
     this.debouncedValidation = _.debounce(
-      this.validator.validate.bind(this.validator),
+      this.validate,
       this.state.options.get('validationDebounceWait'),
       this.state.options.get('validationDebounceOptions'),
     );

@@ -5,6 +5,7 @@
 * Option `showErrorsOnChange` is `true` by default.
 * Option `retrieveAlsoDisabledFields` renamed `retrieveOnlyEnabledFields`.
 * Option `retrieveOnlyEnabledFields` is `false` by default.
+* Option `validationDebounceOptions` default is `{ leading: false, trailing: true }`
 * `options` Field prop renamed `extra`.
 * `options` Field prop handle individual **Field Options**.
 * **Field Options** will fallback on **Form Options**.

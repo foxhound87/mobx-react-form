@@ -11,7 +11,7 @@ describe('Form submit() decoupled callback', () => {
         form.$('email').set('value', 'notAnEmailYet');
 
         describe('Form $L onError() checks', () => {
-          it('$L state.option "validateOnChange" should be true', () =>
+          it('$L state.options "validateOnChange" should be true', () =>
             expect(form.state.options.get('validateOnChange')).to.be.true);
 
           it('$L email value should be equal to "notAnEmailYet"', () =>

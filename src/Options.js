@@ -23,7 +23,10 @@ export default class Options {
     autoParseNumbers: false,
     allowRequired: false,
     validationDebounceWait: 250,
-    validationDebounceOptions: { leading: true },
+    validationDebounceOptions: {
+      leading: false,
+      trailing: true,
+    },
   };
 
   get(key = null, field = null) {

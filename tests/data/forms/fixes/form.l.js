@@ -32,7 +32,7 @@ class NewForm extends Form {
     this.$('email').set('value', 'notAnEmail');
 
     describe('Form $L onInit() checks', () => {
-      it('$L state.option "validateOnChange" should be false', () =>
+      it('$L state.options "validateOnChange" should be false', () =>
         expect(this.state.options.get('validateOnChange')).to.be.false);
 
       it('$L email value should be equal to "notAnEmail"', () =>
