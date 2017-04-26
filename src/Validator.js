@@ -23,7 +23,7 @@ export default class Validator {
     svk: false,
   };
 
-  validators = {
+  drivers = {
     vjf: null,
     dvr: null,
     svk: null,
@@ -50,7 +50,7 @@ export default class Validator {
       dvr: DVR,
       svk: SVK,
     }, (Class, key) => this.plugins[key] &&
-      (this.validators[key] = new Class(this.plugins[key], {
+      (this.drivers[key] = new Class(this.plugins[key], {
         schema: (key === 'svk') ? this.schema : null,
         promises: this.promises,
         options: this.options,
@@ -70,45 +70,30 @@ export default class Validator {
       .then(action(() => (instance.$validating = false))) // eslint-disable-line
       .then(() => resolve(instance));
 
-    if (_.isPlainObject(opt) && !_.isString(path)) {
-      // VALIDATE FORM
-      this.form.$validating = true;
-      // validate all fields
-      return new Promise((resolve) => {
-        this.validateAll({
+    const instance = field || this.form;
+
+    instance.$validating = true;
+
+    return new Promise((resolve) => {
+      if (instance.path || _.isString(path)) {
+        this.validateField({
+          field: instance,
           showErrors,
           related,
+          path,
         });
+      }
 
-        return $wait(resolve, this.form);
-      });
-    }
+      instance.each($field =>
+        this.validateField({
+          path: $field.path,
+          $field,
+          showErrors,
+          related,
+        }));
 
-    // VALIDATE FIELD
-    field.$validating = true;
-    // validate single field by path
-    return new Promise((resolve) => {
-      this.validateField({
-        showErrors,
-        related,
-        field,
-        path,
-      });
-
-      return $wait(resolve, field);
+      return $wait(resolve, instance);
     });
-  }
-
-  @action
-  validateAll({ showErrors = false, related = false }) {
-    // validate all fields and nested fields
-    this.form.each(field =>
-      this.validateField({
-        path: field.path,
-        field,
-        showErrors,
-        related,
-      }));
   }
 
   @action
@@ -116,9 +101,8 @@ export default class Validator {
     const $field = field || this.form.select(path);
     // reset field validation
     $field.resetValidation();
-
     // get all validators
-    const { svk, dvr, vjf } = this.validators;
+    const { svk, dvr, vjf } = this.drivers;
     // validate with vanilla js functions (vjf)
     if (vjf) vjf.validateField($field, this.form);
     // validate with json schema validation keywords (dvr)
@@ -167,7 +151,7 @@ export default class Validator {
   }
 
   checkSVKValidationPlugin() {
-    if (_.isNil(this.validators.svk) && !_.isEmpty(this.schema)) {
+    if (_.isNil(this.drivers.svk) && !_.isEmpty(this.schema)) {
       // eslint-disable-next-line
       console.warn(
         'The SVK validation schema is defined',

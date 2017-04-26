@@ -470,8 +470,8 @@ export const prototypes = {
   },
 
   checkDVRValidationPlugin() {
-    const validators = this.state.form.validator.validators;
-    if (_.isNil(validators.dvr) && !_.isNil(this.rules)) {
+    const drivers = this.state.form.validator.drivers;
+    if (_.isNil(drivers.dvr) && !_.isNil(this.rules)) {
       // eslint-disable-next-line
       console.warn(
         'The DVR validation rules are defined',
