@@ -590,7 +590,7 @@ export const prototypes = {
     const validateOnBlur = this.state.options.get('validateOnBlur', this);
     const showErrorsOnBlur = this.state.options.get('showErrorsOnBlur', this);
 
-    if (type === 'onBlur' || (validateOnBlur && !validateOnChange)) {
+    if (type === 'onBlur' || (validateOnBlur)) {
       this.disposeValidationOnBlur = observe(this, '$focused', ({ newValue }) =>
         (newValue === false) && this.debouncedValidation({ showErrors: showErrorsOnBlur }));
     }

@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 export default (query = {}) => {
   // assume these usernames are in the database
   const db = [
@@ -7,14 +9,8 @@ export default (query = {}) => {
     { user: 'FoxHound' },
     { user: 'SteveJobs' },
   ];
-  // resolve the promise after find
-  return new Promise((resolve) => {
-    // console.log('Loading promised data...');
-    setTimeout(() => {
-      const data = _.find(db, query) || [];
-      // console.log('Resolved data', data);
-      return resolve(data);
-    }, 50);
-  });
+
+  return sleep(50)
+    .then(() => _.find(db, query) || []);
 };
 
