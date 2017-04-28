@@ -40,6 +40,10 @@ export default {
           return handler;
         })
         .then(action(() => (this.$submitting = false)))
+        .catch(action((err) => {
+          this.$submitting = false;
+          throw err;
+        }))
         .then(() => this);
 
 
