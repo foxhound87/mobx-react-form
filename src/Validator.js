@@ -68,6 +68,11 @@ export default class Validator {
     // wait all promises then resolve
     const $wait = (resolve, instance) => Promise.all(this.promises)
       .then(action(() => (instance.$validating = false))) // eslint-disable-line
+      .catch(action((err) => {
+        // eslint-disable-next-line
+        instance.$validating = false;
+        throw err;
+      }))
       .then(() => resolve(instance));
 
     const instance = field || this.form;
