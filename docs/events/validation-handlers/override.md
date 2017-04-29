@@ -31,16 +31,16 @@ const validationHandlers = {
 
 > They takes the `form` instance as parameter in input.
 
-Then pass the Validation Handlers as second argument to the `submit(e, { ... })` Action:
+Then pass the Validation Handlers as first argument to the `submit({ ... })` Action:
 
 ```javascript
-instance.submit(e, {
+instance.submit({
   onSuccess: validationHandlers.onSuccess,
   onError: validationHandlers.onError,
 })
 ```
 
-or to the `onSubmit(e, { ... })` Event Handler:
+or as second argument to the `onSubmit(e, { ... })` Event Handler:
 
 ```html
 <button
