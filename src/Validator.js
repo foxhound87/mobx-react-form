@@ -63,23 +63,12 @@ export default class Validator {
     const field = $try(opt.field, this.form.select(path, null, null));
     const related = $try(opt.related, obj.related, true);
     const showErrors = $try(opt.showErrors, obj.showErrors, false);
+    const instance = field || this.form;
+    instance.$validating = true;
     this.$genericErrorMessage = null;
 
-    // wait all promises then resolve
-    const $wait = (resolve, instance) => Promise.all(this.promises)
-      .then(action(() => (instance.$validating = false))) // eslint-disable-line
-      .catch(action((err) => {
-        // eslint-disable-next-line
-        instance.$validating = false;
-        throw err;
-      }))
-      .then(() => resolve(instance));
-
-    const instance = field || this.form;
-
-    instance.$validating = true;
-
     return new Promise((resolve) => {
+      // validate instance (form or filed)
       if (instance.path || _.isString(path)) {
         this.validateField({
           field: instance,
@@ -89,6 +78,7 @@ export default class Validator {
         });
       }
 
+      // validate nested fields
       instance.each($field =>
         this.validateField({
           path: $field.path,
@@ -97,7 +87,15 @@ export default class Validator {
           related,
         }));
 
-      return $wait(resolve, instance);
+      // wait all promises then resolve
+      return Promise.all(this.promises)
+        .then(action(() => (instance.$validating = false))) // eslint-disable-line
+        .catch(action((err) => {
+          // eslint-disable-next-line
+          instance.$validating = false;
+          throw err;
+        }))
+        .then(() => resolve(instance));
     });
   }
 
