@@ -65,13 +65,6 @@ const defineFieldsFromStruct = (struct, add = false) =>
     return obj;
   }, {});
 
-const handleFieldsValuesFallback = (fields, initial) => {
-  if (!_.has(initial, 'values')) return fields;
-  // if the 'fields' object is not provided into the constructor
-  // and the 'values' object is passed, use it to create fields
-  return _.merge(fields, initial.values);
-};
-
 const handleFieldsArrayOfStrings = ($fields, add = false) => {
   let fields = $fields;
   // handle array with field struct (strings)
@@ -99,7 +92,7 @@ const handleFieldsArrayOfObjects = ($fields) => {
   return fields;
 };
 
-const handleFieldsNested = (fields, initial, strictProps) =>
+const handleFieldsNested = (fields, strictProps) =>
   _.reduce(fields, (obj, field, key) => {
     if (utils.allowNested(field, strictProps)) {
       // define nested field
@@ -110,6 +103,80 @@ const handleFieldsNested = (fields, initial, strictProps) =>
     return Object.assign(obj, { [key]: field });
   }, {});
 
+
+/* mapNestedValuesToUnifiedValues
+
+FROM:
+
+{
+  street: '123 Fake St.',
+  zip: '12345',
+}
+
+TO:
+
+[{
+  name: 'street'
+  value: '123 Fake St.',
+}, {
+  name: 'zip'
+  value: '12345',
+}]
+
+*/
+const mapNestedValuesToUnifiedValues = data =>
+  _.isPlainObject(data)
+    ? _.map(data, (value, name) => ({ value, name }))
+    : undefined;
+
+/* reduceValuesToUnifiedFields
+
+FROM:
+
+{
+  name: 'fatty',
+  address: {
+    street: '123 Fake St.',
+    zip: '12345',
+  },
+};
+
+TO:
+
+{
+  name: {
+    value: 'fatty',
+    fields: undefined
+  },
+  address: {
+    value: {
+      street: '123 Fake St.',
+      zip: '12345'
+    },
+    fields: [ ... ]
+  },
+};
+
+*/
+const reduceValuesToUnifiedFields = values =>
+  _.reduce(values, (obj, value, key) =>
+    Object.assign(obj, { [key]: { value,
+      fields: mapNestedValuesToUnifiedValues(value),
+    } }), {});
+
+/*
+  Fallback Unified Props to Sepated Mode
+*/
+const handleFieldsPropsFallback = (fields, initial) => {
+  if (!_.has(initial, 'values')) return fields;
+  // if the 'values' object is passed in constructor
+  // then update the fields definitions
+  let values = initial.values;
+  if (utils.hasUnifiedProps({ fields })) {
+    values = reduceValuesToUnifiedFields(values);
+  }
+  return _.merge(fields, values);
+};
 
 const mergeSchemaDefaults = (fields, validator) => {
   if (validator) {
@@ -130,8 +197,8 @@ const prepareFieldsData = (initial, strictProps = true) => {
   let fields = initial.fields || {};
   fields = handleFieldsArrayOfStrings(fields, false);
   fields = handleFieldsArrayOfObjects(fields);
-  fields = handleFieldsValuesFallback(fields, initial);
-  fields = handleFieldsNested(fields, initial, strictProps);
+  fields = handleFieldsPropsFallback(fields, initial);
+  fields = handleFieldsNested(fields, strictProps);
   return fields;
 };
 

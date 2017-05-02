@@ -65,10 +65,9 @@ export default class State {
 
     if ($unified && $separated) {
       console.warn( // eslint-disable-line
-        'WARNING:',
-        'Your mobx-react-form instance is running in MIXED Mode',
-        '(Unified + Separated) for defining fields properties.',
-        'Run it at your own risk, or use only one mode.',
+        'WARNING: Your mobx-react-form instance ', this.form.name,
+        ' is running in MIXED Mode (Unified + Separated) as fields properties definition.',
+        'This mode is experimental, use it at your own risk, or use only one mode.',
       );
     }
 

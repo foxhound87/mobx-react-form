@@ -177,7 +177,7 @@ describe('Check Fixes $M values', () => {
     expect($.$M.$('array[0].name').value).to.be.equal(''));
 
   it('$M array[2].name value should be a equal to ""', () =>
-    expect($.$M.$('array[0].name').value).to.be.equal(''));
+    expect($.$M.$('array[2].name').value).to.be.equal(''));
 });
 
 describe('Check Fixes $O values', () => {
@@ -192,4 +192,18 @@ describe('Check Fixes $O values', () => {
 
   it('$O roles value should be empty', () =>
     expect($.$O.$('array').value).to.be.empty);
+});
+
+describe('Check Fixes $P values', () => {
+  const values = { street: '123 Fake St.', zip: '12345' };
+  const labels = { street: 'street-label', zip: 'zip-label' };
+
+  it('$P address values() check', () =>
+    expect($.$P.$('address').values()).to.be.deep.equal(values));
+
+  it('$P address value check', () =>
+    expect($.$P.$('address').value).to.be.deep.equal(values));
+
+  it('$P address value check', () =>
+    expect($.$P.$('address').labels()).to.be.deep.equal(labels));
 });

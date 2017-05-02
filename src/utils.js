@@ -39,21 +39,25 @@ const checkPropType = ({ type, data }) => {
 };
 
 const hasProps = ($type, $data) => {
-  let $;
+  let $props;
   switch ($type) {
-    case 'booleans': $ = props.booleans; break;
-    case 'field': $ = [
+    case 'booleans': $props = props.booleans; break;
+    case 'field': $props = [
       ...props.field,
       ...props.validation,
+      ...props.function,
+      ...props.hooks,
     ]; break;
-    case 'all': $ = ['id',
+    case 'all': $props = ['id',
       ...props.booleans,
       ...props.field,
       ...props.validation,
+      ...props.function,
+      ...props.hooks,
     ]; break;
-    default: $ = null;
+    default: $props = null;
   }
-  return _.intersection($data, $).length > 0;
+  return _.intersection($data, $props).length > 0;
 };
 
 /**
@@ -96,16 +100,14 @@ const isStruct = ({ fields }) => (
 const isEmptyArray = field =>
   (_.isEmpty(field) && _.isArray(field));
 
+const isArrayOfObjects = fields =>
+  _.isArray(fields) && _.every(fields, _.isPlainObject);
+
 const $getKeys = fields =>
 _.union(_.map(_.values(fields), values => _.keys(values))[0]);
 
-const $checkKeys = keys =>
-  hasProps('field', keys) ||
-  hasProps('validation', keys) ||
-  hasProps('function', keys);
-
 const hasUnifiedProps = ({ fields }) =>
-  !isStruct({ fields }) && $checkKeys($getKeys(fields));
+  !isStruct({ fields }) && hasProps('field', $getKeys(fields));
 
 const hasSeparatedProps = initial => (
   hasSome(initial, props.separated) ||
@@ -162,6 +164,7 @@ export default {
   isPromise,
   isStruct,
   isEmptyArray,
+  isArrayOfObjects,
   pathToStruct,
   hasUnifiedProps,
   hasSeparatedProps,
