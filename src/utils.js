@@ -41,7 +41,9 @@ const checkPropType = ({ type, data }) => {
 const hasProps = ($type, $data) => {
   let $props;
   switch ($type) {
-    case 'booleans': $props = props.booleans; break;
+    case 'booleans':
+      $props = props.booleans;
+      break;
     case 'field': $props = [
       ...props.field,
       ...props.validation,
@@ -82,7 +84,7 @@ const pathToStruct = (path) => {
   let struct;
   struct = _.replace(path, new RegExp('[.]\\d($|.)', 'g'), '[].');
   struct = _.replace(struct, '..', '.');
-  struct = _.trimEnd(struct, '.');
+  struct = _.trim(struct, '.');
   return struct;
 };
 

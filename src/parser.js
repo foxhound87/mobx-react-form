@@ -83,7 +83,7 @@ const handleFieldsArrayOfStrings = ($fields, add = false) => {
 const handleFieldsArrayOfObjects = ($fields) => {
   let fields = $fields;
   // handle array of objects (with unified props)
-  if (_.isArray(fields) && _.every(fields, _.isPlainObject)) {
+  if (utils.isArrayOfObjects(fields)) {
     fields = _.reduce(fields, ($obj, $) => {
       if (!_.has($, 'name')) return undefined;
       return Object.assign($obj, { [$.name]: $ });

@@ -116,12 +116,9 @@ export default class Field extends Base {
     // handle numbers
     if (this.state.options.get('autoParseNumbers', this) === true) {
       if (_.isNumber(this.$initial)) {
-        if (!_.endsWith(newVal, '.') && !_.endsWith(_.split(newVal, '.', 2)[1], '0')) {
-          const numericVal = _.toNumber(newVal);
-          if (!_.isString(numericVal) && !_.isNaN(numericVal)) {
-            this.$value = numericVal;
-            return;
-          }
+        if (new RegExp('^-?\\d+(,\\d+)*(\\.\\d+([eE]\\d+)?)?$', 'g').exec(newVal)) {
+          this.$value = _.toNumber(newVal);
+          return;
         }
       }
     }
