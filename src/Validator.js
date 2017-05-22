@@ -82,7 +82,7 @@ export default class Validator {
       instance.each($field =>
         this.validateField({
           path: $field.path,
-          $field,
+          field: $field,
           showErrors,
           related,
         }));
@@ -101,21 +101,21 @@ export default class Validator {
 
   @action
   validateField({ field = null, path, showErrors = false, related = false }) {
-    const $field = field || this.form.select(path);
+    const instance = field || this.form.select(path);
     // reset field validation
-    $field.resetValidation();
+    if (instance.path) instance.resetValidation();
     // get all validators
     const { svk, dvr, vjf } = this.drivers;
     // validate with vanilla js functions (vjf)
-    if (vjf) vjf.validateField($field, this.form);
+    if (vjf) vjf.validateField(instance, this.form);
     // validate with json schema validation keywords (dvr)
-    if (dvr) dvr.validateField($field, this.form);
+    if (dvr) dvr.validateField(instance, this.form);
     // validate with json schema validation keywords (svk)
-    if (svk) svk.validateField($field);
+    if (svk) svk.validateField(instance);
     // send error to the view
-    $field.showErrors(showErrors);
+    instance.showErrors(showErrors);
     // related validation
-    if (related) this.relatedFieldValidation($field, showErrors);
+    if (related) this.relatedFieldValidation(instance, showErrors);
   }
 
   /**
