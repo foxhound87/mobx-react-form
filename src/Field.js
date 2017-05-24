@@ -40,7 +40,6 @@ export default class Field extends Base {
   $formatter = $ => $;
 
   @observable $options;
-  @observable $type;
   @observable $value;
   @observable $label;
   @observable $placeholder;
@@ -107,6 +106,10 @@ export default class Field extends Base {
       || _.isString(this.errorSync);
   }
 
+  @computed get checked() {
+    return (this.type === 'checkbox') ? this.value : undefined;
+  }
+
   @computed get value() {
     return this.getComputedProp('value');
   }
@@ -168,10 +171,6 @@ export default class Field extends Base {
 
   @computed get bindings() {
     return toJS(this.$bindings);
-  }
-
-  @computed get type() {
-    return toJS(this.$type);
   }
 
   @computed get related() {
@@ -367,7 +366,7 @@ export const prototypes = {
         onReset,
       } = $data;
 
-      this.$type = $type || type || 'text';
+      this.type = $type || type || 'text';
       this.$onDrop = $onDrop || onDrop || null;
       this.$onSubmit = $onSubmit || onSubmit || null;
       this.$onClear = $onClear || onClear || this.noop;
@@ -410,7 +409,7 @@ export const prototypes = {
 
     /* The field IS the value here */
     this.name = _.toString($key);
-    this.$type = $type || 'text';
+    this.type = $type || 'text';
     this.$onDrop = $onDrop || null;
     this.$onSubmit = $onSubmit || null;
     this.$onClear = $onClear || this.noop;

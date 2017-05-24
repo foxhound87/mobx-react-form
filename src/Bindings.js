@@ -15,6 +15,7 @@ export default class Bindings {
       name: 'name',
       type: 'type',
       value: 'value',
+      checked: 'checked',
       label: 'label',
       placeholder: 'placeholder',
       disabled: 'disabled',
