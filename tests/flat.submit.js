@@ -13,6 +13,17 @@ describe('Form submit() decoupled callback', () => {
     });
   });
 
+  // $I
+  it('$I.submit() should return a promise rejected by the onSuccess callback', () => {
+    const err = new Error('boom');
+    return $.$I.submit({
+      onSuccess: () => Promise.reject(err),
+    })
+      .catch((v) => {
+        expect(v).to.equal(err);
+      });
+  });
+
   // $N
   it('$N.submit() should call onError callback on invalid form', (done) => {
     $.$N.submit({
