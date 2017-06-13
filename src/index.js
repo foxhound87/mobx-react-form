@@ -8,6 +8,7 @@ import fieldInitializer from './shared/Initializer';
 import fieldHelpers from './shared/Helpers';
 import fieldActions from './shared/Actions';
 import fieldUtils from './shared/Utils';
+import fieldEvents from './shared/Events';
 
 const { TEST } = process.env;
 
@@ -34,6 +35,7 @@ const shared = [
   fieldActions,
   fieldHelpers,
   fieldUtils,
+  fieldEvents,
 ];
 
 extend(Form, shared.concat(formPrototypes));

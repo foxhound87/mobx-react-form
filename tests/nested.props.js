@@ -45,7 +45,7 @@ describe('Check $A Nested Fields', () => {
     expect($.$A.get('id').user).to.exist);
 
   it('$A get(value) should exist', () =>
-    expect($.$A.get('value').user).to.empty);
+    expect($.$A.get('value').user).to.be.empty);
 });
 
 describe('Check $B Nested Fields', () => {
