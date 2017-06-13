@@ -1,6 +1,6 @@
 ## Defining Flat Fields as Separated Properties
 
-You can define these properties: `fields`, `values`, `labels`, `placeholders`, `defaults`, `disabled`, `related`, `bindings`, `types`.
+You can define these properties: `fields`, `values`, `labels`, `placeholders`, `defaults`, `disabled`, `related`, `bindings`, `types`, `options`, `extra`.
 
 Validation properties `rules` (DVR) and `validators` (VJF) can be defined as well.
 

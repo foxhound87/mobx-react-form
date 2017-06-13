@@ -94,7 +94,19 @@ new Form({ observers, interceptors, ... });
 
 ## Disposers
 
+#### Dispose All Events
+
 Each observer/interceptor will automatically create their own `disposer` which will stop the related observable events.
+
+Dispose all observers & interceptors recursively (for nested fields too):
+
+```javascript
+form.dispose()
+```
+
+> to be used only on the form instance.
+
+#### Dispose Single Event
 
 You can use `dispose({ type, key, path })` on the **Form** instance:
 

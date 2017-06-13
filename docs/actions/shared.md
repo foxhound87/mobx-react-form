@@ -147,7 +147,7 @@ or filtering by a prop (with nested fields as collections):
 .get('label');
 ```
 
-You can get these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error`.
+You can get these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error`, `options`, `extra`.
 
 or these computed props: `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focused`, `touched`, `changed`, `disabled` and the validation props as well (`rules` and `validators`).
 

@@ -191,7 +191,7 @@ We have some alternatives to deal with the Validation Handlers:
 
 Delegate the input `onChange` event with the `onDrop(e)` Event Handler and it will retrive the files into the `files` Field prop and exeute the `onDrop` Hook function.
 
-```javascript
+```html
 <input
   multiple=true
   {...field.bind({
