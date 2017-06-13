@@ -101,3 +101,13 @@ describe('Check Fixes $I rules check', () => {
     expect($.$I.$('users[0].settings[0].anotherBool').value).to.be.false);
 });
 
+describe('Check Fixes $Q nested paths check', () => {
+  it('$Q incident[0].type path should be "incident.0.type"', () =>
+    expect($.$Q.$('incident').$(0).$('type').path).to.be.equal('incident.0.type'));
+
+  it('$Q incident[0].value path should be "incident.0.value"', () =>
+    expect($.$Q.$('incident').$(0).$('value').path).to.be.equal('incident.0.value'));
+
+  it('$Q incident[0].options path should be "incident.0.options"', () =>
+    expect($.$Q.$('incident').$(0).$('options').path).to.be.equal('incident.0.options'));
+});

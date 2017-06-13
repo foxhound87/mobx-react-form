@@ -92,7 +92,7 @@ const handleFieldsArrayOfObjects = ($fields) => {
   return fields;
 };
 
-const handleFieldsNested = (fields, strictProps) =>
+const handleFieldsNested = (fields, strictProps = true) =>
   _.reduce(fields, (obj, field, key) => {
     if (utils.allowNested(field, strictProps)) {
       // define nested field
