@@ -24,7 +24,7 @@
     "cover": "nyc npm test",
     "coverage:check": "nyc check-coverage --satements 95 --branches 80 --functions 95 --lines 95",
     "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
@@ -89,7 +89,7 @@
     "npm-run-all": "4.0.1",
     "nyc": "^10.2.0",
     "rimraf": "2.5.4",
-    "semantic-release": "6.3.2",
+    "semantic-release": "^6.3.6",
     "validatorjs": "3.11.0",
     "webpack": "1.*.*"
   }
