@@ -118,7 +118,12 @@ const hasSeparatedProps = initial => (
 
 const allowNested = (field, strictProps) =>
   _.isObject(field) && !_.isDate(field) && !_.has(field, 'fields')
-    && (!hasSome(field, props.field) || strictProps);
+    && (!hasSome(field, [
+      ...props.field,
+      ...props.validation,
+      ...props.function,
+      ...props.hooks,
+    ]) || strictProps);
 
 const parseIntKeys = fields =>
  _.map(fields.keys(), _.ary(parseInt, 1));
