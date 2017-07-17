@@ -57,7 +57,7 @@ export default class SVK {
     this.validate = ajvInstance.compile(this.schema);
   }
 
-  validateField(field) {
+  validateField(field, changeState) {
     const data = { [field.path]: field.value };
     const validate = this.validate(this.parseValues(data));
     // check if is $async schema
@@ -65,15 +65,17 @@ export default class SVK {
       const $p = validate
         .then(() => field.setValidationAsyncData(true))
         .catch(err => err && this.handleAsyncError(field, err.errors))
-        .then(() => this.executeAsyncValidation(field))
-        .then(() => field.showAsyncErrors());
+        .then(() => changeState && this.executeAsyncValidation(field))
+        .then(() => changeState && field.showAsyncErrors());
 
       // push the promise into array
       this.promises.push($p);
       return;
     }
     // check sync errors
-    this.handleSyncError(field, this.validate.errors);
+    if (changeState) {
+      this.handleSyncError(field, this.validate.errors);
+    }
   }
 
   handleSyncError(field, errors) {

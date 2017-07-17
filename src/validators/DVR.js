@@ -46,15 +46,15 @@ export default class DVR {
     if (_.isFunction(this.extend)) this.extend(this.validator);
   }
 
-  validateField(field, form) {
+  validateField(field, form, changeState) {
     // get form fields data
     const data = {};
     form.each($field => (data[$field.path] = $field.value));
-    this.validateFieldAsync(field, form, data);
-    this.validateFieldSync(field, form, data);
+    this.validateFieldAsync(field, form, changeState, data);
+    this.validateFieldSync(field, form, changeState, data);
   }
 
-  validateFieldSync(field, form, data) {
+  validateFieldSync(field, form, changeState, data) {
     const $rules = this.rules(field.rules, 'sync');
     // exit if no rules found
     if (_.isEmpty($rules[0])) return;
@@ -66,12 +66,12 @@ export default class DVR {
     // set label into errors messages instead key
     validation.setAttributeNames({ [field.path]: field.label });
     // check validation
-    if (validation.passes()) return;
+    if (validation.passes() || !changeState) return;
     // the validation is failed, set the field errorbre
     field.invalidate(_.first(validation.errors.get(field.path)));
   }
 
-  validateFieldAsync(field, form, data) {
+  validateFieldAsync(field, form, changeState, data) {
     const $rules = this.rules(field.rules, 'async');
     // exit if no rules found
     if (_.isEmpty($rules[0])) return;
@@ -85,24 +85,28 @@ export default class DVR {
 
     const $p = new Promise((resolve) => {
       validation.checkAsync(
-        () => this.handleAsyncPasses(field, resolve),
-        () => this.handleAsyncFails(field, validation, resolve),
+        () => this.handleAsyncPasses(field, resolve, changeState),
+        () => this.handleAsyncFails(field, validation, resolve, changeState),
       );
     });
 
     this.promises.push($p);
   }
 
-  handleAsyncPasses(field, resolve) {
-    field.setValidationAsyncData(true);
-    field.showAsyncErrors();
+  handleAsyncPasses(field, resolve, changeState) {
+    if (changeState) {
+      field.setValidationAsyncData(true);
+      field.showAsyncErrors();
+    }
     resolve();
   }
 
-  handleAsyncFails(field, validation, resolve) {
-    field.setValidationAsyncData(false, _.first(validation.errors.get(field.path)));
-    this.executeAsyncValidation(field);
-    field.showAsyncErrors();
+  handleAsyncFails(field, validation, resolve, changeState) {
+    if (changeState) {
+      field.setValidationAsyncData(false, _.first(validation.errors.get(field.path)));
+      this.executeAsyncValidation(field);
+      field.showAsyncErrors();
+    }
     resolve();
   }
 

@@ -63,6 +63,7 @@ export default class Validator {
     const field = $try(opt.field, this.form.select(path, null, null));
     const related = $try(opt.related, obj.related, true);
     const showErrors = $try(opt.showErrors, obj.showErrors, false);
+    const changeState = $try(opt.changeState, obj.changeState, true);
     const instance = field || this.form;
     instance.$validating = true;
     this.$genericErrorMessage = null;
@@ -75,6 +76,7 @@ export default class Validator {
           showErrors,
           related,
           path,
+          changeState,
         });
       }
 
@@ -85,6 +87,7 @@ export default class Validator {
           field: $field,
           showErrors,
           related,
+          changeState,
         }));
 
       // wait all promises then resolve
@@ -100,33 +103,36 @@ export default class Validator {
   }
 
   @action
-  validateField({ field = null, path, showErrors = false, related = false }) {
+  validateField({ field = null, path, showErrors = false, related = false, changeState = true }) {
     const instance = field || this.form.select(path);
     // reset field validation
-    if (instance.path) instance.resetValidation();
+    if (instance.path && changeState) instance.resetValidation();
     // get all validators
     const { svk, dvr, vjf } = this.drivers;
     // validate with vanilla js functions (vjf)
-    if (vjf) vjf.validateField(instance, this.form);
+    if (vjf) vjf.validateField(instance, this.form, changeState);
     // validate with json schema validation keywords (dvr)
-    if (dvr) dvr.validateField(instance, this.form);
+    if (dvr) dvr.validateField(instance, this.form, changeState);
     // validate with json schema validation keywords (svk)
-    if (svk) svk.validateField(instance);
+    if (svk) svk.validateField(instance, changeState);
     // send error to the view
-    instance.showErrors(showErrors);
+
+    if (changeState) {
+      instance.showErrors(showErrors);
+    }
     // related validation
-    if (related) this.relatedFieldValidation(instance, showErrors);
+    if (related) this.relatedFieldValidation(instance, showErrors, changeState);
   }
 
   /**
     Validate 'related' fields if specified
     and related validation allowed (recursive)
   */
-  relatedFieldValidation(field, showErrors) {
+  relatedFieldValidation(field, showErrors, changeState) {
     if (!field.related || !field.related.length) return;
 
     _.each(field.related, path =>
-      this.validateField({ path, showErrors, related: false }));
+      this.validateField({ path, showErrors, related: false, changeState }));
   }
 
   @computed get genericErrorMessage() {

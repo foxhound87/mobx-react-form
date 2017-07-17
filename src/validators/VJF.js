@@ -20,7 +20,7 @@ export default class VJF {
     this.options = options;
   }
 
-  validateField(field, form) {
+  validateField(field, form, changeState) {
     // exit if field does not have validation functions
     if (!field.validators) return;
 
@@ -34,21 +34,21 @@ export default class VJF {
 
     // it's just one function
     if (_.isFunction($fn)) {
-      this.collectData($fn, field, form);
+      this.collectData($fn, field, form, changeState);
     }
 
     // execute the function validation
-    this.executeValidation(field);
+    this.executeValidation(field, changeState);
   }
 
-  collectData($fn, field, form) {
+  collectData($fn, field, form, changeState) {
     const res = this.handleFunctionResult($fn, field, form);
 
     // check and execute only if is a promise
     if (utils.isPromise(res)) {
       const $p = res
         .then($res => field.setValidationAsyncData($res[0], $res[1]))
-        .then(() => this.executeAsyncValidation(field))
+        .then(() => this.executeAsyncValidation(field, changeState))
         .then(() => field.showAsyncErrors());
 
       // push the promise into array
@@ -63,15 +63,16 @@ export default class VJF {
     });
   }
 
-  executeValidation(field) {
+  executeValidation(field, changeState) {
     // otherwise find an error message to show
-    field.validationFunctionsData
-      .map(rule => (rule.valid === false)
-        && field.invalidate(rule.message));
+    if (changeState) {
+      field.validationFunctionsData
+          .forEach(rule => (rule.valid === false) && field.invalidate(rule.message));
+    }
   }
 
-  executeAsyncValidation(field) {
-    if (field.validationAsyncData.valid === false) {
+  executeAsyncValidation(field, changeState) {
+    if (field.validationAsyncData.valid === false && changeState) {
       field.invalidate(field.validationAsyncData.message, true);
     }
   }
