@@ -367,9 +367,9 @@ export const prototypes = {
       } = $data;
 
       this.type = $type || type || 'text';
-      this.$onDrop = $onDrop || onDrop || null;
       this.$onSubmit = $onSubmit || onSubmit || null;
       this.$onClear = $onClear || onClear || this.noop;
+      this.$onDrop = $onDrop || onDrop || this.noop;
       this.$onReset = $onReset || onReset || this.noop;
 
       this.$parser = $try($parse, parse, this.$parser);
@@ -410,9 +410,9 @@ export const prototypes = {
     /* The field IS the value here */
     this.name = _.toString($key);
     this.type = $type || 'text';
-    this.$onDrop = $onDrop || null;
     this.$onSubmit = $onSubmit || null;
     this.$onClear = $onClear || this.noop;
+    this.$onDrop = $onDrop || this.noop;
     this.$onReset = $onReset || this.noop;
 
     this.$parser = $try($parse, this.$parser);
