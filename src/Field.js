@@ -191,7 +191,7 @@ export default class Field extends Base {
 
   @computed get error() {
     if (this.showError === false) return null;
-    return (this.errorAsync || this.errorSync);
+    return (this.errorAsync || this.errorSync || null);
   }
 
   @computed get hasError() {

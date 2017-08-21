@@ -37,3 +37,8 @@ describe('Check Flat $R extended field prop', () => {
   it('$R email newFieldProp should be true', () =>
     expect($.$R.$('email').newFieldProp).to.be.true);
 });
+
+describe('Check Flat $G prop', () => {
+  it('$G username error should be null', () =>
+    expect($.$G.errors().username).to.be.null);
+});

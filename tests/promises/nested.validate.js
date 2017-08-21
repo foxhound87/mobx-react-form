@@ -4,8 +4,9 @@ export default ($) => {
   describe('Form validate()', () => {
     // $R
     it('$R validate() should be true', (done) => {
-      $.$R.validate().then(({ isValid }) => {
+      $.$R.validate({ showErrors: true }).then(({ isValid }) => {
         expect(isValid).to.be.true; // eslint-disable-line
+        expect($.$R.errors().email).to.be.null; // eslint-disable-line
         done();
       });
     });
