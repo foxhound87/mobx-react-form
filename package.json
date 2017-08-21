@@ -61,7 +61,7 @@
     "mobx": "^2.5.0 || ^3.0.0"
   },
   "devDependencies": {
-    "ajv": "4.11.3",
+    "ajv": "^5.2.2",
     "babel-cli": "6.23.0",
     "babel-core": "6.23.1",
     "babel-eslint": "7.1.1",
@@ -90,7 +90,8 @@
     "nyc": "^10.2.0",
     "rimraf": "2.5.4",
     "semantic-release": "^6.3.6",
-    "validatorjs": "3.11.0",
+    "validator": "^8.0.0",
+    "validatorjs": "^3.13.3",
     "webpack": "1.*.*"
   }
 }

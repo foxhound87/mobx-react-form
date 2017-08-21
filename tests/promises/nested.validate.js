@@ -7,6 +7,7 @@ export default ($) => {
       $.$R.validate({ showErrors: true }).then(({ isValid }) => {
         expect(isValid).to.be.true; // eslint-disable-line
         expect($.$R.errors().email).to.be.null; // eslint-disable-line
+        expect($.$R.$('email').errors()).to.be.null; // eslint-disable-line
         done();
       });
     });

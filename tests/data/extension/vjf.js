@@ -14,6 +14,11 @@ export function shouldBeEqualTo(target) {
   };
 }
 
+export function isEmailByValidator({ field, validator }) {
+  const isValid = validator.isEmail(field.value);
+  return [isValid, `The ${field.label} should be an email address.`];
+}
+
 export function isEmail({ field }) {
   const isValid = (field.value.indexOf('@') > 0);
   return [isValid, `The ${field.label} should be an email address.`];

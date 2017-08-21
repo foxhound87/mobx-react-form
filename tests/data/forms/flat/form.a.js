@@ -1,10 +1,13 @@
 import ajv from 'ajv';
+import validator from 'validator';
 import validatorjs from 'validatorjs';
 
 import { Form } from '../../../../src';
 import svkExtend from '../../extension/svk';
+import { isEmailByValidator } from '../../extension/vjf';
 
 const plugins = {
+  vjf: validator,
   dvr: validatorjs,
   svk: {
     package: ajv,
@@ -22,6 +25,7 @@ const fields = {
   email: {
     label: 'Email',
     value: 's.jobs@apple.com',
+    validators: [isEmailByValidator],
   },
   password: {
     label: 'Password',
