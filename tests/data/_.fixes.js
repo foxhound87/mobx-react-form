@@ -16,10 +16,11 @@ import $N from './forms/fixes/form.n';
 import $O from './forms/fixes/form.o';
 import $P from './forms/fixes/form.p';
 import $Q from './forms/fixes/form.q';
+import $R from './forms/fixes/form.r';
 
 export default {
 
-  $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q,
+  $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q, $R,
 
 };
 

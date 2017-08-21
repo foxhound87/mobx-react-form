@@ -181,13 +181,15 @@ export default {
         let value = this.deepGet(prop, field.fields);
         if (prop === 'value') value = field.$formatter(value);
 
-
         delete obj[field.key]; // eslint-disable-line
         if (removeValue) return obj;
 
-        const data = utils.hasUnifiedProps({
-          fields: [value],
-        }) ? value[prop] : value;
+        const checkName = (k, v) => _.has(v, 'name') && (k === v.name);
+
+        const data = utils.hasUnifiedProps({ fields: [value] })
+          || checkName(field.key, value)
+            ? value[prop]
+            : value;
 
         return Object.assign(obj, {
           [field.key]: parser.parseCheckArray(field, data, prop),

@@ -207,3 +207,19 @@ describe('Check Fixes $P values', () => {
   it('$P address value check', () =>
     expect($.$P.$('address').labels()).to.be.deep.equal(labels));
 });
+
+describe('Check Fixes $R values', () => {
+  const a = $.$R.values().organization;
+  const b = $.$R.$('organization').value;
+  const x = { nested: undefined };
+
+  it('$R values().organization check', () =>
+    expect(a).to.be.deep.equal(x));
+
+  it('$R organization value check', () =>
+    expect(b).to.be.deep.equal(x));
+
+  it('$R values() check', () =>
+    expect($.$R.values()).to.be.deep
+      .equal({ organization: { nested: undefined } }));
+});
