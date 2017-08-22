@@ -19,8 +19,8 @@ All Event Handlers methods takes the `Proxy` object `(e)` in input as first argu
 
 ##### Validation Handlers
 
-  * [Extending the Form Instance](validation-handlers/extending.md)
-  * [Decupling from the Form Instance](validation-handlers/decoupling.md)
+  * [Extending the Form Class](validation-handlers/extending.md)
+  * [Decupling from the Form Class](validation-handlers/decoupling.md)
 
 ---
 
@@ -175,7 +175,7 @@ You can easly include the `onSubmit(e)` handler in your component:
 
 We have some alternatives to deal with the Validation Handlers:
 
-  * [Extending the Form Instance with Validation Handlers](validation-handlers/extending.md)
+  * [Extending the Form Class with Validation Handlers](validation-handlers/extending.md)
   * [Passing the Validation Handlers to the Form constructor](validation-handlers/constructor.md)
   * [Override the Validation Handlers with Manual Submit](validation-handlers/override.md)
 
@@ -199,3 +199,5 @@ Delegate the input `onChange` event with the `onDrop(e)` Event Handler and it wi
   })}
 />
 ```
+
+> Or create a [custom bindings](../bindings/custom.md).

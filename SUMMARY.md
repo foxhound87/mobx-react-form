@@ -41,9 +41,10 @@
  * [Observe or Intercept](docs/events/mobx-events.md)
  * [Events Hooks](docs/events/events-hooks.md)
  * [Events Handlers](docs/events/events-handlers.md)
- * Validation Handlers
-   * [Extending the Form Instance](docs/events/validation-handlers/extending.md)
-   * [Using the Form Constructor](docs/events/validation-handlers/constructor.md)
+ * [Custom Handlers/Hooks](docs/events/custom-handlers-hooks.md)
+ * [Validation Handlers](docs/events/validation-handlers.md)
+   * [On Form Initialization](docs/events/validation-handlers/constructor.md)
+   * [Extending the Form Class](docs/events/validation-handlers/extending.md)
    * [Override with Manual Submit](docs/events/validation-handlers/override.md)
 
 ## Bindings
