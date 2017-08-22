@@ -116,12 +116,12 @@ const onSubmit = {
 
 #### Initialize the Form
 
-Simply pass the `fields` and `plugins` objects to the constructor
+Simply pass the `fields`, `plugins` and `onSubmit` objects to the constructor
 
 ```javascript
 import MobxReactForm from 'mobx-react-form';
 
-const form = new MobxReactForm({ fields }, { plugins });
+const form = new MobxReactForm({ fields }, { plugins, onSubmit });
 ```
 
 #### Pass the form to a react component
