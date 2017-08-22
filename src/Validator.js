@@ -89,10 +89,15 @@ export default class Validator {
 
       // wait all promises then resolve
       return Promise.all(this.promises)
-        .then(action(() => (instance.$validating = false))) // eslint-disable-line
-        .catch(action((err) => {
-          // eslint-disable-next-line
+        .then(action(() => {
           instance.$validating = false;
+          instance.$clearing = false;
+          instance.$resetting = false;
+        }))
+        .catch(action((err) => {
+          instance.$validating = false;
+          instance.$clearing = false;
+          instance.$resetting = false;
           throw err;
         }))
         .then(() => resolve(instance));

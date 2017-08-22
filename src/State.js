@@ -39,14 +39,11 @@ export default class State {
   constructor({ form, initial, options, bindings }) {
     this.set('form', form);
     this.initProps(initial);
-    this.initOptions(options);
-    this.initBindings(bindings);
-    this.observeOptions();
-  }
-
-  initOptions(options) {
     this.options = new Options();
     this.options.set(options);
+    this.bindings = new Bindings();
+    this.bindings.register(bindings);
+    this.observeOptions();
   }
 
   initProps(initial) {
@@ -79,11 +76,6 @@ export default class State {
     }
 
     this.mode = 'unified';
-  }
-
-  initBindings(bindings) {
-    this.bindings = new Bindings();
-    this.bindings.register(bindings);
   }
 
   /**

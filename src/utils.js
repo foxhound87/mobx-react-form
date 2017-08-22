@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 const props = {
-  booleans: ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focused', 'touched', 'changed', 'disabled'],
+  booleans: ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focused', 'touched', 'changed', 'disabled', 'resetting', 'clearing'],
   field: ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'extra', 'bindings', 'type', 'error'],
   separated: ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'extra', 'bindings', 'types'],
   function: ['observers', 'interceptors', 'parse', 'format'],
@@ -18,6 +18,8 @@ const props = {
     touched: 'some',
     changed: 'some',
     disabled: 'every',
+    clearing: 'every',
+    resetting: 'every',
   },
 };
 

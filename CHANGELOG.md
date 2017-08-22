@@ -13,6 +13,7 @@
 * Introduced `onDrop` Field Event Handler.
 * Introduced `onDrop` Field Hook.
 * Introduced `files` Field prop.
+* Introduced `resetting` && `clearing` computed.
 * Dropzone support.
 
 # 1.30

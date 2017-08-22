@@ -18,6 +18,7 @@ export default class Form extends Base {
 
   @observable $submitting = false;
   @observable $validating = false;
+
   @observable fields = observable.map ? observable.map({}) : asMap({});
 
   constructor(setup = {}, {
@@ -86,6 +87,14 @@ export default class Form extends Base {
 
   @computed get validating() {
     return this.$validating;
+  }
+
+  @computed get clearing() {
+    return this.check('clearing', true);
+  }
+
+  @computed get resetting() {
+    return this.check('resetting', true);
   }
 
   @computed get error() {

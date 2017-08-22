@@ -59,6 +59,8 @@ export default class Field extends Base {
 
   @observable $submitting = false;
   @observable $validating = false;
+  @observable $clearing = false;
+  @observable $resetting = false;
 
   @observable autoFocus = false;
   @observable showError = false;
@@ -145,6 +147,10 @@ export default class Field extends Base {
     this.$default = parseFieldValue(this.$parser, { separated: val });
   }
 
+  @computed get actionRunning() {
+    return (this.submitting || this.clearing || this.resetting);
+  }
+
   @computed get submitting() {
     return toJS(this.$submitting);
   }
@@ -220,6 +226,18 @@ export default class Field extends Base {
     return this.hasNestedFields
       ? this.check('isDefault', true)
       : _.isEqual(this.$default, this.value);
+  }
+
+  @computed get resetting() {
+    return this.hasNestedFields
+      ? this.check('resetting', true)
+      : this.$resetting;
+  }
+
+  @computed get clearing() {
+    return this.hasNestedFields
+      ? this.check('clearing', true)
+      : this.$clearing;
   }
 
   @computed get isEmpty() {
@@ -519,14 +537,18 @@ export const prototypes = {
 
   @action
   clear(deep = true, call = true) {
+    this.$clearing = true;
     this.$touched = false;
     this.$changed = false;
 
     this.$value = defaultClearValue({ value: this.$value });
     this.files = undefined;
 
-    this.showErrors(this.state.options.get('showErrorsOnClear', this));
     if (deep) this.each(field => field.clear(true, false));
+
+    this.validate({
+      showErrors: this.state.options.get('showErrorsOnClear', this),
+    });
 
     if (call) {
       this.$onClear.apply(this, [{
@@ -538,6 +560,7 @@ export const prototypes = {
 
   @action
   reset(deep = true, call = true) {
+    this.$resetting = true;
     this.$touched = false;
     this.$changed = false;
 
@@ -546,8 +569,11 @@ export const prototypes = {
     if (!useDefaultValue) this.value = this.$initial;
     this.files = undefined;
 
-    this.showErrors(this.state.options.get('showErrorsOnReset', this));
     if (deep) this.each(field => field.reset(true, false));
+
+    this.validate({
+      showErrors: this.state.options.get('showErrorsOnReset', this),
+    });
 
     if (call) {
       this.$onReset.apply(this, [{
@@ -581,19 +607,22 @@ export const prototypes = {
   },
 
   observeValidation(type) {
-    const validateOnChange = this.state.options.get('validateOnChange', this);
-    const showErrorsOnChange = this.state.options.get('showErrorsOnChange', this);
-    const validateOnBlur = this.state.options.get('validateOnBlur', this);
-    const showErrorsOnBlur = this.state.options.get('showErrorsOnBlur', this);
+    const opt = this.state.options;
 
-    if (type === 'onBlur' || (validateOnBlur)) {
-      this.disposeValidationOnBlur = observe(this, '$focused', ({ newValue }) =>
-        (newValue === false) && this.debouncedValidation({ showErrors: showErrorsOnBlur }));
+    if (type === 'onBlur' || opt.get('validateOnBlur', this)) {
+      observe(this, '$focused', ({ newValue }) =>
+        (newValue === false) &&
+          this.debouncedValidation({
+            showErrors: opt.get('showErrorsOnBlur', this),
+          }));
     }
 
-    if (type === 'onChange' || validateOnChange) {
+    if (type === 'onChange' || opt.get('validateOnChange', this)) {
       this.disposeValidationOnChange = observe(this, '$value', () =>
-        this.debouncedValidation({ showErrors: showErrorsOnChange }));
+        !this.actionRunning &&
+          this.debouncedValidation({
+            showErrors: opt.get('showErrorsOnChange', this),
+          }));
     }
   },
 
