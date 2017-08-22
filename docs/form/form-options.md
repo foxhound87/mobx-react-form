@@ -7,6 +7,8 @@
 * [Get Current Form Options](#get-current-form-options)
 * [Get Form Option by key](#get-form-option-by-key)
 
+[![Edit form-options](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/x7omz8rv9o)
+
 ---
 
 ### Options Object Properties
