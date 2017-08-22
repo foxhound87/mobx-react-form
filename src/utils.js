@@ -5,7 +5,7 @@ const props = {
   field: ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'extra', 'bindings', 'type', 'error'],
   separated: ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'extra', 'bindings', 'types'],
   function: ['observers', 'interceptors', 'parse', 'format'],
-  hooks: ['onDrop', 'onSubmit', 'onReset', 'onClear'],
+  hooks: ['onChange', 'onToggle', 'onDrop', 'onSubmit', 'onReset', 'onClear'],
   validation: ['rules', 'validators'],
   types: {
     isDirty: 'some',

@@ -44,6 +44,8 @@ export default {
       $rules: $try('rules'),
       $observers: $try('observers'),
       $interceptors: $try('interceptors'),
+      $onChange: $try('onChange'),
+      $onToggle: $try('onToggle'),
       $onDrop: $try('onDrop'),
       $onSubmit: $try('onSubmit'),
       $onReset: $try('onReset'),

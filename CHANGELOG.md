@@ -15,6 +15,7 @@
 * Introduced `files` Field prop.
 * Introduced `resetting` && `clearing` computed.
 * Dropzone support.
+* Ability to pass `onChange` & `onToggle` in constructor.
 
 # 1.30
 * New `onClear` & `onReset` Form & Fields Hooks.

@@ -30,6 +30,8 @@ export default class Field extends Base {
   $observers;
   $interceptors;
 
+  $onChange;
+  $onToggle;
   $onDrop;
   $onSubmit;
   $onClear;
@@ -294,8 +296,13 @@ export default class Field extends Base {
     this.value = e;
   });
 
-  onChange = this.sync;
-  onToggle = this.sync;
+  onChange = (...all) => this.$onChange
+    ? this.$onChange.apply(this, [this]).apply(this, [...all])
+    : this.sync.apply(this, [...all]);
+
+  onToggle = (...all) => this.$onToggle
+    ? this.$onToggle.apply(this, [this]).apply(this, [...all])
+    : this.sync.apply(this, [...all]);
 
   onDrop = action((...all) => {
     const e = all[0];
@@ -351,8 +358,10 @@ export const prototypes = {
       $format,
       $observers,
       $interceptors,
-      $onDrop,
+      $onChange,
+      $onToggle,
       $onSubmit,
+      $onDrop,
       $onClear,
       $onReset,
     } = $props;
@@ -378,16 +387,20 @@ export const prototypes = {
         format,
         observers,
         interceptors,
-        onDrop,
+        onChange,
+        onToggle,
         onSubmit,
+        onDrop,
         onClear,
         onReset,
       } = $data;
 
       this.type = $type || type || 'text';
       this.$onSubmit = $onSubmit || onSubmit || null;
-      this.$onClear = $onClear || onClear || this.noop;
+      this.$onChange = $onChange || onChange || null;
+      this.$onToggle = $onToggle || onToggle || null;
       this.$onDrop = $onDrop || onDrop || this.noop;
+      this.$onClear = $onClear || onClear || this.noop;
       this.$onReset = $onReset || onReset || this.noop;
 
       this.$parser = $try($parse, parse, this.$parser);
@@ -422,15 +435,22 @@ export const prototypes = {
       this.$interceptors = $interceptors || interceptors || null;
       this.$extra = $extra || extra || null;
       this.$options = $options || options || {};
+
+
+      if (this.state.form.name === 'Register Material') {
+        console.log(this.name, this.$onChange);
+      }
       return;
     }
 
     /* The field IS the value here */
     this.name = _.toString($key);
     this.type = $type || 'text';
+    this.$onChange = $onChange || null;
+    this.$onToggle = $onToggle || null;
     this.$onSubmit = $onSubmit || null;
-    this.$onClear = $onClear || this.noop;
     this.$onDrop = $onDrop || this.noop;
+    this.$onClear = $onClear || this.noop;
     this.$onReset = $onReset || this.noop;
 
     this.$parser = $try($parse, this.$parser);
