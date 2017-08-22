@@ -87,7 +87,7 @@ form.state.options.get();
 ```
 => {
   showErrorsOnInit: true,
-  validateOnInit: `false,
+  validateOnInit: false,
   validateOnChange: true,
   strictUpdate: false,
   showErrorsOnChange: false,
