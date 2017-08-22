@@ -32,6 +32,10 @@ A [TypeScript Branch](https://github.com/foxhound87/mobx-react-form/tree/typescr
 
 <br>
 
+## CodeSandbox
+
+[![Edit form-quickstart](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrrZgG8y4)
+
 ## Documentation
 
 [https://foxhound87.github.io/mobx-react-form](https://foxhound87.github.io/mobx-react-form)
@@ -46,7 +50,6 @@ A [TypeScript Branch](https://github.com/foxhound87/mobx-react-form/tree/typescr
 
 ## Tutorial
 [Automagically manage React forms state and automatic validation with MobX](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769)
-
 
 <br>
 
@@ -88,7 +91,7 @@ const fields = [{
   name: 'passwordConfirm',
   label: 'Password Confirmation',
   placeholder: 'Confirm Password',
-  rules: 'same:password',
+  rules: 'required|string|same:password',
 }];
 ```
 
@@ -97,33 +100,28 @@ const fields = [{
 #### Define the Validation Handlers
 
 ```javascript
-import MobxReactForm from 'mobx-react-form';
-
-class MyForm extends MobxReactForm {
-
+const onSubmit = {
   onSuccess(form) {
     alert('Form is valid! Send the request here.');
     // get field values
     console.log('Form Values!', form.values());
-  }
-
+  },
   onError(form) {
+    alert('Form has errors!');
     // get all form errors
     console.log('All form errors', form.errors());
-    // invalidate the form with a custom error message
-    form.invalidate('This is a generic error message!');
   }
 }
 ```
-
-> The Validation Handlers can be decoupled from the class as well.
 
 #### Initialize the Form
 
 Simply pass the `fields` and `plugins` objects to the constructor
 
 ```javascript
-export default new MyForm({ fields }, { plugins });
+import MobxReactForm from 'mobx-react-form';
+
+const form = new MobxReactForm({ fields }, { plugins });
 ```
 
 #### Pass the form to a react component
@@ -144,7 +142,7 @@ export default observer(({ form }) => (
     <input {...form.$('username').bind()} />
     <p>{form.$('username').error}</p>
 
-    ...
+    {/* ... other inputs ... */}
 
     <button type="submit" onClick={form.onSubmit}>Submit</button>
     <button type="button" onClick={form.onClear}>Clear</button>
@@ -156,6 +154,10 @@ export default observer(({ form }) => (
 ```
 
 > Other Field Props are available. See the [docs](https://foxhound87.github.io/mobx-react-form/docs/api-reference/fields-properties.html) for more details.
+
+###### Extending the Form class
+
+[See how to implement the same configuration of this quickstart extending the Form class](https://foxhound87.github.io/mobx-react-form/docs/getting-started-class.html)
 
 <br>
 
