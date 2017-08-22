@@ -9,7 +9,7 @@ All Custom Handlers can be defined in two different modes:
 
 ---
 
-Available handlers: `onChange`, `onToggle`, `onDrop`, `onClear`, `onReset` & `onSubmit`.
+Available Handlers/Hooks: `onChange`, `onToggle`, `onDrop`, `onClear`, `onReset` & `onSubmit`.
 
 On the **Form Instance**, only `onClear`, `onReset` and `onSubmit` are available.
 
@@ -29,7 +29,7 @@ If you define `onSuccess` & `onError` in the **Form or Field Class**, they are *
 
 > The Event Hooks are executed after the Event Handlers.
 
-Read more info about the lifecycle of Handlers/Hooks in the [Event Handlers](event-handlers.md), [Event Hooks](event-hooks.md) and [Validation Handlers](validation-handlers) sections.
+Read more info about the lifecycle of Handlers/Hooks in the [Event Handlers](events-handlers.md) and [Validation Handlers](validation-handlers.md) sections.
 
 ---
 
