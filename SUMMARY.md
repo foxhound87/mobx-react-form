@@ -3,6 +3,7 @@
 ## Introduction
 * [Introduction](README.md)
 * [Getting Started](docs/getting-started.md)
+* [Getting Started (class)](docs/getting-started-class.md)
 * [DevTools](docs/devtools.md)
 * [FAQ](docs/faq.md)
 * [UMD Setup](docs/umd-setup.md)

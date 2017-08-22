@@ -2,7 +2,7 @@
 
 #### CodeSandbox
 
-[![Edit form-quickstart](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrrZgG8y4)
+[![Edit form-quickstart-class](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/lyj5p91x5z)
 
 ## Install
 
@@ -15,48 +15,60 @@ npm install --save mobx-react-form
 > See [Validation Plugins & Modes](validation/plugins.html)
  and [Supported Validation Packages](validation/supported-packages.html) for more info.
 
-Below we are creating a `plugins` object using the `validatorjs` package to enable `DVR` functionalities (Declarative Validation Rules).
+#### Define the Form Class
 
 ```javascript
+import { Form } from 'mobx-react-form';
 import validatorjs from 'validatorjs';
 
-const plugins = { dvr: validatorjs };
-```
+export default class MyForm extends Form {
 
-#### Define the Form Fields
+  /*
+    Below we are returning a `plugins` object using the `validatorjs` package
+    to enable `DVR` functionalities (Declarative Validation Rules).
+  */
+  plugins() {
+    return { dvr: validatorjs };
+  }
 
-Define the `fields` as a collection with a `rules` property for the validation.
+  /*
+    Return the `fields` as a collection into the `setup()` method
+    with a `rules` property for the validation.
+  */
+  setup() {
+    return {
+      fields: [{
+        name: 'email',
+        label: 'Email',
+        placeholder: 'Insert Email',
+        rules: 'required|email|string|between:5,25',
+        value: 's.jobs@apple.com'
+      }, {
+        name: 'password',
+        label: 'Password',
+        placeholder: 'Insert Password',
+        rules: 'required|string|between:5,25',
+      }, {
+        name: 'passwordConfirm',
+        label: 'Password Confirmation',
+        placeholder: 'Confirm Password',
+        rules: 'required|string|same:password',
+      }],
+    };
+  }
 
-```javascript
-const fields = [{
-  name: 'email',
-  label: 'Email',
-  placeholder: 'Insert Email',
-  rules: 'required|email|string|between:5,25',
-}, {
-  name: 'password',
-  label: 'Password',
-  placeholder: 'Insert Password',
-  rules: 'required|string|between:5,25',
-}, {
-  name: 'passwordConfirm',
-  label: 'Password Confirmation',
-  placeholder: 'Confirm Password',
-  rules: 'required|string|same:password',
-}];
-```
-
-> You can also define `fields` as an `object`.
-
-#### Define the Validation Handlers
-
-```javascript
-const onSubmit = {
+  /*
+    Success Validation Handler
+  */
   onSuccess(form) {
     alert('Form is valid! Send the request here.');
     // get field values
     console.log('Form Values!', form.values());
-  },
+  }
+
+  /*
+    Error Validation Handler
+  */
   onError(form) {
     alert('Form has errors!');
     // get all form errors
@@ -67,12 +79,10 @@ const onSubmit = {
 
 #### Initialize the Form
 
-Simply pass the `fields`, `plugins` and `onSubmit` objects to the constructor
+Now we can create our form instance:
 
 ```javascript
-import MobxReactForm from 'mobx-react-form';
-
-const form = new MobxReactForm({ fields }, { plugins, onSubmit });
+const form = new MyForm();
 ```
 
 #### Pass the form to a react component
@@ -84,7 +94,6 @@ The package provide some built-in and ready to use Event Handlers:
 ```javascript
 import React from 'react';
 import { observer } from 'mobx-react';
-
 
 export default observer(({ form }) => (
   <form onSubmit={form.onSubmit}>
@@ -106,8 +115,3 @@ export default observer(({ form }) => (
 ```
 
 > Other Field Props are available. See the [docs](api-reference/fields-properties.html) for more details.
-
-###### Extending the Form class
-
-[See how to implement the same configuration of this quickstart extending the Form class](getting-started-class.html)
-
