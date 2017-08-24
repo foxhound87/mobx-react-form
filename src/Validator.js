@@ -87,21 +87,21 @@ export default class Validator {
           related,
         }));
 
-      // wait all promises then resolve
-      return Promise.all(this.promises)
-        .then(action(() => {
-          instance.$validating = false;
-          instance.$clearing = false;
-          instance.$resetting = false;
-        }))
-        .catch(action((err) => {
-          instance.$validating = false;
-          instance.$clearing = false;
-          instance.$resetting = false;
-          throw err;
-        }))
-        .then(() => resolve(instance));
-    });
+      // wait all promises
+      resolve(Promise.all(this.promises));
+    })
+      .then(action(() => {
+        instance.$validating = false;
+        instance.$clearing = false;
+        instance.$resetting = false;
+      }))
+      .catch(action((err) => {
+        instance.$validating = false;
+        instance.$clearing = false;
+        instance.$resetting = false;
+        throw err;
+      }))
+      .then(() => instance);
   }
 
   @action
