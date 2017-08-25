@@ -93,7 +93,8 @@ export default class Field extends Base {
       this.state.options.get('validationDebounceOptions', this),
     );
 
-    this.observeValidation();
+    this.observeValidationOnBlur();
+    this.observeValidationOnChange();
 
     this.initMOBXEvent('observers');
     this.initMOBXEvent('interceptors');
@@ -435,11 +436,6 @@ export const prototypes = {
       this.$interceptors = $interceptors || interceptors || null;
       this.$extra = $extra || extra || null;
       this.$options = $options || options || {};
-
-
-      if (this.state.form.name === 'Register Material') {
-        console.log(this.name, this.$onChange);
-      }
       return;
     }
 
@@ -626,18 +622,20 @@ export const prototypes = {
     this.errorAsync = null;
   },
 
-  observeValidation(type) {
+  observeValidationOnBlur() {
     const opt = this.state.options;
-
-    if (type === 'onBlur' || opt.get('validateOnBlur', this)) {
-      this.disposeValidationOnBlur = observe(this, '$focused', ({ newValue }) =>
-        (newValue === false) &&
+    if (opt.get('validateOnBlur', this)) {
+      this.disposeValidationOnBlur = observe(this, '$focused', change =>
+        (change.newValue === false) &&
           this.debouncedValidation({
             showErrors: opt.get('showErrorsOnBlur', this),
           }));
     }
+  },
 
-    if (type === 'onChange' || opt.get('validateOnChange', this)) {
+  observeValidationOnChange() {
+    const opt = this.state.options;
+    if (opt.get('validateOnChange', this)) {
       this.disposeValidationOnChange = observe(this, '$value', () =>
         !this.actionRunning &&
           this.debouncedValidation({
