@@ -6,10 +6,14 @@ const values = { qwerty: 0 };
 
 class NewForm extends Form {
 
-  onInit(form) {
-    form.state.options.set({
-      loadingMessage: 'Custom Loading Message...',
-    });
+  hooks() {
+    return {
+      onInit(form) {
+        form.state.options.set({
+          loadingMessage: 'Custom Loading Message...',
+        });
+      },
+    };
   }
 }
 

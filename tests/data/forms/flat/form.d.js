@@ -49,14 +49,18 @@ class NewForm extends Form {
     };
   }
 
-  onInit(form) {
-    form.update({
-      username: 'JonathanIve',
-      terms: false,
-      assets: 0,
-      revenue: 'aaa',
-      undefined: true, // this field does not exists (strictUpdate)
-    });
+  hooks() {
+    return {
+      onInit(form) {
+        form.update({
+          username: 'JonathanIve',
+          terms: false,
+          assets: 0,
+          revenue: 'aaa',
+          undefined: true, // this field does not exists (strictUpdate)
+        });
+      },
+    };
   }
 }
 

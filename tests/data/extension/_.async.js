@@ -10,7 +10,7 @@ export default (query = {}) => {
     { user: 'SteveJobs' },
   ];
 
-  return sleep(50)
+  return sleep(25)
     .then(() => _.find(db, query) || []);
 };
 

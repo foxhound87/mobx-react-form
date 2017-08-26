@@ -12,24 +12,28 @@ const fields = [
 
 class NewForm extends Form {
 
-  onInit(form) {
-    form.init({
-      club: {
-        name: 'HELLO',
-        city: 'NY',
-      },
-      members: [{
-        firstname: 'Clint',
-        lastname: 'Eastwood',
-        hobbies: ['Soccer', 'Baseball'],
-      }, {
-        firstname: 'Charlie',
-        lastname: 'Chaplin',
-        hobbies: ['Golf', 'Basket'],
-      }],
-    });
+  hooks() {
+    return {
+      onInit(form) {
+        form.init({
+          club: {
+            name: 'HELLO',
+            city: 'NY',
+          },
+          members: [{
+            firstname: 'Clint',
+            lastname: 'Eastwood',
+            hobbies: ['Soccer', 'Baseball'],
+          }, {
+            firstname: 'Charlie',
+            lastname: 'Chaplin',
+            hobbies: ['Golf', 'Basket'],
+          }],
+        });
 
-    form.reset();
+        form.reset();
+      },
+    };
   }
 }
 

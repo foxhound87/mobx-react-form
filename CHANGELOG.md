@@ -1,3 +1,18 @@
+# 1.32
+* Validate with different props.
+* Reimplemented Event Hooks & Handlers.
+* Introduced new Event Hooks.
+* Introduced `input`/`output` props (converters).
+* Introduced `hooks` Field prop and class function.
+* Introduced `handlers` Field prop and class function.
+* Introduced `validatedWith` Field prop.
+* Introduced `validatedValue` Field computed.
+* Option `alwaysShowDefaultError` removed.
+* Option `uniqueId` (Custom Function) added.
+* Option `validateDisabledFields` added.
+* Computed `hasIncrementalNestedFields` renamed to `hasIncrementalKeys`.
+* No more manually wire `onDrop` to `onChange`.
+
 # 1.31
 * Option `validateOnBlur` added.
 * Option `validateOnChange` is `false` by default.

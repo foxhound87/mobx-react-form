@@ -11,9 +11,6 @@ describe('Field values checks', () => {
 describe('Check Flat $B error prop', () => {
   it('Flat $B state.options defaultGenericError should be equal to "Custom Generic Error"', () =>
     expect($flat.$B.state.options.get('defaultGenericError')).to.be.equal('Custom Generic Error'));
-
-  it('Flat $B error should be equal to "Custom Generic Error"', () =>
-    expect($flat.$B.error).to.be.equal('Custom Generic Error'));
 });
 
 describe('Check Flat $I error prop', () => {

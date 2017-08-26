@@ -41,26 +41,30 @@ class NewForm extends Form {
     };
   }
 
-  onInit() {
-    // this.$('user.email')
-    //   .on('update', ({ path, event, change }) => {
-    //     describe('Check Nested-U $("user.email").on("update") hook', () => {
-    //       it('event should be equal to change.name', () =>
-    //           expect(event).to.be.equal(change.name));
-    //       it('event should be equal to change.name', () =>
-    //           expect(path).to.be.equal('user.email'));
-    //     });
-    //   });
+  hooks() {
+    return {
+      onInit() {
+        // this.$('user.email')
+        //   .on('update', ({ path, event, change }) => {
+        //     describe('Check Nested-U $("user.email").on("update") hook', () => {
+        //       it('event should be equal to change.name', () =>
+        //           expect(event).to.be.equal(change.name));
+        //       it('event should be equal to change.name', () =>
+        //           expect(path).to.be.equal('user.email'));
+        //     });
+        //   });
 
-    this.observe({
-      path: 'user.email',
-      key: 'value',
-      call: ({ change }) => describe('Check Nested-U observer', () =>
-        it('change.newValue should be equal to "notAnEmail"', () =>
-          expect(change.newValue).to.be.equal('notAnEmail'))),
-    });
+        this.observe({
+          path: 'user.email',
+          key: 'value',
+          call: ({ change }) => describe('Check Nested-U observer', () =>
+            it('change.newValue should be equal to "notAnEmail"', () =>
+              expect(change.newValue).to.be.equal('notAnEmail'))),
+        });
 
-    this.update({ user: { email: 'notAnEmail' } });
+        this.update({ user: { email: 'notAnEmail' } });
+      },
+    };
   }
 }
 

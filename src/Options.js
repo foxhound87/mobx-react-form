@@ -1,11 +1,12 @@
 import { observable, action, toJS, extendObservable } from 'mobx';
 import _ from 'lodash';
+import { uniqueId } from './utils';
 
 export default class Options {
 
   @observable options = {
+    uniqueId,
     defaultGenericError: null,
-    alwaysShowDefaultError: false,
     submitThrowsError: true,
     showErrorsOnInit: false,
     showErrorsOnSubmit: true,
@@ -16,6 +17,7 @@ export default class Options {
     validateOnInit: true,
     validateOnBlur: true,
     validateOnChange: false,
+    validateDisabledFields: false,
     strictUpdate: false,
     strictDelete: true,
     retrieveOnlyDirtyValues: false,

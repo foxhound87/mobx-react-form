@@ -30,15 +30,17 @@ const fields = [{
 
 class NewForm extends Form {
 
-  onInit(form) {
-    form.state.extra(['a', 'b', 'c']);
-
-    form.$('state.city.places').set('label', 'NY Cool Places');
-
-    form.$('state.city.places').update({
-      empireStateBuilding: false,
-      centralPark: false,
-    });
+  hooks() {
+    return {
+      onInit(form) {
+        form.state.extra(['a', 'b', 'c']);
+        form.$('state.city.places').set('label', 'NY Cool Places');
+        form.$('state.city.places').update({
+          empireStateBuilding: false,
+          centralPark: false,
+        });
+      },
+    };
   }
 }
 

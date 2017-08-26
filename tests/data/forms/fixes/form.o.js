@@ -8,9 +8,14 @@ const fields = [
 ];
 
 class NewForm extends Form {
-  onInit() {
-    this.$('array').add();
-    this.$('array').del(0);
+
+  hooks() {
+    return {
+      onInit() {
+        this.$('array').add();
+        this.$('array').del(0);
+      },
+    };
   }
 }
 

@@ -22,18 +22,22 @@ class NewForm extends Form {
     };
   }
 
-  onInit(form) {
-    form.invalidate();
+  hooks() {
+    return {
+      onInit(form) {
+        form.invalidate();
 
-    form.update({
-      undefined: 'undefined',
-      username: 'TestUser',
-    });
+        form.update({
+          undefined: 'undefined',
+          username: 'TestUser',
+        });
 
-    form.set('label', {
-      undefined: 'undefined',
-      email: 'E-mail',
-    });
+        form.set('label', {
+          undefined: 'undefined',
+          email: 'E-mail',
+        });
+      },
+    };
   }
 }
 

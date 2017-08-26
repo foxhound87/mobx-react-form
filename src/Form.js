@@ -12,9 +12,8 @@ export default class Form extends Base {
   state;
   validator;
 
-  $onSubmit;
-  $onClear;
-  $onReset;
+  $hooks = {};
+  $handlers = {};
 
   @observable $submitting = false;
   @observable $validating = false;
@@ -27,17 +26,15 @@ export default class Form extends Base {
     options = {},
     plugins = {},
     bindings = {},
-    onSubmit = {},
-    onClear = () => {},
-    onReset = () => {},
+    hooks = {},
+    handlers = {},
 
   } = {}) {
     super();
 
     this.name = name;
-    this.$onSubmit = onSubmit;
-    this.$onClear = onClear;
-    this.$onReset = onReset;
+    this.$hooks = hooks;
+    this.$handlers = handlers;
 
     // load data from initializers methods
     const initial = _.each({ setup, options, plugins, bindings },
@@ -54,7 +51,6 @@ export default class Form extends Base {
 
     this.validator = new Validator({
       form: this,
-      options: this.state.options,
       plugins: initial.plugins,
       schema: initial.setup.schema,
     });
@@ -72,10 +68,7 @@ export default class Form extends Base {
       this.validator.validate({ showErrors: this.state.options.get('showErrorsOnInit') });
     }
 
-    // execute onInit() if exist
-    if (_.isFunction(this.onInit)) {
-      this.onInit.apply(this, [this]);
-    }
+    this.execHook('onInit');
   }
 
   /* ------------------------------------------------------------------ */
@@ -98,16 +91,16 @@ export default class Form extends Base {
   }
 
   @computed get error() {
-    return this.validator.genericErrorMessage;
+    return this.validator.error;
   }
 
   @computed get hasError() {
-    return _.isString(this.validator.genericErrorMessage)
+    return this.validator.error
      || this.check('hasError', true);
   }
 
   @computed get isValid() {
-    return !_.isString(this.validator.genericErrorMessage)
+    return !this.validator.error
       && this.check('isValid', true);
   }
 
@@ -170,8 +163,11 @@ export const prototypes = {
     });
   },
 
-  invalidate(message) {
-    this.validator.invalidate(message);
+  @action
+  invalidate(message = null) {
+    this.validator.error = message
+      || this.state.options.get('defaultGenericError')
+      || true;
   },
 
   showErrors(show = true) {
@@ -184,8 +180,7 @@ export const prototypes = {
   @action clear() {
     this.$touched = false;
     this.$changed = false;
-    this.each(field => field.clear(true, false));
-    this.$onClear.apply(this, [this]);
+    this.each(field => field.clear(true));
   },
 
   /**
@@ -194,8 +189,7 @@ export const prototypes = {
   @action reset() {
     this.$touched = false;
     this.$changed = false;
-    this.each(field => field.reset(true, false));
-    this.$onReset.apply(this, [this]);
+    this.each(field => field.reset(true));
   },
 
 };

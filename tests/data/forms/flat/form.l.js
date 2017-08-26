@@ -22,6 +22,7 @@ const fields = {
     label: 'Password',
     value: 'thinkdifferent',
   },
+
 };
 
 const schema = {
@@ -36,8 +37,12 @@ const schema = {
 
 class NewForm extends Form {
 
-  onInit(form) {
-    form.clear(); // to empty values
+  hooks() {
+    return {
+      onInit(form) {
+        form.clear(); // to empty values
+      },
+    };
   }
 }
 

@@ -25,25 +25,29 @@ const values = {
 
 class NewForm extends Form {
 
-  onInit(form) {
-    form.update({
-      items: [
-        ...form.$('items').values(),
-        {
-          name: 'Item #3',
-          alternateName: 'Alternate Name #3',
-        },
-      ],
-    });
+  hooks() {
+    return {
+      onInit(form) {
+        form.update({
+          items: [
+            ...form.$('items').values(),
+            {
+              name: 'Item #3',
+              alternateName: 'Alternate Name #3',
+            },
+          ],
+        });
 
 
-    this.$('singleFieldArray').set(['x']);
-    this.$('singleFieldEmptyArray').set([]);
-    this.$('singleFieldEmptyObject').set({});
+        this.$('singleFieldArray').set(['x']);
+        this.$('singleFieldEmptyArray').set([]);
+        this.$('singleFieldEmptyObject').set({});
 
-    this.$('items').$(0).$('name').set('validators', [shouldBeEqualTo('items[0].alternateName')]);
-    this.$('items').$(0).$('name').set('related', ['items[0].alternateName']);
-    this.$('items').$(0).$('name').set('extra', ['a', 'b', 'c']);
+        this.$('items').$(0).$('name').set('validators', [shouldBeEqualTo('items[0].alternateName')]);
+        this.$('items').$(0).$('name').set('related', ['items[0].alternateName']);
+        this.$('items').$(0).$('name').set('extra', ['a', 'b', 'c']);
+      },
+    };
   }
 }
 

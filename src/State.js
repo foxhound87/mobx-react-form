@@ -51,7 +51,7 @@ export default class State {
       ...utils.props.separated,
       ...utils.props.validation,
       ...utils.props.function,
-      ...utils.props.hooks,
+      ...utils.props.handlers,
     ]);
 
     this.set('initial', 'props', initialProps);
@@ -126,7 +126,7 @@ export default class State {
       type: 'update',
       key: 'validateOnChange',
       to: true,
-      exec: () => this.form.each(field => field.observeValidation('onChange')),
+      exec: () => this.form.each(field => field.observeValidationOnChange()),
     }, {
       // stop observing fields validateOnChange
       type: 'update',
@@ -138,7 +138,7 @@ export default class State {
       type: 'update',
       key: 'validateOnBlur',
       to: true,
-      exec: () => this.form.each(field => field.observeValidation('onBlur')),
+      exec: () => this.form.each(field => field.observeValidationOnBlur()),
     }, {
       // stop observing fields validateOnBlur
       type: 'update',

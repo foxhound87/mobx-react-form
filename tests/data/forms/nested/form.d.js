@@ -39,8 +39,12 @@ const fields = {
 
 class NewForm extends Form {
 
-  onInit(form) {
-    form.$('state.city').clear(true);
+  hooks() {
+    return {
+      onInit(form) {
+        form.$('state.city').clear(true);
+      },
+    };
   }
 }
 

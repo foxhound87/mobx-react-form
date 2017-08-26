@@ -42,9 +42,13 @@ class NewForm extends Form {
     };
   }
 
-  onInit(form) {
-    form.$('username').set('label', 'UserName');
-    form.reset();
+  hooks() {
+    return {
+      onInit(form) {
+        form.$('username').set('label', 'UserName');
+        form.reset();
+      },
+    };
   }
 }
 

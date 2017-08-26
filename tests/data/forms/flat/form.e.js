@@ -1,9 +1,11 @@
 import ajv from 'ajv';
+import validatorjs from 'validatorjs';
 import { Form } from '../../../../src';
 import { isEmail, shouldBeEqualTo } from '../../extension/vjf';
 import svkExtend from '../../extension/svk';
 
 const plugins = {
+  dvr: validatorjs,
   svk: {
     package: ajv,
     extend: svkExtend,
@@ -28,6 +30,12 @@ const fields = {
   devSkills: {
     label: 'Dev Skills',
     value: 5,
+  },
+  validatedDifferently: {
+    value: 'x',
+    label: 1,
+    rules: 'integer',
+    validatedWith: 'label',
   },
 };
 

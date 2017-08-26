@@ -24,8 +24,8 @@ const parsePath = (path) => {
   return $path;
 };
 
-const parseFieldValue = (parser, { type, isEmptyArray, separated, unified, initial }) =>
-  parser(utils.$try(separated, unified, initial, defaultValue({ type, isEmptyArray })));
+const parseInput = (input, { type, isEmptyArray, separated, unified, initial }) =>
+  input(utils.$try(separated, unified, initial, defaultValue({ type, isEmptyArray })));
 
 // make integers labels empty
 const parseGetLabel = label =>
@@ -40,13 +40,13 @@ const parseArrayProp = ($val, $prop) => {
 };
 
 const parseCheckArray = (field, value, prop) =>
-  field.hasIncrementalNestedFields
+  field.hasIncrementalKeys
     ? parseArrayProp(value, prop)
     : value;
 
-const parseCheckFormatter = ($field, $prop) =>
+const parseCheckOutput = ($field, $prop) =>
   ($prop === 'value')
-    ? $field.$formatter($field[$prop])
+    ? $field.$output($field[$prop])
     : $field[$prop];
 
 const defineFieldsFromStruct = (struct, add = false) =>
@@ -213,12 +213,12 @@ const pathToFieldsTree = (struct, path, n = 0, add = false) => {
 export default {
   defaultValue,
   defaultClearValue,
-  parseFieldValue,
+  parseInput,
   parsePath,
   parseGetLabel,
   parseArrayProp,
   parseCheckArray,
-  parseCheckFormatter,
+  parseCheckOutput,
   mergeSchemaDefaults,
   handleFieldsNested,
   handleFieldsArrayOfStrings,

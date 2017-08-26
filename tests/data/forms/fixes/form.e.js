@@ -17,8 +17,12 @@ const values = {
 
 class NewForm extends Form {
 
-  onInit(form) {
-    form.$('places').clear();
+  hooks() {
+    return {
+      onInit(form) {
+        form.$('places').clear();
+      },
+    };
   }
 }
 

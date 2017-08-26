@@ -23,20 +23,24 @@ const values = {
 
 class NewForm extends Form {
 
-  onInit(form) {
-    form.update({ ids: [1, 2, 3] });
-    form.update({ places: ['NY', 'NJ', 'AR'] });
-    form.update({ places: ['NY', 'NJ'] });
-    form.update({ skills: [] });
-    form.update({ date: new Date(1976, 6, 3) });
+  hooks() {
+    return {
+      onInit(form) {
+        form.update({ ids: [1, 2, 3] });
+        form.update({ places: ['NY', 'NJ', 'AR'] });
+        form.update({ places: ['NY', 'NJ'] });
+        form.update({ skills: [] });
+        form.update({ date: new Date(1976, 6, 3) });
 
-    form.update({
-      members: [{
-        hobbies: ['Soccer', 'Baseball', 'Basket'],
-      }, {
-        hobbies: [],
-      }],
-    });
+        form.update({
+          members: [{
+            hobbies: ['Soccer', 'Baseball', 'Basket'],
+          }, {
+            hobbies: [],
+          }],
+        });
+      },
+    };
   }
 }
 

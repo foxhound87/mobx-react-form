@@ -22,29 +22,31 @@ const fields = [{
     name: 'devSkills',
     label: 'Dev Skills',
     value: 5,
-    // parse: value => value.toString(),   // (user to store)
-    // format: value => Number(value),     // (store to user)
   }],
 }];
 
-const parse = {
+const input = {
   'user.devSkills': value => value.toString(),
 };
 
-const format = {
+const output = {
   'user': () => {},
   'user.devSkills': value => Number(value),
 };
 
 class NewForm extends Form {
 
-  onInit(form) {
-    form.state.extra({ foo: 'bar' });
-    form.update({ user: { email: 'notAnEmail' } });
-    form.set('label', { user: { emailConfirm: 'Confirm User Email' } });
-    form.set('default', { user: { emailConfirm: 'Default Value' } });
-    form.$('user.password').invalidate('Password Invalid');
+  hooks() {
+    return {
+      onInit(form) {
+        form.state.extra({ foo: 'bar' });
+        form.update({ user: { email: 'notAnEmail' } });
+        form.set('label', { user: { emailConfirm: 'Confirm User Email' } });
+        form.set('default', { user: { emailConfirm: 'Default Value' } });
+        form.$('user.password').invalidate('Password Invalid');
+      },
+    };
   }
 }
 
-export default new NewForm({ fields, parse, format }, { name: 'Nested-A' });
+export default new NewForm({ fields, input, output }, { name: 'Nested-A' });

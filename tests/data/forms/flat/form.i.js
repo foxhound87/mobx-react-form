@@ -35,9 +35,13 @@ class NewForm extends Form {
     };
   }
 
-  onInit(form) {
-    form.update({ username: 'JonathanIve' });
-    form.reset(); // to default or initial values
+  hooks() {
+    return {
+      onInit(form) {
+        form.update({ username: 'JonathanIve' });
+        form.reset(); // to default or initial values
+      },
+    };
   }
 }
 

@@ -6,6 +6,10 @@ import { Form } from '../../../../src';
 import svkExtend from '../../extension/svk';
 import { isEmailByValidator } from '../../extension/vjf';
 
+/* ------------------------
+  This form should be VALID
+  ------------------------- */
+
 const plugins = {
   vjf: validator,
   dvr: validatorjs,
@@ -32,14 +36,20 @@ const fields = {
     value: 'thinkdifferent',
     rules: 'confirmed',
   },
+  password_confirmation: {
+    label: 'Password Confirmation',
+    value: 'thinkdifferent',
+  },
   passwordConfirmation1: {
     label: 'Password Confirmation 1',
     value: 'thinkdifferent',
-    rules: 'required|same:password',
+    rules: 'required|same:password', // target: password_confirmation
   },
-  password_confirmation: {
+  passwordConfirmation2: {
     label: 'Password Confirmation 2',
-    value: 'thinkdifferent',
+    rules: 'required',
+    value: null, // should invalidate the field
+    disabled: true, // should not validate the field
   },
   terms: {
     label: 'Accept Terms',
@@ -48,8 +58,8 @@ const fields = {
   devSkills: {
     label: 'Dev Skills',
     value: 5,
-    parse: value => value.toString(),   // (user to store)
-    format: value => Number(value),     // (store to user)
+    input: value => value.toString(),   // (user to store)
+    output: value => Number(value),     // (store to user)
   },
   revenue: {
     label: 'Revenue (Billion $)',

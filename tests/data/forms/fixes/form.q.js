@@ -9,9 +9,14 @@ const fields = [
 ];
 
 class NewForm extends Form {
-  onInit() {
-    // FIX: #282 (reserved keywords)
-    this.$('incident').add();
+
+  hooks() {
+    return {
+      onInit() {
+        // FIX: #282 (reserved keywords)
+        this.$('incident').add();
+      },
+    };
   }
 }
 

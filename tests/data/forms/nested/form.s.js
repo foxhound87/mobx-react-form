@@ -94,67 +94,71 @@ class NewForm extends Form {
     return { fields, values, observers, interceptors };
   }
 
-  onInit(form) {
-    this.$('club.name').intercept((data) => {
-      // eslint-disable-next-line
-      data.change.newValue = data.change.newValue + '-intercepted';
-      return data.change;
-    });
+  hooks() {
+    return {
+      onInit(form) {
+        this.$('club.name').intercept((data) => {
+          // eslint-disable-next-line
+          data.change.newValue = data.change.newValue + '-intercepted';
+          return data.change;
+        });
 
-    // same as form.set('value', { ... });
-    form.set({
-      club: {
-        name: 'club-name-set-value',
-        city: 'club-city-set-value',
+        // same as form.set('value', { ... });
+        form.set({
+          club: {
+            name: 'club-name-set-value',
+            city: 'club-city-set-value',
+          },
+        });
+
+        form.set('value', {
+          members: [{
+            firstname: 'members-0-firstname-set-value',
+            lastname: 'members-0-lastname-set-value',
+            hobbies: [
+              'members-0-hobbies-0-set-value',
+              'members-0-hobbies-1-set-value',
+            ],
+          }, {
+            firstname: 'members-1-firstname-set-value',
+            lastname: 'members-1-lastname-set-value',
+            hobbies: [
+              'members-1-hobbies-0-set-value',
+              'members-1-hobbies-1-set-value',
+            ],
+          }],
+        });
+
+        // dispose all hobbies 'value' observers recursively
+        this.$('members')
+          .map(members => members.$('hobbies')
+            .map(hobbies => hobbies.dispose({
+              type: 'observer',
+              key: 'value',
+            })));
+
+        this.$('club.name').dispose({
+          type: 'interceptor',
+        });
+
+        describe('Check Nested-S Disposers:', () => {
+          it('Disposers should not have $value@club.name prop', () =>
+            expect(form.state.disposers.interceptor).not.to.have.property('$value@club.name'));
+
+          it('Disposers should not have value@club.name prop', () =>
+            expect(form.state.disposers.interceptor).not.to.have.property('value@club.name'));
+
+          it('Disposers should have $value@club.city prop', () =>
+            expect(form.state.disposers.interceptor).to.have.property('$value@club.city'));
+
+          it('Disposers should not have value@club.city prop', () =>
+            expect(form.state.disposers.interceptor).not.to.have.property('value@club.city'));
+
+          it('Disposers should not have value@members.0.hobbies.0 prop', () =>
+            expect(form.state.disposers.observer).not.to.have.property('value@members.0.hobbies.0'));
+        });
       },
-    });
-
-    form.set('value', {
-      members: [{
-        firstname: 'members-0-firstname-set-value',
-        lastname: 'members-0-lastname-set-value',
-        hobbies: [
-          'members-0-hobbies-0-set-value',
-          'members-0-hobbies-1-set-value',
-        ],
-      }, {
-        firstname: 'members-1-firstname-set-value',
-        lastname: 'members-1-lastname-set-value',
-        hobbies: [
-          'members-1-hobbies-0-set-value',
-          'members-1-hobbies-1-set-value',
-        ],
-      }],
-    });
-
-    // dispose all hobbies 'value' observers recursively
-    this.$('members')
-      .map(members => members.$('hobbies')
-        .map(hobbies => hobbies.dispose({
-          type: 'observer',
-          key: 'value',
-        })));
-
-    this.$('club.name').dispose({
-      type: 'interceptor',
-    });
-
-    describe('Check Nested-S Disposers:', () => {
-      it('Disposers should not have $value@club.name prop', () =>
-        expect(form.state.disposers.interceptor).not.to.have.property('$value@club.name'));
-
-      it('Disposers should not have value@club.name prop', () =>
-        expect(form.state.disposers.interceptor).not.to.have.property('value@club.name'));
-
-      it('Disposers should have $value@club.city prop', () =>
-        expect(form.state.disposers.interceptor).to.have.property('$value@club.city'));
-
-      it('Disposers should not have value@club.city prop', () =>
-        expect(form.state.disposers.interceptor).not.to.have.property('value@club.city'));
-
-      it('Disposers should not have value@members.0.hobbies.0 prop', () =>
-        expect(form.state.disposers.observer).not.to.have.property('value@members.0.hobbies.0'));
-    });
+    };
   }
 }
 

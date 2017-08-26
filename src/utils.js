@@ -2,11 +2,11 @@ import _ from 'lodash';
 
 const props = {
   booleans: ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focused', 'touched', 'changed', 'disabled', 'resetting', 'clearing'],
-  field: ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'extra', 'bindings', 'type', 'error'],
-  separated: ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'extra', 'bindings', 'types'],
-  function: ['observers', 'interceptors', 'parse', 'format'],
-  hooks: ['onChange', 'onToggle', 'onDrop', 'onSubmit', 'onReset', 'onClear'],
-  validation: ['rules', 'validators'],
+  field: ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'extra', 'bindings', 'type', 'hooks', 'handlers', 'error'],
+  separated: ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'extra', 'bindings', 'types', 'hooks', 'handlers'],
+  handlers: ['onChange', 'onToggle', 'onFocus', 'onBlur', 'onDrop', 'onSubmit', 'onReset', 'onClear', 'onAdd', 'onDel'],
+  function: ['observers', 'interceptors', 'input', 'output'],
+  validation: ['rules', 'validators', 'validateWith'],
   types: {
     isDirty: 'some',
     isValid: 'every',
@@ -50,14 +50,14 @@ const hasProps = ($type, $data) => {
       ...props.field,
       ...props.validation,
       ...props.function,
-      ...props.hooks,
+      ...props.handlers,
     ]; break;
     case 'all': $props = ['id',
       ...props.booleans,
       ...props.field,
       ...props.validation,
       ...props.function,
-      ...props.hooks,
+      ...props.handlers,
     ]; break;
     default: $props = null;
   }
@@ -124,7 +124,7 @@ const allowNested = (field, strictProps) =>
       ...props.field,
       ...props.validation,
       ...props.function,
-      ...props.hooks,
+      ...props.handlers,
     ]) || strictProps);
 
 const parseIntKeys = fields =>
@@ -138,8 +138,8 @@ const maxKey = (fields) => {
   return _.isUndefined(max) ? 0 : max + 1;
 };
 
-const makeId = path =>
-  _.uniqueId([_.replace(path, new RegExp('\\.', 'g'), '-'), '--'].join(''));
+const uniqueId = field =>
+  _.uniqueId([_.replace(field.path, new RegExp('\\.', 'g'), '-'), '--'].join(''));
 
 const $isEvent = (obj) => {
   if (_.isNil(obj) || typeof Event === 'undefined') return false;
@@ -181,7 +181,7 @@ export default {
   parseIntKeys,
   hasIntKeys,
   maxKey,
-  makeId,
+  uniqueId,
   $isEvent,
   $hasFiles,
   $isBool,

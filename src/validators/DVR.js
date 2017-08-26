@@ -49,7 +49,7 @@ export default class DVR {
   validateField(field, form) {
     // get form fields data
     const data = {};
-    form.each($field => (data[$field.path] = $field.value));
+    form.each($field => (data[$field.path] = $field.validatedValue));
     this.validateFieldAsync(field, form, data);
     this.validateFieldSync(field, form, data);
   }
@@ -118,10 +118,9 @@ export default class DVR {
   }
 
   rules(rules, type) {
-    let diff = [];
     const $rules = _.isString(rules) ? _.split(rules, '|') : rules;
-    if (type === 'sync') diff = _.difference($rules, this.asyncRules);
-    if (type === 'async') diff = _.intersection($rules, this.asyncRules);
-    return diff;
+    if (type === 'sync') return _.difference($rules, this.asyncRules);
+    if (type === 'async') return _.intersection($rules, this.asyncRules);
+    return [];
   }
 }

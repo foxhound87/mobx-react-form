@@ -23,6 +23,9 @@ describe('Check Flat $A placeholder field prop', () => {
 
   it('$A devSkills get(value) should be a number', () =>
     expect($.$A.$('devSkills').get('value')).to.be.a('number'));
+
+  it('$A devSkills id should start with devSkills--', () =>
+    expect($.$A.$('devSkills').id.substring(0, 11)).to.be.equal('devSkills--'));
 });
 
 describe('Check Flat $B value field prop', () => {

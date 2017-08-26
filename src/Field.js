@@ -6,13 +6,41 @@ import {
   $try,
   $hasFiles,
   $isBool,
-  $isEvent,
-  makeId } from './utils';
+  $isEvent } from './utils';
 
 import {
-  defaultClearValue,
-  parseFieldValue,
-  parseGetLabel } from './parser';
+  parseInput,
+  parseGetLabel,
+  defaultClearValue } from './parser';
+
+const setupFieldProps = (instance, props, data) =>
+  Object.assign(instance, {
+    $value: instance.$initial,
+    $label: props.$label || data.label || instance.name,
+    $placeholder: props.$placeholder || data.placeholder || '',
+    $disabled: props.$disabled || data.disabled || false,
+    $bindings: props.$bindings || data.bindings || 'default',
+    $related: props.$related || data.related || [],
+    $validators: toJS(props.$validators || data.validators || null),
+    $validatedWith: props.$validatedWith || data.validatedWith || 'value',
+    $rules: props.$rules || data.rules || null,
+    $observers: props.$observers || data.observers || null,
+    $interceptors: props.$interceptors || data.interceptors || null,
+    $extra: props.$extra || data.extra || null,
+    $options: props.$options || data.options || {},
+    $hooks: props.$hooks || data.hooks || {},
+    $handlers: props.$handlers || data.handlers || {},
+  });
+
+const setupDefaultProp = (instance, data, props, update, {
+  isEmptyArray, checkArray,
+}) => parseInput(instance.$input, {
+  isEmptyArray,
+  type: instance.type,
+  unified: update ? '' : checkArray(data.default),
+  separated: checkArray(props.$default),
+  initial: checkArray(instance.$initial),
+});
 
 export default class Field extends Base {
 
@@ -30,16 +58,11 @@ export default class Field extends Base {
   $observers;
   $interceptors;
 
-  $onChange;
-  $onToggle;
-  $onDrop;
-  $onSubmit;
-  $onClear;
-  $onReset;
+  $hooks = {};
+  $handlers = {};
 
-  noop = () => {};
-  $parser = $ => $;
-  $formatter = $ => $;
+  $input = $ => $;
+  $output = $ => $;
 
   @observable $options;
   @observable $value;
@@ -50,9 +73,10 @@ export default class Field extends Base {
   @observable $bindings;
   @observable $extra;
   @observable $related;
+  @observable $validatedWith;
 
-  @observable $rules;
   @observable $validators;
+  @observable $rules;
 
   @observable $disabled = false;
   @observable $focused = false;
@@ -85,7 +109,7 @@ export default class Field extends Base {
     this.checkDVRValidationPlugin();
     this.initNestedFields(data, update);
 
-    this.incremental = (this.hasIncrementalNestedFields !== 0);
+    this.incremental = (this.hasIncrementalKeys !== 0);
 
     this.debouncedValidation = _.debounce(
       this.validate,
@@ -93,10 +117,13 @@ export default class Field extends Base {
       this.state.options.get('validationDebounceOptions', this),
     );
 
-    this.observeValidation();
+    this.observeValidationOnBlur();
+    this.observeValidationOnChange();
 
     this.initMOBXEvent('observers');
     this.initMOBXEvent('interceptors');
+
+    this.execHook('onInit');
   }
 
   /* ------------------------------------------------------------------ */
@@ -138,7 +165,7 @@ export default class Field extends Base {
   }
 
   set initial(val) {
-    this.$initial = parseFieldValue(this.$parser, { separated: val });
+    this.$initial = parseInput(this.$input, { separated: val });
   }
 
   @computed get default() {
@@ -146,7 +173,7 @@ export default class Field extends Base {
   }
 
   set default(val) {
-    this.$default = parseFieldValue(this.$parser, { separated: val });
+    this.$default = parseInput(this.$input, { separated: val });
   }
 
   @computed get actionRunning() {
@@ -195,6 +222,10 @@ export default class Field extends Base {
 
   @computed get validators() {
     return toJS(this.$validators);
+  }
+
+  @computed get validatedValue() {
+    return this[this.$validatedWith];
   }
 
   @computed get error() {
@@ -296,35 +327,39 @@ export default class Field extends Base {
     this.value = e;
   });
 
-  onChange = (...all) => this.$onChange
-    ? this.$onChange.apply(this, [this]).apply(this, [...all])
-    : this.sync.apply(this, [...all]);
+  onChange = (...args) => (this.type === 'file')
+    ? this.onDrop(...args)
+    : this.execHandler('onChange', args, this.sync);
 
-  onToggle = (...all) => this.$onToggle
-    ? this.$onToggle.apply(this, [this]).apply(this, [...all])
-    : this.sync.apply(this, [...all]);
+  onToggle = (...args) =>
+    this.execHandler('onToggle', args, this.sync);
 
-  onDrop = action((...all) => {
-    const e = all[0];
-    let files = null;
+  onBlur = (...args) =>
+    this.execHandler('onBlur', args,
+      action(() => {
+        this.$focused = false;
+      }));
 
-    if ($isEvent(e) && $hasFiles(e)) {
-      files = _.map(e.target.files);
-    }
+  onFocus = (...args) =>
+    this.execHandler('onFocus', args,
+      action(() => {
+        this.$focused = true;
+        this.$touched = true;
+      }));
 
-    this.files = files || all;
-    this.$onDrop.apply(this, [this]);
-  });
+  onDrop = (...args) =>
+    this.execHandler('onDrop', args,
+      action(() => {
+        const e = args[0];
+        let files = null;
 
-  onBlur = action(() => {
-    this.$focused = false;
-  });
+        if ($isEvent(e) && $hasFiles(e)) {
+          files = _.map(e.target.files);
+        }
 
-  onFocus = action(() => {
-    this.$focused = true;
-    this.$touched = true;
-  });
-}
+        this.files = files || args;
+      }));
+  }
 
 /**
   Prototypes
@@ -335,35 +370,15 @@ export const prototypes = {
   setupField($key, $path, $data, $props, update) {
     this.key = $key;
     this.path = $path;
-    this.id = makeId(this.path);
-
+    this.id = this.state.options.get('uniqueId').apply(this, [this]);
     const isEmptyArray = (_.has($data, 'fields') && _.isArray($data.fields));
     const checkArray = val => isEmptyArray ? [] : val;
 
     const {
-      $options,
-      $extra,
       $value,
-      $label,
-      $placeholder,
-      $default,
-      $initial,
-      $disabled,
-      $bindings,
       $type,
-      $related,
-      $validators,
-      $rules,
-      $parse,
-      $format,
-      $observers,
-      $interceptors,
-      $onChange,
-      $onToggle,
-      $onSubmit,
-      $onDrop,
-      $onClear,
-      $onReset,
+      $input,
+      $output,
     } = $props;
 
     // eslint-disable-next-line
@@ -371,118 +386,53 @@ export const prototypes = {
 
     if (_.isPlainObject($data)) {
       const {
-        options,
-        extra,
         value,
-        name,
-        label,
-        placeholder,
-        disabled,
-        bindings,
         type,
-        related,
-        validators,
-        rules,
-        parse,
-        format,
-        observers,
-        interceptors,
-        onChange,
-        onToggle,
-        onSubmit,
-        onDrop,
-        onClear,
-        onReset,
+        input,
+        output,
       } = $data;
 
       this.type = $type || type || 'text';
-      this.$onSubmit = $onSubmit || onSubmit || null;
-      this.$onChange = $onChange || onChange || null;
-      this.$onToggle = $onToggle || onToggle || null;
-      this.$onDrop = $onDrop || onDrop || this.noop;
-      this.$onClear = $onClear || onClear || this.noop;
-      this.$onReset = $onReset || onReset || this.noop;
+      this.name = _.toString($data.name || $key);
 
-      this.$parser = $try($parse, parse, this.$parser);
-      this.$formatter = $try($format, format, this.$formatter);
+      this.$input = $try($input, input, this.$input);
+      this.$output = $try($output, output, this.$output);
 
-      this.$initial = parseFieldValue(this.$parser, {
+      this.$initial = parseInput(this.$input, {
         isEmptyArray,
         type: this.type,
         unified: checkArray(value),
-        separated: checkArray($initial),
+        separated: checkArray($props.$initial),
         initial: checkArray($data.initial),
       });
 
-      this.$default = parseFieldValue(this.$parser, {
-        isEmptyArray,
-        type: this.type,
-        unified: update ? '' : checkArray($data.default),
-        separated: checkArray($default),
-        initial: checkArray(this.$initial),
+      this.$default = setupDefaultProp(this, $data, $props, update, {
+        isEmptyArray, checkArray,
       });
 
-      this.name = _.toString(name || $key);
-      this.$value = this.$initial;
-      this.$label = $label || label || this.name;
-      this.$placeholder = $placeholder || placeholder || '';
-      this.$disabled = $disabled || disabled || false;
-      this.$bindings = $bindings || bindings || 'default';
-      this.$related = $related || related || [];
-      this.$validators = toJS($validators || validators || null);
-      this.$rules = $rules || rules || null;
-      this.$observers = $observers || observers || null;
-      this.$interceptors = $interceptors || interceptors || null;
-      this.$extra = $extra || extra || null;
-      this.$options = $options || options || {};
-
-
-      if (this.state.form.name === 'Register Material') {
-        console.log(this.name, this.$onChange);
-      }
+      setupFieldProps(this, $props, $data);
       return;
     }
 
     /* The field IS the value here */
     this.name = _.toString($key);
     this.type = $type || 'text';
-    this.$onChange = $onChange || null;
-    this.$onToggle = $onToggle || null;
-    this.$onSubmit = $onSubmit || null;
-    this.$onDrop = $onDrop || this.noop;
-    this.$onClear = $onClear || this.noop;
-    this.$onReset = $onReset || this.noop;
 
-    this.$parser = $try($parse, this.$parser);
-    this.$formatter = $try($format, this.$formatter);
+    this.$input = $try($input, this.$input);
+    this.$output = $try($output, this.$output);
 
-    this.$initial = parseFieldValue(this.$parser, {
+    this.$initial = parseInput(this.$input, {
       isEmptyArray,
       type: this.type,
       unified: checkArray($data),
       separated: checkArray($value),
     });
 
-    this.$default = parseFieldValue(this.$parser, {
-      isEmptyArray,
-      type: this.type,
-      unified: update ? '' : checkArray($data.default),
-      separated: checkArray($default),
-      initial: this.$initial,
+    this.$default = setupDefaultProp(this, $data, $props, update, {
+      isEmptyArray, checkArray,
     });
 
-    this.$value = this.$initial;
-    this.$label = $label || this.name;
-    this.$placeholder = $placeholder || '';
-    this.$disabled = $disabled || false;
-    this.$bindings = $bindings || 'default';
-    this.$related = $related || [];
-    this.$validators = toJS($validators || null);
-    this.$rules = $rules || null;
-    this.$observers = $observers || null;
-    this.$interceptors = $interceptors || null;
-    this.$extra = $extra || null;
-    this.$options = $options || {};
+    setupFieldProps(this, $props, $data);
   },
 
   getComputedProp(key) {
@@ -556,7 +506,7 @@ export const prototypes = {
   },
 
   @action
-  clear(deep = true, call = true) {
+  clear(deep = true) {
     this.$clearing = true;
     this.$touched = false;
     this.$changed = false;
@@ -569,17 +519,10 @@ export const prototypes = {
     this.validate({
       showErrors: this.state.options.get('showErrorsOnClear', this),
     });
-
-    if (call) {
-      this.$onClear.apply(this, [{
-        form: this.state.form,
-        field: this,
-      }]);
-    }
   },
 
   @action
-  reset(deep = true, call = true) {
+  reset(deep = true) {
     this.$resetting = true;
     this.$touched = false;
     this.$changed = false;
@@ -594,13 +537,6 @@ export const prototypes = {
     this.validate({
       showErrors: this.state.options.get('showErrorsOnReset', this),
     });
-
-    if (call) {
-      this.$onReset.apply(this, [{
-        form: this.state.form,
-        field: this,
-      }]);
-    }
   },
 
   @action
@@ -626,18 +562,20 @@ export const prototypes = {
     this.errorAsync = null;
   },
 
-  observeValidation(type) {
+  observeValidationOnBlur() {
     const opt = this.state.options;
-
-    if (type === 'onBlur' || opt.get('validateOnBlur', this)) {
-      this.disposeValidationOnBlur = observe(this, '$focused', ({ newValue }) =>
-        (newValue === false) &&
+    if (opt.get('validateOnBlur', this)) {
+      this.disposeValidationOnBlur = observe(this, '$focused', change =>
+        (change.newValue === false) &&
           this.debouncedValidation({
             showErrors: opt.get('showErrorsOnBlur', this),
           }));
     }
+  },
 
-    if (type === 'onChange' || opt.get('validateOnChange', this)) {
+  observeValidationOnChange() {
+    const opt = this.state.options;
+    if (opt.get('validateOnChange', this)) {
       this.disposeValidationOnChange = observe(this, '$value', () =>
         !this.actionRunning &&
           this.debouncedValidation({

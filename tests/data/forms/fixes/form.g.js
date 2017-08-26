@@ -11,9 +11,13 @@ const labels = {
 
 class NewForm extends Form {
 
-  onInit(form) {
-    const items = form.$('items');
-    for (let i = 0; i <= 20; i++) items.add(); // eslint-disable-line
+  hooks() {
+    return {
+      onInit(form) {
+        const items = form.$('items');
+        for (let i = 0; i <= 20; i++) items.add(); // eslint-disable-line
+      },
+    };
   }
 }
 

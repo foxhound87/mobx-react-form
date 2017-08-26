@@ -41,29 +41,33 @@ class NewForm extends Form {
     };
   }
 
-  onInit() {
-    this.$('jobs').add({
-      jobId: 1,
-      companyName: 'x',
-    });
+  hooks() {
+    return {
+      onInit() {
+        this.$('jobs').add({
+          jobId: 1,
+          companyName: 'x',
+        });
 
-    this.$('number').set(0);
+        this.$('number').set(0);
 
-    this.$('people').set([
-      { name: null },
-    ]);
+        this.$('people').set([
+          { name: null },
+        ]);
 
-    this.$('items').set('value', [
-      { name: 0 },
-    ]);
+        this.$('items').set('value', [
+          { name: 0 },
+        ]);
 
-    this.update({
-      array: [
-        { name: null },
-        { name: null },
-        { name: null },
-      ],
-    });
+        this.update({
+          array: [
+            { name: null },
+            { name: null },
+            { name: null },
+          ],
+        });
+      },
+    };
   }
 }
 

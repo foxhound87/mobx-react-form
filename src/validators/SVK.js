@@ -58,7 +58,7 @@ export default class SVK {
   }
 
   validateField(field) {
-    const data = { [field.path]: field.value };
+    const data = { [field.path]: field.validatedValue };
     const validate = this.validate(this.parseValues(data));
     // check if is $async schema
     if (utils.isPromise(validate)) {

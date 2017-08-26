@@ -31,10 +31,14 @@ const schema = {
 
 class NewForm extends Form {
 
-  onInit(form) {
-    // subsequent clear and reset
-    form.clear(); // to empty values
-    form.reset(); // to default or initial values
+  hooks() {
+    return {
+      onInit(form) {
+        // subsequent clear and reset
+        form.clear(); // to empty values
+        form.reset(); // to default or initial values
+      },
+    };
   }
 }
 

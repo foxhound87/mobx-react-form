@@ -49,6 +49,9 @@ describe('Check $A Nested Fields', () => {
 });
 
 describe('Check $B Nested Fields', () => {
+  it('$B state.city.places id should start with state-city-places--', () =>
+    expect($.$B.$('state.city.places').id.substring(0, 19)).to.be.equal('state-city-places--'));
+
   it('$B state.city label should be equal to "City"', () =>
     expect($.$B.$('state.city').label).to.be.equal('City'));
 

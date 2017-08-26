@@ -22,22 +22,26 @@ const labels = {
 
 class NewForm extends Form {
 
-  onInit(form) {
-    form.update({
-      club: {
-        name: null,
-        city: 'New York',
+  hooks() {
+    return {
+      onInit(form) {
+        form.update({
+          club: {
+            name: null,
+            city: 'New York',
+          },
+          members: [{
+            firstname: 'Clint',
+            lastname: 'Eastwood',
+            hobbies: ['Soccer', 'Baseball'],
+          }, {
+            firstname: null,
+            lastname: 'Chaplin',
+            hobbies: ['Golf', 'Basket'],
+          }],
+        });
       },
-      members: [{
-        firstname: 'Clint',
-        lastname: 'Eastwood',
-        hobbies: ['Soccer', 'Baseball'],
-      }, {
-        firstname: null,
-        lastname: 'Chaplin',
-        hobbies: ['Golf', 'Basket'],
-      }],
-    });
+    };
   }
 }
 

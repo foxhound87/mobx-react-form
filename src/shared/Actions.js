@@ -19,13 +19,10 @@ export default {
   @action
   submit(o = {}) {
     this.$submitting = true;
-    const noop = () => {};
-    const onSuccess = o.onSuccess || this.onSuccess || this.$onSubmit.onSuccess || noop;
-    const onError = o.onError || this.onError || this.$onSubmit.onError || noop;
 
     const exec = isValid => isValid
-      ? onSuccess.apply(this, [this])
-      : onError.apply(this, [this]);
+      ? this.execHook('onSuccess', o)
+      : this.execHook('onError', o);
 
     const validate = () =>
       this.validate({
@@ -142,7 +139,7 @@ export default {
 
     if (_.isString(prop)) {
       if (strict && this.fields.size === 0) {
-        return parser.parseCheckFormatter(this, prop);
+        return parser.parseCheckOutput(this, prop);
       }
 
       const value = this.deepGet(prop, this.fields);
@@ -174,12 +171,12 @@ export default {
           delete obj[field.key]; // eslint-disable-line
           if (removeValue) return obj;
           return Object.assign(obj, {
-            [field.key]: parser.parseCheckFormatter(field, prop),
+            [field.key]: parser.parseCheckOutput(field, prop),
           });
         }
 
         let value = this.deepGet(prop, field.fields);
-        if (prop === 'value') value = field.$formatter(value);
+        if (prop === 'value') value = field.$output(value);
 
         delete obj[field.key]; // eslint-disable-line
         if (removeValue) return obj;

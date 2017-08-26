@@ -12,6 +12,22 @@ export default ($) => {
       });
     });
 
+    // $B
+    it('$B validate() should be false', (done) => {
+      $.$B.validate().then(({ isValid }) => {
+        expect(isValid).to.be.false; // eslint-disable-line
+        done();
+      });
+    });
+
+    // $E
+    it('$E validate() should be true', (done) => {
+      $.$E.validate().then(({ isValid }) => {
+        expect(isValid).to.be.true; // eslint-disable-line
+        done();
+      });
+    });
+
     // $L
     it('$L validate() should be false', (done) => {
       $.$L.validate().then(({ isValid }) => {

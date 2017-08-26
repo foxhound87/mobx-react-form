@@ -40,18 +40,15 @@ export default {
       $options: $try('options'),
       $extra: $try('extra'),
       $related: $try('related'),
+      $hooks: $try('hooks'),
+      $handlers: $try('handlers'),
+      $validatedWith: $try('validatedWith'),
       $validators: $try('validators'),
       $rules: $try('rules'),
       $observers: $try('observers'),
       $interceptors: $try('interceptors'),
-      $onChange: $try('onChange'),
-      $onToggle: $try('onToggle'),
-      $onDrop: $try('onDrop'),
-      $onSubmit: $try('onSubmit'),
-      $onReset: $try('onReset'),
-      $onClear: $try('onClear'),
-      $parse: $try('parse'),
-      $format: $try('format'),
+      $input: $try('input'),
+      $output: $try('output'),
     };
 
     const field = this.state.form.makeField({

@@ -47,36 +47,40 @@ class NewForm extends Form {
     };
   }
 
-  onInit(form) {
-    // form.update({
-    //   users: [{
-    //     settings: [{
-    //       active: false,
-    //     }],
-    //   }],
-    // });
+  hooks() {
+    return {
+      onInit(form) {
+        // form.update({
+        //   users: [{
+        //     settings: [{
+        //       active: false,
+        //     }],
+        //   }],
+        // });
 
-    // form.$('users[0].settings[0]').update({
-    //   active: false,
-    // });
+        // form.$('users[0].settings[0]').update({
+        //   active: false,
+        // });
 
-    form.$('users').add();
-    form.$('users[0].settings[0].active').set('value', false);
+        form.$('users').add();
+        form.$('users[0].settings[0].active').set('value', false);
 
-    form.$('layout').update({
-      column1: [{
-        title: 'THE NEW TITLE',
-      }],
-    });
+        form.$('layout').update({
+          column1: [{
+            title: 'THE NEW TITLE',
+          }],
+        });
 
-    form.$('deep.nested').update({
-      column2: [{
-        title: 'THE NEW TITLE',
-      }],
-      column3: [{
-        title: 'THE NEW TITLE',
-      }],
-    });
+        form.$('deep.nested').update({
+          column2: [{
+            title: 'THE NEW TITLE',
+          }],
+          column3: [{
+            title: 'THE NEW TITLE',
+          }],
+        });
+      },
+    };
   }
 }
 

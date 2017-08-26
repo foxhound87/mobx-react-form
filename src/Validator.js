@@ -1,11 +1,11 @@
-import { computed, action, observable } from 'mobx';
+import { action, observable } from 'mobx';
 import _ from 'lodash';
 
 import { $try } from './utils';
 
-import VJF from './validators/VJF'; // Vanilla JavaScript Functions
-import SVK from './validators/SVK'; // Json Schema Validation Keywords
-import DVR from './validators/DVR'; // Declarative Validation Rules
+import vjf from './validators/VJF'; // Vanilla JavaScript Functions
+import svk from './validators/SVK'; // Json Schema Validation Keywords
+import dvr from './validators/DVR'; // Declarative Validation Rules
 
 export default class Validator {
 
@@ -23,37 +23,24 @@ export default class Validator {
     svk: false,
   };
 
-  drivers = {
-    vjf: null,
-    dvr: null,
-    svk: null,
-  };
+  drivers = {};
 
-  @observable $genericErrorMessage = null;
+  @observable error = null;
 
   constructor(obj = {}) {
-    this.assignInitData(obj);
-    this.initializePlugins();
+    _.merge(this.plugins, obj.plugins);
+    this.form = obj.form;
+    this.schema = obj.schema || {};
+    this.initDrivers({ vjf, dvr, svk });
     this.checkSVKValidationPlugin();
   }
 
-  assignInitData({ form, options = {}, plugins = {}, schema = {} }) {
-    _.merge(this.plugins, plugins);
-    this.form = form;
-    this.options = options;
-    this.schema = schema;
-  }
-
-  initializePlugins() {
-    _.map({
-      vjf: VJF,
-      dvr: DVR,
-      svk: SVK,
-    }, (Class, key) => this.plugins[key] &&
+  initDrivers(drivers) {
+    _.map(drivers, (Class, key) => this.plugins[key] &&
       (this.drivers[key] = new Class(this.plugins[key], {
         schema: (key === 'svk') ? this.schema : null,
+        options: this.form.state.options,
         promises: this.promises,
-        options: this.options,
       })));
   }
 
@@ -65,7 +52,7 @@ export default class Validator {
     const showErrors = $try(opt.showErrors, obj.showErrors, false);
     const instance = field || this.form;
     instance.$validating = true;
-    this.$genericErrorMessage = null;
+    this.error = null;
 
     return new Promise((resolve) => {
       // validate instance (form or filed)
@@ -87,36 +74,35 @@ export default class Validator {
           related,
         }));
 
-      // wait all promises then resolve
-      return Promise.all(this.promises)
-        .then(action(() => {
-          instance.$validating = false;
-          instance.$clearing = false;
-          instance.$resetting = false;
-        }))
-        .catch(action((err) => {
-          instance.$validating = false;
-          instance.$clearing = false;
-          instance.$resetting = false;
-          throw err;
-        }))
-        .then(() => resolve(instance));
-    });
+      // wait all promises
+      resolve(Promise.all(this.promises));
+    })
+      .then(action(() => {
+        instance.$validating = false;
+        instance.$clearing = false;
+        instance.$resetting = false;
+      }))
+      .catch(action((err) => {
+        instance.$validating = false;
+        instance.$clearing = false;
+        instance.$resetting = false;
+        throw err;
+      }))
+      .then(() => instance);
   }
 
   @action
   validateField({ field = null, path, showErrors = false, related = false }) {
     const instance = field || this.form.select(path);
+    // check if the field is a valid instance
+    if (!instance.path) throw new Error('Validation Error: Invalid Field Instance');
+    // do not validate disabled fields
+    if (instance.disabled && !this.form.state.options.get('validateDisabledFields')) return;
     // reset field validation
-    if (instance.path) instance.resetValidation();
-    // get all validators
-    const { svk, dvr, vjf } = this.drivers;
-    // validate with vanilla js functions (vjf)
-    if (vjf) vjf.validateField(instance, this.form);
-    // validate with json schema validation keywords (dvr)
-    if (dvr) dvr.validateField(instance, this.form);
-    // validate with json schema validation keywords (svk)
-    if (svk) svk.validateField(instance);
+    instance.resetValidation();
+    // validate with all drivers
+    _.each(this.drivers, driver =>
+      driver.validateField(instance, this.form));
     // send error to the view
     instance.showErrors(showErrors);
     // related validation
@@ -132,30 +118,6 @@ export default class Validator {
 
     _.each(field.related, path =>
       this.validateField({ path, showErrors, related: false }));
-  }
-
-  @computed get genericErrorMessage() {
-    return this.options.get('alwaysShowDefaultError')
-      ? (this.$genericErrorMessage || this.options.get('defaultGenericError'))
-      : this.$genericErrorMessage;
-  }
-
-  getDefaultErrorMessage() {
-    // set defaultGenericError message from options
-    const $default = this.options.get('defaultGenericError');
-    if (_.isString($default)) return $default;
-    return 'The form is invalid';
-  }
-
-  @action
-  invalidate(message = null) {
-    // set custom genericErrorMessage if provided
-    if (_.isString(message)) {
-      this.$genericErrorMessage = message;
-      return;
-    }
-    // if no string provided, show default error.
-    this.$genericErrorMessage = this.getDefaultErrorMessage();
   }
 
   checkSVKValidationPlugin() {

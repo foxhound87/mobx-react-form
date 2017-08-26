@@ -2,12 +2,29 @@ import { computed } from 'mobx';
 import _ from 'lodash';
 
 import {
+  $try,
   $isEvent,
   hasIntKeys } from './utils';
 
 export default class Base {
 
-  @computed get hasIncrementalNestedFields() {
+  noop = () => {};
+
+  execHook = (name, fallback = {}) => $try(
+    fallback[name],
+    this.$hooks[name],
+    this.hooks && this.hooks.apply(this, [this])[name],
+    this.noop,
+  ).apply(this, [this]);
+
+  execHandler = (name, args, fallback = null) => [$try(
+    this.$handlers[name] && this.$handlers[name].apply(this, [this]),
+    this.handlers && this.handlers.apply(this, [this])[name].apply(this, [this]),
+    fallback,
+    this.noop,
+  ).apply(this, [...args]), this.execHook(name)];
+
+  @computed get hasIncrementalKeys() {
     return (this.fields.size && hasIntKeys(this.fields));
   }
 
@@ -42,40 +59,45 @@ export default class Base {
   /**
     Event Handler: On Clear
   */
-  onClear = (e) => {
-    e.preventDefault();
-    this.clear(true);
-  };
+  onClear = (...args) =>
+    this.execHandler('onClear', args, (e) => {
+      e.preventDefault();
+      this.clear(true);
+    });
 
   /**
     Event Handler: On Reset
   */
-  onReset = (e) => {
-    e.preventDefault();
-    this.reset(true);
-  };
+  onReset = (...args) =>
+    this.execHandler('onReset', args, (e) => {
+      e.preventDefault();
+      this.reset(true);
+    });
 
   /**
     Event Handler: On Submit
    */
-  onSubmit = (e, o = {}) => {
-    e.preventDefault();
-    this.submit(o);
-  };
+  onSubmit = (...args) =>
+    this.execHandler('onSubmit', args, (e, o = {}) => {
+      e.preventDefault();
+      this.submit(o);
+    });
 
   /**
     Event Handler: On Add
   */
-  onAdd = (e, val) => {
-    e.preventDefault();
-    this.add($isEvent(val) ? null : val);
-  };
+  onAdd = (...args) =>
+    this.execHandler('onAdd', args, (e, val) => {
+      e.preventDefault();
+      this.add($isEvent(val) ? null : val);
+    });
 
   /**
     Event Handler: On Del
   */
-  onDel = (e, path) => {
-    e.preventDefault();
-    this.del($isEvent(path) ? this.path : path);
-  };
+  onDel = (...args) =>
+    this.execHandler('onAdd', args, (e, path) => {
+      e.preventDefault();
+      this.del($isEvent(path) ? this.path : path);
+    });
 }

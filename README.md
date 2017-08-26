@@ -20,19 +20,12 @@
 - Automatic Reactive Validation & Error Messages.
 - Validation Plugins & Multiple Validation Styles.
 - Nested Fields (w/ Serialization & Validation).
-- Nested Forms (w/ Nested Submission & Validation Handlers).
+- Nested Forms (w/ Nested Submission & Validation Hooks).
+- Dinamically Add/Del Nested Fields.
 - Support for Sync & Async Validation functions (w/ Promises).
 - Fields Props Bindings for custom Components.
 - Support for Material UI, React Widgets, React Select & more.
 - Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
-
-### TypeScript Support
-
-A [TypeScript Branch](https://github.com/foxhound87/mobx-react-form/tree/typescript/) has been created. Feel free to contribute!
-
-<br>
-
-## CodeSandbox
 
 [![Edit form-quickstart](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrrZgG8y4)
 
@@ -97,10 +90,10 @@ const fields = [{
 
 > You can also define `fields` as an `object`.
 
-#### Define the Validation Handlers
+#### Define the Validation Hooks
 
 ```javascript
-const onSubmit = {
+const hooks = {
   onSuccess(form) {
     alert('Form is valid! Send the request here.');
     // get field values
@@ -116,12 +109,12 @@ const onSubmit = {
 
 #### Initialize the Form
 
-Simply pass the `fields`, `plugins` and `onSubmit` objects to the constructor
+Simply pass the `fields`, `plugins` and `hooks` objects to the constructor
 
 ```javascript
 import MobxReactForm from 'mobx-react-form';
 
-const form = new MobxReactForm({ fields }, { plugins, onSubmit });
+const form = new MobxReactForm({ fields }, { plugins, hooks });
 ```
 
 #### Pass the form to a react component

@@ -57,10 +57,10 @@ const submit = {
   },
 };
 
-const onSubmit = {
+const hooks = {
   'club': submit,
   'members': submit,
   'members[]': submit,
 };
 
-export default new Form({ fields, rules, values, onSubmit }, { plugins, options, name: 'Nested-R' });
+export default new Form({ fields, rules, values, hooks }, { plugins, options, name: 'Nested-R' });

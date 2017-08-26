@@ -38,10 +38,14 @@ class NewForm extends MobxReactForm {
     };
   }
 
-  onInit(form) {
-    form.update({
-      email: 'invalid',
-    });
+  hooks() {
+    return {
+      onInit(form) {
+        form.update({
+          email: 'invalid',
+        });
+      },
+    };
   }
 }
 
