@@ -8,7 +8,7 @@ The Form Constructor can take 2 arguments in input.
 
 * [Constructor Usage](#constructor-usage)
 * [Initialization Methods](#initialization-methods)
-* [Execute code on Form Init](#execute-code-on-form-init)
+* [Execute code on Form Init](../events/event-hooks.md#execute-code-on-instance-init)
 
 ---
 
@@ -21,37 +21,35 @@ Provide an object which expects the following properties:
 ###### Fields Definition
 | Property | Description | Help |
 |---|---|---|
-| **fields**    | Using **Unified Properties Definition** mode: an object which represents the fields with all their properties. Using **Separated Properties Definition** mode: an array which represents the fields structure. | [defining fields](../defining-fields.md) |
+| **fields**    | Using **Unified Properties Definition** mode: an object which represents the fields with all their properties. Using **Separated Properties Definition** mode: an array which represents the fields structure. | [defining fields](../fields/defining-fields.md) |
 
 ###### Fields Properties
 | Property | Description | Help |
 |---|---|---|
-| **values**    | Object which represents the `value`property for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-values) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-values) |
-| **labels**    | Object which represents the `label` property for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-labels) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
-| **placeholders**    | Object which represents the `placeholder` property for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-placeholders) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
-| **initials**  | Initial values to apply on init if the value prop is not provided. | [flat](../defining-flat-fields/separated-properties.md#defining-initials) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
-| **defaults**  | Object which represents the `default` property for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-defaults) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
-| **disabled**  | Object which represents the `disabled` property for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-disabled) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
-| **related**  | Object which represents the `related` property to validate others fields at the same time for each field key. | [flat](../defining-flat-fields/separated-properties.md#defining-related) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
-| **options**  | Individual Field Options, with fallback on Form Options. | [flat](../defining-flat-fields/separated-properties.md#defining-options) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
-| **extra**  | Additional extra data for the field (useful for a select input). | [flat](../defining-flat-fields/separated-properties.md#defining-extra) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
-| **bindings**  | The name of the binding rewriter or template which will be used for the current field. | [flat](../defining-flat-fields/separated-properties.md#defining-bindings) or [nested](../defining-nested-fields/separated-properties.md#defining-nested-property) |
-| **observers**  | The mobx observers to listen on **Fields Props** or **Fields Map** changes. | [help](../events/mobx-events.md#using-observers--interceptors-objects) |
-| **interceptors**  | The mobx interceptors to listen on **Fields Props** or **Fields Map** changes. | [help](../events/mobx-events.md#using-observers--interceptors-objects) |
+| **values**    | Object which represents the `value`property for each field key. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-values) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-values) |
+| **labels**    | Object which represents the `label` property for each field key. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-labels) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **placeholders**    | Object which represents the `placeholder` property for each field key. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-placeholders) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **initials**  | Initial values to apply on init if the value prop is not provided. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-initials) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **defaults**  | Object which represents the `default` property for each field key. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-defaults) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **disabled**  | Object which represents the `disabled` property for each field key. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-disabled) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **related**  | Object which represents the `related` property to validate others fields at the same time for each field key. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-related) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **options**  | Individual Field Options, with fallback on Form Options. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-options) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **extra**  | Additional extra data for the field (useful for a select input). | [flat](../fields/defining-flat-fields/separated-properties.md#defining-extra) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **bindings**  | The name of the binding rewriter or template which will be used for the current field. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-bindings) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
+| **observers**  | The mobx observers to listen on **Fields Props** or **Fields Map** changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
+| **interceptors**  | The mobx interceptors to listen on **Fields Props** or **Fields Map** changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
+| **validateWith**  | Specify a different Field prop to use for the Field validation. | - |
 
-###### Fields Hooks
+###### Fields Event Hooks & Event Handlers
 | Property | Description | Help |
 |---|---|---|
-| **onSubmit**  | An object with `onSuccess(form)` & `onError(form)` callbacks for each fields key to enable **Sub-Form Submissions**. | - |
-| **onClear**  | An object with a function for each fields key to call on Field `clear()` or `onClear(e)` | - |
-| **onReset**  | An object with a function for each fields key to call on Field `reset()` or `onReset(e)` | - |
-| **onDrop**  | An object with a function for each fields key to call on `onDrop(e)` Event Handler | - |
-
+| **hooks**  | An object with the Event Hooks functions. Availables Hooks: `onInit`, `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onSuccess`, `onError`, `onClear`, `onReset`, `onAdd`, `onDel` | [help](../events/event-hooks.md) |
+| **handlers**  | An object with the Event Handlers functions: Availables Handlers: `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel` | [help](../events/event-handlers.md) |
 
 ###### Validation Properties
 | Property | Description | Help |
 |---|---|---|
-| **validate**  | The validation functions for the **VJF** mode. | [VJF](../validation/modes/vjf-enable.md) |
+| **validators**  | The validation functions for the **VJF** mode. | [VJF](../validation/modes/vjf-enable.md) |
 | **rules**    | The rules for the validation (if **DVR** mode is active). | [DVR](../validation/modes/dvr-enable.md) |
 | **schema**    | The json-schema for the validation (if **SVK** mode is active). | [SVK](../validation/modes/svk-enable.md) |
 
@@ -76,12 +74,11 @@ Provide an object which expects the following properties:
 | **plugins**   | Enable additional functionalities using external libraries. | [Validation Plugins](../validation/plugins.md) |
 | **bindings**   | Define how the fields properties are passed to the input components. | [Props Bindings](../bindings/README.md) |
 
-###### Form Hooks
+###### Form Event Hooks & Event Handlers
 | Property | Description | Help |
 |---|---|---|
-| **onSubmit**   | Define an object with `onSuccess(form)` & `onError(form)` callbacks to call on Form submission. | - |
-| **onClear**  | A function to call on Form `clear()` or `onClear(e)` | - |
-| **onReset**  | A function to call on Form `reset()` or `onReset(e)` | - |
+| **hooks**  | An object with the Event Hooks functions. Availables Hooks: `onInit`, `onSubmit`, `onSuccess`, `onError`, `onClear`, `onReset`, `onAdd`, `onDel` | [help](../events/event-hooks.md) |
+| **handlers**  | An object with the Event Handlers functions. Availables Handlers: `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel` | [help](../events/event-handlers.md) |
 
 <br>
 
@@ -101,14 +98,14 @@ new Form({ fields });
 new Form({ fields }, { plugins, bindings });
 
 // using form options and separated fields properties definition
-new Form({ values, labels, ... }, { options });
+new Form({ values, labels, handlers, ... }, { options });
 
 // using validators with plugins and separated fields properties definition
-new Form({ values, labels, rules, ... }, { plugins });
+new Form({ values, labels, handlers, rules, ... }, { plugins });
 ```
 
 ## Initialization Methods
-#### setup(), options(), plugins(), bindings().
+#### setup(), options(), plugins(), bindings(), handlers(), hooks().
 
 Normally you have to pass the the fields properties to the constructor, otherwise you can implement one of these methods inside your extended Form Class.
 
@@ -132,23 +129,3 @@ This can be done with `options`, `plugins` and `bindings` as well.
 
 > The object returned from the methods will be merged to the object provieded to the constructor when initializing the instance.
 
-
-## Execute code on Form Init
-
-If you need to execute some code just after the form is initialized,
-you can extend the form implementing the `onInit(form)` mehtod:
-
-```javascript
-import Form from 'mobx-react-form';
-
-class MyForm extends MobxReactForm {
-
-  onInit(form) {
-    // do stuff on the form
-  }
-}
-```
-
-> It takes the `form` parameter in input.
-
-[See Other Form Events](/docs/events)

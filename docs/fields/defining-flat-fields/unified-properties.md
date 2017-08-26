@@ -1,6 +1,6 @@
 ## Defining Flat Fields as Unified Properties
 
-Define a `fields` object, then you can define these properties in each field definition: `name`, `value`, `label`, `placeholder`, `default`, `disabled`, `related`, `bindings`, `type`, `options`, `extra`.
+Define a `fields` object, then you can define these properties in each field definition: `name`, `value`, `label`, `placeholder`, `default`, `disabled`, `related`, `bindings`, `type`, `options`, `extra`, `hooks`, `handlers`.
 
 Validation properties `rules` (DVR) and `validators` (VJF) can be defined as well.
 
@@ -46,6 +46,26 @@ const fields = {
     label: 'Password',
     value: 'thinkdifferent',
   }
+};
+
+new Form({ fields, ... });
+```
+
+### Define Specific Fields Options
+
+Create an `option` object inside a field definition.
+
+The availables options are the same of the [Form Options](../../form/form-options.md)
+
+```javascript
+const fields = {
+  username: {
+    label: 'Username',
+    value: 'SteveJobs',
+    options: {
+      validateOnChange: true,
+    }
+  },
 };
 
 new Form({ fields, ... });

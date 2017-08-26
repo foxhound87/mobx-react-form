@@ -13,10 +13,10 @@ In this example, you can see how to extend only a particular field:
 class CustomSelectField extends Field {
 
   // for example we want to provide options values for the select input
-  options = ['Poor', 'Average', 'Excellent', 'Unsure'];
+  dropDownOptions = ['Poor', 'Average', 'Excellent', 'Unsure'];
 
-  constructor(data) {
-    super(data);
+  constructor(props) {
+    super(props);
   }
 }
 ```
@@ -26,12 +26,12 @@ Into `makeField()` we have to match the `field.key` property with our sepcific f
 ```javascript
 class MyForm extends Form {
 
-  makeField(field) {
-    switch(field.key) {
+  makeField(props) {
+    switch(props.key) {
       case 'mySelectField':
-        return new CustomSelectField(field);
+        return new CustomSelectField(props);
       default:
-        return new Field(field);
+        return new Field(props);
     }
   }
 }

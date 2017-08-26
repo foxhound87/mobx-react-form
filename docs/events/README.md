@@ -1,27 +1,35 @@
-### [Events Handlers](events-handlers.md)
-  * [Sync Field Value](events-handlers.md#sync-field-value)
-  * [Focused & Touched State](events-handlers.md#focused--touched-state)
-  * [Clear & Reset Form or Fields](events-handlers.md#clear--reset)
-  * [Nested Array Elements](events-handlers.md#nested-array-elements)
-  * [Submitting the Form](events-handlers.md#submitting-the-form)
-  * [Handle Files](events-handlers.md#handle-files)
+### [Built-In Events Handlers](event-handlers.md)
+  * [Sync Field Value](event-handlers.md#sync-field-value)
+  * [Focused & Touched State](event-handlers.md#focused--touched-state)
+  * [Clear & Reset Form or Fields](event-handlers.md#clear--reset)
+  * [Nested Array Elements](event-handlers.md#nested-array-elements)
+  * [Submitting the Form](event-handlers.md#submitting-the-form)
+  * [Handle Files](event-handlers.md#handle-files)
 
 
-  * [onChange(e) & onToggle(e)](events-handlers.md#onchangee--ontogglee)
-  * [onFocus(e) & onBlur(e)](events-handlers.md#onfocuse--onblure)
-  * [onClear(e) & onReset(e)](events-handlers.md#oncleare--onresete)
-  * [onAdd(e) & onDel(e)](events-handlers.md#onadde--ondele)
-  * [onSubmit(e)](events-handlers.md#onsubmite)
-  * [onDrop(e)](events-handlers.md#ondrope)
+  * [onChange(e) & onToggle(e)](event-handlers.md#onchangee--ontogglee)
+  * [onFocus(e) & onBlur(e)](event-handlers.md#onfocuse--onblure)
+  * [onClear(e) & onReset(e)](event-handlers.md#oncleare--onresete)
+  * [onAdd(e) & onDel(e)](event-handlers.md#onadde--ondele)
+  * [onSubmit(e)](event-handlers.md#onsubmite)
+  * [onDrop(e)](event-handlers.md#ondrope)
 
-### Validation Handlers
-  * [Extending the Form Class with Validation Handlers](validation-handlers/extending.md)
-  * [Passing the Validation Handlers to the Form constructor](validation-handlers/constructor.md)
-  * [Override the Validation Handlers with Manual Submit](validation-handlers/override.md)
+### Custom Event Handlers
+  When Built-In Handlers are not enough.
 
-### [Observe or Intercept Fields Props](mobx-events.md)
-  * [Using `observe()` / `inercept()` Methods](mobx-events.md#using-observe--intercept-methods)
-  * [Using `observers` / `interceptors` Props](mobx-events.md#using-observers--interceptors-props)
-  * [Disposers](mobx-events.md#disposers)
-  * [Events Hooks](events-hooks.md)
+  * [On Form Initialization](event-handlers/constructor.md)
+  * [Extending the Class](event-handlers/extending.md)
+
+
+### [Event Hooks](event-hooks.md)
+  * [On Form Initialization](event-hooks/constructor.md)
+  * [Extending the Class](event-hooks/extending.md)
+  * [Submitting the Form](event-hooks.md#submitting-the-form)
+  * [Execute code on Instance Init](event-hooks.md#execute-code-on-instance-init)
+
+
+### [Validation Hooks](validation-hooks.md)
+  * [On Form Initialization](validation-hooks/constructor.md)
+  * [Extending the Class](validation-hooks/extending.md)
+  * [Override on Manual Submit](validation-hooks/override.md)
 

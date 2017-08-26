@@ -22,13 +22,13 @@
     * [Extend custom Field](docs/form/extend/custom.md)
 
 ## Fields
-* [Defining Fields](docs/defining-fields.md)
+* [Defining Fields](docs/fields/defining-fields.md)
     * Flat Fields
-        * [As Unified Properties](docs/defining-flat-fields/unified-properties.md)
-        * [As Separated Properties](docs/defining-flat-fields/separated-properties.md)
+        * [As Unified Properties](docs/fields/defining-flat-fields/unified-properties.md)
+        * [As Separated Properties](docs/fields/defining-flat-fields/separated-properties.md)
     * Nested Fields
-        * [As Unified Properties](docs/defining-nested-fields/unified-properties.md)
-        * [As Separated Properties](docs/defining-nested-fields/separated-properties.md)
+        * [As Unified Properties](docs/fields/defining-nested-fields/unified-properties.md)
+        * [As Separated Properties](docs/fields/defining-nested-fields/separated-properties.md)
 
 ## Actions
 * [Actions](docs/actions/README.md)
@@ -38,19 +38,26 @@
 
 ## Events & Handlers
 * [Events & Handlers](docs/events/README.md)
- * [Observe or Intercept](docs/events/mobx-events.md)
- * [Events Hooks](docs/events/events-hooks.md)
- * [Events Handlers](docs/events/events-handlers.md)
- * [Custom Handlers/Hooks](docs/events/custom-handlers-hooks.md)
- * [Validation Handlers](docs/events/validation-handlers.md)
-   * [On Form Initialization](docs/events/validation-handlers/constructor.md)
-   * [Extending the Form Class](docs/events/validation-handlers/extending.md)
-   * [Override with Manual Submit](docs/events/validation-handlers/override.md)
+    * [Events Handlers](docs/events/event-handlers.md)
+        * [On Form Initialization](docs/events/event-handlers/constructor.md)
+        * [Extending the Class](docs/events/event-handlers/extending.md)
+    * [Events Hooks](docs/events/event-hooks.md)
+        * [On Form Initialization](docs/events/event-hooks/constructor.md)
+        * [Extending the Class](docs/events/event-hooks/extending.md)
+        * [Submitting the Form](docs/events/event-hooks.md#submitting-the-form)
+    * [Validation Hooks](docs/events/validation-hooks.md)
+        * [On Form Initialization](docs/events/validation-hooks/constructor.md)
+        * [Extending the Class](docs/events/validation-hooks/extending.md)
+        * [Override with Manual Submit](docs/events/validation-hooks/override.md)
 
 ## Bindings
 * [Bindings](docs/bindings/README.md)
  * [Default Bindings](docs/bindings/default.md)
  * [Custom Bindings](docs/bindings/custom.md)
+
+## Extra
+* [Input & Output Converters](docs/fields/converters/input-output.md)
+* [Observe or Intercept](docs/fields/mobx-events.md)
 
 ## Validation
 * [Validation](docs/validation/README.md)

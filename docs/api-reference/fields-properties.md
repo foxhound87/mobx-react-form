@@ -5,8 +5,8 @@
 | **submitting** | boolean | computed | Check if the field is in submitting state. | - |
 | **validating** | boolean | computed | Check if the field is in validation state. | - |
 | **bindings** | string | computed | The key of the registered bindings to use for the current field. | [help](../bindings/README.md) |
-| **observers** | object | - | The mobx observers to listen on Fields Props or Fields Map changes. | [help](../events/mobx-events.html#using-observers--interceptors-objects) |
-| **interceptors** | object | - | The mobx interceptors to listen on Fields Props or Fields Map changes. | [help](../events/mobx-events.html#using-observers--interceptors-objects) |
+| **observers** | object | - | The mobx observers to listen on Fields Props or Fields Map changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
+| **interceptors** | object | - | The mobx interceptors to listen on Fields Props or Fields Map changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
 | **size** | int | computed | Number of contained Fields. | - |
 | **path** | string | - | Field path (for nested fields). | - |
 | **key** | string | - | Field key (same of `name` if not provided) | - |
@@ -23,6 +23,7 @@
 | **related** | boolean | computed | Get Related fields for validation. | - |
 | **rules** | boolean | computed | Get DVR Validation Rules. | - |
 | **validators** | boolean | computed | Get VJF Validation Functions. | - |
+| **validateWith** | string | computed | Field prop to validate instead `value`. | - |
 | **isValid** | boolean | computed | Check if the field is valid. | - |
 | **isDirty** | boolean | computed | Check if the field is dirty. | - |
 | **isPristine** | boolean | computed | Check if the field is pristine. | - |

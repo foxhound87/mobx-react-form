@@ -1,7 +1,5 @@
 # Getting Started (class)
 
-#### CodeSandbox
-
 [![Edit form-quickstart-class](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/lyj5p91x5z)
 
 ## Install
@@ -58,21 +56,27 @@ export default class MyForm extends Form {
   }
 
   /*
-    Success Validation Handler
+    Event Hooks
   */
-  onSuccess(form) {
-    alert('Form is valid! Send the request here.');
-    // get field values
-    console.log('Form Values!', form.values());
-  }
-
-  /*
-    Error Validation Handler
-  */
-  onError(form) {
-    alert('Form has errors!');
-    // get all form errors
-    console.log('All form errors', form.errors());
+  hooks() {
+    return {
+      /*
+        Success Validation Hook
+      */
+      onSuccess(form) {
+        alert('Form is valid! Send the request here.');
+        // get field values
+        console.log('Form Values!', form.values());
+      }
+      /*
+        Error Validation Hook
+      */
+      onError(form) {
+        alert('Form has errors!');
+        // get all form errors
+        console.log('All form errors', form.errors());
+      }
+    };
   }
 }
 ```
@@ -89,7 +93,7 @@ const form = new MyForm();
 
 The package provide some built-in and ready to use Event Handlers:
 
-`onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more...](events/events-handlers.html)
+`onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more...](events/event-handlers.html)
 
 ```javascript
 import React from 'react';

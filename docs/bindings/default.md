@@ -26,7 +26,7 @@ export default observer(({ field, type = 'text' }) => (
 
 ## Properties Overwrite
 
-The `bind()` method will **overwrite any property**, just pass to it an object with all properties you want to overwrite:
+The `bind()` method will **overwrite any component property**, just pass to it an object with all properties you want to overwrite:
 
 ```javascript
 export default observer(({ field, type = 'password', placeholder = 'Insert Password' }) => (
@@ -38,6 +38,12 @@ export default observer(({ field, type = 'password', placeholder = 'Insert Passw
 
 > When passing properties to the `bind()` method, the field properties which are defined on form initialization will be treated as **fallbacks** (until you implement a new `Template`).
 
+
+#### IMPORTANT!
+
+The props passed to the `bind()` method will not mutate the package's store but only your component.
+
+Do this only for handling edge cases, as it's not the default behavior to handle field props, [define fields](../defining-fields.md) normally instead.
 
 ### **We are done!**
 

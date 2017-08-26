@@ -16,7 +16,6 @@
 | Option | Type | Default | Info |
 |---|---|---|---|
 | **defaultGenericError** | string | null | Set e default message to show when a generic error occurs. |
-| **alwaysShowDefaultError** | boolean | false | The `defaultGenericError` is shown only when `invalidate()` is called. Set this to `true` and it will be always shown on validation errors. |
 | **submitThrowsError** | boolean | true | If true and `defaultGenericError` is defined throws error and invalidate if validation fails on submit. |
 | **showErrorsOnInit** | boolean | false | Show or hide error messages `on init` for `validateOnInit`. |
 | **showErrorsOnSubmit** | boolean | true | Show or hide error messages `on submit`. |
@@ -29,11 +28,11 @@
 | **validateOnChange** | boolean | false | Validate fields value `on change`. |
 | **strictUpdate** | boolean | false | Throw an error if trying to update an undefined field. |
 | **strictDelete** | boolean | true | Throw an error if trying to delete an undefined field. |
-| **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
-| **validationDebounceOptions** | object | { leading: false, trailing: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |
 | **retrieveOnlyDirtyValues** | boolean | false | Get only Dirty Values when using `get('value')` or the `values()` helper. |
 | **retrieveOnlyEnabledFields** | boolean | false | Get only Enabled Fields Values when using `get('value')` or the `values()` helper. |
 | **autoParseNumbers** | boolean | false | Try to parse strings to numbers automatically if the initial value of the field is a number. |
+| **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
+| **validationDebounceOptions** | object | { leading: false, trailing: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |
 | **allowRequired** | boolean | false | The json-schema `required` property can work only if the object does not contain the field key/value pair, `allowRequired` can remove it when needed to make `required` work properly. Be careful because enabling it will make `minLength` uneffective when the `string` is `empty`. |
 | **ajv** | object | - | Additional options for AJV. See all the details of [ajv options](https://github.com/epoberezkin/ajv#options) on the official github page of AJV. |
 

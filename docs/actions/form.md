@@ -65,7 +65,7 @@ The `init()` method will re-init the form with empty or new values and all previ
 
 > If you don't need to re-init the form fields and values, just use the [update()](shared.md#update-the-fields) method.
 
-It works like passing the passing the `fields` or `values` to the [Form Constructor](../api-reference/form-initialization.md).
+It works like passing the passing the `fields` or `values` to the [Form Constructor](../form/form-initialization.md).
 
 It accept the **fields struct** if using `separated properties definition` or **fields values** if using `unified properties definition`.
 

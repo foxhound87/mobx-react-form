@@ -1,6 +1,9 @@
 {
     "plugins": [
-      "github"
+      "github",
+      "prism",
+      "accordion",
+      "validate-links"
     ],
     "pluginsConfig": {
       "github": {

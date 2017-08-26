@@ -1,6 +1,6 @@
 ## Defining Flat Fields as Separated Properties
 
-You can define these properties: `fields`, `values`, `labels`, `placeholders`, `defaults`, `disabled`, `related`, `bindings`, `types`, `options`, `extra`.
+You can define these properties: `fields`, `values`, `labels`, `placeholders`, `defaults`, `disabled`, `related`, `bindings`, `types`, `options`, `extra`, `hooks`, `handlers`.
 
 Validation properties `rules` (DVR) and `validators` (VJF) can be defined as well.
 
@@ -184,7 +184,7 @@ const validators = {
 new Form({ fields, validators, ... });
 ```
 
-> Read more about how to [Enable Vanilla Javascript Validation Functions (VJF)](../validation/modes/vjf-enable)
+> Read more about how to [Enable Vanilla Javascript Validation Functions (VJF)](../../validation/modes/vjf-enable.md)
 
 ### Using Declarative Validation Rules (DVR)
 
@@ -198,7 +198,7 @@ const rules = {
 
 new Form({ fields, rules, ... });
 ```
-> Read more about how to [Enable Declarative Validation Rules (DVR)](../validation/modes/dvr-enable)
+> Read more about how to [Enable Declarative Validation Rules (DVR)](../../validation/modes/dvr-enable.md)
 
 ### Using Json Schema Validation Keywords (SVK)
 
@@ -216,4 +216,4 @@ const schema = {
 new Form({ fields, schema, ... });
 ```
 > Read more about how to [Enable Json Schema Validation Keywords (SVK)
-](../validation/modes/svk-enable)
+](../../validation/modes/svk-enable.md)

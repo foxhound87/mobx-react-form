@@ -1,42 +1,64 @@
-# Validation Handlers
+# Validation Hooks
 
-* [Extending the Form Class with Validation Handlers](extending.md)
-* [Passing the Validation Handlers to the Form constructor](constructor.md)
-* [Override the Validation Handlers with Manual Submit](override.md)
+* [On Form Initialization](constructor.md)
+* [Extending the Class](extending.md)
+* [Override on Manual Submit](override.md)
 
-## Passing the Validation Handlers to the Form constructor
+---
+
+## On Form Initialization
 #### onSuccess(form) & onError(form)
 
 These methods are called when the form validation is done.
 
 > They can return promises to wait on submit.
 
-Define an `onSubmit` object with `onSuccess(form)` or `onError(form)` Validation Handlers and pass them to the **Second Argument** of the **Form Constructor**:
+Define an `hooks` object with `onSuccess(form)` or `onError(form)` Validation Hooks and pass them to the **Second Argument** of the **Form Constructor**:
 
 ```javascript
-const onSubmit = {
+const hooks = {
   onSuccess(form) {
     alert('Form is valid! Send the request here.');
     // get field values
     console.log('Form Values!', form.values());
+    // can return a promise here!
   },
   onError(form) {
     // get all form errors
     console.log('All form errors', form.errors());
     // invalidate the form with a custom error message
     form.invalidate('This is a generic error message!');
+    // can return a promise here!
+  },
+};
+
+new Form({ ... }, { hooks }); <---
+```
+
+%accordion% **VERSION < 1.32** %accordion%
+
+```javascript
+const onSubmit = {
+  onSuccess(form) {
+    console.log('Form Values!', form.values());
+  },
+  onError(form) {
+    console.log('All form errors', form.errors());
   },
 };
 
 new Form({ ... }, { onSubmit }); <---
 ```
 
+%/accordion%
+
+
 # Sub-Form Submission
 #### onSuccess(fieldset) & onError(fieldset)
 
-Even the Nested Field can be treated as Sub-Form, they can have their own Validation Handlers.
+Even the Nested Field can be treated as Sub-Form, they can have their own Validation Hooks.
 
-You can define Validation Handlers on the Fields you need, defining an `onSubmit` object for each Field to pass in the **First Argument** of the **Form Constructor**:
+You can define Validation Hooks on the Fields you need, defining an `hooks` object for each Field to pass in the **First Argument** of the **Form Constructor**:
 
 ```javascript
 const submit = {
@@ -53,6 +75,21 @@ const submit = {
   },
 };
 
+const hooks = {
+  'members[]': submit,
+  // ... other fields
+};
+
+new Form({ ..., hooks }, { ... }); <---
+```
+
+%accordion% **VERSION < 1.32** %accordion%
+
+> the object passed to the **constructor** is called `onSubmit`.
+
+```javascript
+...
+
 const onSubmit = {
   'members[]': submit,
   // ... other fields
@@ -60,5 +97,7 @@ const onSubmit = {
 
 new Form({ ..., onSubmit }, { ... }); <---
 ```
+
+%/accordion%
 
 > This is an example using **Separated Field Properties Definition** mode but **Unified** mode is also supported.

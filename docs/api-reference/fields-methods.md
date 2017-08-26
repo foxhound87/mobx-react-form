@@ -36,7 +36,7 @@
 | **observe(obj)** | (object) | - | Define a MobX Observer on Field Props or Field Map. | - |
 | **intercept(obj)** | (object) | - | Define a MobX Interceptor on Field Props or Field Map. | - |
 | **hasNestedFields()** | - | boolean | Check if the field has Nested Fields. | - |
-| **hasIncrementalNestedFields()** | - | boolean | Check if the nested fields have incremental keys. | - |
+| **hasIncrementalKeys()** | - | boolean | Check if the nested fields have incremental keys. | - |
 
 > $(path) is like of select(path).
 

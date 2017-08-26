@@ -26,8 +26,8 @@ class MyField extends Field {
 
   // ...
 
-  constructor(data) {
-    super(data);
+  constructor(props) {
+    super(props);
 
     // ...
   }
@@ -39,8 +39,8 @@ implement `MyField` into the `makeField()` method of the `Form` class:
 ```javascript
 class MyForm extends Form {
 
-  makeField(data) {
-    return new MyField(data);
+  makeField(props) {
+    return new MyField(props);
   }
 }
 

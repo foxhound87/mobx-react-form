@@ -1,7 +1,5 @@
 # Getting Started
 
-#### CodeSandbox
-
 [![Edit form-quickstart](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrrZgG8y4)
 
 ## Install
@@ -48,10 +46,10 @@ const fields = [{
 
 > You can also define `fields` as an `object`.
 
-#### Define the Validation Handlers
+#### Define the Validation Hooks
 
 ```javascript
-const onSubmit = {
+const hooks = {
   onSuccess(form) {
     alert('Form is valid! Send the request here.');
     // get field values
@@ -67,19 +65,19 @@ const onSubmit = {
 
 #### Initialize the Form
 
-Simply pass the `fields`, `plugins` and `onSubmit` objects to the constructor
+Simply pass the `fields`, `plugins` and `hooks` objects to the constructor
 
 ```javascript
 import MobxReactForm from 'mobx-react-form';
 
-const form = new MobxReactForm({ fields }, { plugins, onSubmit });
+const form = new MobxReactForm({ fields }, { plugins, hooks });
 ```
 
 #### Pass the form to a react component
 
 The package provide some built-in and ready to use Event Handlers:
 
-`onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more...](events/events-handlers.html)
+`onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more...](events/event-handlers.html)
 
 ```javascript
 import React from 'react';

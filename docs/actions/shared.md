@@ -275,7 +275,7 @@ form.$('member.hobbies').del(3); // same as previous
 ```
 
 > These are not an Event Handlers.
-> If you need the `onAdd(e)` or `onDel(e)` read the [Event Handlers](../events/events-handlers.md) section.
+> If you need the `onAdd(e)` or `onDel(e)` read the [Event Handlers](../events/event-handlers.md) section.
 
 You can use it, for example, if you want to reimplement the `onAdd(e)` or `onDel(e)` Event Handlers.
 
@@ -294,7 +294,7 @@ Clear or Reset the whole Form, a single Field, or Nested Fields recursively.
 ```
 
 > These are not an Event Handlers.
-> If you need the `onClear(e)` or `onReset(e)` read the [Event Handlers](../events/events-handlers.md) section.
+> If you need the `onClear(e)` or `onReset(e)` read the [Event Handlers](../events/event-handlers.md) section.
 
 ---
 
@@ -318,7 +318,7 @@ instance.submit({
 ```
 
 > This is not an Event Handler.
-> If you need the `onSubmit(e)` read the [Event Handlers](../events/events-handlers.md#onsubmite) section.
+> If you need the `onSubmit(e)` read the [Event Handlers](../events/event-handlers.md#onsubmite) section.
 
 You can use it, for example, if you want to reimplement the `onSubmit(e)` Event Handler.
 

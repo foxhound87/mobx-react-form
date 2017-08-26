@@ -1,20 +1,22 @@
-# Validation Handlers
+# Validation Hooks
 
-* [Extending the Form Class with Validation Handlers](extending.md)
-* [Passing the Validation Handlers to the Form constructor](constructor.md)
-* [Override the Validation Handlers with Manual Submit](override.md)
+* [On Form Initialization](constructor.md)
+* [Extending the Class](extending.md)
+* [Override on Manual Submit](override.md)
 
-## Override the Validation Handlers
+---
+
+## Override on Manual Submit
 #### onSuccess(form) & onError(form)
 
 These methods are called when the form validation is done.
 
 > They can return promises to wait on submit.
 
-Define an object with `onSuccess(form)` or `onError(form)` Validation Handlers.
+Define an object with `onSuccess(form)` or `onError(form)` Validation Hooks.
 
 ```javascript
-const validationHandlers = {
+const hooks = {
   onSuccess(form) {
     alert('Form is valid! Send the request here.');
     // get field values
@@ -31,12 +33,12 @@ const validationHandlers = {
 
 > They takes the `form` instance as parameter in input.
 
-Then pass the Validation Handlers as first argument to the `submit({ ... })` Action:
+Then pass the Validation Hooks as first argument to the `submit({ ... })` Action:
 
 ```javascript
 instance.submit({
-  onSuccess: validationHandlers.onSuccess,
-  onError: validationHandlers.onError,
+  onSuccess: hooks.onSuccess,
+  onError: hooks.onError,
 })
 ```
 
@@ -46,8 +48,8 @@ or as second argument to the `onSubmit(e, { ... })` Event Handler:
 <button
   type="submit"
   onClick={e => instance.onSubmit(e, {
-    onSuccess: validationHandlers.onSuccess,
-    onError: validationHandlers.onError,
+    onSuccess: hooks.onSuccess,
+    onError: hooks.onError,
   })}
 >Submit</button>
 ```

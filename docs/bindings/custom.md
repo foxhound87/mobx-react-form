@@ -70,22 +70,6 @@ export default observer(({ field }) => (
 
 ```
 
-Eventually we can use properties overwrite:
-
-```javascript
-import TextField from 'material-ui/TextField';
-
-export default observer(({ field, type = 'password', placeholder = 'Insert Password' }) => (
-  <div>
-    <TextField {...field.bind({ type, placeholder })} />
-  </div>
-));
-
-```
-
-> When passing properties to the `bind()` method, the field properties which are defined on form initialization will be treated as **fallbacks** (until you implement a new `Template`).
-
-
 <br>
 
 ---
