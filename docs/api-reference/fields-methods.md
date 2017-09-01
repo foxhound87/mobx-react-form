@@ -47,12 +47,10 @@
 | **values()** | - | object | Get Field & Nested Fields Values. | - |
 | **errors()** | - | object | Get Field & Nested Fields Errors. | - |
 | **labels()** | - | object | Get Field & Nested Fields Labels. | - |
-| **placeholder()** | - | object | Get Field & Nested Fields Placeholders. | - |
+| **placeholders()** | - | object | Get Field & Nested Fields Placeholders. | - |
 | **defaults()** | - | object | Get Field & Nested Fields Default Values. | - |
 | **initials()** | - | object | Get Field & Nested Fields Initial Values. | - |
 | **types()** | - | object | Get Field & Nested Fields Type. | - |
-
-> Some of these Helpers methods are plurals.
 
 #### Event Handlers
 
