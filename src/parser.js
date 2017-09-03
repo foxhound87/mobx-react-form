@@ -84,9 +84,9 @@ const handleFieldsArrayOfObjects = ($fields) => {
   let fields = $fields;
   // handle array of objects (with unified props)
   if (utils.isArrayOfObjects(fields)) {
-    fields = _.reduce(fields, ($obj, $) => {
-      if (!_.has($, 'name')) return undefined;
-      return Object.assign($obj, { [$.name]: $ });
+    fields = _.reduce(fields, ($obj, field) => {
+      if (utils.hasUnifiedProps({ fields: { field } }) && !_.has(field, 'name')) return undefined;
+      return Object.assign($obj, { [field.name]: field });
     }, {});
   }
   return fields;

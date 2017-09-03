@@ -181,10 +181,8 @@ export default {
         delete obj[field.key]; // eslint-disable-line
         if (removeValue) return obj;
 
-        const checkName = (k, v) => _.has(v, 'name') && (k === v.name);
 
         const data = utils.hasUnifiedProps({ fields: [value] })
-          || checkName(field.key, value)
             ? value[prop]
             : value;
 
