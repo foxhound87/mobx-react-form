@@ -29,9 +29,11 @@ The shared actions can be used on the form instance or every field and nested fi
 
 ### Update the fields
 
-The `update()` method is intended to be used to recreate the fields tree (for example add/del fields array) and provide new values.
+The `update()` method is intended to be used to recreate the fields tree and provide new values.
 
 If you need to change the properties of existent/selected fields, consider to use the `set()` method instead.
+
+If you need to handle arrays (add or remove elements), consider to use the `add()` and `del()` methods instead.
 
 > This method only accept an `object` and will updated all fields `values`.
 
