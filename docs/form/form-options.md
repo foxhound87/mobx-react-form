@@ -26,6 +26,7 @@
 | **validateOnInit** | boolean | true | Validate of the whole form `on init`. |
 | **validateOnBlur** | boolean | true | Validate fields value `on blur`. |
 | **validateOnChange** | boolean | false | Validate fields value `on change`. |
+| **validateDisabledFields** | boolean | false | Enable or disable field validation based on their `disabled` property. |
 | **strictUpdate** | boolean | false | Throw an error if trying to update an undefined field. |
 | **strictDelete** | boolean | true | Throw an error if trying to delete an undefined field. |
 | **retrieveOnlyDirtyValues** | boolean | false | Get only Dirty Values when using `get('value')` or the `values()` helper. |
