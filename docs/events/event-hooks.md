@@ -2,7 +2,6 @@
 
 * [On Form Initialization](event-hooks/constructor.md)
 * [Extending the Class](event-hooks/extending.md)
-* [Submitting the Form](event-hooks.md#submitting-the-form)
 * [Execute code on Instance Init](event-hooks.md#execute-code-on-instance-init)
 
 ---
@@ -33,30 +32,13 @@ The lifecycle of all events is:
 
 | Event Handler | Executed Action | Affected Property | Executed Hook | FORM | FIELD |
 |---|---|---|---|---|
+| onSubmit(e) | submit() > validate() | submitting, validating | onSubmit | YES | YES |
 | onClear(e) | clear() | value | onClear | YES | YES |
 | onReset(e) | reset() | value | onReset | YES | YES |
 | onAdd(e) | add() | fields | onAdd | YES | YES |
 | onDel(e) | del() | fields | onDel | YES | YES |
 
 ---
-
-## Submitting the Form
-
-#### onSubmit(e)
-
-| Handler | Action | Affected Property | Executed Hook | FORM | FIELD |
-|---|---|---|---|---|
-| onSubmit(e) | submit() > validate() | submitting, validating | onSubmit | YES | YES |
-
-The `onSubmit(e)` will `validate` the form and will call respectively `onSuccess(form)` or `onError(form)` **Validation Hooks** if they are implemented.
-
-The `onSuccess(form)` and `onError(form)` methods takes the `form` object in input. So you can perform more actions after the validation occurs.
-
-You can easly include the `onSubmit(e)` handler in your component:
-
-```html
-<button type="submit" onClick={form.onSubmit}>Submit</button>
-```
 
 #### Validation Hooks
 

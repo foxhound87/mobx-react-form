@@ -148,6 +148,26 @@ or specify the field `path` as second argument:
 
 ---
 
+## Submitting the Form
+
+#### onSubmit(e)
+
+| Handler | Action | Affected Property | Executed Hook | FORM | FIELD |
+|---|---|---|---|---|
+| onSubmit(e) | submit() > validate() | submitting, validating | onSubmit | YES | YES |
+
+The `onSubmit(e)` will `validate` the form and will call respectively `onSuccess(form)` or `onError(form)` **Validation Hooks** if they are implemented.
+
+The `onSuccess(form)` and `onError(form)` methods takes the `form` object in input. So you can perform more actions after the validation occurs.
+
+You can easly include the `onSubmit(e)` handler in your component:
+
+```html
+<button type="submit" onClick={form.onSubmit}>Submit</button>
+```
+
+---
+
 ## Handle Files
 
 #### onDrop(e)
@@ -156,7 +176,15 @@ or specify the field `path` as second argument:
 |---|---|---|---|
 | onDrop(e) | files | onDrop | Retrieve the files |
 
-Delegate the input `onChange` event with the `onDrop(e)` Event Handler and it will retrive the files into the `files` Field prop and exeute the `onDrop` Hook function.
+The `onDrop(e)` Event Handler will retrive the files into the `files` Field prop and exeute the `onDrop` Hook function.
+
+Define the field `type` property as `file` and then use `bind()` on your input:
+
+```html
+<input multiple=true {...field.bind()} />
+```
+
+Otherwise, (without defining the `type` prop) delegate the input `onChange` Handler with the `onDrop(e)` Handler on the `bind()` method (or create a [custom bindings](../bindings/custom.md)).
 
 ```html
 <input
@@ -166,5 +194,3 @@ Delegate the input `onChange` event with the `onDrop(e)` Event Handler and it wi
   })}
 />
 ```
-
-> Or create a [custom bindings](../bindings/custom.md).
