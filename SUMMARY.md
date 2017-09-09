@@ -38,13 +38,13 @@
 
 ## Events & Handlers
 * [Events & Handlers](docs/events/README.md)
-    * [Events Handlers](docs/events/event-handlers.md)
+    * [Event Handlers](docs/events/event-handlers.md)
         * [On Form Initialization](docs/events/event-handlers/constructor.md)
         * [Extending the Class](docs/events/event-handlers/extending.md)
-    * [Events Hooks](docs/events/event-hooks.md)
+        * [Submitting the Form](docs/events/event-handlers.md#submitting-the-form)
+    * [Event Hooks](docs/events/event-hooks.md)
         * [On Form Initialization](docs/events/event-hooks/constructor.md)
         * [Extending the Class](docs/events/event-hooks/extending.md)
-        * [Submitting the Form](docs/events/event-hooks.md#submitting-the-form)
     * [Validation Hooks](docs/events/validation-hooks.md)
         * [On Form Initialization](docs/events/validation-hooks/constructor.md)
         * [Extending the Class](docs/events/validation-hooks/extending.md)
