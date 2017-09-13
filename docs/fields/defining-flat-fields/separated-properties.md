@@ -4,7 +4,7 @@ You can define these properties: `fields`, `values`, `labels`, `placeholders`, `
 
 Validation properties `rules` (DVR) and `validators` (VJF) can be defined as well.
 
-You can eventuallu define the `fields` property as a fields `structure`.
+You can eventually define the `fields` property as a fields `structure`.
 
 <br>
 
