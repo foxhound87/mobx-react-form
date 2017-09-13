@@ -56,8 +56,8 @@
  * [Custom Bindings](docs/bindings/custom.md)
 
 ## Extra
-* [Input & Output Converters](docs/fields/converters/input-output.md)
-* [Observe or Intercept](docs/fields/mobx-events.md)
+* [Input & Output Converters](docs/extra/converters/input-output.md)
+* [Observe or Intercept](docs/extra/mobx-events.md)
 
 ## Validation
 * [Validation](docs/validation/README.md)
