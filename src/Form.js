@@ -95,7 +95,7 @@ export default class Form extends Base {
   }
 
   @computed get hasError() {
-    return this.validator.error
+    return !!this.validator.error
      || this.check('hasError', true);
   }
 

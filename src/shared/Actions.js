@@ -181,13 +181,8 @@ export default {
         delete obj[field.key]; // eslint-disable-line
         if (removeValue) return obj;
 
-
-        const data = utils.hasUnifiedProps({ fields: [value] })
-            ? value[prop]
-            : value;
-
         return Object.assign(obj, {
-          [field.key]: parser.parseCheckArray(field, data, prop),
+          [field.key]: parser.parseCheckArray(field, value, prop),
         });
       }
 

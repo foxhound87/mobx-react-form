@@ -208,6 +208,23 @@ describe('Check Fixes $P values', () => {
     expect($.$P.$('address').labels()).to.be.deep.equal(labels));
 });
 
+describe('Check Fixes $Q values', () => {
+  const a = [{ id: 1, name: 'name' }];
+  const b = [{ id: 1, name: 'name', value: 'some val' }];
+
+  it('$Q arrayFieldA values() check', () =>
+    expect($.$Q.$('arrayFieldA').values()).to.be.deep.equal(a));
+
+  it('$Q arrayFieldB values() check', () =>
+    expect($.$Q.$('arrayFieldB').values()).to.be.deep.equal(b));
+
+  it('$Q arrayFieldA value check', () =>
+    expect($.$Q.$('arrayFieldA').value).to.be.deep.equal(a));
+
+  it('$Q arrayFieldB value check', () =>
+    expect($.$Q.$('arrayFieldB').value).to.be.deep.equal(b));
+});
+
 describe('Check Fixes $R values', () => {
   const a = $.$R.values().organization;
   const b = $.$R.$('organization').value;

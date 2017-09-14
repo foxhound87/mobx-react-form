@@ -6,6 +6,13 @@ const fields = [
   'incident[].type',
   'incident[].value',
   'incident[].options',
+  'arrayFieldA[]',
+  'arrayFieldA[].id',
+  'arrayFieldA[].name',
+  'arrayFieldB[]',
+  'arrayFieldB[].id',
+  'arrayFieldB[].name',
+  'arrayFieldB[].value',
 ];
 
 class NewForm extends Form {
@@ -15,6 +22,10 @@ class NewForm extends Form {
       onInit() {
         // FIX: #282 (reserved keywords)
         this.$('incident').add();
+
+        // TO FIX #324
+        this.update({ arrayFieldA: [{ id: 1, name: 'name' }] });
+        this.update({ arrayFieldB: [{ id: 1, name: 'name', value: 'some val' }] });
       },
     };
   }
