@@ -2,6 +2,7 @@ import { Form } from '../../../../src';
 import NewFormBindings from '../../extension/_.bindings';
 
 const fields = [
+  'nested.field',
   'club.name',
   'club.city',
   'members',
@@ -12,6 +13,9 @@ const fields = [
 ];
 
 const values = {
+  nested: {
+    field: 5,
+  },
   club: 'HELLO',
   members: [{
     firstname: 'Clint',
@@ -22,6 +26,14 @@ const values = {
     lastname: 'Chaplin',
     hobbies: ['Golf', 'Basket'],
   }],
+};
+
+const input = {
+  'nested.field': value => value.toString(),
+};
+
+const output = {
+  'nested.field': value => Number(value),
 };
 
 const placeholders = {
@@ -49,4 +61,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, values, placeholders, bindings }, { name: 'Nested-N' });
+export default new NewForm({ fields, values, input, output, placeholders, bindings }, { name: 'Nested-N' });
