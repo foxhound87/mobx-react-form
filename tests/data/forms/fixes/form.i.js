@@ -84,4 +84,6 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, rules, defaults, initials, types }, { name: 'Fixes-I' });
+export default new NewForm({
+  fields, rules, defaults, initials, types,
+}, { name: 'Fixes-I' });

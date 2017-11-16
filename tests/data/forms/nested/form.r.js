@@ -63,4 +63,6 @@ const hooks = {
   'members[]': submit,
 };
 
-export default new Form({ fields, rules, values, hooks }, { plugins, options, name: 'Nested-R' });
+export default new Form({
+  fields, rules, values, hooks,
+}, { plugins, options, name: 'Nested-R' });

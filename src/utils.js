@@ -23,7 +23,9 @@ const props = {
   },
 };
 
-const checkObserveItem = change => ({ key, to, type, exec }) =>
+const checkObserveItem = change => ({
+  key, to, type, exec,
+}) =>
   (change.type === type && change.name === key && change.newValue === to)
     && exec.apply(change, [change]);
 
@@ -108,7 +110,7 @@ const isArrayOfObjects = fields =>
   _.isArray(fields) && _.every(fields, _.isPlainObject);
 
 const $getKeys = fields =>
-_.union(_.map(_.values(fields), values => _.keys(values))[0]);
+  _.union(_.map(_.values(fields), values => _.keys(values))[0]);
 
 const hasUnifiedProps = ({ fields }) =>
   !isStruct({ fields }) && hasProps('field', $getKeys(fields));
@@ -128,7 +130,7 @@ const allowNested = (field, strictProps) =>
     ]) || strictProps);
 
 const parseIntKeys = fields =>
- _.map(fields.keys(), _.ary(parseInt, 1));
+  _.map(fields.keys(), _.ary(parseInt, 1));
 
 const hasIntKeys = fields =>
   _.every(parseIntKeys(fields), _.isInteger);
@@ -156,7 +158,7 @@ const $isBool = ($, val) =>
 const $try = (...args) => {
   let found = null;
 
-  args.map(val =>
+  args.map(val => // eslint-disable-line
     ((found === null) && !_.isNil(val))
       && (found = val));
 

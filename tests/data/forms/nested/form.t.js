@@ -31,12 +31,12 @@ class NewForm extends Form {
         // hobbies[] length should be 2
 
         // form.add('member.hobbies'); // OLD
-        form.$('member.hobbies').add('AAA');  // 1
-        form.$('member.hobbies').add('BBB');  // 2
-        form.$('member.hobbies').add('CCC');  // 3
-        form.$('member.hobbies').add('DDD');  // 4
-        form.$('member.hobbies').add('EEE');  // 5
-        form.$('member.hobbies').add('FFF');  // 6
+        form.$('member.hobbies').add('AAA'); // 1
+        form.$('member.hobbies').add('BBB'); // 2
+        form.$('member.hobbies').add('CCC'); // 3
+        form.$('member.hobbies').add('DDD'); // 4
+        form.$('member.hobbies').add('EEE'); // 5
+        form.$('member.hobbies').add('FFF'); // 6
         // member.hobbies[] length: 6
 
         form.del('member.hobbies[0]');

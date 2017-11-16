@@ -157,10 +157,10 @@ describe('Check Nested $C Fields computed deep check()', () => {
 
 describe('Check Nested $D props after state clear()', () => {
   it('$D state isEmpty should be false', () =>
-  expect($.$D.$('state').isEmpty).to.be.false);
+    expect($.$D.$('state').isEmpty).to.be.false);
 
   it('$D state.city isEmpty should be false', () =>
-  expect($.$D.$('state.city').isEmpty).to.be.false);
+    expect($.$D.$('state.city').isEmpty).to.be.false);
 
   it('$D state.city.places isEmpty should be false', () =>
     expect($.$D.$('state.city.places').isEmpty).to.be.false);
@@ -172,20 +172,20 @@ describe('Check Nested $N bindings props', () => {
     .bind();
 
   it('$N membersFirstNameBindings floatingLabelText should be equal to empty string', () =>
-      expect(membersFirstNameBindings).to.have.property('floatingLabelText', 'firstname'));
+    expect(membersFirstNameBindings).to.have.property('floatingLabelText', 'firstname'));
 
   it('$N membersFirstNameBindings value should be equal to "Clint"', () =>
-      expect(membersFirstNameBindings).to.have.property('value', 'Clint'));
+    expect(membersFirstNameBindings).to.have.property('value', 'Clint'));
 
   it('$N membersFirstNameBindings hintText should be equal to "Insert First Name"', () =>
-      expect(membersFirstNameBindings).to.have.property('hintText', 'Insert First Name'));
+    expect(membersFirstNameBindings).to.have.property('hintText', 'Insert First Name'));
 
   const membersLastNameBindings = $.$N
     .$('members').$(0).$('lastname')
     .bind({ value: 'Hello!!!' });
 
   it('$N membersLastNameBindings value should be equal to "Hello!!!"', () =>
-      expect(membersLastNameBindings).to.have.property('value', 'Hello!!!'));
+    expect(membersLastNameBindings).to.have.property('value', 'Hello!!!'));
 
   const hobbiesBindings = $.$N
     .$('members').$(1)
@@ -193,13 +193,13 @@ describe('Check Nested $N bindings props', () => {
     .bind();
 
   it('$N hobbiesBindings floatingLabelText should be equal to empty string', () =>
-      expect(hobbiesBindings).to.have.property('floatingLabelText', ''));
+    expect(hobbiesBindings).to.have.property('floatingLabelText', ''));
 
   it('$N hobbiesBindings value should be equal to "Golf"', () =>
-      expect(hobbiesBindings).to.have.property('value', 'Golf'));
+    expect(hobbiesBindings).to.have.property('value', 'Golf'));
 
   it('$N hobbiesBindings hintText should be equal to "Insert Hobbies"', () =>
-      expect(hobbiesBindings).to.have.property('hintText', 'Insert Hobbies'));
+    expect(hobbiesBindings).to.have.property('hintText', 'Insert Hobbies'));
 });
 
 describe('Check Nested $S get() value after set() value', () => {

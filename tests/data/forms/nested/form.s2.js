@@ -32,8 +32,8 @@ const interceptors = {
     key: 'value',
     call: ({ form, change }) => {
       describe('Check Nested-S2 $value@club.city Disposers:', () =>
-      it('Disposers should not have $value@club.city prop', () =>
-        expect(form.state.disposers.interceptor).not.to.have.property('$value@club.city')));
+        it('Disposers should not have $value@club.city prop', () =>
+          expect(form.state.disposers.interceptor).not.to.have.property('$value@club.city')));
 
       return change;
     },
@@ -91,7 +91,9 @@ class NewForm extends Form {
 
   setup() {
     // omit "rules" (use constructor)
-    return { fields, values, observers, interceptors };
+    return {
+      fields, values, observers, interceptors,
+    };
   }
 
   hooks() {

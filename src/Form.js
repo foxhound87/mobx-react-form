@@ -37,8 +37,10 @@ export default class Form extends Base {
     this.$handlers = handlers;
 
     // load data from initializers methods
-    const initial = _.each({ setup, options, plugins, bindings },
-      (val, key) => _.isFunction(this[key])
+    const initial = _.each({
+      setup, options, plugins, bindings,
+    },
+    (val, key) => _.isFunction(this[key])
       ? _.merge(val, this[key].apply(this, [this]))
       : val);
 

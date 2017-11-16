@@ -36,7 +36,9 @@ export default class State {
     fields: {},
   };
 
-  constructor({ form, initial, options, bindings }) {
+  constructor({
+    form, initial, options, bindings,
+  }) {
     this.set('form', form);
     this.initProps(initial);
     this.options = new Options();

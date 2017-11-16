@@ -7,7 +7,6 @@ import {
   hasIntKeys } from './utils';
 
 export default class Base {
-
   noop = () => {};
 
   execHook = (name, fallback = {}) => $try(
@@ -96,7 +95,7 @@ export default class Base {
     Event Handler: On Del
   */
   onDel = (...args) =>
-    this.execHandler('onAdd', args, (e, path) => {
+    this.execHandler('onDel', args, (e, path) => {
       e.preventDefault();
       this.del($isEvent(path) ? this.path : path);
     });

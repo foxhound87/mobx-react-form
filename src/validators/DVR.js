@@ -48,7 +48,7 @@ export default class DVR {
 
   validateField(field, form) {
     // get form fields data
-    const data = {};
+    const data = {}; // eslint-disable-next-line
     form.each($field => (data[$field.path] = $field.validatedValue));
     this.validateFieldAsync(field, form, data);
     this.validateFieldSync(field, form, data);

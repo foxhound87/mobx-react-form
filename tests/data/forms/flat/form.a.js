@@ -58,8 +58,8 @@ const fields = {
   devSkills: {
     label: 'Dev Skills',
     value: 5,
-    input: value => value.toString(),   // (user to store)
-    output: value => Number(value),     // (store to user)
+    input: value => value.toString(), // (user to store)
+    output: value => Number(value), // (store to user)
   },
   revenue: {
     label: 'Revenue (Billion $)',
@@ -75,7 +75,9 @@ const schema = {
   type: 'object',
   properties: {
     // username: { type: 'string', minLength: 6, maxLength: 20 },
-    email: { type: 'string', format: 'email', minLength: 5, maxLength: 20 },
+    email: {
+      type: 'string', format: 'email', minLength: 5, maxLength: 20,
+    },
     password: { type: 'string', minLength: 6, maxLength: 20 },
     terms: { enum: [true, false] },
     devSkills: { range: [5, 10] },

@@ -61,4 +61,6 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, values, input, output, placeholders, bindings }, { name: 'Nested-N' });
+export default new NewForm({
+  fields, values, input, output, placeholders, bindings,
+}, { name: 'Nested-N' });

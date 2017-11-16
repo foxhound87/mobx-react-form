@@ -100,7 +100,9 @@ export default class Field extends Base {
 
   @observable files;
 
-  constructor({ key, path, data = {}, props = {}, update = false, state }) {
+  constructor({
+    key, path, data = {}, props = {}, update = false, state,
+  }) {
     super();
 
     this.state = state;
@@ -306,8 +308,8 @@ export default class Field extends Base {
     this.$changed = true;
 
     const $get = $ => $isBool($, this.value)
-        ? $.target.checked
-        : $.target.value;
+      ? $.target.checked
+      : $.target.value;
 
     // assume "v" or "e" are the values
     if (_.isNil(e) || _.isNil(e.target)) {
@@ -359,7 +361,7 @@ export default class Field extends Base {
 
         this.files = files || args;
       }));
-  }
+}
 
 /**
   Prototypes
@@ -454,7 +456,7 @@ export const prototypes = {
   },
 
   checkDVRValidationPlugin() {
-    const drivers = this.state.form.validator.drivers;
+    const { drivers } = this.state.form.validator;
     if (_.isNil(drivers.dvr) && !_.isNil(this.rules)) {
       // eslint-disable-next-line
       console.warn(

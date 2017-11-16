@@ -35,7 +35,7 @@ export default class Validator {
     this.checkSVKValidationPlugin();
   }
 
-  initDrivers(drivers) {
+  initDrivers(drivers) { // eslint-disable-next-line
     _.map(drivers, (Class, key) => this.plugins[key] &&
       (this.drivers[key] = new Class(this.plugins[key], {
         schema: (key === 'svk') ? this.schema : null,
@@ -92,7 +92,9 @@ export default class Validator {
   }
 
   @action
-  validateField({ field = null, path, showErrors = false, related = false }) {
+  validateField({
+    field = null, path, showErrors = false, related = false,
+  }) {
     const instance = field || this.form.select(path);
     // check if the field is a valid instance
     if (!instance.path) throw new Error('Validation Error: Invalid Field Instance');

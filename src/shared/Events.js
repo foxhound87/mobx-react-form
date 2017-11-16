@@ -11,7 +11,9 @@ export default {
   /**
    MobX Event (observe/intercept)
    */
-  MOBXEvent({ path = null, key = 'value', call, type }) {
+  MOBXEvent({
+    path = null, key = 'value', call, type,
+  }) {
     const $instance = this.select(path || this.path, null, null) || this;
 
     const $call = change => call.apply(null, [{

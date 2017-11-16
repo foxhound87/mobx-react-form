@@ -36,6 +36,7 @@ export default {
           if ($throw && $err) this.invalidate();
           return handler;
         })
+        // eslint-disable-next-line
         .then(action(() => (this.$submitting = false)))
         .catch(action((err) => {
           this.$submitting = false;

@@ -24,7 +24,9 @@ const parsePath = (path) => {
   return $path;
 };
 
-const parseInput = (input, { type, isEmptyArray, separated, unified, initial }) =>
+const parseInput = (input, {
+  type, isEmptyArray, separated, unified, initial,
+}) =>
   input(utils.$try(separated, unified, initial, defaultValue({ type, isEmptyArray })));
 
 // make integers labels empty
@@ -160,9 +162,12 @@ TO:
 */
 const reduceValuesToUnifiedFields = values =>
   _.reduce(values, (obj, value, key) =>
-    Object.assign(obj, { [key]: { value,
-      fields: mapNestedValuesToUnifiedValues(value),
-    } }), {});
+    Object.assign(obj, {
+      [key]: {
+        value,
+        fields: mapNestedValuesToUnifiedValues(value),
+      },
+    }), {});
 
 /*
   Fallback Unified Props to Sepated Mode
@@ -171,7 +176,7 @@ const handleFieldsPropsFallback = (fields, initial) => {
   if (!_.has(initial, 'values')) return fields;
   // if the 'values' object is passed in constructor
   // then update the fields definitions
-  let values = initial.values;
+  let { values } = initial;
   if (utils.hasUnifiedProps({ fields })) {
     values = reduceValuesToUnifiedFields(values);
   }
@@ -180,7 +185,7 @@ const handleFieldsPropsFallback = (fields, initial) => {
 
 const mergeSchemaDefaults = (fields, validator) => {
   if (validator) {
-    const properties = validator.schema.properties;
+    const { properties } = validator.schema;
     if (_.isEmpty(fields) && !!properties) {
       _.each(properties, (prop, key) => {
         _.set(fields, key, {
