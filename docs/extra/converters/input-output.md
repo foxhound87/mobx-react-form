@@ -12,8 +12,9 @@ The functions can be defined when defining the fields properties.
 > Both converters functions takes in input the field value and must return it.
 
 ###### Example
-
+> The converters can be defined for the separated mode and nested fields as well.
 ```javascript
+  // Nested mode
   new Form({
     fields: {
       devSkills: {
@@ -24,8 +25,20 @@ The functions can be defined when defining the fields properties.
     },
   }):
 ```
-
-> The converters can be defined for the separated mode and nested fields as well.
+```javascript
+  // Separated mode
+  new Form({
+    fields: {
+      devSkills: 5,
+    },
+    input: {
+      devSkill: value => value.toString(),
+    },
+    output: {
+      devSkill: value => Number(value),
+    }
+  })
+```
 
 In the example above, the provided value will be converted from number to string, to be used in a `text` input.
 
