@@ -34,3 +34,5 @@
 | **options** | object | computed | Individual Field Options, with fallback on Form Options. | - |
 | **extra** | mixed | computed | Additional extra data for the field (useful for a select input). | - |
 | **files** | string | computed | Use the `onDrop` Event Handler to retrieve the files data. | - |
+| **hasNestedFields** | boolean | computed | Check if the field has Nested Fields. | - |
+| **hasIncrementalKeys** | boolean | computed | Check if the nested fields have incremental keys. | - |
