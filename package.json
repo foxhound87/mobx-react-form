@@ -17,7 +17,7 @@
     "build:umdmin": "webpack --output-filename mobx-react-form.umd.min.js -p",
     "prebuild": "npm run clean:build",
     "precommit": "npm run lint && npm run cover",
-    "commit": "git add . && git-cz && git push origin",
+    "commit": "git-cz && git push origin",
     "watch:build": "babel --watch -d lib/ src/",
     "watch:test": "npm run test -- -w",
     "test": "TEST=true mocha tests --compilers js:babel-register",
@@ -47,7 +47,7 @@
     "umd"
   ],
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "config": {
     "commitizen": {
