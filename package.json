@@ -47,7 +47,7 @@
     "umd"
   ],
   "engines": {
-    "node": ">=6"
+    "node": ">=8"
   },
   "config": {
     "commitizen": {
