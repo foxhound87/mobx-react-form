@@ -47,7 +47,7 @@
     "umd"
   ],
   "engines": {
-    "node": ">=8"
+    "node": "^4.8.0 || ^5.7.0 || ^6.2.2 || >=8.0.0"
   },
   "config": {
     "commitizen": {
@@ -87,7 +87,7 @@
     "npm-run-all": "4.0.1",
     "nyc": "^10.2.0",
     "rimraf": "2.5.4",
-    "semantic-release": "^8.2.0",
+    "semantic-release": "^11.0.2",
     "validator": "^8.0.0",
     "validatorjs": "^3.13.3",
     "webpack": "1.*.*"
