@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "outDir": "artifacts",
+    "rootDir": "src",
+    "sourceMap": true,
+    "allowJs": false,
+    "experimentalDecorators": true,
+    "preserveConstEnums": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true
+  },
+  "filesGlob": ["src/**/*.ts"],
+  "compileOnSave": false
+}

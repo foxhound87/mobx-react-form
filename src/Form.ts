@@ -7,7 +7,6 @@ import State from './State';
 import Field from './Field';
 
 export default class Form extends Base {
-
   name;
   state;
   validator;
@@ -20,16 +19,10 @@ export default class Form extends Base {
 
   @observable fields = observable.map ? observable.map({}) : asMap({});
 
-  constructor(setup = {}, {
-
-    name = null,
-    options = {},
-    plugins = {},
-    bindings = {},
-    hooks = {},
-    handlers = {},
-
-  } = {}) {
+  constructor(
+    setup = {},
+    { name = null, options = {}, plugins = {}, bindings = {}, hooks = {}, handlers = {} } = {},
+  ) {
     super();
 
     this.name = name;
@@ -37,12 +30,15 @@ export default class Form extends Base {
     this.$handlers = handlers;
 
     // load data from initializers methods
-    const initial = _.each({
-      setup, options, plugins, bindings,
-    },
-    (val, key) => _.isFunction(this[key])
-      ? _.merge(val, this[key].apply(this, [this]))
-      : val);
+    const initial = _.each(
+      {
+        setup,
+        options,
+        plugins,
+        bindings,
+      },
+      (val, key) => (_.isFunction(this[key]) ? _.merge(val, this[key].apply(this, [this])) : val),
+    );
 
     this.state = new State({
       form: this,
@@ -76,65 +72,78 @@ export default class Form extends Base {
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
 
-  @computed get submitting() {
+  @computed
+  get submitting() {
     return this.$submitting;
   }
 
-  @computed get validating() {
+  @computed
+  get validating() {
     return this.$validating;
   }
 
-  @computed get clearing() {
+  @computed
+  get clearing() {
     return this.check('clearing', true);
   }
 
-  @computed get resetting() {
+  @computed
+  get resetting() {
     return this.check('resetting', true);
   }
 
-  @computed get error() {
+  @computed
+  get error() {
     return this.validator.error;
   }
 
-  @computed get hasError() {
-    return !!this.validator.error
-     || this.check('hasError', true);
+  @computed
+  get hasError() {
+    return !!this.validator.error || this.check('hasError', true);
   }
 
-  @computed get isValid() {
-    return !this.validator.error
-      && this.check('isValid', true);
+  @computed
+  get isValid() {
+    return !this.validator.error && this.check('isValid', true);
   }
 
-  @computed get isDirty() {
+  @computed
+  get isDirty() {
     return this.check('isDirty', true);
   }
 
-  @computed get isPristine() {
+  @computed
+  get isPristine() {
     return this.check('isPristine', true);
   }
 
-  @computed get isDefault() {
+  @computed
+  get isDefault() {
     return this.check('isDefault', true);
   }
 
-  @computed get isEmpty() {
+  @computed
+  get isEmpty() {
     return this.check('isEmpty', true);
   }
 
-  @computed get focused() {
+  @computed
+  get focused() {
     return this.check('focused', true);
   }
 
-  @computed get touched() {
+  @computed
+  get touched() {
     return this.check('touched', true);
   }
 
-  @computed get changed() {
+  @computed
+  get changed() {
     return this.check('changed', true);
   }
 
-  @computed get disabled() {
+  @computed
+  get disabled() {
     return this.check('disabled', true);
   }
 }
@@ -142,20 +151,17 @@ export default class Form extends Base {
 /**
   Prototypes
 */
-export const prototypes = {
-
+export class prototypes {
   makeField(data) {
     return new Field(data);
-  },
+  }
 
   /**
    Init Form Fields and Nested Fields
    */
   @action
   init($fields = null) {
-    _.set(this, 'fields', observable.map
-      ? observable.map({})
-      : asMap({}));
+    _.set(this, 'fields', observable.map ? observable.map({}) : asMap({}));
 
     this.state.initial.props.values = $fields; // eslint-disable-line
     this.state.current.props.values = $fields; // eslint-disable-line
@@ -163,35 +169,34 @@ export const prototypes = {
     this.initFields({
       fields: $fields || this.state.struct(),
     });
-  },
+  }
 
   @action
   invalidate(message = null) {
-    this.validator.error = message
-      || this.state.options.get('defaultGenericError')
-      || true;
-  },
+    this.validator.error = message || this.state.options.get('defaultGenericError') || true;
+  }
 
   showErrors(show = true) {
     this.each(field => field.showErrors(show));
-  },
+  }
 
   /**
     Clear Form Fields
   */
-  @action clear() {
+  @action
+  clear() {
     this.$touched = false;
     this.$changed = false;
     this.each(field => field.clear(true));
-  },
+  }
 
   /**
     Reset Form Fields
   */
-  @action reset() {
+  @action
+  reset() {
     this.$touched = false;
     this.$changed = false;
     this.each(field => field.reset(true));
-  },
-
-};
+  }
+}

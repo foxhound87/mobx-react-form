@@ -6,12 +6,11 @@ import parser from '../parser';
 /**
   Field Actions
 */
-export default {
-
+export default class {
   validate(opt = {}, obj = {}) {
     const $opt = _.merge(opt, { path: this.path });
     return this.state.form.validator.validate($opt, obj);
-  },
+  }
 
   /**
     Submit
@@ -20,9 +19,7 @@ export default {
   submit(o = {}) {
     this.$submitting = true;
 
-    const exec = isValid => isValid
-      ? this.execHook('onSuccess', o)
-      : this.execHook('onError', o);
+    const exec = isValid => (isValid ? this.execHook('onSuccess', o) : this.execHook('onError', o));
 
     const validate = () =>
       this.validate({
@@ -38,17 +35,16 @@ export default {
         })
         // eslint-disable-next-line
         .then(action(() => (this.$submitting = false)))
-        .catch(action((err) => {
-          this.$submitting = false;
-          throw err;
-        }))
+        .catch(
+          action(err => {
+            this.$submitting = false;
+            throw err;
+          }),
+        )
         .then(() => this);
 
-
-    return utils.isPromise(exec)
-      ? exec.then(() => validate())
-      : validate();
-  },
+    return utils.isPromise(exec) ? exec.then(() => validate()) : validate();
+  }
 
   /**
    Check Field Computed Values
@@ -58,23 +54,27 @@ export default {
 
     return deep
       ? utils.checkPropType({
-        type: utils.props.types[prop],
-        data: this.deepCheck(utils.props.types[prop], prop, this.fields),
-      })
+          type: utils.props.types[prop],
+          data: this.deepCheck(utils.props.types[prop], prop, this.fields),
+        })
       : this[prop];
-  },
+  }
 
   deepCheck(type, prop, fields) {
-    return _.reduce(fields.values(), (check, field) => {
-      if (field.fields.size === 0) {
-        check.push(field[prop]);
+    return _.reduce(
+      fields.values(),
+      (check, field) => {
+        if (field.fields.size === 0) {
+          check.push(field[prop]);
+          return check;
+        }
+        const $deep = this.deepCheck(type, prop, field.fields);
+        check.push(utils.checkPropType({ type, data: $deep }));
         return check;
-      }
-      const $deep = this.deepCheck(type, prop, field.fields);
-      check.push(utils.checkPropType({ type, data: $deep }));
-      return check;
-    }, []);
-  },
+      },
+      [],
+    );
+  }
 
   /**
    Update Field Values recurisvely
@@ -83,20 +83,19 @@ export default {
   update(fields) {
     const $fields = parser.prepareFieldsData({ fields }, this.state.strict);
     this.deepUpdate($fields);
-  },
+  }
 
   @action
   deepUpdate(fields, path = '', recursion = true) {
     _.each(fields, (field, key) => {
       const $path = _.trimStart(`${path}.${key}`, '.');
       const $field = this.select($path, null, false);
-      const $container = this.select(path, null, false)
-        || this.state.form.select(this.path, null, false);
+      const $container =
+        this.select(path, null, false) || this.state.form.select(this.path, null, false);
 
       if (!_.isNil($field) && !_.isNil(field)) {
         if (_.isArray($field.values())) {
-          _.each($field.fields.values(), $f =>
-            $field.fields.delete($f.name));
+          _.each($field.fields.values(), $f => $field.fields.delete($f.name));
         }
         if (_.isNil(field.fields)) {
           $field.value = field;
@@ -122,18 +121,17 @@ export default {
         this.deepUpdate(field.fields, $path);
       }
     });
-  },
+  }
 
   /**
     Get Fields Props
    */
   get(prop = null, strict = true) {
     if (_.isNil(prop)) {
-      return this.deepGet([
-        ...utils.props.booleans,
-        ...utils.props.field,
-        ...utils.props.validation,
-      ], this.fields);
+      return this.deepGet(
+        [...utils.props.booleans, ...utils.props.field, ...utils.props.validation],
+        this.fields,
+      );
     }
 
     utils.allowedProps('all', _.isArray(prop) ? prop : [prop]);
@@ -148,53 +146,57 @@ export default {
     }
 
     return this.deepGet(prop, this.fields);
-  },
+  }
 
   /**
     Get Fields Props Recursively
    */
   deepGet(prop, fields) {
-    return _.reduce(fields.values(), (obj, field) => {
-      const $nested = $fields => ($fields.size !== 0)
-        ? this.deepGet(prop, $fields)
-        : undefined;
+    return _.reduce(
+      fields.values(),
+      (obj, field) => {
+        const $nested = $fields => ($fields.size !== 0 ? this.deepGet(prop, $fields) : undefined);
 
-      Object.assign(obj, {
-        [field.key]: { fields: $nested(field.fields) },
-      });
+        Object.assign(obj, {
+          [field.key]: { fields: $nested(field.fields) },
+        });
 
-      if (_.isString(prop)) {
-        const removeValue = (prop === 'value') &&
-          ((this.state.options.get('retrieveOnlyDirtyValues', this) && field.isPristine) ||
-          (this.state.options.get('retrieveOnlyEnabledFields', this) && field.disabled));
+        if (_.isString(prop)) {
+          const removeValue =
+            prop === 'value' &&
+            ((this.state.options.get('retrieveOnlyDirtyValues', this) && field.isPristine) ||
+              (this.state.options.get('retrieveOnlyEnabledFields', this) && field.disabled));
 
-        if (field.fields.size === 0) {
+          if (field.fields.size === 0) {
+            delete obj[field.key]; // eslint-disable-line
+            if (removeValue) return obj;
+            return Object.assign(obj, {
+              [field.key]: parser.parseCheckOutput(field, prop),
+            });
+          }
+
+          let value = this.deepGet(prop, field.fields);
+          if (prop === 'value') value = field.$output(value);
+
           delete obj[field.key]; // eslint-disable-line
           if (removeValue) return obj;
+
           return Object.assign(obj, {
-            [field.key]: parser.parseCheckOutput(field, prop),
+            [field.key]: parser.parseCheckArray(field, value, prop),
           });
         }
 
-        let value = this.deepGet(prop, field.fields);
-        if (prop === 'value') value = field.$output(value);
+        _.each(prop, $prop =>
+          Object.assign(obj[field.key], {
+            [$prop]: field[$prop],
+          }),
+        );
 
-        delete obj[field.key]; // eslint-disable-line
-        if (removeValue) return obj;
-
-        return Object.assign(obj, {
-          [field.key]: parser.parseCheckArray(field, value, prop),
-        });
-      }
-
-      _.each(prop, $prop =>
-        Object.assign(obj[field.key], {
-          [$prop]: field[$prop],
-        }));
-
-      return obj;
-    }, {});
-  },
+        return obj;
+      },
+      {},
+    );
+  }
 
   /**
    Set Fields Props
@@ -215,7 +217,7 @@ export default {
       if (this.hasNestedFields) this.deepSet('value', prop, '', true);
       else this.set('value', prop);
     }
-  },
+  }
 
   /**
     Set Fields Props Recursively
@@ -240,7 +242,7 @@ export default {
         }
       }
     });
-  },
+  }
 
   /**
    Add Field
@@ -258,8 +260,7 @@ export default {
     _.each(tree, field => this.initField($key, $path($key), field));
 
     if (!_.isNil(value)) {
-      const field = this.select($key, null, false)
-        || this.initField($key, $path($key));
+      const field = this.select($key, null, false) || this.initField($key, $path($key));
 
       if (_.isPlainObject(value)) {
         field.update(value);
@@ -271,7 +272,7 @@ export default {
     }
 
     return $key;
-  },
+  }
 
   /**
    Del Field
@@ -284,9 +285,10 @@ export default {
     const cpath = _.trimEnd(path, `.${last}`);
     const isStrict = this.state.options.get('strictDelete', this);
 
-    const container = this.select(cpath, null, false)
-      || this.state.form.select(cpath, null, false)
-      || this.state.form.select(this.path, null, true);
+    const container =
+      this.select(cpath, null, false) ||
+      this.state.form.select(cpath, null, false) ||
+      this.state.form.select(this.path, null, true);
 
     if (isStrict && !container.fields.has(last)) {
       const msg = `Key "${last}" not found when trying to delete field`;
@@ -295,6 +297,5 @@ export default {
     }
 
     container.fields.delete(last);
-  },
-
-};
+  }
+}
