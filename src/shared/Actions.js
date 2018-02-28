@@ -233,7 +233,9 @@ export default {
       // update the field/fields if defined
       if (!_.isUndefined(field)) {
         // update field values or others props
-        field.set($, $val, recursion);
+        if (!_.isUndefined($val)) {
+          field.set($, $val, recursion);
+        }
         // update values recursively only if field has nested
         if (field.fields.size && _.isObject($val)) {
           this.deepSet($, $val, $path, recursion);

@@ -173,3 +173,14 @@ describe('Check Nested $Q Values after reset', () => {
   it('$Q members[1].hobbies[1] value should be equal to "Basket"', () =>
     expect($.$Q.$('members[1].hobbies[1]').value).to.be.equal('Basket'));
 });
+
+describe('Check Nested $S Values', () => {
+  it('$S club.name value should be equal to "club-name-set-value-intercepted"', () =>
+    expect($.$S.$('club.name').value).to.be.equal('club-name-set-value-intercepted'));
+
+  it('$S club.city value should be equal to "club-city-set-value"', () =>
+    expect($.$S.$('club.city').value).to.be.equal('club-city-set-value'));
+
+  it('$S club.bouncer value should be empty string', () =>
+    expect($.$S.$('club.bouncer').value).to.equal(''));
+});
