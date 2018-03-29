@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { keys as getKeys } from 'mobx';
 
 const props = {
   booleans: ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focused', 'touched', 'changed', 'disabled', 'resetting', 'clearing'],
@@ -130,7 +131,7 @@ const allowNested = (field, strictProps) =>
     ]) || strictProps);
 
 const parseIntKeys = fields =>
-  _.map(fields.keys(), _.ary(parseInt, 1));
+  _.map(getKeys(fields), _.ary(parseInt, 1));
 
 const hasIntKeys = fields =>
   _.every(parseIntKeys(fields), _.isInteger);

@@ -1,4 +1,4 @@
-import { action } from 'mobx';
+import { action, values } from 'mobx';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';
@@ -65,7 +65,7 @@ export default {
   },
 
   deepCheck(type, prop, fields) {
-    return _.reduce(fields.values(), (check, field) => {
+    return _.reduce(values(fields), (check, field) => {
       if (field.fields.size === 0) {
         check.push(field[prop]);
         return check;
@@ -95,7 +95,7 @@ export default {
 
       if (!_.isNil($field) && !_.isNil(field)) {
         if (_.isArray($field.values())) {
-          _.each($field.fields.values(), $f =>
+          _.each(values($field.fields), $f =>
             $field.fields.delete($f.name));
         }
         if (_.isNil(field.fields)) {
@@ -154,7 +154,7 @@ export default {
     Get Fields Props Recursively
    */
   deepGet(prop, fields) {
-    return _.reduce(fields.values(), (obj, field) => {
+    return _.reduce(values(fields), (obj, field) => {
       const $nested = $fields => ($fields.size !== 0)
         ? this.deepGet(prop, $fields)
         : undefined;

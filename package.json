@@ -20,7 +20,7 @@
     "commit": "git-cz && git push origin",
     "watch:build": "babel --watch -d lib/ src/",
     "watch:test": "npm run test -- -w",
-    "test": "TEST=true mocha tests --compilers js:babel-register",
+    "test": "cross-env TEST=true mocha tests --compilers js:babel-register",
     "cover": "nyc npm test",
     "coverage:check": "nyc check-coverage --satements 95 --branches 80 --functions 95 --lines 95",
     "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
@@ -58,7 +58,7 @@
     "lodash": "^4.16.2"
   },
   "peerDependencies": {
-    "mobx": "^2.5.0 || ^3.0.0"
+    "mobx": "^4.0.0"
   },
   "devDependencies": {
     "ajv": "^5.2.2",
@@ -76,13 +76,14 @@
     "chai": "3.5.0",
     "codecov": "1.0.1",
     "commitizen": "2.9.6",
+    "cross-env": "^5.1.4",
     "cz-conventional-changelog": "^2.0.0",
     "eslint": "4.11.0",
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-plugin-import": "2.8.0",
     "husky": "0.13.1",
     "json-loader": "0.5.4",
-    "mobx": "^3.0.0",
+    "mobx": "^4.1.1",
     "mocha": "3.2.0",
     "npm-run-all": "4.0.1",
     "nyc": "^10.2.0",
