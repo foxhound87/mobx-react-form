@@ -1,4 +1,4 @@
-import { useStrict } from 'mobx';
+import { configure } from 'mobx';
 
 import Form, { prototypes as formPrototypes } from './Form';
 import Field, { prototypes as fieldPrototypes } from './Field';
@@ -18,7 +18,7 @@ const { TEST } = process.env;
   In strict mode, it is not allowed to
   change any state outside of an action
 */
-if (TEST) useStrict(true);
+if (TEST) configure({ enforceActions: true });
 
 /**
   Extend Classes with Prototype

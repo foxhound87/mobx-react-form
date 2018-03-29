@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { values } from 'mobx';
 import utils from '../utils';
 import parser from '../parser';
 
@@ -63,7 +64,7 @@ export default {
    Map Fields
   */
   map(cb) {
-    return this.fields.values().map(cb);
+    return values(this.fields).map(cb);
   },
 
   /**
@@ -73,7 +74,7 @@ export default {
    * @param {Function} iteratee The function invoked per iteration.
    * @param {Array|Object} [fields=form.fields] fields to iterate over.
    * @param {number} [depth=1] The recursion depth for internal use.
-   * @returns {Array} Returns [fields.values()] of input [fields] parameter.
+   * @returns {Array} Returns [mobx.values(fields)] of input [fields] parameter.
    * @example
    *
    * JSON.stringify(form)
@@ -106,7 +107,7 @@ export default {
    */
   each(iteratee, fields = null, depth = 0) {
     const $fields = fields || this.fields;
-    _.each($fields.values(), (field, index) => {
+    _.each(values($fields), (field, index) => {
       iteratee(field, index, depth);
 
       if (field.fields.size !== 0) {
