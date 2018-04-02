@@ -183,15 +183,39 @@ const handleFieldsPropsFallback = (fields, initial) => {
   return _.merge(fields, values);
 };
 
+const mergeRecursiveAJVSchema = (parent, children) => {
+  _.assign(parent, { fields: [] });
+  _.forIn(children, (child, key) => {
+    const field = {
+      name: key,
+      value: child.default,
+      label: child.title,
+    };
+
+    if (child.properties) {
+      // Recurse
+      mergeRecursiveAJVSchema(field, child.properties);
+    }
+
+    parent.fields.push(field);
+  });
+};
+
 const mergeSchemaDefaults = (fields, validator) => {
   if (validator) {
     const { properties } = validator.schema;
     if (_.isEmpty(fields) && !!properties) {
       _.each(properties, (prop, key) => {
         _.set(fields, key, {
+          name: key,
           value: prop.default,
           label: prop.title,
         });
+
+        // AJV nested properties
+        if (prop.properties) {
+          mergeRecursiveAJVSchema(fields[key], prop.properties);
+        }
       });
     }
   }
