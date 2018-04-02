@@ -58,7 +58,8 @@ export default class SVK {
   }
 
   validateField(field) {
-    const data = { [field.path]: field.validatedValue };
+    const data = {};
+    _.set(data, field.path, field.validatedValue);
     const validate = this.validate(this.parseValues(data));
     // check if is $async schema
     if (utils.isPromise(validate)) {
@@ -77,7 +78,7 @@ export default class SVK {
   }
 
   handleSyncError(field, errors) {
-    const fieldErrorObj = this.findError(field.key, errors);
+    const fieldErrorObj = this.findError(field.path, errors);
     // if fieldErrorObj is not undefined, the current field is invalid.
     if (_.isUndefined(fieldErrorObj)) return;
     // the current field is now invalid
