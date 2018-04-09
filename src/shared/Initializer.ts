@@ -6,8 +6,7 @@ import parser from '../parser';
 /**
   Field Initializer
 */
-export default {
-
+export default class {
   initFields(initial, update) {
     const $path = key => _.trimStart([this.path, key].join('.'), '.');
 
@@ -16,10 +15,13 @@ export default {
     fields = parser.mergeSchemaDefaults(fields, this.validator);
 
     // create fields
-    _.each(fields, (field, key) =>
-      _.isNil(this.select($path(key), null, false)) &&
-        this.initField(key, $path(key), field, update));
-  },
+    _.each(
+      fields,
+      (field, key) =>
+        _.isNil(this.select($path(key), null, false)) &&
+        this.initField(key, $path(key), field, update),
+    );
+  }
 
   @action
   initField(key, path, data, update = false) {
@@ -52,12 +54,16 @@ export default {
     };
 
     const field = this.state.form.makeField({
-      key, path, data, props, update, state: this.state,
+      key,
+      path,
+      data,
+      props,
+      update,
+      state: this.state,
     });
 
     this.fields.merge({ [key]: field });
 
     return field;
-  },
-
-};
+  }
+}
