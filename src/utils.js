@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { keys as getKeys } from 'mobx';
+import { values as mobxValues, keys as mobxKeys } from 'mobx';
 
 const props = {
   booleans: ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focused', 'touched', 'changed', 'disabled', 'resetting', 'clearing'],
@@ -22,6 +22,22 @@ const props = {
     clearing: 'every',
     resetting: 'every',
   },
+};
+
+const getObservableMapValues = (observableMap) => {
+  if (mobxValues) {
+    return mobxValues(observableMap);
+  }
+
+  return observableMap.values();
+};
+
+const getObservableMapKeys = (observableMap) => {
+  if (mobxValues) {
+    return mobxKeys(observableMap);
+  }
+
+  return observableMap.keys();
 };
 
 const checkObserveItem = change => ({
@@ -131,7 +147,7 @@ const allowNested = (field, strictProps) =>
     ]) || strictProps);
 
 const parseIntKeys = fields =>
-  _.map(getKeys(fields), _.ary(parseInt, 1));
+  _.map(getObservableMapKeys(fields), _.ary(parseInt, 1));
 
 const hasIntKeys = fields =>
   _.every(parseIntKeys(fields), _.isInteger);
@@ -189,4 +205,6 @@ export default {
   $hasFiles,
   $isBool,
   $try,
+  getObservableMapKeys,
+  getObservableMapValues,
 };

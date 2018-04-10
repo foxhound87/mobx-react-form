@@ -1,4 +1,4 @@
-import { observable, action, toJS, set } from 'mobx';
+import { observable, action, toJS, extendObservable, set } from 'mobx';
 import _ from 'lodash';
 import { uniqueId } from './utils';
 
@@ -46,6 +46,10 @@ export default class Options {
 
   @action
   set(options) {
-    set(this.options, options);
+    if (set) {
+      set(this.options, options);
+    } else {
+      extendObservable(this.options, options);
+    }
   }
 }
