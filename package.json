@@ -20,8 +20,8 @@
     "commit": "git-cz && git push origin",
     "watch:build": "babel --watch -d lib/ src/",
     "watch:test": "npm run test -- -w",
-    "switch:latest": "replace-in-file \"from 'mobx3'\" \"from 'mobx'\" src/**/*.js",
-    "switch:mobx3": "replace-in-file \"from 'mobx'\" \"from 'mobx3'\" src/**/*.js",
+    "switch:latest": "replace \"from 'mobx3'\" \"from 'mobx'\" src -r",
+    "switch:mobx3": "replace \"from 'mobx'\" \"from 'mobx3'\" src -r",
     "test": "npm run test:latest && npm run test:mobx3",
     "test:latest": "cross-env TEST=true mocha tests --compilers js:babel-register",
     "test:mobx3": "npm run switch:mobx3 && cross-env TEST=true mocha tests --compilers js:babel-register && npm run switch:latest",
@@ -59,7 +59,8 @@
     }
   },
   "dependencies": {
-    "lodash": "^4.16.2"
+    "lodash": "^4.16.2",
+    "replace": "^0.3.0"
   },
   "peerDependencies": {
     "mobx": "^2.5.0 || ^3.0.0 || ^4.0.0"
@@ -92,7 +93,6 @@
     "mocha": "3.2.0",
     "npm-run-all": "4.0.1",
     "nyc": "^10.2.0",
-    "replace-in-file": "^3.4.0",
     "rimraf": "2.5.4",
     "semantic-release": "^7.0.2",
     "validator": "^8.0.0",
