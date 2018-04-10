@@ -59,8 +59,7 @@
     }
   },
   "dependencies": {
-    "lodash": "^4.16.2",
-    "replace": "^0.3.0"
+    "lodash": "^4.16.2"
   },
   "peerDependencies": {
     "mobx": "^2.5.0 || ^3.0.0 || ^4.0.0"
@@ -93,6 +92,7 @@
     "mocha": "3.2.0",
     "npm-run-all": "4.0.1",
     "nyc": "^10.2.0",
+    "replace": "^0.3.0",
     "rimraf": "2.5.4",
     "semantic-release": "^7.0.2",
     "validator": "^8.0.0",
