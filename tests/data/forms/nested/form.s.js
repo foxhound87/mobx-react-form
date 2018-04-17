@@ -5,6 +5,7 @@ import { Form } from '../../../../src';
 const fields = [
   'club.name',
   'club.city',
+  'club.bouncer',
   'members',
   'members[].firstname',
   'members[].lastname',
@@ -110,6 +111,7 @@ class NewForm extends Form {
           club: {
             name: 'club-name-set-value',
             city: 'club-city-set-value',
+            bouncer: undefined,
           },
         });
 
