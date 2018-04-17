@@ -80,6 +80,7 @@ const hasProps = ($type, $data) => {
     ]; break;
     default: $props = null;
   }
+
   return _.intersection($data, $props).length > 0;
 };
 
@@ -115,10 +116,8 @@ const hasSome = (obj, keys) =>
 const isPromise = obj => (!!obj && typeof obj.then === 'function'
   && (typeof obj === 'object' || typeof obj === 'function'));
 
-const isStruct = ({ fields }) => (
-  _.isArray(fields) &&
-  _.every(fields, _.isString)
-);
+const isStruct = struct =>
+  (_.isArray(struct) && _.every(struct, _.isString));
 
 const isEmptyArray = field =>
   (_.isEmpty(field) && _.isArray(field));

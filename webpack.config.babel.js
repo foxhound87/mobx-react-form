@@ -18,9 +18,8 @@ export default {
     libraryTarget: 'umd',
   },
   resolve: {
-    root: join(__dirname, 'src'),
-    modulesDirectories: ['node_modules'],
-    extensions: ['', '.js', '.json'],
+    modules: ['node_modules'],
+    extensions: ['.js', '.json'],
   },
   externals: {
     mobx: 'mobx',

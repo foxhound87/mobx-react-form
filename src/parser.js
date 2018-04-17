@@ -70,7 +70,7 @@ const defineFieldsFromStruct = (struct, add = false) =>
 const handleFieldsArrayOfStrings = ($fields, add = false) => {
   let fields = $fields;
   // handle array with field struct (strings)
-  if (utils.isStruct({ fields })) {
+  if (utils.isStruct(fields)) {
     fields = _.reduce(fields, ($obj, $) => {
       const pathStruct = _.split($, '.');
       // as array of strings (with empty values)
@@ -104,7 +104,6 @@ const handleFieldsNested = (fields, strictProps = true) =>
     }
     return Object.assign(obj, { [key]: field });
   }, {});
-
 
 /* mapNestedValuesToUnifiedValues
 
@@ -199,11 +198,15 @@ const mergeSchemaDefaults = (fields, validator) => {
 };
 
 const prepareFieldsData = (initial, strictProps = true) => {
-  let fields = initial.fields || {};
-  fields = handleFieldsArrayOfStrings(fields, false);
+  let fields = _.merge(
+    handleFieldsArrayOfStrings(initial.fields, false),
+    handleFieldsArrayOfStrings(initial.struct, false),
+  );
+
   fields = handleFieldsArrayOfObjects(fields);
   fields = handleFieldsPropsFallback(fields, initial);
   fields = handleFieldsNested(fields, strictProps);
+
   return fields;
 };
 

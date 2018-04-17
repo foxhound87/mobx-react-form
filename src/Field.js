@@ -470,7 +470,11 @@ export const prototypes = {
   @action
   initNestedFields(field, update) {
     const fields = _.isNil(field) ? null : field.fields;
-    if (_.isArray(fields)) this.hasInitialNestedFields = true;
+
+    if (_.isArray(fields) && !_.isEmpty(fields)) {
+      this.hasInitialNestedFields = true;
+    }
+
     this.initFields({ fields }, update);
   },
 

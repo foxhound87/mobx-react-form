@@ -81,17 +81,22 @@ export default {
    OR Create Field if 'undefined'
    */
   update(fields) {
-    const $fields = parser.prepareFieldsData({ fields }, this.state.strict);
-    this.deepUpdate($fields);
+    if (!_.isPlainObject(fields)) {
+      throw new Error('The update() method accepts only plain objects.');
+    }
+
+    return this.deepUpdate(parser.prepareFieldsData({ fields }));
   },
 
   @action
   deepUpdate(fields, path = '', recursion = true) {
     _.each(fields, (field, key) => {
-      const $path = _.trimStart(`${path}.${key}`, '.');
+      const $key = _.has(field, 'name') ? field.name : key;
+      const $path = _.trimStart(`${path}.${$key}`, '.');
       const $field = this.select($path, null, false);
       const $container = this.select(path, null, false)
         || this.state.form.select(this.path, null, false);
+
 
       if (!_.isNil($field) && !_.isNil(field)) {
         if (_.isArray($field.values())) {
@@ -108,7 +113,7 @@ export default {
         // get full path when using update() with select() - FIX: #179
         const $newFieldPath = _.trimStart([this.path, $path].join('.'), '.');
         // init field into the container field
-        $container.initField(key, $newFieldPath, field, true);
+        $container.initField($key, $newFieldPath, field, true);
       }
 
       if (recursion) {
@@ -248,31 +253,21 @@ export default {
    Add Field
    */
   @action
-  add(value = null, opt = {}) {
-    let $key;
-
-    if (_.has(opt, 'key')) $key = opt.key;
-    else $key = utils.maxKey(this.fields);
-
-    const tree = parser.pathToFieldsTree(this.state.struct(), this.path, 0, true);
-    const $path = key => _.trimStart([this.path, key].join('.'), '.');
-
-    _.each(tree, field => this.initField($key, $path($key), field));
-
-    if (!_.isNil(value)) {
-      const field = this.select($key, null, false)
-        || this.initField($key, $path($key));
-
-      if (_.isPlainObject(value)) {
-        field.update(value);
-      }
-
-      field.set('initial', value);
-      field.set('default', value);
-      field.set('value', value);
+  add(obj) {
+    if (utils.isArrayOfObjects(obj)) {
+      return _.each(obj, values => this.update({
+        [utils.maxKey(this.fields)]: values,
+      }));
     }
 
-    return $key;
+    let key; // eslint-disable-next-line
+    if (_.has(obj, 'key')) key = obj.key;
+    if (_.has(obj, 'name')) key = obj.name;
+    if (!key) key = utils.maxKey(this.fields);
+
+    const $path = $key => _.trimStart([this.path, $key].join('.'), '.');
+    const tree = parser.pathToFieldsTree(this.state.struct(), this.path, 0, true);
+    return this.initField(key, $path(key), _.merge(tree[0], obj));
   },
 
   /**

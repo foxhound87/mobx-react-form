@@ -23,7 +23,7 @@ class NewForm extends Form {
         // FIX: #282 (reserved keywords)
         this.$('incident').add();
 
-        // TO FIX #324
+        // FIX #324
         this.update({ arrayFieldA: [{ id: 1, name: 'name' }] });
         this.update({ arrayFieldB: [{ id: 1, name: 'name', value: 'some val' }] });
       },

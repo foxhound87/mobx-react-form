@@ -58,7 +58,6 @@ export default class State {
 
     this.set('initial', 'props', initialProps);
 
-    const isStruct = utils.isStruct(initial);
     const $unified = utils.hasUnifiedProps(initial);
     const $separated = utils.hasSeparatedProps(initial);
 
@@ -70,13 +69,15 @@ export default class State {
       );
     }
 
-    if (($separated || isStruct) && !$unified) {
+    if (($separated || utils.isStruct(initial.fields)) && !$unified) {
+      const struct = utils.$try(initial.struct || initial.fields);
+      this.struct(struct);
       this.strict = true;
       this.mode = 'separated';
-      this.struct(initial.fields);
       return;
     }
 
+    this.struct(initial.struct);
     this.mode = 'unified';
   }
 

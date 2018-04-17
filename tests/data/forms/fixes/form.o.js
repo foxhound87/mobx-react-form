@@ -1,6 +1,6 @@
 import { Form } from '../../../../src';
 
-const fields = [
+const struct = [
   'roles[]',
   'roles[].id',
   'array[]',
@@ -19,4 +19,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields }, { name: 'Fixes-O' });
+export default new NewForm({ struct }, { name: 'Fixes-O' });

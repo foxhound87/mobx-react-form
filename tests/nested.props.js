@@ -273,17 +273,32 @@ describe('Check Nested $T value on add()', () => {
   it('$T member.info[0].type value should be equal to "XXX"', () =>
     expect($.$T.$('member.info[0].type').value).to.equal('XXX'));
 
+  it('$T member.info[1].type value should be equal to "XXX-2"', () =>
+    expect($.$T.$('member.info[1].type').value).to.equal('XXX-2'));
+
+  it('$T member.info[2].type value should be equal to "YYY"', () =>
+    expect($.$T.$('member.info[2].type').value).to.equal('YYY'));
+
+  it('$T member.data[0].update value should be equal to "update-value"', () =>
+    expect($.$T.$('member.data[0].update').value).to.equal('update-value'));
+
+  it('$T member.data[0].subzero value should be equal to "subzero-value"', () =>
+    expect($.$T.$('member.data[0].subzero').value).to.equal('subzero-value'));
+
+  it('$T member.data[0].subzero label should be equal to "subzero-label"', () =>
+    expect($.$T.$('member.data[0].subzero').label).to.equal('subzero-label'));
+
   it('$T notIncrementalFields fields.get(notIncrementalKey) should be an object', () =>
     expect($.$T.$('notIncrementalFields').fields.get('notIncrementalKey')).to.be.an('object'));
 
   it('$T notIncrementalFields[notIncrementalKey] value should be equal to "XXX"', () =>
     expect($.$T.$('notIncrementalFields[notIncrementalKey]').value).to.equal('XXX'));
 
+  it('$T notIncrementalFields[notIncrementalKey] label should be equal to "XXX-label"', () =>
+    expect($.$T.$('notIncrementalFields[notIncrementalKey]').label).to.equal('XXX-label'));
+
   it('$T notIncrementalFields .fields.size should be equal to 1', () =>
     expect($.$T.$('notIncrementalFields').fields.size).to.equal(1));
-
-  it('$T notIncrementalFields add() return value should be equal to "anotherKey"', () =>
-    expect($.$T.$('notIncrementalFields').add('YYY', { key: 'anotherKey' })).to.equal('anotherKey'));
 });
 
 describe('Check $U Nested Fields', () => {

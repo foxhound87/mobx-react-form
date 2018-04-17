@@ -1,3 +1,7 @@
+# 1.34
+* Added `struct` constructor prop
+* Reimplemented add() method
+
 # 1.33
 * mobx4 support
 

@@ -28,7 +28,7 @@ export default class Base {
   }
 
   @computed get hasNestedFields() {
-    return (this.hasInitialNestedFields || this.fields.size !== 0);
+    return (this.fields.size !== 0);
   }
 
   @computed get size() {

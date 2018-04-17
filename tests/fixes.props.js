@@ -111,3 +111,32 @@ describe('Check Fixes $Q nested paths check', () => {
   it('$Q incident[0].options path should be "incident.0.options"', () =>
     expect($.$Q.$('incident').$(0).$('options').path).to.be.equal('incident.0.options'));
 });
+
+describe('Check Fixes $Q1 checks', () => {
+  it('$Q1 tags hasNestedFields should be true', () =>
+    expect($.$Q1.$('tags').hasNestedFields).to.be.true);
+
+  it('$Q1 tags hasInitialNestedFields should be false', () =>
+    expect($.$Q1.$('tags').hasInitialNestedFields).to.be.false);
+
+  it('$Q1 tags[0].id value should be equal to "x"', () =>
+    expect($.$Q1.$('tags[0].id').value).to.be.equal('x'));
+
+  it('$Q1 tags[0].name value should be equal to "y"', () =>
+    expect($.$Q1.$('tags[0].name').value).to.be.equal('y'));
+
+  it('$Q1 other label should be equal to "Other!!!"', () =>
+    expect($.$Q1.$('other').label).to.be.equal('Other!!!'));
+
+  it('$Q1 other.nested value should be equal to "nested-value"', () =>
+    expect($.$Q1.$('other.nested').value).to.be.equal('nested-value'));
+});
+
+describe('Check Fixes $Q2 checks', () => {
+  it('$Q2 tags hasNestedFields should be false', () =>
+    expect($.$Q2.$('tags').hasNestedFields).to.be.false);
+
+  it('$Q2 tags hasInitialNestedFields should be false', () =>
+    expect($.$Q2.$('tags').hasInitialNestedFields).to.be.false);
+});
+
