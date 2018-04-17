@@ -247,15 +247,16 @@ form.$('hobbies').add();
 provide the initial value to the new added field:
 
 ```javascript
-form.$('hobbies').add('soccer');
+form.$('hobbies').add({ value: 'soccer' });
 ```
-
-> If the field contains other nested fields, the value can be an object. It will work as `update()`.
 
 provide a custom key as field index:
 
 ```javascript
-form.$('hobbies').add(fieldValue, { key: 'customKey' });
+form.$('hobbies').add({
+  key: 'customKey',
+  value: 'soccer',
+});
 ```
 
 > Pass a custom key to create a new **Named Field**.

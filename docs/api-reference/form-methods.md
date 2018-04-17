@@ -28,7 +28,7 @@
 | **has(key)** | (string) | - | Provide Field key to check if exist. | - |
 | **map(callback)** | (function) | - | Map Nested Fields | - |
 | **each(callback)** | (function) | - | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | - |
-| **add(val)** | (mixed) | mixed | Add a Field or Nested Fields. Provide an optional initial value. | - |
+| **add(obj)** | (mixed) | mixed | Add a Field or Nested Fields. | - |
 | **del(key)** | (mixed) | - | Delete a Field or Nested Fields by `key` or `path`. | - |
 | **observe(obj)** | (object) | - | Define a MobX Observer on Field Props or Field Map. | - |
 | **intercept(obj)** | (object) | - | Define a MobX Interceptor on Field Props or Field Map. | - |

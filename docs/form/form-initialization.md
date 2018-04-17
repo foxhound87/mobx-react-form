@@ -21,6 +21,7 @@ Provide an object which expects the following properties:
 ###### Fields Definition
 | Property | Description | Help |
 |---|---|---|
+| **struct**    | Define fields structure with dot notation ad array notation | - |
 | **fields**    | Using **Unified Properties Definition** mode: an object which represents the fields with all their properties. Using **Separated Properties Definition** mode: an array which represents the fields structure. | [defining fields](../fields/defining-fields.md) |
 
 ###### Fields Properties

@@ -525,13 +525,9 @@ gitbook-plugin-github@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/gitbook-plugin-github/-/gitbook-plugin-github-2.0.0.tgz#5166e763cfcc402d432880b7a6c85c1c54b56a8d"
 
-gitbook-plugin-hide-element@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/gitbook-plugin-hide-element/-/gitbook-plugin-hide-element-0.0.4.tgz#93a3de76aeebd535261597d257f71876f0d1dc34"
-
-gitbook-plugin-prism@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/gitbook-plugin-prism/-/gitbook-plugin-prism-2.2.1.tgz#964fb4f67a7eb7759af17bc8c9a7d513fdb531cb"
+gitbook-plugin-prism@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/gitbook-plugin-prism/-/gitbook-plugin-prism-2.3.0.tgz#68637d54ffe565002dd10c30baa1b433b35ec2f2"
   dependencies:
     cheerio "0.22.0"
     mkdirp "0.5.1"
