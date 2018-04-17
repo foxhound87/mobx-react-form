@@ -67,7 +67,7 @@ export default class MyForm extends Form {
         alert('Form is valid! Send the request here.');
         // get field values
         console.log('Form Values!', form.values());
-      }
+      },
       /*
         Error Validation Hook
       */
