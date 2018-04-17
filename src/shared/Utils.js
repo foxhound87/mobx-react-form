@@ -63,7 +63,7 @@ export default {
    Map Fields
   */
   map(cb) {
-    return this.fields.values().map(cb);
+    return utils.getObservableMapValues(this.fields).map(cb);
   },
 
   /**
@@ -106,7 +106,7 @@ export default {
    */
   each(iteratee, fields = null, depth = 0) {
     const $fields = fields || this.fields;
-    _.each($fields.values(), (field, index) => {
+    _.each(utils.getObservableMapValues($fields), (field, index) => {
       iteratee(field, index, depth);
 
       if (field.fields.size !== 0) {
