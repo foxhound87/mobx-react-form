@@ -1,3 +1,6 @@
+# 1.33
+* mobx4 support
+
 # 1.32
 * Validate with different props.
 * Reimplemented Event Hooks & Handlers.
