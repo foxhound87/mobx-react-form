@@ -31,7 +31,7 @@ const parseInput = (input, {
 
 // make integers labels empty
 const parseGetLabel = label =>
-  _.isInteger(_.parseInt(label)) ? '' : label;
+  _.isFinite(_.toNumber(label)) ? '' : label;
 
 const parseArrayProp = ($val, $prop) => {
   const $values = _.values($val);
