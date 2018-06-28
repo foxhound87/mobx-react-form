@@ -46,10 +46,9 @@ export default {
     const cpath = _.trim($path.replace(new RegExp('[^./]+$'), ''), '.');
 
     if (!!this.path && _.isNil(path)) {
-      return this.state.form.select(cpath, null, false);
+      return cpath !== '' ? this.state.form.select(cpath, null, false) : this.state.form;
     }
-
-    return this.select(cpath, null, false);
+    return cpath !== '' ? this.select(cpath, null, false) : this;
   },
 
   /**
