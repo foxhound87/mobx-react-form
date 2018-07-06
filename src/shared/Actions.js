@@ -278,12 +278,9 @@ export default {
     const path = parser.parsePath(utils.$try(partialPath, this.path));
     const keys = _.split(path, '.');
     const last = _.last(keys);
-    const cpath = _.trimEnd(path, `.${last}`);
     const isStrict = this.state.options.get('strictDelete', this);
 
-    const container = this.select(cpath, null, false)
-      || this.state.form.select(cpath, null, false)
-      || this.state.form.select(this.path, null, true);
+    const container = this.container(path);
 
     if (isStrict && !container.fields.has(last)) {
       const msg = `Key "${last}" not found when trying to delete field`;

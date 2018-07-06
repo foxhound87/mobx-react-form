@@ -235,3 +235,14 @@ describe('Check Fixes $R values', () => {
   it('$R organization value check', () =>
     expect(b).to.be.deep.equal(b));
 });
+
+describe('Check Fixes $S deleting by path', () => {
+  const a = $.$S.$('array');
+  const hasItemToDelete3 = $.$S.has('item_to_delete3');
+
+  it('$S array field check', () => {
+    expect(a.size).to.eq(0);
+  });
+
+  it('$S deleted from root', () => expect(hasItemToDelete3).to.be.false);
+});

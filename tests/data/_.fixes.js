@@ -19,10 +19,11 @@ import $Q from './forms/fixes/form.q';
 import $Q1 from './forms/fixes/form.q1';
 import $Q2 from './forms/fixes/form.q2';
 import $R from './forms/fixes/form.r';
+import $S from './forms/fixes/form.s';
 
 export default {
 
-  $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q, $Q1, $Q2, $R,
+  $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q, $Q1, $Q2, $R, $S,
 
 };
 
