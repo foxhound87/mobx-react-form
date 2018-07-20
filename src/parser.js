@@ -29,10 +29,6 @@ const parseInput = (input, {
 }) =>
   input(utils.$try(separated, unified, initial, defaultValue({ type, isEmptyArray })));
 
-// make integers labels empty
-const parseGetLabel = label =>
-  _.isFinite(_.toNumber(label)) ? '' : label;
-
 const parseArrayProp = ($val, $prop) => {
   const $values = _.values($val);
   if ($prop === 'value' || $prop === 'initial' || $prop === 'default') {
@@ -223,7 +219,6 @@ export default {
   defaultClearValue,
   parseInput,
   parsePath,
-  parseGetLabel,
   parseArrayProp,
   parseCheckArray,
   parseCheckOutput,

@@ -172,7 +172,7 @@ describe('Check Nested $N bindings props', () => {
     .bind();
 
   it('$N membersFirstNameBindings floatingLabelText should be equal to empty string', () =>
-    expect(membersFirstNameBindings).to.have.property('floatingLabelText', 'firstname'));
+    expect(membersFirstNameBindings).to.have.property('floatingLabelText', 'First Name Label'));
 
   it('$N membersFirstNameBindings value should be equal to "Clint"', () =>
     expect(membersFirstNameBindings).to.have.property('value', 'Clint'));
