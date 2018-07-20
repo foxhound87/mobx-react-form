@@ -257,8 +257,8 @@ describe('Check Fixes $S deleting by path', () => {
   it('$S array field check', () =>
     expect(a.size).to.eq(0));
 
-  it('$S deleted from root', () => 
-     expect(hasItemToDelete3).to.be.false);
+  it('$S deleted from root', () =>
+    expect(hasItemToDelete3).to.be.false);
 });
 
 describe('Check Fixes $425 values', () => {
@@ -269,4 +269,4 @@ describe('Check Fixes $425 values', () => {
         '2a': ' ',
         '3a': ' ',
       }));
-
+});
