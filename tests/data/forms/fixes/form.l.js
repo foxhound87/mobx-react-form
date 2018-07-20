@@ -31,6 +31,7 @@ class NewForm extends Form {
   hooks() {
     return {
       onInit() {
+        this.$('email').set('type', 'email'); // #415
         this.$('email').set('value', 'notAnEmail');
 
         describe('Form $L onInit() checks', () => {

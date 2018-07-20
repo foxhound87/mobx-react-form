@@ -10,13 +10,12 @@ import {
 
 import {
   parseInput,
-  parseGetLabel,
   defaultClearValue } from './parser';
 
 const setupFieldProps = (instance, props, data) =>
   Object.assign(instance, {
     $value: instance.$initial,
-    $label: props.$label || data.label || instance.name,
+    $label: props.$label || data.label || '',
     $placeholder: props.$placeholder || data.placeholder || '',
     $disabled: props.$disabled || data.disabled || false,
     $bindings: props.$bindings || data.bindings || 'default',
@@ -52,7 +51,6 @@ export default class Field extends Base {
   key;
   name;
   path;
-  type;
   state;
 
   $observers;
@@ -66,6 +64,7 @@ export default class Field extends Base {
 
   @observable $options;
   @observable $value;
+  @observable $type;
   @observable $label;
   @observable $placeholder;
   @observable $default;
@@ -190,8 +189,12 @@ export default class Field extends Base {
     return toJS(this.$validating);
   }
 
+  @computed get type() {
+    return toJS(this.$type);
+  }
+
   @computed get label() {
-    return parseGetLabel(this.$label);
+    return toJS(this.$label);
   }
 
   @computed get placeholder() {
@@ -394,9 +397,8 @@ export const prototypes = {
         output,
       } = $data;
 
-      this.type = $type || type || 'text';
       this.name = _.toString($data.name || $key);
-
+      this.$type = $type || type || 'text';
       this.$input = $try($input, input, this.$input);
       this.$output = $try($output, output, this.$output);
 
@@ -418,8 +420,7 @@ export const prototypes = {
 
     /* The field IS the value here */
     this.name = _.toString($key);
-    this.type = $type || 'text';
-
+    this.$type = $type || 'text';
     this.$input = $try($input, this.$input);
     this.$output = $try($output, this.$output);
 

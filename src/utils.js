@@ -146,7 +146,7 @@ const allowNested = (field, strictProps) =>
     ]) || strictProps);
 
 const parseIntKeys = fields =>
-  _.map(getObservableMapKeys(fields), _.ary(parseInt, 1));
+  _.map(getObservableMapKeys(fields), _.ary(_.toNumber, 1));
 
 const hasIntKeys = fields =>
   _.every(parseIntKeys(fields), _.isInteger);
