@@ -4,7 +4,6 @@
 * Removed `label` fallback to field `name`
 * fix: #432 #415 #355 #347 #425 #429 #416
 
-
 # 1.34
 * Added `struct` constructor prop
 * Reimplemented add() method

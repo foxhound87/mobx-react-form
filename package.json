@@ -1,7 +1,7 @@
 {
   "name": "mobx-react-form",
   "license": "MIT",
-  "version": "0.0.0-semantically-released",
+  "version": "0.0.0-development",
   "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
   "description": "Automagically manage React forms state and automatic validation with MobX.",
   "homepage": "https://www.npmjs.com/package/mobx-react-form",
@@ -31,7 +31,7 @@
     "cover": "nyc npm test",
     "coverage:check": "nyc check-coverage --satements 95 --branches 80 --functions 95 --lines 95",
     "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
@@ -99,7 +99,7 @@
     "nyc": "^10.2.0",
     "replace": "^0.3.0",
     "rimraf": "2.5.4",
-    "semantic-release": "^7.0.2",
+    "semantic-release": "^15.8.1",
     "validator": "^8.0.0",
     "validatorjs": "^3.13.3",
     "webpack": "3"
