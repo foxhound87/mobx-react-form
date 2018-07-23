@@ -90,7 +90,6 @@
     "eslint-plugin-import": "2.8.0",
     "husky": "0.13.1",
     "json-loader": "0.5.4",
-    "mobx": "^5.0.0",
     "mobx5": "npm:mobx@^5.0.0",
     "mobx4": "npm:mobx@^4.0.0",
     "mobx3": "npm:mobx@^3.0.0",
