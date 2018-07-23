@@ -41,14 +41,19 @@ export default {
   /**
     Get Container
    */
-  container(path) {
-    const $path = parser.parsePath(utils.$try(path, this.path));
-    const cpath = _.trim($path.replace(new RegExp('[^./]+$'), ''), '.');
+  container($path) {
+    const path = parser.parsePath(utils.$try($path, this.path));
+    const cpath = _.trim(path.replace(new RegExp('[^./]+$'), ''), '.');
 
-    if (!!this.path && _.isNil(path)) {
-      return cpath !== '' ? this.state.form.select(cpath, null, false) : this.state.form;
+    if (!!this.path && _.isNil($path)) {
+      return cpath !== ''
+        ? this.state.form.select(cpath, null, false)
+        : this.state.form;
     }
-    return cpath !== '' ? this.select(cpath, null, false) : this;
+
+    return cpath !== ''
+      ? this.select(cpath, null, false)
+      : this;
   },
 
   /**

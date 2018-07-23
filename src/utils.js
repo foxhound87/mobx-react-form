@@ -24,21 +24,15 @@ const props = {
   },
 };
 
-const getObservableMapValues = (observableMap) => {
-  if (mobxValues) {
-    return mobxValues(observableMap);
-  }
+const getObservableMapValues = observableMap =>
+  mobxValues
+    ? mobxValues(observableMap)
+    : observableMap.values();
 
-  return observableMap.values();
-};
-
-const getObservableMapKeys = (observableMap) => {
-  if (mobxValues) {
-    return mobxKeys(observableMap);
-  }
-
-  return observableMap.keys();
-};
+const getObservableMapKeys = observableMap =>
+  mobxValues
+    ? mobxKeys(observableMap)
+    : observableMap.keys();
 
 const checkObserveItem = change => ({
   key, to, type, exec,
