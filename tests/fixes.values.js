@@ -225,6 +225,20 @@ describe('Check Fixes $Q values', () => {
     expect($.$Q.$('arrayFieldB').value).to.be.deep.equal(b));
 });
 
+describe('Check Fixes $Q1 values', () => {
+  it('$Q1 values check', () =>
+    expect($.$Q1.values())
+      .to.be.deep.equal({
+        other: {
+          nested: 'nested-value',
+        },
+        tags: [{
+          id: 'x',
+          name: 'y',
+        }],
+      }));
+});
+
 describe('Check Fixes $R values', () => {
   const a = $.$R.values().organization;
   const b = $.$R.$('organization').value;
@@ -234,4 +248,25 @@ describe('Check Fixes $R values', () => {
 
   it('$R organization value check', () =>
     expect(b).to.be.deep.equal(b));
+});
+
+describe('Check Fixes $S deleting by path', () => {
+  const a = $.$S.$('array');
+  const hasItemToDelete3 = $.$S.has('item_to_delete3');
+
+  it('$S array field check', () =>
+    expect(a.size).to.eq(0));
+
+  it('$S deleted from root', () =>
+    expect(hasItemToDelete3).to.be.false);
+});
+
+describe('Check Fixes $425 values', () => {
+  it('$425 values() check', () =>
+    expect($.$425.values())
+      .to.be.deep.equal({
+        '1a': ' ',
+        '2a': ' ',
+        '3a': ' ',
+      }));
 });

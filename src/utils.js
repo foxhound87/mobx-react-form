@@ -24,21 +24,15 @@ const props = {
   },
 };
 
-const getObservableMapValues = (observableMap) => {
-  if (mobxValues) {
-    return mobxValues(observableMap);
-  }
+const getObservableMapValues = observableMap =>
+  mobxValues
+    ? mobxValues(observableMap)
+    : observableMap.values();
 
-  return observableMap.values();
-};
-
-const getObservableMapKeys = (observableMap) => {
-  if (mobxValues) {
-    return mobxKeys(observableMap);
-  }
-
-  return observableMap.keys();
-};
+const getObservableMapKeys = observableMap =>
+  mobxValues
+    ? mobxKeys(observableMap)
+    : observableMap.keys();
 
 const checkObserveItem = change => ({
   key, to, type, exec,
@@ -146,7 +140,7 @@ const allowNested = (field, strictProps) =>
     ]) || strictProps);
 
 const parseIntKeys = fields =>
-  _.map(getObservableMapKeys(fields), _.ary(parseInt, 1));
+  _.map(getObservableMapKeys(fields), _.ary(_.toNumber, 1));
 
 const hasIntKeys = fields =>
   _.every(parseIntKeys(fields), _.isInteger);

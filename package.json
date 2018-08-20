@@ -1,7 +1,7 @@
 {
   "name": "mobx-react-form",
   "license": "MIT",
-  "version": "0.0.0-semantically-released",
+  "version": "0.0.0-development",
   "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
   "description": "Automagically manage React forms state and automatic validation with MobX.",
   "homepage": "https://www.npmjs.com/package/mobx-react-form",
@@ -20,15 +20,18 @@
     "commit": "git-cz && git push origin",
     "watch:build": "babel --watch -d lib/ src/",
     "watch:test": "npm run test -- -w",
-    "switch:latest": "replace \"from 'mobx3'\" \"from 'mobx'\" src -r",
+    "switch:mobx": "replace \"from 'mobx5'\" \"from 'mobx'\" src -r",
+    "switch:mobx5": "replace \"from 'mobx4'\" \"from 'mobx5'\" src -r",
+    "switch:mobx4": "replace \"from 'mobx3'\" \"from 'mobx4'\" src -r",
     "switch:mobx3": "replace \"from 'mobx'\" \"from 'mobx3'\" src -r",
-    "test": "npm run test:latest && npm run test:mobx3",
-    "test:latest": "cross-env TEST=true mocha tests --compilers js:babel-register",
-    "test:mobx3": "npm run switch:mobx3 && cross-env TEST=true mocha tests --compilers js:babel-register && npm run switch:latest",
+    "test:mobx5": "npm run switch:mobx5 && cross-env TEST=true mocha tests --compilers js:babel-register",
+    "test:mobx4": "npm run switch:mobx4 && cross-env TEST=true mocha tests --compilers js:babel-register",
+    "test:mobx3": "npm run switch:mobx3 && cross-env TEST=true mocha tests --compilers js:babel-register",
+    "test": "npm run test:mobx3 && npm run test:mobx4 && npm run test:mobx5 && npm run switch:mobx",
     "cover": "nyc npm test",
     "coverage:check": "nyc check-coverage --satements 95 --branches 80 --functions 95 --lines 95",
     "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "semantic-release": "semantic-release",
     "postinstall": "opencollective postinstall"
   },
   "repository": {
@@ -63,7 +66,7 @@
     "lodash": "^4.16.2"
   },
   "peerDependencies": {
-    "mobx": "^2.5.0 || ^3.0.0 || ^4.0.0"
+    "mobx": "^2.5.0 || ^3.0.0 || ^4.0.0 || ^5.0.0"
   },
   "devDependencies": {
     "ajv": "^5.2.2",
@@ -88,14 +91,15 @@
     "eslint-plugin-import": "2.8.0",
     "husky": "0.13.1",
     "json-loader": "0.5.4",
-    "mobx": "^4.0.0",
-    "mobx3": "npm:mobx@3.0.0",
+    "mobx5": "npm:mobx@^5.0.0",
+    "mobx4": "npm:mobx@^4.0.0",
+    "mobx3": "npm:mobx@^3.0.0",
     "mocha": "3.2.0",
     "npm-run-all": "4.0.1",
     "nyc": "^10.2.0",
     "replace": "^0.3.0",
     "rimraf": "2.5.4",
-    "semantic-release": "^7.0.2",
+    "semantic-release": "^15.8.1",
     "validator": "^8.0.0",
     "validatorjs": "^3.13.3",
     "webpack": "3",

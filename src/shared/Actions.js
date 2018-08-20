@@ -274,21 +274,17 @@ export default {
    Del Field
    */
   @action
-  del(partialPath = null) {
-    const path = parser.parsePath(utils.$try(partialPath, this.path));
+  del($path = null) {
+    const isStrict = this.state.options.get('strictDelete', this);
+    const path = parser.parsePath(utils.$try($path, this.path));
+    const container = this.container($path);
     const keys = _.split(path, '.');
     const last = _.last(keys);
-    const cpath = _.trimEnd(path, `.${last}`);
-    const isStrict = this.state.options.get('strictDelete', this);
-
-    const container = this.select(cpath, null, false)
-      || this.state.form.select(cpath, null, false)
-      || this.state.form.select(this.path, null, true);
 
     if (isStrict && !container.fields.has(last)) {
       const msg = `Key "${last}" not found when trying to delete field`;
-      const $path = _.trim([this.path, path].join('.'), '.');
-      utils.throwError($path, null, msg);
+      const fullpath = _.trim([this.path, path].join('.'), '.');
+      utils.throwError(fullpath, null, msg);
     }
 
     container.fields.delete(last);

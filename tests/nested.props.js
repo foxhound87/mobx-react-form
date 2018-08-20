@@ -14,6 +14,9 @@ describe('Check $A Nested Fields', () => {
   it('$A user.email container() path should be equal to "user"', () =>
     expect($.$A.$('user.email').container().path).to.be.equal('user'));
 
+  it('$A user container() should be $A', () =>
+    expect($.$A.$('user').container()).to.equal($.$A));
+
   it('$A user.email.value should be equal to "notAnEmail"', () =>
     expect($.$A.$('user.email').value).to.be.equal('notAnEmail'));
 
@@ -172,7 +175,7 @@ describe('Check Nested $N bindings props', () => {
     .bind();
 
   it('$N membersFirstNameBindings floatingLabelText should be equal to empty string', () =>
-    expect(membersFirstNameBindings).to.have.property('floatingLabelText', 'firstname'));
+    expect(membersFirstNameBindings).to.have.property('floatingLabelText', 'First Name Label'));
 
   it('$N membersFirstNameBindings value should be equal to "Clint"', () =>
     expect(membersFirstNameBindings).to.have.property('value', 'Clint'));
@@ -230,6 +233,9 @@ describe('Check Nested $T add() and del()', () => {
 describe('Check Nested $T value on add()', () => {
   it('$T member.hobbies container() path should be equal to "member"', () =>
     expect($.$T.$('member.hobbies').container().path).to.equal('member'));
+
+  it('$T member container() path should be $T', () =>
+    expect($.$T.$('member').container()).to.equal($.$T));
 
   it('$T container(member.hobbies) path should be equal to "member"', () =>
     expect($.$T.container('member.hobbies').path).to.equal('member'));
