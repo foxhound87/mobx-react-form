@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { toJS } from 'mobx';
 import * as utils from '../utils';
-import { ValidatorDriver } from './ValidatorDriver';
+import { ValidatorDriver, ValidatorPlugin } from './ValidatorDriver';
 
 /**
   Vanilla JavaScript Functions
@@ -12,7 +12,7 @@ export default class VJF implements ValidatorDriver {
   promises:any[];
 
   validator = null;
-  constructor(plugin, { promises = [], options = {} }) {
+  constructor(plugin:ValidatorPlugin, { promises = [], options = {} }) {
     if (_.isPlainObject(plugin)) {
       this.validator = plugin;
     }

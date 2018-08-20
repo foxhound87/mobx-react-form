@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import * as utils from '../utils';
 import Options from '../Options';
-import { ValidatorDriver } from './ValidatorDriver';
+import { ValidatorDriver, ValidatorPlugin } from './ValidatorDriver';
 
 /**
   Schema Validation Keywords
@@ -26,12 +26,12 @@ export default class SVK implements ValidatorDriver {
 
   options;
 
-  constructor(plugin, obj:any = {}) {
+  constructor(plugin:ValidatorPlugin, obj:any = {}) {
     this.assignInitData(plugin, obj);
     this.initAJV(plugin);
   }
 
-  assignInitData(plugin,
+  assignInitData(plugin:ValidatorPlugin,
                  {
                     options = new Options(),
                     schema = {},

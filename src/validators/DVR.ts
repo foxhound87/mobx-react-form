@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { ValidatorDriver } from './ValidatorDriver';
+import { ValidatorDriver, ValidatorPlugin } from './ValidatorDriver';
 
 /**
   Declarative Validation Rules
@@ -26,12 +26,12 @@ export default class DVR implements ValidatorDriver {
 
   options;
 
-  constructor(plugin, obj = {}) {
+  constructor(plugin:ValidatorPlugin, obj = {}) {
     this.assignInitData(plugin, obj);
     this.extendValidator();
   }
 
-  assignInitData(plugin, { options = {}, promises = [] }) {
+  assignInitData(plugin:ValidatorPlugin, { options = {}, promises = [] }) {
     this.options = options;
     this.promises = promises;
     this.extend = plugin.extend;
