@@ -32,7 +32,8 @@
     "cover": "nyc npm test",
     "coverage:check": "nyc check-coverage --satements 95 --branches 80 --functions 95 --lines 95",
     "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "postinstall": "opencollective postinstall"
   },
   "repository": {
     "type": "git",
@@ -101,6 +102,11 @@
     "typescript": "^2.9.2",
     "validator": "^8.0.0",
     "validatorjs": "^3.13.3",
-    "webpack": "3"
+    "webpack": "3",
+    "opencollective": "^1.0.3"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/mobx-react-form"
   }
 }
