@@ -16,6 +16,7 @@ export default class Form extends Base {
   $handlers = {};
 
   @observable $submitting = false;
+  @observable $submitCount = 0;
   @observable $validating = false;
 
   @observable fields = observable.map ? observable.map({}) : asMap({});
@@ -75,6 +76,10 @@ export default class Form extends Base {
 
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
+
+  @computed get hasSubmitted() {
+    return this.$submitCount > 0;
+  }
 
   @computed get submitting() {
     return this.$submitting;
@@ -191,6 +196,7 @@ export const prototypes = {
   @action reset() {
     this.$touched = false;
     this.$changed = false;
+    this.$submitCount = 0;
     this.each(field => field.reset(true));
   },
 
