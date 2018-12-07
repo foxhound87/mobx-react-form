@@ -20,6 +20,10 @@ export default {
   submit(o = {}) {
     this.$submitting = true;
 
+    if (_.has(this, '$submitCount')) {
+      this.$submitCount += 1;
+    }
+
     const exec = isValid => isValid
       ? this.execHook('onSuccess', o)
       : this.execHook('onError', o);

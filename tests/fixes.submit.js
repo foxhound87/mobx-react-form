@@ -19,6 +19,9 @@ describe('Form submit() decoupled callback', () => {
 
           it('$L email hasError should be true', () =>
             expect(form.$('email').hasError).to.be.true);
+
+          it('$L form submitCount should be 1', () =>
+            expect(form.$submitCount).to.equal(1));
         });
 
         // eslint-disable-next-line
