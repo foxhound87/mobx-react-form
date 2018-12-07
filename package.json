@@ -1,10 +1,10 @@
 {
-  "name": "mobx-react-form",
+  "name": "bidvine-mobx-react-form",
   "license": "MIT",
   "version": "0.0.0-development",
-  "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
+  "author": "Bidvine",
   "description": "Automagically manage React forms state and automatic validation with MobX.",
-  "homepage": "https://www.npmjs.com/package/mobx-react-form",
+  "homepage": "https://www.npmjs.com/package/bidvine-mobx-react-form",
   "main": "lib/index.js",
   "scripts": {
     "clean:build": "rimraf lib && rimraf umd",
@@ -29,12 +29,11 @@
     "cover": "nyc npm test",
     "coverage:check": "nyc check-coverage --satements 95 --branches 80 --functions 95 --lines 95",
     "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "semantic-release": "semantic-release",
-    "postinstall": "opencollective postinstall"
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/foxhound87/mobx-react-form.git"
+    "url": "https://github.com/Bidvine/mobx-react-form.git"
   },
   "keywords": [
     "form",
@@ -99,11 +98,6 @@
     "semantic-release": "^15.8.1",
     "validator": "^8.0.0",
     "validatorjs": "^3.13.3",
-    "webpack": "3",
-    "opencollective": "^1.0.3"
-  },
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/mobx-react-form"
+    "webpack": "3"
   }
 }
