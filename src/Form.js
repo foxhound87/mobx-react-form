@@ -1,4 +1,4 @@
-import { action, computed, observable, asMap } from 'mobx';
+import { action, computed, observable, asMap } from 'mobx3';
 import _ from 'lodash';
 
 import Base from './Base';
@@ -75,6 +75,14 @@ export default class Form extends Base {
 
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
+
+  @computed get validatedValues() {
+    let data = {};
+    this.map( f => {
+      data[f.path] = f.validatedValue
+    });
+    return data;
+  }
 
   @computed get submitting() {
     return this.$submitting;
