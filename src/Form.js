@@ -77,10 +77,8 @@ export default class Form extends Base {
   /* COMPUTED */
 
   @computed get validatedValues() {
-    let data = {};
-    this.map( f => {
-      data[f.path] = f.validatedValue
-    });
+    const data = {};
+    this.each($field => (data[$field.path] = $field.validatedValue));
     return data;
   }
 
