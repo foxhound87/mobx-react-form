@@ -21,9 +21,10 @@ import $S from './forms/nested/form.s';
 import $S2 from './forms/nested/form.s2';
 import $T from './forms/nested/form.t';
 import $U from './forms/nested/form.u';
+import $Z from './forms/nested/form.z';
 
 export default {
 
-  $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q, $R, $S, $S2, $T, $U,
+  $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q, $R, $S, $S2, $T, $U, $Z,
 
 };
