@@ -91,19 +91,19 @@
     "eslint-plugin-import": "2.8.0",
     "husky": "0.13.1",
     "json-loader": "0.5.4",
-    "mobx5": "npm:mobx@^5.0.0",
-    "mobx4": "npm:mobx@^4.0.0",
     "mobx3": "npm:mobx@^3.0.0",
+    "mobx4": "npm:mobx@^4.0.0",
+    "mobx5": "npm:mobx@^5.0.0",
     "mocha": "3.2.0",
     "npm-run-all": "4.0.1",
     "nyc": "^10.2.0",
+    "opencollective": "^1.0.3",
     "replace": "^0.3.0",
     "rimraf": "2.5.4",
     "semantic-release": "^15.8.1",
     "validator": "^8.0.0",
     "validatorjs": "^3.13.3",
-    "webpack": "3",
-    "opencollective": "^1.0.3"
+    "webpack": "3"
   },
   "collective": {
     "type": "opencollective",

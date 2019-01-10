@@ -18,7 +18,8 @@ export default class Base {
 
   execHandler = (name, args, fallback = null) => [$try(
     this.$handlers[name] && this.$handlers[name].apply(this, [this]),
-    this.handlers && this.handlers.apply(this, [this])[name] && this.handlers.apply(this, [this])[name].apply(this, [this]),
+    this.handlers && this.handlers.apply(this, [this])[name] &&
+      this.handlers.apply(this, [this])[name].apply(this, [this]),
     fallback,
     this.noop,
   ).apply(this, [...args]), this.execHook(name)];

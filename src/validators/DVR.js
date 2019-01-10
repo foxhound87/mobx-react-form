@@ -48,7 +48,7 @@ export default class DVR {
 
   validateField(field, form) {
     // get form fields data
-    const data = form.validatedValues
+    const data = form.validatedValues;
     this.validateFieldAsync(field, form, data);
     this.validateFieldSync(field, form, data);
   }

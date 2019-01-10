@@ -12,18 +12,17 @@ const fields = [
 ];
 
 const values = {
-  data: Array.from(Array(300).keys()).map(idx => {
-    return {
+  data: Array.from(Array(300).keys())
+    .map(() => ({
       f1: Math.random(),
       f2: Math.random(),
       f3: Math.random(),
       f4: Math.random(),
       f5: Math.random(),
       f6: Math.random(),
-      f7: Math.random()
-    };
-  })
-}
+      f7: Math.random(),
+    })),
+};
 
 const plugins = { dvr: validatorjs };
 

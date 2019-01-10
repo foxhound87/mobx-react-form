@@ -78,7 +78,9 @@ export default class Form extends Base {
 
   @computed get validatedValues() {
     const data = {};
-    this.each($field => (data[$field.path] = $field.validatedValue));
+    this.each($field => // eslint-disable-line
+      (data[$field.path] = $field.validatedValue));
+
     return data;
   }
 
