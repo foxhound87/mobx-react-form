@@ -63,6 +63,7 @@
     }
   },
   "dependencies": {
+    "opencollective": "^1.0.3",
     "lodash": "^4.16.2"
   },
   "peerDependencies": {
@@ -97,7 +98,6 @@
     "mocha": "3.2.0",
     "npm-run-all": "4.0.1",
     "nyc": "^10.2.0",
-    "opencollective": "^1.0.3",
     "replace": "^0.3.0",
     "rimraf": "2.5.4",
     "semantic-release": "^15.8.1",
