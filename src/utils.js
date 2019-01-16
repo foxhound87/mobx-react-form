@@ -14,6 +14,7 @@ const props = {
     isPristine: 'every',
     isDefault: 'every',
     isEmpty: 'every',
+    hasBlurred: 'some',
     hasError: 'some',
     focused: 'some',
     touched: 'some',
