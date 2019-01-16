@@ -100,6 +100,8 @@ export default class Validator {
     if (!instance.path) throw new Error('Validation Error: Invalid Field Instance');
     // do not validate disabled fields
     if (instance.disabled && !this.form.state.options.get('validateDisabledFields')) return;
+    // do not validate pristine fields
+    if (instance.isPristine && !this.form.state.options.get('validatePristineFields')) return;
     // reset field validation
     instance.resetValidation();
     // validate with all drivers
