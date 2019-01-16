@@ -1,4 +1,4 @@
-import { action } from 'mobx';
+import { action } from 'mobx3';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';

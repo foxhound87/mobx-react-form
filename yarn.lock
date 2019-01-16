@@ -4388,11 +4388,6 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-5.0.3.tgz#53b97f2a0f9b0dd7774c96249f81bf2d513d8e1c"
 
-mobx@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/mobx/-/mobx-5.0.0.tgz#1214db984899b937581a5e802c65cec214eb6dd1"
-  integrity sha512-stLRfRPsXpHeRDgfhW5QvyIz7PXU2ti60l5Pe+hl2XGxtQdCxV3b90w5eU2nUP6tha9+kozihQclpMWqh+kzSw==
-
 mocha@3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/mocha/-/mocha-3.2.0.tgz#7dc4f45e5088075171a68896814e6ae9eb7a85e3"
@@ -6278,11 +6273,6 @@ uglifyjs-webpack-plugin@^0.4.6:
 uid-number@^0.0.6, uid-number@~0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
-
-undefined@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/undefined/-/undefined-0.1.0.tgz#9b706a4b32ad30c20ca4fe65ddcbbbdac32bded0"
-  integrity sha1-m3BqSzKtMMIMpP5l3cu72sMr3tA=
 
 underscore@~1.4.4:
   version "1.4.4"

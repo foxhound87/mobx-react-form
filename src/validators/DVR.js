@@ -53,16 +53,7 @@ export default class DVR {
     this.validateFieldSync(field, form, data);
   }
 
-  validateFieldSync(field, form, data) {
-    const $rules = this.rules(field.rules, 'sync');
-    // exit if no rules found
-    if (_.isEmpty($rules[0])) return;
-    // get field rules
-    const rules = { [field.path]: $rules };
-    // create the validator instance
-    const Validator = this.validator;
-    const validation = new Validator(data, rules);
-    // set label into errors messages instead key
+  makeLabels(validation, field, form) {
     const labels = { [field.path]: field.label };
     _.each(validation.rules[field.path], (rule) => {
       if (typeof rule.value === 'string' && rule.name.match(/^(required_|same)/)) {
@@ -74,7 +65,21 @@ export default class DVR {
         });
       }
     });
+
     validation.setAttributeNames(labels);
+  }
+
+  validateFieldSync(field, form, data) {
+    const $rules = this.rules(field.rules, 'sync');
+    // exit if no rules found
+    if (_.isEmpty($rules[0])) return;
+    // get field rules
+    const rules = { [field.path]: $rules };
+    // create the validator instance
+    const Validator = this.validator;
+    const validation = new Validator(data, rules);
+    // set label into errors messages instead key
+    this.makeLabels(validation, field, form);
     // check validation
     if (validation.passes()) return;
     // the validation is failed, set the field error
@@ -91,18 +96,7 @@ export default class DVR {
     const Validator = this.validator;
     const validation = new Validator(data, rules);
     // set label into errors messages instead key
-    const labels = { [field.path]: field.label };
-    _.each(validation.rules[field.path], (rule) => {
-      if (typeof rule.value === 'string' && rule.name.match(/^(required_|same)/)) {
-        _.each(rule.value.split(','), (p) => {
-          const f = form.$(p);
-          if (f && f.path && f.label) {
-            labels[f.path] = f.label;
-          }
-        });
-      }
-    });
-    validation.setAttributeNames(labels);
+    this.makeLabels(validation, field, form);
 
     const $p = new Promise(resolve =>
       validation.checkAsync(
