@@ -63,7 +63,18 @@ export default class DVR {
     const Validator = this.validator;
     const validation = new Validator(data, rules);
     // set label into errors messages instead key
-    validation.setAttributeNames({ [field.path]: field.label });
+    const labels = { [field.path]: field.label };
+    _.each(validation.rules[field.path], (rule) => {
+      if (typeof rule.value === 'string' && rule.name.match(/^(required_|same)/)) {
+        _.each(rule.value.split(','), (p) => {
+          const f = form.$(p);
+          if (f && f.path && f.label) {
+            labels[f.path] = f.label;
+          }
+        });
+      }
+    });
+    validation.setAttributeNames(labels);
     // check validation
     if (validation.passes()) return;
     // the validation is failed, set the field error
@@ -80,7 +91,18 @@ export default class DVR {
     const Validator = this.validator;
     const validation = new Validator(data, rules);
     // set label into errors messages instead key
-    validation.setAttributeNames({ [field.path]: field.label });
+    const labels = { [field.path]: field.label };
+    _.each(validation.rules[field.path], (rule) => {
+      if (typeof rule.value === 'string' && rule.name.match(/^(required_|same)/)) {
+        _.each(rule.value.split(','), (p) => {
+          const f = form.$(p);
+          if (f && f.path && f.label) {
+            labels[f.path] = f.label;
+          }
+        });
+      }
+    });
+    validation.setAttributeNames(labels);
 
     const $p = new Promise(resolve =>
       validation.checkAsync(
