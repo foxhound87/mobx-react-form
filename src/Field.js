@@ -81,6 +81,7 @@ export default class Field extends Base {
   @observable $focused = false;
   @observable $touched = false;
   @observable $changed = false;
+  @observable $hasBlurred = false;
 
   @observable $submitting = false;
   @observable $validating = false;
@@ -292,6 +293,12 @@ export default class Field extends Base {
       : this.$focused;
   }
 
+   @computed get hasBlurred() {
+    return this.hasNestedFields
+      ? this.check('hasBlurred', true)
+      : this.$hasBlurred;
+  }
+
   @computed get touched() {
     return this.hasNestedFields
       ? this.check('touched', true)
@@ -342,6 +349,10 @@ export default class Field extends Base {
   onBlur = (...args) =>
     this.execHandler('onBlur', args,
       action(() => {
+        if (!this.$hasBlurred) {
+          this.$hasBlurred = true;
+        }
+
         this.$focused = false;
       }));
 
@@ -517,6 +528,7 @@ export const prototypes = {
     this.$clearing = true;
     this.$touched = false;
     this.$changed = false;
+    this.$hasBlurred = false;
 
     this.$value = defaultClearValue({ value: this.$value });
     this.files = undefined;
@@ -533,6 +545,7 @@ export const prototypes = {
     this.$resetting = true;
     this.$touched = false;
     this.$changed = false;
+    this.$hasBlurred = false;
 
     const useDefaultValue = (this.$default !== this.$initial);
     if (useDefaultValue) this.value = this.$default;
@@ -588,6 +601,14 @@ export const prototypes = {
           this.debouncedValidation({
             showErrors: opt.get('showErrorsOnChange', this),
           }));
+    } else if (opt.get('validateOnChangeAfterInitialBlur', this)) {
+      this.disposeValidationOnChange = observe(this, '$value', () => (
+        !this.actionRunning &&
+        this.hasBlurred &&
+        this.debouncedValidation({
+          showErrors: opt.get('showErrorsOnChange', this),
+        })
+      ));
     }
   },
 
