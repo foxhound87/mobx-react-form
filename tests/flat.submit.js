@@ -8,6 +8,7 @@ describe('Form submit() decoupled callback', () => {
     $.$I.submit({
       onSuccess: (form) => {
         expect(form.$submitCount).to.equal(1);
+        expect(form.hasSubmitted).to.be.true; // eslint-disable-line
         expect(form.isValid).to.be.true; // eslint-disable-line
         done();
       },
@@ -19,6 +20,7 @@ describe('Form submit() decoupled callback', () => {
     $.$N.submit({
       onError: (form) => {
         expect(form.$submitCount).to.equal(1);
+        expect(form.hasSubmitted).to.be.true; // eslint-disable-line
         expect(form.isValid).to.be.false; // eslint-disable-line
         done();
       },

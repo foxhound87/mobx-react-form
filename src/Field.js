@@ -81,7 +81,7 @@ export default class Field extends Base {
   @observable $focused = false;
   @observable $touched = false;
   @observable $changed = false;
-  @observable $hasBlurred = false;
+  @observable $blurred = false;
 
   @observable $submitting = false;
   @observable $validating = false;
@@ -293,10 +293,10 @@ export default class Field extends Base {
       : this.$focused;
   }
 
-  @computed get hasBlurred() {
+  @computed get blurred() {
     return this.hasNestedFields
-      ? this.check('hasBlurred', true)
-      : this.$hasBlurred;
+      ? this.check('blurred', true)
+      : this.$blurred;
   }
 
   @computed get touched() {
@@ -349,8 +349,8 @@ export default class Field extends Base {
   onBlur = (...args) =>
     this.execHandler('onBlur', args,
       action(() => {
-        if (!this.$hasBlurred) {
-          this.$hasBlurred = true;
+        if (!this.$blurred) {
+          this.$blurred = true;
         }
 
         this.$focused = false;
@@ -528,7 +528,7 @@ export const prototypes = {
     this.$clearing = true;
     this.$touched = false;
     this.$changed = false;
-    this.$hasBlurred = false;
+    this.$blurred = false;
 
     this.$value = defaultClearValue({ value: this.$value });
     this.files = undefined;
@@ -545,7 +545,7 @@ export const prototypes = {
     this.$resetting = true;
     this.$touched = false;
     this.$changed = false;
-    this.$hasBlurred = false;
+    this.$blurred = false;
 
     const useDefaultValue = (this.$default !== this.$initial);
     if (useDefaultValue) this.value = this.$default;
@@ -602,13 +602,30 @@ export const prototypes = {
             showErrors: opt.get('showErrorsOnChange', this),
           }));
     } else if (opt.get('validateOnChangeAfterInitialBlur', this)) {
-      this.disposeValidationOnChange = observe(this, '$value', () => (
-        !this.actionRunning &&
-        this.hasBlurred &&
-        this.debouncedValidation({
-          showErrors: opt.get('showErrorsOnChange', this),
-        })
-      ));
+      this.disposeValidationOnChange = observe(
+        this,
+        '$value',
+        () => {
+          if (this.actionRunning) {
+            return;
+          }
+
+          let shouldValidate = false;
+          if (opt.get('validateOnChangeAfterInitialBlur', this) && this.blurred) {
+            shouldValidate = true;
+          } else if (opt.get('validateOnChangeAfterSubmit', this) && this.state.form.hasSubmitted) {
+            shouldValidate = true;
+          }
+
+          if (!shouldValidate) {
+            return;
+          }
+
+          this.debouncedValidation({
+            showErrors: opt.get('showErrorsOnChange', this),
+          });
+        },
+      );
     }
   },
 

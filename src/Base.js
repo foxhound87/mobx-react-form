@@ -1,4 +1,4 @@
-import { computed } from 'mobx';
+import { computed, observable } from 'mobx';
 import _ from 'lodash';
 
 import {
@@ -23,12 +23,18 @@ export default class Base {
     this.noop,
   ).apply(this, [...args]), this.execHook(name)];
 
+  @observable $submitCount = 0;
+
   @computed get hasIncrementalKeys() {
     return (this.fields.size && hasIntKeys(this.fields));
   }
 
   @computed get hasNestedFields() {
     return (this.fields.size !== 0);
+  }
+
+  @computed get hasSubmitted() {
+    return this.$submitCount > 0;
   }
 
   @computed get size() {

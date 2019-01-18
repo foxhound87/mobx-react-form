@@ -17,7 +17,6 @@ export default class Form extends Base {
 
   @observable $submitting = false;
   @observable $validating = false;
-  @observable $submitCount = 0;
 
   @observable fields = observable.map ? observable.map({}) : asMap({});
 
@@ -76,10 +75,6 @@ export default class Form extends Base {
 
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
-
-  @computed get hasSubmitted() {
-    return this.$submitCount > 0;
-  }
 
   @computed get submitting() {
     return this.$submitting;
