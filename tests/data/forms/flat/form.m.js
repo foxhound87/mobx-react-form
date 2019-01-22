@@ -17,7 +17,7 @@ const fields = {
     label: 'Username',
     value: 'SteveJobs',
     default: 'Claudio',
-    rules: 'checkUser',
+    rules: 'checkUser:ignoreCase',
   },
   email: {
     label: 'Email',

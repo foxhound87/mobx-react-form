@@ -15,8 +15,6 @@ export default class DVR {
 
   promises = [];
 
-  asyncRules = [];
-
   validators = {};
 
   validator = null;
@@ -38,10 +36,6 @@ export default class DVR {
   }
 
   extendValidator() {
-    // extend the validator with custom "registerAsyncRule" method
-    _.extend(this.validator, {
-      registerAsyncRule: (key, callback) => this.registerAsyncRule(key, callback),
-    });
     // extend using "extend" callback
     if (_.isFunction(this.extend)) this.extend(this.validator);
   }
@@ -132,15 +126,11 @@ export default class DVR {
     }
   }
 
-  registerAsyncRule(key, callback) {
-    this.asyncRules.push(key);
-    this.validator.registerAsync(key, callback);
-  }
 
   rules(rules, type) {
     const $rules = _.isString(rules) ? _.split(rules, '|') : rules;
-    if (type === 'sync') return _.difference($rules, this.asyncRules);
-    if (type === 'async') return _.intersection($rules, this.asyncRules);
-    return [];
+    // eslint-disable-next-line new-cap
+    const v = new this.validator();
+    return _.filter($rules, $rule => type === 'async' ? v.getRule(_.split($rule, ':')[0]).async : !v.getRule(_.split($rule, ':')[0]).async);
   }
 }
