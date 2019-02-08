@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { values as mobxValues, keys as mobxKeys } from 'mobx3';
+import { values as mobxValues, keys as mobxKeys } from 'mobx';
 
 const props = {
   booleans: ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focused', 'touched', 'changed', 'disabled', 'resetting', 'clearing', 'blurred'],

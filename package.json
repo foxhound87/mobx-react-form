@@ -98,7 +98,7 @@
     "nyc": "^10.2.0",
     "replace": "^0.3.0",
     "rimraf": "2.5.4",
-    "semantic-release": "^15.8.1",
+    "semantic-release": "^15.13.3",
     "validator": "^8.0.0",
     "validatorjs": "^3.13.3",
     "webpack": "3"

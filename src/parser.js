@@ -67,7 +67,7 @@ const handleFieldsArrayOfStrings = ($fields, add = false) => {
   let fields = $fields;
   // handle array with field struct (strings)
   if (utils.isStruct(fields)) {
-    fields = _.reduce(fields, ($obj, $) => {
+    fields = _.transform(fields, ($obj, $) => {
       const pathStruct = _.split($, '.');
       // as array of strings (with empty values)
       if (!pathStruct.length) return Object.assign($obj, { [$]: '' });
@@ -82,7 +82,7 @@ const handleFieldsArrayOfObjects = ($fields) => {
   let fields = $fields;
   // handle array of objects (with unified props)
   if (utils.isArrayOfObjects(fields)) {
-    fields = _.reduce(fields, ($obj, field) => {
+    fields = _.transform(fields, ($obj, field) => {
       if (utils.hasUnifiedProps({ fields: { field } }) && !_.has(field, 'name')) return undefined;
       return Object.assign($obj, { [field.name]: field });
     }, {});
@@ -91,7 +91,7 @@ const handleFieldsArrayOfObjects = ($fields) => {
 };
 
 const handleFieldsNested = (fields, strictProps = true) =>
-  _.reduce(fields, (obj, field, key) => {
+  _.transform(fields, (obj, field, key) => {
     if (utils.allowNested(field, strictProps)) {
       // define nested field
       return Object.assign(obj, {
@@ -156,7 +156,7 @@ TO:
 
 */
 const reduceValuesToUnifiedFields = values =>
-  _.reduce(values, (obj, value, key) =>
+  _.transform(values, (obj, value, key) =>
     Object.assign(obj, {
       [key]: {
         value,

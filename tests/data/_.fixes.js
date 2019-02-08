@@ -2,6 +2,7 @@
   FIXES
 */
 import $A from './forms/fixes/form.a';
+import $A2 from './forms/fixes/form.a2';
 import $B from './forms/fixes/form.b';
 import $C from './forms/fixes/form.c';
 import $D from './forms/fixes/form.d';
@@ -25,7 +26,7 @@ import $425 from './forms/fixes/form.425';
 
 export default {
 
-  $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q, $Q1, $Q2, $R, $S, $425,
+  $A, $A2, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q, $Q1, $Q2, $R, $S, $425,
 
 };
 

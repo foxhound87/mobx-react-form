@@ -1,4 +1,4 @@
-import { computed } from 'mobx3';
+import { computed } from 'mobx';
 import _ from 'lodash';
 
 import {

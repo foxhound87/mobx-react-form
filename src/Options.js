@@ -1,4 +1,4 @@
-import { observable, action, toJS, extendObservable, set } from 'mobx3';
+import { observable, action, toJS, extendObservable, set } from 'mobx';
 import _ from 'lodash';
 import { uniqueId } from './utils';
 

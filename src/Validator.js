@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx3';
+import { action, observable } from 'mobx';
 import _ from 'lodash';
 
 import { $try } from './utils';

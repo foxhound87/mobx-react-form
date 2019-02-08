@@ -1,4 +1,4 @@
-import { action } from 'mobx3';
+import { action } from 'mobx';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';
@@ -16,7 +16,7 @@ export default {
     fields = parser.mergeSchemaDefaults(fields, this.validator);
 
     // create fields
-    _.each(fields, (field, key) =>
+    _.forIn(fields, (field, key) =>
       _.isNil(this.select($path(key), null, false)) &&
         this.initField(key, $path(key), field, update));
   },

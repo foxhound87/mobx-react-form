@@ -1,4 +1,4 @@
-import { action } from 'mobx3';
+import { action } from 'mobx';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';
@@ -65,7 +65,7 @@ export default {
   },
 
   deepCheck(type, prop, fields) {
-    return _.reduce(utils.getObservableMapValues(fields), (check, field) => {
+    return _.transform(utils.getObservableMapValues(fields), (check, field) => {
       if (field.fields.size === 0) {
         check.push(field[prop]);
         return check;
@@ -159,7 +159,7 @@ export default {
     Get Fields Props Recursively
    */
   deepGet(prop, fields) {
-    return _.reduce(utils.getObservableMapValues(fields), (obj, field) => {
+    return _.transform(utils.getObservableMapValues(fields), (obj, field) => {
       const $nested = $fields => ($fields.size !== 0)
         ? this.deepGet(prop, $fields)
         : undefined;

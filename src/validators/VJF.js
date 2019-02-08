@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { toJS } from 'mobx3';
+import { toJS } from 'mobx';
 import utils from '../utils';
 
 /**
