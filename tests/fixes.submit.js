@@ -49,7 +49,7 @@ describe('Form submit() decoupled callback', () => {
   //   });
   // });
 
-  // $M
+  // $472
   describe('$472 submit', () => {
     it('$472 submit', (done) => {
       $.$472.submit()
