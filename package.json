@@ -1,7 +1,7 @@
 {
   "name": "mobx-react-form",
   "license": "MIT",
-  "version": "0.0.0-development",
+  "version": "0.0.0-semantically-released",
   "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
   "description": "Automagically manage React forms state and automatic validation with MobX.",
   "homepage": "https://www.npmjs.com/package/mobx-react-form",
