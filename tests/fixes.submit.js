@@ -48,4 +48,14 @@ describe('Form submit() decoupled callback', () => {
   //     done();
   //   });
   // });
+
+  // $M
+  describe('$472 submit', () => {
+    it('$472 submit', (done) => {
+      $.$472.submit()
+        .then(() => {
+          done();
+        });
+    });
+  });
 });

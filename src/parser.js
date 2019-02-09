@@ -43,7 +43,7 @@ const parseCheckArray = (field, value, prop) =>
     : value;
 
 const parseCheckOutput = ($field, $prop) =>
-  ($prop === 'value')
+  (($prop === 'value') && $field.$output)
     ? $field.$output($field[$prop])
     : $field[$prop];
 

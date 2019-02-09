@@ -23,10 +23,11 @@ import $R from './forms/fixes/form.r';
 import $S from './forms/fixes/form.s';
 
 import $425 from './forms/fixes/form.425';
+import $472 from './forms/fixes/form.472';
 
 export default {
 
-  $A, $A2, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q, $Q1, $Q2, $R, $S, $425,
+  $A, $A2, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q, $Q1, $Q2, $R, $S, $425, $472,
 
 };
 
