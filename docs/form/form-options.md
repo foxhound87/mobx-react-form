@@ -27,6 +27,7 @@
 | **validateOnBlur** | boolean | true | Validate fields value `on blur`. |
 | **validateOnChange** | boolean | false | Validate fields value `on change`. |
 | **validateOnChangeAfterInitialBlur** | boolean | false | Validate fields value `on blur` and then also `on change` only if already blurred. |
+| **validateDeletedFields** | boolean | false | Enable or disable field validation based on their `deleted` property. |
 | **validateDisabledFields** | boolean | false | Enable or disable field validation based on their `disabled` property. |
 | **validatePristineFields** | boolean | true | Enable or disable field validation based on their `isPristine` property. |
 | **strictUpdate** | boolean | false | Throw an error if trying to update an undefined field. |
