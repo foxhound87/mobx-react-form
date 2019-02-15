@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 export default ($) => {
-  describe('Form validate()', () => {
+  describe('Nested Form validate()', () => {
     // $R
     it('$R validate() should be true', (done) => {
       $.$R.validate({ showErrors: true }).then(({ isValid }) => {

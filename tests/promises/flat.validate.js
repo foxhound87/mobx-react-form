@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 export default ($) => {
-  describe('Form validate()', () => {
+  describe('Flat Form validate()', () => {
     // $A
     it('$A email validate() should be true', (done) => {
       $.$A.$('email').validate().then(({ isValid }) => {
@@ -30,6 +30,7 @@ export default ($) => {
 
     // $L
     it('$L validate() should be false', (done) => {
+      console.log('$.$L.isValid', $.$L.isValid);
       $.$L.validate().then(({ isValid }) => {
         expect(isValid).to.be.false; // eslint-disable-line
         done();

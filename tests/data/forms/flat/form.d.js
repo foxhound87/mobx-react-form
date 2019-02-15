@@ -1,6 +1,7 @@
 import ajv from 'ajv';
 import { Form } from '../../../../src';
 import svkExtend from '../../extension/svk';
+import svk from '../../../../src/validators/SVK';
 
 const fields = {
   username: 'SteveJobs',
@@ -23,9 +24,7 @@ const schema = {
   type: 'object',
   properties: {
     username: { type: 'string', minLength: 6, maxLength: 20 },
-    email: {
-      type: 'string', format: 'email', minLength: 5, maxLength: 20,
-    },
+    email: { type: 'string', format: 'email', minLength: 5, maxLength: 20 },
     password: { type: 'string', minLength: 6, maxLength: 20 },
     terms: { enum: [true, false] },
     devSkills: { range: [1, 10], exclusiveRange: true },
@@ -38,10 +37,11 @@ class NewForm extends Form {
 
   plugins() {
     return {
-      svk: {
+      svk: svk({
         package: ajv,
         extend: svkExtend,
-      },
+        schema,
+      }),
     };
   }
 
@@ -66,4 +66,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, labels, schema }, { name: 'Flat-D' });
+export default new NewForm({ fields, labels }, { name: 'Flat-D' });

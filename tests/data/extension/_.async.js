@@ -10,8 +10,10 @@ export default (query = {}, ignoreCase) => {
     { user: 'Steve Jobs' },
   ];
 
+  const checkLowerCase = o =>
+    _.lowerCase(o.user) === _.lowerCase(query.user)
+
   return sleep(25)
-    .then(() => _.find(
-      db, ignoreCase ? o => _.lowerCase(o.user) === _.lowerCase(query.user) : query) || []);
+    .then(() => _.find(db, ignoreCase ? checkLowerCase : query) || []);
 };
 

@@ -1,4 +1,4 @@
-import { computed } from 'mobx';
+import { observable, computed, toJS } from 'mobx';
 import _ from 'lodash';
 
 import {
@@ -8,6 +8,12 @@ import {
 
 export default class Base {
   noop = () => {};
+
+  @observable $submitted = 0;
+  @observable $submitting = false;
+
+  @observable $validated = 0;
+  @observable $validating = false;
 
   execHook = (name, fallback = {}) => $try(
     fallback[name],
@@ -23,6 +29,22 @@ export default class Base {
     fallback,
     this.noop,
   ).apply(this, [...args]), this.execHook(name)];
+
+  @computed get submitted() {
+    return toJS(this.$submitted);
+  }
+
+  @computed get submitting() {
+    return toJS(this.$submitting);
+  }
+
+  @computed get validated() {
+    return toJS(this.$validated);
+  }
+
+  @computed get validating() {
+    return toJS(this.$validating);
+  }
 
   @computed get hasIncrementalKeys() {
     return (this.fields.size && hasIntKeys(this.fields));

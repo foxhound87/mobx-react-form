@@ -22,6 +22,7 @@ export default class Options {
     validatePristineFields: true,
     strictUpdate: false,
     strictDelete: true,
+    softDelete: false,
     retrieveOnlyDirtyValues: false,
     retrieveOnlyEnabledFields: false,
     autoParseNumbers: false,

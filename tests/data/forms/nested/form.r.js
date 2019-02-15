@@ -1,10 +1,15 @@
 import { expect } from 'chai';
 import validatorjs from 'validatorjs';
 import { Form } from '../../../../src';
+import dvr from '../../../../src/validators/DVR';
 
-const plugins = { dvr: validatorjs };
+const plugins = {
+  dvr: dvr({ package: validatorjs })
+};
 
-const options = { retrieveOnlyDirtyValues: true };
+const options = {
+  retrieveOnlyDirtyValues: true,
+};
 
 const fields = [
   'club.name',

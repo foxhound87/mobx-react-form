@@ -17,8 +17,8 @@ const asyncRules = {
 //   },
 // };
 
-export default $validator => Object.keys(asyncRules)
-  .forEach(key => $validator.registerAsync(key, asyncRules[key]));
+export default ({ validator }) => Object.keys(asyncRules)
+  .forEach(key => validator.registerAsync(key, asyncRules[key]));
 
-// export default ($validator) => Object.keys(rules)
-//   .forEach((key) => $validator.register(key, rules[key].function, rules[key].message));
+// export default ({ validator }) => Object.keys(rules)
+//   .forEach((key) => validator.register(key, rules[key].function, rules[key].message));

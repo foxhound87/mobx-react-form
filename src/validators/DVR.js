@@ -4,55 +4,60 @@ import _ from 'lodash';
   Declarative Validation Rules
 
     const plugins = {
-      dvr: {
+      dvr: dvr({
         package: validatorjs,
         extend: callback,
-      },
+      }),
     };
 
 */
-export default class DVR {
+class DVR {
 
   promises = [];
 
-  validators = {};
+  config = null;
 
-  validator = null;
+  state = null;
 
   extend = null;
 
-  options;
+  validator = null;
 
-  constructor(plugin, obj = {}) {
-    this.assignInitData(plugin, obj);
-    this.extendValidator();
-  }
-
-  assignInitData(plugin, { options = {}, promises = [] }) {
-    this.options = options;
+  constructor({
+    config = {},
+    state = {},
+    promises = [],
+  }) {
+    this.state = state;
     this.promises = promises;
-    this.extend = plugin.extend;
-    this.validator = plugin.package || plugin;
+    this.extend = config.extend;
+    this.validator = config.package || config;
+    this.extendValidator();
   }
 
   extendValidator() {
     // extend using "extend" callback
-    if (_.isFunction(this.extend)) this.extend(this.validator);
+    if (_.isFunction(this.extend)) {
+      this.extend({
+        validator: this.validator,
+        form: this.state.form,
+      });
+    }
   }
 
-  validateField(field, form) {
+  validateField(field) {
     // get form fields data
-    const data = form.validatedValues;
-    this.validateFieldAsync(field, form, data);
-    this.validateFieldSync(field, form, data);
+    const data = this.state.form.validatedValues;
+    this.validateFieldAsync(field, data);
+    this.validateFieldSync(field, data);
   }
 
-  makeLabels(validation, field, form) {
+  makeLabels(validation, field) {
     const labels = { [field.path]: field.label };
     _.each(validation.rules[field.path], (rule) => {
       if (typeof rule.value === 'string' && rule.name.match(/^(required_|same)/)) {
         _.each(rule.value.split(','), (p) => {
-          const f = form.$(p);
+          const f = this.state.form.$(p);
           if (f && f.path && f.label) {
             labels[f.path] = f.label;
           }
@@ -63,7 +68,7 @@ export default class DVR {
     validation.setAttributeNames(labels);
   }
 
-  validateFieldSync(field, form, data) {
+  validateFieldSync(field, data) {
     const $rules = this.rules(field.rules, 'sync');
     // exit if no rules found
     if (_.isEmpty($rules[0])) return;
@@ -73,14 +78,14 @@ export default class DVR {
     const Validator = this.validator;
     const validation = new Validator(data, rules);
     // set label into errors messages instead key
-    this.makeLabels(validation, field, form);
+    this.makeLabels(validation, field);
     // check validation
     if (validation.passes()) return;
     // the validation is failed, set the field error
     field.invalidate(_.first(validation.errors.get(field.path)));
   }
 
-  validateFieldAsync(field, form, data) {
+  validateFieldAsync(field, data) {
     const $rules = this.rules(field.rules, 'async');
     // exit if no rules found
     if (_.isEmpty($rules[0])) return;
@@ -90,7 +95,7 @@ export default class DVR {
     const Validator = this.validator;
     const validation = new Validator(data, rules);
     // set label into errors messages instead key
-    this.makeLabels(validation, field, form);
+    this.makeLabels(validation, field);
 
     const $p = new Promise(resolve =>
       validation.checkAsync(
@@ -125,6 +130,13 @@ export default class DVR {
     const $rules = _.isString(rules) ? _.split(rules, '|') : rules;
     // eslint-disable-next-line new-cap
     const v = new this.validator();
-    return _.filter($rules, $rule => type === 'async' ? v.getRule(_.split($rule, ':')[0]).async : !v.getRule(_.split($rule, ':')[0]).async);
+    return _.filter($rules, $rule => type === 'async'
+      ? v.getRule(_.split($rule, ':')[0]).async
+      : !v.getRule(_.split($rule, ':')[0]).async);
   }
 }
+
+export default (config) => ({
+  class: DVR,
+  config,
+});

@@ -10,20 +10,16 @@ import fieldActions from './shared/Actions';
 import fieldUtils from './shared/Utils';
 import fieldEvents from './shared/Events';
 
-const { TEST } = process.env;
-
 /**
   Enables MobX strict mode globally (TEST only).
   - - - - - - - - - - - - - - - - - -
   In strict mode, it is not allowed to
   change any state outside of an action
 */
-if (TEST) {
-  if (configure) {
-    configure({ enforceActions: true });
-  } else {
-    useStrict(true);
-  }
+if (process.env.TEST) {
+  configure
+    ? configure({ enforceActions: true })
+    : useStrict(true);
 }
 
 /**

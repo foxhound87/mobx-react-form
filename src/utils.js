@@ -2,8 +2,8 @@ import _ from 'lodash';
 import { values as mobxValues, keys as mobxKeys } from 'mobx';
 
 const props = {
-  booleans: ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focused', 'touched', 'changed', 'disabled', 'resetting', 'clearing', 'blurred'],
-  field: ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'extra', 'bindings', 'type', 'hooks', 'handlers', 'error'],
+  booleans: ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focused', 'touched', 'changed', 'disabled', 'resetting', 'clearing', 'blurred', 'deleted'],
+  field: ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'extra', 'bindings', 'type', 'hooks', 'handlers', 'error', 'deleted'],
   separated: ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'extra', 'bindings', 'types', 'hooks', 'handlers'],
   handlers: ['onChange', 'onToggle', 'onFocus', 'onBlur', 'onDrop', 'onSubmit', 'onReset', 'onClear', 'onAdd', 'onDel'],
   function: ['observers', 'interceptors', 'input', 'output'],
@@ -19,6 +19,7 @@ const props = {
     blurred: 'some',
     touched: 'some',
     changed: 'some',
+    deleted: 'every',
     disabled: 'every',
     clearing: 'every',
     resetting: 'every',

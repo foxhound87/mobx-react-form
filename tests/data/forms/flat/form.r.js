@@ -1,5 +1,6 @@
 import MobxReactForm, { Field } from '../../../../src';
 import { isEmail, shouldBeEqualTo } from '../../extension/vjf';
+import vjf from '../../../../src/validators/VJF';
 
 const fields = {
   email: {
@@ -35,6 +36,12 @@ class NewForm extends MobxReactForm {
   options() {
     return {
       validateOnChange: true,
+    };
+  }
+
+  plugins() {
+    return {
+      vjf: vjf(),
     };
   }
 

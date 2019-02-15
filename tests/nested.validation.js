@@ -2,6 +2,18 @@ import { expect } from 'chai';
 
 import $ from './data/_.nested'; // FORMS
 
+// $A
+describe('$A.validate()', () => {
+  it('$A.validate()', (done) => {
+    $.$A.validate()
+      .then((form) => {
+        expect(form.validated).to.equal(1);
+        expect(form.isValid).to.be.false;
+        done();
+      });
+  });
+});
+
 describe('Check Nested $A validation', () => {
   it('$A user.emailConfirm isValid should be false', () =>
     expect($.$A.$('user.emailConfirm').isValid).to.be.false);
@@ -57,6 +69,45 @@ describe('Check Nested $H validation', () => {
 
   it('$H state.city.places isValid should be false', () =>
     expect($.$H.$('state.city.places').isValid).to.be.false);
+});
+
+describe('Check Nested $M1 validation', () => {
+  it('$M1 club isValid should be false', () => // F
+    expect($.$M1.$('club').isValid).to.be.false);
+
+  it('$M1 club error should be equal to', () => // ERR
+    expect($.$M1.$('club').error)
+      .to.be.equal('The Club is a required field'));
+
+  it('$M1 members[0].firstname isValid should be false', () => // F
+    expect($.$M1.$('members[0].firstname').isValid).to.be.false);
+
+  it('$M1 members.0.firstname error should be equal to', () => // ERR
+    expect($.$M1.$('members.0.firstname').error)
+      .to.be.equal('The First Name is a required field'));
+
+  it('$M1 members[0].lastname isValid should be true', () =>
+    expect($.$M1.$('members[0].lastname').isValid).to.be.true);
+
+  it('$M1 members[0].yearOfBirth isValid should be true', () =>
+    expect($.$M1.$('members[0].yearOfBirth').isValid).to.be.true);
+
+  it('$M1 members[1].yearOfBirth isValid should be false', () => // F
+    expect($.$M1.$('members[1].yearOfBirth').isValid).to.be.false);
+
+  it('$M1 members[1].yearOfBirth error should be equal to', () => // ERR
+    expect($.$M1.$('members[1].yearOfBirth').error)
+      .to.be.equal('The Year of Birth must be a `number` type, but the final value was: `""`.'));
+
+  it('$M1 members[1].hobbies[0] isValid should be true', () =>
+    expect($.$M1.$('members[1].hobbies[0]').isValid).to.be.true);
+
+  it('$M1 members[1].hobbies[1] isValid should be false', () => // F
+    expect($.$M1.$('members[1].hobbies[1]').isValid).to.be.false);
+
+  it('$M1 members[1].hobbies[1] error should be equal to', () => // ERR
+    expect($.$M1.$('members[1].hobbies[1]').error)
+      .to.be.equal('The Hobbie is a required field'));
 });
 
 describe('Check Nested $R validation', () => {

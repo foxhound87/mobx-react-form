@@ -1,7 +1,10 @@
 import validatorjs from 'validatorjs';
 import { Form } from '../../../../src';
+import dvr from '../../../../src/validators/DVR';
 
-const plugins = { dvr: validatorjs };
+const plugins = {
+  dvr: dvr(validatorjs)
+};
 
 const fields = [
   'people',

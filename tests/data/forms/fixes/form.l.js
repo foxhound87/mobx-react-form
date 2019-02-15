@@ -2,6 +2,8 @@ import validatorjs from 'validatorjs';
 import { expect } from 'chai';
 import { Form } from '../../../../src';
 
+import dvr from '../../../../src/validators/DVR';
+
 const fields = [
   'email',
 ];
@@ -18,7 +20,7 @@ class NewForm extends Form {
 
   plugins() {
     return {
-      dvr: validatorjs,
+      dvr: dvr(validatorjs),
     };
   }
 

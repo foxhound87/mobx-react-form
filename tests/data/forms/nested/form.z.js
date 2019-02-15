@@ -1,5 +1,6 @@
 import validatorjs from 'validatorjs';
 import { Form } from '../../../../src';
+import dvr from '../../../../src/validators/DVR';
 
 const fields = [
   'data[].f1',
@@ -24,7 +25,9 @@ const values = {
     })),
 };
 
-const plugins = { dvr: validatorjs };
+const plugins = {
+  dvr: dvr(validatorjs)
+};
 
 export default new Form({
   fields, values,

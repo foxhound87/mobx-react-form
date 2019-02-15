@@ -1,5 +1,6 @@
 import validatorjs from 'validatorjs';
 import { Form } from '../../../../src';
+import dvr from '../../../../src/validators/DVR';
 
 // const fields = [{
 //   name: 'name',
@@ -26,6 +27,14 @@ const fields = [
   'address.zip',
 ];
 
+const values = {
+  name: 'fatty',
+  address: {
+    street: '123 Fake St.',
+    zip: '12345',
+  },
+};
+
 const rules = {
   'name': 'required|string|between:5,50',
   'address.street': 'required|string',
@@ -33,15 +42,7 @@ const rules = {
 };
 
 const plugins = {
-  dvr: validatorjs,
-};
-
-const values = {
-  name: 'fatty',
-  address: {
-    street: '123 Fake St.',
-    zip: '12345',
-  },
+  dvr: dvr(validatorjs),
 };
 
 class NewForm extends Form {}

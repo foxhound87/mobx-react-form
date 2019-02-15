@@ -7,11 +7,6 @@ describe('$A Field values checks', () => {
     expect($.$A.$('qwerty').value).to.be.equal(0));
 });
 
-describe('$A2 Field values checks', () => {
-  it('$A2 length value should be equal to "0"', () =>
-    expect($.$A2.$('length').value).to.be.equal(0));
-});
-
 describe('$B Field values checks', () => {
   it('$B inventoryLevel.value value should be equal to "2"', () =>
     expect($.$B.$('inventoryLevel.value').value).to.be.equal(2));
@@ -274,4 +269,9 @@ describe('Check Fixes $425 values', () => {
         '2a': ' ',
         '3a': ' ',
       }));
+});
+
+describe('$481 Field values checks', () => {
+  it('$481 length value should be equal to "0"', () =>
+    expect($.$481.$('length').value).to.be.equal(0));
 });

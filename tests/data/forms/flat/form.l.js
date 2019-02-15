@@ -1,13 +1,7 @@
 import ajv from 'ajv';
 import { Form } from '../../../../src';
 import svkExtend from '../../extension/svk';
-
-const plugins = {
-  svk: {
-    package: ajv,
-    extend: svkExtend,
-  },
-};
+import svk from '../../../../src/validators/SVK';
 
 const fields = {
   username: {
@@ -39,6 +33,14 @@ const schema = {
   },
 };
 
+const plugins = {
+  svk: svk({
+    package: ajv,
+    extend: svkExtend,
+    schema,
+  }),
+};
+
 class NewForm extends Form {
 
   hooks() {
@@ -50,4 +52,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, schema }, { plugins, name: 'Flat-L' });
+export default new NewForm({ fields }, { plugins, name: 'Flat-L' });

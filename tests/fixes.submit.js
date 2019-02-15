@@ -19,6 +19,9 @@ describe('Form submit() decoupled callback', () => {
 
           it('$L email hasError should be true', () =>
             expect(form.$('email').hasError).to.be.true);
+
+          it('$L form submitted should be 1', () =>
+            expect(form.submitted).to.equal(1));
         });
 
         // eslint-disable-next-line
@@ -27,27 +30,6 @@ describe('Form submit() decoupled callback', () => {
       },
     });
   });
-
-  // $M
-  describe('$M Check jobs[0] ', () => {
-    it('$M Check jobs[0]', (done) => {
-      $.$M.$('jobs[0]').validate()
-        .then(({ isValid }) => {
-          // eslint-disable-next-line
-          expect(isValid).to.be.false;
-          done();
-        });
-    });
-  });
-
-  // $M
-  // describe('Check Fixes-L jobs[0] ', () => {
-  //   it('Check Fixes-L jobs[0]', (done) => {
-  //     // eslint-disable-next-line
-  //     async () => expect(await $.$M.$('jobs[0]').validate()).to.be.false;
-  //     done();
-  //   });
-  // });
 
   // $472
   describe('$472 submit', () => {

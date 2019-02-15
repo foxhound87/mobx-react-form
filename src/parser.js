@@ -180,9 +180,9 @@ const handleFieldsPropsFallback = (fields, initial) => {
 
 const mergeSchemaDefaults = (fields, validator) => {
   if (validator) {
-    const { properties } = validator.schema;
-    if (_.isEmpty(fields) && !!properties) {
-      _.each(properties, (prop, key) => {
+    const schema = _.get(validator.plugins, 'svk.config.schema');
+    if (_.isEmpty(fields) && schema && !!schema.properties) {
+      _.each(schema.properties, (prop, key) => {
         _.set(fields, key, {
           value: prop.default,
           label: prop.title,

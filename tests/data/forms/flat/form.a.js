@@ -3,21 +3,17 @@ import validator from 'validator';
 import validatorjs from 'validatorjs';
 
 import { Form } from '../../../../src';
+
+import dvr from '../../../../src/validators/DVR';
+import vjf from '../../../../src/validators/VJF';
+import svk from '../../../../src/validators/SVK';
+
 import svkExtend from '../../extension/svk';
 import { isEmailByValidator } from '../../extension/vjf';
 
 /* ------------------------
   This form should be VALID
   ------------------------- */
-
-const plugins = {
-  vjf: validator,
-  dvr: validatorjs,
-  svk: {
-    package: ajv,
-    extend: svkExtend,
-  },
-};
 
 const fields = {
   username: {
@@ -75,9 +71,7 @@ const schema = {
   type: 'object',
   properties: {
     // username: { type: 'string', minLength: 6, maxLength: 20 },
-    email: {
-      type: 'string', format: 'email', minLength: 5, maxLength: 20,
-    },
+    email: { type: 'string', format: 'email', minLength: 5, maxLength: 20 },
     password: { type: 'string', minLength: 6, maxLength: 20 },
     terms: { enum: [true, false] },
     devSkills: { range: [5, 10] },
@@ -86,4 +80,14 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema }, { plugins, name: 'Flat-A' });
+const plugins = {
+  vjf: vjf({ package: validator }),
+  dvr: dvr({ package: validatorjs }),
+  svk: svk({
+    package: ajv,
+    extend: svkExtend,
+    schema,
+  }),
+};
+
+export default new Form({ fields }, { plugins, name: 'Flat-A' });

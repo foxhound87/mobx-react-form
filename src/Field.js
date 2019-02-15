@@ -82,9 +82,8 @@ export default class Field extends Base {
   @observable $touched = false;
   @observable $changed = false;
   @observable $blurred = false;
+  @observable $deleted = false;
 
-  @observable $submitting = false;
-  @observable $validating = false;
   @observable $clearing = false;
   @observable $resetting = false;
 
@@ -108,7 +107,7 @@ export default class Field extends Base {
     this.state = state;
 
     this.setupField(key, path, data, props, update);
-    this.checkDVRValidationPlugin();
+    this.checkValidationPlugins();
     this.initNestedFields(data, update);
 
     this.incremental = (this.hasIncrementalKeys !== 0);
@@ -180,14 +179,6 @@ export default class Field extends Base {
 
   @computed get actionRunning() {
     return (this.submitting || this.clearing || this.resetting);
-  }
-
-  @computed get submitting() {
-    return toJS(this.$submitting);
-  }
-
-  @computed get validating() {
-    return toJS(this.$validating);
   }
 
   @computed get type() {
@@ -309,6 +300,12 @@ export default class Field extends Base {
     return this.hasNestedFields
       ? this.check('changed', true)
       : this.$changed;
+  }
+
+  @computed get deleted() {
+    return this.hasNestedFields
+      ? this.check('deleted', true)
+      : this.$deleted;
   }
 
   /* ------------------------------------------------------------------ */
@@ -467,15 +464,16 @@ export const prototypes = {
     return toJS(val);
   },
 
-  checkDVRValidationPlugin() {
+  checkValidationPlugins() {
     const { drivers } = this.state.form.validator;
+    const form = this.state.form.name ? `${this.state.form.name}/` : '';
+
     if (_.isNil(drivers.dvr) && !_.isNil(this.rules)) {
-      // eslint-disable-next-line
-      console.warn(
-        'The DVR validation rules are defined',
-        'but no plugin provided (DVR). Field:',
-        this.path,
-      );
+      throw new Error(`The DVR validation rules are defined but no DVR plugin provided. Field: "${form + this.path}".`);
+    }
+
+    if (_.isNil(drivers.vjf) && !_.isNil(this.validators)) {
+      throw new Error(`The VJF validators functions are defined but no VJF plugin provided. Field: "${form + this.path}".`);
     }
   },
 

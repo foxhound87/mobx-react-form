@@ -54,7 +54,6 @@ export default class Form extends Base {
     this.validator = new Validator({
       form: this,
       plugins: initial.plugins,
-      schema: initial.setup.schema,
     });
 
     this.initFields(initial.setup);
@@ -67,7 +66,9 @@ export default class Form extends Base {
 
     // execute validation on form initialization
     if (this.state.options.get('validateOnInit') === true) {
-      this.validator.validate({ showErrors: this.state.options.get('showErrorsOnInit') });
+      this.validator.validate({
+        showErrors: this.state.options.get('showErrorsOnInit')
+      });
     }
 
     this.execHook('onInit');
@@ -82,14 +83,6 @@ export default class Form extends Base {
       (data[$field.path] = $field.validatedValue));
 
     return data;
-  }
-
-  @computed get submitting() {
-    return this.$submitting;
-  }
-
-  @computed get validating() {
-    return this.$validating;
   }
 
   @computed get clearing() {

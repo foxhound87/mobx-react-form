@@ -307,6 +307,28 @@ describe('Check Nested $T value on add()', () => {
     expect($.$T.$('notIncrementalFields').fields.size).to.equal(1));
 });
 
+describe('Check $T1 Nested Fields', () => {
+  it('$T1 state.options.get(softDelete) should be true', () =>
+    expect($.$T1.state.options.get('softDelete')).to.be.true);
+
+  it('$T1 hobbies .fields.size should be equal to 3', () =>
+    expect($.$T1.$('hobbies').fields.size).to.equal(3));
+
+    it('$T1 hobbies[0].deleted should be false', () =>
+    expect($.$T1.$('hobbies[0]').deleted).to.be.false);
+
+    it('$T1 hobbies[1].deleted should be true', () =>
+    expect($.$T1.$('hobbies[1]').deleted).to.be.true);
+
+    it('$T1 hobbies[2].deleted should be false', () =>
+    expect($.$T1.$('hobbies[2]').deleted).to.be.false);
+
+    it('$T1 get(value) value to be deep equal', () =>
+      expect($.$T1.get('value')).to.be.deep.equal({
+        hobbies: ['AAA', 'CCC']
+      }));
+});
+
 describe('Check $U Nested Fields', () => {
   it('$U user.email value should be equal to "notAnEmail"', () =>
     expect($.$U.$('user.email').value).to.be.equal('notAnEmail'));

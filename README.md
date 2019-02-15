@@ -1,53 +1,43 @@
 # MobX React Form
 
-##### Automagically manage React forms state and automatic validation with MobX.
+### [Documentation](https://foxhound87.github.io/mobx-react-form) &bull; [Live Demo](https://foxhound87.github.io/mobx-react-form/demo.html) &bull; [Demo Code](https://github.com/foxhound87/mobx-react-form-demo) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Slack Workspace](https://fox-dev.now.sh/)
+
+### Reactive MobX Form State Management
+
+[![NPM](https://nodei.co/npm/mobx-react-form.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/mobx-react-form/)
 
 [![Travis Build](https://img.shields.io/travis/foxhound87/mobx-react-form/master.svg)](https://travis-ci.org/foxhound87/mobx-react-form)
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/foxhound87/mobx-react-form/master.svg)](https://codecov.io/gh/foxhound87/mobx-react-form)
 [![npm](https://img.shields.io/npm/v/mobx-react-form.svg)]()
 [![node](https://img.shields.io/node/v/mobx-react-form.svg)]()
+
 [![GitHub license](https://img.shields.io/github/license/foxhound87/mobx-react-form.svg)]()
 [![Downloads](https://img.shields.io/npm/dt/mobx-react-form.svg)]()
 [![Downloads](https://img.shields.io/npm/dm/mobx-react-form.svg)]()
-[![Backers on Open Collective](https://opencollective.com/mobx-react-form/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/mobx-react-form/sponsors/badge.svg)](#sponsors) 
 
-[![NPM](https://nodei.co/npm/mobx-react-form.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/mobx-react-form/)
+[![Backers on Open Collective](https://opencollective.com/mobx-react-form/backers/badge.svg)](#backers)
+[![Sponsors on Open Collective](https://opencollective.com/mobx-react-form/sponsors/badge.svg)](#sponsors)
 
----
+<br>
 
 ## Features
 
-- Automatic Reactive Form State Management with MobX Magic.
-- Automatic Reactive Validation & Error Messages.
-- Validation Plugins & Multiple Validation Styles.
+- Extensibles Validation Plugins.
+- Sync & Async Validation (w/ Promises & automatic errors).
 - Nested Fields (w/ Serialization & Validation).
 - Nested Forms (w/ Nested Submission & Validation Hooks).
-- Dynamically Add/Del Nested Fields.
-- Support for Sync & Async Validation functions (w/ Promises).
-- Fields Props Bindings for custom Components.
+- Event Hooks, Event Handlers & Validation Hooks
+- Observers & Interceptors
+- Bindings for custom Components.
 - Support for Material UI, React Widgets, React Select & more.
 - Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
-
-[![Edit form-quickstart](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrrZgG8y4)
-
-## Documentation
-
-[https://foxhound87.github.io/mobx-react-form](https://foxhound87.github.io/mobx-react-form)
-
-## Live Demo
-
-[https://foxhound87.github.io/mobx-react-form/demo.html](https://foxhound87.github.io/mobx-react-form/demo.html)
-
-## Demo Code
-
-[https://github.com/foxhound87/mobx-react-form-demo](https://github.com/foxhound87/mobx-react-form-demo)
-
-## Tutorial
-[Automagically manage React forms state and automatic validation with MobX](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769)
 
 <br>
 
 ## Quick Start
+
+
+[![Edit form-quickstart](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrrZgG8y4)
 
 ```bash
 npm install --save mobx-react-form
@@ -55,15 +45,17 @@ npm install --save mobx-react-form
 
 #### Choose and Setup a Validation Plugin
 
-> See [Validation Plugins & Modes](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html)
- and [Supported Validation Packages](https://foxhound87.github.io/mobx-react-form/docs/validation/supported-packages.html) for more info.
+> See [Validation Plugins](validation/plugins.html) for more info on supported packages.
 
 Below we are creating a `plugins` object using the `validatorjs` package to enable `DVR` functionalities (Declarative Validation Rules).
 
 ```javascript
+import dvr from 'mobx-react-form/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 
-const plugins = { dvr: validatorjs };
+const plugins = {
+  dvr: dvr(validatorjs)
+};
 ```
 
 #### Define the Form Fields
@@ -157,14 +149,21 @@ export default observer(({ form }) => (
 
 ## Contributing
 
-If you want to contribute to the development, do not hesitate to fork the repo and send pull requests.
+1. Fork the repository
+2. Make applicable changes (with tests!)
+3. To run tests: `yarn test`
+4. Ensure builds succeed: `yarn run build`
+5. Commit via yarn to run pre-commit checks: `yarn run commit`
 
-And don't forget to star the repo, I will ensure more frequent updates! Thanks!
+### New Issues
 
+When opening new issues, provide the setup of your form in a [CodeSandbox](https://codesandbox.io/).
+
+These issues, and the ones which provides also PR with failing tests will get higher priority.
 
 ### Contributors
 
-This project exists thanks to all the people who contribute. 
+This project exists thanks to all the people who contribute.
 <a href="graphs/contributors"><img src="https://opencollective.com/mobx-react-form/contributors.svg?width=890&button=false" /></a>
 
 

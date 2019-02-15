@@ -4,13 +4,9 @@ import { Form } from '../../../../src';
 import { isEmail, shouldBeEqualTo } from '../../extension/vjf';
 import svkExtend from '../../extension/svk';
 
-const plugins = {
-  dvr: validatorjs,
-  svk: {
-    package: ajv,
-    extend: svkExtend,
-  },
-};
+import vjf from '../../../../src/validators/VJF';
+import dvr from '../../../../src/validators/DVR';
+import svk from '../../../../src/validators/SVK';
 
 const fields = {
   username: {
@@ -49,4 +45,14 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema }, { plugins, name: 'Flat-E' });
+const plugins = {
+  vjf: vjf(),
+  dvr: dvr(validatorjs),
+  svk: svk({
+    package: ajv,
+    extend: svkExtend,
+    schema,
+  }),
+};
+
+export default new Form({ fields }, { plugins, name: 'Flat-E' });

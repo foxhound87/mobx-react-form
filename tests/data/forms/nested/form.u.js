@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { Form } from '../../../../src';
 import { isEmail, shouldBeEqualTo } from '../../extension/vjf';
+import vjf from '../../../../src/validators/VJF';
 
 const fields = [
   'user',
@@ -33,6 +34,12 @@ const related = {
 };
 
 class NewForm extends Form {
+
+  plugins() {
+    return {
+      vjf: vjf(),
+    };
+  }
 
   options() {
     return {
