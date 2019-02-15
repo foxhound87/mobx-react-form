@@ -19,6 +19,7 @@ export default class Options {
     validateOnChange: false,
     validateOnChangeAfterInitialBlur: false,
     validateDisabledFields: false,
+    validateDeletedFields: false,
     validatePristineFields: true,
     strictUpdate: false,
     strictDelete: true,

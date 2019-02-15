@@ -1,3 +1,6 @@
+# 1.38
+* introduced `validateDeletedFields` form option
+
 # 1.37
 * decoupled validation plugins drivers
 * introduced `yup` validation plugin

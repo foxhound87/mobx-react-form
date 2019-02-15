@@ -99,6 +99,8 @@ export default class Validator {
     const instance = field || this.form.select(path);
     // check if the field is a valid instance
     if (!instance.path) throw new Error('Validation Error: Invalid Field Instance');
+    // do not validate soft deleted fields
+    if (instance.deleted && !this.form.state.options.get('validateDeletedFields')) return;
     // do not validate disabled fields
     if (instance.disabled && !this.form.state.options.get('validateDisabledFields')) return;
     // do not validate pristine fields
