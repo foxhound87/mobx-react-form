@@ -4,8 +4,9 @@
 |---|---|---|---|---|
 | **size** | int | computed | Number of contained Fields. | - |
 | **submitting** | boolean | computed | Check if the form is in submitting state. | - |
+| **submitted** | int | computed | Check how many times a form has been submitted. | - |
 | **validating** | boolean | computed | Check if the form is in validation state. | - |
-| **hasErrors** | boolean | computed | Check if the form has errors. | - |
+| **validated** | int | computed | Check how many times a form has been validated. | - |
 | **isValid** | boolean | computed | Check if the form is valid. | - |
 | **isDirty** | boolean | computed | Check if the form is dirty. | - |
 | **isPristine** | boolean | computed | Check if the form is in pristine state. | - |

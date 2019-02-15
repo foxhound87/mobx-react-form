@@ -50,18 +50,14 @@ Provide an object which expects the following properties:
 ###### Validation Properties
 | Property | Description | Help |
 |---|---|---|
-| **validators**  | The validation functions for the **VJF** mode. | [VJF](../validation/modes/vjf-enable.md) |
-| **rules**    | The rules for the validation (if **DVR** mode is active). | [DVR](../validation/modes/dvr-enable.md) |
-| **schema**    | The json-schema for the validation (if **SVK** mode is active). | [SVK](../validation/modes/svk-enable.md) |
+| **validators**  | The validation functions for the **VJF** mode. | [VJF](../validation/plugins/VJF/setup.md) |
+| **rules**    | The rules for the validation (if **DVR** mode is active). | [DVR](../validation/plugins/DVR/setup.md) |
 
-
-> Some of these initialization properties are plurals.
-
-> If you need to validate fields use the `validators`, `rules`, or `schema` props according to the choosen [validation plugin](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html)
+> Validate fields according to the choosen [validation plugin](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html)
 
 > If you are using the **Unified Properties Definition** mode, you will need only the `fields` property.
 
-> If you are using the **Separated Properties Definition** mode, the `fields` property should be defined as structure.
+> If you are using the **Separated Properties Definition** mode, the `fields` property have to be defined as `struct`.
 
 ## Second Constructor Argument
 
@@ -108,7 +104,7 @@ new Form({ values, labels, handlers, rules, ... }, { plugins });
 ## Initialization Methods
 #### setup(), options(), plugins(), bindings(), handlers(), hooks().
 
-Normally you have to pass the the fields properties to the constructor, otherwise you can implement one of these methods inside your extended Form Class.
+Normally you have to pass the fields properties to the constructor, otherwise you can implement one of these methods above inside your extended Form Class.
 
 For example, using the `setup()` method you can define the fields properties:
 
@@ -126,7 +122,7 @@ class MyForm extends MobxReactForm {
 
 > The methods have to return an object with all needed props/data.
 
-This can be done with `options`, `plugins` and `bindings` as well.
+This can be done with `options`, `plugins`, `bindings`, `handlers` and `hooks` as well.
 
 > The object returned from the methods will be merged to the object provieded to the constructor when initializing the instance.
 

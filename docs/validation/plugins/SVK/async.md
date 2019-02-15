@@ -27,4 +27,4 @@ const schema = {
 };
 ```
 
-> Read more about [Asynchronous Validation](https://github.com/epoberezkin/ajv#asynchronous-validation) on the official AJV documentation.
+> Read more about [Asynchronous Validation](https://github.com/epoberezkin/ajv#asynchronous-validation) on the official epoberezkin/ajv documentation.

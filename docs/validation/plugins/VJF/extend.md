@@ -1,8 +1,12 @@
 ## Custom Vanilla Javascript Validation Functions (VJF)
 
-### Define custom functions
+#### Define custom functions
 
-> they must return an array with: [boolean, string];
+The validation functions takes in input an object with the following props:
+
+* the `form` instance
+* the `field` instance
+* the `validator` instance
 
 ```javascript
 export function shouldBeEqualTo(target) {
@@ -18,9 +22,9 @@ export function isEmail({ field }) {
 }
 ```
 
-### Pass them to the field's `validators` property as function or as an array of functions
+> the validation functions must return an array with: [boolean, string];
 
-> You can set `related` fields that you want to be validated at the same time.
+#### Use the validation functions on the field's `validators` property
 
 ```javascript
 const fields = {
@@ -31,11 +35,14 @@ const fields = {
   },
   emailConfirm: {
     label: 'Confirm Email',
-    validators: [isEmail, shouldBeEqualTo('email')],
+    validators: [isEmail, shouldBeEqualTo('email')], // <<<
   },
   ...
 };
 ```
+
+* The validation functions can be used individually or as an array of functions.
+* The `related` property can be defined to validate other fields at the same time.
 
 ---
 
@@ -58,4 +65,3 @@ export function isEmail({ field, validator }) {
   return field.invalidate(`The ${field.label} should be an email address.`);
 }
 ```
-

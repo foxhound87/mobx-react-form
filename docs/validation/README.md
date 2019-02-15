@@ -1,25 +1,20 @@
 # Validation
 
-* [Validation Plugins](plugins.md)
-* [Supported Validation Packages](supported-packages.md)
+* [Validation Plugins & Packages](plugins.md)
 
 
-###### Validation Modes
-- [Enabling Vanilla Javascript Validation Functions (VJF)](modes/vjf-enable.md)
-- [Enabling Declarative Validation Rules (DVR)](modes/dvr-enable.md)
-- [Enabling Json Schema Validation Keywords (SVK)](modes/svk-enable.md)
+###### Setup Plugins
+- [Setup Vanilla Javascript Validation Functions (VJF)](plugins/VJF/setup.md)
+- [Setup Declarative Validation Rules (DVR)](plugins/DVR/setup.md)
+- [Setup Schema Validation Keywords (SVK)](plugins/SVK/setup.md)
+- [Setup Object Schema Validator (YUP)](plugins/YUP/setup.md)
 
-###### Extend Validation Plugins
-- [Custom Vanilla Javascript Validation Functions](modes/vjf-custom.md)
-- [Custom Declarative Validation Rules (extend)](modes/dvr-custom.md)
-- [Custom Json Schema Validation Keywords (extend)](modes/svk-custom.md)
+###### Extend Plugins
+- [Extend Vanilla Javascript Validation Functions](plugins/VJF/extend.md)
+- [Extend Declarative Validation Rules](plugins/DVR/extend.md)
+- [Extend Schema Validation Keywords](plugins/SVK/extend.md)
 
 ###### Async Validation
-- [Async Vanilla Javascript Validation Functions](modes/vjf-async.md)
-- [Async Declarative Validation Rules](modes/dvr-async.md)
-- [Async Json Schema Validation Keywords](modes/svk-async.md)
-
-###### Define or Override Error Messages
-- [VJF (Functions) Messages](modes/vjf-messages.md)
-- [DVR (Rules) Messages](modes/dvr-messages.md)
-- [SVK (Schema) Messages](modes/svk-messages.md)
+- [Async Vanilla Javascript Validation Functions](plugins/VJF/async.md)
+- [Async Declarative Validation Rules](plugins/DVR/async.md)
+- [Async Schema Validation Keywords](plugins/SVK/async.md)

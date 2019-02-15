@@ -1,6 +1,8 @@
 ## Defining Flat Fields as Separated Properties
 
-You can define these properties: `fields`, `values`, `labels`, `placeholders`, `defaults`, `disabled`, `related`, `bindings`, `types`, `options`, `extra`, `hooks`, `handlers`.
+You can define these properties:
+
+`fields`, `values`, `labels`, `placeholders`, `defaults`, `disabled`, `related`, `bindings`, `types`, `options`, `extra`, `hooks`, `handlers`.
 
 Validation properties `rules` (DVR) and `validators` (VJF) can be defined as well.
 
@@ -184,7 +186,7 @@ const validators = {
 new Form({ fields, validators, ... });
 ```
 
-> Read more about how to [Enable Vanilla Javascript Validation Functions (VJF)](../../validation/modes/vjf-enable.md)
+> Read more about how to [Setup Vanilla Javascript Validation Functions (VJF)](../../validation/plugins/VJF/setup.md)
 
 ### Using Declarative Validation Rules (DVR)
 
@@ -198,22 +200,4 @@ const rules = {
 
 new Form({ fields, rules, ... });
 ```
-> Read more about how to [Enable Declarative Validation Rules (DVR)](../../validation/modes/dvr-enable.md)
-
-### Using Json Schema Validation Keywords (SVK)
-
-```javascript
-const fields = ['username', 'password'];
-
-const schema = {
-  type: 'object',
-  properties: {
-    username: { type: 'string', minLength: 6, maxLength: 20 },
-    password: { type: 'string', minLength: 6, maxLength: 20 }
-  }
-};
-
-new Form({ fields, schema, ... });
-```
-> Read more about how to [Enable Json Schema Validation Keywords (SVK)
-](../../validation/modes/svk-enable.md)
+> Read more about how to [Setup Declarative Validation Rules (DVR)](../../validation/plugins/DVR/setup.md)

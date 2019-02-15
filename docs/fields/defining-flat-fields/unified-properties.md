@@ -1,6 +1,8 @@
 ## Defining Flat Fields as Unified Properties
 
-Define a `fields` object, then you can define these properties in each field definition: `name`, `value`, `label`, `placeholder`, `default`, `disabled`, `related`, `bindings`, `type`, `options`, `extra`, `hooks`, `handlers`.
+Define a `fields` object, then you can define these properties in each field definition:
+
+`name`, `value`, `label`, `placeholder`, `default`, `disabled`, `related`, `bindings`, `type`, `options`, `extra`, `hooks`, `handlers`.
 
 Validation properties `rules` (DVR) and `validators` (VJF) can be defined as well.
 

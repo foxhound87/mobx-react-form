@@ -21,8 +21,6 @@ The helpers can be used on the form instance or every field and nested field.
 
 > Shortcut of `select()`
 
----
-
 ### Get all Fields Values
 
 Returns an `object` with all fields `key:val` pairs.
@@ -38,8 +36,6 @@ Returns an `object` with all fields `key:val` pairs.
 ```
 
 > Shortcut of `get('value')`
-
----
 
 ### Get all Fields Errors
 
@@ -57,9 +53,6 @@ Returns an `object` with all fields `key:val` pairs.
 
 > Shortcut of `get('error')`
 
-
----
-
 ### Get all Fields Labels
 
 Returns an `object` with all fields `key:val` pairs.
@@ -69,9 +62,6 @@ Returns an `object` with all fields `key:val` pairs.
 ```
 
 > Shortcut of `get('label')`
-
-
----
 
 ### Get all Fields Placeholders
 
@@ -83,8 +73,6 @@ Returns an `object` with all fields `key:val` pairs.
 
 > Shortcut of `get('placeholder')`
 
----
-
 ### Get all Fields Defaults Values
 
 Returns an `object` with all fields `key:val` pairs.
@@ -95,8 +83,6 @@ Returns an `object` with all fields `key:val` pairs.
 
 > Shortcut of `get('default')`
 
----
-
 ### Get all Fields Initials Values
 
 Returns an `object` with all fields `key:val` pairs.
@@ -105,8 +91,6 @@ Returns an `object` with all fields `key:val` pairs.
 .initials();
 ```
 > Shortcut of `get('initial')`
-
----
 
 ### Get all Fields Types
 

@@ -100,7 +100,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 
 export default observer(({ form }) => (
-  <form onSubmit={form.onSubmit}>
+  <form>
     <label htmlFor={form.$('username').id}>
       {form.$('username').label}
     </label>

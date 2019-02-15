@@ -10,8 +10,7 @@ npm install --save mobx-react-form
 
 #### Choose and Setup a Validation Plugin
 
-> See [Validation Plugins & Modes](validation/plugins.html)
- and [Supported Validation Packages](validation/supported-packages.html) for more info.
+> See [Validation Plugins](validation/plugins.html) for more info on supported packages.
 
 Below we are creating a `plugins` object using the `validatorjs` package to enable `DVR` functionalities (Declarative Validation Rules).
 
@@ -85,7 +84,7 @@ import { observer } from 'mobx-react';
 
 
 export default observer(({ form }) => (
-  <form onSubmit={form.onSubmit}>
+  <form>
     <label htmlFor={form.$('username').id}>
       {form.$('username').label}
     </label>
@@ -107,5 +106,5 @@ export default observer(({ form }) => (
 
 ###### Extending the Form class
 
-[See how to implement the same configuration of this quickstart extending the Form class](getting-started-class.html)
+[See how to implement the same configuration of this quickstart extending the Form class](quick-start-class.html)
 

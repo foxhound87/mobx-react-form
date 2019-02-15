@@ -1,11 +1,11 @@
 # Extend Form & Field
 
 * [Extend Form & generic Field](generic.md)
-* [Extend particular custom Field](custom.md)
+* [Extend specific custom Field](custom.md)
 
 ---
 
-# Extend Form & Field
+### Extend Form & generic Field
 
 Import the base `Form` and `Field` class:
 
@@ -43,6 +43,10 @@ class MyForm extends Form {
     return new MyField(props);
   }
 }
+```
 
+then create the form instance using `MyForm` class:
+
+```javascript
 export default new MyForm( ... );
 ```

@@ -1,13 +1,25 @@
 # Extend Form & Field
 
 * [Extend Form & generic Field](generic.md)
-* [Extend particular custom Field](custom.md)
+* [Extend specific custom Field](custom.md)
 
 ---
 
-### Extend particular custom Field
+### Extend specific custom Field
 
-In this example, you can see how to extend only a particular field:
+Import the base `Form` and `Field` class:
+
+```javascript
+import MobxReactForm, { Field } from 'mobx-react-form';
+```
+
+or you can also import the base `Form` like this:
+
+```javascript
+import { Form, Field } from 'mobx-react-form';
+```
+
+In this example, you can see how to extend a specific field:
 
 ```javascript
 class CustomSelectField extends Field {
@@ -17,6 +29,8 @@ class CustomSelectField extends Field {
 
   constructor(props) {
     super(props);
+
+    // ...
   }
 }
 ```
@@ -35,4 +49,10 @@ class MyForm extends Form {
     }
   }
 }
+```
+
+then create the form instance using `MyForm` class:
+
+```javascript
+export default new MyForm( ... );
 ```

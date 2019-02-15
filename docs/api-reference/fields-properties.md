@@ -3,7 +3,9 @@
 | Property | Type | MobX Type | Info | Help |
 |---|---|---|---|---|
 | **submitting** | boolean | computed | Check if the field is in submitting state. | - |
+| **submitted** | int | computed | Check how many times a field has been submitted. | - |
 | **validating** | boolean | computed | Check if the field is in validation state. | - |
+| **validated** | int | computed | Check how many times a field has been validated. | - |
 | **bindings** | string | computed | The key of the registered bindings to use for the current field. | [help](../bindings/README.md) |
 | **observers** | object | - | The mobx observers to listen on Fields Props or Fields Map changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
 | **interceptors** | object | - | The mobx interceptors to listen on Fields Props or Fields Map changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
@@ -16,6 +18,7 @@
 | **placeholder** | string | computed | The Field placeholder. | - |
 | **default** | boolean | computed | The default/initial value of the field. | - |
 | **disabled** | boolean | computed | The disabled state of the field. | - |
+| **deleted** | boolean | computed | The deleted state of the field. (see `softDelete` option) | - |
 | **value** | mixed | computed | Computed value of the field. | - |
 | **focused** | boolean | computed | Check if the field is focused. | - |
 | **touched** | boolean | computed | Check if the field is touched. | - |
@@ -35,6 +38,7 @@
 | **options** | object | computed | Individual Field Options, with fallback on Form Options. | - |
 | **extra** | mixed | computed | Additional extra data for the field (useful for a select input). | - |
 | **files** | string | computed | Use the `onDrop` Event Handler to retrieve the files data. | - |
+| **validatedValue** | object | computed | Obtain Field `validatedWith` value. | - |
 | **validatedValues** | object | computed | Obtain validated values. | - |
 | **hasNestedFields** | boolean | computed | Check if the field has Nested Fields. | - |
 | **hasIncrementalKeys** | boolean | computed | Check if the nested fields have incremental keys. | - |

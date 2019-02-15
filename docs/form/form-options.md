@@ -31,14 +31,28 @@
 | **validatePristineFields** | boolean | true | Enable or disable field validation based on their `isPristine` property. |
 | **strictUpdate** | boolean | false | Throw an error if trying to update an undefined field. |
 | **strictDelete** | boolean | true | Throw an error if trying to delete an undefined field. |
+| **softDelete** | boolean | false | When using `del()` the field will not be deleted, instead its `deleted` prop will be switched to `true`. |
 | **retrieveOnlyDirtyValues** | boolean | false | Get only Dirty Values when using `get('value')` or the `values()` helper. |
 | **retrieveOnlyEnabledFields** | boolean | false | Get only Enabled Fields Values when using `get('value')` or the `values()` helper. |
 | **autoParseNumbers** | boolean | false | Try to parse strings to numbers automatically if the initial value of the field is a number. |
 | **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
 | **validationDebounceOptions** | object | { leading: false, trailing: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |
-| **allowRequired** | boolean | false | The json-schema `required` property can work only if the object does not contain the field key/value pair, `allowRequired` can remove it when needed to make `required` work properly. Be careful because enabling it will make `minLength` uneffective when the `string` is `empty`. |
-| **ajv** | object | - | Additional options for AJV. See all the details of [ajv options](https://github.com/epoberezkin/ajv#options) on the official github page of AJV. |
 | **uniqueId** | function | - | Implement a function to create custom Fields IDs. Useful for SSR. Takes the fields instance in input. |
+
+
+%accordion% **VERSION < 1.37** %accordion%
+
+All the `AJV` options are moved into the plugin initialization.
+
+For the previous version **< 1.37** you can use these in the constructor:
+
+| Option | Type | Default | Info |
+|---|---|---|---|
+| **ajv** | object | - | Additional options for AJV. See all the details of [ajv options](https://github.com/epoberezkin/ajv#options) on the official github page of AJV. |
+| **allowRequired** | boolean | false | The AJV json-schema `required` property can work only if the object does not contain the field key/value pair, `allowRequired` can remove it when needed to make `required` work properly. Be careful because enabling it will make `minLength` uneffective when the `string` is `empty`. |
+
+
+%/accordion%
 
 ### Set Options On Form Constructor
 
@@ -50,6 +64,7 @@ const options = {
   showErrorsOnChange: false,
   autoParseNumbers: false,
   allowRequired: true,
+  ...
 };
 
 new Form({ ... }, { options });
@@ -66,6 +81,7 @@ class MyForm extends MobxReactForm {
     return {
       showErrorsOnInit: true,
       autoParseNumbers: false,
+      ...
     };
   }
 }
@@ -98,6 +114,7 @@ form.state.options.get();
   showErrorsOnChange: false,
   defaultGenericError: true,
   allowRequired: false,
+  ...
 }
 ```
 

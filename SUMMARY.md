@@ -2,8 +2,8 @@
 
 ## Introduction
 * [Introduction](README.md)
-* [Getting Started](docs/getting-started.md)
-* [Getting Started (class)](docs/getting-started-class.md)
+* [Quick Start](docs/quick-start.md)
+* [Quick Start (class)](docs/quick-start-class.md)
 * [DevTools](docs/devtools.md)
 * [FAQ](docs/faq.md)
 * [UMD Setup](docs/umd-setup.md)
@@ -22,7 +22,7 @@
     * [Extend custom Field](docs/form/extend/custom.md)
 
 ## Fields
-* [Defining Fields](docs/fields/defining-fields.md)
+* [Defining Fields](docs/fields/README.md)
     * Flat Fields
         * [As Unified Properties](docs/fields/defining-flat-fields/unified-properties.md)
         * [As Separated Properties](docs/fields/defining-flat-fields/separated-properties.md)
@@ -61,22 +61,17 @@
 
 ## Validation
 * [Validation](docs/validation/README.md)
-    * [Plugins & Modes](docs/validation/plugins.md)
-    * [Supported Packages](docs/validation/supported-packages.md)
-    * Validation Modes
-        * [Enable VJF (Functions)](docs/validation/modes/vjf-enable.md)
-        * [Enable DVR (Rules)](docs/validation/modes/dvr-enable.md)
-        * [Enable SVK (Schema)](docs/validation/modes/svk-enable.md)
-    * Extend Validation
-        * [Custom VJF (Functions)](docs/validation/modes/vjf-custom.md)
-        * [Custom DVR (Rules)](docs/validation/modes/dvr-custom.md)
-        * [Custom SVK (Schema)](docs/validation/modes/svk-custom.md)
+    * [Plugins & Packages](docs/validation/plugins.md)
+    * Setup Plugins
+        * [Setup VJF](docs/validation/plugins/VJF/setup.md)
+        * [Setup DVR](docs/validation/plugins/DVR/setup.md)
+        * [Setup SVK](docs/validation/plugins/SVK/setup.md)
+        * [Setup YUP](docs/validation/plugins/YUP/setup.md)
+    * Extend Validators
+        * [Extend VJF](docs/validation/plugins/VJF/extend.md)
+        * [Extend DVR](docs/validation/plugins/DVR/extend.md)
+        * [Extend SVK](docs/validation/plugins/SVK/extend.md)
     * Async Validation
-        * [Async VJF (Functions)](docs/validation/modes/vjf-async.md)
-        * [Async DVR (Rules)](docs/validation/modes/dvr-async.md)
-        * [Async SVK (Schema)](docs/validation/modes/svk-async.md)
-    * Custom Error Messages
-        * [VJF (Functions) Messages](docs/validation/modes/vjf-messages.md)
-        * [DVR (Rules) Messages](docs/validation/modes/dvr-messages.md)
-        * [SVK (Schema) Messages](docs/validation/modes/svk-messages.md)
-
+        * [Async VJF](docs/validation/plugins/VJF/async.md)
+        * [Async DVR](docs/validation/plugins/DVR/async.md)
+        * [Async SVK](docs/validation/plugins/SVK/async.md)
