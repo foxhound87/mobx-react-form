@@ -1,22 +1,20 @@
-# MobX React Form
 
 ### [Documentation](https://foxhound87.github.io/mobx-react-form) &bull; [Live Demo](https://foxhound87.github.io/mobx-react-form/demo.html) &bull; [Demo Code](https://github.com/foxhound87/mobx-react-form-demo) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Slack Workspace](https://fox-dev.now.sh/)
 
-### Reactive MobX Form State Management
+# MobX React Form
 
-[![NPM](https://nodei.co/npm/mobx-react-form.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/mobx-react-form/)
+### Reactive MobX Form State Management
 
 [![Travis Build](https://img.shields.io/travis/foxhound87/mobx-react-form/master.svg)](https://travis-ci.org/foxhound87/mobx-react-form)
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/foxhound87/mobx-react-form/master.svg)](https://codecov.io/gh/foxhound87/mobx-react-form)
 [![npm](https://img.shields.io/npm/v/mobx-react-form.svg)]()
 [![node](https://img.shields.io/node/v/mobx-react-form.svg)]()
-
 [![GitHub license](https://img.shields.io/github/license/foxhound87/mobx-react-form.svg)]()
 [![Downloads](https://img.shields.io/npm/dt/mobx-react-form.svg)]()
 [![Downloads](https://img.shields.io/npm/dm/mobx-react-form.svg)]()
+[![Backers on Open Collective](https://opencollective.com/mobx-react-form/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/mobx-react-form/sponsors/badge.svg)](#sponsors)
 
-[![Backers on Open Collective](https://opencollective.com/mobx-react-form/backers/badge.svg)](#backers)
-[![Sponsors on Open Collective](https://opencollective.com/mobx-react-form/sponsors/badge.svg)](#sponsors)
+[![NPM](https://nodei.co/npm/mobx-react-form.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/mobx-react-form/)
 
 <br>
 
@@ -143,7 +141,7 @@ export default observer(({ form }) => (
 
 ###### Extending the Form class
 
-[See how to implement the same configuration of this quickstart extending the Form class](https://foxhound87.github.io/mobx-react-form/docs/getting-started-class.html)
+[See how to implement the same configuration of this quickstart extending the Form class](https://foxhound87.github.io/mobx-react-form/docs/quick-start-class.html)
 
 <br>
 
