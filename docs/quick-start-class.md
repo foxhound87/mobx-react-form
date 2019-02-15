@@ -17,6 +17,7 @@ npm install --save mobx-react-form
 
 ```javascript
 import { Form } from 'mobx-react-form';
+import dvr from 'mobx-react-form/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 
 export default class MyForm extends Form {
@@ -26,7 +27,9 @@ export default class MyForm extends Form {
     to enable `DVR` functionalities (Declarative Validation Rules).
   */
   plugins() {
-    return { dvr: validatorjs };
+    return {
+      dvr: dvr(validatorjs),
+    };
   }
 
   /*
