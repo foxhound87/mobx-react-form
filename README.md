@@ -41,12 +41,12 @@
 
 ## Summary
 
-- [Form Instance](docs/form)
-- [Defining Fields](docs/fields)
-- [Actions](docs/actions)
-- [Events & Handlers](docs/events)
-- [Bindings](docs/bindings)
-- [Validation](docs/validation)
+- [Form Instance](docs/form/README.md)
+- [Defining Fields](docs/fields/README.md)
+- [Actions](docs/actions/README.md)
+- [Events & Handlers](docs/events/README.md)
+- [Bindings](docs/bindings/README.md)
+- [Validation](docs/validation/README.md)
 
 ## Contributing
 

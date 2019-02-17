@@ -7,6 +7,7 @@ Import `mobx` and `mobx-react-form` into your html:
 * Download [latest version of lodash](https://unpkg.com/lodash/lodash.min.js)
 * Download [latest version of mobx](https://unpkg.com/mobx/lib/mobx.umd.js)
 * Download [latest version of mobx-react-form](https://unpkg.com/mobx-react-form/umd/MobxReactForm.umd.min.js)
+* Download a [Validation Plugin](validation/plugins.md)
 
 ```html
 <!doctype html>

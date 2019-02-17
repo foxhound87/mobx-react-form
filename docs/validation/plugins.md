@@ -4,12 +4,12 @@ The validation functionalities are optional and you can choose which kind of lib
 
 All package listed below are not included in the mobx-react-form package and must be installed and passed to the constructor for the Form Initialization using the plugins object.
 
-| Driver | Description | Package | | |
-|---|---|---|---|
-| **VJF** | Vanilla Javascript Functions | **chriso/validator.js** | [GitHub &#10140;](https://github.com/chriso/validator.js) | [NPM &#10140;](https://www.npmjs.com/package/validator) |
-| **DVR** | Declarative Validation Rules | **skaterdav85/validatorjs** | [GitHub &#10140;](https://github.com/skaterdav85/validatorjs) | [NPM &#10140;](https://www.npmjs.com/package/validatorjs) |
-| **SVK** | Schema Validation Keywords | **epoberezkin/ajv** | [GitHub &#10140;](https://github.com/epoberezkin/ajv) | [NPM &#10140;](https://www.npmjs.com/package/ajv) |
-| **YUP** | Object Schema Validator | **jquense/yup** | [GitHub &#10140;](https://github.com/jquense/yup) | [NPM &#10140;](https://www.npmjs.com/package/yup)
+| Driver | | Description | Package | | |
+|---|---|---|---|---|
+| **VJF** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorVJF.umd.min.js) | Vanilla Javascript Functions | **chriso/validator.js** | [GitHub](https://github.com/chriso/validator.js) | [NPM](https://www.npmjs.com/package/validator) |
+| **DVR** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorDVR.umd.min.js) | Declarative Validation Rules | **skaterdav85/validatorjs** | [GitHub](https://github.com/skaterdav85/validatorjs) | [NPM](https://www.npmjs.com/package/validatorjs) |
+| **SVK** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorSVK.umd.min.js) | Schema Validation Keywords | **epoberezkin/ajv** | [GitHub](https://github.com/epoberezkin/ajv) | [NPM](https://www.npmjs.com/package/ajv) |
+| **YUP** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorYUP.umd.min.js) | Object Schema Validator | **jquense/yup** | [GitHub](https://github.com/jquense/yup) | [NPM](https://www.npmjs.com/package/yup)
 
 ###### INFO
 
