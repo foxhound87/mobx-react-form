@@ -12,7 +12,7 @@ export default ($) => {
     it('$H isDirty should be false', () => expect($.$H.isDirty).to.be.false);
     it('$I isDirty should be false', () => expect($.$I.isDirty).to.be.false);
     it('$L isDirty should be true', () => expect($.$L.isDirty).to.be.true);
-    it('$M isDirty should be false', () => expect($.$M.isDirty).to.be.false);
+    it('$M isDirty should be true', () => expect($.$M.isDirty).to.be.true);
     it('$N isDirty should be false', () => expect($.$N.isDirty).to.be.false);
   });
 };

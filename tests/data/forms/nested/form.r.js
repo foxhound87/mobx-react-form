@@ -7,10 +7,6 @@ const plugins = {
   dvr: dvr({ package: validatorjs })
 };
 
-const options = {
-  retrieveOnlyDirtyValues: true,
-};
-
 const fields = [
   'club.name',
   'club.city',
@@ -69,5 +65,11 @@ const hooks = {
 };
 
 export default new Form({
-  fields, rules, values, hooks,
-}, { plugins, options, name: 'Nested-R' });
+  fields,
+  rules,
+  values,
+  hooks,
+}, {
+  name: 'Nested-R',
+  plugins,
+});

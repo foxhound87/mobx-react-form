@@ -30,7 +30,6 @@ export default ($) => {
 
     // $L
     it('$L validate() should be false', (done) => {
-      console.log('$.$L.isValid', $.$L.isValid);
       $.$L.validate().then(({ isValid }) => {
         expect(isValid).to.be.false; // eslint-disable-line
         done();

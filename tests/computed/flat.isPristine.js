@@ -12,7 +12,7 @@ export default ($) => {
     it('$H isPristine should be true', () => expect($.$H.isPristine).to.be.true);
     it('$I isPristine should be true', () => expect($.$I.isPristine).to.be.true);
     it('$L isPristine should be false', () => expect($.$L.isPristine).to.be.false);
-    it('$M isPristine should be true', () => expect($.$M.isPristine).to.be.true);
+    it('$M isPristine should be false', () => expect($.$M.isPristine).to.be.false);
     it('$N isPristine should be true', () => expect($.$N.isPristine).to.be.true);
   });
 };

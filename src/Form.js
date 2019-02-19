@@ -107,12 +107,12 @@ export default class Form extends Base {
       && this.check('isValid', true);
   }
 
-  @computed get isDirty() {
-    return this.check('isDirty', true);
-  }
-
   @computed get isPristine() {
     return this.check('isPristine', true);
+  }
+
+  @computed get isDirty() {
+    return this.check('isDirty', true);
   }
 
   @computed get isDefault() {

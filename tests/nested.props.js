@@ -148,8 +148,16 @@ describe('Check Nested $C Fields computed deep check()', () => {
   it('$C check(isDirty, deep=true) should be true', () =>
     expect($.$C.check('isDirty', true)).to.be.true);
 
+  it('$C .isDirty should be true', () =>
+    expect($.$C.isDirty).to.be.true);
+
+  // to fix // fixed ?
   it('$C check(isPristine, deep=true) should be false', () =>
     expect($.$C.check('isPristine', true)).to.be.false);
+
+  // to fix // fixed ?
+  it('$C .isPristine should be false', () =>
+    expect($.$C.isPristine).to.be.false);
 
   it('$C check(isDefault, deep=true) should be false', () =>
     expect($.$C.check('isDefault', true)).to.be.false);
@@ -264,11 +272,14 @@ describe('Check Nested $T value on add()', () => {
   it('$T member.hobbies[1] default should be equal to "BBB"', () =>
     expect($.$T.$('member.hobbies[1]').default).to.equal('BBB'));
 
-  it('$T member.info[0] default should be an object', () =>
-    expect($.$T.$('member.info[0]').default).to.be.an('object'));
+  // it('$T member.info[0] default should be an object', () =>
+  //   expect($.$T.$('member.info[0]').default).to.be.an('object'));
 
-  it('$T member.info[0] initial should be an object', () =>
-    expect($.$T.$('member.info[0]').initial).to.be.an('object'));
+  // it('$T member.info[0] initial should be an object', () =>
+  //   expect($.$T.$('member.info[0]').initial).to.be.an('object'));
+
+  it('$T member.info[0] value should be an object', () =>
+    expect($.$T.$('member.info[0]').value).to.be.an('object'));
 
   it('$T member.info[0].firstname value should be equal to "AAA"', () =>
     expect($.$T.$('member.info[0].firstname').value).to.equal('AAA'));

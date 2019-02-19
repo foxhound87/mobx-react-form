@@ -10,11 +10,17 @@ const defaultClearValue = ({ value }) => {
   return undefined;
 };
 
-const defaultValue = ({ type, isEmptyArray = false }) => {
+const defaultValue = ({
+  type,
+  nullable = false,
+  isEmptyArray = false
+}) => {
   if (type === 'date') return null;
   if (type === 'checkbox') return false;
   if (type === 'number') return 0;
-  return isEmptyArray ? [] : '';
+  if (nullable) return null;
+  if (isEmptyArray) return [];
+  return '';
 };
 
 const parsePath = (path) => {
@@ -25,9 +31,11 @@ const parsePath = (path) => {
 };
 
 const parseInput = (input, {
-  type, isEmptyArray, separated, unified, initial,
+  type, isEmptyArray, nullable, separated, unified, fallback,
 }) =>
-  input(utils.$try(separated, unified, initial, defaultValue({ type, isEmptyArray })));
+  input(utils.$try(separated, unified, fallback, defaultValue({
+    type, isEmptyArray, nullable
+  })));
 
 const parseArrayProp = ($val, $prop) => {
   const $values = _.values($val);

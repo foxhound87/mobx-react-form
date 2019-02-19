@@ -66,11 +66,12 @@ export default {
   },
 
   deepCheck(type, prop, fields) {
-    return _.transform(utils.getObservableMapValues(fields), (check, field) => {
-      if (field.fields.size === 0) {
+    const $fields = utils.getObservableMapValues(fields);
+    return _.transform($fields, (check, field) => {
+      if (!field.fields.size || utils.props.exceptions.includes(prop)) {
         check.push(field[prop]);
-        return check;
       }
+
       const $deep = this.deepCheck(type, prop, field.fields);
       check.push(utils.checkPropType({ type, data: $deep }));
       return check;
@@ -171,9 +172,9 @@ export default {
 
       if (_.isString(prop)) {
         const removeValue = (prop === 'value') &&
-          ((this.state.options.get('softDelete', this) && field.deleted) ||
-          (this.state.options.get('retrieveOnlyDirtyValues', this) && field.isPristine) ||
-          (this.state.options.get('retrieveOnlyEnabledFields', this) && field.disabled));
+         ((this.state.options.get('retrieveOnlyDirtyValues', this) && field.isPristine) ||
+          (this.state.options.get('retrieveOnlyEnabledFields', this) && field.disabled) ||
+          (this.state.options.get('softDelete', this) && field.deleted));
 
         if (field.fields.size === 0) {
           delete obj[field.key]; // eslint-disable-line
