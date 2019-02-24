@@ -5,8 +5,6 @@
 | **init(obj)** | (object) | - | Fields to initialize. | [help](../actions/form.md#re-initialize-all-fields) |
 | **clear()** | - | - | Clear the Form to empty values. | [help](../actions/shared.md#clear--reset-form-or-fields) |
 | **reset()** | - | - | Reset the Form to default values. | [help](../actions/shared.md#clear--reset-form-or-fields) |
-| **validate()** | - | promise | Check if the form is valid and return a promise. | [help](../actions/form.md#validate-the-form) |
-| **validate(path)** | (string) | promise | Takes a field `path` in input. Check if the field is valid and return a promise. | [help](../actions/form.md#validate-the-form) |
 | **invalidate(msg)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | [help](../actions/shared.md#invalidate-the-form-or-a-single-field) |
 | **showErrors(bool)** | bool | - | Show or Hide Field Error Messages. | - |
 
@@ -14,9 +12,11 @@
 
 | Method | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **update(obj)** | (object) | - | Update Fields Values. Will create new fields auomatically. | - |
 | **select(path)** | (string) | object | Field Selector. Can be chained. | - |
+| **update(obj)** | (object) | - | Update Fields Values. Will create new fields auomatically. | - |
 | **submit(obj)** | (object) | - | Perform fields validation. After successful validation triggers onSuccess event and onError event in case of validation error. | - |
+| **validate()** | - | promise | Check if the form is valid and return a promise. | [help](../actions/form.md#validate-the-form) |
+| **validate(path)** | (string) | promise | Takes a field `path` in input. Check if the field and nested fields are valid and return a promise. | [help](../actions/form.md#validate-the-form) |
 | **check(computed)** | (string) | boolean | Check field computed property. | - |
 | **check(computed, deep)** | (string, boolean) | boolean | Check all nested fields computed property if `deep` is `true` | - |
 | **get()** | - | object | Get all field and nested fields data with all props and computed values. | - |
