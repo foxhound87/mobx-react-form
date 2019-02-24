@@ -33,14 +33,11 @@
 - Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
 
 
-## Introduction
+## Summary
 
 - [Quick Start](docs/quick-start.md)
 - [DevTools](docs/devtools.md)
 - [UMD Setup](docs/umd-setup.md)
-
-## Summary
-
 - [Form Instance](docs/form/README.md)
 - [Defining Fields](docs/fields/README.md)
 - [Actions](docs/actions/README.md)
