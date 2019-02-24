@@ -20,6 +20,7 @@
 | **submit(obj)** | (object) | - | Perform fields validation. After successful validation triggers onSuccess event and onError event in case of validation error. | - |
 | **validate()** | - | - | Check if the field is valid and return a promise. | [help](../actions/shared.md#validate-a-field) |
 | **validate(path)** | (string) | promise | Takes a field `path` in input. Check if the field and nested fields are valid and return a promise. | [help](../actions/shared.md#validate-a-field) |
+| **validate(opt)** | (object) | promise | Takes a an object in input with `related` or `showErrors` options. Check if the field and nested fields are valid and return a promise. | [help](../actions/shared.md#validate-a-field) |
 | **check(computed)** | (string) | boolean | Check field computed property. | - |
 | **check(computed, deep)** | (string, boolean) | boolean | Check all nested fields computed property if `deep` is `true` | - |
 | **get()** | - | object | Get all field and nested fields data with all props and computed values. | - |
