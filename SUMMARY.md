@@ -5,7 +5,6 @@
 * [Quick Start](docs/quick-start.md)
 * [Quick Start (class)](docs/quick-start-class.md)
 * [DevTools](docs/devtools.md)
-* [FAQ](docs/faq.md)
 * [UMD Setup](docs/umd-setup.md)
 
 ## API Reference
