@@ -40,4 +40,26 @@ describe('Form submit() decoupled callback', () => {
         });
     });
   });
+
+  // $480
+  describe('$480 submit', () => {
+    it('$480 submit', (done) => {
+      $.$480.submit()
+        .then((instance) => {
+          describe('Form $480 submit checks', () => {
+            it('$480 .isValid should be false.', () =>
+              expect($.$480.isValid).to.be.false);
+
+            it('$480 $(passwordConfirm).isValid should be false.', () =>
+              expect($.$480.$('passwordConfirm').isValid).to.be.false);
+
+            const msg = 'The Password Confirmation field is required when Password Required is true.';
+
+            it('$480 $(passwordConfirm).error should be equal ' + msg, () =>
+              expect($.$480.$('passwordConfirm').error).to.be.equal(msg));
+          });
+          done();
+        });
+    });
+  });
 });

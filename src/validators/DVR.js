@@ -54,17 +54,18 @@ class DVR {
 
   makeLabels(validation, field) {
     const labels = { [field.path]: field.label };
-    _.each(validation.rules[field.path], (rule) => {
-      if (typeof rule.value === 'string' && rule.name.match(/^(required_|same)/)) {
-        _.each(rule.value.split(','), (p) => {
-          const f = this.state.form.$(p);
-          if (f && f.path && f.label) {
-            labels[f.path] = f.label;
+    _.forIn(validation.rules[field.path], (rule) => {
+      if (typeof rule.value === 'string' && rule.name.match(/^(required_|same|different)/)) {
+        _.forIn(rule.value.split(','), (p, i) => {
+          if (!rule.name.match(/^required_(if|unless)/) || (i % 2 === 0)) {
+            const f = this.state.form.$(p);
+            if (f && f.path && f.label) {
+              labels[f.path] = f.label;
+            }
           }
         });
       }
     });
-
     validation.setAttributeNames(labels);
   }
 
@@ -75,8 +76,7 @@ class DVR {
     // get field rules
     const rules = { [field.path]: $rules };
     // create the validator instance
-    const Validator = this.validator;
-    const validation = new Validator(data, rules);
+    const validation = new this.validator(data, rules);
     // set label into errors messages instead key
     this.makeLabels(validation, field);
     // check validation
@@ -92,8 +92,7 @@ class DVR {
     // get field rules
     const rules = { [field.path]: $rules };
     // create the validator instance
-    const Validator = this.validator;
-    const validation = new Validator(data, rules);
+    const validation = new this.validator(data, rules);
     // set label into errors messages instead key
     this.makeLabels(validation, field);
 

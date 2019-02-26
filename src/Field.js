@@ -10,6 +10,7 @@ import {
 
 import {
   parseInput,
+  parseCheckOutput,
   defaultClearValue } from './parser';
 
 const setupFieldProps = (instance, props, data) =>
@@ -226,7 +227,7 @@ export default class Field extends Base {
   }
 
   @computed get validatedValue() {
-    return this[this.$validatedWith];
+    return parseCheckOutput(this, this.$validatedWith)
   }
 
   @computed get error() {

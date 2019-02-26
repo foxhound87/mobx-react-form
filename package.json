@@ -43,14 +43,20 @@
   },
   "keywords": [
     "form",
-    "react",
     "mobx",
     "state",
+    "events",
+    "nested",
+    "fields",
+    "bindings",
+    "react",
+    "reactive",
     "validation",
     "validator",
     "json",
     "schema",
-    "ajv"
+    "declarative",
+    "rules"
   ],
   "files": [
     "src",
@@ -104,7 +110,7 @@
     "rimraf": "2.5.4",
     "semantic-release": "^15.13.3",
     "validator": "^8.0.0",
-    "validatorjs": "^3.13.3",
+    "validatorjs": "^3.15.1",
     "webpack": "3",
     "yup": "^0.26.7"
   }
