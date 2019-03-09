@@ -16,7 +16,7 @@ export default {
     fields = parser.mergeSchemaDefaults(fields, this.validator);
 
     // create fields
-    _.each(fields, (field, key) =>
+    _.forIn(fields, (field, key) =>
       _.isNil(this.select($path(key), null, false)) &&
         this.initField(key, $path(key), field, update));
   },

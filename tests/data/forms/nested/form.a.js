@@ -1,5 +1,6 @@
 import { Form } from '../../../../src';
 import { isEmail, shouldBeEqualTo } from '../../extension/vjf';
+import vjf from '../../../../src/validators/VJF';
 
 const fields = [{
   name: 'user',
@@ -35,6 +36,18 @@ const output = {
 };
 
 class NewForm extends Form {
+
+  options() {
+    return {
+      validateOnInit: false,
+    };
+  }
+
+  plugins() {
+    return {
+      vjf: vjf(),
+    };
+  }
 
   hooks() {
     return {

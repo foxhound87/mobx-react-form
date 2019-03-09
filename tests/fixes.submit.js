@@ -20,8 +20,8 @@ describe('Form submit() decoupled callback', () => {
           it('$L email hasError should be true', () =>
             expect(form.$('email').hasError).to.be.true);
 
-          it('$L form submitCount should be 1', () =>
-            expect(form.$submitCount).to.equal(1));
+          it('$L form submitted should be 1', () =>
+            expect(form.submitted).to.equal(1));
         });
 
         // eslint-disable-next-line
@@ -31,24 +31,35 @@ describe('Form submit() decoupled callback', () => {
     });
   });
 
-  // $M
-  describe('$M Check jobs[0] ', () => {
-    it('$M Check jobs[0]', (done) => {
-      $.$M.$('jobs[0]').validate()
-        .then(({ isValid }) => {
-          // eslint-disable-next-line
-          expect(isValid).to.be.false;
+  // $472
+  describe('$472 submit', () => {
+    it('$472 submit', (done) => {
+      $.$472.submit()
+        .then(() => {
           done();
         });
     });
   });
 
-  // $M
-  // describe('Check Fixes-L jobs[0] ', () => {
-  //   it('Check Fixes-L jobs[0]', (done) => {
-  //     // eslint-disable-next-line
-  //     async () => expect(await $.$M.$('jobs[0]').validate()).to.be.false;
-  //     done();
-  //   });
-  // });
+  // $480
+  describe('$480 submit', () => {
+    it('$480 submit', (done) => {
+      $.$480.submit()
+        .then((instance) => {
+          describe('Form $480 submit checks', () => {
+            it('$480 .isValid should be false.', () =>
+              expect($.$480.isValid).to.be.false);
+
+            it('$480 $(passwordConfirm).isValid should be false.', () =>
+              expect($.$480.$('passwordConfirm').isValid).to.be.false);
+
+            const msg = 'The Password Confirmation field is required when Password Required is true.';
+
+            it('$480 $(passwordConfirm).error should be equal ' + msg, () =>
+              expect($.$480.$('passwordConfirm').error).to.be.equal(msg));
+          });
+          done();
+        });
+    });
+  });
 });

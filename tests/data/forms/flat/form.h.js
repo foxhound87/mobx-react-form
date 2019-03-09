@@ -1,13 +1,7 @@
 import ajv from 'ajv';
 import { Form } from '../../../../src';
 import svkExtend from '../../extension/svk';
-
-const plugins = {
-  svk: {
-    package: ajv,
-    extend: svkExtend,
-  },
-};
+import svk from '../../../../src/validators/SVK';
 
 const schema = {
   type: 'object',
@@ -41,4 +35,12 @@ const schema = {
   },
 };
 
-export default new Form({ schema }, { plugins, name: 'Flat-H' });
+const plugins = {
+  svk: svk({
+    package: ajv,
+    extend: svkExtend,
+    schema,
+  }),
+};
+
+export default new Form({}, { plugins, name: 'Flat-H' });

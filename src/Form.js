@@ -54,7 +54,6 @@ export default class Form extends Base {
     this.validator = new Validator({
       form: this,
       plugins: initial.plugins,
-      schema: initial.setup.schema,
     });
 
     this.initFields(initial.setup);
@@ -67,7 +66,9 @@ export default class Form extends Base {
 
     // execute validation on form initialization
     if (this.state.options.get('validateOnInit') === true) {
-      this.validator.validate({ showErrors: this.state.options.get('showErrorsOnInit') });
+      this.validator.validate({
+        showErrors: this.state.options.get('showErrorsOnInit')
+      });
     }
 
     this.execHook('onInit');
@@ -76,12 +77,12 @@ export default class Form extends Base {
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
 
-  @computed get submitting() {
-    return this.$submitting;
-  }
+  @computed get validatedValues() {
+    const data = {};
+    this.each($field => // eslint-disable-line
+      (data[$field.path] = $field.validatedValue));
 
-  @computed get validating() {
-    return this.$validating;
+    return data;
   }
 
   @computed get clearing() {
@@ -106,12 +107,12 @@ export default class Form extends Base {
       && this.check('isValid', true);
   }
 
-  @computed get isDirty() {
-    return this.check('isDirty', true);
-  }
-
   @computed get isPristine() {
     return this.check('isPristine', true);
+  }
+
+  @computed get isDirty() {
+    return this.check('isDirty', true);
   }
 
   @computed get isDefault() {

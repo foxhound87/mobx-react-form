@@ -3,10 +3,6 @@ import _ from 'lodash';
 
 import { $try } from './utils';
 
-import vjf from './validators/VJF'; // Vanilla JavaScript Functions
-import svk from './validators/SVK'; // Json Schema Validation Keywords
-import dvr from './validators/DVR'; // Declarative Validation Rules
-
 export default class Validator {
 
   promises = [];
@@ -15,33 +11,33 @@ export default class Validator {
 
   options = {};
 
-  schema = {};
+  drivers = {};
 
   plugins = {
-    vjf: true,
-    dvr: false,
-    svk: false,
+    vjf: undefined,
+    dvr: undefined,
+    svk: undefined,
+    yup: undefined,
   };
-
-  drivers = {};
 
   @observable error = null;
 
   constructor(obj = {}) {
     _.merge(this.plugins, obj.plugins);
     this.form = obj.form;
-    this.schema = obj.schema || {};
-    this.initDrivers({ vjf, dvr, svk });
+
+    this.initDrivers();
     this.checkSVKValidationPlugin();
   }
 
-  initDrivers(drivers) { // eslint-disable-next-line
-    _.map(drivers, (Class, key) => this.plugins[key] &&
-      (this.drivers[key] = new Class(this.plugins[key], {
-        schema: (key === 'svk') ? this.schema : null,
-        options: this.form.state.options,
-        promises: this.promises,
-      })));
+  initDrivers() {
+    _.map(this.plugins, (driver, key) =>
+      (this.drivers[key] = (driver && _.has(driver, 'class')) &&
+        new driver.class({
+          config: driver.config,
+          state: this.form.state,
+          promises: this.promises,
+        })));
   }
 
   @action
@@ -52,6 +48,8 @@ export default class Validator {
     const showErrors = $try(opt.showErrors, obj.showErrors, false);
     const instance = field || this.form;
     instance.$validating = true;
+    instance.$validated += 1;
+
     this.error = null;
 
     return new Promise((resolve) => {
@@ -93,18 +91,25 @@ export default class Validator {
 
   @action
   validateField({
-    field = null, path, showErrors = false, related = false,
+    showErrors = false,
+    related = false,
+    field = null,
+    path,
   }) {
     const instance = field || this.form.select(path);
     // check if the field is a valid instance
     if (!instance.path) throw new Error('Validation Error: Invalid Field Instance');
+    // do not validate soft deleted fields
+    if (instance.deleted && !this.form.state.options.get('validateDeletedFields')) return;
     // do not validate disabled fields
     if (instance.disabled && !this.form.state.options.get('validateDisabledFields')) return;
+    // do not validate pristine fields
+    if (instance.isPristine && !this.form.state.options.get('validatePristineFields')) return;
     // reset field validation
     instance.resetValidation();
-    // validate with all drivers
-    _.each(this.drivers, driver =>
-      driver.validateField(instance, this.form));
+    // validate with all enabled drivers
+    _.each(this.drivers, (driver) =>
+      driver && driver.validateField(instance));
     // send error to the view
     instance.showErrors(showErrors);
     // related validation
@@ -119,16 +124,17 @@ export default class Validator {
     if (!field.related || !field.related.length) return;
 
     _.each(field.related, path =>
-      this.validateField({ path, showErrors, related: false }));
+      this.validateField({
+        related: false,
+        showErrors,
+        path,
+      }));
   }
 
   checkSVKValidationPlugin() {
-    if (_.isNil(this.drivers.svk) && !_.isEmpty(this.schema)) {
-      // eslint-disable-next-line
-      console.warn(
-        'The SVK validation schema is defined',
-        'but no plugin provided (SVK).',
-      );
+    if (_.isNil(this.drivers.svk) && _.get(this.plugins, 'svk.config.schema')) {
+      const form = this.state.form.name ? `Form: ${this.state.form.name}` : '';
+      throw new Error(`The SVK validation schema is defined but no plugin provided (SVK). ${form}`);
     }
   }
 }

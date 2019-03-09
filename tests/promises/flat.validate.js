@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 export default ($) => {
-  describe('Form validate()', () => {
+  describe('Flat Form validate()', () => {
     // $A
     it('$A email validate() should be true', (done) => {
       $.$A.$('email').validate().then(({ isValid }) => {

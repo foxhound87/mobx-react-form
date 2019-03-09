@@ -1,13 +1,7 @@
 import ajv from 'ajv';
 import { Form } from '../../../../src';
 import svkExtend from '../../extension/svk';
-
-const plugins = {
-  svk: {
-    package: ajv,
-    extend: svkExtend,
-  },
-};
+import svk from '../../../../src/validators/SVK';
 
 const fields = {
   state: {
@@ -57,4 +51,13 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema }, { plugins, name: 'Nested-E' });
+const plugins = {
+  svk: svk({
+    package: ajv,
+    extend: svkExtend,
+    schema,
+  }),
+};
+
+
+export default new Form({ fields }, { plugins, name: 'Nested-E' });

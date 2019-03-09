@@ -3,7 +3,16 @@ import { Form } from '../../../../src';
 import dvrExtend from '../../extension/dvr';
 import { shouldBeEqualTo } from '../../extension/vjf';
 
-const fields = ['username', 'email', 'password', 'passwordConfirm', 'terms'];
+import dvr from '../../../../src/validators/DVR';
+import vjf from '../../../../src/validators/VJF';
+
+const fields = [
+  'username',
+  'email',
+  'password',
+  'passwordConfirm',
+  'terms',
+];
 
 const values = {
   username: 'SteveJobs',
@@ -35,10 +44,11 @@ class NewForm extends Form {
 
   plugins() {
     return {
-      dvr: {
+      vjf: vjf(),
+      dvr: dvr({
         package: validatorjs,
         extend: dvrExtend,
-      },
+      }),
     };
   }
 

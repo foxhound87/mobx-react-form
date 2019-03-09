@@ -1,67 +1,76 @@
 import _ from 'lodash';
-import utils from '../utils';
+
+const isPromise = obj => (!!obj && typeof obj.then === 'function'
+  && (typeof obj === 'object' || typeof obj === 'function'));
 
 /**
   Schema Validation Keywords
 
     const plugins = {
-      svk: {
+      svk: svk({
         package: ajv,
         extend: callback,
-      },
+      }),
     };
 
 */
-export default class SVK {
-
-  validate = null;
-
-  extend = null;
+class SVK {
 
   promises = [];
 
-  schema = {};
+  config = null;
 
-  options;
+  state = null;
 
-  constructor(plugin, obj = {}) {
-    this.assignInitData(plugin, obj);
-    this.initAJV(plugin);
-  }
+  extend = null;
 
-  assignInitData(plugin, { options = {}, schema = {}, promises = [] }) {
-    options.set({
-      ajv: {
-        v5: true,
-        allErrors: true,
-        coerceTypes: true,
-        errorDataPath: 'property',
-      },
-    });
+  validator = null;
 
-    this.options = options;
-    this.schema = schema;
+  schema = null;
+
+  constructor({
+    config = {},
+    state = {},
+    promises = []
+  }) {
+    this.state = state;
     this.promises = promises;
-    this.extend = plugin.extend;
+    this.extend = config.extend;
+    this.schema = config.schema;
+    this.initAJV(config);
   }
 
-  initAJV(plugin) {
-    if (!this.schema) return;
+  extendOptions(options = {}) {
+    return Object.assign(options, {
+      allowRequired: _.get(options, 'allowRequired') || false,
+      errorDataPath: 'property',
+      allErrors: true,
+      coerceTypes: true,
+      v5: true,
+    });
+  }
+
+  initAJV(config, form) {
     // get ajv package
-    const AJV = plugin.package || plugin;
+    const ajv = config.package || config;
     // create ajv instance
-    const ajvInstance = new AJV(this.options.get('ajv'));
+    const validator = new ajv(this.extendOptions(config.options));
     // extend ajv using "extend" callback
-    if (_.isFunction(this.extend)) this.extend(ajvInstance);
-    // create ajvInstance validator (compiling rules)
-    this.validate = ajvInstance.compile(this.schema);
+    if (_.isFunction(this.extend)) {
+      this.extend({
+        form: this.state.form,
+        validator,
+      });
+    }
+    // create ajv validator (compiling rules)
+    this.validator = validator.compile(this.schema);
   }
 
   validateField(field) {
     const data = { [field.path]: field.validatedValue };
-    const validate = this.validate(this.parseValues(data));
+    const validate = this.validator(this.parseValues(data));
     // check if is $async schema
-    if (utils.isPromise(validate)) {
+    if (isPromise(validate)) {
       const $p = validate
         .then(() => field.setValidationAsyncData(true))
         .catch(err => err && this.handleAsyncError(field, err.errors))
@@ -73,7 +82,7 @@ export default class SVK {
       return;
     }
     // check sync errors
-    this.handleSyncError(field, this.validate.errors);
+    this.handleSyncError(field, this.validator.errors);
   }
 
   handleSyncError(field, errors) {
@@ -116,9 +125,14 @@ export default class SVK {
   }
 
   parseValues(values) {
-    if (this.options.get('allowRequired') === true) {
+    if (_.get(this.config, 'options.allowRequired') === true) {
       return _.omitBy(values, (_.isEmpty || _.isNull || _.isUndefined || _.isNaN));
     }
     return values;
   }
 }
+
+export default (config) => ({
+  class: SVK,
+  config,
+});

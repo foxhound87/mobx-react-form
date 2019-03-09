@@ -1,11 +1,14 @@
 import { expect } from 'chai';
 
 export default ($) => {
-  describe('Form validate()', () => {
+  describe('Nested Form validate()', () => {
     // $R
     it('$R validate() should be true', (done) => {
-      $.$R.validate({ showErrors: true }).then(({ isValid }) => {
+      $.$R.validate({ showErrors: true }).then(({ isValid, hasError }) => {
         expect(isValid).to.be.true; // eslint-disable-line
+        expect(hasError).to.be.false; // eslint-disable-line
+        expect($.$R.isValid).to.be.true; // eslint-disable-line
+        expect($.$R.hasError).to.be.false; // eslint-disable-line
         expect($.$R.errors().email).to.be.null; // eslint-disable-line
         expect($.$R.$('email').errors()).to.be.null; // eslint-disable-line
         done();

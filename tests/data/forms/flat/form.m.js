@@ -4,20 +4,15 @@ import validatorjs from 'validatorjs';
 import { Form } from '../../../../src';
 import dvrExtend from '../../extension/dvr';
 
-const plugins = {
-  svk: ajv,
-  dvr: {
-    package: validatorjs,
-    extend: dvrExtend,
-  },
-};
+import dvr from '../../../../src/validators/DVR';
+import svk from '../../../../src/validators/SVK';
 
 const fields = {
   username: {
     label: 'Username',
     value: 'SteveJobs',
     default: 'Claudio',
-    rules: 'checkUser',
+    rules: 'checkUser:ignoreCase',
   },
   email: {
     label: 'Email',
@@ -33,12 +28,22 @@ const schema = {
   type: 'object',
   properties: {
     username: { type: 'string', minLength: 6, maxLength: 20 },
-    email: {
-      type: 'string', format: 'email', minLength: 5, maxLength: 20,
-    },
+    email: { type: 'string', format: 'email', minLength: 5, maxLength: 20 },
     password: { type: 'string', minLength: 6, maxLength: 20 },
   },
 };
+
+const plugins = {
+  svk: svk({
+    package: ajv,
+    schema,
+  }),
+  dvr: dvr({
+    package: validatorjs,
+    extend: dvrExtend,
+  }),
+};
+
 
 class NewForm extends Form {
 
@@ -53,4 +58,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, schema }, { plugins, name: 'Flat-M' });
+export default new NewForm({ fields }, { plugins, name: 'Flat-M' });

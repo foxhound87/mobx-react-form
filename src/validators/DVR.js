@@ -4,84 +4,97 @@ import _ from 'lodash';
   Declarative Validation Rules
 
     const plugins = {
-      dvr: {
+      dvr: dvr({
         package: validatorjs,
         extend: callback,
-      },
+      }),
     };
 
 */
-export default class DVR {
+class DVR {
 
   promises = [];
 
-  asyncRules = [];
+  config = null;
 
-  validators = {};
-
-  validator = null;
+  state = null;
 
   extend = null;
 
-  options;
+  validator = null;
 
-  constructor(plugin, obj = {}) {
-    this.assignInitData(plugin, obj);
+  constructor({
+    config = {},
+    state = {},
+    promises = [],
+  }) {
+    this.state = state;
+    this.promises = promises;
+    this.extend = config.extend;
+    this.validator = config.package || config;
     this.extendValidator();
   }
 
-  assignInitData(plugin, { options = {}, promises = [] }) {
-    this.options = options;
-    this.promises = promises;
-    this.extend = plugin.extend;
-    this.validator = plugin.package || plugin;
-  }
-
   extendValidator() {
-    // extend the validator with custom "registerAsyncRule" method
-    _.extend(this.validator, {
-      registerAsyncRule: (key, callback) => this.registerAsyncRule(key, callback),
-    });
     // extend using "extend" callback
-    if (_.isFunction(this.extend)) this.extend(this.validator);
+    if (_.isFunction(this.extend)) {
+      this.extend({
+        validator: this.validator,
+        form: this.state.form,
+      });
+    }
   }
 
-  validateField(field, form) {
+  validateField(field) {
     // get form fields data
-    const data = {}; // eslint-disable-next-line
-    form.each($field => (data[$field.path] = $field.validatedValue));
-    this.validateFieldAsync(field, form, data);
-    this.validateFieldSync(field, form, data);
+    const data = this.state.form.validatedValues;
+    this.validateFieldAsync(field, data);
+    this.validateFieldSync(field, data);
   }
 
-  validateFieldSync(field, form, data) {
+  makeLabels(validation, field) {
+    const labels = { [field.path]: field.label };
+    _.forIn(validation.rules[field.path], (rule) => {
+      if (typeof rule.value === 'string' && rule.name.match(/^(required_|same|different)/)) {
+        _.forIn(rule.value.split(','), (p, i) => {
+          if (!rule.name.match(/^required_(if|unless)/) || (i % 2 === 0)) {
+            const f = this.state.form.$(p);
+            if (f && f.path && f.label) {
+              labels[f.path] = f.label;
+            }
+          }
+        });
+      }
+    });
+    validation.setAttributeNames(labels);
+  }
+
+  validateFieldSync(field, data) {
     const $rules = this.rules(field.rules, 'sync');
     // exit if no rules found
     if (_.isEmpty($rules[0])) return;
     // get field rules
     const rules = { [field.path]: $rules };
     // create the validator instance
-    const Validator = this.validator;
-    const validation = new Validator(data, rules);
+    const validation = new this.validator(data, rules);
     // set label into errors messages instead key
-    validation.setAttributeNames({ [field.path]: field.label });
+    this.makeLabels(validation, field);
     // check validation
     if (validation.passes()) return;
     // the validation is failed, set the field error
     field.invalidate(_.first(validation.errors.get(field.path)));
   }
 
-  validateFieldAsync(field, form, data) {
+  validateFieldAsync(field, data) {
     const $rules = this.rules(field.rules, 'async');
     // exit if no rules found
     if (_.isEmpty($rules[0])) return;
     // get field rules
     const rules = { [field.path]: $rules };
     // create the validator instance
-    const Validator = this.validator;
-    const validation = new Validator(data, rules);
+    const validation = new this.validator(data, rules);
     // set label into errors messages instead key
-    validation.setAttributeNames({ [field.path]: field.label });
+    this.makeLabels(validation, field);
 
     const $p = new Promise(resolve =>
       validation.checkAsync(
@@ -111,15 +124,18 @@ export default class DVR {
     }
   }
 
-  registerAsyncRule(key, callback) {
-    this.asyncRules.push(key);
-    this.validator.registerAsync(key, callback);
-  }
 
   rules(rules, type) {
     const $rules = _.isString(rules) ? _.split(rules, '|') : rules;
-    if (type === 'sync') return _.difference($rules, this.asyncRules);
-    if (type === 'async') return _.intersection($rules, this.asyncRules);
-    return [];
+    // eslint-disable-next-line new-cap
+    const v = new this.validator();
+    return _.filter($rules, $rule => type === 'async'
+      ? v.getRule(_.split($rule, ':')[0]).async
+      : !v.getRule(_.split($rule, ':')[0]).async);
   }
 }
+
+export default (config) => ({
+  class: DVR,
+  config,
+});

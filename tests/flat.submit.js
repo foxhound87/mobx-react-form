@@ -3,13 +3,23 @@ import { expect } from 'chai';
 import $ from './data/_.flat'; // FORMS
 
 describe('Form submit() decoupled callback', () => {
+  // $A
+  it('$A.submit() should call onSuccess callback on valid form', (done) => {
+    $.$A.submit({
+      onSuccess: (form) => {
+        expect(form.submitted).to.equal(1);
+        expect(form.isValid).to.be.true;
+        done();
+      },
+    });
+  });
+
   // $I
   it('$I.submit() should call onSuccess callback on valid form', (done) => {
     $.$I.submit({
       onSuccess: (form) => {
-        expect(form.$submitCount).to.equal(1);
-        expect(form.hasSubmitted).to.be.true; // eslint-disable-line
-        expect(form.isValid).to.be.true; // eslint-disable-line
+        expect(form.submitted).to.equal(1);
+        expect(form.isValid).to.be.true;
         done();
       },
     });
@@ -19,9 +29,8 @@ describe('Form submit() decoupled callback', () => {
   it('$N.submit() should call onError callback on invalid form', (done) => {
     $.$N.submit({
       onError: (form) => {
-        expect(form.$submitCount).to.equal(1);
-        expect(form.hasSubmitted).to.be.true; // eslint-disable-line
-        expect(form.isValid).to.be.false; // eslint-disable-line
+        expect(form.submitted).to.equal(1);
+        expect(form.isValid).to.be.false;
         done();
       },
     });

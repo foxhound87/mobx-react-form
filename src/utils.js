@@ -1,30 +1,7 @@
 import _ from 'lodash';
 import { values as mobxValues, keys as mobxKeys } from 'mobx';
 
-const props = {
-  booleans: ['hasError', 'isValid', 'isDirty', 'isPristine', 'isDefault', 'isEmpty', 'focused', 'touched', 'changed', 'disabled', 'resetting', 'clearing', 'blurred', 'hasSubmitted'],
-  field: ['value', 'initial', 'default', 'label', 'placeholder', 'disabled', 'related', 'options', 'extra', 'bindings', 'type', 'hooks', 'handlers', 'error'],
-  separated: ['values', 'initials', 'defaults', 'labels', 'placeholders', 'disabled', 'related', 'options', 'extra', 'bindings', 'types', 'hooks', 'handlers'],
-  handlers: ['onChange', 'onToggle', 'onFocus', 'onBlur', 'onDrop', 'onSubmit', 'onReset', 'onClear', 'onAdd', 'onDel'],
-  function: ['observers', 'interceptors', 'input', 'output'],
-  validation: ['rules', 'validators', 'validateWith'],
-  types: {
-    isDirty: 'some',
-    isValid: 'every',
-    isPristine: 'every',
-    isDefault: 'every',
-    isEmpty: 'every',
-    blurred: 'some',
-    hasError: 'some',
-    focused: 'some',
-    touched: 'some',
-    changed: 'some',
-    hasSubmitted: 'some',
-    disabled: 'every',
-    clearing: 'every',
-    resetting: 'every',
-  },
-};
+import props from './props';
 
 const getObservableMapValues = observableMap =>
   mobxValues

@@ -155,9 +155,11 @@ describe('Check Nested $P Values after reset', () => {
 });
 
 describe('Check Nested $R values()', () => {
-  // retrieveOnlyDirtyValues: true
   it('$R values() should be empty object', () =>
-    expect($.$R.values()).to.be.empty);
+    expect($.$R.values()).to.be.deep.equal($.$R.initials()));
+
+    it('$R (members).value should be equal to (members).initial', () =>
+    expect($.$R.$('members').value).to.be.deep.equal($.$R.$('members').initial));
 });
 
 describe('Check Nested $Q Values after reset', () => {

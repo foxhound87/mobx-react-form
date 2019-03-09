@@ -270,3 +270,8 @@ describe('Check Fixes $425 values', () => {
         '3a': ' ',
       }));
 });
+
+describe('$481 Field values checks', () => {
+  it('$481 length value should be equal to "0"', () =>
+    expect($.$481.$('length').value).to.be.equal(0));
+});

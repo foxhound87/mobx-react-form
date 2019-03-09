@@ -1,5 +1,10 @@
 import { Form } from '../../../../src';
 import { isInt } from '../../extension/vjf';
+import vjf from '../../../../src/validators/VJF';
+
+const plugins = {
+  vjf: vjf()
+};
 
 const fields = {
   state: {
@@ -44,4 +49,4 @@ const validators = {
   'state.city.places': isInt,
 };
 
-export default new Form({ fields, validators }, { name: 'Nested-H' });
+export default new Form({ fields, validators }, { plugins, name: 'Nested-H' });

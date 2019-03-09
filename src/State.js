@@ -7,11 +7,11 @@ import utils from './utils';
 
 export default class State {
 
+  mode = 'mixed';
+
   strict = false;
 
   form;
-
-  mode;
 
   options;
 

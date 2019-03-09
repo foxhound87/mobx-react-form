@@ -2,7 +2,8 @@ import ajv from 'ajv';
 import { Form } from '../../../../src';
 import { checkUser } from '../../extension/vjf';
 
-const plugins = { svk: ajv };
+import svk from '../../../../src/validators/SVK';
+import vjf from '../../../../src/validators/VJF';
 
 const fields = {
   username: {
@@ -24,11 +25,17 @@ const schema = {
   type: 'object',
   properties: {
     username: { type: 'string', minLength: 6, maxLength: 20 },
-    email: {
-      type: 'string', format: 'email', minLength: 5, maxLength: 20,
-    },
+    email: { type: 'string', format: 'email', minLength: 5, maxLength: 20 },
     password: { type: 'string', minLength: 6, maxLength: 20 },
   },
+};
+
+const plugins = {
+  vjf: vjf(),
+  svk: svk({
+    package: ajv,
+    schema
+  }),
 };
 
 class NewForm extends Form {
@@ -45,4 +52,4 @@ class NewForm extends Form {
 }
 
 
-export default new NewForm({ fields, schema }, { plugins, name: 'Flat-N' });
+export default new NewForm({ fields }, { plugins, name: 'Flat-N' });

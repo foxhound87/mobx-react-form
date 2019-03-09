@@ -1,61 +1,82 @@
 import _ from 'lodash';
 import { toJS } from 'mobx';
-import utils from '../utils';
+
+const isPromise = obj => (!!obj && typeof obj.then === 'function'
+  && (typeof obj === 'object' || typeof obj === 'function'));
 
 /**
   Vanilla JavaScript Functions
+
+    const plugins = {
+      vkf: vkf({
+        package: validator,
+      }),
+    };
+
 */
-export default class VJF {
+class VJF {
+
+  promises = [];
+
+  config = null;
+
+  state = null;
+
+  extend = null;
 
   validator = null;
 
-  options;
-
-  constructor(plugin, { promises = [], options = {} }) {
-    if (_.isPlainObject(plugin)) {
-      this.validator = plugin;
-    }
-
+  constructor({
+    config = {},
+    state = {},
+    promises = []
+  }) {
+    this.state = state;
     this.promises = promises;
-    this.options = options;
+    this.extend = config.extend;
+    this.validator = config.package || config;
+    this.extendValidator();
   }
 
-  validateField(field, form) {
+  extendValidator() {
+    // extend using "extend" callback
+    if (_.isFunction(this.extend)) {
+      this.extend({
+        validator: this.validator,
+        form: this.state.form,
+      });
+    }
+  }
+
+  validateField(field) {
     // exit if field does not have validation functions
     if (!field.validators) return;
-
     // get validators from validate property
     const $fn = toJS(field.validators);
-
     // map only if is an array of validator functions
     if (_.isArray($fn)) {
-      $fn.map(fn => this.collectData(fn, field, form));
+      $fn.map(fn => this.collectData(fn, field));
     }
-
     // it's just one function
     if (_.isFunction($fn)) {
-      this.collectData($fn, field, form);
+      this.collectData($fn, field);
     }
-
-    // execute the function validation
+    // execute the validation function
     this.executeValidation(field);
   }
 
-  collectData($fn, field, form) {
-    const res = this.handleFunctionResult($fn, field, form);
-
+  collectData($fn, field) {
+    const res = this.handleFunctionResult($fn, field);
     // check and execute only if is a promise
-    if (utils.isPromise(res)) {
+    if (isPromise(res)) {
       const $p = res
         .then($res => field.setValidationAsyncData($res[0], $res[1]))
         .then(() => this.executeAsyncValidation(field))
         .then(() => field.showAsyncErrors());
-
       // push the promise into array
       this.promises.push($p);
       return;
     }
-
     // is a plain function
     field.validationFunctionsData.unshift({
       valid: res[0],
@@ -76,9 +97,13 @@ export default class VJF {
     }
   }
 
-  handleFunctionResult($fn, field, form) {
+  handleFunctionResult($fn, field) {
     // executre validation function
-    const res = $fn({ field, form, validator: this.validator });
+    const res = $fn({
+      validator: this.validator,
+      form: this.state.form,
+      field,
+    });
 
     /**
       Handle "array"
@@ -106,7 +131,7 @@ export default class VJF {
     /**
       Handle "object / promise"
     */
-    if (utils.isPromise(res)) {
+    if (isPromise(res)) {
       return res; // the promise
     }
 
@@ -116,3 +141,8 @@ export default class VJF {
     return [false, 'Error'];
   }
 }
+
+export default (config) => ({
+  class: VJF,
+  config,
+});

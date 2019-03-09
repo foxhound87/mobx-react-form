@@ -1,3 +1,14 @@
+# 1.38
+* introduced `validateDeletedFields` form option
+
+# 1.37
+* decoupled validation plugins drivers
+* introduced `yup` validation plugin
+* changed validation plugins `extend` callback props
+* AJV schema definition moved to plugin setup
+* introduced `softDelete` option
+* introduced `submitted` & `validated` prop
+
 # 1.35
 * mobx5 support
 * Introduced observable `type` field prop

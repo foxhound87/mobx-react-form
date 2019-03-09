@@ -1,4 +1,5 @@
 import validatorjs from 'validatorjs';
+import dvr from '../../../../src/validators/DVR';
 import { Form } from '../../../../src';
 
 const fields = [
@@ -43,7 +44,7 @@ class NewForm extends Form {
 
   plugins() {
     return {
-      dvr: validatorjs,
+      dvr: dvr(validatorjs),
     };
   }
 

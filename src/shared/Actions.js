@@ -19,6 +19,7 @@ export default {
   @action
   submit(o = {}) {
     this.$submitting = true;
+    this.$submitted += 1;
 
     this.$submitCount += 1;
 
@@ -67,11 +68,12 @@ export default {
   },
 
   deepCheck(type, prop, fields) {
-    return _.reduce(utils.getObservableMapValues(fields), (check, field) => {
-      if (field.fields.size === 0) {
+    const $fields = utils.getObservableMapValues(fields);
+    return _.transform($fields, (check, field) => {
+      if (!field.fields.size || utils.props.exceptions.includes(prop)) {
         check.push(field[prop]);
-        return check;
       }
+
       const $deep = this.deepCheck(type, prop, field.fields);
       check.push(utils.checkPropType({ type, data: $deep }));
       return check;
@@ -161,7 +163,7 @@ export default {
     Get Fields Props Recursively
    */
   deepGet(prop, fields) {
-    return _.reduce(utils.getObservableMapValues(fields), (obj, field) => {
+    return _.transform(utils.getObservableMapValues(fields), (obj, field) => {
       const $nested = $fields => ($fields.size !== 0)
         ? this.deepGet(prop, $fields)
         : undefined;
@@ -172,8 +174,9 @@ export default {
 
       if (_.isString(prop)) {
         const removeValue = (prop === 'value') &&
-          ((this.state.options.get('retrieveOnlyDirtyValues', this) && field.isPristine) ||
-          (this.state.options.get('retrieveOnlyEnabledFields', this) && field.disabled));
+         ((this.state.options.get('retrieveOnlyDirtyValues', this) && field.isPristine) ||
+          (this.state.options.get('retrieveOnlyEnabledFields', this) && field.disabled) ||
+          (this.state.options.get('softDelete', this) && field.deleted));
 
         if (field.fields.size === 0) {
           delete obj[field.key]; // eslint-disable-line
@@ -279,17 +282,21 @@ export default {
   del($path = null) {
     const isStrict = this.state.options.get('strictDelete', this);
     const path = parser.parsePath(utils.$try($path, this.path));
+    const fullpath = _.trim([this.path, path].join('.'), '.');
     const container = this.container($path);
     const keys = _.split(path, '.');
     const last = _.last(keys);
 
     if (isStrict && !container.fields.has(last)) {
       const msg = `Key "${last}" not found when trying to delete field`;
-      const fullpath = _.trim([this.path, path].join('.'), '.');
       utils.throwError(fullpath, null, msg);
     }
 
-    container.fields.delete(last);
+    if (this.state.options.get('softDelete', this)) {
+      return this.select(fullpath).set('deleted', true);
+    }
+
+    return container.fields.delete(last);
   },
 
 };

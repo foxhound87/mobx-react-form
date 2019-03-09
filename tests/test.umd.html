@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>MobX React Form (UMD)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <script src="https://unpkg.com/lodash@4.17.11/lodash.min.js"></script>
+    <script src="https://unpkg.com/mobx@5.8.0/lib/mobx.umd.js"></script>
+    <script src="../umd/MobxReactForm.umd.js"></script>
+    <script src="../umd/MobxReactFormValidatorDVR.umd.js"></script>
+    <script src="https://unpkg.com/validatorjs@3.15.1/dist/validator.js"></script>
+    <script>
+        /* eslint no-console: 0 */
+        /* eslint no-undef: 0 */
+
+        const { Form } = MobxReactForm;
+        console.log('lodash', _ && '- READY');
+        console.log('mobx', mobx && '- READY');
+        console.log('MobxReactForm', MobxReactForm && '- READY');
+        console.log('MobxReactFormValidatorDVR', MobxReactFormValidatorDVR && '- READY');
+        console.log('Validator', Validator && '- READY');
+
+        const form = new Form({
+          fields: {
+            email: {
+              value: 'test-test.com',
+              label: 'Email',
+              rules: 'required|email',
+            },
+          },
+        }, {
+          name: 'Flat-A',
+          options: {
+            showErrorsOnInit: true,
+            validateOnInit: true,
+          },
+          plugins: {
+            dvr: MobxReactFormValidatorDVR({
+              package: Validator
+            })
+          },
+        });
+
+        console.log('form.isValid', form.isValid);
+        console.log('form.values()', form.values());
+        console.log('form.errors()', form.errors());
+    </script>
+  </body>
+</html>

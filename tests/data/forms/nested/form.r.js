@@ -1,10 +1,11 @@
 import { expect } from 'chai';
 import validatorjs from 'validatorjs';
 import { Form } from '../../../../src';
+import dvr from '../../../../src/validators/DVR';
 
-const plugins = { dvr: validatorjs };
-
-const options = { retrieveOnlyDirtyValues: true };
+const plugins = {
+  dvr: dvr({ package: validatorjs })
+};
 
 const fields = [
   'club.name',
@@ -64,5 +65,11 @@ const hooks = {
 };
 
 export default new Form({
-  fields, rules, values, hooks,
-}, { plugins, options, name: 'Nested-R' });
+  fields,
+  rules,
+  values,
+  hooks,
+}, {
+  name: 'Nested-R',
+  plugins,
+});

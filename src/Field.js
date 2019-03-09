@@ -10,11 +10,11 @@ import {
 
 import {
   parseInput,
+  parseCheckOutput,
   defaultClearValue } from './parser';
 
 const setupFieldProps = (instance, props, data) =>
   Object.assign(instance, {
-    $value: instance.$initial,
     $label: props.$label || data.label || '',
     $placeholder: props.$placeholder || data.placeholder || '',
     $disabled: props.$disabled || data.disabled || false,
@@ -32,13 +32,14 @@ const setupFieldProps = (instance, props, data) =>
   });
 
 const setupDefaultProp = (instance, data, props, update, {
-  isEmptyArray, checkArray,
+  isEmptyArray,
 }) => parseInput(instance.$input, {
+  nullable: true,
   isEmptyArray,
   type: instance.type,
-  unified: update ? '' : checkArray(data.default),
-  separated: checkArray(props.$default),
-  initial: checkArray(instance.$initial),
+  unified: update ? '' : data.default,
+  separated: props.$default,
+  fallback: instance.$initial,
 });
 
 export default class Field extends Base {
@@ -82,9 +83,8 @@ export default class Field extends Base {
   @observable $touched = false;
   @observable $changed = false;
   @observable $blurred = false;
+  @observable $deleted = false;
 
-  @observable $submitting = false;
-  @observable $validating = false;
   @observable $clearing = false;
   @observable $resetting = false;
 
@@ -108,7 +108,7 @@ export default class Field extends Base {
     this.state = state;
 
     this.setupField(key, path, data, props, update);
-    this.checkDVRValidationPlugin();
+    this.checkValidationPlugins();
     this.initNestedFields(data, update);
 
     this.incremental = (this.hasIncrementalKeys !== 0);
@@ -163,15 +163,19 @@ export default class Field extends Base {
   }
 
   @computed get initial() {
-    return this.getComputedProp('initial');
+    return this.$initial
+      ? toJS(this.$initial)
+      : this.getComputedProp('initial');
+  }
+
+  @computed get default() {
+    return this.$default
+      ? toJS(this.$default)
+      : this.getComputedProp('default');
   }
 
   set initial(val) {
     this.$initial = parseInput(this.$input, { separated: val });
-  }
-
-  @computed get default() {
-    return this.getComputedProp('default');
   }
 
   set default(val) {
@@ -180,14 +184,6 @@ export default class Field extends Base {
 
   @computed get actionRunning() {
     return (this.submitting || this.clearing || this.resetting);
-  }
-
-  @computed get submitting() {
-    return toJS(this.$submitting);
-  }
-
-  @computed get validating() {
-    return toJS(this.$validating);
   }
 
   @computed get type() {
@@ -231,7 +227,7 @@ export default class Field extends Base {
   }
 
   @computed get validatedValue() {
-    return this[this.$validatedWith];
+    return parseCheckOutput(this, this.$validatedWith)
   }
 
   @computed get error() {
@@ -249,22 +245,27 @@ export default class Field extends Base {
       && this.check('isValid', true);
   }
 
+  @computed get isDefault() {
+    return !_.isNil(this.default) &&
+      _.isEqual(this.default, this.value);
+  }
+
   @computed get isDirty() {
-    return this.hasNestedFields
-      ? this.check('isDirty', true)
-      : !_.isEqual(this.$default, this.value);
+    return !_.isNil(this.initial) &&
+      !_.isEqual(this.initial, this.value);
   }
 
   @computed get isPristine() {
-    return this.hasNestedFields
-      ? this.check('isPristine', true)
-      : _.isEqual(this.$default, this.value);
+    return !_.isNil(this.initial) &&
+      _.isEqual(this.initial, this.value) ;
   }
 
-  @computed get isDefault() {
-    return this.hasNestedFields
-      ? this.check('isDefault', true)
-      : _.isEqual(this.$default, this.value);
+  @computed get isEmpty() {
+    if (this.hasNestedFields) return this.check('isEmpty', true);
+    if (_.isBoolean(this.value)) return !!this.$value;
+    if (_.isNumber(this.value)) return false;
+    if (_.isDate(this.value)) return false;
+    return _.isEmpty(this.value);
   }
 
   @computed get resetting() {
@@ -277,14 +278,6 @@ export default class Field extends Base {
     return this.hasNestedFields
       ? this.check('clearing', true)
       : this.$clearing;
-  }
-
-  @computed get isEmpty() {
-    if (this.hasNestedFields) return this.check('isEmpty', true);
-    if (_.isBoolean(this.value)) return !!this.$value;
-    if (_.isNumber(this.value)) return false;
-    if (_.isDate(this.value)) return false;
-    return _.isEmpty(this.value);
   }
 
   @computed get focused() {
@@ -309,6 +302,12 @@ export default class Field extends Base {
     return this.hasNestedFields
       ? this.check('changed', true)
       : this.$changed;
+  }
+
+  @computed get deleted() {
+    return this.hasNestedFields
+      ? this.check('deleted', true)
+      : this.$deleted;
   }
 
   /* ------------------------------------------------------------------ */
@@ -388,41 +387,38 @@ export const prototypes = {
     this.path = $path;
     this.id = this.state.options.get('uniqueId').apply(this, [this]);
     const isEmptyArray = (_.has($data, 'fields') && _.isArray($data.fields));
-    const checkArray = val => isEmptyArray ? [] : val;
-
-    const {
-      $value,
-      $type,
-      $input,
-      $output,
-    } = $props;
+    const { $type, $input, $output } = $props;
 
     // eslint-disable-next-line
     if (_.isNil($data)) $data = '';
 
     if (_.isPlainObject($data)) {
-      const {
-        value,
-        type,
-        input,
-        output,
-      } = $data;
+      const { type, input, output } = $data;
 
       this.name = _.toString($data.name || $key);
       this.$type = $type || type || 'text';
       this.$input = $try($input, input, this.$input);
       this.$output = $try($output, output, this.$output);
 
-      this.$initial = parseInput(this.$input, {
+      this.$value = parseInput(this.$input, {
         isEmptyArray,
         type: this.type,
-        unified: checkArray(value),
-        separated: checkArray($props.$initial),
-        initial: checkArray($data.initial),
+        unified: $data.value,
+        separated: $props.$value,
+        fallback: $props.$initial,
+      });
+
+      this.$initial = parseInput(this.$input, {
+        nullable: true,
+        isEmptyArray,
+        type: this.type,
+        unified: $data.initial,
+        separated: $props.$initial,
+        fallback: this.$value,
       });
 
       this.$default = setupDefaultProp(this, $data, $props, update, {
-        isEmptyArray, checkArray,
+        isEmptyArray,
       });
 
       setupFieldProps(this, $props, $data);
@@ -435,15 +431,24 @@ export const prototypes = {
     this.$input = $try($input, this.$input);
     this.$output = $try($output, this.$output);
 
-    this.$initial = parseInput(this.$input, {
+    this.$value = parseInput(this.$input, {
       isEmptyArray,
       type: this.type,
-      unified: checkArray($data),
-      separated: checkArray($value),
+      unified: $data,
+      separated: $props.$value,
+    });
+
+    this.$initial = parseInput(this.$input, {
+      nullable: true,
+      isEmptyArray,
+      type: this.type,
+      unified: $data,
+      separated: $props.$initial,
+      fallback: this.$value,
     });
 
     this.$default = setupDefaultProp(this, $data, $props, update, {
-      isEmptyArray, checkArray,
+      isEmptyArray,
     });
 
     setupFieldProps(this, $props, $data);
@@ -467,15 +472,16 @@ export const prototypes = {
     return toJS(val);
   },
 
-  checkDVRValidationPlugin() {
+  checkValidationPlugins() {
     const { drivers } = this.state.form.validator;
+    const form = this.state.form.name ? `${this.state.form.name}/` : '';
+
     if (_.isNil(drivers.dvr) && !_.isNil(this.rules)) {
-      // eslint-disable-next-line
-      console.warn(
-        'The DVR validation rules are defined',
-        'but no plugin provided (DVR). Field:',
-        this.path,
-      );
+      throw new Error(`The DVR validation rules are defined but no DVR plugin provided. Field: "${form + this.path}".`);
+    }
+
+    if (_.isNil(drivers.vjf) && !_.isNil(this.validators)) {
+      throw new Error(`The VJF validators functions are defined but no VJF plugin provided. Field: "${form + this.path}".`);
     }
   },
 
@@ -533,7 +539,7 @@ export const prototypes = {
     this.$value = defaultClearValue({ value: this.$value });
     this.files = undefined;
 
-    if (deep) this.each(field => field.clear(true, false));
+    if (deep) this.each(field => field.clear(true));
 
     this.validate({
       showErrors: this.state.options.get('showErrorsOnClear', this),
@@ -552,7 +558,7 @@ export const prototypes = {
     if (!useDefaultValue) this.value = this.$initial;
     this.files = undefined;
 
-    if (deep) this.each(field => field.reset(true, false));
+    if (deep) this.each(field => field.reset(true));
 
     this.validate({
       showErrors: this.state.options.get('showErrorsOnReset', this),

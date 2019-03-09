@@ -1,4 +1,7 @@
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
 import { join } from 'path';
+
+const MINIFY = (process.env.MINIFY === 'YES');
 
 const loaders = [{
   test: /\.js$/,
@@ -11,10 +14,17 @@ const loaders = [{
 
 export default {
   devtool: 'source-map',
-  entry: './src/index',
+  entry: {
+    MobxReactForm: './src/index',
+    MobxReactFormValidatorVJF: './src/validators/VJF',
+    MobxReactFormValidatorDVR: './src/validators/DVR',
+    MobxReactFormValidatorSVK: './src/validators/SVK',
+    MobxReactFormValidatorYUP: './src/validators/YUP',
+  },
   output: {
     path: join(__dirname, 'umd'),
-    library: 'MobxReactForm',
+		filename: MINIFY ? '[name].umd.min.js' : '[name].umd.js',
+    library: '[name]',
     libraryTarget: 'umd',
   },
   resolve: {
@@ -23,6 +33,8 @@ export default {
   },
   externals: {
     mobx: 'mobx',
+    lodash: '_',
   },
   module: { loaders },
+  plugins: [new LodashModuleReplacementPlugin]
 };

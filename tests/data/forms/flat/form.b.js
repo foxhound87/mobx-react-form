@@ -4,18 +4,8 @@ import validatorjs from 'validatorjs';
 import { Form } from '../../../../src';
 import svkExtend from '../../extension/svk';
 
-const options = {
-  alwaysShowDefaultError: true,
-  defaultGenericError: 'Custom Generic Error',
-};
-
-const plugins = {
-  dvr: validatorjs,
-  svk: {
-    package: ajv,
-    extend: svkExtend,
-  },
-};
+import dvr from '../../../../src/validators/DVR';
+import svk from '../../../../src/validators/SVK';
 
 const fields = {
   username: {
@@ -43,4 +33,18 @@ const schema = {
   },
 };
 
-export default new Form({ fields, schema }, { options, plugins, name: 'Flat-B' });
+const plugins = {
+  dvr: dvr(validatorjs),
+  svk: svk({
+    schema,
+    package: ajv,
+    extend: svkExtend,
+  }),
+};
+
+const options = {
+  alwaysShowDefaultError: true,
+  defaultGenericError: 'Custom Generic Error',
+};
+
+export default new Form({ fields }, { options, plugins, name: 'Flat-B' });
