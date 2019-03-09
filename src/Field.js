@@ -608,30 +608,14 @@ export const prototypes = {
             showErrors: opt.get('showErrorsOnChange', this),
           }));
     } else if (opt.get('validateOnChangeAfterInitialBlur', this)) {
-      this.disposeValidationOnChange = observe(
-        this,
-        '$value',
-        () => {
-          if (this.actionRunning) {
-            return;
-          }
-
-          let shouldValidate = false;
-          if (opt.get('validateOnChangeAfterInitialBlur', this) && this.blurred) {
-            shouldValidate = true;
-          } else if (opt.get('validateOnChangeAfterSubmit', this) && this.state.form.hasSubmitted) {
-            shouldValidate = true;
-          }
-
-          if (!shouldValidate) {
-            return;
-          }
-
+      this.disposeValidationOnChange = observe(this, '$value', () =>
+        !this.actionRunning && (
+            (opt.get('validateOnChangeAfterInitialBlur', this) && this.blurred) ||
+            (opt.get('validateOnChangeAfterSubmit', this) && this.state.form.submitted)
+          ) &&
           this.debouncedValidation({
             showErrors: opt.get('showErrorsOnChange', this),
-          });
-        },
-      );
+          }));
     }
   },
 
