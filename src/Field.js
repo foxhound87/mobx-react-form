@@ -607,16 +607,20 @@ export const prototypes = {
           this.debouncedValidation({
             showErrors: opt.get('showErrorsOnChange', this),
           }));
-    } else if (opt.get('validateOnChangeAfterInitialBlur', this)) {
-      this.disposeValidationOnChange = observe(this, '$value', () =>
+    } else if (
+      opt.get('validateOnChangeAfterInitialBlur', this) ||
+      opt.get('validateOnChangeAfterSubmit', this)
+    ) {
+      this.disposeValidationOnChange = observe(this, '$value', () => (
         !this.actionRunning &&
         (
-          this.blurred ||
+          (opt.get('validateOnChangeAfterInitialBlur', this) && this.blurred) ||
           (opt.get('validateOnChangeAfterSubmit', this) && this.state.form.submitted)
         ) &&
         this.debouncedValidation({
           showErrors: opt.get('showErrorsOnChange', this),
-        }));
+        })
+      ));
     }
   },
 
