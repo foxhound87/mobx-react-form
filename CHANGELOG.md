@@ -1,3 +1,9 @@
+# 1.40
+* introduced `validateOnChangeAfterSubmit` form option
+
+# 1.39
+* reimplemented `initial`/`default` `isDirty`/`isPristine`
+
 # 1.38
 * introduced `validateDeletedFields` form option
 

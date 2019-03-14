@@ -1,4 +1,4 @@
-import { observable, action, toJS, extendObservable, set } from 'mobx';
+import { observable, action, toJS, extendObservable, set } from 'mobx3';
 import _ from 'lodash';
 import { uniqueId } from './utils';
 
@@ -28,7 +28,6 @@ export default class Options {
     retrieveOnlyDirtyValues: false,
     retrieveOnlyEnabledFields: false,
     autoParseNumbers: false,
-    allowRequired: false,
     validationDebounceWait: 250,
     validationDebounceOptions: {
       leading: false,

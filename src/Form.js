@@ -1,4 +1,4 @@
-import { action, computed, observable, asMap } from 'mobx';
+import { action, computed, observable, asMap } from 'mobx3';
 import _ from 'lodash';
 
 import Base from './Base';

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { toJS } from 'mobx';
+import { toJS } from 'mobx3';
 
 const isPromise = obj => (!!obj && typeof obj.then === 'function'
   && (typeof obj === 'object' || typeof obj === 'function'));
