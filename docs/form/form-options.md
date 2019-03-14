@@ -1,11 +1,12 @@
 # Form Options
 
-* [Options Object Properties](#options-object-properties)
-* [Set Options On Form Constructor](#set-options-on-form-constructor)
-* [Set Options On Extended Form Class](#set-options-on-extended-form-class)
-* [Set Options After Form Initialization](#set-options-after-form-initialization)
-* [Get Current Form Options](#get-current-form-options)
-* [Get Form Option by key](#get-form-option-by-key)
+- [Form Options](#form-options)
+    - [Options Object Properties](#options-object-properties)
+    - [Set Options On Form Constructor](#set-options-on-form-constructor)
+    - [Set Options On Extended Form Class](#set-options-on-extended-form-class)
+    - [Set Options After Form Initialization](#set-options-after-form-initialization)
+    - [Get Current Form Options](#get-current-form-options)
+    - [Get Form Option by key](#get-form-option-by-key)
 
 [![Edit form-options](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/x7omz8rv9o)
 
@@ -26,6 +27,7 @@
 | **validateOnInit** | boolean | true | Validate of the whole form `on init`. |
 | **validateOnBlur** | boolean | true | Validate fields value `on blur`. |
 | **validateOnChange** | boolean | false | Validate fields value `on change`. |
+| **validateOnChangeAfterSubmit** | boolean | false | Validate fields value `on change` after form submit. |
 | **validateOnChangeAfterInitialBlur** | boolean | false | Validate fields value `on blur` and then also `on change` only if already blurred. |
 | **validateDeletedFields** | boolean | false | Enable or disable field validation based on their `deleted` property. |
 | **validateDisabledFields** | boolean | false | Enable or disable field validation based on their `disabled` property. |
