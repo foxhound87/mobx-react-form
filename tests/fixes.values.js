@@ -275,3 +275,18 @@ describe('$481 Field values checks', () => {
   it('$481 length value should be equal to "0"', () =>
     expect($.$481.$('length').value).to.be.equal(0));
 });
+
+describe('separated has correct definition', () => {
+	it('', () => {
+    debugger
+    expect($.$492.$('club.name').value).to.be.equal('')
+    expect($.$492.$('club.city').value).to.be.equal('')
+    expect($.$492.values())
+      .to.be.deep.equal({
+        club: {
+          name: '',
+          city: ''
+        }
+      })
+  })
+});

@@ -16,7 +16,7 @@ const values = {
   nested: {
     field: 5,
   },
-  club: 'HELLO',
+  club: null,
   members: [{
     firstname: 'Clint',
     lastname: '',
