@@ -1,4 +1,4 @@
-import { observable, computed, toJS } from 'mobx3';
+import { observable, computed, toJS } from 'mobx';
 import _ from 'lodash';
 
 import {

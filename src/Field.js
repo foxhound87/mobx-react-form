@@ -1,4 +1,4 @@
-import { observable, observe, action, computed, isObservableArray, toJS, asMap, untracked } from 'mobx3';
+import { observable, observe, action, computed, isObservableArray, toJS, asMap, untracked } from 'mobx';
 import _ from 'lodash';
 import Base from './Base';
 

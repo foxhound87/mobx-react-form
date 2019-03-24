@@ -43,7 +43,7 @@ npm install --save mobx-react-form
 
 #### Choose and Setup a Validation Plugin
 
-> See [Validation Plugins](validation/plugins.html) for more info on supported packages.
+> See [Validation Plugins](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html) for more info on supported packages.
 
 Below we are creating a `plugins` object using the `validatorjs` package to enable `DVR` functionalities (Declarative Validation Rules).
 

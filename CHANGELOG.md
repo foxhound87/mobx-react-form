@@ -1,4 +1,4 @@
-# 1.40
+# 2.0
 * introduced `validateOnChangeAfterSubmit` form option
 
 # 1.39
