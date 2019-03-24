@@ -81,8 +81,8 @@ describe('Check Nested $N Values', () => {
   it('$N nested.field get(value) should be a number', () =>
     expect($.$N.$('nested.field').get('value')).to.be.a('number'));
 
-  it('$N club value should be equal to "HELLO"', () =>
-    expect($.$N.$('club').value).to.be.equal('HELLO'));
+  it('$N club value should be equal to empty object', () =>
+    expect($.$N.$('club').value).to.deep.equal({ name: '', city: '' }));
 
   it('$N members.0.firstname value should be equal to "Clint"', () =>
     expect($.$N.$('members.0.firstname').value).to.be.equal('Clint'));

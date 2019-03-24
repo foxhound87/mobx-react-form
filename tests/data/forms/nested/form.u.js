@@ -6,8 +6,8 @@ import vjf from '../../../../src/validators/VJF';
 const fields = [
   'user',
   // TO FIX
-  // 'user.email',
-  // 'user.emailConfirm',
+  'user.email',
+  'user.emailConfirm',
 ];
 
 const labels = {

@@ -183,7 +183,9 @@ const handleFieldsPropsFallback = (fields, initial) => {
   if (utils.hasUnifiedProps({ fields })) {
     values = reduceValuesToUnifiedFields(values);
   }
-  return _.merge(fields, values);
+  return _.merge(fields, _.transform(values, (result, v, k) => {
+    if (!(k in fields) || _.isArray(fields[k])) result[k] = v
+  }, {}));
 };
 
 const mergeSchemaDefaults = (fields, validator) => {
