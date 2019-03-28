@@ -1,4 +1,4 @@
-import { action } from 'mobx3';
+import { action } from 'mobx';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';
@@ -232,24 +232,28 @@ export default {
     const err = 'You are updating a not existent field:';
     const isStrict = this.state.options.get('strictUpdate', this);
 
+    if (_.isNil(data)) {
+      this.each(field => field.set(''))
+      return
+    }
     _.each(data, ($val, $key) => {
-      const $path = _.trimStart(`${path}.${$key}`, '.');
-      // get the field by path joining keys recursively
-      const field = this.select($path, null, isStrict);
-      // if no field found when is strict update, throw error
-      if (isStrict) utils.throwError($path, field, err);
-      // update the field/fields if defined
-      if (!_.isUndefined(field)) {
-        // update field values or others props
-        if (!_.isUndefined($val)) {
-          field.set($, $val, recursion);
+        const $path = _.trimStart(`${path}.${$key}`, '.');
+        // get the field by path joining keys recursively
+        const field = this.select($path, null, isStrict);
+        // if no field found when is strict update, throw error
+        if (isStrict) utils.throwError($path, field, err);
+        // update the field/fields if defined
+        if (!_.isUndefined(field)) {
+          // update field values or others props
+          if (!_.isUndefined($val)) {
+            field.set($, $val, recursion);
+          }
+          // update values recursively only if field has nested
+          if (field.fields.size && _.isObject($val)) {
+            this.deepSet($, $val, $path, recursion);
+          }
         }
-        // update values recursively only if field has nested
-        if (field.fields.size && _.isObject($val)) {
-          this.deepSet($, $val, $path, recursion);
-        }
-      }
-    });
+      });
   },
 
   /**

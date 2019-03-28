@@ -278,10 +278,24 @@ describe('$481 Field values checks', () => {
 
 describe('separated has correct definition', () => {
 	it('', () => {
-    debugger
     expect($.$492.$('club.name').value).to.be.equal('')
     expect($.$492.$('club.city').value).to.be.equal('')
     expect($.$492.values())
+      .to.be.deep.equal({
+        club: {
+          name: '',
+          city: ''
+        }
+      })
+  })
+});
+
+describe('set null value', () => {
+	it('', () => {
+    expect($.$495.$('club.name').value).to.be.equal('JJSC')
+    expect($.$495.$('club.city').value).to.be.equal('Taipei')
+    $.$495.$('club').set(null)
+    expect($.$495.values())
       .to.be.deep.equal({
         club: {
           name: '',

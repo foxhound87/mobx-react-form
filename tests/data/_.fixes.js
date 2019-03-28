@@ -27,10 +27,11 @@ import $472 from './forms/fixes/form.472';
 import $480 from './forms/fixes/form.480';
 import $481 from './forms/fixes/form.481';
 import $492 from './forms/fixes/form.492';
+import $495 from './forms/fixes/form.495';
 
 export default {
 
-  $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q, $Q1, $Q2, $R, $S, $T, $425, $472, $480, $481, $492
+  $A, $B, $C, $D, $E, $F, $G, $H, $I, $L, $M, $N, $O, $P, $Q, $Q1, $Q2, $R, $S, $T, $425, $472, $480, $481, $492, $495
 
 };
 
