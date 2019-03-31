@@ -233,9 +233,10 @@ export default {
     const isStrict = this.state.options.get('strictUpdate', this);
 
     if (_.isNil(data)) {
-      this.each(field => field.set(''))
-      return
+      this.each(field => field.clear(true));
+      return;
     }
+    
     _.each(data, ($val, $key) => {
         const $path = _.trimStart(`${path}.${$key}`, '.');
         // get the field by path joining keys recursively
