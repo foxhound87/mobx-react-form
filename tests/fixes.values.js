@@ -304,3 +304,12 @@ describe('set null value', () => {
       })
   })
 });
+
+describe('falsy fallbackFields', () => {
+	it('', () => {
+    expect($.$505.$('club.name').value).to.be.equal('JJSC')
+    expect($.$505.$('club.city').value).to.be.equal('Taipei')
+    expect($.$505.$('club').has('area')).to.be.equal(false)
+    expect(()=>$.$495.$('club.area')).to.throw('field is not defined')
+  })
+});

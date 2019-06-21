@@ -33,6 +33,7 @@ export default class Options {
       leading: false,
       trailing: true,
     },
+    fallbackFields: true
   };
 
   get(key = null, field = null) {

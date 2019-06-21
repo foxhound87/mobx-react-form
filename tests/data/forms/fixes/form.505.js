@@ -16,10 +16,11 @@ const labels = {
 const values = {
 	club: {
 		name: 'JJSC',
-		city: 'Taipei'
+		city: 'Taipei',
+		area: 'JJ'
 	}
 }
 
 class NewForm extends Form {}
 
-export default new NewForm({ fields, labels, values }, { name: '$495' });
+export default new NewForm({ fields, labels, values }, { name: '$505', options: {fallbackFields: false }});
