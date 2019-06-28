@@ -175,7 +175,7 @@ const reduceValuesToUnifiedFields = values =>
 /*
   Fallback Unified Props to Sepated Mode
 */
-const handleFieldsPropsFallback = (fields, initial, fallbackFields) => {
+const handleFieldsPropsFallback = (fields, initial, fallback) => {
   if (!_.has(initial, 'values')) return fields;
   // if the 'values' object is passed in constructor
   // then update the fields definitions
@@ -185,7 +185,7 @@ const handleFieldsPropsFallback = (fields, initial, fallbackFields) => {
   }
   return _.merge(fields, _.transform(values, (result, v, k) => {
     if (_.isArray(fields[k])) result[k] = v
-    if (!(k in fields) && fallbackFields) result[k] = v
+    if (!(k in fields) && fallback) result[k] = v
   }, {}));
 };
 
@@ -204,14 +204,14 @@ const mergeSchemaDefaults = (fields, validator) => {
   return fields;
 };
 
-const prepareFieldsData = (initial, strictProps = true, fallbackFields = true) => {
+const prepareFieldsData = (initial, strictProps = true, fallback = true) => {
   let fields = _.merge(
     handleFieldsArrayOfStrings(initial.fields, false),
     handleFieldsArrayOfStrings(initial.struct, false),
   );
 
   fields = handleFieldsArrayOfObjects(fields);
-  fields = handleFieldsPropsFallback(fields, initial, fallbackFields);
+  fields = handleFieldsPropsFallback(fields, initial, fallback);
   fields = handleFieldsNested(fields, strictProps);
 
   return fields;

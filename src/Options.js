@@ -6,6 +6,7 @@ export default class Options {
 
   @observable options = {
     uniqueId,
+    fallback: true,
     defaultGenericError: null,
     submitThrowsError: true,
     showErrorsOnInit: false,
@@ -33,7 +34,6 @@ export default class Options {
       leading: false,
       trailing: true,
     },
-    fallbackFields: true
   };
 
   get(key = null, field = null) {

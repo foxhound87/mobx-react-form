@@ -9,10 +9,11 @@ import parser from '../parser';
 export default {
 
   initFields(initial, update) {
+    const fallback = this.state.options.get('fallback');
     const $path = key => _.trimStart([this.path, key].join('.'), '.');
 
     let fields;
-    fields = parser.prepareFieldsData(initial, this.state.strict, this.state.options.get('fallbackFields'));
+    fields = parser.prepareFieldsData(initial, this.state.strict, fallback);
     fields = parser.mergeSchemaDefaults(fields, this.validator);
 
     // create fields
