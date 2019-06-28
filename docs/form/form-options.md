@@ -1,12 +1,12 @@
 # Form Options
 
-- [Form Options](#form-options)
-    - [Options Object Properties](#options-object-properties)
-    - [Set Options On Form Constructor](#set-options-on-form-constructor)
-    - [Set Options On Extended Form Class](#set-options-on-extended-form-class)
-    - [Set Options After Form Initialization](#set-options-after-form-initialization)
-    - [Get Current Form Options](#get-current-form-options)
-    - [Get Form Option by key](#get-form-option-by-key)
+- [Form Options](#Form-Options)
+    - [Options Object Properties](#Options-Object-Properties)
+    - [Set Options On Form Constructor](#Set-Options-On-Form-Constructor)
+    - [Set Options On Extended Form Class](#Set-Options-On-Extended-Form-Class)
+    - [Set Options After Form Initialization](#Set-Options-After-Form-Initialization)
+    - [Get Current Form Options](#Get-Current-Form-Options)
+    - [Get Form Option by key](#Get-Form-Option-by-key)
 
 [![Edit form-options](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/x7omz8rv9o)
 
@@ -16,6 +16,7 @@
 
 | Option | Type | Default | Info |
 |---|---|---|---|
+| **fallback** | boolean | true | Fields props definition fallback when using `mixed` definition mode (unified + separated). |
 | **defaultGenericError** | string | null | Set e default message to show when a generic error occurs. |
 | **submitThrowsError** | boolean | true | If true and `defaultGenericError` is defined throws error and invalidate if validation fails on submit. |
 | **showErrorsOnInit** | boolean | false | Show or hide error messages `on init` for `validateOnInit`. |
