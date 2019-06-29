@@ -23,4 +23,4 @@ const values = {
 
 class NewForm extends Form {}
 
-export default new NewForm({ fields, labels, values }, { name: '$505', options: {fallbackFields: false }});
+export default new NewForm({ fields, labels, values }, { name: '$505', options: {fallback: false }});
