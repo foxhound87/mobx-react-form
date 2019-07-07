@@ -15,20 +15,20 @@ import {
 
 const setupFieldProps = (instance, props, data) =>
   Object.assign(instance, {
-    $label: props.$label || data.label || '',
-    $placeholder: props.$placeholder || data.placeholder || '',
-    $disabled: props.$disabled || data.disabled || false,
-    $bindings: props.$bindings || data.bindings || 'default',
-    $related: props.$related || data.related || [],
-    $validators: toJS(props.$validators || data.validators || null),
-    $validatedWith: props.$validatedWith || data.validatedWith || 'value',
-    $rules: props.$rules || data.rules || null,
-    $observers: props.$observers || data.observers || null,
-    $interceptors: props.$interceptors || data.interceptors || null,
-    $extra: props.$extra || data.extra || null,
-    $options: props.$options || data.options || {},
-    $hooks: props.$hooks || data.hooks || {},
-    $handlers: props.$handlers || data.handlers || {},
+    $label: props.$label || data && data.label || '',
+    $placeholder: props.$placeholder || data && data.placeholder || '',
+    $disabled: props.$disabled || data && data.disabled || false,
+    $bindings: props.$bindings || data && data.bindings || 'default',
+    $related: props.$related || data && data.related || [],
+    $validators: toJS(props.$validators || data && data.validators || null),
+    $validatedWith: props.$validatedWith || data && data.validatedWith || 'value',
+    $rules: props.$rules || data && data.rules || null,
+    $observers: props.$observers || data && data.observers || null,
+    $interceptors: props.$interceptors || data && data.interceptors || null,
+    $extra: props.$extra || data && data.extra || null,
+    $options: props.$options || data && data.options || {},
+    $hooks: props.$hooks || data && data.hooks || {},
+    $handlers: props.$handlers || data && data.handlers || {},
   });
 
 const setupDefaultProp = (instance, data, props, update, {
@@ -37,7 +37,7 @@ const setupDefaultProp = (instance, data, props, update, {
   nullable: true,
   isEmptyArray,
   type: instance.type,
-  unified: update ? '' : data.default,
+  unified: update ? '' : data && data.default,
   separated: props.$default,
   fallback: instance.$initial,
 });
@@ -390,7 +390,7 @@ export const prototypes = {
     const { $type, $input, $output } = $props;
 
     // eslint-disable-next-line
-    if (_.isNil($data)) $data = '';
+    // if (_.isNil($data)) $data = '';
 
     if (_.isPlainObject($data)) {
       const { type, input, output } = $data;

@@ -305,11 +305,18 @@ describe('set null value', () => {
   })
 });
 
-describe('falsy fallbackFields', () => {
+describe('falsy fallback', () => {
 	it('', () => {
     expect($.$505.$('club.name').value).to.be.equal('JJSC')
     expect($.$505.$('club.city').value).to.be.equal('Taipei')
     expect($.$505.$('club').has('area')).to.be.equal(false)
     expect(()=>$.$495.$('club.area')).to.throw('field is not defined')
+  })
+});
+
+describe('null date', () => {
+	it('', () => {
+    expect($.$507.$('people.0.birthday').value).to.be.equal(null)
+    expect($.$507.$('people').add().$('birthday').value).to.be.equal(null)
   })
 });
