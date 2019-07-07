@@ -1,3 +1,6 @@
+# 2.0.3
+* introduced `fallback` form option
+
 # 2.0
 * introduced `validateOnChangeAfterSubmit` form option
 
