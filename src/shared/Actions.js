@@ -106,27 +106,30 @@ export default {
             $field.fields.delete($f.name));
         }
         if (_.isNil(field.fields)) {
-          $field.value = field;
+          $field.$value = parser.parseInput($field.$input, {
+            separated: field
+          });
           return;
         }
       }
 
-      if (!_.isNil($container)) {
+      if (!_.isNil($container) && _.isNil($field)) {
         // get full path when using update() with select() - FIX: #179
         const $newFieldPath = _.trimStart([this.path, $path].join('.'), '.');
         // init field into the container field
         $container.initField($key, $newFieldPath, field, true);
       }
+      else {
+        if (recursion) {
+          // handle nested fields if undefined or null
+          const $fields = parser.pathToFieldsTree(this.state.struct(), $path);
+          this.deepUpdate($fields, $path, false);
+        }
 
-      if (recursion) {
-        // handle nested fields if undefined or null
-        const $fields = parser.pathToFieldsTree(this.state.struct(), $path);
-        this.deepUpdate($fields, $path, false);
-      }
-
-      if (recursion && _.has(field, 'fields') && !_.isNil(field.fields)) {
-        // handle nested fields if defined
-        this.deepUpdate(field.fields, $path);
+        if (recursion && _.has(field, 'fields') && !_.isNil(field.fields)) {
+          // handle nested fields if defined
+          this.deepUpdate(field.fields, $path);
+        }
       }
     });
   },

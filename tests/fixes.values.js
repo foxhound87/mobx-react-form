@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 
 import $ from './data/_.fixes'; // FORMS
+import Form from '../src';
 
 describe('$A Field values checks', () => {
   it('$A qwerty value should be equal to "0"', () =>
@@ -318,5 +319,45 @@ describe('null date', () => {
 	it('', () => {
     expect($.$507.$('people.0.birthday').value).to.be.equal(null)
     expect($.$507.$('people').add().$('birthday').value).to.be.equal(null)
+  })
+});
+
+describe('update with input', () => {
+	it('', () => {
+    expect($.$514.$('priority').value).to.be.equal(1)
+    expect($.$514.$('itineraryItems.0.hotel.starRating').value).to.be.equal(5)
+  })
+});
+
+describe('new form with nested array values', () => {
+	it('', () => {
+    const fields = [
+      'purpose',
+      'trip.itineraryItems[].hotel.name',
+      'trip.itineraryItems[].hotel.starRating',
+    ];
+    
+    const values = {
+      purpose: 'Summer vacation',
+      trip: {
+        itineraryItems: [{
+          hotel: {
+            name: 'Shangri-La Hotel',
+            starRating: '5.0',
+          },
+        }, {
+          hotel: null,
+        }, {
+          hotel: {
+            name: 'Trump Hotel',
+            starRating: '5.0',
+          },
+        }]
+      }
+    }
+
+    const $515 = new Form({fields, values}, {name: 'Form 515'})
+    expect($515.$('purpose').value).to.be.equal('Summer vacation')
+    expect($515.$('trip.itineraryItems').size).to.be.equal(3)
   })
 });

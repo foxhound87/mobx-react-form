@@ -11,6 +11,7 @@ import {
 import {
   parseInput,
   parseCheckOutput,
+  defaultValue,
   defaultClearValue } from './parser';
 
 const setupFieldProps = (instance, props, data) =>
@@ -37,7 +38,7 @@ const setupDefaultProp = (instance, data, props, update, {
   nullable: true,
   isEmptyArray,
   type: instance.type,
-  unified: update ? '' : data && data.default,
+  unified: update ? defaultValue({type: instance.type}) : data && data.default,
   separated: props.$default,
   fallback: instance.$initial,
 });
@@ -251,7 +252,7 @@ export default class Field extends Base {
   }
 
   @computed get isDirty() {
-    return !_.isNil(this.initial) &&
+    return !_.isUndefined(this.initial) &&
       !_.isEqual(this.initial, this.value);
   }
 
@@ -494,6 +495,13 @@ export const prototypes = {
     }
 
     this.initFields({ fields }, update);
+
+    if (!update && _.isArray(fields) && _.isEmpty(fields)) {
+      if (_.isArray(this.value) && !_.isEmpty(this.value)) {
+        this.hasInitialNestedFields = true;
+        this.initFields({fields, values: this.value}, update)
+      }
+    }
   },
 
   @action
