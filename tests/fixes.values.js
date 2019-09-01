@@ -356,8 +356,8 @@ describe('new form with nested array values', () => {
       }
     }
 
-    const $515 = new Form({fields, values}, {name: 'Form 515'})
-    expect($515.$('purpose').value).to.be.equal('Summer vacation')
-    expect($515.$('trip.itineraryItems').size).to.be.equal(3)
+    const $516 = new Form({fields, values}, {name: 'Form 516'})
+    expect($516.$('purpose').value).to.be.equal('Summer vacation')
+    expect($516.$('trip.itineraryItems').size).to.be.equal(3)
   })
 });
