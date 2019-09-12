@@ -105,10 +105,10 @@ Simply pass the `fields`, `plugins` and `hooks` objects to the constructor
 ```javascript
 import MobxReactForm from 'mobx-react-form';
 
-const form = new MobxReactForm({ fields }, { plugins, hooks });
+const myForm = new MobxReactForm({ fields }, { plugins, hooks });
 ```
 
-#### Pass the form to a react component
+#### Pass the myForm to a react component
 
 The package provide some built-in and ready to use Event Handlers:
 
@@ -118,21 +118,21 @@ The package provide some built-in and ready to use Event Handlers:
 import React from 'react';
 import { observer } from 'mobx-react';
 
-export default observer(({ form }) => (
-  <form onSubmit={form.onSubmit}>
-    <label htmlFor={form.$('email').id}>
-      {form.$('email').label}
+export default observer(({ myForm }) => (
+  <form onSubmit={myForm.onSubmit}>
+    <label htmlFor={myForm.$('email').id}>
+      {myForm.$('email').label}
     </label>
-    <input {...form.$('email').bind()} />
-    <p>{form.$('email').error}</p>
+    <input {...myForm.$('email').bind()} />
+    <p>{myForm.$('email').error}</p>
 
     {/* ... other inputs ... */}
 
-    <button type="submit" onClick={form.onSubmit}>Submit</button>
-    <button type="button" onClick={form.onClear}>Clear</button>
-    <button type="button" onClick={form.onReset}>Reset</button>
+    <button type="submit" onClick={myForm.onSubmit}>Submit</button>
+    <button type="button" onClick={myForm.onClear}>Clear</button>
+    <button type="button" onClick={myForm.onReset}>Reset</button>
 
-    <p>{form.error}</p>
+    <p>{myForm.error}</p>
   </form>
 ));
 ```
