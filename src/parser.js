@@ -186,7 +186,7 @@ const handleFieldsPropsFallback = (fields, initial, fallback) => {
   }
   return _.merge(fields, _.transform(values, (result, v, k) => {
     if (_.isArray(fields[k])) result[k] = v
-    if (!(k in fields) && fallback) result[k] = v
+    if (!(k in fields) && (!isNaN(Number(k)) || fallback)) result[k] = v
   }, {}));
 };
 
