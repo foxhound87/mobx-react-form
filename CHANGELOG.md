@@ -1,3 +1,9 @@
+# 2.0.5
+* fix #514 #516
+
+* # 2.0.4
+* fix #507
+
 # 2.0.3
 * introduced `fallback` form option
 
