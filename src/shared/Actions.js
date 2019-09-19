@@ -100,12 +100,16 @@ export default {
         || this.state.form.select(this.path, null, false);
 
 
-      if (!_.isNil($field) && !_.isNil(field)) {
+      if (!_.isNil($field) && !_.isUndefined(field)) {
         if (_.isArray($field.values())) {
-          _.each(utils.getObservableMapValues($field.fields), $f =>
-            $field.fields.delete($f.name));
+          let n = _.max(_.map(field.fields, (f, i) => Number(i)))
+          if (n === undefined) n = -1 // field's value is []
+          _.each(utils.getObservableMapValues($field.fields), $f => {
+            if (Number($f.name) > n)
+              $field.fields.delete($f.name)
+          });
         }
-        if (_.isNil(field.fields)) {
+        if (_.isNull(field) || _.isNil(field.fields)) {
           $field.$value = parser.parseInput($field.$input, {
             separated: field
           });
@@ -119,16 +123,15 @@ export default {
         // init field into the container field
         $container.initField($key, $newFieldPath, field, true);
       }
-      else {
-        if (recursion) {
+      else if (recursion) {
+        if (_.has(field, 'fields') && !_.isNil(field.fields)) {
+          // handle nested fields if defined
+          this.deepUpdate(field.fields, $path);
+        }
+        else {
           // handle nested fields if undefined or null
           const $fields = parser.pathToFieldsTree(this.state.struct(), $path);
           this.deepUpdate($fields, $path, false);
-        }
-
-        if (recursion && _.has(field, 'fields') && !_.isNil(field.fields)) {
-          // handle nested fields if defined
-          this.deepUpdate(field.fields, $path);
         }
       }
     });

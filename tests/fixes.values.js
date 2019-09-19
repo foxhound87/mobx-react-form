@@ -336,7 +336,7 @@ describe('new form with nested array values', () => {
       'trip.itineraryItems[].hotel.name',
       'trip.itineraryItems[].hotel.starRating',
     ];
-
+    
     const values = {
       purpose: 'Summer vacation',
       trip: {
@@ -359,5 +359,48 @@ describe('new form with nested array values', () => {
     const $516 = new Form({fields, values}, {name: 'Form 516'})
     expect($516.$('purpose').value).to.be.equal('Summer vacation')
     expect($516.$('trip.itineraryItems').size).to.be.equal(3)
+  })
+});
+
+describe('update to nested array items', () => {
+	it('', () => {
+    const fields = [
+      'bulletin',
+      'bulletin.jobs',
+      'bulletin.jobs[].jobId',
+      'bulletin.jobs[].companyName',
+    ];
+    
+    const values = {
+      bulletin: {
+        jobs: [
+        {
+          jobId: 1,
+          companyName: 'Acer'
+        },
+        {
+          jobId: 2,
+          companyName: 'Asus'
+        }]
+      }
+    };
+
+    const $521 = new Form({fields, values}, {name: 'Form 521'})
+    // debugger
+    $521.update({
+      bulletin: {
+        jobs: [{
+          jobId: 1,
+          companyName: 'Apple'
+        }]
+      }
+    })
+    expect($521.$('bulletin.jobs').size).to.be.equal(1)
+    expect($521.$('bulletin.jobs.0.jobId').value).to.be.equal(1)
+    expect($521.$('bulletin.jobs.0.jobId').isDirty).to.be.equal(false)
+    expect($521.$('bulletin.jobs.0.companyName').value).to.be.equal('Apple')
+    expect($521.$('bulletin.jobs.0.companyName').isDirty).to.be.equal(true)
+    expect($521.$('bulletin.jobs.0').isDirty).to.be.equal(true)
+    expect($521.$('bulletin.jobs').isDirty).to.be.equal(true)
   })
 });
