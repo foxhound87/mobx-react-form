@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>MobX React Form (UMD)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <script src="https://unpkg.com/lodash@x.x.x/lodash.min.js"></script>
+    <script src="https://unpkg.com/mobx@x.x.x/lib/mobx.umd.js"></script>
+    <script src="umd/MobxReactForm.umd.min.js"></script>
+    <script src="umd/MobxReactFormValidatorDVR.umd.min.js"></script>
+    <script src="https://unpkg.com/validatorjs@x.x.x/dist/validator.js"></script>
+    <script>
+      /* eslint no-console: 0 */
+      /* eslint no-undef: 0 */
+
+      console.log('lodash', _ && '>>> OK');
+      console.log('mobx', mobx && '>>> OK');
+      console.log('MobxReactForm', MobxReactForm && '>>> OK');
+      console.log('MobxReactFormValidatorDVR', MobxReactFormValidatorDVR && '>>> OK');
+      console.log('Validator', Validator && '>>> OK');
+
+      const { Form } = MobxReactForm;
+
+      const form = new Form({
+        fields: {
+          email: {
+            label: 'Email',
+            rules: 'required|email',
+          },
+        },
+      }, {
+        name: 'UMD',
+        options: {
+          validateOnInit: true,
+          showErrorsOnInit: true,
+        },
+        plugins: {
+          dvr: MobxReactFormValidatorDVR({
+            package: Validator
+          })
+        },
+      });
+
+      console.log('form.values()', form.values()); // { email: "" }
+      console.log('form.errors()', form.errors()); // { email: "The Email format is invalid." }
+    </script>
+  </body>
+</html>
