@@ -1,7 +1,6 @@
 {
   "presets": ["env", "stage-0"],
   "plugins": [
-    "lodash",
     "transform-decorators-legacy",
     "transform-class-properties",
     "add-module-exports"

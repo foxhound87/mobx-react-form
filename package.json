@@ -12,7 +12,7 @@
     "clean:all": "npm run clean:build && npm run clean:modules",
     "lint": "eslint . --ext .jsx,.js --ignore-path .gitignore",
     "build": "npm-run-all --parallel build:*",
-    "build:main": "babel -d lib/ src/",
+    "build:main": "babel --plugins lodash -d lib/ src/",
     "build:umd": "webpack",
     "build:umdmin": "MINIFY=YES webpack -p",
     "prebuild": "npm run clean:build",
