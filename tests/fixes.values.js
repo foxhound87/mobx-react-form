@@ -404,3 +404,22 @@ describe('update to nested array items', () => {
     expect($521.$('bulletin.jobs').isDirty).to.be.equal(true)
   })
 });
+
+describe('#523', () => {
+  it('', () => {
+    const fields = [{
+      name: 'fieldA',
+      label: 'fieldA'
+    }, {
+      name: 'fieldB',
+      label: 'fieldB',
+      fields: [{
+        name: "nestedB",
+        label: "nestedB"
+      }]
+	}];
+	
+    const $523 = new Form({fields}, {name: 'Form 523'})
+    expect($523.isDirty).to.be.false
+  })
+});

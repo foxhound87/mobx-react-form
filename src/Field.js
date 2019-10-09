@@ -6,7 +6,8 @@ import {
   $try,
   $hasFiles,
   $isBool,
-  $isEvent } from './utils';
+  $isEvent,
+  pathToStruct } from './utils';
 
 import {
   parseInput,
@@ -387,7 +388,12 @@ export const prototypes = {
     this.key = $key;
     this.path = $path;
     this.id = this.state.options.get('uniqueId').apply(this, [this]);
-    const isEmptyArray = (_.has($data, 'fields') && _.isArray($data.fields));
+    const struct = this.state.struct();
+    const structPath = pathToStruct(this.path)
+    const isEmptyArray = Array.isArray(struct) ? 
+      struct.filter(s => s.startsWith(structPath)).find(s => s.substr(structPath.length, 2) === '[]')
+      : Array.isArray(_.get(struct, this.path))
+
     const { $type, $input, $output } = $props;
 
     // eslint-disable-next-line
