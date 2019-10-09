@@ -474,3 +474,40 @@ describe('update nested nested array items', () => {
     expect($526.$('pricing.value.0.prices').isDirty).to.be.equal(true)
   })
 });
+
+describe('falsy fallback for array items', () => {
+	it('', () => {
+    const fields = [
+      'purpose',
+      'trip.itineraryItems[].hotel.name',
+      'trip.itineraryItems[].hotel.starRating',
+    ];
+    
+    const values = {
+      purpose: 'Summer vacation',
+      trip: {
+        itineraryItems: [{
+          hotel: {
+            name: 'Shangri-La Hotel',
+			starRating: '5.0',
+			favorite: true
+          },
+        }, {
+          hotel: null,
+        }, {
+          hotel: {
+            name: 'Trump Hotel',
+			starRating: '5.0',
+			favorite: false
+          },
+        }]
+      }
+    }
+
+    const $527 = new Form({fields, values}, {name: 'Form 527', options:{fallback: false}})
+    expect($527.$('purpose').value).to.be.equal('Summer vacation')
+    expect($527.$('trip.itineraryItems').size).to.be.equal(3)
+    expect($527.$('trip.itineraryItems.0.hotel')).not.to.be.undefined
+    expect($527.select('trip.itineraryItems.0.hotel.favorite', null, false)).to.be.undefined
+  })
+});

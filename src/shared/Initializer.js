@@ -17,9 +17,22 @@ export default {
     fields = parser.mergeSchemaDefaults(fields, this.validator);
 
     // create fields
-    _.forIn(fields, (field, key) =>
-      _.isNil(this.select($path(key), null, false)) &&
-        this.initField(key, $path(key), field, update));
+    _.forIn(fields, (field, key) => {
+      const path = $path(key);
+      const $f = this.select(path, null, false);
+      if (_.isNil($f)) {
+        if (fallback) {
+          this.initField(key, path, field, update);
+        }
+        else {
+          const structPath = utils.pathToStruct(path);
+          const struct = this.state.struct();
+          const found  = struct.filter(s => s.startsWith(structPath)).find(s => s.charAt(structPath.length) === '.' || s.substr(structPath.length, 2) === '[]' || s === structPath)
+          if (found)
+            this.initField(key, path, field, update);
+        }
+      }
+    })
   },
 
   @action
