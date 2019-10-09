@@ -423,3 +423,54 @@ describe('#523', () => {
     expect($523.isDirty).to.be.false
   })
 });
+
+describe('update nested nested array items', () => {
+	it('', () => {
+    const fields = [
+      'pricing',
+      'pricing.value[]',
+      'pricing.value[].prices[]',
+      'pricing.value[].prices[].money',
+      'pricing.value[].prices[].quantity',
+    ];
+    
+    const values = {
+      pricing: {
+        value: [
+          {
+            prices: [{
+              money: 35,
+              quantity: 1
+            }]
+          }
+        ]
+      }
+    };
+    const $526 = new Form({fields, values}, {name: 'Form 526'})
+    console.debug('pricing.value.0.initial', $526.$('pricing.value.0').initial)
+	  console.debug('pricing.value.0.prices.initial', $526.$('pricing.value.0.prices').initial)
+    $526.update({
+      pricing: {
+        value: [
+          {
+            prices: [
+              {
+                money: 35,
+                quantity: 1
+              },
+              {
+                money: 100,
+                quantity: 3
+              }
+            ]
+          }
+        ]
+      }
+    })
+    console.debug('pricing.value.0.initial', $526.$('pricing.value.0').initial)
+    console.debug('pricing.value.0.prices.initial', $526.$('pricing.value.0.prices').initial)
+    expect($526.$('pricing.value').isDirty).to.be.equal(true)
+    expect($526.$('pricing.value.0').isDirty).to.be.equal(true)
+    expect($526.$('pricing.value.0.prices').isDirty).to.be.equal(true)
+  })
+});

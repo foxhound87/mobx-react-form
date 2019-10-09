@@ -30,7 +30,7 @@ export default {
     const $try = prop => _.get(initial[prop], struct);
 
     const props = {
-      $value: $try('values'),
+      $value: _.get(initial['values'], path),
       $label: $try('labels'),
       $placeholder: $try('placeholders'),
       $default: $try('defaults'),
