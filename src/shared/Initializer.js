@@ -27,7 +27,11 @@ export default {
         else {
           const structPath = utils.pathToStruct(path);
           const struct = this.state.struct();
-          const found  = struct.filter(s => s.startsWith(structPath)).find(s => s.charAt(structPath.length) === '.' || s.substr(structPath.length, 2) === '[]' || s === structPath)
+          const found  = struct.filter(s => s.startsWith(structPath))
+            .find(s => s.charAt(structPath.length) === '.'
+            || s.substr(structPath.length, 2) === '[]'
+            || s === structPath)
+
           if (found)
             this.initField(key, path, field, update);
         }
