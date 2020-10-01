@@ -20,22 +20,21 @@ export default {
     _.forIn(fields, (field, key) => {
       const path = $path(key);
       const $f = this.select(path, null, false);
-
       if (_.isNil($f)) {
         if (fallback) {
           this.initField(key, path, field, update);
-          return;
         }
+        else {
+          const structPath = utils.pathToStruct(path);
+          const struct = this.state.struct();
+          const found  = struct.filter(s => s.startsWith(structPath))
+            .find(s => s.charAt(structPath.length) === '.'
+            || s.substr(structPath.length, 2) === '[]'
+            || s === structPath)
 
-        const structPath = utils.pathToStruct(path);
-        const struct = this.state.struct();
-        const found  = struct.filter(s => s.startsWith(structPath))
-          .find(s => s.charAt(structPath.length) === '.'
-          || s.substr(structPath.length, 2) === '[]'
-          || s === structPath)
-
-        if (found)
-          this.initField(key, path, field, update);
+          if (found)
+            this.initField(key, path, field, update);
+        }
       }
     })
   },
@@ -45,7 +44,7 @@ export default {
     const initial = this.state.get('current', 'props');
     const struct = utils.pathToStruct(path);
     // try to get props from separated objects
-    const $try = prop => initial[prop] && initial[prop][struct];
+    const $try = prop => _.get(initial[prop], struct);
 
     const props = {
       $value: _.get(initial['values'], path),

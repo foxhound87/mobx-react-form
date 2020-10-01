@@ -278,7 +278,7 @@ describe('$481 Field values checks', () => {
 });
 
 describe('separated has correct definition', () => {
-  it('', () => {
+	it('', () => {
     expect($.$492.$('club.name').value).to.be.equal('')
     expect($.$492.$('club.city').value).to.be.equal('')
     expect($.$492.values())
@@ -292,7 +292,7 @@ describe('separated has correct definition', () => {
 });
 
 describe('set null value', () => {
-  it('', () => {
+	it('', () => {
     expect($.$495.$('club.name').value).to.be.equal('JJSC')
     expect($.$495.$('club.city').value).to.be.equal('Taipei')
     $.$495.$('club').set(null)
@@ -307,7 +307,7 @@ describe('set null value', () => {
 });
 
 describe('falsy fallback', () => {
-  it('', () => {
+	it('', () => {
     expect($.$505.$('club.name').value).to.be.equal('JJSC')
     expect($.$505.$('club.city').value).to.be.equal('Taipei')
     expect($.$505.$('club').has('area')).to.be.equal(false)
@@ -316,21 +316,21 @@ describe('falsy fallback', () => {
 });
 
 describe('null date', () => {
-  it('', () => {
+	it('', () => {
     expect($.$507.$('people.0.birthday').value).to.be.equal(null)
     expect($.$507.$('people').add().$('birthday').value).to.be.equal(null)
   })
 });
 
 describe('update with input', () => {
-  it('', () => {
+	it('', () => {
     expect($.$514.$('priority').value).to.be.equal(1)
     expect($.$514.$('itineraryItems.0.hotel.starRating').value).to.be.equal(5)
   })
 });
 
 describe('new form with nested array values', () => {
-  it('', () => {
+	it('', () => {
     const fields = [
       'purpose',
       'trip.itineraryItems[].hotel.name',
@@ -363,7 +363,7 @@ describe('new form with nested array values', () => {
 });
 
 describe('update to nested array items', () => {
-  it('', () => {
+	it('', () => {
     const fields = [
       'bulletin',
       'bulletin.jobs',
@@ -417,15 +417,15 @@ describe('#523', () => {
         name: "nestedB",
         label: "nestedB"
       }]
-  }];
-  
+	}];
+	
     const $523 = new Form({fields}, {name: 'Form 523'})
     expect($523.isDirty).to.be.false
   })
 });
 
 describe('update nested nested array items', () => {
-  it('', () => {
+	it('', () => {
     const fields = [
       'pricing',
       'pricing.value[]',
@@ -448,7 +448,7 @@ describe('update nested nested array items', () => {
     };
     const $526 = new Form({fields, values}, {name: 'Form 526'})
     console.debug('pricing.value.0.initial', $526.$('pricing.value.0').initial)
-    console.debug('pricing.value.0.prices.initial', $526.$('pricing.value.0.prices').initial)
+	  console.debug('pricing.value.0.prices.initial', $526.$('pricing.value.0.prices').initial)
     $526.update({
       pricing: {
         value: [
@@ -476,7 +476,7 @@ describe('update nested nested array items', () => {
 });
 
 describe('falsy fallback for array items', () => {
-  it('', () => {
+	it('', () => {
     const fields = [
       'purpose',
       'trip.itineraryItems[].hotel.name',
@@ -489,16 +489,16 @@ describe('falsy fallback for array items', () => {
         itineraryItems: [{
           hotel: {
             name: 'Shangri-La Hotel',
-      starRating: '5.0',
-      favorite: true
+			starRating: '5.0',
+			favorite: true
           },
         }, {
           hotel: null,
         }, {
           hotel: {
             name: 'Trump Hotel',
-      starRating: '5.0',
-      favorite: false
+			starRating: '5.0',
+			favorite: false
           },
         }]
       }
@@ -509,32 +509,5 @@ describe('falsy fallback for array items', () => {
     expect($527.$('trip.itineraryItems').size).to.be.equal(3)
     expect($527.$('trip.itineraryItems.0.hotel')).not.to.be.undefined
     expect($527.select('trip.itineraryItems.0.hotel.favorite', null, false)).to.be.undefined
-  })
-});
-
-describe('output goes wrong', () => {
-  it.only('', () => {
-    const fields = [
-      'customer',
-      'customer.name',
-      'customerid'
-    ];
-    const labels = {
-      'customer': 'Customer',
-      'customer.name': 'name',
-    };
-    const output = {
-      customer: c => c ? c.id : c
-    };
-    const values = {
-      customer: {
-        id: 'c-001',
-        name: 'Allen'
-      }
-    }
-
-    const $541 = new Form({fields, labels, output, values}, {name: 'Form 541', options:{fallback: false}});
-    expect(typeof $541.$('customer.name').$output).to.be.equal('function')
-    $541.values();
   })
 });
