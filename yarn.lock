@@ -5458,6 +5458,11 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-5.0.3.tgz#53b97f2a0f9b0dd7774c96249f81bf2d513d8e1c"
 
+"mobx6@npm:mobx@^6.0.0":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/mobx/-/mobx-6.0.1.tgz#ec23520848527bf7834d7b4c0b54b2a8eb6e7c14"
+  integrity sha512-Pk6uJXZ34yqd661yRmS6z/9avm4FOGXpFpVjnEfiYYOsZXnAxv1fpYjxTCEZ9tuwk0Xe1qnUUlgm+rJtGe0YJA==
+
 mocha@3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/mocha/-/mocha-3.2.0.tgz#7dc4f45e5088075171a68896814e6ae9eb7a85e3"

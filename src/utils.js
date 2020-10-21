@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { values as mobxValues, keys as mobxKeys } from 'mobx';
+import { values as mobxValues, keys as mobxKeys } from 'mobx6';
 
 import props from './props';
 

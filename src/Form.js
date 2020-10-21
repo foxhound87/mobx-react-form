@@ -1,4 +1,4 @@
-import { action, computed, observable, asMap } from 'mobx';
+import { makeObservable, action, computed, observable, asMap } from 'mobx6';
 import _ from 'lodash';
 
 import Base from './Base';
@@ -31,6 +31,9 @@ export default class Form extends Base {
 
   } = {}) {
     super();
+
+    makeObservable &&
+      makeObservable(this);
 
     this.name = name;
     this.$hooks = hooks;

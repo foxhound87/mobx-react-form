@@ -1,4 +1,4 @@
-import { observable, observe, action, computed, isObservableArray, toJS, asMap, untracked } from 'mobx';
+import { makeObservable, observable, observe, action, computed, isObservableArray, toJS, asMap, untracked } from 'mobx6';
 import _ from 'lodash';
 import Base from './Base';
 
@@ -106,6 +106,9 @@ export default class Field extends Base {
     key, path, data = {}, props = {}, update = false, state,
   }) {
     super();
+
+    makeObservable &&
+      makeObservable(this);
 
     this.state = state;
 
@@ -390,7 +393,7 @@ export const prototypes = {
     this.id = this.state.options.get('uniqueId').apply(this, [this]);
     const struct = this.state.struct();
     const structPath = pathToStruct(this.path)
-    const isEmptyArray = Array.isArray(struct) ? 
+    const isEmptyArray = Array.isArray(struct) ?
       struct.filter(s => s.startsWith(structPath)).find(s => s.substr(structPath.length, 2) === '[]')
       : Array.isArray(_.get(struct, this.path))
 

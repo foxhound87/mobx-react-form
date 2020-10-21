@@ -1,4 +1,4 @@
-import { observe, intercept } from 'mobx';
+import { observe, intercept } from 'mobx6';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';

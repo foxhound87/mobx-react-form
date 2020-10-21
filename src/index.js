@@ -1,4 +1,4 @@
-import { useStrict, configure } from 'mobx';
+import { useStrict, configure } from 'mobx6';
 
 import Form, { prototypes as formPrototypes } from './Form';
 import Field, { prototypes as fieldPrototypes } from './Field';

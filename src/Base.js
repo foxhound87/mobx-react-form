@@ -1,4 +1,4 @@
-import { observable, computed, toJS } from 'mobx';
+import { makeObservable, observable, computed, toJS } from 'mobx6';
 import _ from 'lodash';
 
 import {
@@ -14,6 +14,11 @@ export default class Base {
 
   @observable $validated = 0;
   @observable $validating = false;
+
+  constructor() {
+    makeObservable &&
+      makeObservable(this);
+  }
 
   execHook = (name, fallback = {}) => $try(
     fallback[name],

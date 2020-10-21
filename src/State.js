@@ -1,4 +1,4 @@
-import { observe } from 'mobx';
+import { observe } from 'mobx6';
 import _ from 'lodash';
 
 import Options from './Options';

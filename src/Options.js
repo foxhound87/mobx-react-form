@@ -1,4 +1,4 @@
-import { observable, action, toJS, extendObservable, set } from 'mobx';
+import { makeObservable, observable, action, toJS, extendObservable, set } from 'mobx6';
 import _ from 'lodash';
 import { uniqueId } from './utils';
 
@@ -35,6 +35,11 @@ export default class Options {
       trailing: true,
     },
   };
+
+  constructor() {
+    makeObservable &&
+      makeObservable(this);
+  }
 
   get(key = null, field = null) {
     // handle field option
