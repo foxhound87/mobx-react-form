@@ -1,9 +1,8 @@
-import { observable, action, toJS, extendObservable, set } from 'mobx';
+import { observable, action, toJS, extendObservable, set, makeObservable } from 'mobx';
 import _ from 'lodash';
 import { uniqueId } from './utils';
 
 export default class Options {
-
   @observable options = {
     uniqueId,
     fallback: true,
@@ -35,6 +34,10 @@ export default class Options {
       trailing: true,
     },
   };
+
+  constructor() {
+    makeObservable(this);
+  }
 
   get(key = null, field = null) {
     // handle field option

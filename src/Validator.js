@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, makeObservable } from 'mobx';
 import _ from 'lodash';
 
 import { $try } from './utils';
@@ -23,6 +23,7 @@ export default class Validator {
   @observable error = null;
 
   constructor(obj = {}) {
+    makeObservable(this);
     _.merge(this.plugins, obj.plugins);
     this.form = obj.form;
 

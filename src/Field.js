@@ -1,4 +1,4 @@
-import { observable, observe, action, computed, isObservableArray, toJS, asMap, untracked } from 'mobx';
+import { observable, observe, action, computed, isObservableArray, toJS, asMap, untracked, makeObservable } from 'mobx';
 import _ from 'lodash';
 import Base from './Base';
 
@@ -106,6 +106,8 @@ export default class Field extends Base {
     key, path, data = {}, props = {}, update = false, state,
   }) {
     super();
+
+    makeObservable(this);
 
     this.state = state;
 

@@ -1,4 +1,4 @@
-import { useStrict, configure } from 'mobx';
+import { configure } from 'mobx';
 
 import Form, { prototypes as formPrototypes } from './Form';
 import Field, { prototypes as fieldPrototypes } from './Field';
@@ -17,9 +17,7 @@ import fieldEvents from './shared/Events';
   change any state outside of an action
 */
 if (process.env.TEST) {
-  configure
-    ? configure({ enforceActions: true })
-    : useStrict(true);
+    configure({ enforceActions: true })
 }
 
 /**

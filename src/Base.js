@@ -1,4 +1,4 @@
-import { observable, computed, toJS } from 'mobx';
+import { observable, computed, toJS, makeObservable } from 'mobx';
 import _ from 'lodash';
 
 import {
@@ -29,6 +29,10 @@ export default class Base {
     fallback,
     this.noop,
   ).apply(this, [...args]), this.execHook(name)];
+
+  constructor() {
+    makeObservable(this);
+  }
 
   @computed get submitted() {
     return toJS(this.$submitted);

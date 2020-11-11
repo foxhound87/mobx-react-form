@@ -28,7 +28,7 @@ export default {
 
     if (type === 'observer') {
       fn = observe;
-      ffn = $instance.fields.observe;
+      ffn = cb => observe($instance.fields, cb);
     }
 
     if (type === 'interceptor') {
