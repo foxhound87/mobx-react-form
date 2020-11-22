@@ -44,8 +44,11 @@ export default {
     const initial = this.state.get('current', 'props');
     const struct = utils.pathToStruct(path);
     // try to get props from separated objects
-    const $try = prop => initial[prop] && initial[prop][struct];
-
+    const $try = prop => {
+      const t = _.get(initial[prop], struct);
+      if ((prop === 'input' || prop === 'output') && typeof t !== 'function') return undefined
+      return t;
+    }
     const props = {
       $value: _.get(initial['values'], path),
       $label: $try('labels'),

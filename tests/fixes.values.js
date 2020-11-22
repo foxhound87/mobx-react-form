@@ -513,11 +513,11 @@ describe('falsy fallback for array items', () => {
 });
 
 describe('output goes wrong', () => {
-  it.only('', () => {
+  it('', () => {
     const fields = [
       'customer',
       'customer.name',
-      'customerid'
+      'customer.id'
     ];
     const labels = {
       'customer': 'Customer',
