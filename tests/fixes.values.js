@@ -336,7 +336,7 @@ describe('new form with nested array values', () => {
       'trip.itineraryItems[].hotel.name',
       'trip.itineraryItems[].hotel.starRating',
     ];
-    
+
     const values = {
       purpose: 'Summer vacation',
       trip: {
@@ -370,7 +370,7 @@ describe('update to nested array items', () => {
       'bulletin.jobs[].jobId',
       'bulletin.jobs[].companyName',
     ];
-    
+
     const values = {
       bulletin: {
         jobs: [
@@ -418,7 +418,7 @@ describe('#523', () => {
         label: "nestedB"
       }]
 	}];
-	
+
     const $523 = new Form({fields}, {name: 'Form 523'})
     expect($523.isDirty).to.be.false
   })
@@ -433,7 +433,7 @@ describe('update nested nested array items', () => {
       'pricing.value[].prices[].money',
       'pricing.value[].prices[].quantity',
     ];
-    
+
     const values = {
       pricing: {
         value: [
@@ -482,7 +482,7 @@ describe('falsy fallback for array items', () => {
       'trip.itineraryItems[].hotel.name',
       'trip.itineraryItems[].hotel.starRating',
     ];
-    
+
     const values = {
       purpose: 'Summer vacation',
       trip: {
@@ -509,5 +509,32 @@ describe('falsy fallback for array items', () => {
     expect($527.$('trip.itineraryItems').size).to.be.equal(3)
     expect($527.$('trip.itineraryItems.0.hotel')).not.to.be.undefined
     expect($527.select('trip.itineraryItems.0.hotel.favorite', null, false)).to.be.undefined
+  })
+});
+
+describe('output goes wrong', () => {
+  it('', () => {
+    const fields = [
+      'customer',
+      'customer.name',
+      'customer.id'
+    ];
+    const labels = {
+      'customer': 'Customer',
+      'customer.name': 'name',
+    };
+    const output = {
+      customer: c => c ? c.id : c
+    };
+    const values = {
+      customer: {
+        id: 'c-001',
+        name: 'Allen'
+      }
+    }
+
+    const $541 = new Form({fields, labels, output, values}, {name: 'Form 541', options:{fallback: false}});
+      expect(typeof $541.$('customer.name').$output).to.be.equal('function')
+      expect($541.values().customer).to.be.equal('c-001')
   })
 });
