@@ -15,9 +15,6 @@ export default class Form extends Base {
   $hooks = {};
   $handlers = {};
 
-  @observable $submitting = false;
-  @observable $validating = false;
-
   @observable fields = observable.map ? observable.map({}) : asMap({});
 
   constructor(setup = {}, {
