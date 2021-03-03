@@ -1,3 +1,6 @@
+# 3.1.0
+* mobx6.1 support
+
 # 3.0.0
 * mobx6 support
 
