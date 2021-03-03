@@ -14,7 +14,7 @@
     "build": "npm-run-all --parallel build:*",
     "build:main": "babel --plugins lodash -d lib/ src/",
     "build:umd": "webpack",
-    "build:umdmin": "MINIFY=YES webpack -p",
+    "build:umdmin": "cross-env MINIFY=YES webpack -p",
     "prebuild": "npm run clean:build",
     "precommit": "npm run lint && npm run cover",
     "commit": "git-cz && git push origin",
