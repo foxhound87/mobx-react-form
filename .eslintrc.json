@@ -1,5 +1,11 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "sourceType": "module",
+		"ecmaFeatures": {
+			"legacyDecorators": true
+		}
+	},
   "plugins": ["import"],
   "rules": {
     "react/forbid-prop-types": 0,

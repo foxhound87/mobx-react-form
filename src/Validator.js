@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, makeObservable } from 'mobx';
 import _ from 'lodash';
 
 import { $try } from './utils';
@@ -23,6 +23,7 @@ export default class Validator {
   @observable error = null;
 
   constructor(obj = {}) {
+    makeObservable(this);
     _.merge(this.plugins, obj.plugins);
     this.form = obj.form;
 
@@ -108,8 +109,15 @@ export default class Validator {
     // reset field validation
     instance.resetValidation();
     // validate with all enabled drivers
-    _.each(this.drivers, (driver) =>
-      driver && driver.validateField(instance));
+    const stopOnError = instance.state.options.get('stopValidationOnError', instance);	
+    const validationOrder = instance.state.options.get('validationOrder', instance);	
+    const drivers = validationOrder ? validationOrder.map(n => this.drivers[n]) : this.drivers
+    _.each(drivers, (driver) => {	
+      driver && driver.validateField(instance)
+      if (stopOnError && instance.hasError) {
+        return false
+      }
+    });
     // send error to the view
     instance.showErrors(showErrors);
     // related validation

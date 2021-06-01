@@ -49,6 +49,7 @@ export default {
       if ((prop === 'input' || prop === 'output') && typeof t !== 'function') return undefined
       return t;
     }
+
     const props = {
       $value: _.get(initial['values'], path),
       $label: $try('labels'),

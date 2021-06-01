@@ -1,5 +1,3 @@
-import { useStrict, configure } from 'mobx';
-
 import Form, { prototypes as formPrototypes } from './Form';
 import Field, { prototypes as fieldPrototypes } from './Field';
 
@@ -9,18 +7,6 @@ import fieldHelpers from './shared/Helpers';
 import fieldActions from './shared/Actions';
 import fieldUtils from './shared/Utils';
 import fieldEvents from './shared/Events';
-
-/**
-  Enables MobX strict mode globally (TEST only).
-  - - - - - - - - - - - - - - - - - -
-  In strict mode, it is not allowed to
-  change any state outside of an action
-*/
-if (process.env.TEST) {
-  configure
-    ? configure({ enforceActions: true })
-    : useStrict(true);
-}
 
 /**
   Extend Classes with Prototype
