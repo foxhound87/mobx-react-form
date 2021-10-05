@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { uniqueId } from './utils';
 
 export default class Options {
-  @observable options = {
+  options = {
     uniqueId,
     fallback: true,
     defaultGenericError: null,
@@ -36,7 +36,10 @@ export default class Options {
   };
 
   constructor() {
-    makeObservable(this);
+    makeObservable(this, {
+      options: observable,
+      set: action
+    });
   }
 
   get(key = null, field = null) {
@@ -52,7 +55,6 @@ export default class Options {
     return toJS(this.options);
   }
 
-  @action
   set(options) {
     if (set) {
       set(this.options, options);

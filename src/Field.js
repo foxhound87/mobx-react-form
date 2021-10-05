@@ -65,49 +65,110 @@ export default class Field extends Base {
   $input = $ => $;
   $output = $ => $;
 
-  @observable $options;
-  @observable $value;
-  @observable $type;
-  @observable $label;
-  @observable $placeholder;
-  @observable $default;
-  @observable $initial;
-  @observable $bindings;
-  @observable $extra;
-  @observable $related;
-  @observable $validatedWith;
+   $options;
+   $value;
+   $type;
+   $label;
+   $placeholder;
+   $default;
+   $initial;
+   $bindings;
+   $extra;
+   $related;
+   $validatedWith;
 
-  @observable $validators;
-  @observable $rules;
+   $validators;
+   $rules;
 
-  @observable $disabled = false;
-  @observable $focused = false;
-  @observable $touched = false;
-  @observable $changed = false;
-  @observable $blurred = false;
-  @observable $deleted = false;
+   $disabled = false;
+   $focused = false;
+   $touched = false;
+   $changed = false;
+   $blurred = false;
+   $deleted = false;
 
-  @observable $clearing = false;
-  @observable $resetting = false;
+   $clearing = false;
+   $resetting = false;
 
-  @observable autoFocus = false;
-  @observable showError = false;
+   autoFocus = false;
+   showError = false;
 
-  @observable errorSync = null;
-  @observable errorAsync = null;
+   errorSync = null;
+   errorAsync = null;
 
-  @observable validationErrorStack = [];
-  @observable validationFunctionsData = [];
-  @observable validationAsyncData = {};
+   validationErrorStack = [];
+   validationFunctionsData = [];
+   validationAsyncData = {};
 
-  @observable files;
+   files;
 
   constructor({
     key, path, data = {}, props = {}, update = false, state,
   }) {
     super();
 
-    makeObservable(this);
+    makeObservable(this, {
+      $options: observable,
+      $value: observable,
+      $type: observable,
+      $label: observable,
+      $placeholder: observable,
+      $default: observable,
+      $initial: observable,
+      $bindings: observable,
+      $extra: observable,
+      $related: observable,
+      $validatedWith: observable,
+      $validators: observable,
+      $rules: observable,
+      $disabled: observable,
+      $focused: observable,
+      $touched: observable,
+      $changed: observable,
+      $blurred: observable,
+      $deleted: observable,
+      $clearing: observable,
+      $resetting: observable,
+      autoFocus: observable,
+      showError: observable,
+      errorSync: observable,
+      errorAsync: observable,
+      validationErrorStack: observable,
+      validationFunctionsData: observable,
+      validationAsyncData: observable,
+      files: observable,
+      checkValidationErrors: computed,
+      checked: computed,
+      value: computed,
+      initial: computed,
+      default: computed,
+      actionRunning: computed,
+      type: computed,
+      label: computed,
+      placeholder: computed,
+      extra: computed,
+      options: computed,
+      bindings: computed,
+      related: computed,
+      disabled: computed,
+      rules: computed,
+      validators: computed,
+      validatedValue: computed,
+      error: computed,
+      hasError: computed,
+      isValid: computed,
+      isDefault: computed,
+      isDirty: computed,
+      isPristine: computed,
+      isEmpty: computed,
+      resetting: computed,
+      clearing: computed,
+      focused: computed,
+      blurred: computed,
+      touched: computed,
+      changed: computed,
+      deleted: computed
+    });
 
     this.state = state;
 
@@ -135,7 +196,7 @@ export default class Field extends Base {
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
 
-  @computed get checkValidationErrors() {
+  get checkValidationErrors() {
     return ((this.validationAsyncData.valid === false)
       && !_.isEmpty(this.validationAsyncData))
       || !_.isEmpty(this.validationErrorStack)
@@ -143,11 +204,11 @@ export default class Field extends Base {
       || _.isString(this.errorSync);
   }
 
-  @computed get checked() {
+  get checked() {
     return (this.type === 'checkbox') ? this.value : undefined;
   }
 
-  @computed get value() {
+  get value() {
     return this.getComputedProp('value');
   }
 
@@ -166,13 +227,13 @@ export default class Field extends Base {
     this.$value = newVal;
   }
 
-  @computed get initial() {
+  get initial() {
     return this.$initial
       ? toJS(this.$initial)
       : this.getComputedProp('initial');
   }
 
-  @computed get default() {
+  get default() {
     return this.$default
       ? toJS(this.$default)
       : this.getComputedProp('default');
@@ -186,85 +247,85 @@ export default class Field extends Base {
     this.$default = parseInput(this.$input, { separated: val });
   }
 
-  @computed get actionRunning() {
+  get actionRunning() {
     return (this.submitting || this.clearing || this.resetting);
   }
 
-  @computed get type() {
+  get type() {
     return toJS(this.$type);
   }
 
-  @computed get label() {
+  get label() {
     return toJS(this.$label);
   }
 
-  @computed get placeholder() {
+  get placeholder() {
     return toJS(this.$placeholder);
   }
 
-  @computed get extra() {
+  get extra() {
     return toJS(this.$extra);
   }
 
-  @computed get options() {
+  get options() {
     return toJS(this.$options);
   }
 
-  @computed get bindings() {
+  get bindings() {
     return toJS(this.$bindings);
   }
 
-  @computed get related() {
+  get related() {
     return toJS(this.$related);
   }
 
-  @computed get disabled() {
+  get disabled() {
     return toJS(this.$disabled);
   }
 
-  @computed get rules() {
+  get rules() {
     return toJS(this.$rules);
   }
 
-  @computed get validators() {
+  get validators() {
     return toJS(this.$validators);
   }
 
-  @computed get validatedValue() {
+  get validatedValue() {
     return parseCheckOutput(this, this.$validatedWith)
   }
 
-  @computed get error() {
+  get error() {
     if (this.showError === false) return null;
     return (this.errorAsync || this.errorSync || null);
   }
 
-  @computed get hasError() {
+  get hasError() {
     return this.checkValidationErrors
       || this.check('hasError', true);
   }
 
-  @computed get isValid() {
+  get isValid() {
     return !this.checkValidationErrors
       && this.check('isValid', true);
   }
 
-  @computed get isDefault() {
+  get isDefault() {
     return !_.isNil(this.default) &&
       _.isEqual(this.default, this.value);
   }
 
-  @computed get isDirty() {
+  get isDirty() {
     return !_.isUndefined(this.initial) &&
       !_.isEqual(this.initial, this.value);
   }
 
-  @computed get isPristine() {
+  get isPristine() {
     return !_.isNil(this.initial) &&
       _.isEqual(this.initial, this.value) ;
   }
 
-  @computed get isEmpty() {
+  get isEmpty() {
     if (this.hasNestedFields) return this.check('isEmpty', true);
     if (_.isBoolean(this.value)) return !!this.$value;
     if (_.isNumber(this.value)) return false;
@@ -272,43 +333,43 @@ export default class Field extends Base {
     return _.isEmpty(this.value);
   }
 
-  @computed get resetting() {
+  get resetting() {
     return this.hasNestedFields
       ? this.check('resetting', true)
       : this.$resetting;
   }
 
-  @computed get clearing() {
+  get clearing() {
     return this.hasNestedFields
       ? this.check('clearing', true)
       : this.$clearing;
   }
 
-  @computed get focused() {
+  get focused() {
     return this.hasNestedFields
       ? this.check('focused', true)
       : this.$focused;
   }
 
-  @computed get blurred() {
+  get blurred() {
     return this.hasNestedFields
       ? this.check('blurred', true)
       : this.$blurred;
   }
 
-  @computed get touched() {
+  get touched() {
     return this.hasNestedFields
       ? this.check('touched', true)
       : this.$touched;
   }
 
-  @computed get changed() {
+  get changed() {
     return this.hasNestedFields
       ? this.check('changed', true)
       : this.$changed;
   }
 
-  @computed get deleted() {
+  get deleted() {
     return this.hasNestedFields
       ? this.check('deleted', true)
       : this.$deleted;
