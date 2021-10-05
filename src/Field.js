@@ -167,7 +167,17 @@ export default class Field extends Base {
       blurred: computed,
       touched: computed,
       changed: computed,
-      deleted: computed
+      deleted: computed,
+      setupField: action,
+      initNestedFields: action,
+      invalidate: action,
+      setValidationAsyncData: action,
+      resetValidation: action,
+      clear: action,
+      reset: action,
+      focus: action,
+      showErrors: action,
+      showAsyncErrors: action
     });
 
     this.state = state;
@@ -439,14 +449,7 @@ export default class Field extends Base {
 
         this.files = files || args;
       }));
-}
 
-/**
-  Prototypes
-*/
-export const prototypes = {
-
-  @action
   setupField($key, $path, $data, $props, update) {
     this.key = $key;
     this.path = $path;
@@ -522,7 +525,7 @@ export const prototypes = {
     });
 
     setupFieldProps(this, $props, $data);
-  },
+  }
 
   getComputedProp(key) {
     if (this.incremental || this.hasNestedFields) {
@@ -540,7 +543,7 @@ export const prototypes = {
     }
 
     return toJS(val);
-  },
+  }
 
   checkValidationPlugins() {
     const { drivers } = this.state.form.validator;
@@ -553,9 +556,8 @@ export const prototypes = {
     if (_.isNil(drivers.vjf) && !_.isNil(this.validators)) {
       throw new Error(`The VJF validators functions are defined but no VJF plugin provided. Field: "${form + this.path}".`);
     }
-  },
+  }
 
-  @action
   initNestedFields(field, update) {
     const fields = _.isNil(field) ? null : field.fields;
 
@@ -571,9 +573,8 @@ export const prototypes = {
         this.initFields({fields, values: this.value}, update)
       }
     }
-  },
+  }
 
-  @action
   invalidate(message, async = false) {
     if (async === true) {
       this.errorAsync = message;
@@ -588,14 +589,12 @@ export const prototypes = {
 
     this.validationErrorStack.unshift(message);
     this.showErrors(true);
-  },
+  }
 
-  @action
   setValidationAsyncData(valid = false, message = '') {
     this.validationAsyncData = { valid, message };
-  },
+  }
 
-  @action
   resetValidation(deep = false) {
     this.showError = true;
     this.errorSync = null;
@@ -604,9 +603,8 @@ export const prototypes = {
     this.validationFunctionsData = [];
     this.validationErrorStack = [];
     if (deep) this.each(field => field.resetValidation());
-  },
+  }
 
-  @action
   clear(deep = true) {
     this.$clearing = true;
     this.$touched = false;
@@ -621,9 +619,8 @@ export const prototypes = {
     this.validate({
       showErrors: this.state.options.get('showErrorsOnClear', this),
     });
-  },
+  }
 
-  @action
   reset(deep = true) {
     this.$resetting = true;
     this.$touched = false;
@@ -640,30 +637,27 @@ export const prototypes = {
     this.validate({
       showErrors: this.state.options.get('showErrorsOnReset', this),
     });
-  },
+  }
 
-  @action
   focus() {
     // eslint-disable-next-line
     this.state.form.each(field => (field.autoFocus = false));
     this.autoFocus = true;
-  },
+  }
 
-  @action
   showErrors(show = true) {
     this.showError = show;
     this.errorSync = _.head(this.validationErrorStack);
     this.each(field => field.showErrors(show));
-  },
+  }
 
-  @action
   showAsyncErrors() {
     if (this.validationAsyncData.valid === false) {
       this.errorAsync = this.validationAsyncData.message;
       return;
     }
     this.errorAsync = null;
-  },
+  }
 
   observeValidationOnBlur() {
     const opt = this.state.options;
@@ -674,7 +668,7 @@ export const prototypes = {
             showErrors: opt.get('showErrorsOnBlur', this),
           }));
     }
-  },
+  }
 
   observeValidationOnChange() {
     const opt = this.state.options;
@@ -699,7 +693,7 @@ export const prototypes = {
         })
       ));
     }
-  },
+  }
 
   initMOBXEvent(type) {
     if (!_.isArray(this[`$${type}`])) return;
@@ -708,10 +702,10 @@ export const prototypes = {
     if (type === 'observers') fn = this.observe;
     if (type === 'interceptors') fn = this.intercept;
     this[`$${type}`].map(obj => fn(_.omit(obj, 'path')));
-  },
+  }
 
   bind(props = {}) {
     return this.state.bindings.load(this, this.bindings, props);
-  },
+  }
 
 };

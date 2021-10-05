@@ -42,7 +42,11 @@ export default class Form extends Base {
       focused: computed,
       touched: computed,
       changed: computed,
-      disabled: computed
+      disabled: computed,
+      init: action,
+      invalidate: action,
+      clear: action,
+      reset: action
     })
 
     this.name = name;
@@ -151,21 +155,14 @@ export default class Form extends Base {
   get disabled() {
     return this.check('disabled', true);
   }
-}
-
-/**
-  Prototypes
-*/
-export const prototypes = {
 
   makeField(data) {
     return new Field(data);
-  },
+  }
 
   /**
    Init Form Fields and Nested Fields
    */
-  @action
   init($fields = null) {
     _.set(this, 'fields', observable.map
       ? observable.map({})
@@ -177,35 +174,34 @@ export const prototypes = {
     this.initFields({
       fields: $fields || this.state.struct(),
     });
-  },
+  }
 
-  @action
   invalidate(message = null) {
     this.validator.error = message
       || this.state.options.get('defaultGenericError')
       || true;
-  },
+  }
 
   showErrors(show = true) {
     this.each(field => field.showErrors(show));
-  },
+  }
 
   /**
     Clear Form Fields
   */
-  @action clear() {
+  clear() {
     this.$touched = false;
     this.$changed = false;
     this.each(field => field.clear(true));
-  },
+  }
 
   /**
     Reset Form Fields
   */
-  @action reset() {
+  reset() {
     this.$touched = false;
     this.$changed = false;
     this.each(field => field.reset(true));
-  },
+  }
 
 };

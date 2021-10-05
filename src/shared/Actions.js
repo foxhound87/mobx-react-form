@@ -1,22 +1,34 @@
-import { action } from 'mobx';
+import { action, makeObservable } from 'mobx';
 import _ from 'lodash';
 import utils from '../utils';
 import parser from '../parser';
+import Initializer from './Initializer'
 
 /**
   Field Actions
 */
-export default {
+export default class Actions extends Initializer {
+
+  constructor() {
+    super();
+
+    makeObservable(this, {
+      submit: action,
+      deepUpdate: action,
+      set: action,
+      add: action,
+      del: action
+    });
+  }
 
   validate(opt = {}, obj = {}) {
     const $opt = _.merge(opt, { path: this.path });
     return this.state.form.validator.validate($opt, obj);
-  },
+  }
 
   /**
     Submit
   */
-  @action
   submit(o = {}) {
     this.$submitting = true;
     this.$submitted += 1;
@@ -49,7 +61,7 @@ export default {
     return utils.isPromise(exec)
       ? exec.then(() => validate())
       : validate();
-  },
+  }
 
   /**
    Check Field Computed Values
@@ -63,7 +75,7 @@ export default {
         data: this.deepCheck(utils.props.types[prop], prop, this.fields),
       })
       : this[prop];
-  },
+  }
 
   deepCheck(type, prop, fields) {
     const $fields = utils.getObservableMapValues(fields);
@@ -76,7 +88,7 @@ export default {
       check.push(utils.checkPropType({ type, data: $deep }));
       return check;
     }, []);
-  },
+  }
 
   /**
    Update Field Values recurisvely
@@ -88,9 +100,8 @@ export default {
     }
 
     return this.deepUpdate(parser.prepareFieldsData({ fields }));
-  },
+  }
 
-  @action
   deepUpdate(fields, path = '', recursion = true) {
     _.each(fields, (field, key) => {
       const $key = _.has(field, 'name') ? field.name : key;
@@ -135,7 +146,7 @@ export default {
         }
       }
     });
-  },
+  }
 
   /**
     Get Fields Props
@@ -161,7 +172,7 @@ export default {
     }
 
     return this.deepGet(prop, this.fields);
-  },
+  }
 
   /**
     Get Fields Props Recursively
@@ -208,12 +219,11 @@ export default {
 
       return obj;
     }, {});
-  },
+  }
 
   /**
    Set Fields Props
    */
-  @action
   set(prop, data) {
     // UPDATE CUSTOM PROP
     if (_.isString(prop) && !_.isUndefined(data)) {
@@ -229,7 +239,7 @@ export default {
       if (this.hasNestedFields) this.deepSet('value', prop, '', true);
       else this.set('value', prop);
     }
-  },
+  }
 
   /**
     Set Fields Props Recursively
@@ -261,12 +271,11 @@ export default {
           }
         }
       });
-  },
+  }
 
   /**
    Add Field
    */
-  @action
   add(obj) {
     if (utils.isArrayOfObjects(obj)) {
       return _.each(obj, values => this.update({
@@ -282,12 +291,11 @@ export default {
     const $path = $key => _.trimStart([this.path, $key].join('.'), '.');
     const tree = parser.pathToFieldsTree(this.state.struct(), this.path, 0, true);
     return this.initField(key, $path(key), _.merge(tree[0], obj));
-  },
+  }
 
   /**
    Del Field
    */
-  @action
   del($path = null) {
     const isStrict = this.state.options.get('strictDelete', this);
     const path = parser.parsePath(utils.$try($path, this.path));
@@ -306,6 +314,6 @@ export default {
     }
 
     return container.fields.delete(last);
-  },
+  }
 
 };
