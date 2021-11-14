@@ -30,6 +30,7 @@ export default class Form extends Base {
     super();
     makeObservable(this, {
       fields: observable,
+      validatedValues: computed,
       clearing: computed,
       resetting: computed,
       error: computed,

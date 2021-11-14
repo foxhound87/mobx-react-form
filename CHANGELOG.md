@@ -1,3 +1,7 @@
+# 3.2.0
+
+- mobx 6.3.3 support
+
 # 3.1.2
 
 - stopValidationOnError & validationOrder options (fix #576)
