@@ -1,6 +1,6 @@
 # 3.1.2
 
-- stopValidationOnError & validationOrder options
+- stopValidationOnError & validationOrder options (fix #576)
 
 - # 3.1.1
 
