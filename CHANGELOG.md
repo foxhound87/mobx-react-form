@@ -1,4 +1,8 @@
-# 3.1.1
+# 3.1.2
+
+- stopValidationOnError & validationOrder options
+
+- # 3.1.1
 
 - labels for DVR dependant fields for before/after rules
 
