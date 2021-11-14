@@ -1,4 +1,4 @@
-import { action, computed, observable, asMap } from 'mobx';
+import { action, computed, observable, asMap, makeObservable } from 'mobx';
 import _ from 'lodash';
 
 import Base from './Base';
@@ -15,7 +15,7 @@ export default class Form extends Base {
   $hooks = {};
   $handlers = {};
 
-  @observable fields = observable.map ? observable.map({}) : asMap({});
+  fields = observable.map ? observable.map({}) : asMap({});
 
   constructor(setup = {}, {
 
@@ -28,6 +28,26 @@ export default class Form extends Base {
 
   } = {}) {
     super();
+    makeObservable(this, {
+      fields: observable,
+      clearing: computed,
+      resetting: computed,
+      error: computed,
+      hasError: computed,
+      isValid: computed,
+      isPristine: computed,
+      isDirty: computed,
+      isDefault: computed,
+      isEmpty: computed,
+      focused: computed,
+      touched: computed,
+      changed: computed,
+      disabled: computed,
+      init: action,
+      invalidate: action,
+      clear: action,
+      reset: action
+    })
 
     this.name = name;
     this.$hooks = hooks;
@@ -74,7 +94,7 @@ export default class Form extends Base {
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
 
-  @computed get validatedValues() {
+  get validatedValues() {
     const data = {};
     this.each($field => // eslint-disable-line
       (data[$field.path] = $field.validatedValue));
@@ -82,74 +102,67 @@ export default class Form extends Base {
     return data;
   }
 
-  @computed get clearing() {
+  get clearing() {
     return this.check('clearing', true);
   }
 
-  @computed get resetting() {
+  get resetting() {
     return this.check('resetting', true);
   }
 
-  @computed get error() {
+  get error() {
     return this.validator.error;
   }
 
-  @computed get hasError() {
+  get hasError() {
     return !!this.validator.error
      || this.check('hasError', true);
   }
 
-  @computed get isValid() {
+  get isValid() {
     return !this.validator.error
       && this.check('isValid', true);
   }
 
-  @computed get isPristine() {
+  get isPristine() {
     return this.check('isPristine', true);
   }
 
-  @computed get isDirty() {
+  get isDirty() {
     return this.check('isDirty', true);
   }
 
-  @computed get isDefault() {
+  get isDefault() {
     return this.check('isDefault', true);
   }
 
-  @computed get isEmpty() {
+  get isEmpty() {
     return this.check('isEmpty', true);
   }
 
-  @computed get focused() {
+  get focused() {
     return this.check('focused', true);
   }
 
-  @computed get touched() {
+  get touched() {
     return this.check('touched', true);
   }
 
-  @computed get changed() {
+  get changed() {
     return this.check('changed', true);
   }
 
-  @computed get disabled() {
+  get disabled() {
     return this.check('disabled', true);
   }
-}
-
-/**
-  Prototypes
-*/
-export const prototypes = {
 
   makeField(data) {
     return new Field(data);
-  },
+  }
 
   /**
    Init Form Fields and Nested Fields
    */
-  @action
   init($fields = null) {
     _.set(this, 'fields', observable.map
       ? observable.map({})
@@ -161,35 +174,34 @@ export const prototypes = {
     this.initFields({
       fields: $fields || this.state.struct(),
     });
-  },
+  }
 
-  @action
   invalidate(message = null) {
     this.validator.error = message
       || this.state.options.get('defaultGenericError')
       || true;
-  },
+  }
 
   showErrors(show = true) {
     this.each(field => field.showErrors(show));
-  },
+  }
 
   /**
     Clear Form Fields
   */
-  @action clear() {
+  clear() {
     this.$touched = false;
     this.$changed = false;
     this.each(field => field.clear(true));
-  },
+  }
 
   /**
     Reset Form Fields
   */
-  @action reset() {
+  reset() {
     this.$touched = false;
     this.$changed = false;
     this.each(field => field.reset(true));
-  },
+  }
 
 };

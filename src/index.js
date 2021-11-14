@@ -1,10 +1,8 @@
-import Form, { prototypes as formPrototypes } from './Form';
-import Field, { prototypes as fieldPrototypes } from './Field';
+import Form from './Form'
+import Field from './Field'
 
 /* shared prototype methods */
-import fieldInitializer from './shared/Initializer';
 import fieldHelpers from './shared/Helpers';
-import fieldActions from './shared/Actions';
 import fieldUtils from './shared/Utils';
 import fieldEvents from './shared/Events';
 
@@ -19,15 +17,13 @@ const extend = ($class, $obj) => ($obj)
     .forEach(name => $class.prototype[name] = mixin[name])); // eslint-disable-line
 
 const shared = [
-  fieldInitializer,
-  fieldActions,
   fieldHelpers,
   fieldUtils,
   fieldEvents,
 ];
 
-extend(Form, shared.concat(formPrototypes));
-extend(Field, shared.concat(fieldPrototypes));
+extend(Form, shared);
+extend(Field, shared);
 
 export default Form;
 export { Form, Field };

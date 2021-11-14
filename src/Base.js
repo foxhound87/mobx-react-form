@@ -1,19 +1,20 @@
 import { observable, computed, toJS, makeObservable } from 'mobx';
 import _ from 'lodash';
+import Actions from "./shared/Actions";
 
 import {
   $try,
   $isEvent,
   hasIntKeys } from './utils';
 
-export default class Base {
+export default class Base extends Actions {
   noop = () => {};
 
-  @observable $submitted = 0;
-  @observable $submitting = false;
+  $submitted = 0;
+  $submitting = false;
 
-  @observable $validated = 0;
-  @observable $validating = false;
+  $validated = 0;
+  $validating = false;
 
   execHook = (name, fallback = {}) => $try(
     fallback[name],
@@ -31,34 +32,47 @@ export default class Base {
   ).apply(this, [...args]), this.execHook(name)];
 
   constructor() {
-    makeObservable(this);
+    super();
+    makeObservable(this, {
+      $submitted: observable,
+      $submitting: observable,
+      $validated: observable,
+      $validating: observable,
+      submitted: computed,
+      submitting: computed,
+      validated: computed,
+      validating: computed,
+      hasIncrementalKeys: computed,
+      hasNestedFields: computed,
+      size: computed
+    });
   }
 
-  @computed get submitted() {
+  get submitted() {
     return toJS(this.$submitted);
   }
 
-  @computed get submitting() {
+  get submitting() {
     return toJS(this.$submitting);
   }
 
-  @computed get validated() {
+  get validated() {
     return toJS(this.$validated);
   }
 
-  @computed get validating() {
+  get validating() {
     return toJS(this.$validating);
   }
 
-  @computed get hasIncrementalKeys() {
+  get hasIncrementalKeys() {
     return (this.fields.size && hasIntKeys(this.fields));
   }
 
-  @computed get hasNestedFields() {
+  get hasNestedFields() {
     return (this.fields.size !== 0);
   }
 
-  @computed get size() {
+  get size() {
     return this.fields.size;
   }
 
