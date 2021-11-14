@@ -1,7 +1,7 @@
 {
-  "name": "mobx-react-form",
+  "name": "@rdgco/mobx-react-form",
   "license": "MIT",
-  "version": "0.0.0-development",
+  "version": "3.2.0-development",
   "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
   "description": "Automagically manage React forms state and automatic validation with MobX.",
   "homepage": "https://www.npmjs.com/package/mobx-react-form",
@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/foxhound87/mobx-react-form.git"
+    "url": "https://github.com/rdgco/mobx-react-form.git"
   },
   "collective": {
     "type": "opencollective",
@@ -93,7 +93,7 @@
     "husky": "0.13.1",
     "json-loader": "0.5.4",
     "lodash-webpack-plugin": "^0.11.5",
-    "mobx": "^6.0.0",
+    "mobx": "^6.3.3",
     "mocha": "3.2.0",
     "npm-run-all": "4.0.1",
     "nyc": "^15.1.0",

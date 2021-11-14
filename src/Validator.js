@@ -20,10 +20,14 @@ export default class Validator {
     yup: undefined,
   };
 
-  @observable error = null;
+  error = null;
 
   constructor(obj = {}) {
-    makeObservable(this);
+    makeObservable(this, {
+      error: observable,
+      validate: action,
+      validateField: action
+    });
     _.merge(this.plugins, obj.plugins);
     this.form = obj.form;
 
@@ -41,7 +45,6 @@ export default class Validator {
         })));
   }
 
-  @action
   validate(opt = {}, obj = {}) {
     const path = $try(opt.path, opt);
     const field = $try(opt.field, this.form.select(path, null, null));
@@ -90,7 +93,6 @@ export default class Validator {
       .then(() => instance);
   }
 
-  @action
   validateField({
     showErrors = false,
     related = false,
