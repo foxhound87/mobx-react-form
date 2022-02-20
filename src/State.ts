@@ -30,13 +30,12 @@ export default class State implements StateInterface {
   bindings: BindingsInterface;
 
   $extra: any;
+  $struct: string[] = [];
 
   disposers = {
     interceptor: {},
     observer: {},
   };
-
-  $struct = [];
 
   initial = {
     props: {},
