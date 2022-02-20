@@ -33,7 +33,7 @@ export default interface StateInterface {
   };
 
   initProps(initial: any): void;
-  struct(data: string[]): string[];
+  struct(data?: string[]): string[];
   get(type: any, subtype: any): any;
   set(type: string, subtype: string, state: any): void;
   extra(data: any): any | null;

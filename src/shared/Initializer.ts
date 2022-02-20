@@ -14,7 +14,7 @@ export default class Initializer implements SharedInitializerInterface {
     });
   }
 
-  initFields(initial: any, update: boolean): void {
+  initFields(initial: any, update: boolean = false): void {
     const fallback = (this as any).state.options.get("fallback");
     const $path = (key: string) =>
       _.trimStart([(this as any).path, key].join("."), ".");
