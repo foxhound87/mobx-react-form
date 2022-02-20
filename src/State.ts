@@ -1,5 +1,5 @@
 import StateInterface, { RuntimeMode } from "./models/StateInterface";
-import { observe } from "mobx";
+import { observe, observable, makeObservable } from "mobx";
 import _ from "lodash";
 
 import Options from "./Options";
@@ -55,6 +55,9 @@ export default class State implements StateInterface {
     this.bindings = new Bindings();
     this.bindings.register(bindings);
     this.observeOptions();
+    makeObservable(this, {
+      $extra: observable,
+    });
   }
 
   initProps(initial: any): void {
