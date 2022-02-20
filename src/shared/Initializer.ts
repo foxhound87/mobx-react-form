@@ -2,39 +2,41 @@ import { action, makeObservable } from "mobx";
 import _ from "lodash";
 import { prepareFieldsData, mergeSchemaDefaults } from "../parser";
 import { pathToStruct } from "../utils";
+import SharedInitializerInterface from "src/models/SharedInitializerInterface";
 
 /**
   Field Initializer
 */
-export default class Initializer {
+export default class Initializer implements SharedInitializerInterface {
   constructor() {
     makeObservable(this, {
       initField: action,
     });
   }
 
-  initFields(initial, update) {
-    const fallback = this.state.options.get("fallback");
-    const $path = (key) => _.trimStart([this.path, key].join("."), ".");
+  initFields(initial: any, update: boolean): void {
+    const fallback = (this as any).state.options.get("fallback");
+    const $path = (key: string) =>
+      _.trimStart([(this as any).path, key].join("."), ".");
 
     let fields;
-    fields = prepareFieldsData(initial, this.state.strict, fallback);
-    fields = mergeSchemaDefaults(fields, this.validator);
+    fields = prepareFieldsData(initial, (this as any).state.strict, fallback);
+    fields = mergeSchemaDefaults(fields, (this as any).validator);
 
     // create fields
     _.forIn(fields, (field, key) => {
       const path = $path(key);
-      const $f = this.select(path, null, false);
+      const $f = (this as any).select(path, null, false);
       if (_.isNil($f)) {
         if (fallback) {
           this.initField(key, path, field, update);
         } else {
           const structPath = pathToStruct(path);
-          const struct = this.state.struct();
+          const struct = (this as any).state.struct();
           const found = struct
-            .filter((s) => s.startsWith(structPath))
+            .filter((s: any) => s.startsWith(structPath))
             .find(
-              (s) =>
+              (s: any) =>
                 s.charAt(structPath.length) === "." ||
                 s.substr(structPath.length, 2) === "[]" ||
                 s === structPath
@@ -46,11 +48,16 @@ export default class Initializer {
     });
   }
 
-  initField(key, path, data, update = false) {
-    const initial = this.state.get("current", "props");
+  initField(
+    key: string,
+    path: string,
+    data: any,
+    update: boolean = false
+  ): any {
+    const initial = (this as any).state.get("current", "props");
     const struct = pathToStruct(path);
     // try to get props from separated objects
-    const $try = (prop) => {
+    const $try = (prop: string) => {
       const t = _.get(initial[prop], struct);
       if ((prop === "input" || prop === "output") && typeof t !== "function")
         return undefined;
@@ -80,16 +87,16 @@ export default class Initializer {
       $output: $try("output"),
     };
 
-    const field = this.state.form.makeField({
+    const field = (this as any).state.form.makeField({
       key,
       path,
       data,
       props,
       update,
-      state: this.state,
+      state: (this as any).state,
     });
 
-    this.fields.merge({ [key]: field });
+    (this as any).fields.merge({ [key]: field });
 
     return field;
   }
