@@ -81,7 +81,7 @@ export default class Actions extends Initializer {
    Check Field Computed Values
    */
   check(prop, deep = false) {
-    allowedProps("booleans", [prop]);
+    allowedProps("computed", [prop]);
 
     return deep
       ? checkPropType({
@@ -169,7 +169,7 @@ export default class Actions extends Initializer {
   get(prop = null, strict = true) {
     if (_.isNil(prop)) {
       return this.deepGet(
-        [...props.booleans, ...props.field, ...props.validation],
+        [...props.computed, ...props.field, ...props.validation],
         this.fields
       );
     }

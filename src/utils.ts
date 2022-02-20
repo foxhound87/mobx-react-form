@@ -37,8 +37,8 @@ const checkPropType = ({ type, data }: any) => {
 const hasProps = ($type: any, $data: any) => {
   let $props;
   switch ($type) {
-    case "booleans":
-      $props = props.booleans;
+    case "computed":
+      $props = props.computed;
       break;
     case "field":
       $props = [
@@ -51,7 +51,7 @@ const hasProps = ($type: any, $data: any) => {
     case "all":
       $props = [
         "id",
-        ...props.booleans,
+        ...props.computed,
         ...props.field,
         ...props.validation,
         ...props.function,
