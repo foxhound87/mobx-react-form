@@ -149,8 +149,8 @@ const $hasFiles = ($: any): boolean =>
 const $isBool = ($: any, val: any): boolean =>
   _.isBoolean(val) && _.isBoolean($.target.checked);
 
-const $try = (...args: any | null) => {
-  let found: boolean | null = null;
+const $try = (...args: any) => {
+  let found: any | null = null;
 
   args.map(
     (
