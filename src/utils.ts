@@ -44,7 +44,7 @@ const hasProps = ($type: any, $data: any) => {
       $props = [
         ...props.field,
         ...props.validation,
-        ...props.function,
+        ...props.functions,
         ...props.handlers,
       ];
       break;
@@ -54,7 +54,7 @@ const hasProps = ($type: any, $data: any) => {
         ...props.computed,
         ...props.field,
         ...props.validation,
-        ...props.function,
+        ...props.functions,
         ...props.handlers,
       ];
       break;
@@ -117,7 +117,7 @@ const allowNested = (field: any, strictProps: boolean): boolean =>
   (!hasSome(field, [
     ...props.field,
     ...props.validation,
-    ...props.function,
+    ...props.functions,
     ...props.handlers,
   ]) ||
     strictProps);
@@ -149,7 +149,7 @@ const $hasFiles = ($: any): boolean =>
 const $isBool = ($: any, val: any): boolean =>
   _.isBoolean(val) && _.isBoolean($.target.checked);
 
-const $try = (...args: any) => {
+const $try = (...args: any | null) => {
   let found: boolean | null = null;
 
   args.map(

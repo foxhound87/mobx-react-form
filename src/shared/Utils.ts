@@ -42,7 +42,7 @@ export const SharedUtils: SharedUtilsInferface = {
     Get Container
    */
   container($path: string) {
-    const path = parsePath($path || (this as any).path);
+    const path = parsePath($path ?? (this as any).path);
     const cpath = _.trim(path.replace(new RegExp("[^./]+$"), ""), ".");
 
     if (!!(this as any).path && _.isNil($path)) {

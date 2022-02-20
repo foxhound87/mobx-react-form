@@ -61,7 +61,7 @@ export default class State implements StateInterface {
     const initialProps: any = _.pick(initial, [
       ...props.separated,
       ...props.validation,
-      ...props.function,
+      ...props.functions,
       ...props.handlers,
     ]);
 

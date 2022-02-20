@@ -1,5 +1,20 @@
+import { computed } from "mobx";
 import { FieldPropsEnum } from "./models/FieldProps";
-export const props = {
+
+export interface PropsGropusInterface {
+  field: FieldPropsEnum[];
+  handlers: FieldPropsEnum[];
+  computed: FieldPropsEnum[];
+  separated: string[];
+  functions: string[];
+  validation: string[];
+  exceptions: string[];
+  types: {
+    [index: string]: "some" | "every";
+  };
+}
+
+export const props: PropsGropusInterface = {
   field: [
     FieldPropsEnum.type,
     FieldPropsEnum.value,
@@ -61,7 +76,7 @@ export const props = {
     "deleted",
     "error",
   ],
-  function: ["observers", "interceptors", "input", "output"],
+  functions: ["observers", "interceptors", "input", "output"],
   validation: ["rules", "validators", "validateWith"],
   exceptions: ["isDirty", "isPristine"],
   types: {

@@ -73,7 +73,7 @@ export const SharedEvents: SharedEventsInterface = {
     Dispose Single Event (observe/intercept)
    */
   disposeSingle({ type, key = "value", path = null }: any) {
-    const $path = parsePath(path || (this as any).path);
+    const $path = parsePath(path ?? (this as any).path);
     // eslint-disable-next-line
     if (type === "interceptor") key = `$${key}`; // target observables
     (this as any).state.disposers[type][`${key}@${$path}`].apply();
