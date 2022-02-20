@@ -1,5 +1,4 @@
-import StateInterface, { RuntimeMode } from "./models/StateInterface";
-import { observe, observable, makeObservable } from "mobx";
+import { observe } from "mobx";
 import _ from "lodash";
 
 import Options from "./Options";
@@ -14,6 +13,8 @@ import {
   $try,
 } from "./utils";
 
+import StateInterface from "./models/StateInterface";
+import { RuntimeMode } from "./models/StateInterface";
 import OptionsInterface from "./models/OptionsInterface";
 import BindingsInterface from "./models/BindingsInterface";
 
@@ -28,14 +29,14 @@ export default class State implements StateInterface {
 
   bindings: BindingsInterface;
 
-  $struct: string[] = [];
-
   $extra: any;
 
   disposers = {
     interceptor: {},
     observer: {},
   };
+
+  $struct = [];
 
   initial = {
     props: {},
@@ -55,12 +56,9 @@ export default class State implements StateInterface {
     this.bindings = new Bindings();
     this.bindings.register(bindings);
     this.observeOptions();
-    makeObservable(this, {
-      $extra: observable,
-    });
   }
 
-  initProps(initial: any): void {
+  initProps(initial: any) {
     const initialProps: any = _.pick(initial, [
       ...props.separated,
       ...props.validation,
@@ -98,7 +96,7 @@ export default class State implements StateInterface {
   /**
     Get/Set Fields Structure
   */
-  struct(data: string[] = []): string[] {
+  struct(data: any = null): any {
     if (data) this.$struct = data;
     return this.$struct;
   }
@@ -106,30 +104,30 @@ export default class State implements StateInterface {
   /**
     Get Props/Fields
   */
-  get(type: any, subtype: any): any {
-    return _.get(this, subtype ? [type, subtype].join(".") : type);
+  get(type: string, subtype: string) {
+    return (this as any)[type][subtype];
   }
 
   /**
     Set Props/Fields
   */
-  set(type: string, subtype: string, state: any = null): void {
+  set(type: string, subtype: string, state = null) {
     if (type === "form") {
       // subtype is the form here
       this.form = subtype;
     }
 
     if (type === "initial") {
-      Object.assign(_.get(this.initial, subtype), state);
-      Object.assign(_.get(this.current, subtype), state);
+      Object.assign((this.initial as any)[subtype], state);
+      Object.assign((this.current as any)[subtype], state);
     }
 
     if (type === "current") {
-      Object.assign(_.get(this.current, subtype), state);
+      Object.assign((this.current as any)[subtype], state);
     }
   }
 
-  extra(data = null): any | null {
+  extra(data: any | null = null): any | null {
     if (_.isString(data)) return _.get(this.$extra, data);
     if (data === null) return this.$extra;
     this.$extra = data;
