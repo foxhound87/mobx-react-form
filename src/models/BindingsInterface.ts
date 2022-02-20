@@ -1,4 +1,7 @@
+import Bindings from "../Bindings";
 import { FieldPropsEnum } from "./FieldProps";
+
+import { FieldPropsInterface } from "./FieldProps";
 
 export default interface BindingsInterface {
   templates: {
@@ -11,4 +14,12 @@ export default interface BindingsInterface {
       [key: string]: FieldPropsEnum;
     };
   };
+
+  load: (
+    field: any,
+    name: string,
+    props: FieldPropsInterface
+  ) => FieldPropsInterface;
+
+  register: (bindings: FieldPropsInterface) => Bindings;
 }
