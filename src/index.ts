@@ -4,7 +4,7 @@ import Field from "./Field";
 /* shared prototype methods */
 import { SharedHelper } from "./shared/Helpers";
 import { SharedUtils } from "./shared/Utils";
-import fieldEvents from "./shared/Events";
+import { SharedEvents } from "./shared/Events";
 
 /**
   Extend Classes with Prototype
@@ -19,7 +19,7 @@ const extend = ($class: any, $obj: object[]) =>
     )
   );
 
-const shared = [SharedHelper, SharedUtils, fieldEvents];
+const shared = [SharedHelper, SharedUtils, SharedEvents];
 
 extend(Form, shared);
 extend(Field, shared);
