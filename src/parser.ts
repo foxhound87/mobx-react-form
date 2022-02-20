@@ -9,7 +9,7 @@ import {
   isEmptyArray,
 } from "./utils";
 
-const defaultClearValue = ({ value }) => {
+const defaultClearValue = ({ value }: { value: any }) => {
   if (_.isArray(value)) return [];
   if (_.isDate(value)) return null;
   if (_.isBoolean(value)) return false;
@@ -18,7 +18,11 @@ const defaultClearValue = ({ value }) => {
   return undefined;
 };
 
-const defaultValue = ({ type, nullable = false, isEmptyArray = false }) => {
+const defaultValue = ({
+  type,
+  nullable = false,
+  isEmptyArray = false,
+}: any): any => {
   if (type === "nullable") return null;
   if (type === "date") return null;
   if (type === "datetime-local") return null;
@@ -29,7 +33,7 @@ const defaultValue = ({ type, nullable = false, isEmptyArray = false }) => {
   return "";
 };
 
-const parsePath = (path) => {
+const parsePath = (path: string): string => {
   let $path = path;
   $path = _.replace($path, new RegExp("\\[", "g"), ".");
   $path = _.replace($path, new RegExp("\\]", "g"), "");
@@ -37,8 +41,8 @@ const parsePath = (path) => {
 };
 
 const parseInput = (
-  input,
-  { type, isEmptyArray, nullable, separated, unified, fallback }
+  input: any,
+  { type, isEmptyArray, nullable, separated, unified, fallback }: any
 ) =>
   input(
     $try(
@@ -53,27 +57,25 @@ const parseInput = (
     )
   );
 
-const parseArrayProp = ($val, $prop) => {
-  const $values = _.values($val);
-  if ($prop === "value" || $prop === "initial" || $prop === "default") {
-    return _.without($values, null, undefined, "");
+const parseArrayProp = (val: any, prop: string): any => {
+  const values = _.values(val);
+  if (prop === "value" || prop === "initial" || prop === "default") {
+    return _.without(values, null, undefined, "");
   }
-  return $values;
+  return values;
 };
 
-const parseCheckArray = (field, value, prop) =>
+const parseCheckArray = (field: any, value: any, prop: string) =>
   field.hasIncrementalKeys ? parseArrayProp(value, prop) : value;
 
-const parseCheckOutput = ($field, $prop) =>
-  $prop === "value" && $field.$output
-    ? $field.$output($field[$prop])
-    : $field[$prop];
+const parseCheckOutput = (field: any, prop: string) =>
+  prop === "value" && field.$output ? field.$output(field[prop]) : field[prop];
 
-const defineFieldsFromStruct = (struct, add = false) =>
+const defineFieldsFromStruct = (struct: string[], add: boolean = false) =>
   _.reduceRight(
     struct,
     ($, name) => {
-      const obj = {};
+      const obj: any = {};
       if (_.endsWith(name, "[]")) {
         const val = add ? [$] : [];
         obj[_.trimEnd(name, "[]")] = val;
@@ -89,7 +91,7 @@ const defineFieldsFromStruct = (struct, add = false) =>
     {}
   );
 
-const handleFieldsArrayOfStrings = ($fields, add = false) => {
+const handleFieldsArrayOfStrings = ($fields: any, add = false) => {
   let fields = $fields;
   // handle array with field struct (strings)
   if (isStruct(fields)) {
@@ -108,7 +110,7 @@ const handleFieldsArrayOfStrings = ($fields, add = false) => {
   return fields;
 };
 
-const handleFieldsArrayOfObjects = ($fields) => {
+const handleFieldsArrayOfObjects = ($fields: any) => {
   let fields = $fields;
   // handle array of objects (with unified props)
   if (isArrayOfObjects(fields)) {
@@ -125,7 +127,7 @@ const handleFieldsArrayOfObjects = ($fields) => {
   return fields;
 };
 
-const handleFieldsNested = (fields, strictProps = true) =>
+const handleFieldsNested = (fields: any, strictProps: boolean = true): any =>
   _.transform(
     fields,
     (obj, field, key) => {
@@ -162,7 +164,7 @@ TO:
 }]
 
 */
-const mapNestedValuesToUnifiedValues = (data) =>
+const mapNestedValuesToUnifiedValues = (data: object): any =>
   _.isPlainObject(data)
     ? _.map(data, (value, name) => ({ value, name }))
     : undefined;
@@ -196,7 +198,7 @@ TO:
 };
 
 */
-const reduceValuesToUnifiedFields = (values) =>
+const reduceValuesToUnifiedFields = (values: object): object =>
   _.transform(
     values,
     (obj, value, key) =>
@@ -212,7 +214,11 @@ const reduceValuesToUnifiedFields = (values) =>
 /*
   Fallback Unified Props to Sepated Mode
 */
-const handleFieldsPropsFallback = (fields, initial, fallback) => {
+const handleFieldsPropsFallback = (
+  fields: any,
+  initial: any,
+  fallback: any
+) => {
   if (!_.has(initial, "values")) return fields;
   // if the 'values' object is passed in constructor
   // then update the fields definitions
@@ -224,7 +230,7 @@ const handleFieldsPropsFallback = (fields, initial, fallback) => {
     fields,
     _.transform(
       values,
-      (result, v, k) => {
+      (result: any, v, k) => {
         if (_.isArray(fields[k])) result[k] = v;
         if (!(k in fields) && (!isNaN(Number(k)) || fallback)) result[k] = v;
       },
@@ -233,7 +239,7 @@ const handleFieldsPropsFallback = (fields, initial, fallback) => {
   );
 };
 
-const mergeSchemaDefaults = (fields, validator) => {
+const mergeSchemaDefaults = (fields: any, validator: any) => {
   if (validator) {
     const schema = _.get(validator.plugins, "svk.config.schema");
     if (_.isEmpty(fields) && schema && !!schema.properties) {
@@ -248,7 +254,11 @@ const mergeSchemaDefaults = (fields, validator) => {
   return fields;
 };
 
-const prepareFieldsData = (initial, strictProps = true, fallback = true) => {
+const prepareFieldsData = (
+  initial: any,
+  strictProps: boolean = true,
+  fallback: boolean = true
+) => {
   let fields = _.merge(
     handleFieldsArrayOfStrings(initial.fields, false),
     handleFieldsArrayOfStrings(initial.struct, false)
@@ -261,7 +271,12 @@ const prepareFieldsData = (initial, strictProps = true, fallback = true) => {
   return fields;
 };
 
-const pathToFieldsTree = (struct, path, n = 0, add = false) => {
+const pathToFieldsTree = (
+  struct: string[],
+  path: string,
+  n: number = 0,
+  add: boolean = false
+) => {
   const structPath = pathToStruct(path);
   const structArray = _.filter(struct, (item) =>
     _.startsWith(item, structPath)
