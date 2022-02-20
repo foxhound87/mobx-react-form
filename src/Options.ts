@@ -12,8 +12,9 @@ import _ from "lodash";
 import { uniqueId } from "./utils";
 
 import OptionsModel from "./models/OptionsModel";
+import OptionsInterface from "./models/OptionsInterface";
 
-export default class Options {
+export default class Options implements OptionsInterface {
   options: OptionsModel = {
     uniqueId,
     fallback: true,
@@ -55,7 +56,7 @@ export default class Options {
     });
   }
 
-  get(key: string, field: any = null) {
+  get(key: string, field: any = null): OptionsModel {
     // handle field option
     if (_.has(field, "path")) {
       if (_.has(field.$options, key)) {
@@ -68,7 +69,7 @@ export default class Options {
     return toJS(this.options);
   }
 
-  set(options: OptionsModel) {
+  set(options: OptionsModel): void {
     if (set) {
       set(this.options, options);
     } else {
