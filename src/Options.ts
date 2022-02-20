@@ -1,9 +1,20 @@
-import { observable, action, toJS, extendObservable, set, makeObservable } from 'mobx';
-import _ from 'lodash';
-import { uniqueId } from './utils';
+import {
+  observable,
+  action,
+  toJS,
+  extendObservable,
+  set,
+  makeObservable,
+} from "mobx";
+
+import _ from "lodash";
+
+import { uniqueId } from "./utils";
+
+import OptionsModel from "./models/OptionsModel";
 
 export default class Options {
-  options = {
+  options: OptionsModel = {
     uniqueId,
     fallback: true,
     defaultGenericError: null,
@@ -34,30 +45,30 @@ export default class Options {
       trailing: true,
     },
     stopValidationOnError: false,
-    validationOrder: undefined
+    validationOrder: undefined,
   };
 
   constructor() {
     makeObservable(this, {
       options: observable,
-      set: action
+      set: action,
     });
   }
 
-  get(key = null, field = null) {
+  get(key: string, field: any = null) {
     // handle field option
-    if (_.has(field, 'path')) {
+    if (_.has(field, "path")) {
       if (_.has(field.$options, key)) {
         return field.$options[key];
       }
     }
 
     // fallback on global form options
-    if (key) return this.options[key];
+    if (key) return _.get(this.options, key);
     return toJS(this.options);
   }
 
-  set(options) {
+  set(options: OptionsModel) {
     if (set) {
       set(this.options, options);
     } else {
