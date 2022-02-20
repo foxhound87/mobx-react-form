@@ -1,51 +1,50 @@
-import { observe, intercept } from 'mobx';
-import _ from 'lodash';
-import utils from '../utils';
-import parser from '../parser';
+import { observe, intercept } from "mobx";
+import _ from "lodash";
+import { $try } from "../utils";
+import { parsePath } from "../parser";
 
 /**
   Field Events
 */
 export default {
-
   /**
    MobX Event (observe/intercept)
    */
-  MOBXEvent({
-    path = null, key = 'value', call, type,
-  }) {
+  MOBXEvent({ path = null, key = "value", call, type }) {
     const $instance = this.select(path || this.path, null, null) || this;
 
-    const $call = change => call.apply(null, [{
-      change,
-      form: this.state.form,
-      path: $instance.path || null,
-      field: $instance.path ? $instance : null,
-    }]);
+    const $call = (change) =>
+      call.apply(null, [
+        {
+          change,
+          form: this.state.form,
+          path: $instance.path || null,
+          field: $instance.path ? $instance : null,
+        },
+      ]);
 
     let fn;
     let ffn;
 
-    if (type === 'observer') {
+    if (type === "observer") {
       fn = observe;
-      ffn = cb => observe($instance.fields, cb);
+      ffn = (cb) => observe($instance.fields, cb);
     }
 
-    if (type === 'interceptor') {
+    if (type === "interceptor") {
       // eslint-disable-next-line
       key = `$${key}`;
       fn = intercept;
       ffn = $instance.fields.intercept;
     }
 
-    const $dkey = $instance.path
-      ? `${key}@${$instance.path}`
-      : key;
+    const $dkey = $instance.path ? `${key}@${$instance.path}` : key;
 
     _.merge(this.state.disposers[type], {
-      [$dkey]: (key === 'fields')
-        ? ffn.apply(change => $call(change))
-        : fn($instance, key, change => $call(change)),
+      [$dkey]:
+        key === "fields"
+          ? ffn.apply((change) => $call(change))
+          : fn($instance, key, (change) => $call(change)),
     });
   },
 
@@ -61,7 +60,7 @@ export default {
    Dispose All Events (observe/intercept)
    */
   disposeAll() {
-    const dispose = disposer => disposer.apply();
+    const dispose = (disposer) => disposer.apply();
     _.each(this.state.disposers.interceptor, dispose);
     _.each(this.state.disposers.observer, dispose);
     this.state.disposers = { interceptor: {}, observer: {} };
@@ -71,13 +70,11 @@ export default {
   /**
    Dispose Single Event (observe/intercept)
    */
-  disposeSingle({ type, key = 'value', path = null }) {
-    const $path = parser.parsePath(utils.$try(path, this.path));
+  disposeSingle({ type, key = "value", path = null }) {
+    const $path = parsePath($try(path, this.path));
     // eslint-disable-next-line
-    if (type === 'interceptor') key = `$${key}`; // target observables
+    if (type === "interceptor") key = `$${key}`; // target observables
     this.state.disposers[type][`${key}@${$path}`].apply();
     delete this.state.disposers[type][`${key}@${$path}`];
   },
-
 };
-

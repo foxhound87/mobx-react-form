@@ -1,8 +1,26 @@
 import { action, makeObservable } from "mobx";
 import _ from "lodash";
-import utils from "../utils";
-import parser from "../parser";
 import Initializer from "./Initializer";
+
+import {
+  props,
+  allowedProps,
+  checkPropType,
+  throwError,
+  isArrayOfObjects,
+  getObservableMapValues,
+  maxKey,
+  $try,
+} from "../utils";
+
+import {
+  prepareFieldsData,
+  parsePath,
+  parseInput,
+  parseCheckArray,
+  parseCheckOutput,
+  pathToFieldsTree,
+} from "../parser";
 
 /**
   Field Actions
@@ -63,27 +81,27 @@ export default class Actions extends Initializer {
    Check Field Computed Values
    */
   check(prop, deep = false) {
-    utils.allowedProps("booleans", [prop]);
+    allowedProps("booleans", [prop]);
 
     return deep
-      ? utils.checkPropType({
-          type: utils.props.types[prop],
-          data: this.deepCheck(utils.props.types[prop], prop, this.fields),
+      ? checkPropType({
+          type: props.types[prop],
+          data: this.deepCheck(props.types[prop], prop, this.fields),
         })
       : this[prop];
   }
 
   deepCheck(type, prop, fields) {
-    const $fields = utils.getObservableMapValues(fields);
+    const $fields = getObservableMapValues(fields);
     return _.transform(
       $fields,
       (check, field) => {
-        if (!field.fields.size || utils.props.exceptions.includes(prop)) {
+        if (!field.fields.size || props.exceptions.includes(prop)) {
           check.push(field[prop]);
         }
 
         const $deep = this.deepCheck(type, prop, field.fields);
-        check.push(utils.checkPropType({ type, data: $deep }));
+        check.push(checkPropType({ type, data: $deep }));
         return check;
       },
       []
@@ -99,7 +117,7 @@ export default class Actions extends Initializer {
       throw new Error("The update() method accepts only plain objects.");
     }
 
-    return this.deepUpdate(parser.prepareFieldsData({ fields }));
+    return this.deepUpdate(prepareFieldsData({ fields }));
   }
 
   deepUpdate(fields, path = "", recursion = true) {
@@ -115,12 +133,12 @@ export default class Actions extends Initializer {
         if (_.isArray($field.values())) {
           let n = _.max(_.map(field.fields, (f, i) => Number(i)));
           if (n === undefined) n = -1; // field's value is []
-          _.each(utils.getObservableMapValues($field.fields), ($f) => {
+          _.each(getObservableMapValues($field.fields), ($f) => {
             if (Number($f.name) > n) $field.fields.delete($f.name);
           });
         }
         if (_.isNull(field) || _.isNil(field.fields)) {
-          $field.$value = parser.parseInput($field.$input, {
+          $field.$value = parseInput($field.$input, {
             separated: field,
           });
           return;
@@ -138,7 +156,7 @@ export default class Actions extends Initializer {
           this.deepUpdate(field.fields, $path);
         } else {
           // handle nested fields if undefined or null
-          const $fields = parser.pathToFieldsTree(this.state.struct(), $path);
+          const $fields = pathToFieldsTree(this.state.struct(), $path);
           this.deepUpdate($fields, $path, false);
         }
       }
@@ -151,24 +169,20 @@ export default class Actions extends Initializer {
   get(prop = null, strict = true) {
     if (_.isNil(prop)) {
       return this.deepGet(
-        [
-          ...utils.props.booleans,
-          ...utils.props.field,
-          ...utils.props.validation,
-        ],
+        [...props.booleans, ...props.field, ...props.validation],
         this.fields
       );
     }
 
-    utils.allowedProps("all", _.isArray(prop) ? prop : [prop]);
+    allowedProps("all", _.isArray(prop) ? prop : [prop]);
 
     if (_.isString(prop)) {
       if (strict && this.fields.size === 0) {
-        return parser.parseCheckOutput(this, prop);
+        return parseCheckOutput(this, prop);
       }
 
       const value = this.deepGet(prop, this.fields);
-      return parser.parseCheckArray(this, value, prop);
+      return parseCheckArray(this, value, prop);
     }
 
     return this.deepGet(prop, this.fields);
@@ -179,7 +193,7 @@ export default class Actions extends Initializer {
    */
   deepGet(prop, fields) {
     return _.transform(
-      utils.getObservableMapValues(fields),
+      getObservableMapValues(fields),
       (obj, field) => {
         const $nested = ($fields) =>
           $fields.size !== 0 ? this.deepGet(prop, $fields) : undefined;
@@ -201,7 +215,7 @@ export default class Actions extends Initializer {
             delete obj[field.key]; // eslint-disable-line
             if (removeValue) return obj;
             return Object.assign(obj, {
-              [field.key]: parser.parseCheckOutput(field, prop),
+              [field.key]: parseCheckOutput(field, prop),
             });
           }
 
@@ -212,7 +226,7 @@ export default class Actions extends Initializer {
           if (removeValue) return obj;
 
           return Object.assign(obj, {
-            [field.key]: parser.parseCheckArray(field, value, prop),
+            [field.key]: parseCheckArray(field, value, prop),
           });
         }
 
@@ -234,7 +248,7 @@ export default class Actions extends Initializer {
   set(prop, data) {
     // UPDATE CUSTOM PROP
     if (_.isString(prop) && !_.isUndefined(data)) {
-      utils.allowedProps("field", [prop]);
+      allowedProps("field", [prop]);
       const deep =
         (_.isObject(data) && prop === "value") || _.isPlainObject(data);
       if (deep && this.hasNestedFields) this.deepSet(prop, data, "", true);
@@ -266,7 +280,7 @@ export default class Actions extends Initializer {
       // get the field by path joining keys recursively
       const field = this.select($path, null, isStrict);
       // if no field found when is strict update, throw error
-      if (isStrict) utils.throwError($path, field, err);
+      if (isStrict) throwError($path, field, err);
       // update the field/fields if defined
       if (!_.isUndefined(field)) {
         // update field values or others props
@@ -285,10 +299,10 @@ export default class Actions extends Initializer {
    Add Field
    */
   add(obj) {
-    if (utils.isArrayOfObjects(obj)) {
+    if (isArrayOfObjects(obj)) {
       return _.each(obj, (values) =>
         this.update({
-          [utils.maxKey(this.fields)]: values,
+          [maxKey(this.fields)]: values,
         })
       );
     }
@@ -296,24 +310,19 @@ export default class Actions extends Initializer {
     let key; // eslint-disable-next-line
     if (_.has(obj, "key")) key = obj.key;
     if (_.has(obj, "name")) key = obj.name;
-    if (!key) key = utils.maxKey(this.fields);
+    if (!key) key = maxKey(this.fields);
 
     const $path = ($key) => _.trimStart([this.path, $key].join("."), ".");
-    const tree = parser.pathToFieldsTree(
-      this.state.struct(),
-      this.path,
-      0,
-      true
-    );
+    const tree = pathToFieldsTree(this.state.struct(), this.path, 0, true);
     return this.initField(key, $path(key), _.merge(tree[0], obj));
   }
 
   /**
-   Del Field
+    Del Field
    */
   del($path = null) {
     const isStrict = this.state.options.get("strictDelete", this);
-    const path = parser.parsePath(utils.$try($path, this.path));
+    const path = parsePath($try($path, this.path));
     const fullpath = _.trim([this.path, path].join("."), ".");
     const container = this.container($path);
     const keys = _.split(path, ".");
@@ -321,7 +330,7 @@ export default class Actions extends Initializer {
 
     if (isStrict && !container.fields.has(last)) {
       const msg = `Key "${last}" not found when trying to delete field`;
-      utils.throwError(fullpath, null, msg);
+      throwError(fullpath, null, msg);
     }
 
     if (this.state.options.get("softDelete", this)) {

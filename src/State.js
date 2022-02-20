@@ -1,13 +1,20 @@
-import { observe } from 'mobx';
-import _ from 'lodash';
+import { observe } from "mobx";
+import _ from "lodash";
 
-import Options from './Options';
-import Bindings from './Bindings';
-import utils from './utils';
+import Options from "./Options";
+import Bindings from "./Bindings";
+
+import {
+  props,
+  hasUnifiedProps,
+  hasSeparatedProps,
+  checkObserve,
+  isStruct,
+  $try,
+} from "./utils";
 
 export default class State {
-
-  mode = 'mixed';
+  mode = "mixed";
 
   strict = false;
 
@@ -36,10 +43,8 @@ export default class State {
     fields: {},
   };
 
-  constructor({
-    form, initial, options, bindings,
-  }) {
-    this.set('form', form);
+  constructor({ form, initial, options, bindings }) {
+    this.set("form", form);
     this.initProps(initial);
     this.options = new Options();
     this.options.set(options);
@@ -50,35 +55,37 @@ export default class State {
 
   initProps(initial) {
     const initialProps = _.pick(initial, [
-      ...utils.props.separated,
-      ...utils.props.validation,
-      ...utils.props.function,
-      ...utils.props.handlers,
+      ...props.separated,
+      ...props.validation,
+      ...props.function,
+      ...props.handlers,
     ]);
 
-    this.set('initial', 'props', initialProps);
+    this.set("initial", "props", initialProps);
 
-    const $unified = utils.hasUnifiedProps(initial);
-    const $separated = utils.hasSeparatedProps(initial);
+    const $unified = hasUnifiedProps(initial);
+    const $separated = hasSeparatedProps(initial);
 
     if ($unified && $separated) {
-      console.warn( // eslint-disable-line
-        'WARNING: Your mobx-react-form instance ', this.form.name,
-        ' is running in MIXED Mode (Unified + Separated) as fields properties definition.',
-        'This mode is experimental, use it at your own risk, or use only one mode.',
+      console.warn(
+        // eslint-disable-line
+        "WARNING: Your mobx-react-form instance ",
+        this.form.name,
+        " is running in MIXED Mode (Unified + Separated) as fields properties definition.",
+        "This mode is experimental, use it at your own risk, or use only one mode."
       );
     }
 
-    if (($separated || utils.isStruct(initial.fields)) && !$unified) {
-      const struct = utils.$try(initial.struct || initial.fields);
+    if (($separated || isStruct(initial.fields)) && !$unified) {
+      const struct = $try(initial.struct || initial.fields);
       this.struct(struct);
       this.strict = true;
-      this.mode = 'separated';
+      this.mode = "separated";
       return;
     }
 
     this.struct(initial.struct);
-    this.mode = 'unified';
+    this.mode = "unified";
   }
 
   /**
@@ -100,17 +107,17 @@ export default class State {
     Set Props/Fields
   */
   set(type, subtype, state = null) {
-    if (type === 'form') {
+    if (type === "form") {
       // subtype is the form here
       this.form = subtype;
     }
 
-    if (type === 'initial') {
+    if (type === "initial") {
       Object.assign(this.initial[subtype], state);
       Object.assign(this.current[subtype], state);
     }
 
-    if (type === 'current') {
+    if (type === "current") {
       Object.assign(this.current[subtype], state);
     }
   }
@@ -124,30 +131,42 @@ export default class State {
 
   observeOptions() {
     // Fix Issue #201
-    observe(this.options.options, utils.checkObserve([{
-      // start observing fields validateOnChange
-      type: 'update',
-      key: 'validateOnChange',
-      to: true,
-      exec: () => this.form.each(field => field.observeValidationOnChange()),
-    }, {
-      // stop observing fields validateOnChange
-      type: 'update',
-      key: 'validateOnChange',
-      to: false,
-      exec: () => this.form.each(field => field.disposeValidationOnChange()),
-    }, {
-      // start observing fields validateOnBlur
-      type: 'update',
-      key: 'validateOnBlur',
-      to: true,
-      exec: () => this.form.each(field => field.observeValidationOnBlur()),
-    }, {
-      // stop observing fields validateOnBlur
-      type: 'update',
-      key: 'validateOnBlur',
-      to: false,
-      exec: () => this.form.each(field => field.disposeValidationOnBlur()),
-    }]));
+    observe(
+      this.options.options,
+      checkObserve([
+        {
+          // start observing fields validateOnChange
+          type: "update",
+          key: "validateOnChange",
+          to: true,
+          exec: () =>
+            this.form.each((field) => field.observeValidationOnChange()),
+        },
+        {
+          // stop observing fields validateOnChange
+          type: "update",
+          key: "validateOnChange",
+          to: false,
+          exec: () =>
+            this.form.each((field) => field.disposeValidationOnChange()),
+        },
+        {
+          // start observing fields validateOnBlur
+          type: "update",
+          key: "validateOnBlur",
+          to: true,
+          exec: () =>
+            this.form.each((field) => field.observeValidationOnBlur()),
+        },
+        {
+          // stop observing fields validateOnBlur
+          type: "update",
+          key: "validateOnBlur",
+          to: false,
+          exec: () =>
+            this.form.each((field) => field.disposeValidationOnBlur()),
+        },
+      ])
+    );
   }
 }

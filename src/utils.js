@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { values as mobxValues, keys as mobxKeys } from "mobx";
 
-import props from "./props";
+import { props } from "./props";
 
 const getObservableMapValues = (observableMap) =>
   mobxValues ? mobxValues(observableMap) : observableMap.values();
@@ -158,7 +158,7 @@ const $try = (...args) => {
   return found;
 };
 
-export default {
+export {
   props,
   checkObserve,
   checkPropType,
