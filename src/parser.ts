@@ -13,7 +13,7 @@ const defaultClearValue = ({
   value,
 }: {
   value: any;
-}): false | any[] | 0 | "" => {
+}): false | any[] | 0 | "" | null | undefined => {
   if (_.isArray(value)) return [];
   if (_.isDate(value)) return null;
   if (_.isBoolean(value)) return false;

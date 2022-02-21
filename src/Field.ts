@@ -464,7 +464,7 @@ export default class Field extends Base implements FieldInterface {
       args,
       action(() => {
         const e = args[0];
-        let files = null;
+        let files: unknown[] | null = null;
 
         if ($isEvent(e) && $hasFiles(e)) {
           files = _.map(e.target.files);
