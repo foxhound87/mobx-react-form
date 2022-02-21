@@ -110,7 +110,7 @@ export default class State implements StateInterface {
   /**
     Set Props/Fields
   */
-  set(type: string, subtype: string, state = null) {
+  set(type: string, subtype: string, state: any = null) {
     if (type === "form") {
       // subtype is the form here
       this.form = subtype;

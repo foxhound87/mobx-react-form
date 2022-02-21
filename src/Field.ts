@@ -22,6 +22,7 @@ import {
 
 import StateInterface from "./models/StateInterface";
 import OptionsModel from "./models/OptionsModel";
+import FieldInterface from "./models/FieldInterface";
 
 const setupFieldProps = (instance: Field, props: any, data: any) =>
   Object.assign(instance, {
@@ -65,7 +66,7 @@ interface ValidationAsyncDataInterface {
   message?: string;
 }
 
-export default class Field extends Base {
+export default class Field extends Base implements FieldInterface {
   fields = observable.map({});
   hasInitialNestedFields = false;
   incremental = false;
