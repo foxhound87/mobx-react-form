@@ -9,7 +9,11 @@ import {
   isEmptyArray,
 } from "./utils";
 
-const defaultClearValue = ({ value }: { value: any }) => {
+const defaultClearValue = ({
+  value,
+}: {
+  value: any;
+}): false | any[] | 0 | "" => {
   if (_.isArray(value)) return [];
   if (_.isDate(value)) return null;
   if (_.isBoolean(value)) return false;
@@ -22,7 +26,7 @@ const defaultValue = ({
   type,
   nullable = false,
   isEmptyArray = false,
-}: any): any => {
+}: any): null | false | 0 | [] | "" => {
   if (type === "nullable") return null;
   if (type === "date") return null;
   if (type === "datetime-local") return null;
