@@ -6,6 +6,7 @@
   "description": "Automagically manage React forms state and automatic validation with MobX.",
   "homepage": "https://www.npmjs.com/package/mobx-react-form",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "clean:build": "rimraf lib && rimraf umd",
     "clean:modules": "rimraf node_modules && npm cache clean",
@@ -94,7 +95,7 @@
     "nyc": "^15.1.0",
     "rimraf": "2.5.4",
     "semantic-release": "^19.0.2",
-    "ts-loader": "^4.3.1",
+    "ts-loader": "^8.0.5",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5",
     "validator": "^13.7.0",
