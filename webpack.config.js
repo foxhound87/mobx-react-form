@@ -5,7 +5,7 @@ const MINIFY = process.env.MINIFY === "YES";
 
 const rules = [
   {
-    test: /\.js$/,
+    test: /\.(ts|js)$/,
     loader: "ts-loader",
     include: join(__dirname, "src"),
   },
@@ -33,7 +33,7 @@ module.exports = {
   },
   resolve: {
     modules: ["node_modules"],
-    extensions: [".js", ".json"],
+    extensions: [".ts", ".js", ".json"],
   },
   externals: {
     mobx: "mobx",
