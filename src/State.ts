@@ -17,13 +17,14 @@ import StateInterface from "./models/StateInterface";
 import { RuntimeMode } from "./models/StateInterface";
 import OptionsInterface from "./models/OptionsInterface";
 import BindingsInterface from "./models/BindingsInterface";
+import FormInterface from "./models/FormInterface";
 
 export default class State implements StateInterface {
   mode = RuntimeMode.mixed;
 
   strict = false;
 
-  form: any;
+  form: FormInterface;
 
   options: OptionsInterface;
 
@@ -110,7 +111,7 @@ export default class State implements StateInterface {
   /**
     Set Props/Fields
   */
-  set(type: string, subtype: string, state: any = null) {
+  set(type: string, subtype: any, state: any = null) {
     if (type === "form") {
       // subtype is the form here
       this.form = subtype;

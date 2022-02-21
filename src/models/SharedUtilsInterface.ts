@@ -3,5 +3,5 @@ export default interface SharedUtilsInferface {
   container: (path: string) => any;
   has: (path: string) => boolean;
   map: (cb: any) => any;
-  each: (iteratee: any, fields: any, depth: number) => any;
+  each: (iteratee: any, fields?: any, depth?: number) => any;
 }

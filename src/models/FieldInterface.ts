@@ -1,6 +1,6 @@
+import BaseInterface from "./BaseInterface";
 import OptionsModel from "./OptionsModel";
-
-export default interface FieldInterface {
+export default interface FieldInterface extends BaseInterface {
   id: string | undefined;
   key: string | undefined;
   name: string | undefined;

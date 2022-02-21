@@ -1,7 +1,7 @@
+import BaseInterface from "./BaseInterface";
 import StateInterface from "./StateInterface";
 import ValidatorInterface from "./ValidatorInterface";
-
-export default interface FormInterface {
+export default interface FormInterface extends BaseInterface {
   name: string;
   state: StateInterface;
   validator: ValidatorInterface;
