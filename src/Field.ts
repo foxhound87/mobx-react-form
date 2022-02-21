@@ -5,7 +5,6 @@ import {
   computed,
   isObservableArray,
   toJS,
-  asMap,
   untracked,
   makeObservable,
 } from "mobx";
@@ -21,7 +20,10 @@ import {
   defaultClearValue,
 } from "./parser";
 
-const setupFieldProps = (instance, props, data) =>
+import StateInterface from "./models/StateInterface";
+import OptionsModel from "./models/OptionsModel";
+
+const setupFieldProps = (instance: Field, props: any, data: any) =>
   Object.assign(instance, {
     $label: props.$label || (data && data.label) || "",
     $placeholder: props.$placeholder || (data && data.placeholder) || "",
@@ -40,7 +42,13 @@ const setupFieldProps = (instance, props, data) =>
     $handlers: props.$handlers || (data && data.handlers) || {},
   });
 
-const setupDefaultProp = (instance, data, props, update, { isEmptyArray }) =>
+const setupDefaultProp = (
+  instance: Field,
+  data: any,
+  props: any,
+  update: boolean,
+  { isEmptyArray }: { isEmptyArray: boolean }
+) =>
   parseInput(instance.$input, {
     nullable: true,
     isEmptyArray,
@@ -52,64 +60,79 @@ const setupDefaultProp = (instance, data, props, update, { isEmptyArray }) =>
     fallback: instance.$initial,
   });
 
+interface ValidationAsyncDataInterface {
+  valid?: boolean;
+  message?: string;
+}
+
 export default class Field extends Base {
-  fields = observable.map ? observable.map({}) : asMap({});
+  fields = observable.map({});
   hasInitialNestedFields = false;
   incremental = false;
 
-  id;
-  key;
-  name;
-  path;
-  state;
+  id: any;
+  key: any;
+  name: any;
+  path: any;
+  state: StateInterface;
 
-  $observers;
-  $interceptors;
+  $observers: any;
+  $interceptors: any;
 
-  $hooks = {};
-  $handlers = {};
+  $hooks: any = {};
+  $handlers: any = {};
 
-  $input = ($) => $;
-  $output = ($) => $;
+  $input = ($: any) => $;
+  $output = ($: any) => $;
 
-  $options;
-  $value;
-  $type;
-  $label;
-  $placeholder;
-  $default;
-  $initial;
-  $bindings;
-  $extra;
-  $related;
-  $validatedWith;
+  $options: OptionsModel | undefined;
+  $value: any;
+  $type: string | undefined;
+  $label: string | undefined;
+  $placeholder: string | undefined;
+  $default: any;
+  $initial: any;
+  $bindings: any;
+  $extra: any;
+  $related: string[] | undefined;
+  $validatedWith: string | undefined;
 
-  $validators;
-  $rules;
+  $validators: any[] | undefined;
+  $rules: string[] | undefined;
 
-  $disabled = false;
-  $focused = false;
-  $touched = false;
-  $changed = false;
-  $blurred = false;
-  $deleted = false;
+  $disabled: boolean = false;
+  $focused: boolean = false;
+  $touched: boolean = false;
+  $changed: boolean = false;
+  $blurred: boolean = false;
+  $deleted: boolean = false;
 
-  $clearing = false;
-  $resetting = false;
+  $clearing: boolean = false;
+  $resetting: boolean = false;
 
-  autoFocus = false;
-  showError = false;
+  autoFocus: boolean = false;
+  showError: boolean = false;
 
-  errorSync = null;
-  errorAsync = null;
+  errorSync: string | null = null;
+  errorAsync: string | null = null;
 
-  validationErrorStack = [];
-  validationFunctionsData = [];
-  validationAsyncData = {};
+  validationErrorStack: string[] = [];
+  validationFunctionsData: any[] = [];
+  validationAsyncData: ValidationAsyncDataInterface | undefined;
+  debouncedValidation: any;
 
-  files;
+  disposeValidationOnBlur: any;
+  disposeValidationOnChange: any;
 
-  constructor({ key, path, data = {}, props = {}, update = false, state }) {
+  files: any;
+  constructor({
+    key,
+    path,
+    data = {},
+    props = {},
+    update = false,
+    state,
+  }: any) {
     super();
 
     makeObservable(this, {
@@ -191,7 +214,7 @@ export default class Field extends Base {
     this.checkValidationPlugins();
     this.initNestedFields(data, update);
 
-    this.incremental = this.hasIncrementalKeys !== 0;
+    this.incremental = this.hasIncrementalKeys;
 
     this.debouncedValidation = _.debounce(
       this.validate,
@@ -213,7 +236,7 @@ export default class Field extends Base {
 
   get checkValidationErrors() {
     return (
-      (this.validationAsyncData.valid === false &&
+      (this.validationAsyncData?.valid === false &&
         !_.isEmpty(this.validationAsyncData)) ||
       !_.isEmpty(this.validationErrorStack) ||
       _.isString(this.errorAsync) ||
@@ -311,7 +334,7 @@ export default class Field extends Base {
   }
 
   get validatedValue() {
-    return parseCheckOutput(this, this.$validatedWith);
+    return parseCheckOutput(this, this.$validatedWith as string);
   }
 
   get error() {
@@ -380,10 +403,10 @@ export default class Field extends Base {
   /* ------------------------------------------------------------------ */
   /* EVENTS HANDLERS */
 
-  sync = action((e, v = null) => {
+  sync = action((e: any, v: any = null) => {
     this.$changed = true;
 
-    const $get = ($) =>
+    const $get = ($: any) =>
       $isBool($, this.value) ? $.target.checked : $.target.value;
 
     // assume "v" or "e" are the values
@@ -404,14 +427,14 @@ export default class Field extends Base {
     this.value = e;
   });
 
-  onChange = (...args) =>
+  onChange = (...args: any) =>
     this.type === "file"
       ? this.onDrop(...args)
       : this.execHandler("onChange", args, this.sync);
 
-  onToggle = (...args) => this.execHandler("onToggle", args, this.sync);
+  onToggle = (...args: any) => this.execHandler("onToggle", args, this.sync);
 
-  onBlur = (...args) =>
+  onBlur = (...args: any) =>
     this.execHandler(
       "onBlur",
       args,
@@ -424,7 +447,7 @@ export default class Field extends Base {
       })
     );
 
-  onFocus = (...args) =>
+  onFocus = (...args: any) =>
     this.execHandler(
       "onFocus",
       args,
@@ -434,7 +457,7 @@ export default class Field extends Base {
       })
     );
 
-  onDrop = (...args) =>
+  onDrop = (...args: any) =>
     this.execHandler(
       "onDrop",
       args,
@@ -450,17 +473,23 @@ export default class Field extends Base {
       })
     );
 
-  setupField($key, $path, $data, $props, update) {
+  setupField(
+    $key: string,
+    $path: string,
+    $data: any,
+    $props: any,
+    update: boolean
+  ): void {
     this.key = $key;
     this.path = $path;
     this.id = this.state.options.get("uniqueId")?.apply(this, [this]);
     const struct = this.state.struct();
     const structPath = pathToStruct(this.path);
-    const isEmptyArray = Array.isArray(struct)
-      ? struct
+    const isEmptyArray: boolean = Array.isArray(struct)
+      ? !!struct
           .filter((s) => s.startsWith(structPath))
           .find((s) => s.substr(structPath.length, 2) === "[]")
-      : Array.isArray(_.get(struct, this.path));
+      : !!Array.isArray(_.get(struct, this.path));
 
     const { $type, $input, $output } = $props;
 
@@ -529,7 +558,7 @@ export default class Field extends Base {
     setupFieldProps(this, $props, $data);
   }
 
-  getComputedProp(key) {
+  getComputedProp(key: string): any {
     if (this.incremental || this.hasNestedFields) {
       const $val =
         key === "value"
@@ -539,6 +568,7 @@ export default class Field extends Base {
       return !_.isEmpty($val) ? $val : [];
     }
 
+    // @ts-ignore
     const val = this[`$${key}`];
 
     if (_.isArray(val) || isObservableArray(val)) {
@@ -548,7 +578,7 @@ export default class Field extends Base {
     return toJS(val);
   }
 
-  checkValidationPlugins() {
+  checkValidationPlugins(): void {
     const { drivers } = this.state.form.validator;
     const form = this.state.form.name ? `${this.state.form.name}/` : "";
 
@@ -569,7 +599,7 @@ export default class Field extends Base {
     }
   }
 
-  initNestedFields(field, update) {
+  initNestedFields(field: any, update: boolean): void {
     const fields = _.isNil(field) ? null : field.fields;
 
     if (_.isArray(fields) && !_.isEmpty(fields)) {
@@ -586,7 +616,7 @@ export default class Field extends Base {
     }
   }
 
-  invalidate(message, async = false) {
+  invalidate(message: string, async: boolean = false): void {
     if (async === true) {
       this.errorAsync = message;
       return;
@@ -602,21 +632,21 @@ export default class Field extends Base {
     this.showErrors(true);
   }
 
-  setValidationAsyncData(valid = false, message = "") {
+  setValidationAsyncData(valid: boolean = false, message: string = ""): void {
     this.validationAsyncData = { valid, message };
   }
 
-  resetValidation(deep = false) {
+  resetValidation(deep: boolean = false): void {
     this.showError = true;
     this.errorSync = null;
     this.errorAsync = null;
     this.validationAsyncData = {};
     this.validationFunctionsData = [];
     this.validationErrorStack = [];
-    if (deep) this.each((field) => field.resetValidation());
+    if (deep) (this as any).each((field: any) => field.resetValidation());
   }
 
-  clear(deep = true) {
+  clear(deep: boolean = true): void {
     this.$clearing = true;
     this.$touched = false;
     this.$changed = false;
@@ -625,14 +655,14 @@ export default class Field extends Base {
     this.$value = defaultClearValue({ value: this.$value });
     this.files = undefined;
 
-    if (deep) this.each((field) => field.clear(true));
+    if (deep) (this as any).each((field: any) => field.clear(true));
 
     this.validate({
       showErrors: this.state.options.get("showErrorsOnClear", this),
     });
   }
 
-  reset(deep = true) {
+  reset(deep: boolean = true): void {
     this.$resetting = true;
     this.$touched = false;
     this.$changed = false;
@@ -643,34 +673,34 @@ export default class Field extends Base {
     if (!useDefaultValue) this.value = this.$initial;
     this.files = undefined;
 
-    if (deep) this.each((field) => field.reset(true));
+    if (deep) (this as any).each((field: any) => field.reset(true));
 
     this.validate({
       showErrors: this.state.options.get("showErrorsOnReset", this),
     });
   }
 
-  focus() {
+  focus(): void {
     // eslint-disable-next-line
-    this.state.form.each((field) => (field.autoFocus = false));
+    this.state.form.each((field: any) => (field.autoFocus = false));
     this.autoFocus = true;
   }
 
-  showErrors(show = true) {
+  showErrors(show: boolean = true): void {
     this.showError = show;
-    this.errorSync = _.head(this.validationErrorStack);
-    this.each((field) => field.showErrors(show));
+    this.errorSync = _.head(this.validationErrorStack) as string;
+    (this as any).each((field: any) => field.showErrors(show));
   }
 
-  showAsyncErrors() {
-    if (this.validationAsyncData.valid === false) {
-      this.errorAsync = this.validationAsyncData.message;
+  showAsyncErrors(): void {
+    if (this.validationAsyncData?.valid === false) {
+      this.errorAsync = this.validationAsyncData?.message as string;
       return;
     }
     this.errorAsync = null;
   }
 
-  observeValidationOnBlur() {
+  observeValidationOnBlur(): void {
     const opt = this.state.options;
     if (opt.get("validateOnBlur", this)) {
       this.disposeValidationOnBlur = observe(
@@ -685,7 +715,7 @@ export default class Field extends Base {
     }
   }
 
-  observeValidationOnChange() {
+  observeValidationOnChange(): void {
     const opt = this.state.options;
     if (opt.get("validateOnChange", this)) {
       this.disposeValidationOnChange = observe(
@@ -717,13 +747,15 @@ export default class Field extends Base {
     }
   }
 
-  initMOBXEvent(type) {
+  initMOBXEvent(type: string): void {
+    // @ts-ignore
     if (!_.isArray(this[`$${type}`])) return;
 
-    let fn;
+    let fn: any;
     if (type === "observers") fn = this.observe;
     if (type === "interceptors") fn = this.intercept;
-    this[`$${type}`].map((obj) => fn(_.omit(obj, "path")));
+    // @ts-ignore
+    this[`$${type}`].map((obj: any) => fn(_.omit(obj, "path")));
   }
 
   bind(props = {}) {

@@ -70,4 +70,5 @@ export default interface FieldInterface {
   showAsyncErrors(): void;
   observeValidationOnBlur(): void;
   observeValidationOnChange(): void;
+  initMOBXEvent(type: string): void;
 }

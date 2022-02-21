@@ -68,7 +68,7 @@ export default class Base extends Actions implements BaseInterface {
   }
 
   get hasIncrementalKeys(): boolean {
-    return (this as any).fields.size && hasIntKeys((this as any).fields);
+    return !!(this as any).fields.size && hasIntKeys((this as any).fields);
   }
 
   get hasNestedFields(): boolean {
