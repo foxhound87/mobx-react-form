@@ -2,7 +2,7 @@ import StateInterface from "./StateInterface";
 import ValidatorInterface from "./ValidatorInterface";
 
 export default interface FormInterface {
-  name: string | null;
+  name: string;
   state: StateInterface;
   validator: ValidatorInterface;
   $hooks: any;

@@ -7,9 +7,10 @@ import State from "./State";
 import Field from "./Field";
 import StateInterface from "./models/StateInterface";
 import ValidatorInterface from "./models/ValidatorInterface";
+import FormInterface from "./models/FormInterface";
 
-export default class Form extends Base {
-  name: string | null;
+export default class Form extends Base implements FormInterface {
+  name: string;
   state: StateInterface;
   validator: ValidatorInterface;
 
@@ -23,7 +24,7 @@ export default class Form extends Base {
   constructor(
     setup = {},
     {
-      name = null,
+      name = "",
       options = {},
       plugins = {},
       bindings = {},

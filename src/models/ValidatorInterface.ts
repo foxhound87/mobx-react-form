@@ -12,8 +12,8 @@ export default interface ValidatorInterface {
 }
 
 export interface ValidationPlugins {
-  vjf: any;
-  dvr: any;
-  svk: any;
-  yup: any;
+  vjf?: any;
+  dvr?: any;
+  svk?: any;
+  yup?: any;
 }
