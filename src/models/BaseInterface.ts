@@ -32,7 +32,7 @@ export default interface BaseInterface {
   each?: (iteratee: any, fields?: any, depth?: number) => any;
 
   // shared actions
-  validate?(opt: any, obj: any): void;
+  validate?(opt?: any, obj?: any): void;
   submit?(options: any): Promise<any>;
   check?(prop: string, deep: boolean): boolean;
   deepCheck?(type: string, prop: string, fields: any): any;

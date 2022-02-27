@@ -5,7 +5,7 @@ export default interface ValidatorInterface {
   plugins: ValidationPlugins;
   error: string | null;
   initDrivers(): void;
-  validate(opt: any, obj?: any): Promise<any>;
+  validate(opt?: any, obj?: any): Promise<any>;
   validateField(opt: any): void;
   validateRelatedFields(field: any, showErrors: boolean): void;
   checkSVKValidationPlugin(): void;
