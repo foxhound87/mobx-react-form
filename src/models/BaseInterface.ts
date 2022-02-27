@@ -26,7 +26,7 @@ export default interface BaseInterface {
 
   // shared utils
   select?: (path: string, fields?: any, isStrict?: boolean) => any;
-  container?: (path: string) => any;
+  container?: (path?: string) => any;
   has?: (path: string) => boolean;
   map?: (cb: any) => any;
   each?: (iteratee: any, fields?: any, depth?: number) => any;
@@ -34,13 +34,13 @@ export default interface BaseInterface {
   // shared actions
   validate?(opt?: any, obj?: any): void;
   submit?(options: any): Promise<any>;
-  check?(prop: string, deep: boolean): boolean;
+  check?(prop: string, deep?: boolean): boolean;
   deepCheck?(type: string, prop: string, fields: any): any;
   update?(fields: any): void;
   deepUpdate?(fields: any, path: string, recursion: boolean): void;
-  get?(prop: any, strict: boolean): any;
+  get?(prop?: any, strict?: boolean): any;
   deepGet?(prop: any, fields: any): any;
-  set?(prop: any, data: any): void;
+  set?(prop: any, data?: any): void;
   deepSet?(prop: any, data: any, path: string, recursion: boolean): void;
   add?(obj: any): any;
 
