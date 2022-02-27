@@ -64,8 +64,8 @@ export default interface FieldInterface extends BaseInterface {
   invalidate(message: string, async: boolean): void;
   setValidationAsyncData(valid: boolean, message: string): void;
   resetValidation(deep: boolean): void;
-  clear(deep: boolean): void;
-  reset(deep: boolean): void;
+  clear(deep?: boolean): void;
+  reset(deep?: boolean): void;
   focus(): void;
   showErrors(show: boolean): void;
   showAsyncErrors(): void;
