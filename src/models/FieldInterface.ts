@@ -1,5 +1,6 @@
 import BaseInterface from "./BaseInterface";
 import OptionsModel from "./OptionsModel";
+import StateInterface from "./StateInterface";
 export default interface FieldInterface extends BaseInterface {
   id: string | undefined;
   key: string | undefined;
@@ -71,4 +72,13 @@ export default interface FieldInterface extends BaseInterface {
   observeValidationOnBlur(): void;
   observeValidationOnChange(): void;
   initMOBXEvent(type: string): void;
+}
+
+export interface FieldConstructor {
+  key: string;
+  path: string;
+  data?: any;
+  props?: any;
+  update?: boolean;
+  state: StateInterface;
 }

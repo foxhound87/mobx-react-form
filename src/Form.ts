@@ -8,6 +8,7 @@ import Field from "./Field";
 import StateInterface from "./models/StateInterface";
 import ValidatorInterface from "./models/ValidatorInterface";
 import FormInterface from "./models/FormInterface";
+import { FieldConstructor } from "./models/FieldInterface";
 
 export default class Form extends Base implements FormInterface {
   name: string;
@@ -167,7 +168,7 @@ export default class Form extends Base implements FormInterface {
     return this.check("disabled", true);
   }
 
-  makeField(data: any) {
+  makeField(data: FieldConstructor) {
     return new Field(data);
   }
 

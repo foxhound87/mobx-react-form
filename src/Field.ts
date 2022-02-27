@@ -22,7 +22,7 @@ import {
 
 import StateInterface from "./models/StateInterface";
 import OptionsModel from "./models/OptionsModel";
-import FieldInterface from "./models/FieldInterface";
+import FieldInterface, { FieldConstructor } from "./models/FieldInterface";
 
 const setupFieldProps = (instance: Field, props: any, data: any) =>
   Object.assign(instance, {
@@ -133,7 +133,7 @@ export default class Field extends Base implements FieldInterface {
     props = {},
     update = false,
     state,
-  }: any) {
+  }: FieldConstructor) {
     super();
 
     makeObservable(this, {
