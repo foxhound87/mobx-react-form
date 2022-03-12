@@ -344,11 +344,11 @@ export default class Field extends Base implements FieldInterface {
   }
 
   get hasError() {
-    return this.checkValidationErrors || this.check("hasError", true);
+    return this.checkValidationErrors || (this as any).check("hasError", true);
   }
 
   get isValid() {
-    return !this.checkValidationErrors && this.check("isValid", true);
+    return !this.checkValidationErrors && (this as any).check("isValid", true);
   }
 
   get isDefault() {
@@ -364,7 +364,7 @@ export default class Field extends Base implements FieldInterface {
   }
 
   get isEmpty() {
-    if (this.hasNestedFields) return this.check("isEmpty", true);
+    if (this.hasNestedFields) return (this as any).check("isEmpty", true);
     if (_.isBoolean(this.value)) return !!this.$value;
     if (_.isNumber(this.value)) return false;
     if (_.isDate(this.value)) return false;
@@ -373,32 +373,44 @@ export default class Field extends Base implements FieldInterface {
 
   get resetting() {
     return this.hasNestedFields
-      ? this.check("resetting", true)
+      ? (this as any).check("resetting", true)
       : this.$resetting;
   }
 
   get clearing() {
-    return this.hasNestedFields ? this.check("clearing", true) : this.$clearing;
+    return this.hasNestedFields
+      ? (this as any).check("clearing", true)
+      : this.$clearing;
   }
 
   get focused() {
-    return this.hasNestedFields ? this.check("focused", true) : this.$focused;
+    return this.hasNestedFields
+      ? (this as any).check("focused", true)
+      : this.$focused;
   }
 
   get blurred() {
-    return this.hasNestedFields ? this.check("blurred", true) : this.$blurred;
+    return this.hasNestedFields
+      ? (this as any).check("blurred", true)
+      : this.$blurred;
   }
 
   get touched() {
-    return this.hasNestedFields ? this.check("touched", true) : this.$touched;
+    return this.hasNestedFields
+      ? (this as any).check("touched", true)
+      : this.$touched;
   }
 
   get changed() {
-    return this.hasNestedFields ? this.check("changed", true) : this.$changed;
+    return this.hasNestedFields
+      ? (this as any).check("changed", true)
+      : this.$changed;
   }
 
   get deleted() {
-    return this.hasNestedFields ? this.check("deleted", true) : this.$deleted;
+    return this.hasNestedFields
+      ? (this as any).check("deleted", true)
+      : this.$deleted;
   }
 
   /* ------------------------------------------------------------------ */

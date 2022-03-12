@@ -117,11 +117,11 @@ export default class Form extends Base implements FormInterface {
   }
 
   get clearing(): boolean {
-    return this.check("clearing", true);
+    return (this as any).check("clearing", true);
   }
 
   get resetting(): boolean {
-    return this.check("resetting", true);
+    return (this as any).check("resetting", true);
   }
 
   get error(): string | null {
@@ -129,43 +129,43 @@ export default class Form extends Base implements FormInterface {
   }
 
   get hasError(): boolean {
-    return !!this.validator.error || this.check("hasError", true);
+    return !!this.validator.error || (this as any).check("hasError", true);
   }
 
   get isValid(): boolean {
-    return !this.validator.error && this.check("isValid", true);
+    return !this.validator.error && (this as any).check("isValid", true);
   }
 
   get isPristine(): boolean {
-    return this.check("isPristine", true);
+    return (this as any).check("isPristine", true);
   }
 
   get isDirty(): boolean {
-    return this.check("isDirty", true);
+    return (this as any).check("isDirty", true);
   }
 
   get isDefault(): boolean {
-    return this.check("isDefault", true);
+    return (this as any).check("isDefault", true);
   }
 
   get isEmpty(): boolean {
-    return this.check("isEmpty", true);
+    return (this as any).check("isEmpty", true);
   }
 
   get focused(): boolean {
-    return this.check("focused", true);
+    return (this as any).check("focused", true);
   }
 
   get touched(): boolean {
-    return this.check("touched", true);
+    return (this as any).check("touched", true);
   }
 
   get changed(): boolean {
-    return this.check("changed", true);
+    return (this as any).check("changed", true);
   }
 
   get disabled(): boolean {
-    return this.check("disabled", true);
+    return (this as any).check("disabled", true);
   }
 
   makeField(data: FieldConstructor) {
