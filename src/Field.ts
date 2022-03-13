@@ -20,7 +20,6 @@ import {
   defaultClearValue,
 } from "./parser";
 
-import StateInterface from "./models/StateInterface";
 import OptionsModel from "./models/OptionsModel";
 import FieldInterface, { FieldConstructor } from "./models/FieldInterface";
 
