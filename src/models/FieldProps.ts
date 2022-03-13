@@ -45,5 +45,5 @@ export enum FieldPropsEnum {
 }
 
 export interface FieldPropsInterface {
-  [index: string]: any;
+  [index: string]: keyof FieldPropsEnum;
 }

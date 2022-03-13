@@ -36,6 +36,6 @@ export default interface StateInterface {
   struct(data?: string[]): string[];
   get(type: any, subtype: any): any;
   set(type: string, subtype: string, state: any): void;
-  extra(data: any): any | null;
+  extra(data?: any): any | null;
   observeOptions(): void;
 }
