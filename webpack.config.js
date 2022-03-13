@@ -5,7 +5,7 @@ const MINIFY = process.env.MINIFY === "YES";
 
 const rules = [
   {
-    test: /\.(ts|js)$/,
+    test: /\.ts$/,
     loader: "ts-loader",
     include: join(__dirname, "src"),
   },
