@@ -6,7 +6,10 @@ import Validator from "./Validator";
 import State from "./State";
 import Field from "./Field";
 import ValidatorInterface from "./models/ValidatorInterface";
-import FormInterface from "./models/FormInterface";
+import FormInterface, {
+  FieldsDefinitions,
+  FormConfig,
+} from "./models/FormInterface";
 import { FieldConstructor } from "./models/FieldInterface";
 
 export default class Form extends Base implements FormInterface {
@@ -17,7 +20,7 @@ export default class Form extends Base implements FormInterface {
   debouncedValidation: any = null;
 
   constructor(
-    setup = {},
+    setup: FieldsDefinitions,
     {
       name = "",
       options = {},
@@ -25,7 +28,7 @@ export default class Form extends Base implements FormInterface {
       bindings = {},
       hooks = {},
       handlers = {},
-    } = {}
+    }: FormConfig = {}
   ) {
     super();
     makeObservable(this, {
