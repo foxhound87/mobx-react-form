@@ -2,15 +2,18 @@ import { action, observable, makeObservable } from "mobx";
 import _ from "lodash";
 import { $try } from "./utils";
 import ValidatorInterface, {
+  DriversMap,
+  ValidationPluginInterface,
   ValidationPlugins,
 } from "./models/ValidatorInterface";
+import FormInterface from "./models/FormInterface";
 
 export default class Validator implements ValidatorInterface {
   promises: Promise<any>[] = [];
 
-  form: any = {};
+  form: FormInterface = null;
 
-  drivers: any = {};
+  drivers: DriversMap = {};
 
   plugins: ValidationPlugins = {
     vjf: undefined,
@@ -150,8 +153,8 @@ export default class Validator implements ValidatorInterface {
       ? validationOrder.map((n: string) => this.drivers[n])
       : this.drivers;
 
-    _.each(drivers, (driver) => {
-      driver && driver.validateField(instance);
+    _.each(drivers, (driver: ValidationPluginInterface) => {
+      driver && driver.validate(instance);
       if (stopOnError && instance.hasError) {
         return false;
       }

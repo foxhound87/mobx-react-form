@@ -17,7 +17,7 @@ const extend = {
       async: true,
       validate: (field, value) =>
         simulateAsyncFindUserCall({ [field]: value }).then(
-          (items) => items.length === 0
+          (items: any) => items.length === 0
         ),
     },
   },

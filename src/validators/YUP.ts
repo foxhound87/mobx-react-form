@@ -1,4 +1,8 @@
-import _ from 'lodash';
+import {
+  ValidationPluginConstructor,
+  ValidationPluginInterface,
+} from "./../models/ValidatorInterface";
+import _ from "lodash";
 
 /**
   YUP - Dead simple Object schema validation
@@ -13,8 +17,7 @@ import _ from 'lodash';
 
 */
 
-class YUP {
-
+class YUP implements ValidationPluginInterface {
   promises = [];
 
   config = null;
@@ -29,9 +32,9 @@ class YUP {
 
   constructor({
     config = {},
-    state = {},
+    state = null,
     promises = [],
-  }) {
+  }: ValidationPluginConstructor) {
     this.state = state;
     this.promises = promises;
     this.extend = config.extend;
@@ -50,14 +53,15 @@ class YUP {
     }
   }
 
-  validateField(field) {
-    const $p = new Promise(resolve =>
+  validate(field) {
+    const $p = new Promise((resolve) =>
       this.validator
         .reach(this.schema, field.path)
         .label(field.label)
         .validate(field.validatedValue, { strict: true })
         .then(() => this.handleAsyncPasses(field, resolve))
-        .catch((error) => this.handleAsyncFails(field, resolve, error)));
+        .catch((error) => this.handleAsyncFails(field, resolve, error))
+    );
 
     this.promises.push($p);
   }
@@ -82,7 +86,7 @@ class YUP {
   }
 }
 
-export default (config) => ({
+export default (config?: any) => ({
   class: YUP,
   config,
 });

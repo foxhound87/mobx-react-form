@@ -2,7 +2,6 @@
   Fields Bindings
 */
 export default {
-
   MaterialTextFieldTemplate: ({ field, props, $try }) => ({
     type: $try(props.type, field.type),
     id: $try(props.id, field.id),
@@ -18,17 +17,16 @@ export default {
   }),
 
   MaterialTextFieldRewriter: {
-    id: 'id',
-    name: 'name',
-    type: 'type',
-    value: 'value',
-    label: 'floatingLabelText',
-    placeholder: 'hintText',
-    disabled: 'disabled',
-    error: 'errorText',
-    onChange: 'onChange',
-    onFocus: 'onFocus',
-    onBlur: 'onBlur',
+    id: "id",
+    name: "name",
+    type: "type",
+    value: "value",
+    label: "floatingLabelText",
+    placeholder: "hintText",
+    disabled: "disabled",
+    error: "errorText",
+    onChange: "onChange",
+    onFocus: "onFocus",
+    onBlur: "onBlur",
   },
-
 };

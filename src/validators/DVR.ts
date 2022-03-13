@@ -1,4 +1,8 @@
-import _ from 'lodash';
+import _ from "lodash";
+import {
+  ValidationPluginConstructor,
+  ValidationPluginInterface,
+} from "src/models/ValidatorInterface";
 
 /**
   Declarative Validation Rules
@@ -11,8 +15,7 @@ import _ from 'lodash';
     };
 
 */
-class DVR {
-
+class DVR implements ValidationPluginInterface {
   promises = [];
 
   config = null;
@@ -25,9 +28,9 @@ class DVR {
 
   constructor({
     config = {},
-    state = {},
+    state = null,
     promises = [],
-  }) {
+  }: ValidationPluginConstructor) {
     this.state = state;
     this.promises = promises;
     this.extend = config.extend;
@@ -45,7 +48,7 @@ class DVR {
     }
   }
 
-  validateField(field) {
+  validate(field) {
     // get form fields data
     const data = this.state.form.validatedValues;
     this.validateFieldAsync(field, data);
@@ -55,17 +58,22 @@ class DVR {
   makeLabels(validation, field) {
     const labels = { [field.path]: field.label };
     _.forIn(validation.rules[field.path], (rule) => {
-      if (typeof rule.value === 'string' && rule.name.match(/^(required_|same|different)/)) {
-        _.forIn(rule.value.split(','), (p, i) => {
-          if (!rule.name.match(/^required_(if|unless)/) || (i % 2 === 0)) {
+      if (
+        typeof rule.value === "string" &&
+        rule.name.match(/^(required_|same|different)/)
+      ) {
+        _.forIn(rule.value.split(","), (p, i: any) => {
+          if (!rule.name.match(/^required_(if|unless)/) || i % 2 === 0) {
             const f = this.state.form.$(p);
             if (f && f.path && f.label) {
               labels[f.path] = f.label;
             }
           }
         });
-      }
-      else if (typeof rule.value === 'string' && rule.name.match(/^(before|after)/)) {
+      } else if (
+        typeof rule.value === "string" &&
+        rule.name.match(/^(before|after)/)
+      ) {
         const f = this.state.form.$(rule.value);
         if (f && f.path && f.label) {
           labels[f.path] = f.label;
@@ -76,7 +84,7 @@ class DVR {
   }
 
   validateFieldSync(field, data) {
-    const $rules = this.rules(field.rules, 'sync');
+    const $rules = this.rules(field.rules, "sync");
     // exit if no rules found
     if (_.isEmpty($rules[0])) return;
     // get field rules
@@ -92,7 +100,7 @@ class DVR {
   }
 
   validateFieldAsync(field, data) {
-    const $rules = this.rules(field.rules, 'async');
+    const $rules = this.rules(field.rules, "async");
     // exit if no rules found
     if (_.isEmpty($rules[0])) return;
     // get field rules
@@ -102,11 +110,12 @@ class DVR {
     // set label into errors messages instead key
     this.makeLabels(validation, field);
 
-    const $p = new Promise(resolve =>
+    const $p = new Promise((resolve) =>
       validation.checkAsync(
         () => this.handleAsyncPasses(field, resolve),
-        () => this.handleAsyncFails(field, validation, resolve),
-      ));
+        () => this.handleAsyncFails(field, validation, resolve)
+      )
+    );
 
     this.promises.push($p);
   }
@@ -118,7 +127,10 @@ class DVR {
   }
 
   handleAsyncFails(field, validation, resolve) {
-    field.setValidationAsyncData(false, _.first(validation.errors.get(field.path)));
+    field.setValidationAsyncData(
+      false,
+      _.first(validation.errors.get(field.path))
+    );
     this.executeAsyncValidation(field);
     field.showAsyncErrors();
     resolve();
@@ -130,18 +142,19 @@ class DVR {
     }
   }
 
-
   rules(rules, type) {
-    const $rules = _.isString(rules) ? _.split(rules, '|') : rules;
+    const $rules = _.isString(rules) ? _.split(rules, "|") : rules;
     // eslint-disable-next-line new-cap
     const v = new this.validator();
-    return _.filter($rules, $rule => type === 'async'
-      ? v.getRule(_.split($rule, ':')[0]).async
-      : !v.getRule(_.split($rule, ':')[0]).async);
+    return _.filter($rules, ($rule) =>
+      type === "async"
+        ? v.getRule(_.split($rule, ":")[0]).async
+        : !v.getRule(_.split($rule, ":")[0]).async
+    );
   }
 }
 
-export default (config) => ({
+export default (config?: any) => ({
   class: DVR,
   config,
 });

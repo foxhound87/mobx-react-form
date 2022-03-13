@@ -1,7 +1,13 @@
-import _ from 'lodash';
+import _ from "lodash";
+import {
+  ValidationPluginConstructor,
+  ValidationPluginInterface,
+} from "src/models/ValidatorInterface";
 
-const isPromise = obj => (!!obj && typeof obj.then === 'function'
-  && (typeof obj === 'object' || typeof obj === 'function'));
+const isPromise = (obj) =>
+  !!obj &&
+  typeof obj.then === "function" &&
+  (typeof obj === "object" || typeof obj === "function");
 
 /**
   Schema Validation Keywords
@@ -14,8 +20,7 @@ const isPromise = obj => (!!obj && typeof obj.then === 'function'
     };
 
 */
-class SVK {
-
+class SVK implements ValidationPluginInterface {
   promises = [];
 
   config = null;
@@ -30,9 +35,9 @@ class SVK {
 
   constructor({
     config = {},
-    state = {},
-    promises = []
-  }) {
+    state = null,
+    promises = [],
+  }: ValidationPluginConstructor) {
     this.state = state;
     this.promises = promises;
     this.extend = config.extend;
@@ -42,15 +47,15 @@ class SVK {
 
   extendOptions(options = {}) {
     return Object.assign(options, {
-      allowRequired: _.get(options, 'allowRequired') || false,
-      errorDataPath: 'property',
+      allowRequired: _.get(options, "allowRequired") || false,
+      errorDataPath: "property",
       allErrors: true,
       coerceTypes: true,
       v5: true,
     });
   }
 
-  initAJV(config, form) {
+  initAJV(config) {
     // get ajv package
     const ajv = config.package || config;
     // create ajv instance
@@ -66,14 +71,14 @@ class SVK {
     this.validator = validator.compile(this.schema);
   }
 
-  validateField(field) {
+  validate(field) {
     const data = { [field.path]: field.validatedValue };
     const validate = this.validator(this.parseValues(data));
     // check if is $async schema
     if (isPromise(validate)) {
       const $p = validate
         .then(() => field.setValidationAsyncData(true))
-        .catch(err => err && this.handleAsyncError(field, err.errors))
+        .catch((err) => err && this.handleAsyncError(field, err.errors))
         .then(() => this.executeAsyncValidation(field))
         .then(() => field.showAsyncErrors());
 
@@ -111,9 +116,9 @@ class SVK {
   findError(path, errors) {
     return _.find(errors, ({ dataPath }) => {
       let $dataPath;
-      $dataPath = _.trimStart(dataPath, '.');
-      $dataPath = _.trim($dataPath, '[\'');
-      $dataPath = _.trim($dataPath, '\']');
+      $dataPath = _.trimStart(dataPath, ".");
+      $dataPath = _.trim($dataPath, "['");
+      $dataPath = _.trim($dataPath, "']");
       return _.includes($dataPath, `${path}`);
     });
   }
@@ -125,14 +130,17 @@ class SVK {
   }
 
   parseValues(values) {
-    if (_.get(this.config, 'options.allowRequired') === true) {
-      return _.omitBy(values, (_.isEmpty || _.isNull || _.isUndefined || _.isNaN));
+    if (_.get(this.config, "options.allowRequired") === true) {
+      return _.omitBy(
+        values,
+        _.isEmpty || _.isNull || _.isUndefined || _.isNaN
+      );
     }
     return values;
   }
 }
 
-export default (config) => ({
+export default (config?: any) => ({
   class: SVK,
   config,
 });

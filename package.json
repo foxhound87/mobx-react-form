@@ -5,8 +5,8 @@
   "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
   "description": "Automagically manage React forms state and automatic validation with MobX.",
   "homepage": "https://www.npmjs.com/package/mobx-react-form",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "clean:build": "rimraf lib && rimraf umd",
     "clean:modules": "rimraf node_modules && npm cache clean",

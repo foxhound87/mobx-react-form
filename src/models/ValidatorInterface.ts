@@ -1,3 +1,6 @@
+import FieldInterface from "./FieldInterface";
+import StateInterface from "./StateInterface";
+
 export default interface ValidatorInterface {
   promises: Promise<any>[];
   form: any;
@@ -16,4 +19,21 @@ export interface ValidationPlugins {
   dvr?: any;
   svk?: any;
   yup?: any;
+}
+
+export interface ValidationPluginConstructor {
+  config: any;
+  state: StateInterface;
+  promises: Promise<unknown>[];
+}
+
+export interface ValidationPluginInterface extends ValidationPluginConstructor {
+  extend: any;
+  validator: any;
+  schema?: any;
+  validate(field: FieldInterface);
+}
+
+export interface DriversMap {
+  [index: string]: ValidationPluginInterface;
 }
