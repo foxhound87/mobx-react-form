@@ -43,11 +43,14 @@ export default class Base implements BaseInterface {
   fields: ObservableMap = observable.map({});
   path: string | undefined | null;
 
-  $submitted = 0;
-  $submitting = false;
+  $submitted: number = 0;
+  $submitting: boolean = false;
 
-  $validated = 0;
-  $validating = false;
+  $validated: number = 0;
+  $validating: boolean = false;
+
+  $touched: boolean = false;
+  $changed: boolean = false;
 
   $hooks: any = {};
   $handlers: any = {};
@@ -58,6 +61,8 @@ export default class Base implements BaseInterface {
       $submitting: observable,
       $validated: observable,
       $validating: observable,
+      $touched: observable,
+      $changed: observable,
       submitted: computed,
       submitting: computed,
       validated: computed,

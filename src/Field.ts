@@ -97,8 +97,6 @@ export default class Field extends Base implements FieldInterface {
 
   $disabled: boolean = false;
   $focused: boolean = false;
-  $touched: boolean = false;
-  $changed: boolean = false;
   $blurred: boolean = false;
   $deleted: boolean = false;
 
@@ -146,8 +144,6 @@ export default class Field extends Base implements FieldInterface {
       $rules: observable,
       $disabled: observable,
       $focused: observable,
-      $touched: observable,
-      $changed: observable,
       $blurred: observable,
       $deleted: observable,
       $clearing: observable,

@@ -194,8 +194,8 @@ export default class Form extends Base implements FormInterface {
     Clear Form Fields
   */
   clear(): void {
-    (this as any).$touched = false;
-    (this as any).$changed = false;
+    this.$touched = false;
+    this.$changed = false;
     this.each((field: any) => field.clear(true));
   }
 
@@ -203,8 +203,8 @@ export default class Form extends Base implements FormInterface {
     Reset Form Fields
   */
   reset(): void {
-    (this as any).$touched = false;
-    (this as any).$changed = false;
+    this.$touched = false;
+    this.$changed = false;
     this.each((field: any) => field.reset(true));
   }
 }
