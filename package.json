@@ -19,7 +19,6 @@
     "prebuild": "npm run clean:build",
     "precommit": "npm run lint && npm run cover",
     "commit": "cz && git push origin",
-    "prerelease:alpha": "cz --prerelease alpha && git push origin",
     "watch:build": "tsc --watch -d",
     "watch:test": "npm run test -- -w",
     "test": "cross-env TEST=true mocha -r ts-node/register ./tests/*.ts",
