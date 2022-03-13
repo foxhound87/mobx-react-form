@@ -5,7 +5,6 @@ export default interface FieldInterface extends BaseInterface {
   id: string | undefined;
   key: string | undefined;
   name: string | undefined;
-  path: string | undefined;
   options: OptionsModel | undefined;
   type: string | undefined;
   label: string | undefined;
@@ -61,7 +60,7 @@ export default interface FieldInterface extends BaseInterface {
   getComputedProp(key: any): any;
   checkValidationPlugins(): void;
   initNestedFields(field: any, update: boolean): void;
-  invalidate(message: string, async: boolean): void;
+  invalidate(message?: string, async?: boolean): void;
   setValidationAsyncData(valid: boolean, message: string): void;
   resetValidation(deep: boolean): void;
   clear(deep?: boolean): void;

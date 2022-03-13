@@ -67,21 +67,15 @@ interface ValidationAsyncDataInterface {
 }
 
 export default class Field extends Base implements FieldInterface {
-  fields = observable.map({});
   hasInitialNestedFields = false;
   incremental = false;
 
   id: any;
   key: any;
   name: any;
-  path: any;
-  state: StateInterface;
 
   $observers: any;
   $interceptors: any;
-
-  $hooks: any = {};
-  $handlers: any = {};
 
   $input = ($: any) => $;
   $output = ($: any) => $;
@@ -344,11 +338,11 @@ export default class Field extends Base implements FieldInterface {
   }
 
   get hasError() {
-    return this.checkValidationErrors || (this as any).check("hasError", true);
+    return this.checkValidationErrors || this.check("hasError", true);
   }
 
   get isValid() {
-    return !this.checkValidationErrors && (this as any).check("isValid", true);
+    return !this.checkValidationErrors && this.check("isValid", true);
   }
 
   get isDefault() {
@@ -364,7 +358,7 @@ export default class Field extends Base implements FieldInterface {
   }
 
   get isEmpty() {
-    if (this.hasNestedFields) return (this as any).check("isEmpty", true);
+    if (this.hasNestedFields) return this.check("isEmpty", true);
     if (_.isBoolean(this.value)) return !!this.$value;
     if (_.isNumber(this.value)) return false;
     if (_.isDate(this.value)) return false;
@@ -373,44 +367,32 @@ export default class Field extends Base implements FieldInterface {
 
   get resetting() {
     return this.hasNestedFields
-      ? (this as any).check("resetting", true)
+      ? this.check("resetting", true)
       : this.$resetting;
   }
 
   get clearing() {
-    return this.hasNestedFields
-      ? (this as any).check("clearing", true)
-      : this.$clearing;
+    return this.hasNestedFields ? this.check("clearing", true) : this.$clearing;
   }
 
   get focused() {
-    return this.hasNestedFields
-      ? (this as any).check("focused", true)
-      : this.$focused;
+    return this.hasNestedFields ? this.check("focused", true) : this.$focused;
   }
 
   get blurred() {
-    return this.hasNestedFields
-      ? (this as any).check("blurred", true)
-      : this.$blurred;
+    return this.hasNestedFields ? this.check("blurred", true) : this.$blurred;
   }
 
   get touched() {
-    return this.hasNestedFields
-      ? (this as any).check("touched", true)
-      : this.$touched;
+    return this.hasNestedFields ? this.check("touched", true) : this.$touched;
   }
 
   get changed() {
-    return this.hasNestedFields
-      ? (this as any).check("changed", true)
-      : this.$changed;
+    return this.hasNestedFields ? this.check("changed", true) : this.$changed;
   }
 
   get deleted() {
-    return this.hasNestedFields
-      ? (this as any).check("deleted", true)
-      : this.$deleted;
+    return this.hasNestedFields ? this.check("deleted", true) : this.$deleted;
   }
 
   /* ------------------------------------------------------------------ */
@@ -656,7 +638,7 @@ export default class Field extends Base implements FieldInterface {
     this.validationAsyncData = {};
     this.validationFunctionsData = [];
     this.validationErrorStack = [];
-    if (deep) (this as any).each((field: any) => field.resetValidation());
+    if (deep) this.each((field: any) => field.resetValidation());
   }
 
   clear(deep: boolean = true): void {
@@ -668,7 +650,7 @@ export default class Field extends Base implements FieldInterface {
     this.$value = defaultClearValue({ value: this.$value });
     this.files = undefined;
 
-    if (deep) (this as any).each((field: any) => field.clear(true));
+    if (deep) this.each((field: any) => field.clear(true));
 
     this.validate({
       showErrors: this.state.options.get("showErrorsOnClear", this),
@@ -686,7 +668,7 @@ export default class Field extends Base implements FieldInterface {
     if (!useDefaultValue) this.value = this.$initial;
     this.files = undefined;
 
-    if (deep) (this as any).each((field: any) => field.reset(true));
+    if (deep) this.each((field: any) => field.reset(true));
 
     this.validate({
       showErrors: this.state.options.get("showErrorsOnReset", this),
@@ -702,7 +684,7 @@ export default class Field extends Base implements FieldInterface {
   showErrors(show: boolean = true): void {
     this.showError = show;
     this.errorSync = _.head(this.validationErrorStack) as string;
-    (this as any).each((field: any) => field.showErrors(show));
+    this.each((field: any) => field.showErrors(show));
   }
 
   showAsyncErrors(): void {

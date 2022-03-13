@@ -6,14 +6,11 @@ import {
   makeObservable,
   observe,
   intercept,
+  ObservableMap,
 } from "mobx";
 import _ from "lodash";
 import BaseInterface from "./models/BaseInterface";
-import SharedInitializerInterface from "./models/SharedInitializerInterface";
-import SharedActionsInterface from "./models/SharedActionsInterface";
-import SharedEventsInterface from "./models/SharedEventsInterface";
-import SharedHelpersInterface from "./models/SharedHelpersInterface";
-import SharedUtilsInferface from "./models/SharedUtilsInterface";
+import StateInterface from "./models/StateInterface";
 
 import {
   props,
@@ -41,11 +38,19 @@ import {
 export default class Base implements BaseInterface {
   noop = () => {};
 
+  state: StateInterface;
+
+  fields: ObservableMap = observable.map({});
+  path: string | undefined | null;
+
   $submitted = 0;
   $submitting = false;
 
   $validated = 0;
   $validating = false;
+
+  $hooks: any = {};
+  $handlers: any = {};
 
   constructor() {
     makeObservable(this, {
@@ -74,15 +79,14 @@ export default class Base implements BaseInterface {
   execHook = (name: string, fallback: any = {}): any =>
     $try(
       fallback[name],
-      (this as any).$hooks[name],
+      this.$hooks[name],
       (this as any).hooks && (this as any).hooks.apply(this, [this])[name],
       this.noop
     ).apply(this, [this]);
 
   execHandler = (name: string, args: any, fallback: any = null): any => [
     $try(
-      (this as any).$handlers[name] &&
-        (this as any).$handlers[name].apply(this, [this]),
+      this.$handlers[name] && this.$handlers[name].apply(this, [this]),
       (this as any).handlers &&
         (this as any).handlers.apply(this, [this])[name] &&
         (this as any).handlers.apply(this, [this])[name].apply(this, [this]),
@@ -109,22 +113,22 @@ export default class Base implements BaseInterface {
   }
 
   get hasIncrementalKeys(): boolean {
-    return !!(this as any).fields.size && hasIntKeys((this as any).fields);
+    return !!this.fields.size && hasIntKeys(this.fields);
   }
 
   get hasNestedFields(): boolean {
-    return (this as any).fields.size !== 0;
+    return this.fields.size !== 0;
   }
 
   get size(): number {
-    return (this as any).fields.size;
+    return this.fields.size;
   }
 
   /**
     Interceptor
   */
   intercept = (opt: any): any =>
-    (this as any).MOBXEvent(
+    this.MOBXEvent(
       _.isFunction(opt)
         ? { type: "interceptor", call: opt }
         : { type: "interceptor", ...opt }
@@ -134,7 +138,7 @@ export default class Base implements BaseInterface {
     Observer
   */
   observe = (opt: any): any =>
-    (this as any).MOBXEvent(
+    this.MOBXEvent(
       _.isFunction(opt)
         ? { type: "observer", call: opt }
         : { type: "observer", ...opt }
@@ -164,7 +168,7 @@ export default class Base implements BaseInterface {
   onSubmit = (...args: any): any =>
     this.execHandler("onSubmit", args, (e: Event, o = {}) => {
       e.preventDefault();
-      (this as any).submit(o);
+      this.submit(o);
     });
 
   /**
@@ -173,7 +177,7 @@ export default class Base implements BaseInterface {
   onAdd = (...args: any): any =>
     this.execHandler("onAdd", args, (e: Event, val: any) => {
       e.preventDefault();
-      (this as any).add($isEvent(val) ? null : val);
+      this.add($isEvent(val) ? null : val);
     });
 
   /**
@@ -182,31 +186,30 @@ export default class Base implements BaseInterface {
   onDel = (...args: any): any =>
     this.execHandler("onDel", args, (e: Event, path: string) => {
       e.preventDefault();
-      (this as any).del($isEvent(path) ? (this as any).path : path);
+      this.del($isEvent(path) ? this.path : path);
     });
 
   /******************************************************************
     Initializer
   */
   initFields(initial: any, update: boolean = false): void {
-    const fallback = (this as any).state.options.get("fallback");
-    const $path = (key: string) =>
-      _.trimStart([(this as any).path, key].join("."), ".");
+    const fallback = this.state.options.get("fallback");
+    const $path = (key: string) => _.trimStart([this.path, key].join("."), ".");
 
     let fields;
-    fields = prepareFieldsData(initial, (this as any).state.strict, fallback);
+    fields = prepareFieldsData(initial, this.state.strict, fallback);
     fields = mergeSchemaDefaults(fields, (this as any).validator);
 
     // create fields
     _.forIn(fields, (field, key) => {
       const path = $path(key);
-      const $f = (this as any).select(path, null, false);
+      const $f = this.select(path, null, false);
       if (_.isNil($f)) {
         if (fallback) {
           this.initField(key, path, field, update);
         } else {
           const structPath = pathToStruct(path);
-          const struct = (this as any).state.struct();
+          const struct = this.state.struct();
           const found = struct
             .filter((s: any) => s.startsWith(structPath))
             .find(
@@ -228,7 +231,7 @@ export default class Base implements BaseInterface {
     data: any,
     update: boolean = false
   ): any {
-    const initial = (this as any).state.get("current", "props");
+    const initial = this.state.get("current", "props");
     const struct = pathToStruct(path);
     // try to get props from separated objects
     const $try = (prop: string) => {
@@ -261,16 +264,16 @@ export default class Base implements BaseInterface {
       $output: $try("output"),
     };
 
-    const field = (this as any).state.form.makeField({
+    const field = this.state.form.makeField({
       key,
       path,
       data,
       props,
       update,
-      state: (this as any).state,
+      state: this.state,
     });
 
-    (this as any).fields.merge({ [key]: field });
+    this.fields.merge({ [key]: field });
 
     return field;
   }
@@ -280,45 +283,37 @@ export default class Base implements BaseInterface {
   */
 
   validate(opt: any = {}, obj: any = {}) {
-    const $opt = _.merge(opt, { path: (this as any).path });
-    return (this as any).state.form.validator.validate($opt, obj);
+    const $opt = _.merge(opt, { path: this.path });
+    return this.state.form.validator.validate($opt, obj);
   }
 
   /**
     Submit
   */
   submit(o: any = {}) {
-    (this as any).$submitting = true;
-    (this as any).$submitted += 1;
+    this.$submitting = true;
+    this.$submitted += 1;
 
     const exec = (isValid: boolean) =>
-      isValid
-        ? (this as any).execHook("onSuccess", o)
-        : (this as any).execHook("onError", o);
+      isValid ? this.execHook("onSuccess", o) : this.execHook("onError", o);
 
     return (
       this.validate({
-        showErrors: (this as any).state.options.get("showErrorsOnSubmit", this),
+        showErrors: this.state.options.get("showErrorsOnSubmit", this),
       })
         .then(({ isValid }: any) => {
           const handler = exec(isValid);
           if (isValid) return handler;
-          const $err = (this as any).state.options.get(
-            "defaultGenericError",
-            this
-          );
-          const $throw = (this as any).state.options.get(
-            "submitThrowsError",
-            this
-          );
+          const $err = this.state.options.get("defaultGenericError", this);
+          const $throw = this.state.options.get("submitThrowsError", this);
           if ($throw && $err) (this as any).invalidate();
           return handler;
         })
         // eslint-disable-next-line
-        .then(action(() => ((this as any).$submitting = false)))
+        .then(action(() => (this.$submitting = false)))
         .catch(
           action((err: any) => {
-            (this as any).$submitting = false;
+            this.$submitting = false;
             throw err;
           })
         )
@@ -335,7 +330,7 @@ export default class Base implements BaseInterface {
     return deep
       ? checkPropType({
           type: props.types[prop],
-          data: this.deepCheck(props.types[prop], prop, (this as any).fields),
+          data: this.deepCheck(props.types[prop], prop, this.fields),
         })
       : (this as any)[prop];
   }
@@ -373,10 +368,10 @@ export default class Base implements BaseInterface {
     _.each(fields, (field, key) => {
       const $key = _.has(field, "name") ? field.name : key;
       const $path = _.trimStart(`${path}.${$key}`, ".");
-      const $field = (this as any).select($path, null, false);
+      const $field = this.select($path, null, false);
       const $container =
-        (this as any).select(path, null, false) ||
-        (this as any).state.form.select((this as any).path, null, false);
+        this.select(path, null, false) ||
+        this.state.form.select(this.path, null, false);
 
       if (!_.isNil($field) && !_.isUndefined(field)) {
         if (_.isArray($field.values())) {
@@ -395,10 +390,7 @@ export default class Base implements BaseInterface {
 
       if (!_.isNil($container) && _.isNil($field)) {
         // get full path when using update() with select() - FIX: #179
-        const $newFieldPath = _.trimStart(
-          [(this as any).path, $path].join("."),
-          "."
-        );
+        const $newFieldPath = _.trimStart([this.path, $path].join("."), ".");
         // init field into the container field
         $container.initField($key, $newFieldPath, field, true);
       } else if (recursion) {
@@ -407,7 +399,7 @@ export default class Base implements BaseInterface {
           this.deepUpdate(field.fields, $path);
         } else {
           // handle nested fields if undefined or null
-          const $fields = pathToFieldsTree((this as any).state.struct(), $path);
+          const $fields = pathToFieldsTree(this.state.struct(), $path);
           this.deepUpdate($fields, $path, false);
         }
       }
@@ -421,22 +413,22 @@ export default class Base implements BaseInterface {
     if (_.isNil(prop)) {
       return this.deepGet(
         [...props.computed, ...props.field, ...props.validation],
-        (this as any).fields
+        this.fields
       );
     }
 
     allowedProps("all", _.isArray(prop) ? prop : [prop]);
 
     if (_.isString(prop)) {
-      if (strict && (this as any).fields.size === 0) {
+      if (strict && this.fields.size === 0) {
         return parseCheckOutput(this, prop);
       }
 
-      const value = this.deepGet(prop, (this as any).fields);
+      const value = this.deepGet(prop, this.fields);
       return parseCheckArray(this, value, prop);
     }
 
-    return this.deepGet(prop, (this as any).fields);
+    return this.deepGet(prop, this.fields);
   }
 
   /**
@@ -456,18 +448,11 @@ export default class Base implements BaseInterface {
         if (_.isString(prop)) {
           const removeValue =
             prop === "value" &&
-            (((this as any).state.options.get(
-              "retrieveOnlyDirtyValues",
-              this
-            ) &&
+            ((this.state.options.get("retrieveOnlyDirtyValues", this) &&
               field.isPristine) ||
-              ((this as any).state.options.get(
-                "retrieveOnlyEnabledFields",
-                this
-              ) &&
+              (this.state.options.get("retrieveOnlyEnabledFields", this) &&
                 field.disabled) ||
-              ((this as any).state.options.get("softDelete", this) &&
-                field.deleted));
+              (this.state.options.get("softDelete", this) && field.deleted));
 
           if (field.fields.size === 0) {
             delete obj[field.key]; // eslint-disable-line
@@ -509,15 +494,14 @@ export default class Base implements BaseInterface {
       allowedProps("field", [prop]);
       const deep =
         (_.isObject(data) && prop === "value") || _.isPlainObject(data);
-      if (deep && (this as any).hasNestedFields)
-        this.deepSet(prop, data, "", true);
+      if (deep && this.hasNestedFields) this.deepSet(prop, data, "", true);
       else _.set(this, `$${prop}`, data);
       return;
     }
 
     // NO PROP NAME PROVIDED ("prop" is value)
     if (_.isNil(data)) {
-      if ((this as any).hasNestedFields) this.deepSet("value", prop, "", true);
+      if (this.hasNestedFields) this.deepSet("value", prop, "", true);
       else this.set("value", prop);
     }
   }
@@ -532,17 +516,17 @@ export default class Base implements BaseInterface {
     recursion: boolean = false
   ): void {
     const err = "You are updating a not existent field:";
-    const isStrict = (this as any).state.options.get("strictUpdate", this);
+    const isStrict = this.state.options.get("strictUpdate", this);
 
     if (_.isNil(data)) {
-      (this as any).each((field: any) => field.clear(true));
+      this.each((field: any) => field.clear(true));
       return;
     }
 
     _.each(data, ($val, $key) => {
       const $path = _.trimStart(`${path}.${$key}`, ".");
       // get the field by path joining keys recursively
-      const field = (this as any).select($path, null, isStrict);
+      const field = this.select($path, null, isStrict);
       // if no field found when is strict update, throw error
       if (isStrict) throwError($path, field, err);
       // update the field/fields if defined
@@ -566,7 +550,7 @@ export default class Base implements BaseInterface {
     if (isArrayOfObjects(obj)) {
       return _.each(obj, (values) =>
         this.update({
-          [maxKey((this as any).fields)]: values,
+          [maxKey(this.fields)]: values,
         })
       );
     }
@@ -574,16 +558,11 @@ export default class Base implements BaseInterface {
     let key; // eslint-disable-next-line
     if (_.has(obj, "key")) key = obj.key;
     if (_.has(obj, "name")) key = obj.name;
-    if (!key) key = maxKey((this as any).fields);
+    if (!key) key = maxKey(this.fields);
 
     const $path = ($key: string) =>
-      _.trimStart([(this as any).path, $key].join("."), ".");
-    const tree = pathToFieldsTree(
-      (this as any).state.struct(),
-      (this as any).path,
-      0,
-      true
-    );
+      _.trimStart([this.path, $key].join("."), ".");
+    const tree = pathToFieldsTree(this.state.struct(), this.path, 0, true);
     return this.initField(key, $path(key), _.merge(tree[0], obj));
   }
 
@@ -591,10 +570,10 @@ export default class Base implements BaseInterface {
     Del Field
    */
   del($path: string | null = null) {
-    const isStrict = (this as any).state.options.get("strictDelete", this);
-    const path = parsePath($path ?? (this as any).path);
-    const fullpath = _.trim([(this as any).path, path].join("."), ".");
-    const container = (this as any).container($path);
+    const isStrict = this.state.options.get("strictDelete", this);
+    const path = parsePath($path ?? this.path);
+    const fullpath = _.trim([this.path, path].join("."), ".");
+    const container = this.container($path);
     const keys = _.split(path, ".");
     const last = _.last(keys);
 
@@ -603,8 +582,8 @@ export default class Base implements BaseInterface {
       throwError(fullpath, null, msg);
     }
 
-    if ((this as any).state.options.get("softDelete", this)) {
-      return (this as any).select(fullpath).set("deleted", true);
+    if (this.state.options.get("softDelete", this)) {
+      return this.select(fullpath).set("deleted", true);
     }
 
     return container.fields.delete(last);
@@ -618,14 +597,13 @@ export default class Base implements BaseInterface {
     MobX Event (observe/intercept)
    */
   MOBXEvent({ path = null, key = "value", call, type }: any): void {
-    const $instance =
-      (this as any).select(path || (this as any).path, null, null) || this;
+    const $instance = this.select(path || this.path, null, null) || this;
 
     const $call = (change: any) =>
       call.apply(null, [
         {
           change,
-          form: (this as any).state.form,
+          form: this.state.form,
           path: $instance.path || null,
           field: $instance.path ? $instance : null,
         },
@@ -648,7 +626,7 @@ export default class Base implements BaseInterface {
 
     const $dkey = $instance.path ? `${key}@${$instance.path}` : key;
 
-    _.merge((this as any).state.disposers[type], {
+    _.merge(this.state.disposers[type], {
       [$dkey]:
         key === "fields"
           ? ffn.apply((change: any) => $call(change))
@@ -660,7 +638,7 @@ export default class Base implements BaseInterface {
     Dispose MOBX Events
    */
   dispose(opt = null): void {
-    if ((this as any).path && opt) return this.disposeSingle(opt);
+    if (this.path && opt) return this.disposeSingle(opt);
     return this.disposeAll();
   }
 
@@ -669,9 +647,9 @@ export default class Base implements BaseInterface {
    */
   disposeAll() {
     const dispose = (disposer: any) => disposer.apply();
-    _.each((this as any).state.disposers.interceptor, dispose);
-    _.each((this as any).state.disposers.observer, dispose);
-    (this as any).state.disposers = { interceptor: {}, observer: {} };
+    _.each(this.state.disposers.interceptor, dispose);
+    _.each(this.state.disposers.observer, dispose);
+    this.state.disposers = { interceptor: {}, observer: {} };
     return null;
   }
 
@@ -679,11 +657,11 @@ export default class Base implements BaseInterface {
     Dispose Single Event (observe/intercept)
    */
   disposeSingle({ type, key = "value", path = null }: any) {
-    const $path = parsePath(path ?? (this as any).path);
+    const $path = parsePath(path ?? this.path);
     // eslint-disable-next-line
     if (type === "interceptor") key = `$${key}`; // target observables
-    (this as any).state.disposers[type][`${key}@${$path}`].apply();
-    delete (this as any).state.disposers[type][`${key}@${$path}`];
+    this.state.disposers[type][`${key}@${$path}`].apply();
+    delete this.state.disposers[type][`${key}@${$path}`];
   }
 
   /******************************************************************
@@ -701,9 +679,7 @@ export default class Base implements BaseInterface {
 
     keys.shift();
 
-    let $fields = _.isNil(fields)
-      ? (this as any).fields.get(head)
-      : fields.get(head);
+    let $fields = _.isNil(fields) ? this.fields.get(head) : fields.get(head);
 
     let stop = false;
     _.each(keys, ($key) => {
@@ -725,13 +701,13 @@ export default class Base implements BaseInterface {
     Get Container
    */
   container($path: string) {
-    const path = parsePath($path ?? (this as any).path);
+    const path = parsePath($path ?? this.path);
     const cpath = _.trim(path.replace(new RegExp("[^./]+$"), ""), ".");
 
-    if (!!(this as any).path && _.isNil($path)) {
+    if (!!this.path && _.isNil($path)) {
       return cpath !== ""
-        ? (this as any).state.form.select(cpath, null, false)
-        : (this as any).state.form;
+        ? this.state.form.select(cpath, null, false)
+        : this.state.form;
     }
 
     return cpath !== "" ? this.select(cpath, null, false) : this;
@@ -741,14 +717,14 @@ export default class Base implements BaseInterface {
     Has Field
    */
   has(path: string): boolean {
-    return (this as any).fields.has(path);
+    return this.fields.has(path);
   }
 
   /**
     Map Fields
   */
   map(cb: any): any {
-    return getObservableMapValues((this as any).fields).map(cb);
+    return getObservableMapValues(this.fields).map(cb);
   }
 
   /**
@@ -790,7 +766,7 @@ export default class Base implements BaseInterface {
    *
    */
   each(iteratee: any, fields: any = null, depth: number = 0) {
-    const $fields = fields || (this as any).fields;
+    const $fields = fields || this.fields;
     _.each(getObservableMapValues($fields), (field, index) => {
       iteratee(field, index, depth);
 
@@ -808,55 +784,55 @@ export default class Base implements BaseInterface {
     Fields Selector (alias of select)
    */
   $(key: string) {
-    return (this as any).select(key);
+    return this.select(key);
   }
 
   /**
     Fields Values (recursive with Nested Fields)
    */
   values() {
-    return (this as any).get("value");
+    return this.get("value");
   }
 
   /**
     Fields Errors (recursive with Nested Fields)
    */
   errors() {
-    return (this as any).get("error");
+    return this.get("error");
   }
 
   /**
     Fields Labels (recursive with Nested Fields)
    */
   labels() {
-    return (this as any).get("label");
+    return this.get("label");
   }
 
   /**
     Fields Placeholders (recursive with Nested Fields)
    */
   placeholders() {
-    return (this as any).get("placeholder");
+    return this.get("placeholder");
   }
 
   /**
     Fields Default Values (recursive with Nested Fields)
    */
   defaults() {
-    return (this as any).get("default");
+    return this.get("default");
   }
 
   /**
     Fields Initial Values (recursive with Nested Fields)
    */
   initials() {
-    return (this as any).get("initial");
+    return this.get("initial");
   }
 
   /**
     Fields Types (recursive with Nested Fields)
    */
   types() {
-    return (this as any).get("type");
+    return this.get("type");
   }
 }

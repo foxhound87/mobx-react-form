@@ -5,20 +5,14 @@ import Base from "./Base";
 import Validator from "./Validator";
 import State from "./State";
 import Field from "./Field";
-import StateInterface from "./models/StateInterface";
 import ValidatorInterface from "./models/ValidatorInterface";
 import FormInterface from "./models/FormInterface";
 import { FieldConstructor } from "./models/FieldInterface";
 
 export default class Form extends Base implements FormInterface {
   name: string;
-  state: StateInterface;
+  path = null;
   validator: ValidatorInterface;
-
-  $hooks: any = {};
-  $handlers: any = {};
-
-  fields: any = observable.map({});
 
   debouncedValidation: any = null;
 
@@ -109,19 +103,17 @@ export default class Form extends Base implements FormInterface {
 
   get validatedValues(): object {
     const data: any = {};
-    (this as any).each(
-      ($field: any) => (data[$field.path] = $field.validatedValue)
-    );
+    this.each(($field: any) => (data[$field.path] = $field.validatedValue));
 
     return data;
   }
 
   get clearing(): boolean {
-    return (this as any).check("clearing", true);
+    return this.check("clearing", true);
   }
 
   get resetting(): boolean {
-    return (this as any).check("resetting", true);
+    return this.check("resetting", true);
   }
 
   get error(): string | null {
@@ -129,43 +121,43 @@ export default class Form extends Base implements FormInterface {
   }
 
   get hasError(): boolean {
-    return !!this.validator.error || (this as any).check("hasError", true);
+    return !!this.validator.error || this.check("hasError", true);
   }
 
   get isValid(): boolean {
-    return !this.validator.error && (this as any).check("isValid", true);
+    return !this.validator.error && this.check("isValid", true);
   }
 
   get isPristine(): boolean {
-    return (this as any).check("isPristine", true);
+    return this.check("isPristine", true);
   }
 
   get isDirty(): boolean {
-    return (this as any).check("isDirty", true);
+    return this.check("isDirty", true);
   }
 
   get isDefault(): boolean {
-    return (this as any).check("isDefault", true);
+    return this.check("isDefault", true);
   }
 
   get isEmpty(): boolean {
-    return (this as any).check("isEmpty", true);
+    return this.check("isEmpty", true);
   }
 
   get focused(): boolean {
-    return (this as any).check("focused", true);
+    return this.check("focused", true);
   }
 
   get touched(): boolean {
-    return (this as any).check("touched", true);
+    return this.check("touched", true);
   }
 
   get changed(): boolean {
-    return (this as any).check("changed", true);
+    return this.check("changed", true);
   }
 
   get disabled(): boolean {
-    return (this as any).check("disabled", true);
+    return this.check("disabled", true);
   }
 
   makeField(data: FieldConstructor) {
@@ -192,7 +184,7 @@ export default class Form extends Base implements FormInterface {
   }
 
   showErrors(show: boolean = true): void {
-    (this as any).each((field: any) => field.showErrors(show));
+    this.each((field: any) => field.showErrors(show));
   }
 
   /**
@@ -201,7 +193,7 @@ export default class Form extends Base implements FormInterface {
   clear(): void {
     (this as any).$touched = false;
     (this as any).$changed = false;
-    (this as any).each((field: any) => field.clear(true));
+    this.each((field: any) => field.clear(true));
   }
 
   /**
@@ -210,6 +202,6 @@ export default class Form extends Base implements FormInterface {
   reset(): void {
     (this as any).$touched = false;
     (this as any).$changed = false;
-    (this as any).each((field: any) => field.reset(true));
+    this.each((field: any) => field.reset(true));
   }
 }
