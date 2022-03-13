@@ -1,3 +1,7 @@
+# 4.0.0 (next)
+
+- Typescript support
+
 # 3.2.0
 
 - mobx 6.3.3 support
