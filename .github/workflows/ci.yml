@@ -7,6 +7,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - run: npm install
-      - run: npm run tests
+      - run: npm run cover
+      - run: npm run coverage:check
+      - run: npm run build
+      - run: npm run coverage:report
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
