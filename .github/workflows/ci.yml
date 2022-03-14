@@ -4,9 +4,9 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
-      - run: npm install
-      - run: npm run tests
       - name: Checkout
         uses: actions/checkout@v3
+      - run: npm install
+      - run: npm run tests
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
