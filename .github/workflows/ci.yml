@@ -1,0 +1,8 @@
+name: Mobx React Form
+on: [push]
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm install
+      - run: npm run tests
