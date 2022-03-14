@@ -35,6 +35,12 @@
     "type": "opencollective",
     "url": "https://opencollective.com/mobx-react-form"
   },
+  "release": {
+    "branches": [
+      "master",
+      "next"
+    ]
+  },
   "keywords": [
     "form",
     "mobx",
