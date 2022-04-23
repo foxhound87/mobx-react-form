@@ -227,7 +227,7 @@ const handleFieldsPropsFallback = (
   // if the 'values' object is passed in constructor
   // then update the fields definitions
   let { values } = initial;
-  if (hasUnifiedProps({ fields })) {
+  if (hasUnifiedProps({ fields: initial.fields })) {
     values = reduceValuesToUnifiedFields(values);
   }
   return _.merge(
