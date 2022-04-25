@@ -196,6 +196,7 @@ export default class Field extends Base implements FieldInterface {
       focus: action,
       showErrors: action,
       showAsyncErrors: action,
+      update: action
     });
 
     this.state = state;
@@ -750,5 +751,19 @@ export default class Field extends Base implements FieldInterface {
 
   bind(props = {}) {
     return this.state.bindings.load(this, this.bindings, props);
+  }
+
+  update(fields: any): void {
+    if (!_.isPlainObject(fields)) {
+      throw new Error("The update() method accepts only plain objects.");
+    }
+    const fallback = this.state.options.get("fallback");
+    if (!fallback && this.fields.size === 0) {
+      this.$value = parseInput(this.$input, {
+        separated: fields,
+      });
+      return;
+    }
+    super.update(fields);
   }
 }
