@@ -102,7 +102,7 @@ const isArrayOfObjects = (fields: any) =>
   _.isArray(fields) && _.every(fields, _.isPlainObject);
 
 const $getKeys = (fields: any) =>
-  _.union(_.map(_.values(fields), (values) => _.keys(values))[0]);
+  _.union(..._.map(_.values(fields), (values) => _.keys(values)));
 
 const hasUnifiedProps = ({ fields }: any) =>
   !isStruct({ fields }) && hasProps("field", $getKeys(fields));

@@ -366,10 +366,10 @@ export default class Base implements BaseInterface {
       throw new Error("The update() method accepts only plain objects.");
     }
 
-    this.deepUpdate(prepareFieldsData({ fields }));
+    this.deepUpdate(prepareFieldsData({ fields, }), undefined, undefined, fields);
   }
 
-  deepUpdate(fields: any, path: string = "", recursion: boolean = true): void {
+  deepUpdate(fields: any, path: string = "", recursion: boolean = true, raw?: any): void {
     _.each(fields, (field, key) => {
       const $key = _.has(field, "name") ? field.name : key;
       const $path = _.trimStart(`${path}.${$key}`, ".");
@@ -384,6 +384,15 @@ export default class Base implements BaseInterface {
           _.each(getObservableMapValues($field.fields), ($f) => {
             if (Number($f.name) > n) $field.fields.delete($f.name);
           });
+        }
+        else if (field?.fields) {
+          const fallback = this.state.options.get("fallback");
+          if (!fallback && $field.fields.size === 0) {
+            $field.$value = parseInput($field.$input, {
+              separated: _.get(raw, $path),
+            });
+            return;
+          }
         }
         if (_.isNull(field) || _.isNil(field.fields)) {
           $field.$value = parseInput($field.$input, {

@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { $try } from "./utils";
 
-import { FieldPropsEnum, FieldPropsInterface } from "./models/FieldProps";
+import { FieldPropsEnum, FieldPropsType } from "./models/FieldProps";
 import BindingsInterface from "./models/BindingsInterface";
 
 export default class Bindings implements BindingsInterface {
@@ -17,27 +17,18 @@ export default class Bindings implements BindingsInterface {
       name: FieldPropsEnum.name,
       type: FieldPropsEnum.type,
       value: FieldPropsEnum.value,
-      initial: FieldPropsEnum.initial,
-      default: FieldPropsEnum.default,
       checked: FieldPropsEnum.checked,
       label: FieldPropsEnum.label,
       placeholder: FieldPropsEnum.placeholder,
-      error: FieldPropsEnum.error,
-      // handlers
+      disabled: FieldPropsEnum.disabled,
       onChange: FieldPropsEnum.onChange,
       onBlur: FieldPropsEnum.onBlur,
       onFocus: FieldPropsEnum.onFocus,
-      onToggle: FieldPropsEnum.onToggle,
-      onSubmit: FieldPropsEnum.onSubmit,
-      onReset: FieldPropsEnum.onReset,
-      onClear: FieldPropsEnum.onClear,
-      onAdd: FieldPropsEnum.onAdd,
-      onDel: FieldPropsEnum.onDel,
       autoFocus: FieldPropsEnum.autoFocus,
     },
   };
 
-  load(field: any, name: string = "default", props: FieldPropsInterface) {
+  load(field: any, name: string = "default", props: FieldPropsType) {
     if (_.has(this.rewriters, name)) {
       const $bindings = {};
 
@@ -59,7 +50,7 @@ export default class Bindings implements BindingsInterface {
     });
   }
 
-  register(bindings: FieldPropsInterface): Bindings {
+  register(bindings: FieldPropsType): Bindings {
     _.each(bindings, (val, key) => {
       if (_.isFunction(val)) _.merge(this.templates, { [key]: val });
       if (_.isPlainObject(val)) _.merge(this.rewriters, { [key]: val });

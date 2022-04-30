@@ -44,6 +44,6 @@ export enum FieldPropsEnum {
   autoFocus = "autoFocus",
 }
 
-export interface FieldPropsInterface {
-  [index: string]: keyof FieldPropsEnum;
+export type FieldPropsType = {
+  [key in FieldPropsEnum]?: any;
 }

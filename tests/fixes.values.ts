@@ -609,4 +609,62 @@ describe('stop validation on error', () => {
     expect($576.isValid).to.be.true
   })
 
+  it('no fallback on update - 1', () => {
+		const fields = ['prop1', 'prop1.prop2', 'prop1.prop3']
+		const values = {
+			prop1: {
+				prop2: 'value 2',
+				prop3: {
+					id: 'id 3',
+					desc: 'desc 3'
+				}
+			}
+		}
+		const $602 = new Form({fields, values}, {name: 'Form 602', options: {fallback: false}})
+		expect($602.$('prop1').value).to.deep.equal({
+			prop2: 'value 2',
+			prop3: {
+				id: 'id 3',
+				desc: 'desc 3'
+			}
+		})
+		$602.$('prop1').update({
+			prop3: {
+				id: 'id 4',
+				desc: 'desc 4'
+			}
+		})
+		expect($602.$('prop1').value).to.deep.equal({
+			prop2: 'value 2',
+			prop3: {
+				id: 'id 4',
+				desc: 'desc 4'
+			}
+		})
+	})
+
+	it('no fallback on update - 2', () => {
+		const fields = ['prop']
+		const values = {
+			prop: {
+				id: 'id 1',
+				desc: 'description 1'
+			}
+		}
+		const $602 = new Form({fields, values}, {name: 'Form 602', options: {fallback: false}})
+		expect($602.$('prop').value).to.deep.equal({
+			id: 'id 1',
+			desc: 'description 1'
+		})
+		$602.$('prop').update({
+			id: 'id 2',
+			desc: 'description 2'
+		})
+		expect($602.select('prop.id', undefined, false)).to.be.undefined
+		expect($602.$('prop').value).to.deep.equal({
+			id: 'id 2',
+			desc: 'description 2'
+		})
+	})
+
 })

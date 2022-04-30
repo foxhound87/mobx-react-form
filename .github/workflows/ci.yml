@@ -1,5 +1,8 @@
 name: Mobx React Form
-on: [push]
+on:
+  push:
+    branches:
+      - next
 jobs:
   CI:
     runs-on: ubuntu-latest
