@@ -21,11 +21,13 @@ The lifecycle of all events is:
 
 | Event Handler | Affected Property | Executed Hook | FORM | FIELD |
 |---|---|---|---|---|
-| onChange(e) | value | onChange | NO | YES |
+| onChange(e) | value | onChange | YES * | YES |
 | onToggle(e) | value | onToggle | NO | YES |
 | onFocus(e) | focused | onFocus | NO | YES |
 | onBlur(e) | touched | onBlur | NO | YES |
 | onDrop(e) | files | onDrop | NO | YES |
+
+> (*) next pre-relase >= 5.1.0
 
 ##### Available Event Hooks w/ Actions
 > Triggered by Event Handlers
