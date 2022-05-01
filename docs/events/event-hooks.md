@@ -27,7 +27,7 @@ The lifecycle of all events is:
 | onBlur(e) | touched | onBlur | NO | YES |
 | onDrop(e) | files | onDrop | NO | YES |
 
-> (*) next pre-relase >= 5.1.0
+> (*) next pre-release >= 5.1.0
 
 ##### Available Event Hooks w/ Actions
 > Triggered by Event Handlers
