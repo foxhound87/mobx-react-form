@@ -1,4 +1,5 @@
 import BaseInterface from "./BaseInterface";
+import FieldInterface, { FieldConstructor } from "./FieldInterface";
 import OptionsModel from "./OptionsModel";
 import ValidatorInterface, { ValidationPlugins } from "./ValidatorInterface";
 export default interface FormInterface extends BaseInterface {
@@ -18,7 +19,6 @@ export default interface FormInterface extends BaseInterface {
   isEmpty: boolean;
   focused: boolean;
   touched: boolean;
-  changed: boolean;
   disabled: boolean;
   // methods
   init($fields: any): void;
@@ -26,6 +26,8 @@ export default interface FormInterface extends BaseInterface {
   showErrors(show: boolean): void;
   clear(): void;
   reset(): void;
+
+  makeField(data: FieldConstructor): FieldInterface;
 }
 
 export interface FieldsDefinitions {

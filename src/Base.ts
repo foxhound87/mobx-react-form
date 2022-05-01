@@ -11,6 +11,7 @@ import {
 import _ from "lodash";
 import BaseInterface from "./models/BaseInterface";
 import StateInterface from "./models/StateInterface";
+import FieldInterface from "./models/FieldInterface";
 
 import {
   props,
@@ -50,7 +51,7 @@ export default class Base implements BaseInterface {
   $validating: boolean = false;
 
   $touched: boolean = false;
-  $changed: boolean = false;
+  $changed: number = 0;
 
   $hooks: any = {};
   $handlers: any = {};
@@ -63,6 +64,7 @@ export default class Base implements BaseInterface {
       $validating: observable,
       $touched: observable,
       $changed: observable,
+      changed: computed,
       submitted: computed,
       submitting: computed,
       validated: computed,
@@ -127,6 +129,12 @@ export default class Base implements BaseInterface {
 
   get size(): number {
     return this.fields.size;
+  }
+
+  get changed(): number {
+    return this.hasNestedFields 
+      ? this.reduce((acc: number, field: FieldInterface) => (acc + field.changed), 0) 
+      : this.$changed;
   }
 
   /**
@@ -366,7 +374,7 @@ export default class Base implements BaseInterface {
       throw new Error("The update() method accepts only plain objects.");
     }
 
-    this.deepUpdate(prepareFieldsData({ fields, }), undefined, undefined, fields);
+    this.deepUpdate(prepareFieldsData({ fields }), undefined, undefined, fields);
   }
 
   deepUpdate(fields: any, path: string = "", recursion: boolean = true, raw?: any): void {
@@ -506,10 +514,14 @@ export default class Base implements BaseInterface {
     // UPDATE CUSTOM PROP
     if (_.isString(prop) && !_.isUndefined(data)) {
       allowedProps("field", [prop]);
-      const deep =
-        (_.isObject(data) && prop === "value") || _.isPlainObject(data);
+      const deep = (_.isObject(data) && prop === "value") || _.isPlainObject(data);
       if (deep && this.hasNestedFields) this.deepSet(prop, data, "", true);
       else _.set(this, `$${prop}`, data);
+
+      if (prop === 'value') {
+        this.$changed ++;
+        this.state.form.$changed ++;
+      }
       return;
     }
 
@@ -569,7 +581,7 @@ export default class Base implements BaseInterface {
       );
     }
 
-    let key; // eslint-disable-next-line
+    let key;
     if (_.has(obj, "key")) key = obj.key;
     if (_.has(obj, "name")) key = obj.name;
     if (!key) key = maxKey(this.fields);
@@ -737,7 +749,7 @@ export default class Base implements BaseInterface {
   /**
     Map Fields
   */
-  map(cb: any): any {
+  map(cb: any): ReadonlyArray<FieldInterface> {
     return getObservableMapValues(this.fields).map(cb);
   }
 
@@ -781,13 +793,17 @@ export default class Base implements BaseInterface {
    */
   each(iteratee: any, fields: any = null, depth: number = 0) {
     const $fields = fields || this.fields;
-    _.each(getObservableMapValues($fields), (field, index) => {
+    _.each(getObservableMapValues($fields), (field: FieldInterface, index) => {
       iteratee(field, index, depth);
 
       if (field.fields.size !== 0) {
         this.each(iteratee, field.fields, depth + 1);
       }
     });
+  }
+
+  reduce(iteratee: any, acc: any): any {
+    return _.reduce(getObservableMapValues(this.fields), iteratee, acc);
   }
 
   /******************************************************************

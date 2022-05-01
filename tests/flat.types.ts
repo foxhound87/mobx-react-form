@@ -12,6 +12,10 @@ const checkComputedIsBoolean = computed =>
   _.each($forms, (form, key) => it(`${key} ${computed} is boolean`, () =>
     assert.isBoolean(form[computed], `${key}.${computed} is not boolean`)));
 
+const checkComputedIsNumber = computed =>
+  _.each($forms, (form, key) => it(`${key} ${computed} is numbser`, () =>
+    assert.isNumber(form[computed], `${key}.${computed} is not numbser`)));
+
 
 describe('Check validate() returns promise that resolves to boolean', () => {
   _.each($forms, (form, key) => (
@@ -68,6 +72,13 @@ describe('Check form computed returns boolean', () => {
   checkComputedIsBoolean('isEmpty');
   checkComputedIsBoolean('focused');
   checkComputedIsBoolean('touched');
-  checkComputedIsBoolean('changed');
   checkComputedIsBoolean('disabled');
+});
+
+
+describe('Check form computed returns number', () => {
+  checkComputedIsNumber('changed');
+  checkComputedIsNumber('submitted');
+  checkComputedIsNumber('validated');
+  checkComputedIsNumber('size');
 });

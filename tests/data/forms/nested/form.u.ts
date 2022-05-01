@@ -1,4 +1,3 @@
-import { observe } from "mobx";
 import { expect } from "chai";
 import { Form } from "../../../../src";
 import { isEmail, shouldBeEqualTo } from "../../extension/vjf";

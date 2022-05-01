@@ -1,4 +1,4 @@
-import { action, computed, observable, makeObservable } from "mobx";
+import { action, computed, observable, makeObservable, autorun } from "mobx";
 import _ from "lodash";
 
 import Base from "./Base";
@@ -6,11 +6,11 @@ import Validator from "./Validator";
 import State from "./State";
 import Field from "./Field";
 import ValidatorInterface from "./models/ValidatorInterface";
+import FieldInterface, { FieldConstructor } from "./models/FieldInterface";
 import FormInterface, {
   FieldsDefinitions,
   FormConfig,
 } from "./models/FormInterface";
-import { FieldConstructor } from "./models/FieldInterface";
 
 export default class Form extends Base implements FormInterface {
   name: string;
@@ -45,7 +45,6 @@ export default class Form extends Base implements FormInterface {
       isEmpty: computed,
       focused: computed,
       touched: computed,
-      changed: computed,
       disabled: computed,
       init: action,
       invalidate: action,
@@ -99,6 +98,9 @@ export default class Form extends Base implements FormInterface {
     }
 
     this.execHook("onInit");
+
+    // handle Form onChange Hook
+    autorun(() => this.$changed && this.execHook('onChange'));
   }
 
   /* ------------------------------------------------------------------ */
@@ -155,10 +157,6 @@ export default class Form extends Base implements FormInterface {
     return this.check("touched", true);
   }
 
-  get changed(): boolean {
-    return this.check("changed", true);
-  }
-
   get disabled(): boolean {
     return this.check("disabled", true);
   }
@@ -195,8 +193,8 @@ export default class Form extends Base implements FormInterface {
   */
   clear(): void {
     this.$touched = false;
-    this.$changed = false;
-    this.each((field: any) => field.clear(true));
+    this.$changed = 0;
+    this.each((field: FieldInterface) => field.clear(true));
   }
 
   /**
@@ -204,7 +202,7 @@ export default class Form extends Base implements FormInterface {
   */
   reset(): void {
     this.$touched = false;
-    this.$changed = false;
-    this.each((field: any) => field.reset(true));
+    this.$changed = 0;
+    this.each((field: FieldInterface) => field.reset(true));
   }
 }

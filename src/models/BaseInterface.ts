@@ -20,6 +20,9 @@ export default interface BaseInterface
   $submitting: boolean;
   $validated: number;
   $validating: boolean;
+  $touched: boolean;
+  $changed: number;
+  changed: number;
   submitted: number;
   submitting: boolean;
   validated: number;

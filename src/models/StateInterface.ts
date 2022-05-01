@@ -1,4 +1,5 @@
 import BindingsInterface from "./BindingsInterface";
+import FormInterface from "./FormInterface";
 import OptionsInterface from "./OptionsInterface";
 
 export enum RuntimeMode {
@@ -10,7 +11,7 @@ export enum RuntimeMode {
 export default interface StateInterface {
   mode: RuntimeMode;
   strict: boolean;
-  form: any;
+  form: FormInterface;
   options: OptionsInterface;
   bindings: BindingsInterface;
 

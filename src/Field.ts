@@ -184,7 +184,6 @@ export default class Field extends Base implements FieldInterface {
       focused: computed,
       blurred: computed,
       touched: computed,
-      changed: computed,
       deleted: computed,
       setupField: action,
       initNestedFields: action,
@@ -252,12 +251,20 @@ export default class Field extends Base implements FieldInterface {
           new RegExp("^-?\\d+(,\\d+)*(\\.\\d+([eE]\\d+)?)?$", "g").exec(newVal)
         ) {
           this.$value = _.toNumber(newVal);
+          this.$changed ++;
+          if (!this.resetting && !this.clearing) {
+            this.state.form.$changed ++;
+          };
           return;
         }
       }
     }
     // handle parse value
     this.$value = newVal;
+    this.$changed ++;
+    if (!this.resetting && !this.clearing) {
+      this.state.form.$changed ++;
+    };
   }
 
   get initial() {
@@ -333,27 +340,27 @@ export default class Field extends Base implements FieldInterface {
     return this.errorAsync || this.errorSync || null;
   }
 
-  get hasError() {
+  get hasError(): boolean {
     return this.checkValidationErrors || this.check("hasError", true);
   }
 
-  get isValid() {
+  get isValid(): boolean {
     return !this.checkValidationErrors && this.check("isValid", true);
   }
 
-  get isDefault() {
+  get isDefault(): boolean {
     return !_.isNil(this.default) && _.isEqual(this.default, this.value);
   }
 
-  get isDirty() {
+  get isDirty(): boolean {
     return !_.isUndefined(this.initial) && !_.isEqual(this.initial, this.value);
   }
 
-  get isPristine() {
+  get isPristine(): boolean {
     return !_.isNil(this.initial) && _.isEqual(this.initial, this.value);
   }
 
-  get isEmpty() {
+  get isEmpty(): boolean {
     if (this.hasNestedFields) return this.check("isEmpty", true);
     if (_.isBoolean(this.value)) return !!this.$value;
     if (_.isNumber(this.value)) return false;
@@ -361,33 +368,29 @@ export default class Field extends Base implements FieldInterface {
     return _.isEmpty(this.value);
   }
 
-  get resetting() {
+  get resetting(): boolean {
     return this.hasNestedFields
       ? this.check("resetting", true)
       : this.$resetting;
   }
 
-  get clearing() {
+  get clearing(): boolean {
     return this.hasNestedFields ? this.check("clearing", true) : this.$clearing;
   }
 
-  get focused() {
+  get focused(): boolean {
     return this.hasNestedFields ? this.check("focused", true) : this.$focused;
   }
 
-  get blurred() {
+  get blurred(): boolean {
     return this.hasNestedFields ? this.check("blurred", true) : this.$blurred;
   }
 
-  get touched() {
+  get touched(): boolean {
     return this.hasNestedFields ? this.check("touched", true) : this.$touched;
   }
 
-  get changed() {
-    return this.hasNestedFields ? this.check("changed", true) : this.$changed;
-  }
-
-  get deleted() {
+  get deleted(): boolean {
     return this.hasNestedFields ? this.check("deleted", true) : this.$deleted;
   }
 
@@ -395,8 +398,6 @@ export default class Field extends Base implements FieldInterface {
   /* EVENTS HANDLERS */
 
   sync = action((e: any, v: any = null) => {
-    this.$changed = true;
-
     const $get = ($: any) =>
       $isBool($, this.value) ? $.target.checked : $.target.value;
 
@@ -640,8 +641,8 @@ export default class Field extends Base implements FieldInterface {
   clear(deep: boolean = true): void {
     this.$clearing = true;
     this.$touched = false;
-    this.$changed = false;
     this.$blurred = false;
+    this.$changed = 0;
 
     this.$value = defaultClearValue({ value: this.$value });
     this.files = undefined;
@@ -654,17 +655,18 @@ export default class Field extends Base implements FieldInterface {
   }
 
   reset(deep: boolean = true): void {
+
     this.$resetting = true;
     this.$touched = false;
-    this.$changed = false;
     this.$blurred = false;
-
+    this.$changed = 0;
+    
     const useDefaultValue = this.$default !== this.$initial;
     if (useDefaultValue) this.value = this.$default;
     if (!useDefaultValue) this.value = this.$initial;
     this.files = undefined;
 
-    if (deep) this.each((field: any) => field.reset(true));
+    if (deep) this.each((field: FieldInterface) => field.reset(true));
 
     this.validate({
       showErrors: this.state.options.get("showErrorsOnReset", this),

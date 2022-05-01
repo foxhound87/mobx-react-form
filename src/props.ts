@@ -1,7 +1,6 @@
-import { computed } from "mobx";
 import { FieldPropsEnum } from "./models/FieldProps";
 
-export interface PropsGropusInterface {
+export interface PropsGroupsInterface {
   field: FieldPropsEnum[];
   handlers: FieldPropsEnum[];
   computed: FieldPropsEnum[];
@@ -14,7 +13,7 @@ export interface PropsGropusInterface {
   };
 }
 
-export const props: PropsGropusInterface = {
+export const props: PropsGroupsInterface = {
   field: [
     FieldPropsEnum.type,
     FieldPropsEnum.value,
@@ -89,7 +88,6 @@ export const props: PropsGropusInterface = {
     focused: "some",
     blurred: "some",
     touched: "some",
-    changed: "some",
     deleted: "every",
     disabled: "every",
     clearing: "every",

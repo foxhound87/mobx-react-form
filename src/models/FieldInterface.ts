@@ -41,7 +41,6 @@ export default interface FieldInterface extends BaseInterface {
   focused: boolean;
   blurred: boolean;
   touched: boolean;
-  changed: boolean;
   deleted: boolean;
   // handlers
   onChange(args: any): any;

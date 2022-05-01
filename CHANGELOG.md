@@ -1,4 +1,8 @@
-# 4.0.0 (next)
+# 5.1.0 (next)
+
+- Form level onChange hook
+- introduced reducer
+# 4.0.0 / 5.0.0 (next)
 
 - Typescript support
 

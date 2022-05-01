@@ -1,12 +1,14 @@
 import _ from "lodash";
-import { values as mobxValues, keys as mobxKeys } from "mobx";
+import { ObservableMap, values as mobxValues, keys as mobxKeys } from "mobx";
+import FieldInterface from "./models/FieldInterface";
 
 import { props } from "./props";
 
-const getObservableMapValues = (observableMap: any) =>
-  mobxValues(observableMap);
+const getObservableMapValues = (observableMap: ObservableMap): 
+  ReadonlyArray<FieldInterface> => mobxValues(observableMap);
 
-const getObservableMapKeys = (observableMap: any) => mobxKeys(observableMap);
+const getObservableMapKeys = (observableMap: ObservableMap): 
+  ReadonlyArray<FieldInterface> => mobxKeys(observableMap);
 
 const checkObserveItem =
   (change: any) =>
