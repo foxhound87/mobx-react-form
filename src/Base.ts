@@ -132,7 +132,7 @@ export default class Base implements BaseInterface {
   }
 
   get changed(): number {
-    return this.hasNestedFields 
+    return this.path && this.hasNestedFields 
       ? this.reduce((acc: number, field: FieldInterface) => (acc + field.changed), 0) 
       : this.$changed;
   }
@@ -574,11 +574,15 @@ export default class Base implements BaseInterface {
    */
   add(obj: any): any {
     if (isArrayOfObjects(obj)) {
-      return _.each(obj, (values) =>
+      _.each(obj, (values) =>
         this.update({
           [maxKey(this.fields)]: values,
         })
       );
+
+      this.$changed ++;
+      this.state.form.$changed ++;
+      return this.execHook('onChange');
     }
 
     let key;
@@ -586,10 +590,14 @@ export default class Base implements BaseInterface {
     if (_.has(obj, "name")) key = obj.name;
     if (!key) key = maxKey(this.fields);
 
-    const $path = ($key: string) =>
-      _.trimStart([this.path, $key].join("."), ".");
+    const $path = ($key: string) =>_.trimStart([this.path, $key].join("."), ".");
     const tree = pathToFieldsTree(this.state.struct(), this.path, 0, true);
-    return this.initField(key, $path(key), _.merge(tree[0], obj));
+    const field = this.initField(key, $path(key), _.merge(tree[0], obj));
+
+    this.$changed ++;
+    this.state.form.$changed ++;
+    this.execHook('onChange');
+    return field;
   }
 
   /**
@@ -612,6 +620,8 @@ export default class Base implements BaseInterface {
       return this.select(fullpath).set("deleted", true);
     }
 
+    this.$changed ++;
+    this.state.form.$changed ++;
     return container.fields.delete(last);
   }
 

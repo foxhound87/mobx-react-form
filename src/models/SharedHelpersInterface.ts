@@ -1,5 +1,5 @@
 export default interface SharedHelpersInterface {
-  $(key: string): any;
+  $(key: string|number): any;
   values(): any;
   errors(): any;
   labels(): any;

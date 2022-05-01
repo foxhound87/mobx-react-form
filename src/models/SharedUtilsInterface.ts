@@ -1,5 +1,5 @@
 export default interface SharedUtilsInferface {
-  select: (path: string, fields?: any, isStrict?: boolean) => any;
+  select: (path: string|number, fields?: any, isStrict?: boolean) => any;
   container: (path?: string) => any;
   has: (path: string) => boolean;
   map: (cb: any) => any;

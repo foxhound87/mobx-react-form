@@ -1,3 +1,6 @@
+# 5.2.0 (next)
+
+- trigger onChange hook on add/del 
 # 5.1.0 (next)
 
 - Form level onChange hook
