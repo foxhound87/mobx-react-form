@@ -12,13 +12,11 @@ const fields = [
 const hooks = {
     account: {
         onChange(field: FieldInterface) {
-            // acccount field
             field.select(0).$('id').set('account-id');
         }
     },
     test: {
         onChange(field: FieldInterface) {
-            // test field
             field.state.form.$('final').set('final-value')
         }
     }

@@ -101,3 +101,29 @@ describe('Check form onChange hook after add/del',  () => {
         expect($.$V3.$('final').value).to.be.equal('final-value'));
 
 });
+
+describe('Check onChange hook after updating nested field',  () => {
+    it('$V4 form changed should equal form $changed', () =>
+        expect($.$V4.changed).to.be.equal($.$V4.$changed));
+
+    it('$V4 form changed should equal 2', () =>
+        expect($.$V4.changed).to.be.equal(2));
+
+    it('$V4 form $changed should equal 2', () =>
+        expect($.$V4.$changed).to.be.equal(2));
+
+    it('$V4 user changed should equal 2', () =>
+        expect($.$V4.$('user').changed).to.be.equal(2));
+
+    it('$V4 user.email changed should equal 1', () =>
+        expect($.$V4.$('user.email').changed).to.be.equal(1));
+
+    it('$V4 user.id changed should equal 1', () =>
+        expect($.$V4.$('user.id').changed).to.be.equal(1));
+
+    it('$V4 user.id value should equal 1', () =>
+        expect($.$V4.$('user.id').value).to.be.equal(1));
+
+    it('$V4 user.email value should equal "user@email"', () =>
+        expect($.$V4.$('user.email').value).to.be.equal("user@email"));
+});

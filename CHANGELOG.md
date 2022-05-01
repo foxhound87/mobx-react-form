@@ -1,3 +1,6 @@
+# 5.3.0 (next)
+
+- nested fields trigger onchange hook on container
 # 5.2.0 (next)
 
 - trigger onChange hook on add/del 

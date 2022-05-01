@@ -7,6 +7,7 @@ import {
   toJS,
   untracked,
   makeObservable,
+  autorun,
 } from "mobx";
 import _ from "lodash";
 import Base from "./Base";
@@ -219,6 +220,10 @@ export default class Field extends Base implements FieldInterface {
     this.initMOBXEvent("interceptors");
 
     this.execHook("onInit");
+
+    // handle Field onChange Hook for nested fields
+    this.hasNestedFields 
+      && autorun(() => this.changed && this.execHook('onChange'));
   }
 
   /* ------------------------------------------------------------------ */
@@ -761,7 +766,7 @@ export default class Field extends Base implements FieldInterface {
     }
     const fallback = this.state.options.get("fallback");
     if (!fallback && this.fields.size === 0) {
-      this.$value = parseInput(this.$input, {
+      this.value = parseInput(this.$input, {
         separated: fields,
       });
       return;

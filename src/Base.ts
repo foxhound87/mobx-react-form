@@ -132,7 +132,7 @@ export default class Base implements BaseInterface {
   }
 
   get changed(): number {
-    return this.path && this.hasNestedFields 
+    return !_.isNil(this.path) && this.hasNestedFields 
       ? this.reduce((acc: number, field: FieldInterface) => (acc + field.changed), 0) 
       : this.$changed;
   }
@@ -396,14 +396,14 @@ export default class Base implements BaseInterface {
         else if (field?.fields) {
           const fallback = this.state.options.get("fallback");
           if (!fallback && $field.fields.size === 0) {
-            $field.$value = parseInput($field.$input, {
+            $field.value = parseInput($field.$input, {
               separated: _.get(raw, $path),
             });
             return;
           }
         }
         if (_.isNull(field) || _.isNil(field.fields)) {
-          $field.$value = parseInput($field.$input, {
+          $field.value = parseInput($field.$input, {
             separated: field,
           });
           return;
@@ -616,12 +616,13 @@ export default class Base implements BaseInterface {
       throwError(fullpath, null, msg);
     }
 
+    this.$changed ++;
+    this.state.form.$changed ++;
+    
     if (this.state.options.get("softDelete", this)) {
       return this.select(fullpath).set("deleted", true);
     }
 
-    this.$changed ++;
-    this.state.form.$changed ++;
     return container.fields.delete(last);
   }
 

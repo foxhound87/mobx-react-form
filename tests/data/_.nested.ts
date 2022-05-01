@@ -26,6 +26,7 @@ import $U from "./forms/nested/form.u";
 import $V from "./forms/nested/form.v";
 import $V2 from "./forms/nested/form.v2";
 import $V3 from "./forms/nested/form.v3";
+import $V4 from "./forms/nested/form.v4";
 import $Z from "./forms/nested/form.z";
 
 export default {
@@ -54,5 +55,6 @@ export default {
   $V,
   $V2,
   $V3,
+  $V4,
   $Z,
 };
