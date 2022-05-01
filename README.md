@@ -1,4 +1,4 @@
-### [Repo](https://github.com/foxhound87/mobx-react-form) &bull; [Live Demo](https://foxhound87.github.io/mobx-react-form/demo.html) &bull; [Demo Code](https://github.com/foxhound87/mobx-react-form-demo) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Slack Workspace](https://fox-dev.now.sh/)
+### [Repo](https://github.com/foxhound87/mobx-react-form) &bull; [Live Demo](https://foxhound87.github.io/mobx-react-form/demo.html) &bull; [Demo Code](https://github.com/foxhound87/mobx-react-form-demo) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Discord Channel](https://discord.gg/CVV8w4zat4)
 
 # MobX React Form
 
