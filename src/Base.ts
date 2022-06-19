@@ -618,7 +618,7 @@ export default class Base implements BaseInterface {
 
     this.$changed ++;
     this.state.form.$changed ++;
-    
+
     if (this.state.options.get("softDelete", this)) {
       return this.select(fullpath).set("deleted", true);
     }

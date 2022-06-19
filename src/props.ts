@@ -29,6 +29,7 @@ export const props: PropsGroupsInterface = {
     FieldPropsEnum.handlers,
     FieldPropsEnum.error,
     FieldPropsEnum.deleted,
+    FieldPropsEnum.disabled,
   ],
   handlers: [
     FieldPropsEnum.onChange,
