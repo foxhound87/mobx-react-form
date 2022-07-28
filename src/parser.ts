@@ -72,8 +72,13 @@ const parseArrayProp = (val: any, prop: string): any => {
 const parseCheckArray = (field: any, value: any, prop: string) =>
   field.hasIncrementalKeys ? parseArrayProp(value, prop) : value;
 
-const parseCheckOutput = (field: any, prop: string) =>
-  prop === "value" && field.$output ? field.$output(field[prop]) : field[prop];
+const parseCheckOutput = (field: any, prop: string) => {
+  if (prop === "value" || prop.startsWith("value.")) {
+    const base = field.$output ? field.$output(field["value"]) : field["value"]
+    return prop.startsWith("value.") ? _.get(base, prop.substring(6)) : base
+  }
+  return field[prop];
+}
 
 const defineFieldsFromStruct = (struct: string[], add: boolean = false) =>
   _.reduceRight(

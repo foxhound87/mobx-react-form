@@ -77,7 +77,7 @@ export const props: PropsGroupsInterface = {
     "error",
   ],
   functions: ["observers", "interceptors", "input", "output"],
-  validation: ["rules", "validators", "validateWith"],
+  validation: ["rules", "validators", "validatedWith"],
   exceptions: ["isDirty", "isPristine"],
   types: {
     isDirty: "some",

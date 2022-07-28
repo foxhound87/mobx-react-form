@@ -4,6 +4,7 @@ import $ from './data/_.fixes'; // FORMS
 import Form from '../src';
 import dvr from '../src/validators/DVR';
 import vjf from '../src/validators/VJF';
+import { ValidationPlugins } from "../src/models/ValidatorInterface";
 
 describe('$A Field values checks', () => {
   it('$A qwerty value should be equal to "0"', () =>
@@ -666,5 +667,86 @@ describe('stop validation on error', () => {
 			desc: 'description 2'
 		})
 	})
+})
+
+const plugins: ValidationPlugins = {
+  dvr: dvr(validatorjs),
+};
+
+describe('#611 validated with value\'s nested property', () => {
+
+  it('same oid', (done) => {
+    const fields = [
+      "f1",
+      "f2"
+    ]
+    const values = {
+      f1: {
+        oid: 1,
+        name: 'Object 1'
+       },
+      f2: {
+        oid: 1,
+        name: 'Object 1.1'
+      }
+    }
+    const rules = {
+      f1: 'different:f2',
+      f2: 'different:f1'
+    }
+    const validatedWith = {
+      f1: 'value.oid',
+      f2: 'value.oid'
+    }
+    const related = {
+      f1: ['f2'],
+      f2: ['f1']
+    }
+
+    const $form = new Form({fields, values, rules, validatedWith, related}, { plugins, name: 'form'})
+
+    $form.validate({showError: true}).then(({isValid}) => {
+      expect(isValid).to.be.false
+      done()
+    })
+
+  })
+
+  it('different oid', (done) => {
+    const fields = [
+      "f1",
+      "f2"
+    ]
+    const values = {
+      f1: {
+        oid: 1,
+        name: 'Object 1'
+       },
+      f2: {
+        oid: 2,
+        name: 'Object 2'
+      }
+    }
+    const rules = {
+      f1: 'different:f2',
+      f2: 'different:f1'
+    }
+    const validatedWith = {
+      f1: 'value.oid',
+      f2: 'value.oid'
+    }
+    const related = {
+      f1: ['f2'],
+      f2: ['f1']
+    }
+
+    const $form = new Form({fields, values, rules, validatedWith, related}, { plugins, name: 'form'})
+
+    $form.validate({showError: true}).then(({isValid}) => {
+      expect(isValid).to.be.true
+      done()
+    })
+
+  })
 
 })

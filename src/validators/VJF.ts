@@ -20,7 +20,7 @@ const isPromise = (obj) =>
     };
 
 */
-class VJF implements ValidationPluginInterface {
+export class VJF implements ValidationPluginInterface {
   promises = [];
 
   config = null;

@@ -48,7 +48,7 @@ export interface FieldsDefinitions {
   bindings?: any;
   observers?: any;
   interceptors?: any;
-  validateWith?: string;
+  validatedWith?: any;
   hooks?: any;
   handlers?: any;
   validators?: any;

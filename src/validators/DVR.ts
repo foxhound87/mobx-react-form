@@ -15,7 +15,7 @@ import {
     };
 
 */
-class DVR implements ValidationPluginInterface {
+export class DVR implements ValidationPluginInterface {
   promises = [];
 
   config = null;
