@@ -1,3 +1,9 @@
+# 5.3.2 (next)
+
+- fix: Support validatedWith with nested property of a field's value
+- # 5.3.1 (next)
+
+- fix: cannot change disabled prop on fields
 # 5.3.0 (next)
 
 - nested fields trigger onchange hook on container
