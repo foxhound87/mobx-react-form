@@ -1,5 +1,6 @@
 export enum FieldPropsEnum {
   id = "id",
+  path = "path",
   name = "name",
   type = "type",
   value = "value",
@@ -31,6 +32,7 @@ export enum FieldPropsEnum {
   isValid = "isValid",
   hasError = "hasError",
   // handlers
+  onInit = "onInit",
   onChange = "onChange",
   onBlur = "onBlur",
   onFocus = "onFocus",

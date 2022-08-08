@@ -11,6 +11,8 @@ import FormInterface, {
   FieldsDefinitions,
   FormConfig,
 } from "./models/FormInterface";
+import { FieldPropsEnum } from "./models/FieldProps";
+import { OptionsEnum } from "./models/OptionsModel";
 
 export default class Form extends Base implements FormInterface {
   name: string;
@@ -86,21 +88,20 @@ export default class Form extends Base implements FormInterface {
 
     this.debouncedValidation = _.debounce(
       this.validate,
-      this.state.options.get("validationDebounceWait"),
-      this.state.options.get("validationDebounceOptions")
+      this.state.options.get(OptionsEnum.validationDebounceWait),
+      this.state.options.get(OptionsEnum.validationDebounceOptions)
     );
 
     // execute validation on form initialization
-    if (this.state.options.get("validateOnInit") === true) {
-      this.validator.validate({
-        showErrors: this.state.options.get("showErrorsOnInit"),
+    this.state.options.get(OptionsEnum.validateOnInit)
+      && this.validator.validate({
+        showErrors: this.state.options.get(OptionsEnum.showErrorsOnInit),
       });
-    }
 
-    this.execHook("onInit");
+    this.execHook(FieldPropsEnum.onInit);
 
     // handle Form onChange Hook
-    autorun(() => this.$changed && this.execHook('onChange'));
+    autorun(() => this.$changed && this.execHook(FieldPropsEnum.onChange));
   }
 
   /* ------------------------------------------------------------------ */
@@ -114,11 +115,11 @@ export default class Form extends Base implements FormInterface {
   }
 
   get clearing(): boolean {
-    return this.check("clearing", true);
+    return this.check(FieldPropsEnum.clearing, true);
   }
 
   get resetting(): boolean {
-    return this.check("resetting", true);
+    return this.check(FieldPropsEnum.resetting, true);
   }
 
   get error(): string | null {
@@ -126,39 +127,39 @@ export default class Form extends Base implements FormInterface {
   }
 
   get hasError(): boolean {
-    return !!this.validator.error || this.check("hasError", true);
+    return !!this.validator.error || this.check(FieldPropsEnum.hasError, true);
   }
 
   get isValid(): boolean {
-    return !this.validator.error && this.check("isValid", true);
+    return !this.validator.error && this.check(FieldPropsEnum.isValid, true);
   }
 
   get isPristine(): boolean {
-    return this.check("isPristine", true);
+    return this.check(FieldPropsEnum.isPristine, true);
   }
 
   get isDirty(): boolean {
-    return this.check("isDirty", true);
+    return this.check(FieldPropsEnum.isDirty, true);
   }
 
   get isDefault(): boolean {
-    return this.check("isDefault", true);
+    return this.check(FieldPropsEnum.isDefault, true);
   }
 
   get isEmpty(): boolean {
-    return this.check("isEmpty", true);
+    return this.check(FieldPropsEnum.isEmpty, true);
   }
 
   get focused(): boolean {
-    return this.check("focused", true);
+    return this.check(FieldPropsEnum.focused, true);
   }
 
   get touched(): boolean {
-    return this.check("touched", true);
+    return this.check(FieldPropsEnum.touched, true);
   }
 
   get disabled(): boolean {
-    return this.check("disabled", true);
+    return this.check(FieldPropsEnum.disabled, true);
   }
 
   makeField(data: FieldConstructor) {
@@ -181,7 +182,7 @@ export default class Form extends Base implements FormInterface {
 
   invalidate(message: string | null = null): void {
     this.validator.error =
-      message || this.state.options.get("defaultGenericError") || true;
+      message || this.state.options.get(OptionsEnum.defaultGenericError) || true;
   }
 
   showErrors(show: boolean = true): void {

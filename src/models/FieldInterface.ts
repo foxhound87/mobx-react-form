@@ -69,6 +69,8 @@ export default interface FieldInterface extends BaseInterface {
   showAsyncErrors(): void;
   observeValidationOnBlur(): void;
   observeValidationOnChange(): void;
+  disposeValidationOnBlur(): void;
+  disposeValidationOnChange(): void;
   initMOBXEvent(type: string): void;
 }
 

@@ -7,6 +7,7 @@ import ValidatorInterface, {
   ValidationPlugins,
 } from "./models/ValidatorInterface";
 import FormInterface from "./models/FormInterface";
+import { OptionsEnum } from "./models/OptionsModel";
 
 export default class Validator implements ValidatorInterface {
   promises: Promise<any>[] = [];
@@ -118,19 +119,19 @@ export default class Validator implements ValidatorInterface {
     // do not validate soft deleted fields
     if (
       instance.deleted &&
-      !this.form.state.options.get("validateDeletedFields")
+      !this.form.state.options.get(OptionsEnum.validateDeletedFields)
     )
       return;
     // do not validate disabled fields
     if (
       instance.disabled &&
-      !this.form.state.options.get("validateDisabledFields")
+      !this.form.state.options.get(OptionsEnum.validateDisabledFields)
     )
       return;
     // do not validate pristine fields
     if (
       instance.isPristine &&
-      !this.form.state.options.get("validatePristineFields")
+      !this.form.state.options.get(OptionsEnum.validatePristineFields)
     )
       return;
 
@@ -139,13 +140,13 @@ export default class Validator implements ValidatorInterface {
 
     // validate with all enabled drivers
     const stopOnError = instance.state.options.get(
-      "stopValidationOnError",
+      OptionsEnum.stopValidationOnError,
       instance
     );
 
     // get validation order
     const validationOrder = instance.state.options.get(
-      "validationOrder",
+      OptionsEnum.validationOrder,
       instance
     );
 

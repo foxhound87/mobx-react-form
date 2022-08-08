@@ -18,6 +18,8 @@ import { RuntimeMode } from "./models/StateInterface";
 import OptionsInterface from "./models/OptionsInterface";
 import BindingsInterface from "./models/BindingsInterface";
 import FormInterface from "./models/FormInterface";
+import { OptionsEnum } from "./models/OptionsModel";
+import FieldInterface from "./models/FieldInterface";
 
 export default class State implements StateInterface {
   mode = RuntimeMode.mixed;
@@ -68,8 +70,8 @@ export default class State implements StateInterface {
 
     this.set("initial", "props", initialProps);
 
-    const $unified = hasUnifiedProps(initial);
-    const $separated = hasSeparatedProps(initial);
+    const $unified :boolean = hasUnifiedProps(initial);
+    const $separated: boolean = hasSeparatedProps(initial);
 
     if ($unified && $separated) {
       console.warn(
@@ -142,34 +144,34 @@ export default class State implements StateInterface {
         {
           // start observing fields validateOnChange
           type: "update",
-          key: "validateOnChange",
+          key: OptionsEnum.validateOnChange,
           to: true,
           exec: () =>
-            this.form.each((field: any) => field.observeValidationOnChange()),
+            this.form.each((field: FieldInterface) => field.observeValidationOnChange()),
         },
         {
           // stop observing fields validateOnChange
           type: "update",
-          key: "validateOnChange",
+          key: OptionsEnum.validateOnChange,
           to: false,
           exec: () =>
-            this.form.each((field: any) => field.disposeValidationOnChange()),
+            this.form.each((field: FieldInterface) => field.disposeValidationOnChange()),
         },
         {
           // start observing fields validateOnBlur
           type: "update",
-          key: "validateOnBlur",
+          key: OptionsEnum.validateOnBlur,
           to: true,
           exec: () =>
-            this.form.each((field: any) => field.observeValidationOnBlur()),
+            this.form.each((field: FieldInterface) => field.observeValidationOnBlur()),
         },
         {
           // stop observing fields validateOnBlur
           type: "update",
-          key: "validateOnBlur",
+          key: OptionsEnum.validateOnBlur,
           to: false,
           exec: () =>
-            this.form.each((field: any) => field.disposeValidationOnBlur()),
+            this.form.each((field: FieldInterface) => field.disposeValidationOnBlur()),
         },
       ])
     );
