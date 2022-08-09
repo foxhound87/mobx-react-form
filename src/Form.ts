@@ -48,7 +48,7 @@ export default class Form extends Base implements FormInterface {
       focused: computed,
       touched: computed,
       disabled: computed,
-      init: action,
+      // init: action,
       invalidate: action,
       clear: action,
       reset: action,
@@ -168,7 +168,7 @@ export default class Form extends Base implements FormInterface {
 
   /**
     Init Form Fields and Nested Fields
-   */
+
   init($fields: any = null): void {
     _.set(this, "fields", observable.map({}));
 
@@ -179,6 +179,7 @@ export default class Form extends Base implements FormInterface {
       fields: $fields || this.state.struct(),
     });
   }
+  */
 
   invalidate(message: string | null = null): void {
     this.validator.error =

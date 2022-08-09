@@ -15,7 +15,7 @@ class NewForm extends Form {
   hooks() {
     return {
       onInit(form: FormInterface) {
-        form.init({
+        form.update({
           club: {
             name: "HELLO",
             city: "NY",
@@ -34,7 +34,7 @@ class NewForm extends Form {
           ],
         });
 
-        form.reset();
+        // form.reset();
       },
     };
   }

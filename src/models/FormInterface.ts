@@ -21,7 +21,7 @@ export default interface FormInterface extends BaseInterface {
   touched: boolean;
   disabled: boolean;
   // methods
-  init($fields: any): void;
+  // init($fields: any): void;
   invalidate(message?: string | null): void;
   showErrors(show: boolean): void;
   clear(): void;
