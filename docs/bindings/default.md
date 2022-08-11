@@ -15,9 +15,9 @@
 The **Default Bindings** can be used on any input component using the fields `bind()` method:
 
 ```javascript
-export default observer(({ field, type = 'text' }) => (
+export default observer(({ field }) => (
   <div>
-    <input type={type} {...field.bind()} />
+    <input {...field.bind()} />
   </div>
 ));
 ```

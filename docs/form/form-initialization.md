@@ -21,8 +21,8 @@ Provide an object which expects the following properties:
 ###### Fields Definition
 | Property | Description | Help |
 |---|---|---|
-| **struct**    | Define fields structure with dot notation ad array notation | - |
-| **fields**    | Using **Unified Properties Definition** mode: an object which represents the fields with all their properties. Using **Separated Properties Definition** mode: an array which represents the fields structure. | [defining fields](../fields/defining-fields.md) |
+| **struct**    | Define fields structure as an array of strings representig the fields (dot notation ad array notation can be used) | - |
+| **fields**    | Using **Unified Properties Definition** mode: an object which represents the fields with all their properties. Using **Separated Properties Definition** mode: an array which represents the fields structure. | [defining fields](../fields/) |
 
 ###### Fields Properties
 | Property | Description | Help |
@@ -39,7 +39,8 @@ Provide an object which expects the following properties:
 | **bindings**  | The name of the binding rewriter or template which will be used for the current field. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-bindings) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **observers**  | The mobx observers to listen on **Fields Props** or **Fields Map** changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
 | **interceptors**  | The mobx interceptors to listen on **Fields Props** or **Fields Map** changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
-| **validateWith**  | Specify a different Field prop to use for the Field validation. | - |
+| **validateWith**  | Specify a different **Field Prop** to use for the Field validation. (before next version) | - |
+| **validatedWith** | Avaiable in next version. | - |
 
 ###### Fields Event Hooks & Event Handlers
 | Property | Description | Help |

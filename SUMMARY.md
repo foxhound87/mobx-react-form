@@ -56,7 +56,7 @@
 
 ## Extra
 * [Input & Output Converters](docs/extra/converters/input-output.md)
-* [Observe or Intercept](docs/extra/mobx-events.md)
+* [Observe / Intercept](docs/extra/mobx-events.md)
 
 ## Validation
 * [Validation](docs/validation/README.md)
