@@ -766,7 +766,7 @@ export default class Field extends Base implements FieldInterface {
       throw new Error("The update() method accepts only plain objects.");
     }
     const fallback = this.state.options.get(OptionsEnum.fallback);
-    if (!fallback && this.fields.size === 0) {
+    if (!fallback && this.fields.size === 0 && this.state.struct().findIndex(s => s.startsWith(this.path.replace(/\.\d+\./, '[].') + '[]')) < 0) {
       this.value = parseInput(this.$input, {
         separated: fields,
       });

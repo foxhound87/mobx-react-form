@@ -395,9 +395,9 @@ export default class Base implements BaseInterface {
             if (Number($f.name) > n) $field.fields.delete($f.name);
           });
         }
-        else if (field?.fields) {
+        if (field?.fields) {
           const fallback = this.state.options.get(OptionsEnum.fallback);
-          if (!fallback && $field.fields.size === 0) {
+          if (!fallback && $field.fields.size === 0 && this.state.struct().findIndex(s => s.startsWith($field.path.replace(/\.\d+\./, '[].') + '[]')) < 0) {
             $field.value = parseInput($field.$input, {
               separated: _.get(raw, $path),
             });
@@ -594,6 +594,26 @@ export default class Base implements BaseInterface {
 
     const $path = ($key: string) =>_.trimStart([this.path, $key].join("."), ".");
     const tree = pathToFieldsTree(this.state.struct(), this.path, 0, true);
+
+    const root = tree[0]?.fields;
+    if (root) {
+      this.state.struct()
+        .filter(s => s.startsWith(this.path + '[]'))
+        .map(s => s.substring((this.path + '[].').length))
+        .filter(s => s.endsWith('[]'))
+        .map(s => s.substring(0, s.length - 2))
+        .forEach(s => {
+          const ss = s.split('.')
+          let t = root
+          for (let i = 0; i < ss.length; i++) {
+            t = t?.[ss[i]]?.['fields']
+            if (!t) break;
+          }
+          if (t)
+            delete t[0]
+        });
+    }
+
     const field = this.initField(key, $path(key), _.merge(tree[0], obj));
 
     this.$changed ++;
