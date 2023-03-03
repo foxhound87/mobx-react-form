@@ -89,7 +89,7 @@
     "ajv": "^5.2.2",
     "chai": "3.5.0",
     "codecov": "^3.8.3",
-    "commitizen": "^3.1.2",
+    "commitizen": "^4.3.0",
     "cross-env": "^5.1.4",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^8.9.0",
