@@ -2,7 +2,7 @@ import _ from "lodash";
 import {
   ValidationPluginConstructor,
   ValidationPluginInterface,
-} from "src/models/ValidatorInterface";
+} from "../models/ValidatorInterface";
 
 const isPromise = (obj) =>
   !!obj &&

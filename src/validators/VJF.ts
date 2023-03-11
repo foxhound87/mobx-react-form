@@ -1,7 +1,7 @@
 import {
   ValidationPluginConstructor,
   ValidationPluginInterface,
-} from "./../models/ValidatorInterface";
+} from "../models/ValidatorInterface";
 import _ from "lodash";
 import { toJS } from "mobx";
 
