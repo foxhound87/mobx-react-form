@@ -36,8 +36,10 @@
 | **strictUpdate** | boolean | false | Throw an error if trying to update an undefined field. |
 | **strictDelete** | boolean | true | Throw an error if trying to delete an undefined field. |
 | **softDelete** | boolean | false | When using `del()` the field will not be deleted, instead its `deleted` prop will be switched to `true`. |
-| **retrieveOnlyDirtyValues** | boolean | false | Get only Dirty Values when using `get('value')` or the `values()` helper. |
-| **retrieveOnlyEnabledFields** | boolean | false | Get only Enabled Fields Values when using `get('value')` or the `values()` helper. |
+| **retrieveOnlyDirtyFieldsValues** | boolean | false | Get only Dirty Fields Values when using `get('value')` or the `values()` helper. |
+| **retrieveOnlyEnabledFieldsValues** | boolean | false | Get only Enabled Fields Values when using `get('value')` or the `values()` helper. |
+| **retrieveOnlyEnabledFieldsErrors** | boolean | false | Get only Enabled Fields Errors when using `get('value')` or the `values()` helper. |
+| **removeNullishValuesInArrays** | boolean | false | Remove nullish values from arrays when using `get('value')` or the `values()` helper. |
 | **autoParseNumbers** | boolean | false | Try to parse strings to numbers automatically if the initial value of the field is a number. |
 | **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
 | **validationDebounceOptions** | object | { leading: false, trailing: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |

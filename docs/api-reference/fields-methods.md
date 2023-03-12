@@ -67,5 +67,8 @@
 | **onReset(e)** | - | object | Reset all the Fields and Nested Fields to `default` value. | - |
 | **onAdd(e)** | - | object | Add a Field or Nested Fields. | - |
 | **onDel(e)** | - | object | Delete a Field or Nested Fields. | - |
+| **onKeyUp(e)** | - | object | Executed on field key up | - |
+| **onKeyDown(e)** | - | object | Executed on field key down | - |
+
 
 > All Event Handlers takes the Proxy object in input.

@@ -18,3 +18,14 @@ class MyForm extends Form {
 }
 ```
 
+or using `onInit` on field:
+
+```javascript
+class MyField extends Field {
+
+  onInit() {
+    (field.type === 'text') &&
+      this.set('bindings', 'MaterialTextField');
+  }
+}
+```

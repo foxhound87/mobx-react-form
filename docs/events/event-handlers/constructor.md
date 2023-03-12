@@ -27,7 +27,7 @@ new Form({ ... }, { handlers }); <---
 
 #### Defining handlers on Field
 
-Availables handlers on Field: `onInit`, `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onSuccess`, `onError`, `onClear`, `onReset`, `onAdd`, `onDel`.
+Availables handlers on Field: `onInit`, `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onSuccess`, `onError`, `onClear`, `onReset`, `onAdd`, `onDel`, `onKeyUp`, `onKeyDown`.
 
 > Pass the `handlers` object to the **First Argument** in the field definitions (unified or separated).
 

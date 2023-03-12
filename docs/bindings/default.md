@@ -1,12 +1,12 @@
 # Default Bindings
 
-* [Simple Usage](#simple-usage)
-* [Properties Overwrite](#properties-overwrite)
+- [Simple Usage](#simple-usage)
+- [Properties Overwrite](#properties-overwrite)
 
-
-* [Defaults Bindings](#warning)
-  * [Default Rewriter](#default-rewriter)
-  * [Default Template](#default-template)
+- [Default Bindings](#built-in-default-template--rewriter)
+  - [Default Rewriter](#default-rewriter)
+  - [Default Template](#default-template)
+  - [Override Default Bindings Template](#override-default-bindings-template)
 
 ---
 
@@ -45,19 +45,11 @@ The props passed to the `bind()` method will not mutate the package's store but 
 
 Do this only for handling edge cases, as it's not the default behavior to handle field props, [define fields](../defining-fields.md) normally instead.
 
-### **We are done!**
 
 <br>
 <br>
 
 ---
-
-### WARNING
-
-> The following code is BUILT-IN and it's just an explaination on how the bindings modes works, **maybe** you DO NOT need to reimplement it!
-
-> You can eventually reimplement it if you need more flexibility registering a new binding with the `default` key. Check out how to create [Custom Bindings](custom.md).
-
 
 ## BUILT-IN `default` Template & Rewriter
 
@@ -95,7 +87,7 @@ Then these keys are assigned to the template which will handle the props values 
 
 ```javascript
 export default {
-  default: ({ $try, field, props, keys }) => ({
+  default: ({ $try, form, field, props, keys }) => ({
     [keys.id]: $try(props.id, field.id),
     [keys.name]: $try(props.name, field.name),
     [keys.type]: $try(props.type, field.type),
@@ -115,6 +107,41 @@ export default {
 
 The function takes in input an object with the following props:
 
+- the `form`: which is the form instance, you can retrieve the form properites form it.
 - the `field`: which is the current field, you can retrieve the fields properites form it.
 - the `props`: which are the properties passed from the components as fallback.
 - the `keys`: which contains the properties defined in the `rewriter` that will match the components properties.
+
+
+### Override Default Bindings Template
+
+If you want to override the default bindings with a custom template for all defined fields you can name the template function as `default`.
+
+> No need to update fields bindings name because they are already `default`
+
+Using `default` template with Form Constructor:
+
+```javascript
+const bindings = {
+  default: ({ $try, form, field, props, keys }) => ({
+    ... define bindings here
+  }),
+}
+
+new Form({ ... }, { bindings, ... })
+```
+
+Using `default` template extending Form Class:
+
+```javascript
+class MyForm extends Form {
+
+  bindings() {
+    return {
+      default: ({ $try, form, field, props }) => ({
+        ... define bindings here
+      }),
+    };
+  }
+}
+```

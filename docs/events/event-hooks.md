@@ -35,8 +35,8 @@ The lifecycle of all events is:
 | Event Handler | Executed Action | Affected Property | Executed Hook | FORM | FIELD |
 |---|---|---|---|---|
 | onSubmit(e) | submit() > validate() | submitting, validating | onSubmit | YES | YES |
-| onClear(e) | clear() | value | onClear | YES | YES |
-| onReset(e) | reset() | value | onReset | YES | YES |
+| onClear(e) | resetValidation() / clear() | value | onClear | YES | YES |
+| onReset(e) | resetValidation() / reset() | value | onReset | YES | YES |
 | onAdd(e) | add() | fields | onAdd | YES | YES |
 | onDel(e) | del() | fields | onDel | YES | YES |
 

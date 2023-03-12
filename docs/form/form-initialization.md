@@ -45,8 +45,8 @@ Provide an object which expects the following properties:
 ###### Fields Event Hooks & Event Handlers
 | Property | Description | Help |
 |---|---|---|
-| **hooks**  | An object with the Event Hooks functions. Availables Hooks: `onInit`, `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onSuccess`, `onError`, `onClear`, `onReset`, `onAdd`, `onDel` | [help](../events/event-hooks.md) |
-| **handlers**  | An object with the Event Handlers functions: Availables Handlers: `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel` | [help](../events/event-handlers.md) |
+| **hooks**  | An object with the Event Hooks functions. Availables Hooks: `onInit`, `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onSuccess`, `onError`, `onClear`, `onReset`, `onAdd`, `onDel`, `onKeyUp`, `onKeyDown` | [help](../events/event-hooks.md) |
+| **handlers**  | An object with the Event Handlers functions: Availables Handlers: `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`, `onKeyUp`, `onKeyDown` | [help](../events/event-handlers.md) |
 
 ###### Validation Properties
 | Property | Description | Help |

@@ -2,8 +2,9 @@
 
 Here we can see how to register custom bindings for a **Material-UI TextField**
 
-* [Implement a Rewriter](#implement-a-rewriter)
-* [Implement a Template](#implement-a-template)
+- [Custom Bindings](#custom-bindings)
+  - [Implement a `Rewriter`](#implement-a-rewriter)
+  - [Implement a `Template`](#implement-a-template)
 
 ---
 
@@ -94,7 +95,7 @@ class MyForm extends MobxReactForm {
 
   bindings() {
     return {
-      MaterialTextField: ({ $try, field, props }) => ({
+      MaterialTextField: ({ $try, form, field, props }) => ({
         type: $try(props.type, field.type),
         id: $try(props.id, field.id),
         name: $try(props.name, field.name),
@@ -103,7 +104,7 @@ class MyForm extends MobxReactForm {
         hintText: $try(props.placeholder, field.placeholder),
         errorText: field.validating ? props.validatingText : $try(props.error, field.error),
         errorStyle: field.validating ? { background: 'yellow', color: 'black' } : {},
-        disabled: $try(props.disabled, field.disabled),
+        disabled: props.disabled || field.disabled || form.disabled || form.submitting,
         onChange: $try(props.onChange, field.onChange),
         onBlur: $try(props.onBlur, onBlur(field)),
         onFocus: $try(props.onFocus, field.onFocus),
@@ -113,6 +114,8 @@ class MyForm extends MobxReactForm {
   }
 }
 ```
+
+> You can access the `field` and also the `form` instance in input to bindings template.
 
 > `$try()` is a small helper function which takes unlimited arguments in input, it returns the first defined.
 

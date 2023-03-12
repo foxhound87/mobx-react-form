@@ -11,7 +11,7 @@ Extend the **Form** or **Field** class with an `hooks()` method which will retur
 
 Availables Hooks on Form: `onSubmit`, `onSuccess`, `onError`, `onClear`, `onReset`, `onAdd`, `onDel`.
 
-Availables Hooks on Field: `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onSuccess`, `onError`, `onClear`, `onReset`, `onAdd`, `onDel`.
+Availables Hooks on Field: `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onSuccess`, `onError`, `onClear`, `onReset`, `onAdd`, `onDel`, `onKeyUp`, `onKeyDown`.
 
 ```javascript
 import { Form, Field } from 'mobx-react-form';

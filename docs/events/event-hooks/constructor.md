@@ -27,7 +27,7 @@ new Form({ ... }, { hooks }); <---
 
 #### Defining hooks on Field
 
-Availables Handlers on Field: `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`.
+Availables Handlers on Field: `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`, `onKeyUp`, `onKeyDown`.
 
 > Pass the `hooks` object to the **First Argument** in the field definitions (unified or separated).
 
