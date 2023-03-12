@@ -17,11 +17,15 @@ export enum OptionsEnum {
   validateDisabledFields = 'validateDisabledFields',
   validateDeletedFields = 'validateDeletedFields',
   validatePristineFields = 'validatePristineFields',
+  validateOnClear = 'validateOnClear',
+  validateOnReset = 'validateOnReset',
   strictUpdate = 'strictUpdate',
   strictDelete = 'strictDelete',
   softDelete = 'softDelete',
-  retrieveOnlyDirtyValues = 'retrieveOnlyDirtyValues',
-  retrieveOnlyEnabledFields = 'retrieveOnlyEnabledFields',
+  retrieveOnlyDirtyFieldsValues = 'retrieveOnlyDirtyFieldsValues',
+  retrieveOnlyEnabledFieldsValues = 'retrieveOnlyEnabledFieldsValues',
+  retrieveOnlyEnabledFieldsErrors = 'retrieveOnlyEnabledFieldsErrors',
+  removeNullishValuesInArrays = 'removeNullishValuesInArrays',
   autoParseNumbers = 'autoParseNumbers',
   validationDebounceWait = 'validationDebounceWait',
   validationDebounceOptions = 'validationDebounceOptions',
@@ -46,14 +50,18 @@ export default interface OptionsModel {
   [OptionsEnum.validateOnChange]?: boolean;
   [OptionsEnum.validateOnChangeAfterInitialBlur]?: boolean;
   [OptionsEnum.validateOnChangeAfterSubmit]?: boolean;
+  [OptionsEnum.validateOnClear]?: boolean;
+  [OptionsEnum.validateOnReset]?: boolean;
   [OptionsEnum.validateDisabledFields]?: boolean;
   [OptionsEnum.validateDeletedFields]?: boolean;
   [OptionsEnum.validatePristineFields]?: boolean;
   [OptionsEnum.strictUpdate]?: boolean;
   [OptionsEnum.strictDelete]?: boolean;
   [OptionsEnum.softDelete]?: boolean;
-  [OptionsEnum.retrieveOnlyDirtyValues]?: boolean;
-  [OptionsEnum.retrieveOnlyEnabledFields]?: boolean;
+  [OptionsEnum.retrieveOnlyDirtyFieldsValues]?: boolean;
+  [OptionsEnum.retrieveOnlyEnabledFieldsValues]?: boolean;
+  [OptionsEnum.retrieveOnlyEnabledFieldsErrors]?: boolean;
+  [OptionsEnum.removeNullishValuesInArrays]?: boolean;
   [OptionsEnum.autoParseNumbers]?: boolean;
   [OptionsEnum.validationDebounceWait]?: number;
   [OptionsEnum.validationDebounceOptions]?: {

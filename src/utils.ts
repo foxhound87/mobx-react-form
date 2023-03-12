@@ -4,10 +4,10 @@ import FieldInterface from "./models/FieldInterface";
 
 import { props } from "./props";
 
-const getObservableMapValues = (observableMap: ObservableMap): 
+const getObservableMapValues = (observableMap: ObservableMap):
   ReadonlyArray<FieldInterface> => mobxValues(observableMap);
 
-const getObservableMapKeys = (observableMap: ObservableMap): 
+const getObservableMapKeys = (observableMap: ObservableMap):
   ReadonlyArray<FieldInterface> => mobxKeys(observableMap);
 
 const checkObserveItem =
@@ -93,21 +93,23 @@ const pathToStruct = (path: string): string => {
   return struct;
 };
 
-const hasSome = (obj: any, keys: any) => _.some(keys, _.partial(_.has, obj));
+const hasSome = (obj: any, keys: any): boolean =>
+  _.some(keys, _.partial(_.has, obj));
 
-const isStruct = (struct: any) =>
+const isEmptyArray = (field: any): boolean =>
+  _.isEmpty(field) && _.isArray(field);
+
+const isArrayOfStrings = (struct: any): boolean =>
   _.isArray(struct) && _.every(struct, _.isString);
 
-const isEmptyArray = (field: any) => _.isEmpty(field) && _.isArray(field);
-
-const isArrayOfObjects = (fields: any) =>
+const isArrayOfObjects = (fields: any): boolean =>
   _.isArray(fields) && _.every(fields, _.isPlainObject);
 
 const $getKeys = (fields: any) =>
   _.union(..._.map(_.values(fields), (values) => _.keys(values)));
 
 const hasUnifiedProps = ({ fields }: any) =>
-  !isStruct({ fields }) && hasProps("field", $getKeys(fields));
+  !isArrayOfStrings({ fields }) && hasProps("field", $getKeys(fields));
 
 const hasSeparatedProps = (initial: any) =>
   hasSome(initial, props.separated) || hasSome(initial, props.validation);
@@ -170,7 +172,7 @@ export {
   hasProps,
   allowedProps,
   throwError,
-  isStruct,
+  isArrayOfStrings,
   isEmptyArray,
   isArrayOfObjects,
   pathToStruct,

@@ -1,7 +1,19 @@
+# 5.4.0 (next)
+
+- Support for `default` Bindings Template.
+- `clear()` & `reset()` methods will revert to initial validation state instead of `validate()`.
+- introduced `onKeyUp` and `onKeyDown` fields Hooks and Handlers.
+- introduced `validateOnClear` & `validateOnReset` form options (disabled by default).
+- introduced `removeNullishValuesInArrays` form option (disabled by default).
+- introduced `retrieveOnlyEnabledFieldsErrors` form option (disabled by default).
+- `retrieveOnlyDirtyValues` form option renamed to `retrieveOnlyDirtyFieldsValues`.
+- `retrieveOnlyEnabledFields` form option renamed to `retrieveOnlyEnabledFieldsValues`
+- fix: #617 #615 #613 #614 #544 #454 #518 #376 #497 #582 #394
+
 # 5.3.2 (next)
 
-- fix: Support validatedWith with nested property of a field's value
-- # 5.3.1 (next)
+- fix: Support `validatedWith` with nested property of a field's value
+# 5.3.1 (next)
 
 - fix: cannot change disabled prop on fields
 # 5.3.0 (next)
@@ -9,7 +21,7 @@
 - nested fields trigger onchange hook on container
 # 5.2.0 (next)
 
-- trigger onChange hook on add/del 
+- trigger onChange hook on add/del
 # 5.1.0 (next)
 
 - Form level onChange hook
@@ -26,11 +38,11 @@
 
 - stopValidationOnError & validationOrder options (fix #576)
 
-- # 3.1.1
+# 3.1.1
 
 - labels for DVR dependant fields for before/after rules
 
-- # 3.1.0
+# 3.1.0
 
 - mobx6.1 support
 

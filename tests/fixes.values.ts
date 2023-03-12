@@ -450,8 +450,8 @@ describe('update nested nested array items', () => {
       }
     };
     const $526 = new Form({fields, values}, {name: 'Form 526'})
-    console.debug('pricing.value.0.initial', $526.$('pricing.value.0').initial)
-    console.debug('pricing.value.0.prices.initial', $526.$('pricing.value.0.prices').initial)
+    // console.debug('pricing.value.0.initial', $526.$('pricing.value.0').initial)
+    // console.debug('pricing.value.0.prices.initial', $526.$('pricing.value.0.prices').initial)
     $526.update({
       pricing: {
         value: [
@@ -470,8 +470,8 @@ describe('update nested nested array items', () => {
         ]
       }
     })
-    console.debug('pricing.value.0.initial', $526.$('pricing.value.0').initial)
-    console.debug('pricing.value.0.prices.initial', $526.$('pricing.value.0.prices').initial)
+    // console.debug('pricing.value.0.initial', $526.$('pricing.value.0').initial)
+    // console.debug('pricing.value.0.prices.initial', $526.$('pricing.value.0.prices').initial)
     expect($526.$('pricing.value').isDirty).to.be.equal(true)
     expect($526.$('pricing.value.0').isDirty).to.be.equal(true)
     expect($526.$('pricing.value.0.prices').isDirty).to.be.equal(true)
@@ -546,11 +546,11 @@ describe('stop validation on error', () => {
   const fields = [
     'username',
   ];
-  
+
   const rules = {
     username: 'required'
   };
-  
+
   class NewForm extends Form {
     plugins() {
       return {
@@ -561,7 +561,7 @@ describe('stop validation on error', () => {
       };
     }
   }
-  
+
   it('default options', () => {
 
     const values = {
@@ -749,4 +749,57 @@ describe('#611 validated with value\'s nested property', () => {
 
   })
 
+})
+
+// issue #614
+describe('#614, no fallback', () => {
+	it('no new field for array value', () => {
+		const fields = ['prop']
+		const values = {
+			prop: [1, 2, 3]
+		}
+		const form = new Form({fields, values}, {name: 'Form without fallback', options: {fallback: false}})
+		expect(form.select('prop.0',undefined, false)).to.be.undefined
+		expect(form.$('prop').value).to.deep.equal([1, 2, 3])
+		form.update({prop: [4, 5, 6]})
+		expect(form.select('prop.0', undefined, false)).to.be.undefined
+		expect(form.$('prop').value).to.deep.equal([4, 5, 6])
+	})
+})
+
+// issue #615
+describe('#615, not to add nested array item', () => {
+	it('nested array item inside array item 1', () => {
+		const fields = [
+			'options',
+			'options[]',
+			'options[].oid',
+			'options[].amendments',
+			'options[].amendments[]',
+			'options[].amendments[].oid',
+		]
+		const $form = new Form({fields}, {name: 'form'})
+		const $option = $form.$('options').add()
+		$option.update({oid: 1})
+		expect($form.select('options.0', null, false)).not.to.be.undefined
+		expect($form.select('options.0.amendments.0', null, false)).to.be.undefined
+	})
+
+	it('nested array item inside array item 2', () => {
+		const fields = [
+			'a',
+			'a[]',
+			'a[].oid',
+			'a[].b.c',
+			'a[].b.c[]',
+			'a[].b.c[].oid'
+		]
+		const $form = new Form({fields}, {name: 'form'})
+		const $a = $form.$('a').add()
+		$a.update({oid: 1})
+		expect($form.select('a.0', null, false)).not.to.be.undefined
+		expect($form.select('a.0.b', null, false)).not.to.be.undefined
+		expect($form.select('a.0.b.c', null, false)).not.to.be.undefined
+		expect($form.select('a.0.b.c.0', null, false)).to.be.undefined
+	})
 })

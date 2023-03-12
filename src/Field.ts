@@ -33,8 +33,7 @@ const setupFieldProps = (instance: FieldInterface, props: any, data: any) =>
     $bindings: props.$bindings || (data && data.bindings) || FieldPropsEnum.default,
     $related: props.$related || (data && data.related) || [],
     $validators: toJS(props.$validators || (data && data.validators) || null),
-    $validatedWith:
-      props.$validatedWith || (data && data.validatedWith) || FieldPropsEnum.value,
+    $validatedWith: props.$validatedWith || (data && data.validatedWith) || FieldPropsEnum.value,
     $rules: props.$rules || (data && data.rules) || null,
     $observers: props.$observers || (data && data.observers) || null,
     $interceptors: props.$interceptors || (data && data.interceptors) || null,
@@ -297,6 +296,10 @@ export default class Field extends Base implements FieldInterface {
     return this.submitting || this.clearing || this.resetting;
   }
 
+  get extra() {
+    return this.$extra;
+  }
+
   get type() {
     return toJS(this.$type);
   }
@@ -307,10 +310,6 @@ export default class Field extends Base implements FieldInterface {
 
   get placeholder() {
     return toJS(this.$placeholder);
-  }
-
-  get extra() {
-    return toJS(this.$extra);
   }
 
   get options() {
@@ -469,6 +468,18 @@ export default class Field extends Base implements FieldInterface {
 
         this.files = files || args;
       })
+    );
+
+  onKeyDown = (...args: any) =>
+    this.execHandler(
+      FieldPropsEnum.onKeyDown,
+      args,
+    );
+
+  onKeyUp = (...args: any) =>
+    this.execHandler(
+      FieldPropsEnum.onKeyUp,
+      args,
     );
 
   setupField(
@@ -649,34 +660,34 @@ export default class Field extends Base implements FieldInterface {
     this.$touched = false;
     this.$blurred = false;
     this.$changed = 0;
-
-    this.$value = defaultClearValue({ value: this.$value });
     this.files = undefined;
+    this.$value = defaultClearValue({ value: this.$value });
 
-    if (deep) this.each((field: any) => field.clear(true));
+    if (deep) this.each((field: FieldInterface) => field.clear(true));
 
-    this.validate({
-      showErrors: this.state.options.get(OptionsEnum.showErrorsOnClear, this),
-    });
+    this.state.options.get(OptionsEnum.validateOnClear, this)
+      ? this.validate({
+        showErrors: this.state.options.get(OptionsEnum.showErrorsOnClear, this),
+      }) : this.resetValidation(deep);
   }
 
   reset(deep: boolean = true): void {
-
     this.$resetting = true;
     this.$touched = false;
     this.$blurred = false;
     this.$changed = 0;
+    this.files = undefined;
 
     const useDefaultValue = this.$default !== this.$initial;
     if (useDefaultValue) this.value = this.$default;
     if (!useDefaultValue) this.value = this.$initial;
-    this.files = undefined;
 
     if (deep) this.each((field: FieldInterface) => field.reset(true));
 
-    this.validate({
-      showErrors: this.state.options.get(OptionsEnum.showErrorsOnReset, this),
-    });
+    this.state.options.get(OptionsEnum.validateOnReset, this)
+      ? this.validate({
+        showErrors: this.state.options.get(OptionsEnum.showErrorsOnReset, this),
+      }) : this.resetValidation(deep);
   }
 
   focus(): void {
@@ -766,7 +777,7 @@ export default class Field extends Base implements FieldInterface {
       throw new Error("The update() method accepts only plain objects.");
     }
     const fallback = this.state.options.get(OptionsEnum.fallback);
-    if (!fallback && this.fields.size === 0) {
+    if (!fallback && this.fields.size === 0 && this.state.struct().findIndex(s => s.startsWith(this.path.replace(/\.\d+\./, '[].') + '[]')) < 0) {
       this.value = parseInput(this.$input, {
         separated: fields,
       });

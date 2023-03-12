@@ -44,6 +44,8 @@ export enum FieldPropsEnum {
   onAdd = "onAdd",
   onDel = "onDel",
   autoFocus = "autoFocus",
+  onKeyDown = "onKeyDown",
+  onKeyUp = 'onKeyUp',
 }
 
 export type FieldPropsType = {

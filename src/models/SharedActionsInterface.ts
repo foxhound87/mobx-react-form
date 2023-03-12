@@ -1,6 +1,6 @@
 export default interface SharedActionsInterface {
-  validate(opt: any, obj: any): void;
-  submit(options: any): Promise<any>;
+  validate(opt?: any, obj?: any): Promise<any>;
+  submit(options?: any): Promise<any>;
   check(prop: string, deep?: boolean): boolean;
   deepCheck(type: string, prop: string, fields: any): any;
   update(fields: any): void;
@@ -10,4 +10,5 @@ export default interface SharedActionsInterface {
   set(prop: any, data?: any): void;
   deepSet(prop: any, data: any, path: string, recursion: boolean): void;
   add(obj: any): any;
+  del(path?: string): any;
 }

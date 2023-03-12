@@ -1,7 +1,7 @@
 import _ from "lodash";
 import {
   $try,
-  isStruct,
+  isArrayOfStrings,
   isArrayOfObjects,
   hasUnifiedProps,
   allowNested,
@@ -61,16 +61,16 @@ const parseInput = (
     )
   );
 
-const parseArrayProp = (val: any, prop: string): any => {
+const parseArrayProp = (val: any, prop: string, removeNullishValuesInArrays: boolean): any => {
   const values = _.values(val);
-  if (prop === "value" || prop === "initial" || prop === "default") {
-    return _.without(values, null, undefined, "");
+  if (removeNullishValuesInArrays && (prop === "value" || prop === "initial" || prop === "default")) {
+    return _.without(values, ...[null, undefined, ""]);
   }
   return values;
 };
 
-const parseCheckArray = (field: any, value: any, prop: string) =>
-  field.hasIncrementalKeys ? parseArrayProp(value, prop) : value;
+const parseCheckArray = (field: any, value: any, prop: string, removeNullishValuesInArrays: boolean) =>
+  field.hasIncrementalKeys ? parseArrayProp(value, prop, removeNullishValuesInArrays) : value;
 
 const parseCheckOutput = (field: any, prop: string) => {
   if (prop === "value" || prop.startsWith("value.")) {
@@ -103,7 +103,7 @@ const defineFieldsFromStruct = (struct: string[], add: boolean = false) =>
 const handleFieldsArrayOfStrings = ($fields: any, add = false) => {
   let fields = $fields;
   // handle array with field struct (strings)
-  if (isStruct(fields)) {
+  if (isArrayOfStrings(fields)) {
     fields = _.transform(
       fields,
       ($obj, $) => {
@@ -126,8 +126,7 @@ const handleFieldsArrayOfObjects = ($fields: any) => {
     fields = _.transform(
       fields,
       ($obj, field) => {
-        if (hasUnifiedProps({ fields: { field } }) && !_.has(field, "name"))
-          return undefined;
+        if (hasUnifiedProps({ fields: { field } }) && !_.has(field, "name")) return undefined;
         return Object.assign($obj, { [field.name]: field });
       },
       {}
@@ -221,7 +220,7 @@ const reduceValuesToUnifiedFields = (values: object): object =>
   );
 
 /*
-  Fallback Unified Props to Sepated Mode
+  Fallback Unified Props to Separated Mode
 */
 const handleFieldsPropsFallback = (
   fields: any,
@@ -266,7 +265,7 @@ const mergeSchemaDefaults = (fields: any, validator: any) => {
 const prepareFieldsData = (
   initial: any,
   strictProps: boolean = true,
-  fallback: boolean = true
+  fallback: boolean = true,
 ) => {
   let fields = _.merge(
     handleFieldsArrayOfStrings(initial.fields, false),
@@ -292,7 +291,26 @@ const pathToFieldsTree = (
   );
   const $tree = handleFieldsArrayOfStrings(structArray, add);
   const $struct = _.replace(structPath, new RegExp("\\[]", "g"), `[${n}]`);
-  return handleFieldsNested(_.get($tree, $struct));
+  const fields = handleFieldsNested(_.get($tree, $struct));
+
+  // fix issues #614 & #615
+  struct.length && struct
+    .filter(s => s.startsWith(path + '[]'))
+    .map(s => s.substring((path + '[].').length))
+    .filter(s => s.endsWith('[]'))
+    .map(s => s.substring(0, s.length - 2))
+    .forEach(s => {
+      const ss = s.split('.')
+      let t = fields[0]?.fields
+      for (let i = 0; i < ss.length; i++) {
+        t = t?.[ss[i]]?.['fields']
+        if (!t) break;
+      }
+      if (t)
+        delete t[0]
+    });
+
+  return fields;
 };
 
 export {
