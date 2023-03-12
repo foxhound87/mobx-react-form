@@ -9,7 +9,7 @@ import {
   hasUnifiedProps,
   hasSeparatedProps,
   checkObserve,
-  isStruct,
+  isArrayOfStrings,
   $try,
 } from "./utils";
 
@@ -83,8 +83,8 @@ export default class State implements StateInterface {
       );
     }
 
-    if (($separated || isStruct(initial.fields)) && !$unified) {
-      const struct: any = $try(initial.struct || initial.fields);
+    if (($separated || isArrayOfStrings(initial.fields)) && !$unified) {
+      const struct: any = $try(initial.struct, initial.fields);
       this.struct(struct);
       this.strict = true;
       this.mode = RuntimeMode.separated;

@@ -8,7 +8,7 @@ describe('Check form onChange hook', () => {
 
     it('$V form changed should equal 3', () =>
         expect($.$V.changed).to.be.equal(4));
-    
+
     it('$V user changed should equal 3', () =>
         expect($.$V.$('user').changed).to.be.equal(3));
 
@@ -20,10 +20,10 @@ describe('Check form onChange hook', () => {
 
     it('$V test.email changed should equal 1', () =>
         expect($.$V.$('test.email').changed).to.be.equal(1));
-    
+
     it('$V user.id value should equal "user-id"', () =>
         expect($.$V.$('user.id').value).to.be.equal('user-id'));
-    
+
     it('$V user.name value should be equal "user-changed"', () =>
       expect($.$V.$('user.name').value).to.be.equal('user-changed'));
 
@@ -87,7 +87,7 @@ describe('Check form onChange hook after add/del',  () => {
 
     it('$V3 user[0].name value should equal "user-changed"', () =>
         expect($.$V3.$('user[0].name').value).to.be.equal('user-changed'));
-    
+
     it('$V3 account[0].id value should equal "account-id"', () =>
         expect($.$V3.$('account[0].id').value).to.be.equal('account-id'));
 

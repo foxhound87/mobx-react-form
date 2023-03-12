@@ -1,9 +1,10 @@
 import FieldInterface from "./FieldInterface";
+import FormInterface from "./FormInterface";
 import StateInterface from "./StateInterface";
 
 export default interface ValidatorInterface {
   promises: Promise<any>[];
-  form: any;
+  form: FormInterface;
   drivers: any;
   plugins: ValidationPlugins;
   error: string | null;

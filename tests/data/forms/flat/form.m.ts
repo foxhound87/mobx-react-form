@@ -7,6 +7,7 @@ import dvrExtend from "../../extension/dvr";
 import dvr from "../../../../src/validators/DVR";
 import svk from "../../../../src/validators/SVK";
 import FormInterface from "../../../../src/models/FormInterface";
+import OptionsModel from "../../../../src/models/OptionsModel";
 
 const fields = {
   username: {
@@ -45,6 +46,11 @@ const plugins = {
   }),
 };
 
+const options: OptionsModel = {
+  validateOnReset: true,
+  validateOnClear: true,
+};
+
 class NewForm extends Form {
   hooks() {
     return {
@@ -57,4 +63,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields }, { plugins, name: "Flat-M" });
+export default new NewForm({ fields }, { plugins, options, name: "Flat-M" });

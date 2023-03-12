@@ -7,6 +7,7 @@ import { shouldBeEqualTo } from "../../extension/vjf";
 import dvr from "../../../../src/validators/DVR";
 import vjf from "../../../../src/validators/VJF";
 import FormInterface from "../../../../src/models/FormInterface";
+import OptionsModel from "../../../../src/models/OptionsModel";
 
 const fields = ["username", "email", "password", "passwordConfirm", "terms"];
 
@@ -34,6 +35,11 @@ const rules = {
 
 const disabled = {
   terms: true,
+};
+
+const options: OptionsModel = {
+  validateOnReset: true,
+  validateOnClear: true,
 };
 
 class NewForm extends Form {
@@ -67,5 +73,5 @@ export default new NewForm(
     validators,
     rules,
   },
-  { name: "Flat-P" }
+  { options, name: "Flat-P" }
 );

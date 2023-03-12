@@ -182,12 +182,18 @@ export default class Form extends Base implements FormInterface {
   */
 
   invalidate(message: string | null = null): void {
-    this.validator.error =
-      message || this.state.options.get(OptionsEnum.defaultGenericError) || true;
+    this.debouncedValidation.cancel();
+    this.each((field) => field.debouncedValidation.cancel());
+    this.validator.error = message || this.state.options.get(OptionsEnum.defaultGenericError);
   }
 
   showErrors(show: boolean = true): void {
     this.each((field: any) => field.showErrors(show));
+  }
+
+  resetValidation(deep: boolean): void {
+    this.validator.error = null;
+    this.each((field: any) => field.resetValidation(deep));
   }
 
   /**

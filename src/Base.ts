@@ -297,7 +297,7 @@ export default class Base implements BaseInterface {
     Actions
   */
 
-  validate(opt: any = {}, obj: any = {}) {
+  validate(opt: any = {}, obj: any = {}): Promise<any> {
     const $opt = _.merge(opt, { path: this.path });
     return this.state.form.validator.validate($opt, obj);
   }
@@ -305,7 +305,7 @@ export default class Base implements BaseInterface {
   /**
     Submit
   */
-  submit(o: any = {}) {
+  submit(o: any = {}): Promise<any> {
     this.$submitting = true;
     this.$submitted += 1;
 
@@ -376,7 +376,12 @@ export default class Base implements BaseInterface {
       throw new Error("The update() method accepts only plain objects.");
     }
 
-    this.deepUpdate(prepareFieldsData({ fields }), undefined, undefined, fields);
+    this.deepUpdate(
+      prepareFieldsData({ fields }, this.state.strict),
+      undefined,
+      undefined,
+      fields
+    );
   }
 
   deepUpdate(fields: any, path: string = "", recursion: boolean = true, raw?: any): void {
@@ -395,9 +400,9 @@ export default class Base implements BaseInterface {
             if (Number($f.name) > n) $field.fields.delete($f.name);
           });
         }
-        else if (field?.fields) {
+        if (field?.fields) {
           const fallback = this.state.options.get(OptionsEnum.fallback);
-          if (!fallback && $field.fields.size === 0) {
+          if (!fallback && $field.fields.size === 0 && this.state.struct().findIndex(s => s.startsWith($field.path.replace(/\.\d+\./, '[].') + '[]')) < 0) {
             $field.value = parseInput($field.$input, {
               separated: _.get(raw, $path),
             });
@@ -449,7 +454,9 @@ export default class Base implements BaseInterface {
       }
 
       const value = this.deepGet(prop, this.fields);
-      return parseCheckArray(this, value, prop);
+      const removeNullishValuesInArrays = this.state.options.get(OptionsEnum.removeNullishValuesInArrays, this);
+
+      return parseCheckArray(this, value, prop, removeNullishValuesInArrays);
     }
 
     return this.deepGet(prop, this.fields);
@@ -462,25 +469,25 @@ export default class Base implements BaseInterface {
     return _.transform(
       getObservableMapValues(fields),
       (obj: any, field: any) => {
-        const $nested = ($fields: any) =>
-          $fields.size !== 0 ? this.deepGet(prop, $fields) : undefined;
+        const $nested = ($fields: any) => $fields.size !== 0
+          ? this.deepGet(prop, $fields)
+          : undefined;
 
         Object.assign(obj, {
           [field.key]: { fields: $nested(field.fields) },
         });
 
         if (_.isString(prop)) {
-          const removeValue =
-            prop === FieldPropsEnum.value &&
-            ((this.state.options.get(OptionsEnum.retrieveOnlyDirtyValues, this) &&
-              field.isPristine) ||
-              (this.state.options.get(OptionsEnum.retrieveOnlyEnabledFields, this) &&
-                field.disabled) ||
-              (this.state.options.get(OptionsEnum.softDelete, this) && field.deleted));
+          const opt = this.state.options;
+          const removeProp =
+            ((opt.get(OptionsEnum.retrieveOnlyDirtyFieldsValues, this) && prop === FieldPropsEnum.value && field.isPristine) ||
+            (opt.get(OptionsEnum.retrieveOnlyEnabledFieldsValues, this) && prop === FieldPropsEnum.value && field.disabled) ||
+            (opt.get(OptionsEnum.retrieveOnlyEnabledFieldsErrors, this) && prop === FieldPropsEnum.error && field.disabled && field.isValid && (!field.error || !field.hasError)) ||
+            (opt.get(OptionsEnum.softDelete, this) && prop === FieldPropsEnum.value && field.deleted));
 
           if (field.fields.size === 0) {
             delete obj[field.key]; // eslint-disable-line
-            if (removeValue) return obj;
+            if (removeProp) return obj;
             return Object.assign(obj, {
               [field.key]: parseCheckOutput(field, prop),
             });
@@ -489,11 +496,13 @@ export default class Base implements BaseInterface {
           let value = this.deepGet(prop, field.fields);
           if (prop === FieldPropsEnum.value) value = field.$output(value);
 
-          delete obj[field.key]; // eslint-disable-line
-          if (removeValue) return obj;
+          delete obj[field.key];
+          // if (removeProp) return obj;
+
+          const removeNullishValuesInArrays = this.state.options.get(OptionsEnum.removeNullishValuesInArrays, this);
 
           return Object.assign(obj, {
-            [field.key]: parseCheckArray(field, value, prop),
+            [field.key]: parseCheckArray(field, value, prop, removeNullishValuesInArrays),
           });
         }
 
@@ -512,7 +521,7 @@ export default class Base implements BaseInterface {
   /**
     Set Fields Props
    */
-  set(prop: any, data: any): void {
+  set(prop: any, data?: any): void {
     // UPDATE CUSTOM PROP
     if (_.isString(prop) && !_.isUndefined(data)) {
       allowedProps("field", [prop]);
@@ -598,7 +607,7 @@ export default class Base implements BaseInterface {
 
     this.$changed ++;
     this.state.form.$changed ++;
-    this.execHook('onChange');
+    this.execHook(FieldPropsEnum.onChange);
     return field;
   }
 

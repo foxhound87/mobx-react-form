@@ -48,6 +48,9 @@ export default interface FieldInterface extends BaseInterface {
   onBlur(args: any): any;
   onFocus(args: any): any;
   onDrop(args: any): any;
+  onKeyDown(args: any): any;
+  onKeyUp(args: any): any;
+
   // methods: {
   setupField(
     key: string,

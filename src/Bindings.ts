@@ -6,7 +6,7 @@ import BindingsInterface from "./models/BindingsInterface";
 
 export default class Bindings implements BindingsInterface {
   templates = {
-    // default: ({ field, props, keys, $try }) => ({
+    // default: ({ field, form, props, keys, $try }) => ({
     //   [keys.id]: $try(props.id, field.id),
     // }),
   };
@@ -25,10 +25,33 @@ export default class Bindings implements BindingsInterface {
       onBlur: FieldPropsEnum.onBlur,
       onFocus: FieldPropsEnum.onFocus,
       autoFocus: FieldPropsEnum.autoFocus,
+      onKeyUp: FieldPropsEnum.onKeyUp,
+      onKeyDown: FieldPropsEnum.onKeyDown,
     },
   };
 
-  load(field: any, name: string = "default", props: FieldPropsType) {
+  register(bindings: FieldPropsType): Bindings {
+    _.each(bindings, (val, key) => {
+      if (_.isFunction(val)) _.merge(this.templates, { [key]: val });
+      if (_.isPlainObject(val)) _.merge(this.rewriters, { [key]: val });
+    });
+
+    return this;
+  }
+
+  load(field: any, name: string = FieldPropsEnum.default, props: FieldPropsType) {
+    const args = ({
+      keys: _.get(this.rewriters, FieldPropsEnum.default),
+      form: field.state.form,
+      field,
+      props,
+      $try,
+    });
+
+    if (_.has(this.templates, FieldPropsEnum.default)) {
+      return _.get(this.templates, name)(args);
+    }
+
     if (_.has(this.rewriters, name)) {
       const $bindings = {};
 
@@ -39,23 +62,6 @@ export default class Bindings implements BindingsInterface {
       return $bindings;
     }
 
-    return _.get(
-      this.templates,
-      name
-    )({
-      keys: _.get(this.rewriters, name),
-      $try,
-      field,
-      props,
-    });
-  }
-
-  register(bindings: FieldPropsType): Bindings {
-    _.each(bindings, (val, key) => {
-      if (_.isFunction(val)) _.merge(this.templates, { [key]: val });
-      if (_.isPlainObject(val)) _.merge(this.rewriters, { [key]: val });
-    });
-
-    return this;
+    return _.get(this.templates, name)(args);
   }
 }
