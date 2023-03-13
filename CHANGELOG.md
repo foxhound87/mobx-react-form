@@ -1,3 +1,7 @@
+# 5.4.1 (next)
+
+fix: #371 #399 #408
+
 # 5.4.0 (next)
 
 - Support for `default` Bindings Template.
