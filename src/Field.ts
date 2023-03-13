@@ -358,7 +358,7 @@ export default class Field extends Base implements FieldInterface {
   }
 
   get isDirty(): boolean {
-    return !_.isUndefined(this.initial) && !_.isEqual(this.initial, this.value);
+    return !_.isNil(this.initial) && !_.isEqual(this.initial, this.value);
   }
 
   get isPristine(): boolean {
@@ -374,9 +374,7 @@ export default class Field extends Base implements FieldInterface {
   }
 
   get resetting(): boolean {
-    return this.hasNestedFields
-      ? this.check("resetting", true)
-      : this.$resetting;
+    return this.hasNestedFields ? this.check(FieldPropsEnum.resetting, true) : this.$resetting;
   }
 
   get clearing(): boolean {
