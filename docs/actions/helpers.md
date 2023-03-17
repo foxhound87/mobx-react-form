@@ -3,6 +3,7 @@
 The helpers can be used on the form instance or every field and nested field.
 
 * [Field Selector](#field-selector)
+* [Access Form Instance From Fields](#access-form-instance-from-fields)
 * [Get all Fields Values](#get-all-fields-values)
 * [Get all Fields Errors](#get-all-fields-errors)
 * [Get all Fields Labels](#get-all-fields-labels)
@@ -20,6 +21,17 @@ The helpers can be used on the form instance or every field and nested field.
 ```
 
 > Shortcut of `select()`
+
+---
+### Access Form Instance From Fields
+
+Every `Field` instance can access the `Form` instance using the `state` prop:
+
+```javascript
+field.state.form // access Form instance
+```
+
+---
 
 ### Get all Fields Values
 

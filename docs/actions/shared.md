@@ -16,6 +16,7 @@ The shared actions can be used on the form instance or every field and nested fi
 * [has()](#has)
 * [map()](#map)
 * [each()](#each)
+* [reduce()](#reduce)
 * [add() & del()](#add--del)
 * [clear() & reset()](#clear--reset)
 
@@ -24,7 +25,6 @@ The shared actions can be used on the form instance or every field and nested fi
 * [Validate a Field](#validate-a-field)
 * [Validation Errors](#validation-errors)
 * [Invalidate the Form or a single Field](#invalidate-the-form-or-a-single-field)
-
 ---
 
 ### Update the fields
@@ -40,7 +40,7 @@ If you need to handle arrays (add or remove elements), consider to use the `add(
 Update values from the form instance:
 
 ```javascript
-form.update({
+.update({
   address: {
     city: 'Los Angeles'
   },
@@ -50,7 +50,7 @@ form.update({
 or the same selecting a nested field:
 
 ```javascript
-form.$('address').update({
+.$('address').update({
   city: 'Los Angeles'
 });
 ```
@@ -211,8 +211,8 @@ Provide a field key to check if exists:
 ### map()
 
 ```javascript
-$('hobbies').map((fields) => {
-  ... // access nested fields
+.$('hobbies').map((field) => {
+  ... // access nested field
 });
 ```
 
@@ -232,6 +232,18 @@ The callback get each field in input.
 
 ---
 
+### reduce()
+
+Reduce field collection values.
+
+The callback get accumulator and field in input.
+
+```javascript
+.reduce((accumulator, field) => { ... }, accumulator);
+```
+
+---
+
 ### add() & del()
 
 You can add or remove normal Fields & Nested Fields or Array of Fields as well.
@@ -239,7 +251,7 @@ You can add or remove normal Fields & Nested Fields or Array of Fields as well.
 Add fields or nested fields:
 
 ```javascript
-form.$('hobbies').add();
+.$('hobbies').add();
 ```
 
 > If you have specified an **Array of Fields** (`[]`) into the field **struct** you can call add() without input arguments to create a new empty field with its incremental array index as `key/name`.
@@ -247,13 +259,13 @@ form.$('hobbies').add();
 provide the initial value to the new added field:
 
 ```javascript
-form.$('hobbies').add({ value: 'soccer' });
+.$('hobbies').add({ value: 'soccer' });
 ```
 
 provide a custom key as field index:
 
 ```javascript
-form.$('hobbies').add({
+.$('hobbies').add({
   key: 'customKey',
   value: 'soccer',
 });
@@ -264,17 +276,17 @@ form.$('hobbies').add({
 Delete a field:
 
 ```javascript
-form.del('hobbies[1]');
+.del('hobbies[1]');
 
-form.$('hobbies').del(1); // same as previous
+.$('hobbies').del(1); // same as previous
 ```
 
 or deep nested fields:
 
 ```javascript
-form.$('member').del('hobbies[3]');
+.$('member').del('hobbies[3]');
 
-form.$('member.hobbies').del(3); // same as previous
+.$('member.hobbies').del(3); // same as previous
 ```
 
 > These are not an Event Handlers.
@@ -334,7 +346,7 @@ The `validate()` action returns a `promise`.
 The callback takes the **Field Instance** with its `isValid` prop, which is the validation state of the **Field**.
 
 ```javascript
-$('password').validate()
+.$('password').validate()
   .then(({ isValid }) => {
     ... // Use `isValid` to check the validation status
   });
@@ -352,7 +364,7 @@ The `validate()` method will not show errors by default.
 If you need to show errors after a validation you do:
 
 ```javascript
-$('password').validate({ showErrors: true });
+.$('password').validate({ showErrors: true });
 ```
 
 ---
