@@ -25,6 +25,7 @@
   * [has()](shared.md#has)
   * [map()](shared.md#map)
   * [each()](shared.md#each)
+  * [reduce()](shared.md#reduce)
   * [add() & del()](shared.md#add--del)
   * [clear() & reset()](shared.md#clear--reset)
 
@@ -39,6 +40,7 @@
   The helpers can be used on the form instance or every field and nested field.
 
   * [Field Selector](helpers.md#field-selector)
+  * [Access Form Instance From Fields](helpers.md#access-form-instance-from-fields)
   * [Get all Fields Values](helpers.md#get-all-fields-values)
   * [Get all Fields Errors](helpers.md#get-all-fields-errors)
   * [Get all Fields Labels](helpers.md#get-all-fields-labels)
