@@ -10,7 +10,12 @@ const plugins: ValidationPlugins = {
 }
 
 const schema = {
-  fields: ["email"],
+  fields: [
+    "email",
+    "account",
+    "account.id",
+    "account.name"
+  ],
   labels: { email: "Email" },
   rules: { email: "required|email|string|between:5,25" },
   values: {
@@ -22,6 +27,14 @@ const schema = {
   }
 };
 
+const valuesToMatch = {
+  email: "myemail@apple.com",
+  account: {
+    id: '',
+    name: "John"
+  }
+}
+
 
 class NewForm extends Form {
   hooks() {
@@ -30,8 +43,11 @@ class NewForm extends Form {
         describe("Check deep isDirty:", () => {
           it("form isDirty should be false", () => expect(form.isDirty).to.be.false);
           it("account isDirty should be false", () => expect(form.$('account').isDirty).to.be.false);
-          it("account value should be equal schema.values.account", () => expect(form.$('account').value).to.be.deep.equal(schema.values.account));
-          it("account values() should be equal schema.values.account", () => expect(form.$('account').values()).to.be.deep.equal(schema.values.account));
+        });
+
+        describe("Check deep values:", () => {
+          it("account value should be equal valuesToMatch.account", () => expect(form.$('account').value).to.be.deep.equal(valuesToMatch.account));
+          it("account values() should be equal valuesToMatch.account", () => expect(form.$('account').values()).to.be.deep.equal(valuesToMatch.account));
         });
       }
     }
