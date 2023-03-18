@@ -47,12 +47,12 @@ class NewForm extends Form {
       onInit(form: FormInterface) {
         describe("Check deep isDirty:", () => {
           it("form isDirty should be false", () => expect(form.isDirty).to.be.false);
-          it("form values should be equal to form initials", () => expect(form.values()).to.be.deep.equal(form.initials()));
           it("conditions isDirty should be false", () => expect(form.$('conditions').isDirty).to.be.false);
           it("conditions[0].action isDirty should be false", () => expect(form.$('conditions[0].action').isDirty).to.be.false);
         });
 
         describe("Check deep values:", () => {
+          it("form values should be equal to form initials", () => expect(form.values()).to.be.deep.equal(form.initials()));
           it("conditions value should be equal values", () => expect(form.$('conditions').value).to.be.deep.equal(valuesToMatch.conditions));
           it("conditions values() should be equal values", () => expect(form.$('conditions').values()).to.be.deep.equal(valuesToMatch.conditions));
         });

@@ -46,6 +46,7 @@ class NewForm extends Form {
         });
 
         describe("Check deep values:", () => {
+          it("form values should be equal to form initials", () => expect(form.values()).to.be.deep.equal(form.initials()));
           it("account value should be equal valuesToMatch.account", () => expect(form.$('account').value).to.be.deep.equal(valuesToMatch.account));
           it("account values() should be equal valuesToMatch.account", () => expect(form.$('account').values()).to.be.deep.equal(valuesToMatch.account));
         });
