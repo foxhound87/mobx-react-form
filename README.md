@@ -5,7 +5,7 @@
 
 ### Reactive MobX Form State Management
 
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Ffoxhound87%2Fmobx-react-form%2Fbadge&style=flat)](https://actions-badge.atrox.dev/foxhound87/mobx-react-form/goto)
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/foxhound87/mobx-react-form/ci.yml?branch=next)
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/foxhound87/mobx-react-form/master.svg)](https://codecov.io/gh/foxhound87/mobx-react-form)
 [![npm](https://img.shields.io/npm/v/mobx-react-form.svg)]()
 [![node](https://img.shields.io/node/v/mobx-react-form.svg)]()
