@@ -1,4 +1,4 @@
-### [Repo](https://github.com/foxhound87/mobx-react-form) &bull; [Live Demo](https://foxhound87.github.io/mobx-react-form/demo.html) &bull; [Demo Code](https://github.com/foxhound87/mobx-react-form-demo) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Discord Channel](https://discord.gg/CVV8w4zat4)
+### [Repo](https://github.com/foxhound87/mobx-react-form) &bull; [Live Demo](https://foxhound87.github.io/mobx-react-form-demo) &bull; [Demo Code](https://github.com/foxhound87/mobx-react-form-demo) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Discord Channel](https://discord.gg/CVV8w4zat4)
 
 # MobX React Form
 
@@ -6,7 +6,7 @@
 
 [![NPM](https://nodei.co/npm/mobx-react-form.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/mobx-react-form/)
 
-[![Travis Build](https://img.shields.io/travis/foxhound87/mobx-react-form/master.svg)](https://travis-ci.org/foxhound87/mobx-react-form)
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/foxhound87/mobx-react-form/ci.yml?branch=next)
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/foxhound87/mobx-react-form/master.svg)](https://codecov.io/gh/foxhound87/mobx-react-form)
 [![npm](https://img.shields.io/npm/v/mobx-react-form.svg)]()
 [![node](https://img.shields.io/node/v/mobx-react-form.svg)]()
