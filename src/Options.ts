@@ -44,6 +44,7 @@ export default class Options implements OptionsInterface {
     retrieveOnlyEnabledFieldsErrors: false,
     autoParseNumbers: false,
     removeNullishValuesInArrays: false,
+    preserveDeletedFieldsValues: false,
     validationDebounceWait: 250,
     validationDebounceOptions: {
       leading: false,

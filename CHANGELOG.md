@@ -1,11 +1,15 @@
+# 5.5.1 (next)
+
+- Introduced `preserveDeletedFieldsValues` form option (disabled by default).
+- Fix: after deleting and adding same field, the defined initial values will not be preserverd anymore.
+
 # 5.5.0 (next)
 
 - Updated add()/del()/update() actions to handle `changed` field prop.
 (not triggering anymore `onChange` when using add(), use `onAdd`/`onDel` hooks instead).
 - Updated `changed` computed prop behavior for nested fields and Event Hooks triggering.
 - Events Hooks now are triggered also from actions if not used Event Handlers.
-
-fix: #585 #531
+- fix: #585 #531
 
 # 5.4.1 (next)
 

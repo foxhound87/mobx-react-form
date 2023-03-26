@@ -565,7 +565,10 @@ export default class Base implements BaseInterface {
     const isStrict = this.state.options.get(OptionsEnum.strictUpdate, this);
 
     if (_.isNil(data)) {
-      this.each((field: any) => field.$value = defaultClearValue({ value: field.$value }));
+      this.each((field: any) => field.$value = defaultClearValue({
+        value: field.$value,
+        type: field.type,
+      }));
       return;
     }
 
@@ -607,13 +610,18 @@ export default class Base implements BaseInterface {
     }
 
     let key;
-    if (_.has(obj, "key")) key = obj.key;
-    if (_.has(obj, "name")) key = obj.name;
+    if (_.has(obj, FieldPropsEnum.key)) key = obj.key;
+    if (_.has(obj, FieldPropsEnum.name)) key = obj.name;
     if (!key) key = maxKey(this.fields);
 
     const $path = ($key: string) =>_.trimStart([this.path, $key].join("."), ".");
     const tree = pathToFieldsTree(this.state.struct(), this.path, 0, true);
     const field = this.initField(key, $path(key), _.merge(tree[0], obj));
+
+    if(!_.has(obj, FieldPropsEnum.value) && !this.state.options.get(OptionsEnum.preserveDeletedFieldsValues, this)) {
+      field.$value = defaultClearValue({ value: field.$value, type: field.type });
+      field.each((field: any) => field.$value = defaultClearValue({ value: field.$value, type: field.type }));
+    }
 
     this.$changed ++;
     this.state.form.$changed ++;

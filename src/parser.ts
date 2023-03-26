@@ -9,18 +9,18 @@ import {
   isEmptyArray,
 } from "./utils";
 
-const defaultClearValue = ({
-  value,
-}: {
-  value: any;
-}): false | any[] | 0 | "" | null | undefined => {
-  if (_.isArray(value)) return [];
-  if (_.isDate(value)) return null;
-  if (_.isBoolean(value)) return false;
-  if (_.isNumber(value)) return 0;
-  if (_.isString(value)) return "";
-  return undefined;
-};
+const defaultClearValue =
+  ({ value = undefined, type = undefined }
+  : { value: any, type?: string })
+  : false | any[] | 0 | "" | null | undefined => {
+    if (type === "date") return null;
+    if (_.isDate(value)) return null;
+    if (_.isArray(value)) return [];
+    if (_.isBoolean(value)) return false;
+    if (_.isNumber(value)) return 0;
+    if (_.isString(value)) return "";
+    return undefined;
+  };
 
 const defaultValue = ({
   type,
