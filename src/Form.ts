@@ -199,18 +199,20 @@ export default class Form extends Base implements FormInterface {
   /**
     Clear Form Fields
   */
-  clear(): void {
+  clear(deep: boolean = true, execHook: boolean = true): void {
+    execHook && this.execHook(FieldPropsEnum.onClear);
     this.$touched = false;
     this.$changed = 0;
-    this.each((field: FieldInterface) => field.clear(true));
+    this.each((field: FieldInterface) => field.clear(deep));
   }
 
   /**
     Reset Form Fields
   */
-  reset(): void {
+  reset(deep: boolean = true, execHook: boolean = true): void {
+    execHook && this.execHook(FieldPropsEnum.onReset);
     this.$touched = false;
     this.$changed = 0;
-    this.each((field: FieldInterface) => field.reset(true));
+    this.each((field: FieldInterface) => field.reset(deep));
   }
 }

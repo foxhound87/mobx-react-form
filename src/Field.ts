@@ -358,11 +358,13 @@ export default class Field extends Base implements FieldInterface {
   }
 
   get isDirty(): boolean {
-    return !_.isNil(this.initial) && !_.isEqual(this.initial, this.value);
+    const value = this.changed ? this.value : this.initial;
+    return !_.isNil(this.initial) && !_.isEqual(this.initial, value);
   }
 
   get isPristine(): boolean {
-    return !_.isNil(this.initial) && _.isEqual(this.initial, this.value);
+    const value = this.changed ? this.value : this.initial;
+    return !_.isNil(this.initial) && _.isEqual(this.initial, value);
   }
 
   get isEmpty(): boolean {
@@ -427,7 +429,8 @@ export default class Field extends Base implements FieldInterface {
       ? this.onDrop(...args)
       : this.execHandler(FieldPropsEnum.onChange, args, this.sync);
 
-  onToggle = (...args: any) => this.execHandler(FieldPropsEnum.onToggle, args, this.sync);
+  onToggle = (...args: any) =>
+    this.execHandler(FieldPropsEnum.onToggle, args, this.sync);
 
   onBlur = (...args: any) =>
     this.execHandler(
@@ -653,7 +656,8 @@ export default class Field extends Base implements FieldInterface {
     if (deep) this.each((field: any) => field.resetValidation());
   }
 
-  clear(deep: boolean = true): void {
+  clear(deep: boolean = true, execHook: boolean = true): void {
+    execHook && this.execHook(FieldPropsEnum.onClear);
     this.$clearing = true;
     this.$touched = false;
     this.$blurred = false;
@@ -669,7 +673,8 @@ export default class Field extends Base implements FieldInterface {
       }) : this.resetValidation(deep);
   }
 
-  reset(deep: boolean = true): void {
+  reset(deep: boolean = true, execHook: boolean = true): void {
+    execHook && this.execHook(FieldPropsEnum.onReset);
     this.$resetting = true;
     this.$touched = false;
     this.$blurred = false;
@@ -689,7 +694,6 @@ export default class Field extends Base implements FieldInterface {
   }
 
   focus(): void {
-    // eslint-disable-next-line
     this.state.form.each((field: any) => (field.autoFocus = false));
     this.autoFocus = true;
   }
@@ -775,7 +779,8 @@ export default class Field extends Base implements FieldInterface {
       throw new Error("The update() method accepts only plain objects.");
     }
     const fallback = this.state.options.get(OptionsEnum.fallback);
-    if (!fallback && this.fields.size === 0 && this.state.struct().findIndex(s => s.startsWith(this.path.replace(/\.\d+\./, '[].') + '[]')) < 0) {
+    const x = this.state.struct().findIndex(s => s.startsWith(this.path.replace(/\.\d+\./, '[].') + '[]'));
+    if (!fallback && this.fields.size === 0 && x < 0) {
       this.value = parseInput(this.$input, {
         separated: fields,
       });

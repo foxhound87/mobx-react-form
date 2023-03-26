@@ -63,21 +63,21 @@ describe('Check form onChange hook after reset',  () => {
         expect($.$V2.$('test.email').value).to.be.empty);
 });
 
-describe('Check form onChange hook after add/del',  () => {
+describe('Check form onAdd hook after add/del',  () => {
     it('$V3 form changed should equal form $changed', () =>
         expect($.$V3.changed).to.be.equal($.$V3.$changed));
 
     it('$V3 form changed should equal 7', () =>
-        expect($.$V3.changed).to.be.equal(7));
+        expect($.$V3.changed).to.be.equal(8));
 
     it('$V3 form $changed should equal 7', () =>
-        expect($.$V3.$changed).to.be.equal(7));
+        expect($.$V3.$changed).to.be.equal(8));
 
     it('$V3 user $changed should equal 1', () =>
-        expect($.$V3.$('user').$changed).to.be.equal(1));
+        expect($.$V3.$('user').$changed).to.be.equal(1)); //
 
     it('$V3 user changed should equal 1', () =>
-        expect($.$V3.$('user').changed).to.be.equal(1));
+        expect($.$V3.$('user').changed).to.be.equal(2)); //
 
     it('$V3 user[0].name $changed should equal 1', () =>
         expect($.$V3.$('user[0].name').$changed).to.be.equal(1));
