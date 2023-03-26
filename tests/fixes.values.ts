@@ -408,7 +408,7 @@ describe('update to nested array items', () => {
   })
 });
 
-describe('#523', () => {
+describe('#523 is Dirty should be false', () => {
   it('', () => {
     const fields = [{
       name: 'fieldA',
@@ -428,7 +428,7 @@ describe('#523', () => {
 });
 
 describe('update nested nested array items', () => {
-  it('', () => {
+  it('check isDirty after update()', () => {
     const fields = [
       'pricing',
       'pricing.value[]',
@@ -472,6 +472,7 @@ describe('update nested nested array items', () => {
     })
     // console.debug('pricing.value.0.initial', $526.$('pricing.value.0').initial)
     // console.debug('pricing.value.0.prices.initial', $526.$('pricing.value.0.prices').initial)
+    // expect($526.$('pricing.value').changed).not.to.be.equal(0)
     expect($526.$('pricing.value').isDirty).to.be.equal(true)
     expect($526.$('pricing.value.0').isDirty).to.be.equal(true)
     expect($526.$('pricing.value.0.prices').isDirty).to.be.equal(true)

@@ -159,7 +159,7 @@ const $try = (...args: any) => {
   args.map(
     (
       val: any // eslint-disable-line
-    ) => found === null && !_.isNil(val) && (found = val)
+    ) => found === null && !_.isUndefined(val) && (found = val)
   );
 
   return found;

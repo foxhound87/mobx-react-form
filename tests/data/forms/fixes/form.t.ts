@@ -120,6 +120,8 @@ class NewForm extends Form {
             expect(form.$("arrayChangeAdd").isDirty).to.be.true);
           it(`"arrayChangeAdd" isPristine should be false`, () =>
             expect(form.$("arrayChangeAdd").isPristine).to.be.false);
+          it(`"arrayChangeAdd" changed should not be 0`, () =>
+            expect(form.$("arrayChangeAdd").changed).not.to.be.equal(0));
         });
 
         describe("Check props state after change:", () => {
@@ -135,6 +137,8 @@ class NewForm extends Form {
             expect(form.$("arrayChangeDel").isDirty).to.be.true);
           it(`"arrayChangeDel" isPristine should be false`, () =>
             expect(form.$("arrayChangeDel").isPristine).to.be.false);
+          it(`"arrayChangeDel" changed should should not be 0`, () =>
+            expect(form.$("arrayChangeDel").changed).not.to.be.equal(0));
         });
 
         describe("Check props state after change:", () => {

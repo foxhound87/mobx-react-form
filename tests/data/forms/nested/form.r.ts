@@ -57,6 +57,11 @@ const checkFieldset = (fieldset) =>
       expect(fieldset).to.have.property("path")));
 
 const submit = {
+  onSubmit(fieldset) {
+    it('$R.submit() should call onSubmit callback',  () => {
+      expect(fieldset.submitted).to.equal(1);
+    })
+  },
   onSuccess(fieldset) {
     checkFieldset(fieldset);
   },
@@ -81,5 +86,10 @@ export default new Form(
   {
     name: "Nested-R",
     plugins,
+    hooks: {
+      onInit(form) {
+        form.$('club').submit();
+      }
+    }
   }
 );

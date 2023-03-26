@@ -22,10 +22,11 @@ describe('Form submit() decoupled callback', () => {
 
           it('$L form submitted should be 1', () =>
             expect(form.submitted).to.equal(1));
+
+           it('$L form isValid should be false', () =>
+            expect(form.isValid).to.be.false);
         });
 
-        // eslint-disable-next-line
-        expect(form.isValid).to.be.false;
         done();
       },
     });

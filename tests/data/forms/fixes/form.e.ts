@@ -21,6 +21,16 @@ const values = {
   places: ["NY", "NJ"],
 };
 
+const hooks = {
+  places: {
+    onClear(fieldset) {
+      it('Fixes-E $(places).clear() should call onClear() hook on fieldset',  () => {
+        expect(fieldset.values()).to.deep.equal([]);
+      })
+    }
+  }
+}
+
 class NewForm extends Form {
   hooks() {
     return {
@@ -39,6 +49,6 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, values, extra }, { options: {
+export default new NewForm({ fields, values, extra, hooks }, { options: {
   removeNullishValuesInArrays: true,
 }, name: "Fixes-E" });

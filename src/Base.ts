@@ -35,6 +35,7 @@ import {
   parseCheckArray,
   parseCheckOutput,
   pathToFieldsTree,
+  defaultClearValue,
 } from "./parser";
 import { FieldPropsEnum } from "./models/FieldProps";
 import { OptionsEnum } from "./models/OptionsModel";
@@ -135,7 +136,7 @@ export default class Base implements BaseInterface {
 
   get changed(): number {
     return !_.isNil(this.path) && this.hasNestedFields
-      ? this.reduce((acc: number, field: FieldInterface) => (acc + field.changed), 0)
+      ? (this.reduce((acc: number, field: FieldInterface) => (acc + field.changed), 0) + this.$changed)
       : this.$changed;
   }
 
@@ -165,7 +166,7 @@ export default class Base implements BaseInterface {
   onClear = (...args: any): any =>
     this.execHandler(FieldPropsEnum.onClear, args, (e: Event) => {
       e.preventDefault();
-      (this as any).clear(true);
+      (this as any).clear(true, false);
     });
 
   /**
@@ -174,7 +175,7 @@ export default class Base implements BaseInterface {
   onReset = (...args: any): any =>
     this.execHandler(FieldPropsEnum.onReset, args, (e: Event) => {
       e.preventDefault();
-      (this as any).reset(true);
+      (this as any).reset(true, false);
     });
 
   /**
@@ -183,7 +184,7 @@ export default class Base implements BaseInterface {
   onSubmit = (...args: any): any =>
     this.execHandler(FieldPropsEnum.onSubmit, args, (e: Event, o = {}) => {
       e.preventDefault();
-      this.submit(o);
+      this.submit(o, false);
     });
 
   /**
@@ -192,7 +193,7 @@ export default class Base implements BaseInterface {
   onAdd = (...args: any): any =>
     this.execHandler(FieldPropsEnum.onAdd, args, (e: Event, val: any) => {
       e.preventDefault();
-      this.add($isEvent(val) ? null : val);
+      this.add($isEvent(val) ? null : val, false);
     });
 
   /**
@@ -201,7 +202,7 @@ export default class Base implements BaseInterface {
   onDel = (...args: any): any =>
     this.execHandler(FieldPropsEnum.onDel, args, (e: Event, path: string) => {
       e.preventDefault();
-      this.del($isEvent(path) ? this.path : path);
+      this.del($isEvent(path) ? this.path : path, false);
     });
 
   /******************************************************************
@@ -305,7 +306,8 @@ export default class Base implements BaseInterface {
   /**
     Submit
   */
-  submit(o: any = {}): Promise<any> {
+  submit(o: any = {}, execHook: boolean = true): Promise<any> {
+    execHook && this.execHook(FieldPropsEnum.onSubmit, o);
     this.$submitting = true;
     this.$submitted += 1;
 
@@ -395,14 +397,19 @@ export default class Base implements BaseInterface {
 
       if (!_.isNil($field) && !_.isUndefined(field)) {
         if (_.isArray($field.values())) {
-          let n: number = _.max(_.map(field.fields, (f, i) => Number(i))) ?? -1;
+          const n: number = _.max(_.map(field.fields, (f, i) => Number(i))) ?? -1;
           _.each(getObservableMapValues($field.fields), ($f) => {
-            if (Number($f.name) > n) $field.fields.delete($f.name);
+            if (Number($f.name) > n) {
+              $field.$changed ++;
+              $field.state.form.$changed ++;
+              $field.fields.delete($f.name);
+            }
           });
         }
         if (field?.fields) {
           const fallback = this.state.options.get(OptionsEnum.fallback);
-          if (!fallback && $field.fields.size === 0 && this.state.struct().findIndex(s => s.startsWith($field.path.replace(/\.\d+\./, '[].') + '[]')) < 0) {
+          const x = this.state.struct().findIndex(s => s.startsWith($field.path.replace(/\.\d+\./, '[].') + '[]'));
+          if (!fallback && $field.fields.size === 0 && x < 0) {
             $field.value = parseInput($field.$input, {
               separated: _.get(raw, $path),
             });
@@ -421,6 +428,8 @@ export default class Base implements BaseInterface {
         // get full path when using update() with select() - FIX: #179
         const $newFieldPath = _.trimStart([this.path, $path].join("."), ".");
         // init field into the container field
+        $container.$changed ++;
+        $container.state.form.$changed ++;
         $container.initField($key, $newFieldPath, field, true);
       } else if (recursion) {
         if (_.has(field, "fields") && !_.isNil(field.fields)) {
@@ -529,7 +538,7 @@ export default class Base implements BaseInterface {
       if (deep && this.hasNestedFields) this.deepSet(prop, data, "", true);
       else _.set(this, `$${prop}`, data);
 
-      if (prop === 'value') {
+      if (prop === FieldPropsEnum.value) {
         this.$changed ++;
         this.state.form.$changed ++;
       }
@@ -556,7 +565,7 @@ export default class Base implements BaseInterface {
     const isStrict = this.state.options.get(OptionsEnum.strictUpdate, this);
 
     if (_.isNil(data)) {
-      this.each((field: any) => field.clear(true));
+      this.each((field: any) => field.$value = defaultClearValue({ value: field.$value }));
       return;
     }
 
@@ -583,7 +592,7 @@ export default class Base implements BaseInterface {
   /**
     Add Field
    */
-  add(obj: any): any {
+  add(obj: any, execEvent: boolean = true): any {
     if (isArrayOfObjects(obj)) {
       _.each(obj, (values) =>
         this.update({
@@ -593,7 +602,8 @@ export default class Base implements BaseInterface {
 
       this.$changed ++;
       this.state.form.$changed ++;
-      return this.execHook(FieldPropsEnum.onChange);
+      execEvent && this.execHook(FieldPropsEnum.onAdd);
+      return;
     }
 
     let key;
@@ -607,14 +617,14 @@ export default class Base implements BaseInterface {
 
     this.$changed ++;
     this.state.form.$changed ++;
-    this.execHook(FieldPropsEnum.onChange);
+    execEvent && this.execHook(FieldPropsEnum.onAdd);
     return field;
   }
 
   /**
     Del Field
    */
-  del($path: string | null = null) {
+  del($path: string | null = null, execEvent: boolean = true) {
     const isStrict = this.state.options.get(OptionsEnum.strictDelete, this);
     const path = parsePath($path ?? this.path);
     const fullpath = _.trim([this.path, path].join("."), ".");
@@ -627,14 +637,15 @@ export default class Base implements BaseInterface {
       throwError(fullpath, null, msg);
     }
 
-    this.$changed ++;
-    this.state.form.$changed ++;
+    container.$changed ++;
+    container.state.form.$changed ++;
 
     if (this.state.options.get(OptionsEnum.softDelete, this)) {
       return this.select(fullpath).set("deleted", true);
     }
 
     container.each((field) => field.debouncedValidation.cancel());
+    execEvent && this.execHook(FieldPropsEnum.onDel);
     return container.fields.delete(last);
   }
 

@@ -38,8 +38,8 @@ import $454 from "./forms/fixes/form.454";
 import $518 from "./forms/fixes/form.518";
 import $376 from "./forms/fixes/form.376";
 
-// import $585 from "./forms/fixes/form.585";
-// import $531 from "./forms/fixes/form.531";
+import $585 from "./forms/fixes/form.585";
+import $531 from "./forms/fixes/form.531";
 
 export default {
   $A,
@@ -78,6 +78,6 @@ export default {
   $518,
   $376,
 
-  // $585,
-  // $531,
+  $585,
+  $531,
 };
