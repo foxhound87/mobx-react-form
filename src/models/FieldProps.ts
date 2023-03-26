@@ -1,4 +1,5 @@
 export enum FieldPropsEnum {
+  key = "key",
   id = "id",
   path = "path",
   name = "name",

@@ -663,7 +663,10 @@ export default class Field extends Base implements FieldInterface {
     this.$blurred = false;
     this.$changed = 0;
     this.files = undefined;
-    this.$value = defaultClearValue({ value: this.$value });
+    this.$value = defaultClearValue({
+      value: this.$value,
+      type: this.type,
+    });
 
     if (deep) this.each((field: FieldInterface) => field.clear(true));
 
