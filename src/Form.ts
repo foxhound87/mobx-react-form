@@ -22,7 +22,7 @@ export default class Form extends Base implements FormInterface {
   debouncedValidation: any = null;
 
   constructor(
-    setup: FieldsDefinitions,
+    setup: FieldsDefinitions = {},
     {
       name = "",
       options = {},

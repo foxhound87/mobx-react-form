@@ -60,7 +60,7 @@ export default class State implements StateInterface {
     this.observeOptions();
   }
 
-  initProps(initial: any) {
+  initProps(initial: any = {}) {
     const initialProps: any = _.pick(initial, [
       ...props.separated,
       ...props.validation,

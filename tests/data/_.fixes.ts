@@ -1,6 +1,8 @@
 /**
   FIXES
 */
+import $formEmptyConstructor from "./forms/form.empty.constructor";
+
 import $A from "./forms/fixes/form.a";
 import $B from "./forms/fixes/form.b";
 import $C from "./forms/fixes/form.c";
@@ -42,6 +44,7 @@ import $585 from "./forms/fixes/form.585";
 import $531 from "./forms/fixes/form.531";
 
 export default {
+  $formEmptyConstructor,
   $A,
   $B,
   $C,
