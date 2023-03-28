@@ -2,6 +2,11 @@ import { expect } from 'chai';
 
 import $ from './data/_.fixes'; // FORMS
 
+describe('Check Fixes $E props check', () => {
+  it('$formEmptyConstrcutor size should be equal 0', () =>
+    expect($.$formEmptyConstructor.size).to.be.equal(0));
+});
+
 
 describe('Check Fixes $E props check', () => {
   it('$E places extra should be array', () =>

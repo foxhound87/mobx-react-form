@@ -1,3 +1,7 @@
+# 5.5.2 (next)
+
+- Fix: Empty Constructor (was requiring at least an empyt object if used with only class fileds definitions)
+
 # 5.5.1 (next)
 
 - Introduced `preserveDeletedFieldsValues` form option (disabled by default).
