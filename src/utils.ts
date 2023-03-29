@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { ObservableMap, values as mobxValues, keys as mobxKeys } from "mobx";
 import FieldInterface from "./models/FieldInterface";
-
+import { FieldPropsEnum } from "./models/FieldProps";
 import { props } from "./props";
 
 const getObservableMapValues = (observableMap: ObservableMap):
@@ -52,7 +52,7 @@ const hasProps = ($type: any, $data: any) => {
       break;
     case "all":
       $props = [
-        "id",
+        FieldPropsEnum.id,
         ...props.computed,
         ...props.field,
         ...props.validation,
@@ -117,7 +117,7 @@ const hasSeparatedProps = (initial: any) =>
 const allowNested = (field: any, strictProps: boolean): boolean =>
   _.isObject(field) &&
   !_.isDate(field) &&
-  !_.has(field, "fields") &&
+  !_.has(field, FieldPropsEnum.fields) &&
   (!hasSome(field, [
     ...props.field,
     ...props.validation,

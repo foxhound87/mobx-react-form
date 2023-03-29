@@ -250,34 +250,37 @@ export default class Base implements BaseInterface {
     const initial = this.state.get("current", "props");
     const struct = pathToStruct(path);
     // try to get props from separated objects
-    const $try = (prop: string) => {
+    const _try = (prop: string) => {
       const t = _.get(initial[prop], struct);
-      if ((prop === "input" || prop === "output") && typeof t !== "function")
-        return undefined;
+      const isIoProp: boolean = (prop === FieldPropsEnum.input || prop === FieldPropsEnum.output);
+      if (isIoProp && typeof t !== "function") return undefined;
       return t;
     };
 
     const props = {
       $value: _.get(initial["values"], path),
-      $label: $try("labels"),
-      $placeholder: $try("placeholders"),
-      $default: $try("defaults"),
-      $initial: $try("initials"),
-      $disabled: $try("disabled"),
-      $bindings: $try("bindings"),
-      $type: $try("types"),
-      $options: $try("options"),
-      $extra: $try("extra"),
-      $related: $try("related"),
-      $hooks: $try("hooks"),
-      $handlers: $try("handlers"),
-      $validatedWith: $try("validatedWith"),
-      $validators: $try("validators"),
-      $rules: $try("rules"),
-      $observers: $try("observers"),
-      $interceptors: $try("interceptors"),
-      $input: $try("input"),
-      $output: $try("output"),
+      $label: _try("labels"),
+      $placeholder: _try("placeholders"),
+      $default: _try("defaults"),
+      $initial: _try("initials"),
+      $disabled: _try("disabled"),
+      $deleted: _try("deleted"),
+      $type: _try("types"),
+      $related: _try("related"),
+      $rules: _try("rules"),
+      $options: _try("options"),
+      $bindings: _try("bindings"),
+      $extra: _try("extra"),
+      $hooks: _try("hooks"),
+      $handlers: _try("handlers"),
+      $validatedWith: _try("validatedWith"),
+      $validators: _try("validators"),
+      $observers: _try("observers"),
+      $interceptors: _try("interceptors"),
+      $input: _try("input"),
+      $output: _try("output"),
+      $autoFocus: _try("autoFocus"),
+      $ref: _try("ref"),
     };
 
     const field = this.state.form.makeField({
@@ -432,7 +435,7 @@ export default class Base implements BaseInterface {
         $container.state.form.$changed ++;
         $container.initField($key, $newFieldPath, field, true);
       } else if (recursion) {
-        if (_.has(field, "fields") && !_.isNil(field.fields)) {
+        if (_.has(field, FieldPropsEnum.fields) && !_.isNil(field.fields)) {
           // handle nested fields if defined
           this.deepUpdate(field.fields, $path);
         } else {
@@ -649,7 +652,7 @@ export default class Base implements BaseInterface {
     container.state.form.$changed ++;
 
     if (this.state.options.get(OptionsEnum.softDelete, this)) {
-      return this.select(fullpath).set("deleted", true);
+      return this.select(fullpath).set(FieldPropsEnum.deleted, true);
     }
 
     container.each((field) => field.debouncedValidation.cancel());
@@ -696,7 +699,7 @@ export default class Base implements BaseInterface {
 
     _.merge(this.state.disposers[type], {
       [$dkey]:
-        key === "fields"
+        key === FieldPropsEnum.fields
           ? ffn.apply((change: any) => $call(change))
           : (fn as any)($instance, key, (change: any) => $call(change)),
     });

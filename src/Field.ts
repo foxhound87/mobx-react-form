@@ -30,17 +30,20 @@ const setupFieldProps = (instance: FieldInterface, props: any, data: any) =>
     $label: props.$label || (data && data.label) || "",
     $placeholder: props.$placeholder || (data && data.placeholder) || "",
     $disabled: props.$disabled || (data && data.disabled) || false,
-    $bindings: props.$bindings || (data && data.bindings) || FieldPropsEnum.default,
+    $rules: props.$rules || (data && data.rules) || null,
     $related: props.$related || (data && data.related) || [],
+    $deleted: props.$deleted || (data && data.deleted) || false,
     $validators: toJS(props.$validators || (data && data.validators) || null),
     $validatedWith: props.$validatedWith || (data && data.validatedWith) || FieldPropsEnum.value,
-    $rules: props.$rules || (data && data.rules) || null,
+    $bindings: props.$bindings || (data && data.bindings) || FieldPropsEnum.default,
     $observers: props.$observers || (data && data.observers) || null,
     $interceptors: props.$interceptors || (data && data.interceptors) || null,
     $extra: props.$extra || (data && data.extra) || null,
     $options: props.$options || (data && data.options) || {},
     $hooks: props.$hooks || (data && data.hooks) || {},
     $handlers: props.$handlers || (data && data.handlers) || {},
+    $autoFocus: props.$autoFocus || (data && data.autoFocus) || false,
+    $ref: props.$ref || (data && data.ref) || undefined,
   });
 
 const setupDefaultProp = (
@@ -91,7 +94,6 @@ export default class Field extends Base implements FieldInterface {
   $extra: any;
   $related: string[] | undefined;
   $validatedWith: string | undefined;
-
   $validators: any[] | undefined;
   $rules: string[] | undefined;
 
@@ -99,13 +101,13 @@ export default class Field extends Base implements FieldInterface {
   $focused: boolean = false;
   $blurred: boolean = false;
   $deleted: boolean = false;
+  $autoFocus: boolean = false;
+  $ref: any = undefined
 
   $clearing: boolean = false;
   $resetting: boolean = false;
 
-  autoFocus: boolean = false;
   showError: boolean = false;
-
   errorSync: string | null = null;
   errorAsync: string | null = null;
 
@@ -148,7 +150,6 @@ export default class Field extends Base implements FieldInterface {
       $deleted: observable,
       $clearing: observable,
       $resetting: observable,
-      autoFocus: observable,
       showError: observable,
       errorSync: observable,
       errorAsync: observable,
@@ -156,6 +157,7 @@ export default class Field extends Base implements FieldInterface {
       validationFunctionsData: observable,
       validationAsyncData: observable,
       files: observable,
+      autoFocus: computed,
       checkValidationErrors: computed,
       checked: computed,
       value: computed,
@@ -194,6 +196,7 @@ export default class Field extends Base implements FieldInterface {
       clear: action,
       reset: action,
       focus: action,
+      blur: action,
       showErrors: action,
       showAsyncErrors: action,
       update: action
@@ -216,8 +219,8 @@ export default class Field extends Base implements FieldInterface {
     this.observeValidationOnBlur();
     this.observeValidationOnChange();
 
-    this.initMOBXEvent("observers");
-    this.initMOBXEvent("interceptors");
+    this.initMOBXEvent(FieldPropsEnum.observers);
+    this.initMOBXEvent(FieldPropsEnum.interceptors);
 
     this.execHook(FieldPropsEnum.onInit);
 
@@ -298,6 +301,14 @@ export default class Field extends Base implements FieldInterface {
 
   get extra() {
     return this.$extra;
+  }
+
+  get ref() {
+    return this.$ref;
+  }
+
+  get autoFocus() {
+    return this.$autoFocus;
   }
 
   get type() {
@@ -437,11 +448,8 @@ export default class Field extends Base implements FieldInterface {
       FieldPropsEnum.onBlur,
       args,
       action(() => {
-        if (!this.$blurred) {
-          this.$blurred = true;
-        }
-
         this.$focused = false;
+        this.$blurred = true;
       })
     );
 
@@ -697,8 +705,15 @@ export default class Field extends Base implements FieldInterface {
   }
 
   focus(): void {
-    this.state.form.each((field: any) => (field.autoFocus = false));
-    this.autoFocus = true;
+    if(this.ref && !this.focused) this.ref.focus();
+    this.$focused = true;
+    this.$touched = true;
+  }
+
+  blur(): void {
+    if(this.ref && this.focused) this.ref.blur();
+    this.$focused = false;
+    this.$blurred = true;
   }
 
   showErrors(show: boolean = true): void {
@@ -767,14 +782,17 @@ export default class Field extends Base implements FieldInterface {
     if (!_.isArray(this[`$${type}`])) return;
 
     let fn: any;
-    if (type === "observers") fn = this.observe;
-    if (type === "interceptors") fn = this.intercept;
+    if (type === FieldPropsEnum.observers) fn = this.observe;
+    if (type === FieldPropsEnum.interceptors) fn = this.intercept;
     // @ts-ignore
     this[`$${type}`].map((obj: any) => fn(_.omit(obj, FieldPropsEnum.path)));
   }
 
   bind(props = {}) {
-    return this.state.bindings.load(this, this.bindings, props);
+    return {
+      ...this.state.bindings.load(this, this.bindings, props),
+      ref: ($ref) => (this.$ref = $ref),
+    }
   }
 
   update(fields: any): void {
