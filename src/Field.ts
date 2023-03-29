@@ -506,7 +506,7 @@ export default class Field extends Base implements FieldInterface {
     const isEmptyArray: boolean = Array.isArray(struct)
       ? !!struct
           .filter((s) => s.startsWith(structPath))
-          .find((s) => s.substr(structPath.length, 2) === "[]")
+          .find((s) => s.substring(structPath.length) === "[]")
       : !!Array.isArray(_.get(struct, this.path));
 
     const { $type, $input, $output } = $props;
