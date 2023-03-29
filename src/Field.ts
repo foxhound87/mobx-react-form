@@ -158,6 +158,7 @@ export default class Field extends Base implements FieldInterface {
       validationAsyncData: observable,
       files: observable,
       autoFocus: computed,
+      ref: computed,
       checkValidationErrors: computed,
       checked: computed,
       value: computed,
