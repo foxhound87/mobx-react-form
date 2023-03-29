@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { FieldPropsEnum } from "./models/FieldProps";
 import {
   $try,
   isArrayOfStrings,
@@ -13,11 +14,10 @@ const defaultClearValue =
   ({ value = undefined, type = undefined }
   : { value: any, type?: string })
   : false | any[] | 0 | "" | null | undefined => {
-    if (type === "date") return null;
-    if (_.isDate(value)) return null;
+    if (_.isDate(value) || type === "date") return null;
+    if (_.isNumber(value) || type === "number") return 0;
     if (_.isArray(value)) return [];
     if (_.isBoolean(value)) return false;
-    if (_.isNumber(value)) return 0;
     if (_.isString(value)) return "";
     return undefined;
   };
@@ -63,7 +63,12 @@ const parseInput = (
 
 const parseArrayProp = (val: any, prop: string, removeNullishValuesInArrays: boolean): any => {
   const values = _.values(val);
-  if (removeNullishValuesInArrays && (prop === "value" || prop === "initial" || prop === "default")) {
+  const isValProp: boolean =
+        (prop === FieldPropsEnum.value
+      || prop === FieldPropsEnum.initial
+      || prop === FieldPropsEnum.default);
+
+  if (removeNullishValuesInArrays && isValProp) {
     return _.without(values, ...[null, undefined, ""]);
   }
   return values;
@@ -73,8 +78,8 @@ const parseCheckArray = (field: any, value: any, prop: string, removeNullishValu
   field.hasIncrementalKeys ? parseArrayProp(value, prop, removeNullishValuesInArrays) : value;
 
 const parseCheckOutput = (field: any, prop: string) => {
-  if (prop === "value" || prop.startsWith("value.")) {
-    const base = field.$output ? field.$output(field["value"]) : field["value"]
+  if (prop === FieldPropsEnum.value || prop.startsWith("value.")) {
+    const base = field.$output ? field.$output(field[FieldPropsEnum.value]) : field[FieldPropsEnum.value]
     return prop.startsWith("value.") ? _.get(base, prop.substring(6)) : base
   }
   return field[prop];
@@ -126,7 +131,7 @@ const handleFieldsArrayOfObjects = ($fields: any) => {
     fields = _.transform(
       fields,
       ($obj, field) => {
-        if (hasUnifiedProps({ fields: { field } }) && !_.has(field, "name")) return undefined;
+        if (hasUnifiedProps({ fields: { field } }) && !_.has(field, FieldPropsEnum.name)) return undefined;
         return Object.assign($obj, { [field.name]: field });
       },
       {}
@@ -303,7 +308,7 @@ const pathToFieldsTree = (
       const ss = s.split('.')
       let t = fields[0]?.fields
       for (let i = 0; i < ss.length; i++) {
-        t = t?.[ss[i]]?.['fields']
+        t = t?.[ss[i]]?.[FieldPropsEnum.fields]
         if (!t) break;
       }
       if (t)

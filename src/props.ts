@@ -30,6 +30,7 @@ export const props: PropsGroupsInterface = {
     FieldPropsEnum.error,
     FieldPropsEnum.deleted,
     FieldPropsEnum.disabled,
+    FieldPropsEnum.autoFocus,
   ],
   handlers: [
     FieldPropsEnum.onChange,
@@ -66,6 +67,7 @@ export const props: PropsGroupsInterface = {
     "labels",
     "placeholders",
     "disabled",
+    "deleted",
     "related",
     "options",
     "extra",
@@ -73,12 +75,24 @@ export const props: PropsGroupsInterface = {
     "types",
     "hooks",
     "handlers",
-    "deleted",
-    "error",
+    "autoFocus",
+    "refs"
   ],
-  functions: ["observers", "interceptors", "input", "output"],
-  validation: ["rules", "validators", "validatedWith"],
-  exceptions: ["isDirty", "isPristine"],
+  functions: [
+    FieldPropsEnum.observers,
+    FieldPropsEnum.interceptors,
+    FieldPropsEnum.input,
+    FieldPropsEnum.output,
+  ],
+  validation: [
+    FieldPropsEnum.rules,
+    FieldPropsEnum.validators,
+    FieldPropsEnum.validatedWith,
+  ],
+  exceptions: [
+    FieldPropsEnum.isDirty,
+    FieldPropsEnum.isPristine
+  ],
   types: {
     isDirty: "some",
     isPristine: "every",

@@ -1,3 +1,12 @@
+# 5.6.0 (next)
+
+- Introduced `ref` Field prop. (handle React Refs);
+- `ref` is auto-binded with the input when using `bind()` or can be defined/changed with `set()`
+- `autoFocus` bheavior changed, now can be defined in field definitions or can be assigned with `set()`.
+- `focus()` method reimplemented using auto-ref (fixed).
+- Introduced Field `blur()` method (using auto-ref).
+- Fix: #529 #250 #524
+
 # 5.5.2 (next)
 
 - Fix: Empty Constructor (was requiring at least an empyt object if used with only class fileds definitions)
