@@ -44,7 +44,7 @@ const hasProps = ($type: any, $data: any) => {
       break;
     case "field":
       $props = [
-        ...props.field,
+        ...props.editable,
         ...props.validation,
         ...props.functions,
         ...props.handlers,
@@ -54,7 +54,7 @@ const hasProps = ($type: any, $data: any) => {
       $props = [
         FieldPropsEnum.id,
         ...props.computed,
-        ...props.field,
+        ...props.editable,
         ...props.validation,
         ...props.functions,
         ...props.handlers,
@@ -119,7 +119,7 @@ const allowNested = (field: any, strictProps: boolean): boolean =>
   !_.isDate(field) &&
   !_.has(field, FieldPropsEnum.fields) &&
   (!hasSome(field, [
-    ...props.field,
+    ...props.editable,
     ...props.validation,
     ...props.functions,
     ...props.handlers,

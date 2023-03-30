@@ -11,6 +11,9 @@ const hooks = {
     onInit(form: FormInterface) {
         form.$('user.id').set('value', 'user-id');
         form.$('user.name').set('value', 'user-init');
+        form.$('user.name').set('disabled', true);
+        form.$('user.name').set('ref', "ref");
+
     },
     onChange(form: FormInterface) {
         form.$('user.name').set('value', 'user-changed');

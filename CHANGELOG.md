@@ -1,4 +1,8 @@
-# 5.6.0 (next)
+# 5.7.1 (next)
+
+- fix: allow `ref` prop on `set()`
+- fix: `ref` computed accessible (before was accessed by $ref)
+# 5.7.0 (next)
 
 - Introduced `ref` Field prop. (handle React Refs);
 - `ref` is auto-binded with the input when using `bind()` or can be defined/changed with `set()`

@@ -29,6 +29,12 @@ describe('Check form onChange hook', () => {
 
     it('$V test.email value should be equal "test@email"', () =>
         expect($.$V.$('test.email').value).to.be.equal('test@email'));
+
+    it('$V user.name disabled should be true', () =>
+        expect($.$V.$('user.name').disabled).to.be.true);
+
+    it('$V user.name ref should be equal "ref"', () =>
+        expect($.$V.$('user.name').ref).to.be.equal("ref"));
 });
 
 describe('Check form onChange hook after reset',  () => {

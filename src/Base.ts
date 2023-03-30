@@ -453,7 +453,7 @@ export default class Base implements BaseInterface {
   get(prop: any = null, strict: boolean = true): any {
     if (_.isNil(prop)) {
       return this.deepGet(
-        [...props.computed, ...props.field, ...props.validation],
+        [...props.computed, ...props.editable, ...props.validation],
         this.fields
       );
     }

@@ -1,20 +1,20 @@
 import { FieldPropsEnum } from "./models/FieldProps";
 
 export interface PropsGroupsInterface {
-  field: FieldPropsEnum[];
-  handlers: FieldPropsEnum[];
-  computed: FieldPropsEnum[];
-  separated: string[];
+  editable: string[];
+  handlers: string[];
+  computed: string[];
   functions: string[];
   validation: string[];
   exceptions: string[];
+  separated: string[];
   types: {
     [index: string]: "some" | "every";
   };
 }
 
 export const props: PropsGroupsInterface = {
-  field: [
+  editable: [
     FieldPropsEnum.type,
     FieldPropsEnum.value,
     FieldPropsEnum.initial,
@@ -31,6 +31,7 @@ export const props: PropsGroupsInterface = {
     FieldPropsEnum.deleted,
     FieldPropsEnum.disabled,
     FieldPropsEnum.autoFocus,
+    FieldPropsEnum.ref,
   ],
   handlers: [
     FieldPropsEnum.onChange,
