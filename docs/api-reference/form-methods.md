@@ -22,16 +22,17 @@
 | **check(computed)** | (string) | boolean | Check field computed property. | - |
 | **check(computed, deep)** | (string, boolean) | boolean | Check all nested fields computed property if `deep` is `true` | - |
 | **get()** | - | object | Get all field and nested fields data with all props and computed values. | - |
-| **get(prop)** | (mixed) | object | Get all field filtering by certain `props` (string or array). | - |
-| **set(val)** | (mixed) | - | Set field value. Takes the value. | - |
+| **get(prop)** | (any) | object | Get all field filtering by certain `props` (string or array). | - |
+| **set(val)** | (any) | - | Set field value. Takes the value. | - |
 | **set(obj)** | (object) | - | Provide an object to set nested fields values. | - |
-| **set(prop, val)** | (string, mixed) | - | Set field property. Takes prop key and prop value. | - |
+| **set(prop, val)** | (string, any) | - | Set field property. Takes prop key and prop value. | - |
 | **set(prop, obj)** | (string, object) | - | Provide a prop key and object to set nested fields properties. | - |
 | **has(key)** | (string) | - | Provide Field key to check if exist. | - |
 | **map(callback)** | (function) | - | Map Nested Fields | - |
+| **reduce(callback, acc)** | (function) | - | Reduce Nested Fields | - |
 | **each(callback)** | (function) | - | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | - |
-| **add(obj)** | (mixed) | mixed | Add a Field or Nested Fields. | - |
-| **del(key)** | (mixed) | - | Delete a Field or Nested Fields by `key` or `path`. | - |
+| **add(obj)** | (any) | any | Add a Field or Nested Fields. | - |
+| **del(key)** | (any) | - | Delete a Field or Nested Fields by `key` or `path`. | - |
 | **observe(obj)** | (object) | - | Define a MobX Observer on Field Props or Field Map. | - |
 | **intercept(obj)** | (object) | - | Define a MobX Interceptor on Field Props or Field Map. | - |
 | **hasNestedFields()** | - | boolean | Check if the form has Nested Fields. | - |

@@ -19,7 +19,7 @@
 | **default** | boolean | computed | The default/initial value of the field. | - |
 | **disabled** | boolean | computed | The disabled state of the field. | - |
 | **deleted** | boolean | computed | The deleted state of the field. (see `softDelete` option) | - |
-| **value** | mixed | computed | Computed value of the field. | - |
+| **value** | any | computed | Computed value of the field. | - |
 | **focused** | boolean | computed | Check if the field is focused. | - |
 | **touched** | boolean | computed | Check if the field is touched. | - |
 | **changed** | boolean | computed | Check if the field is changed. | - |
@@ -36,7 +36,7 @@
 | **hasError** | boolean | computed | Check if the field has errors. | - |
 | **error** | string | computed | Field error message. | - |
 | **options** | object | computed | Individual Field Options, with fallback on Form Options. | - |
-| **extra** | mixed | computed | Additional extra data for the field (useful for a select input). | - |
+| **extra** | any | computed | Additional extra data for the field (useful for a select input). | - |
 | **files** | string | computed | Use the `onDrop` Event Handler to retrieve the files data. | - |
 | **autoFocus** | boolean | computed | Set this to `true` for the first input to be focused at form init. | - |
 | **ref** | React Ref | computed | A React Ref will be attached if `bind()` is used. | - |
