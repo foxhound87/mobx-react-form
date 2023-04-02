@@ -1,3 +1,11 @@
+# 5.8.0 (next)
+
+- `set()` method will increase `changed` prop and trigger `onChange` Event Hook
+- Mobx events (observe/intercept) allowed props guarded.
+- Introduced `onSync` Hook (triggered on `onChange` Event Handler)
+- Introduced `validateOnSubmit` form option (active by default).
+- Fix: `ref` prop for separated props mode renamed to `refs` (plural)
+- Fix: #337
 # 5.7.1 (next)
 
 - fix: allow `ref` prop on `set()`

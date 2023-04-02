@@ -44,6 +44,7 @@ export default interface FieldInterface extends BaseInterface {
   touched: boolean;
   deleted: boolean;
   // handlers
+  onSync(args: any): any;
   onChange(args: any): any;
   onToggle(args: any): any;
   onBlur(args: any): any;

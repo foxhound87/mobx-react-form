@@ -120,6 +120,7 @@ export default class Field extends Base implements FieldInterface {
   disposeValidationOnChange: any;
 
   files: any;
+
   constructor({
     key,
     path,
@@ -225,9 +226,8 @@ export default class Field extends Base implements FieldInterface {
 
     this.execHook(FieldPropsEnum.onInit);
 
-    // handle Field onChange Hook for nested fields
-    this.hasNestedFields
-      && autorun(() => this.changed && this.execHook(FieldPropsEnum.onChange));
+    // handle Field onChange Hook
+    autorun(() => this.changed && this.execHook(FieldPropsEnum.onChange));
   }
 
   /* ------------------------------------------------------------------ */
@@ -436,10 +436,12 @@ export default class Field extends Base implements FieldInterface {
     this.value = e;
   });
 
-  onChange = (...args: any) =>
+  onSync = (...args: any) =>
     this.type === "file"
       ? this.onDrop(...args)
-      : this.execHandler(FieldPropsEnum.onChange, args, this.sync);
+      : this.execHandler(FieldPropsEnum.onSync, args, this.sync);
+
+  onChange = this.onSync;
 
   onToggle = (...args: any) =>
     this.execHandler(FieldPropsEnum.onToggle, args, this.sync);

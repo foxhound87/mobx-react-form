@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { ObservableMap, values as mobxValues, keys as mobxKeys } from "mobx";
 import FieldInterface from "./models/FieldInterface";
-import { FieldPropsEnum } from "./models/FieldProps";
+import { AllowedFieldPropsTypes, FieldPropsEnum, FieldPropsOccurrence } from "./models/FieldProps";
 import { props } from "./props";
 
 const getObservableMapValues = (observableMap: ObservableMap):
@@ -21,17 +21,12 @@ const checkObserveItem =
 const checkObserve = (collection: object[]) => (change: any) =>
   collection.map(checkObserveItem(change));
 
-const checkPropType = ({ type, data }: any) => {
+const checkPropOccurrence = ({ type, data }: any): boolean => {
   let $check: any;
   switch (type) {
-    case "some":
-      $check = ($data: object) => _.some($data, Boolean);
-      break;
-    case "every":
-      $check = ($data: object) => _.every($data, Boolean);
-      break;
-    default:
-      $check = null;
+    case FieldPropsOccurrence.some: $check = ($data: object) => _.some($data, Boolean); break;
+    case FieldPropsOccurrence.every: $check = ($data: object) => _.every($data, Boolean); break;
+    default: throw new Error('Occurrence not found for specified prop');
   }
   return $check(data);
 };
@@ -39,10 +34,17 @@ const checkPropType = ({ type, data }: any) => {
 const hasProps = ($type: any, $data: any) => {
   let $props;
   switch ($type) {
-    case "computed":
+    case AllowedFieldPropsTypes.computed:
       $props = props.computed;
       break;
-    case "field":
+    case AllowedFieldPropsTypes.observable:
+        $props = [
+          FieldPropsEnum.fields,
+          ...props.computed,
+          ...props.editable,
+        ];
+        break;
+    case AllowedFieldPropsTypes.editable:
       $props = [
         ...props.editable,
         ...props.validation,
@@ -50,9 +52,12 @@ const hasProps = ($type: any, $data: any) => {
         ...props.handlers,
       ];
       break;
-    case "all":
+    case AllowedFieldPropsTypes.all:
       $props = [
         FieldPropsEnum.id,
+        FieldPropsEnum.key,
+        FieldPropsEnum.name,
+        FieldPropsEnum.path,
         ...props.computed,
         ...props.editable,
         ...props.validation,
@@ -109,7 +114,7 @@ const $getKeys = (fields: any) =>
   _.union(..._.map(_.values(fields), (values) => _.keys(values)));
 
 const hasUnifiedProps = ({ fields }: any) =>
-  !isArrayOfStrings({ fields }) && hasProps("field", $getKeys(fields));
+  !isArrayOfStrings({ fields }) && hasProps(AllowedFieldPropsTypes.editable, $getKeys(fields));
 
 const hasSeparatedProps = (initial: any) =>
   hasSome(initial, props.separated) || hasSome(initial, props.validation);
@@ -123,8 +128,7 @@ const allowNested = (field: any, strictProps: boolean): boolean =>
     ...props.validation,
     ...props.functions,
     ...props.handlers,
-  ]) ||
-    strictProps);
+  ]) || strictProps);
 
 const parseIntKeys = (fields: any) =>
   _.map(getObservableMapKeys(fields), _.ary(_.toNumber, 1));
@@ -134,6 +138,7 @@ const hasIntKeys = (fields: any): boolean =>
 
 const maxKey = (fields: any): number => {
   const max = _.max(parseIntKeys(fields));
+  // @ts-ignore
   return _.isUndefined(max) ? 0 : max + 1;
 };
 
@@ -156,11 +161,8 @@ const $isBool = ($: any, val: any): boolean =>
 const $try = (...args: any) => {
   let found: any | null = null;
 
-  args.map(
-    (
-      val: any // eslint-disable-line
-    ) => found === null && !_.isUndefined(val) && (found = val)
-  );
+  args.map(( val: any ) =>
+    found === null && !_.isUndefined(val) && (found = val));
 
   return found;
 };
@@ -168,7 +170,7 @@ const $try = (...args: any) => {
 export {
   props,
   checkObserve,
-  checkPropType,
+  checkPropOccurrence,
   hasProps,
   allowedProps,
   throwError,

@@ -10,6 +10,7 @@ export enum OptionsEnum {
   showErrorsOnClear = 'showErrorsOnClear',
   showErrorsOnReset = 'showErrorsOnReset',
   validateOnInit = 'validateOnInit',
+  validateOnSubmit = 'validateOnSubmit',
   validateOnBlur = 'validateOnBlur',
   validateOnChange = 'validateOnChange',
   validateOnChangeAfterInitialBlur = 'validateOnChangeAfterInitialBlur',
@@ -47,6 +48,7 @@ export default interface OptionsModel {
   [OptionsEnum.showErrorsOnClear]?: boolean;
   [OptionsEnum.showErrorsOnReset]?: boolean;
   [OptionsEnum.validateOnInit]?: boolean;
+  [OptionsEnum.validateOnSubmit]?: boolean;
   [OptionsEnum.validateOnBlur]?: boolean;
   [OptionsEnum.validateOnChange]?: boolean;
   [OptionsEnum.validateOnChangeAfterInitialBlur]?: boolean;

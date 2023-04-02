@@ -16,7 +16,7 @@ import FieldInterface from "./models/FieldInterface";
 import {
   props,
   allowedProps,
-  checkPropType,
+  checkPropOccurrence,
   throwError,
   isArrayOfObjects,
   getObservableMapValues,
@@ -37,8 +37,9 @@ import {
   pathToFieldsTree,
   defaultClearValue,
 } from "./parser";
-import { FieldPropsEnum } from "./models/FieldProps";
+import { AllowedFieldPropsTypes, FieldPropsEnum, SeparatedPropsMode } from "./models/FieldProps";
 import { OptionsEnum } from "./models/OptionsModel";
+import { ValidationHooks } from "./models/ValidatorInterface";
 export default class Base implements BaseInterface {
   noop = () => {};
 
@@ -258,29 +259,29 @@ export default class Base implements BaseInterface {
     };
 
     const props = {
-      $value: _.get(initial["values"], path),
-      $label: _try("labels"),
-      $placeholder: _try("placeholders"),
-      $default: _try("defaults"),
-      $initial: _try("initials"),
-      $disabled: _try("disabled"),
-      $deleted: _try("deleted"),
-      $type: _try("types"),
-      $related: _try("related"),
-      $rules: _try("rules"),
-      $options: _try("options"),
-      $bindings: _try("bindings"),
-      $extra: _try("extra"),
-      $hooks: _try("hooks"),
-      $handlers: _try("handlers"),
-      $validatedWith: _try("validatedWith"),
-      $validators: _try("validators"),
-      $observers: _try("observers"),
-      $interceptors: _try("interceptors"),
-      $input: _try("input"),
-      $output: _try("output"),
-      $autoFocus: _try("autoFocus"),
-      $ref: _try("ref"),
+      $value: _.get(initial[SeparatedPropsMode.values], path),
+      $label: _try(SeparatedPropsMode.labels),
+      $placeholder: _try(SeparatedPropsMode.placeholders),
+      $default: _try(SeparatedPropsMode.defaults),
+      $initial: _try(SeparatedPropsMode.initials),
+      $disabled: _try(SeparatedPropsMode.disabled),
+      $deleted: _try(SeparatedPropsMode.deleted),
+      $type: _try(SeparatedPropsMode.types),
+      $related: _try(SeparatedPropsMode.related),
+      $rules: _try(SeparatedPropsMode.rules),
+      $options: _try(SeparatedPropsMode.options),
+      $bindings: _try(SeparatedPropsMode.bindings),
+      $extra: _try(SeparatedPropsMode.extra),
+      $hooks: _try(SeparatedPropsMode.hooks),
+      $handlers: _try(SeparatedPropsMode.handlers),
+      $validatedWith: _try(SeparatedPropsMode.validatedWith),
+      $validators: _try(SeparatedPropsMode.validators),
+      $observers: _try(SeparatedPropsMode.observers),
+      $interceptors: _try(SeparatedPropsMode.interceptors),
+      $input: _try(SeparatedPropsMode.input),
+      $output: _try(SeparatedPropsMode.output),
+      $autoFocus: _try(SeparatedPropsMode.autoFocus),
+      $ref: _try(SeparatedPropsMode.refs),
     };
 
     const field = this.state.form.makeField({
@@ -314,8 +315,16 @@ export default class Base implements BaseInterface {
     this.$submitting = true;
     this.$submitted += 1;
 
-    const exec = (isValid: boolean) =>
-      isValid ? this.execHook("onSuccess", o) : this.execHook("onError", o);
+    if (!this.state.options.get(OptionsEnum.validateOnSubmit, this)) {
+      return Promise
+        .resolve(this)
+        .then(action(() => (this.$submitting = false)))
+        .then(() => this);
+    }
+
+    const exec = (isValid: boolean) => isValid
+      ? this.execHook(ValidationHooks.onSuccess, o)
+      : this.execHook(ValidationHooks.onError, o);
 
     return (
       this.validate({
@@ -345,12 +354,12 @@ export default class Base implements BaseInterface {
     Check Field Computed Values
    */
   check(prop: string, deep: boolean = false): boolean {
-    allowedProps("computed", [prop]);
+    allowedProps(AllowedFieldPropsTypes.computed, [prop]);
 
     return deep
-      ? checkPropType({
-          type: props.types[prop],
-          data: this.deepCheck(props.types[prop], prop, this.fields),
+      ? checkPropOccurrence({
+          type: props.occurrences[prop],
+          data: this.deepCheck(props.occurrences[prop], prop, this.fields),
         })
       : (this as any)[prop];
   }
@@ -365,7 +374,7 @@ export default class Base implements BaseInterface {
         }
 
         const $deep = this.deepCheck(type, prop, field.fields);
-        check.push(checkPropType({ type, data: $deep }));
+        check.push(checkPropOccurrence({ type, data: $deep }));
         return check;
       },
       []
@@ -458,7 +467,7 @@ export default class Base implements BaseInterface {
       );
     }
 
-    allowedProps("all", _.isArray(prop) ? prop : [prop]);
+    allowedProps(AllowedFieldPropsTypes.all, _.isArray(prop) ? prop : [prop]);
 
     if (_.isString(prop)) {
       if (strict && this.fields.size === 0) {
@@ -536,14 +545,16 @@ export default class Base implements BaseInterface {
   set(prop: any, data?: any): void {
     // UPDATE CUSTOM PROP
     if (_.isString(prop) && !_.isUndefined(data)) {
-      allowedProps("field", [prop]);
+      allowedProps(AllowedFieldPropsTypes.editable, [prop]);
       const deep = (_.isObject(data) && prop === FieldPropsEnum.value) || _.isPlainObject(data);
-      if (deep && this.hasNestedFields) this.deepSet(prop, data, "", true);
-      else _.set(this, `$${prop}`, data);
-
+      if (deep && this.hasNestedFields) return this.deepSet(prop, data, "", true);
+      // else _.set(this, `$${prop}`, data);
       if (prop === FieldPropsEnum.value) {
-        this.$changed ++;
-        this.state.form.$changed ++;
+        (this as any).value = parseInput((this as any).$input, {
+          separated: data,
+        });
+      } else {
+        _.set(this, `$${prop}`, data);
       }
       return;
     }
@@ -667,7 +678,15 @@ export default class Base implements BaseInterface {
   /**
     MobX Event (observe/intercept)
    */
-  MOBXEvent({ path = null, key = FieldPropsEnum.value, call, type }: any): void {
+  MOBXEvent({
+    prop = FieldPropsEnum.value,
+    key = null,
+    path = null,
+    call,
+    type
+  }: any): void {
+    let $prop = key || prop;
+    allowedProps(AllowedFieldPropsTypes.observable, [$prop]);
     const $instance = this.select(path || this.path, null, null) || this;
 
     const $call = (change: any) =>
@@ -685,23 +704,21 @@ export default class Base implements BaseInterface {
 
     if (type === "observer") {
       fn = observe;
-      ffn = (cb: any) => observe($instance.fields, cb);
+      ffn = (cb: any) => observe($instance.fields, cb); // fields
     }
 
     if (type === "interceptor") {
-      // eslint-disable-next-line
-      key = `$${key}`;
+      $prop = `$${prop}`;
       fn = intercept;
-      ffn = $instance.fields.intercept;
+      ffn = $instance.fields.intercept; // fields
     }
-
-    const $dkey = $instance.path ? `${key}@${$instance.path}` : key;
+    const $dkey = $instance.path ? `${$prop}@${$instance.path}` : $prop;
 
     _.merge(this.state.disposers[type], {
       [$dkey]:
-        key === FieldPropsEnum.fields
+      $prop === FieldPropsEnum.fields
           ? ffn.apply((change: any) => $call(change))
-          : (fn as any)($instance, key, (change: any) => $call(change)),
+          : (fn as any)($instance, $prop, (change: any) => $call(change)),
     });
   }
 

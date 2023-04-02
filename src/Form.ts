@@ -7,10 +7,7 @@ import State from "./State";
 import Field from "./Field";
 import ValidatorInterface from "./models/ValidatorInterface";
 import FieldInterface, { FieldConstructor } from "./models/FieldInterface";
-import FormInterface, {
-  FieldsDefinitions,
-  FormConfig,
-} from "./models/FormInterface";
+import FormInterface, { FieldsDefinitions, FormConfig } from "./models/FormInterface";
 import { FieldPropsEnum } from "./models/FieldProps";
 import { OptionsEnum } from "./models/OptionsModel";
 
@@ -166,7 +163,7 @@ export default class Form extends Base implements FormInterface {
     return new Field(data);
   }
 
-  /**
+  /** DEPRECATED
     Init Form Fields and Nested Fields
 
   init($fields: any = null): void {

@@ -27,6 +27,7 @@ export default class Options implements OptionsInterface {
     showErrorsOnClear: false,
     showErrorsOnReset: true,
     validateOnInit: true,
+    validateOnSubmit: true,
     validateOnBlur: true,
     validateOnChange: false,
     validateOnChangeAfterInitialBlur: false,

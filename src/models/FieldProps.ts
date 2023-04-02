@@ -43,6 +43,7 @@ export enum FieldPropsEnum {
   hasError = "hasError",
   // handlers
   onInit = "onInit",
+  onSync = "onSync",
   onChange = "onChange",
   onBlur = "onBlur",
   onFocus = "onFocus",
@@ -60,4 +61,42 @@ export enum FieldPropsEnum {
 
 export type FieldPropsType = {
   [key in FieldPropsEnum]?: any;
+}
+
+export enum AllowedFieldPropsTypes {
+  computed = 'computed',
+  observable = 'observable',
+  editable = 'editable',
+  all = 'all',
+}
+
+export enum FieldPropsOccurrence {
+  some = 'some',
+  every = 'every',
+}
+
+export enum SeparatedPropsMode {
+  values = 'values',
+  labels = 'labels',
+  placeholders = 'placeholders',
+  defaults = 'defaults',
+  initials = 'initials',
+  disabled = 'disabled',
+  deleted = 'deleted',
+  types = 'types',
+  related = 'related',
+  rules = 'rules',
+  options = 'options',
+  bindings = 'bindings',
+  extra = 'extra',
+  hooks = 'hooks',
+  handlers = 'handlers',
+  validatedWith = 'validatedWith',
+  validators = 'validators',
+  observers = 'observers',
+  interceptors = 'interceptors',
+  input = 'input',
+  output = 'output',
+  autoFocus = 'autoFocus',
+  refs = 'refs',
 }

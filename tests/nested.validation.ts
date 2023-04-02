@@ -23,6 +23,9 @@ describe('Check Nested $A validation', () => {
 });
 
 describe('Check Nested $U validation', () => {
+  it('$U user.email value should be false', () =>
+    expect($.$U.$('user.email').value).to.be.equal('notAnEmail'));
+
   it('$U user.emailConfirm isValid should be false', () =>
     expect($.$U.$('user.emailConfirm').isValid).to.be.false);
 

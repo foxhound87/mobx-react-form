@@ -38,3 +38,8 @@ export interface ValidationPluginInterface extends ValidationPluginConstructor {
 export interface DriversMap {
   [index: string]: ValidationPluginInterface;
 }
+
+export enum ValidationHooks {
+  onSuccess = 'onSuccess',
+  onError = 'onError',
+}

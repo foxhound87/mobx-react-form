@@ -159,8 +159,8 @@ describe('Check Fixes $I values', () => {
 });
 
 describe('Check Fixes $M values', () => {
-  it('$M people[0].name value should be null', () =>
-    expect($.$M.$('people[0].name').value).to.be.null);
+  it('$M people[0].name value should be empty', () =>
+    expect($.$M.$('people[0].name').value).to.be.empty);
 
   it('$M items[0].name value should be equal to zero', () =>
     expect($.$M.$('items[0].name').value).to.be.equal(0));
