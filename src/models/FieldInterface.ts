@@ -16,6 +16,7 @@ export default interface FieldInterface extends BaseInterface {
   validationFunctionsData: any[];
   debouncedValidation: any;
   autoFocus: boolean;
+  inputMode: string;
   ref: any;
   showError: boolean;
   checkValidationErrors: boolean;

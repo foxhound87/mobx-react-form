@@ -36,23 +36,27 @@ export interface FieldsDefinitions {
   values?: any;
   labels?: any;
   placeholders?: any;
-  initials?: any;
   defaults?: any;
+  initials?: any;
   disabled?: any;
-  related?: any;
-  options?: any;
-  extra?: any;
+  deleted?: any;
   types?: any;
-  input?: any;
-  output?: any;
+  related?: any;
+  rules?: any;
+  options?: any;
   bindings?: any;
-  observers?: any;
-  interceptors?: any;
-  validatedWith?: any;
+  extra?: any;
   hooks?: any;
   handlers?: any;
+  validatedWith?: any;
   validators?: any;
-  rules?: any;
+  observers?: any;
+  interceptors?: any;
+  input?: any;
+  output?: any;
+  autoFocus?: any;
+  inputMode?: any;
+  refs?: any;
 }
 
 export interface FormConfig {

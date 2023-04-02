@@ -33,6 +33,12 @@ describe('Check form onChange hook', () => {
     it('$V user.name disabled should be true', () =>
         expect($.$V.$('user.name').disabled).to.be.true);
 
+    it('$V user.name autoFocus should be true', () =>
+        expect($.$V.$('user.name').autoFocus).to.be.true);
+
+    it('$V user.name inputMode should be equal "text"', () =>
+        expect($.$V.$('user.name').inputMode).to.be.equal('text'));
+
     it('$V user.name ref should be equal "ref"', () =>
         expect($.$V.$('user.name').ref).to.be.equal("ref"));
 });

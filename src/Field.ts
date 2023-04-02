@@ -43,6 +43,7 @@ const setupFieldProps = (instance: FieldInterface, props: any, data: any) =>
     $hooks: props.$hooks || (data && data.hooks) || {},
     $handlers: props.$handlers || (data && data.handlers) || {},
     $autoFocus: props.$autoFocus || (data && data.autoFocus) || false,
+    $inputMode: props.$inputMode || (data && data.inputMode) || undefined,
     $ref: props.$ref || (data && data.ref) || undefined,
   });
 
@@ -102,6 +103,7 @@ export default class Field extends Base implements FieldInterface {
   $blurred: boolean = false;
   $deleted: boolean = false;
   $autoFocus: boolean = false;
+  $inputMode: string = undefined;
   $ref: any = undefined
 
   $clearing: boolean = false;
@@ -159,6 +161,7 @@ export default class Field extends Base implements FieldInterface {
       validationAsyncData: observable,
       files: observable,
       autoFocus: computed,
+      inputMode: computed,
       ref: computed,
       checkValidationErrors: computed,
       checked: computed,
@@ -254,7 +257,7 @@ export default class Field extends Base implements FieldInterface {
   set value(newVal) {
     if (this.$value === newVal) return;
     // handle numbers
-    if (this.state.options.get(OptionsEnum.autoParseNumbers, this) === true) {
+    if (this.state.options.get(OptionsEnum.autoParseNumbers, this)) {
       if (_.isNumber(this.$initial)) {
         if (
           new RegExp("^-?\\d+(,\\d+)*(\\.\\d+([eE]\\d+)?)?$", "g").exec(newVal)
@@ -268,7 +271,9 @@ export default class Field extends Base implements FieldInterface {
         }
       }
     }
-    // handle parse value
+    if (_.isString(newVal) && this.state.options.get(OptionsEnum.autoTrimValue, this)) {
+      newVal = newVal.trim();
+    }
     this.$value = newVal;
     this.$changed ++;
     if (!this.resetting && !this.clearing) {
@@ -310,6 +315,10 @@ export default class Field extends Base implements FieldInterface {
 
   get autoFocus() {
     return this.$autoFocus;
+  }
+
+  get inputMode() {
+    return this.$inputMode;
   }
 
   get type() {

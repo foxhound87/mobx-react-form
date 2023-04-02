@@ -25,6 +25,7 @@ export default class Bindings implements BindingsInterface {
       onBlur: FieldPropsEnum.onBlur,
       onFocus: FieldPropsEnum.onFocus,
       autoFocus: FieldPropsEnum.autoFocus,
+      inputMode: FieldPropsEnum.inputMode,
       onKeyUp: FieldPropsEnum.onKeyUp,
       onKeyDown: FieldPropsEnum.onKeyDown,
     },

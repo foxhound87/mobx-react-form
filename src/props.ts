@@ -31,6 +31,7 @@ export const props: PropsGroupsInterface = {
     FieldPropsEnum.deleted,
     FieldPropsEnum.disabled,
     FieldPropsEnum.autoFocus,
+    FieldPropsEnum.inputMode,
     FieldPropsEnum.ref,
   ],
   handlers: [
@@ -84,6 +85,7 @@ export const props: PropsGroupsInterface = {
     SeparatedPropsMode.input,
     SeparatedPropsMode.output,
     SeparatedPropsMode.autoFocus,
+    SeparatedPropsMode.inputMode,
     SeparatedPropsMode.refs,
   ],
   functions: [

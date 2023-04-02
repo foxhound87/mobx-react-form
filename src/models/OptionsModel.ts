@@ -28,6 +28,7 @@ export enum OptionsEnum {
   retrieveOnlyEnabledFieldsErrors = 'retrieveOnlyEnabledFieldsErrors',
   removeNullishValuesInArrays = 'removeNullishValuesInArrays',
   preserveDeletedFieldsValues = 'preserveDeletedFieldsValues',
+  autoTrimValue = 'autoTrimValue',
   autoParseNumbers = 'autoParseNumbers',
   validationDebounceWait = 'validationDebounceWait',
   validationDebounceOptions = 'validationDebounceOptions',
@@ -66,6 +67,7 @@ export default interface OptionsModel {
   [OptionsEnum.retrieveOnlyEnabledFieldsErrors]?: boolean;
   [OptionsEnum.removeNullishValuesInArrays]?: boolean;
   [OptionsEnum.preserveDeletedFieldsValues]?: boolean;
+  [OptionsEnum.autoTrimValue]?: boolean;
   [OptionsEnum.autoParseNumbers]?: boolean;
   [OptionsEnum.validationDebounceWait]?: number;
   [OptionsEnum.validationDebounceOptions]?: {

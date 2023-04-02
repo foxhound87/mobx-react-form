@@ -12,6 +12,8 @@ const hooks = {
         form.$('user.id').set('value', 'user-id');
         form.$('user.name').set('value', 'user-init');
         form.$('user.name').set('disabled', true);
+        form.$('user.name').set('autoFocus', true);
+        form.$('user.name').set('inputMode', "text");
         form.$('user.name').set('ref', "ref");
 
     },

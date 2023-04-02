@@ -55,6 +55,7 @@ export enum FieldPropsEnum {
   onAdd = "onAdd",
   onDel = "onDel",
   autoFocus = "autoFocus",
+  inputMode = "inputMode",
   onKeyDown = "onKeyDown",
   onKeyUp = 'onKeyUp',
 }
@@ -98,5 +99,6 @@ export enum SeparatedPropsMode {
   input = 'input',
   output = 'output',
   autoFocus = 'autoFocus',
+  inputMode = 'inputMode',
   refs = 'refs',
 }

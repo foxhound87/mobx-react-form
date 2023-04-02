@@ -1,3 +1,9 @@
+# 5.9.0 (next)
+
+- Introduced `inputMode` Field property.
+- Introduced `autoTrimValue` form option (can be also enabled on single field).
+Fix: #283
+
 # 5.8.0 (next)
 
 - `set()` method will increase `changed` prop and trigger `onChange` Event Hook

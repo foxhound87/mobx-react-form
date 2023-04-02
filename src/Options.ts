@@ -43,6 +43,7 @@ export default class Options implements OptionsInterface {
     retrieveOnlyDirtyFieldsValues: false,
     retrieveOnlyEnabledFieldsValues: false,
     retrieveOnlyEnabledFieldsErrors: false,
+    autoTrimValue: false,
     autoParseNumbers: false,
     removeNullishValuesInArrays: false,
     preserveDeletedFieldsValues: false,
