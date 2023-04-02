@@ -41,6 +41,7 @@
 | **retrieveOnlyDirtyFieldsValues** | boolean | false | Get only Dirty Fields Values when using `get('value')` or the `values()` helper. |
 | **removeNullishValuesInArrays** | boolean | false | Remove nullish values from arrays when using `get('value')` or the `values()` helper. |
 | **preserveDeletedFieldsValues** | boolean | false | After deleting and adding same field, the defined initial values will be preserverd if this option is activated. |
+| **autoTrimValue** | boolean | false | Trim field value if is a string. |
 | **autoParseNumbers** | boolean | false | Try to parse strings to numbers automatically if the initial value of the field is a number. |
 | **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
 | **validationDebounceOptions** | object | { leading: false, trailing: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |
