@@ -25,6 +25,7 @@
 | **showErrorsOnClear** | boolean | false | Show or hide errors `on clear`. |
 | **showErrorsOnReset** | boolean | true | Show or hide errors `on reset`. |
 | **validateOnInit** | boolean | true | Validate of the whole form `on init`. |
+| **validateOnSubmit** | boolean | true | Validate fieldset `on submit`. If disabled, Validation Hooks will not be triggered (`onSuccess`/`onError`) |
 | **validateOnBlur** | boolean | true | Validate fields value `on blur`. |
 | **validateOnChange** | boolean | false | Validate fields value `on change`. |
 | **validateOnChangeAfterSubmit** | boolean | false | Validate fields value `on change` after form submit. |
@@ -36,9 +37,10 @@
 | **strictDelete** | boolean | true | Throw an error if trying to delete an undefined field. |
 | **softDelete** | boolean | false | When using `del()` the field will not be deleted, instead its `deleted` prop will be switched to `true`. |
 | **retrieveOnlyEnabledFieldsErrors** | boolean | false | Get only Enabled Fields Errors when using `get('error')` or the `errors()` helper. |
-| **retrieveOnlyDirtyFieldsValues** | boolean | false | Get only Dirty Fields Values when using `get('value')` or the `values()` helper. |
 | **retrieveOnlyEnabledFieldsValues** | boolean | false | Get only Enabled Fields Values when using `get('value')` or the `values()` helper. |
+| **retrieveOnlyDirtyFieldsValues** | boolean | false | Get only Dirty Fields Values when using `get('value')` or the `values()` helper. |
 | **removeNullishValuesInArrays** | boolean | false | Remove nullish values from arrays when using `get('value')` or the `values()` helper. |
+| **preserveDeletedFieldsValues** | boolean | false | After deleting and adding same field, the defined initial values will be preserverd if this option is activated. |
 | **autoParseNumbers** | boolean | false | Try to parse strings to numbers automatically if the initial value of the field is a number. |
 | **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
 | **validationDebounceOptions** | object | { leading: false, trailing: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |

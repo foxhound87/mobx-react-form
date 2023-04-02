@@ -38,6 +38,8 @@
 | **options** | object | computed | Individual Field Options, with fallback on Form Options. | - |
 | **extra** | mixed | computed | Additional extra data for the field (useful for a select input). | - |
 | **files** | string | computed | Use the `onDrop` Event Handler to retrieve the files data. | - |
+| **autoFocus** | boolean | computed | Set this to `true` for the first input to be focused at form init. | - |
+| **ref** | React Ref | computed | A React Ref will be attached if `bind()` is used. | - |
 | **validatedValue** | object | computed | Obtain Field `validatedWith` value. | - |
 | **validatedValues** | object | computed | Obtain validated values. | - |
 | **hasNestedFields** | boolean | computed | Check if the field has Nested Fields. | - |

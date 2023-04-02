@@ -7,6 +7,7 @@
 | **clear()** | - | - | Clear the Field or Nested Fields to empty value. | [help](../actions/shared.md#clear--reset-form-or-fields) |
 | **reset()** | - | - | Reset the Field or Nested Fields to default value. | [help](../actions/shared.md#clear--reset-form-or-fields) |
 | **focus()** | - | - | Programmatically set focus on the field. | [help](../actions/shared.md#programmatically-focus-a-field) |
+| **blur()** | - | - | Programmatically blur the field if focused. | - |
 | **invalidate(msg)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | [help](../actions/shared.md#invalidate-the-form-or-a-single-field) |
 | **resetValidation()** | - | - | Reset the field validation status. | - |
 | **showErrors(bool)** | bool | - | Show or Hide Field Error Messages. | - |
