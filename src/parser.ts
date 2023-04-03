@@ -22,8 +22,8 @@ const defaultValue = ({
   if (_.isDate(value) || type === "date") return null;
   if (_.isNumber(value) || type === "number") return 0;
   if (_.isBoolean(value) || type === "checkbox") return false;
-  if (_.isArray(value)) return [];
   if (_.isString(value)) return "";
+  if (_.isArray(value)) return [];
   if (nullable) return null;
   if (isEmptyArray) return [];
   return "";

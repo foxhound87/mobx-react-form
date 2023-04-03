@@ -1,3 +1,12 @@
+# 5.10.0 (next)
+- Introduced Field `trim()` method.
+- Introduced `validateTrimmedValue` form option.
+- Introduced `resetValidationBeforeValidate` form option.
+- `validationOrder` form option renamed to `validationPluginsOrder`.
+- Added computed `validating` & `submitting` in allowed props guard.
+- Fix: `clearing` and `resetting` observable mutation.
+- Updated Issue: #283
+
 # 5.9.1 (next)
 Fix: using `autoTrimValue` option will not trigger `onChange` Event Hook
 

@@ -582,7 +582,7 @@ describe('stop validation on error', () => {
     expect($576.isValid).to.be.false
   })
 
-  it('stopValidationOnError and validationOrder: dvr, vjf ', () => {
+  it('stopValidationOnError and validationPluginsOrder: dvr, vjf ', () => {
     let validators = {
       username: ({field, form}) => {
         expect.fail()
@@ -590,7 +590,7 @@ describe('stop validation on error', () => {
       }
     };
     let $576 = new NewForm({ fields, validators, rules }, { name: 'Form 999', options: {
-      stopValidationOnError: true, validationOrder: ['dvr', 'vjf']
+      stopValidationOnError: true, validationPluginsOrder: ['dvr', 'vjf']
     }});
     expect($576.isValid).to.be.false
 
@@ -605,7 +605,7 @@ describe('stop validation on error', () => {
       username: 'test-user'
     }
     $576 = new NewForm({ fields, values, validators, rules }, { name: 'Form 999', options: {
-      stopValidationOnError: true, validationOrder: ['dvr', 'vjf']
+      stopValidationOnError: true, validationPluginsOrder: ['dvr', 'vjf']
     }});
     expect(called).to.be.true
     expect($576.isValid).to.be.true

@@ -108,9 +108,6 @@ export default class Field extends Base implements FieldInterface {
   $inputMode: string = undefined;
   $ref: any = undefined
 
-  $clearing: boolean = false;
-  $resetting: boolean = false;
-
   showError: boolean = false;
   errorSync: string | null = null;
   errorAsync: string | null = null;
@@ -153,8 +150,6 @@ export default class Field extends Base implements FieldInterface {
       $focused: observable,
       $blurred: observable,
       $deleted: observable,
-      $clearing: observable,
-      $resetting: observable,
       showError: observable,
       errorSync: observable,
       errorAsync: observable,
@@ -189,9 +184,6 @@ export default class Field extends Base implements FieldInterface {
       isDirty: computed,
       isPristine: computed,
       isEmpty: computed,
-      resetting: computed,
-      clearing: computed,
-      focused: computed,
       blurred: computed,
       touched: computed,
       deleted: computed,
@@ -396,14 +388,6 @@ export default class Field extends Base implements FieldInterface {
     if (_.isNumber(this.value)) return false;
     if (_.isDate(this.value)) return false;
     return _.isEmpty(this.value);
-  }
-
-  get resetting(): boolean {
-    return this.hasNestedFields ? this.check(FieldPropsEnum.resetting, true) : this.$resetting;
-  }
-
-  get clearing(): boolean {
-    return this.hasNestedFields ? this.check(FieldPropsEnum.clearing, true) : this.$clearing;
   }
 
   get focused(): boolean {
@@ -675,6 +659,10 @@ export default class Field extends Base implements FieldInterface {
     this.validationAsyncData = {};
     this.validationFunctionsData = [];
     this.validationErrorStack = [];
+    Promise.resolve().then(action(() => {
+      this.$resetting = false;
+      this.$clearing = false;
+    }))
     if (deep) this.each((field: any) => field.resetValidation());
   }
 
@@ -728,6 +716,11 @@ export default class Field extends Base implements FieldInterface {
     if(this.ref && this.focused) this.ref.blur();
     this.$focused = false;
     this.$blurred = true;
+  }
+
+  trim(): void {
+    if (!_.isString(this.value)) return;
+    this.$value = this.value.trim();
   }
 
   showErrors(show: boolean = true): void {

@@ -56,6 +56,8 @@ export const props: PropsGroupsInterface = {
     FieldPropsEnum.focused,
     FieldPropsEnum.touched,
     FieldPropsEnum.changed,
+    FieldPropsEnum.validating,
+    FieldPropsEnum.submitting,
     FieldPropsEnum.resetting,
     FieldPropsEnum.clearing,
     FieldPropsEnum.blurred,

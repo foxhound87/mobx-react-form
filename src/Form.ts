@@ -33,8 +33,6 @@ export default class Form extends Base implements FormInterface {
     makeObservable(this, {
       fields: observable,
       validatedValues: computed,
-      clearing: computed,
-      resetting: computed,
       error: computed,
       hasError: computed,
       isValid: computed,
@@ -109,14 +107,6 @@ export default class Form extends Base implements FormInterface {
     this.each(($field: any) => (data[$field.path] = $field.validatedValue));
 
     return data;
-  }
-
-  get clearing(): boolean {
-    return this.check(FieldPropsEnum.clearing, true);
-  }
-
-  get resetting(): boolean {
-    return this.check(FieldPropsEnum.resetting, true);
   }
 
   get error(): string | null {

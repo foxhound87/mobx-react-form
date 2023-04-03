@@ -18,6 +18,7 @@ export enum OptionsEnum {
   validateDisabledFields = 'validateDisabledFields',
   validateDeletedFields = 'validateDeletedFields',
   validatePristineFields = 'validatePristineFields',
+  validateTrimmedValue = 'validateTrimmedValue',
   validateOnClear = 'validateOnClear',
   validateOnReset = 'validateOnReset',
   strictUpdate = 'strictUpdate',
@@ -33,7 +34,8 @@ export enum OptionsEnum {
   validationDebounceWait = 'validationDebounceWait',
   validationDebounceOptions = 'validationDebounceOptions',
   stopValidationOnError = 'stopValidationOnError',
-  validationOrder = 'validationOrder',
+  validationPluginsOrder = 'validationPluginsOrder',
+  resetValidationBeforeValidate = 'resetValidationBeforeValidate',
 }
 
 
@@ -59,6 +61,7 @@ export default interface OptionsModel {
   [OptionsEnum.validateDisabledFields]?: boolean;
   [OptionsEnum.validateDeletedFields]?: boolean;
   [OptionsEnum.validatePristineFields]?: boolean;
+  [OptionsEnum.validateTrimmedValue]?: boolean;
   [OptionsEnum.strictUpdate]?: boolean;
   [OptionsEnum.strictDelete]?: boolean;
   [OptionsEnum.softDelete]?: boolean;
@@ -75,5 +78,6 @@ export default interface OptionsModel {
     trailing?: boolean;
   };
   [OptionsEnum.stopValidationOnError]?: boolean;
-  [OptionsEnum.validationOrder]?: undefined | string[];
+  [OptionsEnum.validationPluginsOrder]?: undefined | string[];
+  [OptionsEnum.resetValidationBeforeValidate]?: boolean;
 }

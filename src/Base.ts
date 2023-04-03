@@ -54,6 +54,9 @@ export default class Base implements BaseInterface {
   $validated: number = 0;
   $validating: boolean = false;
 
+  $clearing: boolean = false;
+  $resetting: boolean = false;
+
   $touched: boolean = false;
   $changed: number = 0;
 
@@ -66,6 +69,8 @@ export default class Base implements BaseInterface {
       $submitting: observable,
       $validated: observable,
       $validating: observable,
+      $clearing: observable,
+      $resetting: observable,
       $touched: observable,
       $changed: observable,
       changed: computed,
@@ -73,6 +78,8 @@ export default class Base implements BaseInterface {
       submitting: computed,
       validated: computed,
       validating: computed,
+      clearing: computed,
+      resetting: computed,
       hasIncrementalKeys: computed,
       hasNestedFields: computed,
       size: computed,
@@ -106,6 +113,14 @@ export default class Base implements BaseInterface {
     ).apply(this, [...args]),
     this.execHook(name),
   ];
+
+  get resetting(): boolean {
+    return this.hasNestedFields ? this.check(FieldPropsEnum.resetting, true) : this.$resetting;
+  }
+
+  get clearing(): boolean {
+    return this.hasNestedFields ? this.check(FieldPropsEnum.clearing, true) : this.$clearing;
+  }
 
   get submitted(): number {
     return toJS(this.$submitted);

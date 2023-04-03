@@ -30,6 +30,8 @@ export enum FieldPropsEnum {
   disabled = "disabled",
   deleted = "deleted",
   blurred = "blurred",
+  validating = "validating",
+  submitting = "submitting",
   clearing = "clearing",
   resetting = "resetting",
   changed = "changed",

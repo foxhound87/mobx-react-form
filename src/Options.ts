@@ -53,7 +53,9 @@ export default class Options implements OptionsInterface {
       trailing: true,
     },
     stopValidationOnError: false,
-    validationOrder: undefined,
+    validationPluginsOrder: undefined,
+    resetValidationBeforeValidate: true,
+    validateTrimmedValue: false,
   };
 
   constructor() {
