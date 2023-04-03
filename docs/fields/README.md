@@ -12,8 +12,8 @@
 
 | MODE | PROPS |
 |---|---|
-| **Unified** | `name`, `value`, `label`, `placeholder`, `default`, `disabled`, `related`, `bindings`, `type`, `options`, `extra`, `hooks`, `handlers` |
-| **Separated** | `fields`, `values`, `labels`, `placeholders`, `defaults`, `disabled`, `related`, `bindings`, `types`, `options`, `extra`, `hooks`, `handlers`. |
+| **Unified** | `value`, `label`, `placeholder`, `default`, `initial`, `disabled`, `deleted`, `type`, `related`, `rules`,  `options`, `bindings`, `extra`, `hooks`, `handlers`, `validatedWith`, `validators`, `observers`, `interceptors`, `input`, `output`, `autoFocus`, `inputMode`, `ref`. |
+| **Separated** | `fields`, `values`, `labels`, `placeholders`, `defaults`, `initials`, `disabled`, `deleted`, `types`, `related`, `rules`,  `options`, `bindings`, `extra`, `hooks`, `handlers`, `validatedWith`, `validators`, `observers`, `interceptors`, `input`, `output`, `autoFocus`, `inputMode`, `refs`. |
 
 
 <br>
