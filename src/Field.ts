@@ -18,7 +18,6 @@ import {
   parseInput,
   parseCheckOutput,
   defaultValue,
-  defaultClearValue,
 } from "./parser";
 
 import OptionsModel, { OptionsEnum } from "./models/OptionsModel";
@@ -59,7 +58,10 @@ const setupDefaultProp = (
     isEmptyArray,
     type: instance.type,
     unified: update
-      ? defaultValue({ type: instance.type })
+      ? defaultValue({
+        type: instance.type,
+        value: instance.value
+      })
       : data && data.default,
     separated: props.$default,
     fallback: instance.$initial,
@@ -255,6 +257,9 @@ export default class Field extends Base implements FieldInterface {
   }
 
   set value(newVal) {
+    if (_.isString(newVal) && this.state.options.get(OptionsEnum.autoTrimValue, this)) {
+      newVal = newVal.trim();
+    }
     if (this.$value === newVal) return;
     // handle numbers
     if (this.state.options.get(OptionsEnum.autoParseNumbers, this)) {
@@ -270,9 +275,6 @@ export default class Field extends Base implements FieldInterface {
           return;
         }
       }
-    }
-    if (_.isString(newVal) && this.state.options.get(OptionsEnum.autoTrimValue, this)) {
-      newVal = newVal.trim();
     }
     this.$value = newVal;
     this.$changed ++;
@@ -683,7 +685,7 @@ export default class Field extends Base implements FieldInterface {
     this.$blurred = false;
     this.$changed = 0;
     this.files = undefined;
-    this.$value = defaultClearValue({
+    this.$value = defaultValue({
       value: this.$value,
       type: this.type,
     });

@@ -10,28 +10,20 @@ import {
   isEmptyArray,
 } from "./utils";
 
-const defaultClearValue =
-  ({ value = undefined, type = undefined }
-  : { value: any, type?: string })
-  : false | any[] | 0 | "" | null | undefined => {
-    if (_.isDate(value) || type === "date") return null;
-    if (_.isNumber(value) || type === "number") return 0;
-    if (_.isArray(value)) return [];
-    if (_.isBoolean(value)) return false;
-    if (_.isString(value)) return "";
-    return undefined;
-  };
-
 const defaultValue = ({
-  type,
+  type = undefined,
+  value = undefined,
   nullable = false,
   isEmptyArray = false,
 }: any): null | false | 0 | [] | "" => {
+  if (type === "file") return null;
   if (type === "nullable") return null;
-  if (type === "date") return null;
   if (type === "datetime-local") return null;
-  if (type === "checkbox") return false;
-  if (type === "number") return 0;
+  if (_.isDate(value) || type === "date") return null;
+  if (_.isNumber(value) || type === "number") return 0;
+  if (_.isBoolean(value) || type === "checkbox") return false;
+  if (_.isArray(value)) return [];
+  if (_.isString(value)) return "";
   if (nullable) return null;
   if (isEmptyArray) return [];
   return "";
@@ -320,7 +312,6 @@ const pathToFieldsTree = (
 
 export {
   defaultValue,
-  defaultClearValue,
   parseInput,
   parsePath,
   parseArrayProp,

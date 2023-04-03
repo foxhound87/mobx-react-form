@@ -1,3 +1,6 @@
+# 5.9.1 (next)
+Fix: using `autoTrimValue` option will not trigger `onChange` Event Hook
+
 # 5.9.0 (next)
 
 - Introduced `inputMode` Field property.

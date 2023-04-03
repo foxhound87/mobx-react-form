@@ -35,7 +35,7 @@ import {
   parseCheckArray,
   parseCheckOutput,
   pathToFieldsTree,
-  defaultClearValue,
+  defaultValue,
 } from "./parser";
 import { AllowedFieldPropsTypes, FieldPropsEnum, SeparatedPropsMode } from "./models/FieldProps";
 import { OptionsEnum } from "./models/OptionsModel";
@@ -579,7 +579,7 @@ export default class Base implements BaseInterface {
     const isStrict = this.state.options.get(OptionsEnum.strictUpdate, this);
 
     if (_.isNil(data)) {
-      this.each((field: any) => field.$value = defaultClearValue({
+      this.each((field: any) => field.$value = defaultValue({
         value: field.$value,
         type: field.type,
       }));
@@ -633,8 +633,8 @@ export default class Base implements BaseInterface {
     const field = this.initField(key, $path(key), _.merge(tree[0], obj));
 
     if(!_.has(obj, FieldPropsEnum.value) && !this.state.options.get(OptionsEnum.preserveDeletedFieldsValues, this)) {
-      field.$value = defaultClearValue({ value: field.$value, type: field.type });
-      field.each((field: any) => field.$value = defaultClearValue({ value: field.$value, type: field.type }));
+      field.$value = defaultValue({ value: field.$value, type: field.type });
+      field.each((field: any) => field.$value = defaultValue({ value: field.$value, type: field.type }));
     }
 
     this.$changed ++;
