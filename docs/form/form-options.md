@@ -33,6 +33,7 @@
 | **validateDeletedFields** | boolean | false | Enable or disable field validation based on their `deleted` property. |
 | **validateDisabledFields** | boolean | false | Enable or disable field validation based on their `disabled` property. |
 | **validatePristineFields** | boolean | true | Enable or disable field validation based on their `isPristine` property. |
+| **validateTrimmedValue** | boolean | false | If enabled, it applies `trim()` to the field value before `validate` |
 | **strictUpdate** | boolean | false | Throw an error if trying to update an undefined field. |
 | **strictDelete** | boolean | true | Throw an error if trying to delete an undefined field. |
 | **softDelete** | boolean | false | When using `del()` the field will not be deleted, instead its `deleted` prop will be switched to `true`. |
@@ -43,6 +44,9 @@
 | **preserveDeletedFieldsValues** | boolean | false | After deleting and adding same field, the defined initial values will be preserverd if this option is activated. |
 | **autoTrimValue** | boolean | false | Trim field value if is a string. |
 | **autoParseNumbers** | boolean | false | Try to parse strings to numbers automatically if the initial value of the field is a number. |
+| **stopValidationOnError** | boolean | false | If enabled, the validation stops to validate the field with new validation driver (and its functions) if has alredy marked invalid. |
+| **resetValidationBeforeValidate** | boolean | true | If disabled, the validation state will not be resetted to its initials before `validate` (experimental) |
+| **validationPluginsOrder** | string[] | undefined | Specify an array of strings with the validation plugins order. Accepted Plugins: `vjf`, `dvr`, `svk`, `yup`. |
 | **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
 | **validationDebounceOptions** | object | { leading: false, trailing: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |
 | **uniqueId** | function | - | Implement a function to create custom Fields IDs. Useful for SSR. Takes the fields instance in input. |

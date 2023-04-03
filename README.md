@@ -49,9 +49,9 @@
 
 1. Fork the repository
 2. Make applicable changes (with tests!)
-3. To run tests: `yarn test`
-4. Ensure builds succeed: `yarn run build`
-5. Commit via yarn to run pre-commit checks: `yarn run commit`
+3. To run tests: `npm run test`
+4. Ensure builds succeed: `npm run build`
+5. Commit and run pre-commit checks: `npm run commit`
 
 ### New Issues
 
