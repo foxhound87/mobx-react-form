@@ -171,7 +171,7 @@ export default class Form extends Base implements FormInterface {
   invalidate(message: string | null = null): void {
     this.debouncedValidation.cancel();
     this.each((field) => field.debouncedValidation.cancel());
-    this.validator.error = message || this.state.options.get(OptionsEnum.defaultGenericError);
+    this.validator.error = message || this.state.options.get(OptionsEnum.defaultGenericError) || true;
   }
 
   showErrors(show: boolean = true): void {

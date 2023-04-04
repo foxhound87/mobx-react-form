@@ -576,12 +576,9 @@ export default class Field extends Base implements FieldInterface {
 
   getComputedProp(key: string): any {
     if (this.incremental || this.hasNestedFields) {
-      const $val =
-        key === FieldPropsEnum.value
+      return (key === FieldPropsEnum.value)
           ? this.get(key, false)
           : untracked(() => this.get(key, false));
-
-      return !_.isEmpty($val) ? $val : [];
     }
 
     // @ts-ignore

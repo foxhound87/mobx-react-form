@@ -29,11 +29,9 @@ const values = {
 };
 
 const disabled = {
-  any: {
-    type: false,
-    other: true,
-  }
-}
+  'any.type': false,
+  'any.other': true,
+};
 
 const rules = {
   any: {
@@ -51,6 +49,8 @@ class NewForm extends Form {
         describe("Check initial values state:", () => {
           it("form isValid should be false", () => expect(form.isValid).to.be.equal(false));
           it("form hasError should be false", () => expect(form.hasError).to.be.equal(true));
+
+          it("form `$('any').disabled` should be false", () => expect(form.$('any').disabled).to.be.equal(false));
 
           it("form `$('any.other').isValid` should be true", () => expect(form.$('any.other').isValid).to.be.equal(true));
           it("form `$('any.type').isValid` should be false", () => expect(form.$('any.type').isValid).to.be.equal(false));

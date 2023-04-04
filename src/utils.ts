@@ -31,7 +31,7 @@ const checkPropOccurrence = ({ type, data }: any): boolean => {
   return $check(data);
 };
 
-const hasProps = ($type: any, $data: any) => {
+const hasProps = ($type: string, $data: any): boolean => {
   let $props;
   switch ($type) {
     case AllowedFieldPropsTypes.computed:
@@ -75,7 +75,7 @@ const hasProps = ($type: any, $data: any) => {
 /**
   Check Allowed Properties
 */
-const allowedProps = (type: string, data: string[]) => {
+const allowedProps = (type: string, data: string[]): void => {
   if (hasProps(type, data)) return;
   const $msg = "The selected property is not allowed";
   throw new Error(`${$msg} (${JSON.stringify(data)})`);
@@ -84,7 +84,7 @@ const allowedProps = (type: string, data: string[]) => {
 /**
   Throw Error if undefined Fields
 */
-const throwError = (path: string, fields: any, msg: null | string = null) => {
+const throwError = (path: string, fields: any, msg: null | string = null): void => {
   if (!_.isNil(fields)) return;
   const $msg = _.isNil(msg) ? "The selected field is not defined" : msg;
   throw new Error(`${$msg} (${path})`);
@@ -110,13 +110,13 @@ const isArrayOfStrings = (struct: any): boolean =>
 const isArrayOfObjects = (fields: any): boolean =>
   _.isArray(fields) && _.every(fields, _.isPlainObject);
 
-const $getKeys = (fields: any) =>
+const getKeys = (fields: any) =>
   _.union(..._.map(_.values(fields), (values) => _.keys(values)));
 
 const hasUnifiedProps = ({ fields }: any) =>
-  !isArrayOfStrings({ fields }) && hasProps(AllowedFieldPropsTypes.editable, $getKeys(fields));
+  !isArrayOfStrings({ fields }) && hasProps(AllowedFieldPropsTypes.editable, getKeys(fields));
 
-const hasSeparatedProps = (initial: any) =>
+const hasSeparatedProps = (initial: any): boolean =>
   hasSome(initial, props.separated) || hasSome(initial, props.validation);
 
 const allowNested = (field: any, strictProps: boolean): boolean =>

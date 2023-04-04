@@ -247,7 +247,7 @@ export default class Base implements BaseInterface {
             .find(
               (s: any) =>
                 s.charAt(structPath.length) === "." ||
-                s.substr(structPath.length, 2) === "[]" ||
+                s.substring(structPath.length, structPath.length + 2) === "[]" ||
                 s === structPath
             );
 
@@ -384,12 +384,15 @@ export default class Base implements BaseInterface {
     return _.transform(
       $fields,
       (check: any, field: any) => {
-        if (!field.fields.size || props.exceptions.includes(prop)) {
+        if (!field.fields.size || props.exceptions.includes(prop) || !_.isArray(field.initial)) {
           check.push(field[prop]);
         }
 
-        const $deep = this.deepCheck(type, prop, field.fields);
-        check.push(checkPropOccurrence({ type, data: $deep }));
+        check.push(checkPropOccurrence({
+          data: this.deepCheck(type, prop, field.fields),
+          type,
+        }));
+
         return check;
       },
       []
@@ -533,8 +536,7 @@ export default class Base implements BaseInterface {
           if (prop === FieldPropsEnum.value) value = field.$output(value);
 
           delete obj[field.key];
-          // if (removeProp) return obj;
-
+          if (removeProp) return obj;
           const removeNullishValuesInArrays = this.state.options.get(OptionsEnum.removeNullishValuesInArrays, this);
 
           return Object.assign(obj, {
@@ -563,14 +565,19 @@ export default class Base implements BaseInterface {
       allowedProps(AllowedFieldPropsTypes.editable, [prop]);
       const deep = (_.isObject(data) && prop === FieldPropsEnum.value) || _.isPlainObject(data);
       if (deep && this.hasNestedFields) return this.deepSet(prop, data, "", true);
-      // else _.set(this, `$${prop}`, data);
-      if (prop === FieldPropsEnum.value) {
-        (this as any).value = parseInput((this as any).$input, {
+
+      if (([
+        FieldPropsEnum.value,
+        FieldPropsEnum.initial,
+        FieldPropsEnum.default,
+      ] as string[]).includes(prop)) {
+        (this as any)[prop] = parseInput((this as any).$input, {
           separated: data,
         });
       } else {
         _.set(this, `$${prop}`, data);
       }
+
       return;
     }
 

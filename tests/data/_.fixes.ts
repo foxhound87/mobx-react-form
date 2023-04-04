@@ -39,6 +39,7 @@ import $544 from "./forms/fixes/form.544";
 import $454 from "./forms/fixes/form.454";
 import $518 from "./forms/fixes/form.518";
 import $376 from "./forms/fixes/form.376";
+import $519 from "./forms/fixes/form.519";
 
 import $585 from "./forms/fixes/form.585";
 import $531 from "./forms/fixes/form.531";
@@ -80,6 +81,7 @@ export default {
   $454,
   $518,
   $376,
+  $519,
 
   $585,
   $531,

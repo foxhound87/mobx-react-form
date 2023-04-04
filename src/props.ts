@@ -102,8 +102,10 @@ export const props: PropsGroupsInterface = {
     FieldPropsEnum.validatedWith,
   ],
   exceptions: [
+    // FieldPropsEnum.hasError,
+    // FieldPropsEnum.isValid,
     FieldPropsEnum.isDirty,
-    FieldPropsEnum.isPristine
+    FieldPropsEnum.isPristine,
   ],
   occurrences: {
     isDirty: FieldPropsOccurrence.some,

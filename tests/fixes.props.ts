@@ -117,7 +117,7 @@ describe('Check Fixes $Q nested paths check', () => {
     expect($.$Q.$('incident').$(0).$('options').path).to.be.equal('incident.0.options'));
 });
 
-describe('Check Fixes $Q1 checks', () => {
+describe('Check Fixes $Q1', () => {
   it('$Q1 tags hasNestedFields should be true', () =>
     expect($.$Q1.$('tags').hasNestedFields).to.be.true);
 
@@ -137,7 +137,7 @@ describe('Check Fixes $Q1 checks', () => {
     expect($.$Q1.$('other.nested').value).to.be.equal('nested-value'));
 });
 
-describe('Check Fixes $Q2 checks', () => {
+describe('Check Fixes $Q2', () => {
   it('$Q2 tags hasNestedFields should be false', () =>
     expect($.$Q2.$('tags').hasNestedFields).to.be.false);
 
@@ -145,3 +145,23 @@ describe('Check Fixes $Q2 checks', () => {
     expect($.$Q2.$('tags').hasInitialNestedFields).to.be.false);
 });
 
+
+describe('Check Fixes $519', () => {
+  it('$519 form isValid should be false', () =>
+    expect($.$519.isValid).to.be.false);
+  it('$519 form hasError should be true', () =>
+    expect($.$519.hasError).to.be.true);
+  it('$519 week isValid should be false', () =>
+    expect($.$519.$('week').isValid).to.be.false);
+  it('$519 week hasError should be true', () =>
+    expect($.$519.$('week').hasError).to.be.true);
+
+  it('$519 week error should be "Error ..."', () =>
+    expect($.$519.$('week').error).to.be.equal("Error ..."));
+
+  it('$519 form values() should be equal to { week: {} }', () =>
+    expect($.$519.values()).to.be.deep.equal({ week: {} }));
+
+  it('$519 week value should be equal to empty object', () =>
+    expect($.$519.$('week').value).to.be.deep.equal({}));
+});

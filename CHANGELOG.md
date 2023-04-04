@@ -1,3 +1,7 @@
+# 5.10.1 (next)
+- `set()` will apply `input` function also to `initial` and `default` props.
+- Fix: #519
+
 # 5.10.0 (next)
 - Introduced Field `trim()` method.
 - Introduced `validateTrimmedValue` form option.
@@ -14,7 +18,7 @@ Fix: using `autoTrimValue` option will not trigger `onChange` Event Hook
 
 - Introduced `inputMode` Field property.
 - Introduced `autoTrimValue` form option (can be also enabled on single field).
-Fix: #283
+- Fix: #283
 
 # 5.8.0 (next)
 
