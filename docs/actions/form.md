@@ -5,7 +5,6 @@ The form actions can be used only on the form instance.
 * [Validate the Form](#validate-the-form)
 * [Validate Single Field](#validate-single-field)
 * [Validation Errors](#validation-errors)
-* [Re-Initialize all Fields](#re-initialize-all-fields)
 
 ---
 
@@ -56,45 +55,3 @@ or on single field:
 ```javascript
 form.validate('email', { showErrors: true });
 ```
-
----
-
-### Re-Initialize all Fields
-
-The `init()` method will re-init the form with empty or new values and all previous data will be discarded.
-
-> If you don't need to re-init the form fields and values, just use the [update()](shared.md#update-the-fields) method.
-
-It works like passing the `fields` or `values` to the [Form Constructor](../form/form-initialization.md).
-
-It accept the **fields struct** if using `separated properties definition` or **fields values** if using `unified properties definition`.
-
-<br>
-
-Re-init the form with empty values:
-
-```javascript
-.init();
-```
-
-Use an object to Re-Init the form with **new values** (`unified properties definition`):
-
-```javascript
-form.init({
-  username: 'NewUsername',
-  password: 'NewPassword',
-});
-```
-
-Use the fields struct to Re-Init with **empty fields** (`separated properties definition`):
-
-```javascript
-form.init([
-  'members[]'
-  ...
-]);
-```
-
-then you can update the fields values normally using the `update()` method.
-
-> You can use the `init()` method if you need to add new fields too, for this purpose you have to provide the new complete **fields struct** or **fields values** or the missing fields will be lost.

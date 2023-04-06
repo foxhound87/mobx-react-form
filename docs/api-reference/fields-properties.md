@@ -32,7 +32,7 @@
 | **related** | boolean | computed | Get Related fields for validation. | - |
 | **rules** | boolean | computed | Get DVR Validation Rules. | - |
 | **validators** | boolean | computed | Get VJF Validation Functions. | - |
-| **validateWith** | string | computed | Field prop to validate instead `value`. | - |
+| **validatedWith** | string | computed | Field prop to validate instead `value`. | - |
 | **hasError** | boolean | computed | Check if the field has errors. | - |
 | **error** | string | computed | Field error message. | - |
 | **options** | object | computed | Individual Field Options, with fallback on Form Options. | - |
