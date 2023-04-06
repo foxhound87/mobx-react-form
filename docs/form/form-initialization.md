@@ -39,7 +39,7 @@ Provide an object which expects the following properties:
 | **bindings**  | The name of the binding rewriter or template which will be used for the current field. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-bindings) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **observers**  | The mobx observers to listen on **Fields Props** or **Fields Map** changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
 | **interceptors**  | The mobx interceptors to listen on **Fields Props** or **Fields Map** changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
-| **validateWith**  | Specify a different **Field Prop** to use for the Field validation. (before next version) | - |
+| **validatedWith**  | Specify a different **Field Prop** to use for the Field validation. (before next version) | - |
 | **validatedWith** | Avaiable in next version. | - |
 
 ###### Fields Event Hooks & Event Handlers
