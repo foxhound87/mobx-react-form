@@ -384,7 +384,7 @@ export default class Base implements BaseInterface {
     return _.transform(
       $fields,
       (check: any, field: any) => {
-        if (!field.fields.size || props.exceptions.includes(prop) || !_.isArray(field.initial)) {
+        if (!field.fields.size || !_.isArray(field.initial)) {
           check.push(field[prop]);
         }
 

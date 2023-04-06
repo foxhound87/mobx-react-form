@@ -6,7 +6,6 @@ export interface PropsGroupsInterface {
   computed: string[];
   functions: string[];
   validation: string[];
-  exceptions: string[];
   separated: string[];
   occurrences: {
     [index: string]: "some" | "every";
@@ -100,12 +99,6 @@ export const props: PropsGroupsInterface = {
     FieldPropsEnum.rules,
     FieldPropsEnum.validators,
     FieldPropsEnum.validatedWith,
-  ],
-  exceptions: [
-    // FieldPropsEnum.hasError,
-    // FieldPropsEnum.isValid,
-    FieldPropsEnum.isDirty,
-    FieldPropsEnum.isPristine,
   ],
   occurrences: {
     isDirty: FieldPropsOccurrence.some,
