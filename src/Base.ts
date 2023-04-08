@@ -102,7 +102,7 @@ export default class Base implements BaseInterface {
       this.noop
     ).apply(this, [this]);
 
-  execHandler = (name: string, args: any, fallback: any = null): any => [
+  execHandler = (name: string, args: any, fallback: any = null, hook = null): any => [
     $try(
       this.$handlers[name] && this.$handlers[name].apply(this, [this]),
       (this as any).handlers &&
@@ -111,7 +111,7 @@ export default class Base implements BaseInterface {
       fallback,
       this.noop
     ).apply(this, [...args]),
-    this.execHook(name),
+    this.execHook(hook || name),
   ];
 
   get resetting(): boolean {
