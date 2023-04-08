@@ -1,3 +1,6 @@
+# 6.0.0 (master)
+- stable release
+
 # 5.10.1 (next)
 - `set()` will apply `input` function also to `initial` and `default` props.
 - Fix: #519
