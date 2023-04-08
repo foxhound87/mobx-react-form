@@ -434,7 +434,7 @@ export default class Field extends Base implements FieldInterface {
   onSync = (...args: any) =>
     this.type === "file"
       ? this.onDrop(...args)
-      : this.execHandler(FieldPropsEnum.onSync, args, this.sync);
+      : this.execHandler(FieldPropsEnum.onChange, args, this.sync, FieldPropsEnum.onSync);
 
   onChange = this.onSync;
 
@@ -803,7 +803,7 @@ export default class Field extends Base implements FieldInterface {
     if (!_.isPlainObject(fields)) {
       throw new Error("The update() method accepts only plain objects.");
     }
-    const fallback = this.state.options.get(OptionsEnum.fallback);
+    const fallback = this.state.options.get(OptionsEnum.fallback, this);
     const x = this.state.struct().findIndex(s => s.startsWith(this.path.replace(/\.\d+\./, '[].') + '[]'));
     if (!fallback && this.fields.size === 0 && x < 0) {
       this.value = parseInput(this.$input, {
