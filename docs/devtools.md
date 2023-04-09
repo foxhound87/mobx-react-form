@@ -10,7 +10,7 @@ npm install --save mobx-react-form-devtools
 
 ## Demo
 
-[MobX React Form DevTools Demo](https://foxhound87.github.io/mobx-react-form/demo.html)
+[MobX React Form DevTools Demo](https://foxhound87.github.io/mobx-react-form-demo/)
 
 ## Usage
 
