@@ -4,6 +4,8 @@
 
 #### Reactive MobX Form State Management
 
+[![NPM](https://nodei.co/npm/mobx-react-form.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/mobx-react-form/)
+
 ![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/foxhound87/mobx-react-form/ci.yml?branch=next)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/foxhound87/mobx-react-form)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/mobx-react-form)
