@@ -4,17 +4,17 @@
 
 #### Reactive MobX Form State Management
 
-[![NPM](https://nodei.co/npm/mobx-react-form.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/mobx-react-form/)
-
 ![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/foxhound87/mobx-react-form/ci.yml?branch=next)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/foxhound87/mobx-react-form)
+![npm bundle size](https://img.shields.io/bundlephobia/min/mobx-react-form)
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/foxhound87/mobx-react-form/master.svg)](https://codecov.io/gh/foxhound87/mobx-react-form)
 [![npm](https://img.shields.io/npm/v/mobx-react-form.svg)]()
 [![node](https://img.shields.io/node/v/mobx-react-form.svg)]()
-
 [![GitHub license](https://img.shields.io/github/license/foxhound87/mobx-react-form.svg)]()
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/foxhound87/mobx-react-form)
+![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/foxhound87/mobx-react-form)
 [![Downloads](https://img.shields.io/npm/dt/mobx-react-form.svg)]()
 [![Downloads](https://img.shields.io/npm/dm/mobx-react-form.svg)]()
-
 [![Backers on Open Collective](https://opencollective.com/mobx-react-form/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/mobx-react-form/sponsors/badge.svg)](#sponsors)
 
