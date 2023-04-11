@@ -13,9 +13,12 @@
 
 ### Options Object Properties
 
+> All options can also be used on a single instance of a Field.
+
 | Option | Type | Default | Info |
 |---|---|---|---|
 | **fallback** | boolean | true | Fields props definition fallback when using `mixed` definition mode (unified + separated). |
+| **fallbackValue** | any | "" | This is the default fallback field value applied by `defaultValue()` internal funciton when the field is created, cleared or resetted. It is defaulted as an empty string but can be anything if you need. |
 | **defaultGenericError** | string | null | Set e default message to show when a generic error occurs. |
 | **submitThrowsError** | boolean | true | If true and `defaultGenericError` is defined throws error and invalidate if validation fails on submit. |
 | **showErrorsOnInit** | boolean | false | Show or hide error messages `on init` for `validateOnInit`. |
@@ -41,6 +44,7 @@
 | **retrieveOnlyEnabledFieldsValues** | boolean | false | Get only Enabled Fields Values when using `get('value')` or the `values()` helper. |
 | **retrieveOnlyDirtyFieldsValues** | boolean | false | Get only Dirty Fields Values when using `get('value')` or the `values()` helper. |
 | **removeNullishValuesInArrays** | boolean | false | Remove nullish values from arrays when using `get('value')` or the `values()` helper. |
+| **retrieveNullifiedEmptyStrings** | boolean | false | Convert empty strings to `null` when using `get('value')` or the `values()` helper. |
 | **preserveDeletedFieldsValues** | boolean | false | After deleting and adding same field, the defined initial values will be preserverd if this option is activated. |
 | **autoTrimValue** | boolean | false | Trim field value if is a string. |
 | **autoParseNumbers** | boolean | false | Try to parse strings to numbers automatically if the initial value of the field is a number. |
@@ -138,3 +142,4 @@ form.state.options.get('showErrorsOnInit');
 ```
 => true
 ```
+
