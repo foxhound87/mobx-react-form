@@ -4,7 +4,7 @@
   "version": "0.0.0-development",
   "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
   "description": "Automagically manage React forms state and automatic validation with MobX.",
-  "homepage": "https://www.npmjs.com/package/mobx-react-form",
+  "homepage": "https://github.com/foxhound87/mobx-react-form#readme",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
