@@ -1,3 +1,8 @@
+# 6.1.0 (master)
+- Introduced `fallbackValue` and `retrieveNullifiedEmptyStrings` form options.
+- Fix: `get()` strict mode improved
+- Fix: default type file value;
+
 # 6.0.0 (master)
 - stable typescript release
 

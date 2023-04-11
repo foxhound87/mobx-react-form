@@ -441,6 +441,7 @@ export default class Base implements BaseInterface {
           const x = this.state.struct().findIndex(s => s.startsWith($field.path.replace(/\.\d+\./, '[].') + '[]'));
           if (!fallback && $field.fields.size === 0 && x < 0) {
             $field.value = parseInput($field.$input, {
+              fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
               separated: _.get(raw, $path),
             });
             return;
@@ -448,6 +449,7 @@ export default class Base implements BaseInterface {
         }
         if (_.isNull(field) || _.isNil(field.fields)) {
           $field.value = parseInput($field.$input, {
+            fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
             separated: field,
           });
           return;
@@ -481,35 +483,37 @@ export default class Base implements BaseInterface {
     if (_.isNil(prop)) {
       return this.deepGet(
         [...props.computed, ...props.editable, ...props.validation],
-        this.fields
+        this.fields,
+        strict,
       );
     }
 
     allowedProps(AllowedFieldPropsTypes.all, _.isArray(prop) ? prop : [prop]);
 
     if (_.isString(prop)) {
-      if (strict && this.fields.size === 0) {
-        return parseCheckOutput(this, prop);
+      if (this.fields.size === 0) {
+        const retrieveNullifiedEmptyStrings = this.state.options.get(OptionsEnum.retrieveNullifiedEmptyStrings, this);
+        return parseCheckOutput(this, prop, strict ? retrieveNullifiedEmptyStrings : false);
       }
 
-      const value = this.deepGet(prop, this.fields);
+      const value = this.deepGet(prop, this.fields, strict);
       const removeNullishValuesInArrays = this.state.options.get(OptionsEnum.removeNullishValuesInArrays, this);
 
-      return parseCheckArray(this, value, prop, removeNullishValuesInArrays);
+      return parseCheckArray(this, value, prop, strict ? removeNullishValuesInArrays : false);
     }
 
-    return this.deepGet(prop, this.fields);
+    return this.deepGet(prop, this.fields, strict);
   }
 
   /**
     Get Fields Props Recursively
    */
-  deepGet(prop: any, fields: any): any {
+  deepGet(prop: any, fields: any, strict = true): any {
     return _.transform(
       getObservableMapValues(fields),
       (obj: any, field: any) => {
         const $nested = ($fields: any) => $fields.size !== 0
-          ? this.deepGet(prop, $fields)
+          ? this.deepGet(prop, $fields, strict)
           : undefined;
 
         Object.assign(obj, {
@@ -525,14 +529,15 @@ export default class Base implements BaseInterface {
             (opt.get(OptionsEnum.softDelete, this) && prop === FieldPropsEnum.value && field.deleted));
 
           if (field.fields.size === 0) {
-            delete obj[field.key]; // eslint-disable-line
+            delete obj[field.key];
             if (removeProp) return obj;
+            const retrieveNullifiedEmptyStrings = this.state.options.get(OptionsEnum.retrieveNullifiedEmptyStrings, this);
             return Object.assign(obj, {
-              [field.key]: parseCheckOutput(field, prop),
+              [field.key]: parseCheckOutput(field, prop, strict ? retrieveNullifiedEmptyStrings : false),
             });
           }
 
-          let value = this.deepGet(prop, field.fields);
+          let value = this.deepGet(prop, field.fields, strict);
           if (prop === FieldPropsEnum.value) value = field.$output(value);
 
           delete obj[field.key];
@@ -540,7 +545,7 @@ export default class Base implements BaseInterface {
           const removeNullishValuesInArrays = this.state.options.get(OptionsEnum.removeNullishValuesInArrays, this);
 
           return Object.assign(obj, {
-            [field.key]: parseCheckArray(field, value, prop, removeNullishValuesInArrays),
+            [field.key]: parseCheckArray(field, value, prop, strict ? removeNullishValuesInArrays : false),
           });
         }
 
@@ -572,6 +577,7 @@ export default class Base implements BaseInterface {
         FieldPropsEnum.default,
       ] as string[]).includes(prop)) {
         (this as any)[prop] = parseInput((this as any).$input, {
+          fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
           separated: data,
         });
       } else {
@@ -602,6 +608,7 @@ export default class Base implements BaseInterface {
 
     if (_.isNil(data)) {
       this.each((field: any) => field.$value = defaultValue({
+        fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
         value: field.$value,
         type: field.type,
       }));
@@ -655,8 +662,9 @@ export default class Base implements BaseInterface {
     const field = this.initField(key, $path(key), _.merge(tree[0], obj));
 
     if(!_.has(obj, FieldPropsEnum.value) && !this.state.options.get(OptionsEnum.preserveDeletedFieldsValues, this)) {
-      field.$value = defaultValue({ value: field.$value, type: field.type });
-      field.each((field: any) => field.$value = defaultValue({ value: field.$value, type: field.type }));
+      const fallbackValueOption = this.state.options.get(OptionsEnum.fallbackValue, this);
+      field.$value = defaultValue({ fallbackValueOption, value: field.$value, type: field.type });
+      field.each((field: any) => field.$value = defaultValue({ fallbackValueOption, value: field.$value, type: field.type }));
     }
 
     this.$changed ++;

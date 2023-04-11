@@ -1,6 +1,7 @@
 export enum OptionsEnum {
   uniqueId = 'uniqueId',
   fallback = 'fallback',
+  fallbackValue = 'fallbackValue',
   defaultGenericError = 'defaultGenericError',
   submitThrowsError = 'submitThrowsError',
   showErrorsOnInit = 'showErrorsOnInit',
@@ -27,6 +28,7 @@ export enum OptionsEnum {
   retrieveOnlyDirtyFieldsValues = 'retrieveOnlyDirtyFieldsValues',
   retrieveOnlyEnabledFieldsValues = 'retrieveOnlyEnabledFieldsValues',
   retrieveOnlyEnabledFieldsErrors = 'retrieveOnlyEnabledFieldsErrors',
+  retrieveNullifiedEmptyStrings = 'retrieveNullifiedEmptyStrings',
   removeNullishValuesInArrays = 'removeNullishValuesInArrays',
   preserveDeletedFieldsValues = 'preserveDeletedFieldsValues',
   autoTrimValue = 'autoTrimValue',
@@ -42,6 +44,7 @@ export enum OptionsEnum {
 export default interface OptionsModel {
   [OptionsEnum.uniqueId]?: Function;
   [OptionsEnum.fallback]?: boolean;
+  [OptionsEnum.fallbackValue]?: any;
   [OptionsEnum.defaultGenericError]?: null | string;
   [OptionsEnum.submitThrowsError]?: boolean;
   [OptionsEnum.showErrorsOnInit]?: boolean;
@@ -68,6 +71,7 @@ export default interface OptionsModel {
   [OptionsEnum.retrieveOnlyDirtyFieldsValues]?: boolean;
   [OptionsEnum.retrieveOnlyEnabledFieldsValues]?: boolean;
   [OptionsEnum.retrieveOnlyEnabledFieldsErrors]?: boolean;
+  [OptionsEnum.retrieveNullifiedEmptyStrings]?: boolean;
   [OptionsEnum.removeNullishValuesInArrays]?: boolean;
   [OptionsEnum.preserveDeletedFieldsValues]?: boolean;
   [OptionsEnum.autoTrimValue]?: boolean;

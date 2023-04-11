@@ -11,7 +11,6 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/foxhound87/mobx-react-form)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/mobx-react-form)
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/foxhound87/mobx-react-form/master.svg)](https://codecov.io/gh/foxhound87/mobx-react-form)
-[![npm](https://img.shields.io/npm/v/mobx-react-form.svg)]()
 [![node](https://img.shields.io/node/v/mobx-react-form.svg)]()
 [![GitHub license](https://img.shields.io/github/license/foxhound87/mobx-react-form.svg)]()
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/foxhound87/mobx-react-form)
@@ -49,8 +48,6 @@ npm install --save mobx-react-form
 
 #### Choose and Setup a Validation Plugin
 
-> See [Validation Plugins](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html) for more info on supported packages.
-
 Below we are creating a `plugins` object using the `validatorjs` package to enable `DVR` functionalities (Declarative Validation Rules).
 
 ```javascript
@@ -61,6 +58,8 @@ const plugins = {
   dvr: dvr(validatorjs)
 };
 ```
+
+> See [Validation Plugins](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html) for more info on supported packages.
 
 #### Define the Form Fields
 
@@ -77,15 +76,17 @@ const fields = [{
   label: 'Password',
   placeholder: 'Insert Password',
   rules: 'required|string|between:5,25',
+  type: 'password',
 }, {
   name: 'passwordConfirm',
   label: 'Password Confirmation',
   placeholder: 'Confirm Password',
   rules: 'required|string|same:password',
+  type: 'password',
 }];
 ```
 
-> You can also define `fields` as an `object`.
+> See all available [Field Props](https://foxhound87.github.io/mobx-react-form/docs/api-reference/fields-properties.html) on the docs.
 
 #### Define the Validation Hooks
 
@@ -104,6 +105,8 @@ const hooks = {
 }
 ```
 
+> See more on the docs about the [Validation Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/validation-hooks.html)
+
 #### Initialize the Form
 
 Simply pass the `fields`, `plugins` and `hooks` objects to the constructor
@@ -113,6 +116,8 @@ import MobxReactForm from 'mobx-react-form';
 
 const myForm = new MobxReactForm({ fields }, { plugins, hooks });
 ```
+
+> Learn about more on the docs about the [Form Instance](https://foxhound87.github.io/mobx-react-form/docs/form/)
 
 #### Pass the myForm to a react component
 
@@ -126,7 +131,7 @@ import { observer } from 'mobx-react';
 
 export default observer(({ myForm }) => (
   <form onSubmit={myForm.onSubmit}>
-    <label htmlFor={myForm.$('email').id}>
+    <label for={myForm.$('email').id}>
       {myForm.$('email').label}
     </label>
     <input {...myForm.$('email').bind()} />
@@ -143,7 +148,7 @@ export default observer(({ myForm }) => (
 ));
 ```
 
-> Other Field Props are available. See the [docs](https://foxhound87.github.io/mobx-react-form/docs/api-reference/fields-properties.html) for more details.
+> See more on the docs about the [Event Handlers](https://foxhound87.github.io/mobx-react-form/docs/events/event-handlers.html) and the [Event Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/event-hooks.html).
 
 ###### Extending the Form class
 

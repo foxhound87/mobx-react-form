@@ -15,8 +15,9 @@ const defaultValue = ({
   value = undefined,
   nullable = false,
   isEmptyArray = false,
+  fallbackValueOption = "",
 }: any): null | false | 0 | [] | "" => {
-  if (type === "file") return null;
+  if (type === "file") return "";
   if (type === "nullable") return null;
   if (type === "datetime-local") return null;
   if (_.isDate(value) || type === "date") return null;
@@ -26,7 +27,7 @@ const defaultValue = ({
   if (_.isArray(value)) return [];
   if (nullable) return null;
   if (isEmptyArray) return [];
-  return "";
+  return fallbackValueOption;
 };
 
 const parsePath = (path: string): string => {
@@ -38,7 +39,7 @@ const parsePath = (path: string): string => {
 
 const parseInput = (
   input: any,
-  { type, isEmptyArray, nullable, separated, unified, fallback }: any
+  { fallbackValueOption = "", type, isEmptyArray, nullable, separated, unified, fallback }: any
 ) =>
   input(
     $try(
@@ -46,6 +47,7 @@ const parseInput = (
       unified,
       fallback,
       defaultValue({
+        fallbackValueOption,
         type,
         isEmptyArray,
         nullable,
@@ -69,10 +71,12 @@ const parseArrayProp = (val: any, prop: string, removeNullishValuesInArrays: boo
 const parseCheckArray = (field: any, value: any, prop: string, removeNullishValuesInArrays: boolean) =>
   field.hasIncrementalKeys ? parseArrayProp(value, prop, removeNullishValuesInArrays) : value;
 
-const parseCheckOutput = (field: any, prop: string) => {
+const parseCheckOutput = (field: any, prop: string, retrieveNullifiedEmptyStrings = false) => {
   if (prop === FieldPropsEnum.value || prop.startsWith("value.")) {
     const base = field.$output ? field.$output(field[FieldPropsEnum.value]) : field[FieldPropsEnum.value]
-    return prop.startsWith("value.") ? _.get(base, prop.substring(6)) : base
+    const value = prop.startsWith("value.") ? _.get(base, prop.substring(6)) : base
+    if (_.isString(value) && _.isEmpty(value) && retrieveNullifiedEmptyStrings) return null
+    return value;
   }
   return field[prop];
 }

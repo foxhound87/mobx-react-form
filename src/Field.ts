@@ -51,14 +51,17 @@ const setupDefaultProp = (
   data: any,
   props: any,
   update: boolean,
-  { isEmptyArray }: { isEmptyArray: boolean }
+  { isEmptyArray, fallbackValueOption }:
+  { isEmptyArray: boolean, fallbackValueOption: any }
 ) =>
   parseInput(instance.$input, {
+    defaultValue,
     nullable: true,
     isEmptyArray,
     type: instance.type,
     unified: update
       ? defaultValue({
+        fallbackValueOption,
         type: instance.type,
         value: instance.value
       })
@@ -270,7 +273,7 @@ export default class Field extends Base implements FieldInterface {
     }
     this.$value = newVal;
     this.$changed ++;
-    if (!this.resetting && !this.clearing) {
+    if (!this.actionRunning) {
       this.state.form.$changed ++;
     };
   }
@@ -288,11 +291,17 @@ export default class Field extends Base implements FieldInterface {
   }
 
   set initial(val) {
-    this.$initial = parseInput(this.$input, { separated: val });
+    this.$initial = parseInput(this.$input, {
+      fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
+      separated: val,
+    });
   }
 
   set default(val) {
-    this.$default = parseInput(this.$input, { separated: val });
+    this.$default = parseInput(this.$input, {
+      fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
+      separated: val,
+    });
   }
 
   get actionRunning() {
@@ -499,6 +508,7 @@ export default class Field extends Base implements FieldInterface {
     this.key = $key;
     this.path = $path;
     this.id = this.state.options.get(OptionsEnum.uniqueId)?.apply(this, [this]);
+    const fallbackValueOption = this.state.options.get(OptionsEnum.fallbackValue, this);
     const struct = this.state.struct();
     const structPath = pathToStruct(this.path);
     const isEmptyArray: boolean = Array.isArray(struct)
@@ -509,9 +519,6 @@ export default class Field extends Base implements FieldInterface {
 
     const { $type, $input, $output } = $props;
 
-    // eslint-disable-next-line
-    // if (_.isNil($data)) $data = '';
-
     if (_.isPlainObject($data)) {
       const { type, input, output } = $data;
 
@@ -521,6 +528,7 @@ export default class Field extends Base implements FieldInterface {
       this.$output = $try($output, output, this.$output);
 
       this.$value = parseInput(this.$input, {
+        fallbackValueOption,
         isEmptyArray,
         type: this.type,
         unified: $data.value,
@@ -529,6 +537,7 @@ export default class Field extends Base implements FieldInterface {
       });
 
       this.$initial = parseInput(this.$input, {
+        fallbackValueOption,
         nullable: true,
         isEmptyArray,
         type: this.type,
@@ -538,6 +547,7 @@ export default class Field extends Base implements FieldInterface {
       });
 
       this.$default = setupDefaultProp(this, $data, $props, update, {
+        fallbackValueOption,
         isEmptyArray,
       });
 
@@ -552,6 +562,7 @@ export default class Field extends Base implements FieldInterface {
     this.$output = $try($output, this.$output);
 
     this.$value = parseInput(this.$input, {
+      fallbackValueOption,
       isEmptyArray,
       type: this.type,
       unified: $data,
@@ -559,6 +570,7 @@ export default class Field extends Base implements FieldInterface {
     });
 
     this.$initial = parseInput(this.$input, {
+      fallbackValueOption,
       nullable: true,
       isEmptyArray,
       type: this.type,
@@ -568,6 +580,7 @@ export default class Field extends Base implements FieldInterface {
     });
 
     this.$default = setupDefaultProp(this, $data, $props, update, {
+      fallbackValueOption,
       isEmptyArray,
     });
 
@@ -660,7 +673,7 @@ export default class Field extends Base implements FieldInterface {
       this.$resetting = false;
       this.$clearing = false;
     }))
-    if (deep) this.each((field: any) => field.resetValidation());
+    if (deep) this.each((field: any) => field.resetValidation(deep));
   }
 
   clear(deep: boolean = true, execHook: boolean = true): void {
@@ -671,11 +684,12 @@ export default class Field extends Base implements FieldInterface {
     this.$changed = 0;
     this.files = undefined;
     this.$value = defaultValue({
+      fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue),
       value: this.$value,
       type: this.type,
     });
 
-    if (deep) this.each((field: FieldInterface) => field.clear(true));
+    if (deep) this.each((field: FieldInterface) => field.clear(deep));
 
     this.state.options.get(OptionsEnum.validateOnClear, this)
       ? this.validate({
@@ -695,7 +709,7 @@ export default class Field extends Base implements FieldInterface {
     if (useDefaultValue) this.value = this.$default;
     if (!useDefaultValue) this.value = this.$initial;
 
-    if (deep) this.each((field: FieldInterface) => field.reset(true));
+    if (deep) this.each((field: FieldInterface) => field.reset(deep));
 
     this.state.options.get(OptionsEnum.validateOnReset, this)
       ? this.validate({
@@ -782,13 +796,11 @@ export default class Field extends Base implements FieldInterface {
   }
 
   initMOBXEvent(type: string): void {
-    // @ts-ignore
     if (!_.isArray(this[`$${type}`])) return;
 
     let fn: any;
     if (type === FieldPropsEnum.observers) fn = this.observe;
     if (type === FieldPropsEnum.interceptors) fn = this.intercept;
-    // @ts-ignore
     this[`$${type}`].map((obj: any) => fn(_.omit(obj, FieldPropsEnum.path)));
   }
 
@@ -807,6 +819,7 @@ export default class Field extends Base implements FieldInterface {
     const x = this.state.struct().findIndex(s => s.startsWith(this.path.replace(/\.\d+\./, '[].') + '[]'));
     if (!fallback && this.fields.size === 0 && x < 0) {
       this.value = parseInput(this.$input, {
+        fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
         separated: fields,
       });
       return;

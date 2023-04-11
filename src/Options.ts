@@ -18,6 +18,7 @@ export default class Options implements OptionsInterface {
   options: OptionsModel = {
     uniqueId,
     fallback: true,
+    fallbackValue: "",
     defaultGenericError: null,
     submitThrowsError: true,
     showErrorsOnInit: false,
@@ -43,6 +44,7 @@ export default class Options implements OptionsInterface {
     retrieveOnlyDirtyFieldsValues: false,
     retrieveOnlyEnabledFieldsValues: false,
     retrieveOnlyEnabledFieldsErrors: false,
+    retrieveNullifiedEmptyStrings: false,
     autoTrimValue: false,
     autoParseNumbers: false,
     removeNullishValuesInArrays: false,

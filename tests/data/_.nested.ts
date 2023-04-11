@@ -2,6 +2,8 @@
   NESTED
 */
 import $A from "./forms/nested/form.a";
+import $A1 from "./forms/nested/form.a1";
+import $A2 from "./forms/nested/form.a2";
 import $B from "./forms/nested/form.b";
 import $C from "./forms/nested/form.c";
 import $D from "./forms/nested/form.d_";
@@ -31,6 +33,8 @@ import $Z from "./forms/nested/form.z";
 
 export default {
   $A,
+  $A1,
+  $A2,
   $B,
   $C,
   $D,

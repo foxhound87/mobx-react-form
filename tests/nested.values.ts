@@ -191,3 +191,39 @@ describe("Check Nested $S Values", () => {
   it("$S club.bouncer value should be empty string", () =>
     expect($.$S.$("club.bouncer").value).to.equal(""));
 });
+
+
+describe("Check Nested $A1 Values", () => {
+  it('$A1 form values() should be equal to "{ user: { firstname: null, lastname: null } }"', () =>
+  expect($.$A1.values()).to.be.deep.equal({ user: { firstname: null, lastname: null } }));
+
+  it('$A1 user values() should be equal to "{ firstname: null, lastname: null }"', () =>
+    expect($.$A1.$('user').values()).to.be.deep.equal({ firstname: null, lastname: null }));
+
+  it('$A1 user value should be equal to "{ firstname: null, lastname: null }"', () =>
+    expect($.$A1.$('user').value).to.be.deep.equal({ firstname: '', lastname: '' }));
+
+  it('$A1 user.firstname value should be equal to empty string', () =>
+    expect($.$A1.$('user.firstname').value).to.be.equal(''));
+
+  it('$A1 user.lastname value should be equal to empty string', () =>
+    expect($.$A1.$('user.lastname').value).to.be.equal(''));
+});
+
+describe("Check Nested $A2 Values", () => {
+  it('$A2 form values() should be equal to "{ user: { firstname: null, lastname: null } }"', () =>
+  expect($.$A2.values()).to.be.deep.equal({ user: { firstname: null, lastname: null } }));
+
+  it('$A2 user values() should be equal to "{ firstname: null, lastname: null }"', () =>
+    expect($.$A2.$('user').values()).to.be.deep.equal({ firstname: null, lastname: null }));
+
+  it('$A2 user values() should be equal to "{ firstname: null, lastname: null }"', () =>
+    expect($.$A2.$('user').values()).to.be.deep.equal({ firstname: null, lastname: null }));
+
+  it('$A2 user.firstname value should be null', () =>
+    expect($.$A2.$('user.firstname').value).to.be.null);
+
+  it('$A2 user.lastname value should be null', () =>
+    expect($.$A2.$('user.lastname').value).to.be.null);
+
+});
