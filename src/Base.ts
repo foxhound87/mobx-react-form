@@ -941,7 +941,7 @@ export default class Base implements BaseInterface {
     Fields Default Values (recursive with Nested Fields)
    */
   defaults() {
-    return this.get(FieldPropsEnum.placeholder);
+    return this.get(FieldPropsEnum.default);
   }
 
   /**

@@ -167,3 +167,15 @@ describe('Field values type checks', () => {
     assert.isNumber($.$A.$('assets').value,
       '$A assets.value is not a number'));
 });
+
+describe('Form default values', () => {
+  it('$T defaults is an object', () =>
+    assert.isObject($.$T.defaults(),
+      '$T defaults is not an object'));
+
+  it('$T defaults check default field values', () => {
+    expect($.$T.defaults().username).to.be.equal('TestUser');
+    expect($.$T.defaults().email).to.be.equal('s.jobs@apple.com');
+    expect($.$T.defaults().country).to.be.equal('USA');
+  });
+});
