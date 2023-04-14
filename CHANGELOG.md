@@ -1,3 +1,8 @@
+# 6.2.1 (master)
+- Refactored set value with input function
+- Deprecated input function on `initial` and `default` props.
+- Fix: input function applied 2 times when using `set()`
+
 # 6.2.0 (master)
 - Feat: #433 (File input append mode)
 

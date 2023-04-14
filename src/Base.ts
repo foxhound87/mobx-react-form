@@ -440,18 +440,12 @@ export default class Base implements BaseInterface {
           const fallback = this.state.options.get(OptionsEnum.fallback);
           const x = this.state.struct().findIndex(s => s.startsWith($field.path.replace(/\.\d+\./, '[].') + '[]'));
           if (!fallback && $field.fields.size === 0 && x < 0) {
-            $field.value = parseInput($field.$input, {
-              fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
-              separated: _.get(raw, $path),
-            });
+            $field.value = _.get(raw, $path);
             return;
           }
         }
         if (_.isNull(field) || _.isNil(field.fields)) {
-          $field.value = parseInput($field.$input, {
-            fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
-            separated: field,
-          });
+          $field.value = field;
           return;
         }
       }
@@ -571,15 +565,8 @@ export default class Base implements BaseInterface {
       const deep = (_.isObject(data) && prop === FieldPropsEnum.value) || _.isPlainObject(data);
       if (deep && this.hasNestedFields) return this.deepSet(prop, data, "", true);
 
-      if (([
-        FieldPropsEnum.value,
-        FieldPropsEnum.initial,
-        FieldPropsEnum.default,
-      ] as string[]).includes(prop)) {
-        (this as any)[prop] = parseInput((this as any).$input, {
-          fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
-          separated: data,
-        });
+      if (prop === FieldPropsEnum.value) {
+        (this as any).value = data;
       } else {
         _.set(this, `$${prop}`, data);
       }

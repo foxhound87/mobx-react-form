@@ -54,7 +54,7 @@ const setupDefaultProp = (
   { isEmptyArray, fallbackValueOption }:
   { isEmptyArray: boolean, fallbackValueOption: any }
 ) =>
-  parseInput(instance.$input, {
+  parseInput((val) => val, {
     defaultValue,
     nullable: true,
     isEmptyArray,
@@ -262,16 +262,24 @@ export default class Field extends Base implements FieldInterface {
         if (
           new RegExp("^-?\\d+(,\\d+)*(\\.\\d+([eE]\\d+)?)?$", "g").exec(newVal)
         ) {
-          this.$value = _.toNumber(newVal);
+          this.$value = parseInput(this.$input, {
+            fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
+            separated: _.toNumber(newVal),
+          });
+
           this.$changed ++;
-          if (!this.resetting && !this.clearing) {
+          if (!this.actionRunning) {
             this.state.form.$changed ++;
           };
           return;
         }
       }
     }
-    this.$value = newVal;
+    this.$value = parseInput(this.$input, {
+      fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
+      separated: newVal,
+    });
+
     this.$changed ++;
     if (!this.actionRunning) {
       this.state.form.$changed ++;
@@ -291,17 +299,11 @@ export default class Field extends Base implements FieldInterface {
   }
 
   set initial(val) {
-    this.$initial = parseInput(this.$input, {
-      fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
-      separated: val,
-    });
+    this.$initial = val;
   }
 
   set default(val) {
-    this.$default = parseInput(this.$input, {
-      fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
-      separated: val,
-    });
+    this.$default = val;
   }
 
   get actionRunning() {
@@ -539,7 +541,7 @@ export default class Field extends Base implements FieldInterface {
         fallback: $props.$initial,
       });
 
-      this.$initial = parseInput(this.$input, {
+      this.$initial = parseInput((val) => val, {
         fallbackValueOption,
         nullable: true,
         isEmptyArray,
@@ -572,7 +574,7 @@ export default class Field extends Base implements FieldInterface {
       separated: $props.$value,
     });
 
-    this.$initial = parseInput(this.$input, {
+    this.$initial = parseInput((val) => val, {
       fallbackValueOption,
       nullable: true,
       isEmptyArray,
@@ -821,10 +823,7 @@ export default class Field extends Base implements FieldInterface {
     const fallback = this.state.options.get(OptionsEnum.fallback, this);
     const x = this.state.struct().findIndex(s => s.startsWith(this.path.replace(/\.\d+\./, '[].') + '[]'));
     if (!fallback && this.fields.size === 0 && x < 0) {
-      this.value = parseInput(this.$input, {
-        fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
-        separated: fields,
-      });
+      this.value = fields;
       return;
     }
     super.update(fields);
