@@ -1,3 +1,5 @@
+# 6.1.1 (master)
+- Fix: #624 (default() helpers)
 # 6.1.0 (master)
 - Introduced `fallbackValue` and `retrieveNullifiedEmptyStrings` form options.
 - Fix: `get()` strict mode improved
