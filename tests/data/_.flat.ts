@@ -17,6 +17,7 @@ import $O from "./forms/flat/form.o";
 import $P from "./forms/flat/form.p";
 import $Q from "./forms/flat/form.q";
 import $R from "./forms/flat/form.r";
+import $T from "./forms/flat/form.t";
 
 export default {
   $A,
@@ -35,4 +36,5 @@ export default {
   $P,
   $Q,
   $R,
+  $T,
 };
