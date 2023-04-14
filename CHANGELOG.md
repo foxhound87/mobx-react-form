@@ -1,3 +1,6 @@
+# 6.2.2 (master)
+- Fix: mobx cycle detected in computation (get() strict mode)
+
 # 6.2.1 (master)
 - Refactored set value with input function
 - Deprecated input function on `initial` and `default` props.
@@ -7,7 +10,7 @@
 - Feat: #433 (File input append mode)
 
 # 6.1.1 (master)
-- Fix: #624 (default() helpers)
+- Fix: #624 (defaults() helpers)
 
 # 6.1.0 (master)
 - Introduced `fallbackValue` and `retrieveNullifiedEmptyStrings` form options.

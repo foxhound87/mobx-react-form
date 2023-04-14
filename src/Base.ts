@@ -485,7 +485,7 @@ export default class Base implements BaseInterface {
     allowedProps(AllowedFieldPropsTypes.all, _.isArray(prop) ? prop : [prop]);
 
     if (_.isString(prop)) {
-      if (this.fields.size === 0) {
+      if (strict && this.fields.size === 0) {
         const retrieveNullifiedEmptyStrings = this.state.options.get(OptionsEnum.retrieveNullifiedEmptyStrings, this);
         return parseCheckOutput(this, prop, strict ? retrieveNullifiedEmptyStrings : false);
       }
