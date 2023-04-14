@@ -482,7 +482,10 @@ export default class Field extends Base implements FieldInterface {
           files = _.map(e.target.files);
         }
 
-        this.files = files || args;
+        this.files = [
+          ..._.map(this.files),
+          ...(files || args)
+        ];
       })
     );
 
