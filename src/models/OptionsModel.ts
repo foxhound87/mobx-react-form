@@ -38,6 +38,9 @@ export enum OptionsEnum {
   stopValidationOnError = 'stopValidationOnError',
   validationPluginsOrder = 'validationPluginsOrder',
   resetValidationBeforeValidate = 'resetValidationBeforeValidate',
+  applyInputConverterOnInit = 'applyInputConverterOnInit',
+  applyInputConverterOnSet = 'applyInputConverterOnSet',
+  applyInputConverterOnUpdate = 'applyInputConverterOnUpdate',
 }
 
 
@@ -84,4 +87,7 @@ export default interface OptionsModel {
   [OptionsEnum.stopValidationOnError]?: boolean;
   [OptionsEnum.validationPluginsOrder]?: undefined | string[];
   [OptionsEnum.resetValidationBeforeValidate]?: boolean;
+  [OptionsEnum.applyInputConverterOnInit]?: boolean,
+  [OptionsEnum.applyInputConverterOnSet]?: boolean,
+  [OptionsEnum.applyInputConverterOnUpdate]?: boolean,
 }

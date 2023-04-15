@@ -86,6 +86,7 @@ export default class Field extends Base implements FieldInterface {
   $observers: any;
   $interceptors: any;
 
+  $converter = ($: any) => $;
   $input = ($: any) => $;
   $output = ($: any) => $;
 
@@ -262,7 +263,7 @@ export default class Field extends Base implements FieldInterface {
         if (
           new RegExp("^-?\\d+(,\\d+)*(\\.\\d+([eE]\\d+)?)?$", "g").exec(newVal)
         ) {
-          this.$value = _.toNumber(newVal);
+          this.$value = this.$converter(_.toNumber(newVal));
           this.$changed ++;
           if (!this.actionRunning) {
             this.state.form.$changed ++;
@@ -271,7 +272,7 @@ export default class Field extends Base implements FieldInterface {
         }
       }
     }
-    this.$value = newVal;
+    this.$value = this.$converter(newVal);
     this.$changed ++;
     if (!this.actionRunning) {
       this.state.form.$changed ++;
@@ -506,6 +507,7 @@ export default class Field extends Base implements FieldInterface {
     this.path = $path;
     this.id = this.state.options.get(OptionsEnum.uniqueId)?.apply(this, [this]);
     const fallbackValueOption = this.state.options.get(OptionsEnum.fallbackValue, this);
+    const applyInputConverterOnInit = this.state.options.get(OptionsEnum.applyInputConverterOnInit, this);
     const struct = this.state.struct();
     const structPath = pathToStruct(this.path);
     const isEmptyArray: boolean = Array.isArray(struct)
@@ -514,17 +516,18 @@ export default class Field extends Base implements FieldInterface {
           .find((s) => s.substring(structPath.length) === "[]")
       : !!Array.isArray(_.get(struct, this.path));
 
-    const { $type, $input, $output } = $props;
+    const { $type, $input, $output, $converter } = $props;
 
     if (_.isPlainObject($data)) {
-      const { type, input, output } = $data;
+      const { type, input, output, converter } = $data;
 
       this.name = _.toString($data.name || $key);
       this.$type = $type || type || "text";
+      this.$converter = $try($converter, converter, this.$converter);
       this.$input = $try($input, input, this.$input);
       this.$output = $try($output, output, this.$output);
 
-      this.$value = parseInput(this.$input, {
+      this.$value = parseInput(applyInputConverterOnInit ? this.$input : (val) => val, {
         fallbackValueOption,
         isEmptyArray,
         type: this.type,
@@ -555,10 +558,11 @@ export default class Field extends Base implements FieldInterface {
     /* The field IS the value here */
     this.name = _.toString($key);
     this.$type = $type || "text";
+    this.$converter = $try($converter, this.$converter);
     this.$input = $try($input, this.$input);
     this.$output = $try($output, this.$output);
 
-    this.$value = parseInput(this.$input, {
+    this.$value = parseInput(applyInputConverterOnInit ? this.$input : (val) => val, {
       fallbackValueOption,
       isEmptyArray,
       type: this.type,
@@ -813,9 +817,13 @@ export default class Field extends Base implements FieldInterface {
       throw new Error("The update() method accepts only plain objects.");
     }
     const fallback = this.state.options.get(OptionsEnum.fallback, this);
+    const applyInputConverterOnUpdate = this.state.options.get(OptionsEnum.applyInputConverterOnUpdate, this);
     const x = this.state.struct().findIndex(s => s.startsWith(this.path.replace(/\.\d+\./, '[].') + '[]'));
     if (!fallback && this.fields.size === 0 && x < 0) {
-      this.value = fields;
+      this.value = parseInput(applyInputConverterOnUpdate ? this.$input : (val) => val, {
+        fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
+        separated: fields,
+      });
       return;
     }
     super.update(fields);

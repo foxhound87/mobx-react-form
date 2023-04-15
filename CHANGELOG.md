@@ -1,5 +1,7 @@
 # 6.2.3 (master)
-- Fix: `input` function removed from `set value` (applied only on field init)
+- Introduced `applyInputConverterOnInit`, `applyInputConverterOnSet`, `applyInputConverterOnUpdate` form options.
+- Introduced `converter` function applied on `set value`.
+- Fix: `input` function removed from `set value`.
 
 # 6.2.2 (master)
 - Fix: mobx cycle detected in computation (get() strict mode)

@@ -268,8 +268,11 @@ export default class Base implements BaseInterface {
     // try to get props from separated objects
     const _try = (prop: string) => {
       const t = _.get(initial[prop], struct);
-      const isIoProp: boolean = (prop === FieldPropsEnum.input || prop === FieldPropsEnum.output);
-      if (isIoProp && typeof t !== "function") return undefined;
+      if (([
+        FieldPropsEnum.input,
+        FieldPropsEnum.output,
+        FieldPropsEnum.converter,
+      ] as string[]).includes(prop) && typeof t !== "function") return undefined;
       return t;
     };
 
@@ -293,6 +296,7 @@ export default class Base implements BaseInterface {
       $validators: _try(SeparatedPropsMode.validators),
       $observers: _try(SeparatedPropsMode.observers),
       $interceptors: _try(SeparatedPropsMode.interceptors),
+      $converters: _try(SeparatedPropsMode.converters),
       $input: _try(SeparatedPropsMode.input),
       $output: _try(SeparatedPropsMode.output),
       $autoFocus: _try(SeparatedPropsMode.autoFocus),
@@ -421,9 +425,8 @@ export default class Base implements BaseInterface {
       const $key = _.has(field, FieldPropsEnum.name) ? field.name : key;
       const $path = _.trimStart(`${path}.${$key}`, ".");
       const $field = this.select($path, null, false);
-      const $container =
-        this.select(path, null, false) ||
-        this.state.form.select(this.path, null, false);
+      const $container = this.select(path, null, false) || this.state.form.select(this.path, null, false);
+      const applyInputConverterOnUpdate = this.state.options.get(OptionsEnum.applyInputConverterOnUpdate, this);
 
       if (!_.isNil($field) && !_.isUndefined(field)) {
         if (_.isArray($field.values())) {
@@ -440,12 +443,18 @@ export default class Base implements BaseInterface {
           const fallback = this.state.options.get(OptionsEnum.fallback);
           const x = this.state.struct().findIndex(s => s.startsWith($field.path.replace(/\.\d+\./, '[].') + '[]'));
           if (!fallback && $field.fields.size === 0 && x < 0) {
-            $field.value = _.get(raw, $path);
+            $field.value = parseInput(applyInputConverterOnUpdate ? $field.$input : (val) => val, {
+              fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
+              separated: _.get(raw, $path),
+            });
             return;
           }
         }
         if (_.isNull(field) || _.isNil(field.fields)) {
-          $field.value = field;
+          $field.value = parseInput(applyInputConverterOnUpdate ? $field.$input : (val) => val, {
+            fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
+            separated: field,
+          });
           return;
         }
       }
@@ -566,7 +575,11 @@ export default class Base implements BaseInterface {
       if (deep && this.hasNestedFields) return this.deepSet(prop, data, "", true);
 
       if (prop === FieldPropsEnum.value) {
-        (this as any).value = data;
+        const applyInputConverterOnSet = this.state.options.get(OptionsEnum.applyInputConverterOnSet, this);
+        (this as any).value = parseInput(applyInputConverterOnSet ? (this as any).$input : (val) => val, {
+          fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
+          separated: data,
+        });
       } else {
         _.set(this, `$${prop}`, data);
       }

@@ -58,6 +58,9 @@ export default class Options implements OptionsInterface {
     validationPluginsOrder: undefined,
     resetValidationBeforeValidate: true,
     validateTrimmedValue: false,
+    applyInputConverterOnInit: true,
+    applyInputConverterOnSet: true,
+    applyInputConverterOnUpdate: true,
   };
 
   constructor() {

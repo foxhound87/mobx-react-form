@@ -83,6 +83,7 @@ export const props: PropsGroupsInterface = {
     SeparatedPropsMode.validators,
     SeparatedPropsMode.observers,
     SeparatedPropsMode.interceptors,
+    SeparatedPropsMode.converters,
     SeparatedPropsMode.input,
     SeparatedPropsMode.output,
     SeparatedPropsMode.autoFocus,
@@ -92,6 +93,7 @@ export const props: PropsGroupsInterface = {
   functions: [
     FieldPropsEnum.observers,
     FieldPropsEnum.interceptors,
+    FieldPropsEnum.converter,
     FieldPropsEnum.input,
     FieldPropsEnum.output,
   ],
