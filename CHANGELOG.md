@@ -1,3 +1,6 @@
+# 6.2.3 (master)
+- Fix: `input` function removed from `set value` (applied only on field init)
+
 # 6.2.2 (master)
 - Fix: mobx cycle detected in computation (get() strict mode)
 

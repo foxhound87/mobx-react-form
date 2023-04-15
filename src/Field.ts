@@ -262,11 +262,7 @@ export default class Field extends Base implements FieldInterface {
         if (
           new RegExp("^-?\\d+(,\\d+)*(\\.\\d+([eE]\\d+)?)?$", "g").exec(newVal)
         ) {
-          this.$value = parseInput(this.$input, {
-            fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
-            separated: _.toNumber(newVal),
-          });
-
+          this.$value = _.toNumber(newVal);
           this.$changed ++;
           if (!this.actionRunning) {
             this.state.form.$changed ++;
@@ -275,11 +271,7 @@ export default class Field extends Base implements FieldInterface {
         }
       }
     }
-    this.$value = parseInput(this.$input, {
-      fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
-      separated: newVal,
-    });
-
+    this.$value = newVal;
     this.$changed ++;
     if (!this.actionRunning) {
       this.state.form.$changed ++;
