@@ -2,7 +2,7 @@
 
 #### Editable Props
 | Property | Type | Info | Help |
-|---|---|---|---|---|
+|---|---|---|---|
 | **type** | string | Field type (default: `text`). | - |
 | **value** | any | Value of the field. | - |
 | **initial** | boolean | The initial value of the field. | - |
@@ -11,9 +11,9 @@
 | **placeholder** | string | The Field placeholder. | - |
 | **related** | boolean | Get Related fields for validation. | - |
 | **options** | object | Individual Field Options, with fallback on Form Options. | - |
-| **rules** | boolean | computed | Get DVR Validation Rules. | - |
-| **validators** | boolean | computed | Get VJF Validation Functions. | - |
-| **validatedWith** | string | computed | Field prop to validate instead `value`. | - |
+| **rules** | boolean | Get DVR Validation Rules. | - |
+| **validators** | boolean | Get VJF Validation Functions. | - |
+| **validatedWith** | string | Field prop to validate instead `value`. | - |
 | **extra** | any | Additional extra data for the field (useful for a select input). | - |
 | **bindings** | string | The key of the registered bindings to use for the current field. | [help](../bindings/README.md) |
 | **hooks** | object | An object with Event Hooks | [help](../events/event-hooks.html) |
