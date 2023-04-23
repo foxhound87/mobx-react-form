@@ -13,8 +13,8 @@
 | **options** | object | Individual Field Options, with fallback on Form Options. | - |
 | **extra** | any | Additional extra data for the field (useful for a select input). | - |
 | **bindings** | string | The key of the registered bindings to use for the current field. | [help](../bindings/README.md) |
-| **hooks** | object | An object with Event Hooks | [help](../events/event-handlers.html) |
-| **handlers** | object | An object with Event Handlers. | [help](../events/event-hooks.html) |
+| **hooks** | object | An object with Event Hooks | [help](../events/event-hooks.html) |
+| **handlers** | object | An object with Event Handlers. | [help](../events/event-handlers.html) |
 | **deleted** | boolean | The deleted state of the field. (see `softDelete` option) | - |
 | **disabled** | boolean | The disabled state of the field. | - |
 | **autoFocus** | boolean | Set this to `true` for the first input to be focused at form initialization. | - |
