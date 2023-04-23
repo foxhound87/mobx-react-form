@@ -37,7 +37,9 @@
 | **validateDisabledFields** | boolean | false | Enable or disable field validation based on their `disabled` property. |
 | **validatePristineFields** | boolean | true | Enable or disable field validation based on their `isPristine` property. |
 | **validateTrimmedValue** | boolean | false | If enabled, it applies `trim()` to the field value before `validate` |
-| **strictUpdate** | boolean | false | Throw an error if trying to update an undefined field. |
+| **strictSelect** | boolean | true | Throw an error if trying to select an undefined field when using `select()` or the helper `$()`. |
+| **strictSet** | boolean | false | Throw an error if trying to update an undefined field when using `set()`. |
+| **strictUpdate** | boolean | false | Throw an error if trying to update an undefined field when using `update()`. |
 | **strictDelete** | boolean | true | Throw an error if trying to delete an undefined field. |
 | **softDelete** | boolean | false | When using `del()` the field will not be deleted, instead its `deleted` prop will be switched to `true`. |
 | **retrieveOnlyEnabledFieldsErrors** | boolean | false | Get only Enabled Fields Errors when using `get('error')` or the `errors()` helper. |
@@ -53,6 +55,9 @@
 | **validationPluginsOrder** | string[] | undefined | Specify an array of strings with the validation plugins order. Accepted Plugins: `vjf`, `dvr`, `svk`, `yup`. |
 | **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
 | **validationDebounceOptions** | object | { leading: false, trailing: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |
+| **applyInputConverterOnInit** | boolean | trye | If enabled, apply `input` converter on field `initialization` |
+| **applyInputConverterOnSet** | boolean | trye | If enabled, apply `input` converter on field `set()` |
+| **applyInputConverterOnUpdate** | boolean | trye | If enabled, apply `input` converter on field `update()` |
 | **uniqueId** | function | - | Implement a function to create custom Fields IDs. Useful for SSR. Takes the fields instance in input. |
 
 

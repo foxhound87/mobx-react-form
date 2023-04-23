@@ -28,11 +28,12 @@
 - Nested Fields (w/ Serialization & Validation).
 - Nested Forms (w/ Nested Submission & Validation Hooks).
 - Event Hooks, Event Handlers & Validation Hooks
-- Observers & Interceptors
-- Bindings for custom Components.
+- Functional Computed Field Props
+- Field Props Observers & Interceptors
+- Field Props Bindings for custom Components.
 - Support for Material UI, React Widgets, React Select & more.
+- Forms Composer: to handle multi-forms submit, validations and other actions
 - Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
-
 
 ## Summary
 

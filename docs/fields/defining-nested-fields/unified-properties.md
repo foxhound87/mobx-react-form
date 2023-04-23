@@ -44,7 +44,7 @@ const fields = [{
   fields: [{
     name: 'email',
     label: 'Email',
-    validators: isEmail,
+    validators: [isEmail],
     related: ['user.emailConfirm'], // <<---
   }, {
     name: 'emailConfirm',

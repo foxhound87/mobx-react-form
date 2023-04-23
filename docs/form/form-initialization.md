@@ -22,7 +22,7 @@ Provide an object which expects the following properties:
 | Property | Description | Help |
 |---|---|---|
 | **struct**    | Define fields structure as an array of strings representig the fields (dot notation ad array notation can be used) | - |
-| **fields**    | Using **Unified Properties Definition** mode: an object which represents the fields with all their properties. Using **Separated Properties Definition** mode: an array which represents the fields structure. | [defining fields](../fields/) |
+| **fields**    | Using **Unified Properties Definition** mode: an object which represents the fields with all their properties. Using **Separated Properties Definition** mode: an array of strings which represents the fields structure. | [defining fields](../fields/) |
 
 ###### Fields Properties
 | Property | Description | Help |
@@ -55,10 +55,6 @@ Provide an object which expects the following properties:
 | **rules**    | The rules for the validation (if **DVR** mode is active). | [DVR](../validation/plugins/DVR/setup.md) |
 
 > Validate fields according to the choosen [validation plugin](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html)
-
-> If you are using the **Unified Properties Definition** mode, you will need only the `fields` property.
-
-> If you are using the **Separated Properties Definition** mode, the `fields` property have to be defined as `struct`.
 
 ## Second Constructor Argument
 

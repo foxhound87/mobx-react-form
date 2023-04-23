@@ -1,6 +1,6 @@
 # Fields Methods
 
-| Property | Input | Output | Info | Help |
+| Method | Input | Output | Info | Help |
 |---|---|---|---|---|
 | **container()** | (object) | - | Get Parent Field Container. | - |
 | **bind()** | - | object | Get the current field bindings. | [help](../bindings/README.md) |

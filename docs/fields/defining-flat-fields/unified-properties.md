@@ -104,7 +104,7 @@ In this case the fields will be filled with the `value` property when the form i
 const fields = {
   email: {
     label: 'Email',
-    validators: isEmail,
+    validators: [isEmail],
     related: ['emailConfirm'], // <<---
   },
   emailConfirm: {

@@ -55,8 +55,10 @@
  * [Custom Bindings](docs/bindings/custom.md)
 
 ## Extra
-* [Input & Output Converters](docs/extra/converters/input-output.md)
+* [Computed Field Props](docs/extra/computed-props.md)
+* [Input & Output Converters](docs/extra/converters.md)
 * [Observe / Intercept](docs/extra/mobx-events.md)
+* [Forms Composer](docs/extra/composer.md)
 
 ## Validation
 * [Validation](docs/validation/README.md)
