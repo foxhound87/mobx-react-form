@@ -33,7 +33,7 @@ export default class Bindings implements BindingsInterface {
 
   register(bindings: FieldPropsType): Bindings {
     _.each(bindings, (val, key) => {
-      if (_.isFunction(val)) _.merge(this.templates, { [key]: val });
+      if ((typeof val === 'function')) _.merge(this.templates, { [key]: val });
       if (_.isPlainObject(val)) _.merge(this.rewriters, { [key]: val });
     });
 

@@ -56,7 +56,7 @@ export default class Validator implements ValidatorInterface {
 
   validate(opt: any = {}, obj: any = {}): Promise<any> {
     const path = $try(opt.path, opt);
-    const instance = $try(opt.field, this.form.select(path, null, null), this.form);
+    const instance = $try(opt.field, this.form.select(path, null, false), this.form);
     const related = $try(opt.related, obj.related, true);
     const showErrors = $try(opt.showErrors, obj.showErrors, false);
     instance.$validating = true;

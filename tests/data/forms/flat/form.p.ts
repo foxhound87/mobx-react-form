@@ -26,7 +26,7 @@ const labels = {
 };
 
 const validators = {
-  email: shouldBeEqualTo("username"), // should fail
+  email: [shouldBeEqualTo("username")], // should fail
 };
 
 const rules = {

@@ -22,8 +22,10 @@ export enum OptionsEnum {
   validateTrimmedValue = 'validateTrimmedValue',
   validateOnClear = 'validateOnClear',
   validateOnReset = 'validateOnReset',
+  strictSet = 'strictSet',
   strictUpdate = 'strictUpdate',
   strictDelete = 'strictDelete',
+  strictSelect = 'strictSelect',
   softDelete = 'softDelete',
   retrieveOnlyDirtyFieldsValues = 'retrieveOnlyDirtyFieldsValues',
   retrieveOnlyEnabledFieldsValues = 'retrieveOnlyEnabledFieldsValues',
@@ -68,8 +70,10 @@ export default interface OptionsModel {
   [OptionsEnum.validateDeletedFields]?: boolean;
   [OptionsEnum.validatePristineFields]?: boolean;
   [OptionsEnum.validateTrimmedValue]?: boolean;
+  [OptionsEnum.strictSet]?: boolean;
   [OptionsEnum.strictUpdate]?: boolean;
   [OptionsEnum.strictDelete]?: boolean;
+  [OptionsEnum.strictSelect]?: boolean;
   [OptionsEnum.softDelete]?: boolean;
   [OptionsEnum.retrieveOnlyDirtyFieldsValues]?: boolean;
   [OptionsEnum.retrieveOnlyEnabledFieldsValues]?: boolean;

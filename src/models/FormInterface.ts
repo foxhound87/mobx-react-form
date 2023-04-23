@@ -24,8 +24,8 @@ export default interface FormInterface extends BaseInterface {
   // init($fields: any): void;
   invalidate(message?: string | null): void;
   showErrors(show: boolean): void;
-  clear(): void;
-  reset(): void;
+  clear(deep?: boolean, execHook?: boolean): void;
+  reset(deep?: boolean, execHook?: boolean): void;
 
   makeField(data: FieldConstructor): FieldInterface;
 }

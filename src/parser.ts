@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { FieldPropsEnum } from "./models/FieldProps";
+import { FieldPropsEnum, SeparatedPropsMode } from "./models/FieldProps";
 import {
   $try,
   isArrayOfStrings,
@@ -13,20 +13,14 @@ import {
 const defaultValue = ({
   type = undefined,
   value = undefined,
-  nullable = false,
   isEmptyArray = false,
   fallbackValueOption = "",
 }: any): null | false | 0 | [] | "" => {
-  if (type === "file") return "";
-  if (type === "nullable") return null;
-  if (type === "datetime-local") return null;
-  if (_.isDate(value) || type === "date") return null;
+  if (_.isArray(value) || isEmptyArray) return [];
+  if (_.isDate(value) || type === "date" || type === "datetime-local") return null;
   if (_.isNumber(value) || type === "number") return 0;
   if (_.isBoolean(value) || type === "checkbox") return false;
-  if (_.isString(value)) return "";
-  if (_.isArray(value)) return [];
-  if (nullable) return null;
-  if (isEmptyArray) return [];
+  if (_.isString(value) || type === "file") return "";
   return fallbackValueOption;
 };
 
@@ -39,7 +33,7 @@ const parsePath = (path: string): string => {
 
 const parseInput = (
   input: any,
-  { fallbackValueOption = "", type, isEmptyArray, nullable, separated, unified, fallback }: any
+  { fallbackValueOption = "", type, isEmptyArray, separated, unified, fallback }: any
 ) =>
   input(
     $try(
@@ -50,17 +44,17 @@ const parseInput = (
         fallbackValueOption,
         type,
         isEmptyArray,
-        nullable,
       })
     )
   );
 
 const parseArrayProp = (val: any, prop: string, removeNullishValuesInArrays: boolean): any => {
   const values = _.values(val);
-  const isValProp: boolean =
-        (prop === FieldPropsEnum.value
-      || prop === FieldPropsEnum.initial
-      || prop === FieldPropsEnum.default);
+  const isValProp: boolean = ([
+    FieldPropsEnum.value,
+    FieldPropsEnum.initial,
+    FieldPropsEnum.default,
+  ] as string[]).includes(prop)
 
   if (removeNullishValuesInArrays && isValProp) {
     return _.without(values, ...[null, undefined, ""]);
@@ -228,7 +222,7 @@ const handleFieldsPropsFallback = (
   initial: any,
   fallback: any
 ) => {
-  if (!_.has(initial, "values")) return fields;
+  if (!_.has(initial, SeparatedPropsMode.values)) return fields;
   // if the 'values' object is passed in constructor
   // then update the fields definitions
   let { values } = initial;

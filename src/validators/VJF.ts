@@ -45,7 +45,7 @@ export class VJF implements ValidationPluginInterface {
 
   extendValidator() {
     // extend using "extend" callback
-    if (_.isFunction(this.extend)) {
+    if (typeof this.extend === 'function') {
       this.extend({
         validator: this.validator,
         form: this.state.form,
@@ -57,15 +57,15 @@ export class VJF implements ValidationPluginInterface {
     // exit if field does not have validation functions
     if (!field.validators) return;
     // get validators from validate property
-    const $fn = toJS(field.validators);
+    const $fn = field.validators;
     // map only if is an array of validator functions
     if (_.isArray($fn)) {
       $fn.map((fn) => this.collectData(fn, field));
     }
-    // it's just one function
-    if (_.isFunction($fn)) {
-      this.collectData($fn, field);
-    }
+    // it's just one function // DEPRECATED
+    // if (typeof $fn === 'function') {
+    //   this.collectData($fn, field);
+    // }
     // execute the validation function
     this.executeValidation(field);
   }

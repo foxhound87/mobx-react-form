@@ -161,7 +161,7 @@ export default class Base implements BaseInterface {
   */
   intercept = (opt: any): any =>
     this.MOBXEvent(
-      _.isFunction(opt)
+      (typeof opt === 'function')
         ? { type: "interceptor", call: opt }
         : { type: "interceptor", ...opt }
     );
@@ -171,7 +171,7 @@ export default class Base implements BaseInterface {
   */
   observe = (opt: any): any =>
     this.MOBXEvent(
-      _.isFunction(opt)
+      (typeof opt === 'function')
         ? { type: "observer", call: opt }
         : { type: "observer", ...opt }
     );
@@ -200,7 +200,7 @@ export default class Base implements BaseInterface {
   onSubmit = (...args: any): any =>
     this.execHandler(FieldPropsEnum.onSubmit, args, (e: Event, o = {}) => {
       e.preventDefault();
-      this.submit(o, false);
+      this.submit(o, { execOnSubmitHook: false });
     });
 
   /**
@@ -329,12 +329,16 @@ export default class Base implements BaseInterface {
   /**
     Submit
   */
-  submit(o: any = {}, execHook: boolean = true): Promise<any> {
-    execHook && this.execHook(FieldPropsEnum.onSubmit, o);
+  submit(hooks: any = {}, {
+    execOnSubmitHook = true,
+    execValidationHooks = true,
+    validate = true
+  } = {}): Promise<any> {
+    execOnSubmitHook && this.execHook(FieldPropsEnum.onSubmit, hooks);
     this.$submitting = true;
     this.$submitted += 1;
 
-    if (!this.state.options.get(OptionsEnum.validateOnSubmit, this)) {
+    if (!validate || !this.state.options.get(OptionsEnum.validateOnSubmit, this)) {
       return Promise
         .resolve(this)
         .then(action(() => (this.$submitting = false)))
@@ -342,15 +346,15 @@ export default class Base implements BaseInterface {
     }
 
     const exec = (isValid: boolean) => isValid
-      ? this.execHook(ValidationHooks.onSuccess, o)
-      : this.execHook(ValidationHooks.onError, o);
+      ? this.execHook(ValidationHooks.onSuccess, hooks)
+      : this.execHook(ValidationHooks.onError, hooks);
 
     return (
       this.validate({
         showErrors: this.state.options.get(OptionsEnum.showErrorsOnSubmit, this),
       })
         .then(({ isValid }: any) => {
-          const handler = exec(isValid);
+          const handler = execValidationHooks ? exec(isValid) : undefined;
           if (isValid) return handler;
           const $err = this.state.options.get(OptionsEnum.defaultGenericError, this);
           const $throw = this.state.options.get(OptionsEnum.submitThrowsError, this);
@@ -424,7 +428,9 @@ export default class Base implements BaseInterface {
     _.each(fields, (field, key) => {
       const $key = _.has(field, FieldPropsEnum.name) ? field.name : key;
       const $path = _.trimStart(`${path}.${$key}`, ".");
-      const $field = this.select($path, null, false);
+
+      const strictUpdate = this.state.options.get(OptionsEnum.strictUpdate, this);
+      const $field = this.select($path, null, strictUpdate);
       const $container = this.select(path, null, false) || this.state.form.select(this.path, null, false);
       const applyInputConverterOnUpdate = this.state.options.get(OptionsEnum.applyInputConverterOnUpdate, this);
 
@@ -604,7 +610,7 @@ export default class Base implements BaseInterface {
     recursion: boolean = false
   ): void {
     const err = "You are updating a not existent field:";
-    const isStrict = this.state.options.get(OptionsEnum.strictUpdate, this);
+    const isStrict = this.state.options.get(OptionsEnum.strictSet, this);
 
     if (_.isNil(data)) {
       this.each((field: any) => field.$value = defaultValue({
@@ -791,13 +797,14 @@ export default class Base implements BaseInterface {
    */
   select(path: string, fields: any = null, isStrict: boolean = true) {
     const $path = parsePath(path);
-
     const keys = _.split($path, ".");
     const head = _.head(keys);
 
     keys.shift();
 
-    let $fields = _.isNil(fields) ? this.fields.get(head) : fields.get(head);
+    let $fields = _.isNil(fields)
+      ? this.fields.get(head)
+      : fields.get(head);
 
     let stop = false;
     _.each(keys, ($key) => {
@@ -810,7 +817,9 @@ export default class Base implements BaseInterface {
       }
     });
 
-    if (isStrict) throwError(path, $fields);
+    if (isStrict && this.state.options.get(OptionsEnum.strictSelect, this)) {
+      throwError(path, $fields);
+    }
 
     return $fields;
   }

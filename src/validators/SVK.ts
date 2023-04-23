@@ -61,7 +61,7 @@ class SVK implements ValidationPluginInterface {
     // create ajv instance
     const validator = new ajv(this.extendOptions(config.options));
     // extend ajv using "extend" callback
-    if (_.isFunction(this.extend)) {
+    if (typeof this.extend === 'function') {
       this.extend({
         form: this.state.form,
         validator,

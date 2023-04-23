@@ -1,3 +1,10 @@
+# 6.3.0 (master)
+- Introduced Forms Composer
+- Introduced Functional Computed Field Props
+- Introduced `strictSelect` and `strictSet` form options.
+- Form option `strictUpdate` behavior changed (now applied on `update()` action).
+- Field prop `validators` does not accept anymore a single function, an array of functions is needed.
+
 # 6.2.3 (master)
 - Introduced `applyInputConverterOnInit`, `applyInputConverterOnSet`, `applyInputConverterOnUpdate` form options.
 - Introduced `converter` function applied on `set value`.

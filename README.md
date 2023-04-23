@@ -25,14 +25,16 @@
 
 ## Features
 
-- Extensibles Validation Plugins.
+- Extensibles [Validation Plugins](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html).
 - Sync & Async Validation (w/ Promises & automatic errors).
 - Nested Fields (w/ Serialization & Validation).
 - Nested Forms (w/ Nested Submission & Validation Hooks).
-- Event Hooks, Event Handlers & Validation Hooks
-- Observers & Interceptors
-- Bindings for custom Components.
+- [Event Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/event-hooks.html), [Event Handlers](https://foxhound87.github.io/mobx-react-form/docs/events/event-handlers.html) & [Validation Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/validation-hooks.html)
+- Functional [Computed Field Props](https://foxhound87.github.io/mobx-react-form/docs/extra/computed-props.html)
+- Field Props [Observers & Interceptors](https://foxhound87.github.io/mobx-react-form/docs/extra/mobx-events.html)
+- Field [Props Bindings](https://foxhound87.github.io/mobx-react-form/docs/bindings) for custom Components.
 - Support for Material UI, React Widgets, React Select & more.
+- [Forms Composer](https://foxhound87.github.io/mobx-react-form/docs/extra/composer.html): to handle multi-forms submit, validations and other actions
 - Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
 
 <br>
@@ -105,7 +107,7 @@ const hooks = {
 }
 ```
 
-> See more on the docs about the [Validation Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/validation-hooks.html)
+> See more on the docs about the [Validation Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/validation-hooks.html) and the [Event Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/event-hooks.html)
 
 #### Initialize the Form
 
@@ -131,7 +133,7 @@ import { observer } from 'mobx-react';
 
 export default observer(({ myForm }) => (
   <form onSubmit={myForm.onSubmit}>
-    <label for={myForm.$('email').id}>
+    <label htmlFor={myForm.$('email').id}>
       {myForm.$('email').label}
     </label>
     <input {...myForm.$('email').bind()} />

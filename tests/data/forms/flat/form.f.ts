@@ -29,7 +29,7 @@ const fields = {
   username: {
     label: "Username",
     value: "SteveJobs",
-    validators: shouldBeEqualTo("email"),
+    validators: [shouldBeEqualTo("email")],
     related: ["email"],
   },
   email: {

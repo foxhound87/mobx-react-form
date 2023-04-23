@@ -26,7 +26,6 @@ export const props: PropsGroupsInterface = {
     FieldPropsEnum.bindings,
     FieldPropsEnum.hooks,
     FieldPropsEnum.handlers,
-    FieldPropsEnum.error,
     FieldPropsEnum.deleted,
     FieldPropsEnum.disabled,
     FieldPropsEnum.autoFocus,
@@ -46,6 +45,7 @@ export const props: PropsGroupsInterface = {
     FieldPropsEnum.onDel,
   ],
   computed: [
+    FieldPropsEnum.error,
     FieldPropsEnum.hasError,
     FieldPropsEnum.isValid,
     FieldPropsEnum.isDirty,

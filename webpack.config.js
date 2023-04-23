@@ -20,6 +20,7 @@ module.exports = {
   devtool: "source-map",
   entry: {
     MobxReactForm: "./src/index",
+    MobxReactFormComposer: "./src/composer",
     MobxReactFormValidatorVJF: "./src/validators/VJF",
     MobxReactFormValidatorDVR: "./src/validators/DVR",
     MobxReactFormValidatorSVK: "./src/validators/SVK",

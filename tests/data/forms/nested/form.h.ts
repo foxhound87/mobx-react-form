@@ -45,9 +45,9 @@ const fields = {
 };
 
 const validators = {
-  state: isInt,
-  "state.city": isInt,
-  "state.city.places": isInt,
+  state: [isInt],
+  "state.city": [isInt],
+  "state.city.places": [isInt],
 };
 
 export default new Form({ fields, validators }, { plugins, name: "Nested-H" });

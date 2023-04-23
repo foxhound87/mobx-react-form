@@ -40,7 +40,7 @@ export class DVR implements ValidationPluginInterface {
 
   extendValidator() {
     // extend using "extend" callback
-    if (_.isFunction(this.extend)) {
+    if (typeof this.extend === 'function') {
       this.extend({
         validator: this.validator,
         form: this.state.form,

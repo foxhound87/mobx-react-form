@@ -125,9 +125,9 @@ const allowNested = (field: any, strictProps: boolean): boolean =>
   !_.has(field, FieldPropsEnum.fields) &&
   (!hasSome(field, [
     ...props.editable,
+    ...props.handlers,
     ...props.validation,
     ...props.functions,
-    ...props.handlers,
   ]) || strictProps);
 
 const parseIntKeys = (fields: any) =>

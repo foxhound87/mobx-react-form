@@ -1,7 +1,6 @@
 import { ValidationPlugins } from "./../../../../src/models/ValidatorInterface";
 import validatorjs from "validatorjs";
-import MobxReactForm, { Field } from "../../../../src";
-import { isEmail, shouldBeEqualTo } from "../../extension/vjf";
+import MobxReactForm from "../../../../src";
 import dvr from "../../../../src/validators/DVR";
 import OptionsModel from "../../../../src/models/OptionsModel";
 

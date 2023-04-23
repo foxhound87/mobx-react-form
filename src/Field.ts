@@ -24,26 +24,61 @@ import OptionsModel, { OptionsEnum } from "./models/OptionsModel";
 import FieldInterface, { FieldConstructor } from "./models/FieldInterface";
 import { FieldPropsEnum } from "./models/FieldProps";
 
+const applyFieldPropFunc = (instance: FieldInterface, prop: any): any => {
+  if (typeof prop !== 'function') return prop;
+  return prop.apply(instance, [{
+    field: instance,
+    form: instance.state.form
+  }])
+};
+
+const retrieveFieldPropFunc = (prop: any): Function | any | undefined =>
+  (typeof prop === 'function') ? prop : undefined;
+
+const propGetter = (instance: FieldInterface, prop: FieldPropsEnum): any =>
+  (typeof instance[`_${prop}`] === 'function')
+    ? instance[`_${prop}`].apply(instance, [{
+      form: instance.state.form,
+      field: instance,
+    }]) : instance[`$${prop}`];
+
+
 const setupFieldProps = (instance: FieldInterface, props: any, data: any) =>
   Object.assign(instance, {
-    $label: props.$label || (data && data.label) || "",
-    $placeholder: props.$placeholder || (data && data.placeholder) || "",
-    $disabled: props.$disabled || (data && data.disabled) || false,
-    $rules: props.$rules || (data && data.rules) || null,
-    $related: props.$related || (data && data.related) || [],
-    $deleted: props.$deleted || (data && data.deleted) || false,
-    $validators: toJS(props.$validators || (data && data.validators) || null),
-    $validatedWith: props.$validatedWith || (data && data.validatedWith) || FieldPropsEnum.value,
-    $bindings: props.$bindings || (data && data.bindings) || FieldPropsEnum.default,
-    $observers: props.$observers || (data && data.observers) || null,
-    $interceptors: props.$interceptors || (data && data.interceptors) || null,
-    $extra: props.$extra || (data && data.extra) || null,
-    $options: props.$options || (data && data.options) || {},
-    $hooks: props.$hooks || (data && data.hooks) || {},
-    $handlers: props.$handlers || (data && data.handlers) || {},
-    $autoFocus: props.$autoFocus || (data && data.autoFocus) || false,
-    $inputMode: props.$inputMode || (data && data.inputMode) || undefined,
-    $ref: props.$ref || (data && data.ref) || undefined,
+    // retrieve functions
+    _label: retrieveFieldPropFunc(props.$label || data?.label),
+    _placeholder: retrieveFieldPropFunc(props.$placeholder || data?.placeholder),
+    _disabled: retrieveFieldPropFunc(props.$disabled || data?.disabled),
+    _rules: retrieveFieldPropFunc(props.$rules || data?.rules),
+    _related: retrieveFieldPropFunc(props.$related || data?.related),
+    _deleted: retrieveFieldPropFunc(props.$deleted || data?.deleted),
+    _validators: retrieveFieldPropFunc(props.$validators || data?.validators),
+    _validatedWith: retrieveFieldPropFunc(props.$validatedWith || data?.validatedWith),
+    _bindings: retrieveFieldPropFunc(props.$bindings || data?.bindings),
+    _extra: retrieveFieldPropFunc(props.$extra || data?.extra),
+    _options: retrieveFieldPropFunc(props.$options || data?.options),
+    _autoFocus: retrieveFieldPropFunc(props.$autoFocus || data?.autoFocus),
+    _inputMode: retrieveFieldPropFunc(props.$inputMode || data?.inputMode),
+    // apply functions or value
+    $label: applyFieldPropFunc(instance, props.$label || data?.label || ""),
+    $placeholder: applyFieldPropFunc(instance, props.$placeholder || data?.placeholder || ""),
+    $disabled: applyFieldPropFunc(instance, props.$disabled || data?.disabled || false),
+    $rules: applyFieldPropFunc(instance, props.$rules || data?.rules || null),
+    $related: applyFieldPropFunc(instance, props.$related || data?.related || []),
+    $deleted: applyFieldPropFunc(instance, props.$deleted || data?.deleted || false),
+    $validatedWith: applyFieldPropFunc(instance, props.$validatedWith || data?.validatedWith || FieldPropsEnum.value),
+    $bindings: applyFieldPropFunc(instance, props.$bindings || data?.bindings || FieldPropsEnum.default),
+    $extra: applyFieldPropFunc(instance, props.$extra || data?.extra || null),
+    $options: applyFieldPropFunc(instance, props.$options || data?.options || {}),
+    $autoFocus: applyFieldPropFunc(instance, props.$autoFocus || data?.autoFocus || false),
+    $inputMode: applyFieldPropFunc(instance, props.$inputMode || data?.inputMode || undefined),
+    $validators: applyFieldPropFunc(instance, props.$validators || data?.validators || null),
+    // other props
+    $hooks: props.$hooks || data?.hooks || {},
+    $handlers: props.$handlers || data?.handlers || {},
+    $observers: props.$observers || data?.observers || null,
+    $interceptors: props.$interceptors || data?.interceptors || null,
+    $ref: props.$ref || data?.ref || undefined,
   });
 
 const setupDefaultProp = (
@@ -56,7 +91,6 @@ const setupDefaultProp = (
 ) =>
   parseInput((val) => val, {
     defaultValue,
-    nullable: true,
     isEmptyArray,
     type: instance.type,
     unified: update
@@ -65,7 +99,7 @@ const setupDefaultProp = (
         type: instance.type,
         value: instance.value
       })
-      : data && data.default,
+      : data?.default,
     separated: props.$default,
     fallback: instance.$initial,
   });
@@ -89,6 +123,21 @@ export default class Field extends Base implements FieldInterface {
   $converter = ($: any) => $;
   $input = ($: any) => $;
   $output = ($: any) => $;
+
+  _value: Function;
+  _label: Function;
+  _placeholder: Function;
+  _disabled: Function;
+  _rules: Function;
+  _related: Function;
+  _deleted: Function;
+  _validatedWith: Function;
+  _validators: Function;
+  _bindings: Function;
+  _extra: Function;
+  _options: Function;
+  _autoFocus: Function;
+  _inputMode: Function;
 
   $options: OptionsModel | undefined;
   $value: any;
@@ -244,14 +293,6 @@ export default class Field extends Base implements FieldInterface {
     );
   }
 
-  get checked() {
-    return this.type === "checkbox" ? this.value : undefined;
-  }
-
-  get value() {
-    return this.getComputedProp(FieldPropsEnum.value);
-  }
-
   set value(newVal) {
     if (_.isString(newVal) && this.state.options.get(OptionsEnum.autoTrimValue, this)) {
       newVal = newVal.trim();
@@ -279,6 +320,20 @@ export default class Field extends Base implements FieldInterface {
     };
   }
 
+  get actionRunning() {
+    return this.submitting || this.clearing || this.resetting;
+  }
+
+  get checked() {
+    return this.type === "checkbox" ? this.value : undefined;
+  }
+
+  get value() {
+    return (typeof this._value === 'function' && !this.hasNestedFields)
+      ? propGetter(this, FieldPropsEnum.value)
+      : this.getComputedProp(FieldPropsEnum.value);
+  }
+
   get initial() {
     return this.$initial
       ? toJS(this.$initial)
@@ -299,64 +354,64 @@ export default class Field extends Base implements FieldInterface {
     this.$default = val;
   }
 
-  get actionRunning() {
-    return this.submitting || this.clearing || this.resetting;
+  get ref() {
+    return propGetter(this, FieldPropsEnum.ref)
   }
 
   get extra() {
-    return this.$extra;
-  }
-
-  get ref() {
-    return this.$ref;
+    return propGetter(this, FieldPropsEnum.extra)
   }
 
   get autoFocus() {
-    return this.$autoFocus;
+    return propGetter(this, FieldPropsEnum.autoFocus)
   }
 
   get inputMode() {
-    return this.$inputMode;
+    return propGetter(this, FieldPropsEnum.inputMode)
   }
 
   get type() {
-    return toJS(this.$type);
+    return propGetter(this, FieldPropsEnum.type)
   }
 
   get label() {
-    return toJS(this.$label);
+    return propGetter(this, FieldPropsEnum.label)
   }
 
   get placeholder() {
-    return toJS(this.$placeholder);
+    return propGetter(this, FieldPropsEnum.placeholder)
   }
 
   get options() {
-    return toJS(this.$options);
+    return propGetter(this, FieldPropsEnum.options)
   }
 
   get bindings() {
-    return toJS(this.$bindings);
+    return propGetter(this, FieldPropsEnum.bindings)
   }
 
   get related() {
-    return toJS(this.$related);
+    return propGetter(this, FieldPropsEnum.related)
   }
 
   get disabled() {
-    return toJS(this.$disabled);
+    return propGetter(this, FieldPropsEnum.disabled)
   }
 
   get rules() {
-    return toJS(this.$rules);
+    return propGetter(this, FieldPropsEnum.rules)
   }
 
   get validators() {
-    return toJS(this.$validators);
+    return propGetter(this, FieldPropsEnum.validators)
+  }
+
+  get validatedWith() {
+    return propGetter(this, FieldPropsEnum.validatedWith)
   }
 
   get validatedValue() {
-    return parseCheckOutput(this, this.$validatedWith as string);
+    return parseCheckOutput(this, this.validatedWith as string);
   }
 
   get error() {
@@ -438,12 +493,21 @@ export default class Field extends Base implements FieldInterface {
   onSync = (...args: any) =>
     this.type === "file"
       ? this.onDrop(...args)
-      : this.execHandler(FieldPropsEnum.onChange, args, this.sync, FieldPropsEnum.onSync);
+      : this.execHandler(
+          FieldPropsEnum.onChange,
+          args,
+          this.sync,
+          FieldPropsEnum.onSync
+        );
 
   onChange = this.onSync;
 
   onToggle = (...args: any) =>
-    this.execHandler(FieldPropsEnum.onToggle, args, this.sync);
+    this.execHandler(
+      FieldPropsEnum.onToggle,
+      args,
+      this.sync
+    );
 
   onBlur = (...args: any) =>
     this.execHandler(
@@ -527,7 +591,7 @@ export default class Field extends Base implements FieldInterface {
       this.$input = $try($input, input, this.$input);
       this.$output = $try($output, output, this.$output);
 
-      this.$value = parseInput(applyInputConverterOnInit ? this.$input : (val) => val, {
+      const value = parseInput(applyInputConverterOnInit ? this.$input : (val) => val, {
         fallbackValueOption,
         isEmptyArray,
         type: this.type,
@@ -536,9 +600,13 @@ export default class Field extends Base implements FieldInterface {
         fallback: $props.$initial,
       });
 
+      this._value = retrieveFieldPropFunc(value)
+      this.$value = (typeof this._value === 'function')
+        ? applyFieldPropFunc(this, value)
+        : value;
+
       this.$initial = parseInput((val) => val, {
         fallbackValueOption,
-        nullable: true,
         isEmptyArray,
         type: this.type,
         unified: $data.initial,
@@ -562,7 +630,7 @@ export default class Field extends Base implements FieldInterface {
     this.$input = $try($input, this.$input);
     this.$output = $try($output, this.$output);
 
-    this.$value = parseInput(applyInputConverterOnInit ? this.$input : (val) => val, {
+    const value = parseInput(applyInputConverterOnInit ? this.$input : (val) => val, {
       fallbackValueOption,
       isEmptyArray,
       type: this.type,
@@ -570,9 +638,13 @@ export default class Field extends Base implements FieldInterface {
       separated: $props.$value,
     });
 
+    this._value = retrieveFieldPropFunc(value)
+    this.$value = (typeof this._value === 'function')
+      ? applyFieldPropFunc(this, value)
+      : value;
+
     this.$initial = parseInput((val) => val, {
       fallbackValueOption,
-      nullable: true,
       isEmptyArray,
       type: this.type,
       unified: $data,

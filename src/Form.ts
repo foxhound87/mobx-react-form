@@ -62,7 +62,7 @@ export default class Form extends Base implements FormInterface {
         bindings,
       },
       (val, key) =>
-        _.isFunction((this as any)[key])
+        (typeof (this as any)[key] === 'function')
           ? _.merge(val, (this as any)[key].apply(this, [this]))
           : val
     );
@@ -105,7 +105,6 @@ export default class Form extends Base implements FormInterface {
   get validatedValues(): object {
     const data: any = {};
     this.each(($field: any) => (data[$field.path] = $field.validatedValue));
-
     return data;
   }
 

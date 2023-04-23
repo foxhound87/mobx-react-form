@@ -570,9 +570,9 @@ describe('stop validation on error', () => {
     }
 
     const validators = {
-      username: ({field, form}) => {
+      username: [({field, form}) => {
         return [true]
-      }
+      }]
     };
 
     let $576 = new NewForm({ fields, values, validators, rules }, { name: 'Form 999' } );
@@ -584,10 +584,10 @@ describe('stop validation on error', () => {
 
   it('stopValidationOnError and validationPluginsOrder: dvr, vjf ', () => {
     let validators = {
-      username: ({field, form}) => {
+      username: [({field, form}) => {
         expect.fail()
         return [field.value === 'test-user']
-      }
+      }]
     };
     let $576 = new NewForm({ fields, validators, rules }, { name: 'Form 999', options: {
       stopValidationOnError: true, validationPluginsOrder: ['dvr', 'vjf']
@@ -596,10 +596,10 @@ describe('stop validation on error', () => {
 
     let called = false
     validators = {
-      username: ({field, form}) => {
+      username: [({field, form}) => {
         called = true
         return [field.value === 'test-user']
-      }
+      }]
     };
     const values = {
       username: 'test-user'

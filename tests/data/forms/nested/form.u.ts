@@ -27,7 +27,7 @@ const values = {
 };
 
 const validators = {
-  "user.email": isEmail,
+  "user.email": [isEmail],
   "user.emailConfirm": [isEmail, shouldBeEqualTo("user.email")],
 };
 

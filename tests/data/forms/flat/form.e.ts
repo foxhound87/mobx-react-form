@@ -17,7 +17,7 @@ const fields = {
   email: {
     label: "Email",
     value: "s.jobs@apple.com",
-    validators: isEmail,
+    validators: [isEmail],
   },
   password: {
     label: "Password",

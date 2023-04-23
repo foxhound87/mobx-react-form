@@ -1,6 +1,6 @@
 export default interface SharedActionsInterface {
   validate(opt?: any, obj?: any): Promise<any>;
-  submit(options?: any): Promise<any>;
+  submit(hooks: any, opt: { execOnSubmitHook: boolean, execValidationHooks: boolean, validate: boolean }): Promise<any>;
   check(prop: string, deep?: boolean): boolean;
   deepCheck(type: string, prop: string, fields: any): any;
   update(fields: any): void;
