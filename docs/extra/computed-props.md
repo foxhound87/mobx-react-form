@@ -11,7 +11,7 @@ Form the version `6.3` and above, computed props can be defined providing functi
 
 #### How to implement Computed Props
 
-An assumption has to be made before using computed props: the function gets the `form` instances that can be used to acess other form fields **before they are created**. For this reason, to access a field before its creation, we need to set `strictSelect: false` as form `option`, otherwise an error will be thrown when trying to access an undefined field.
+An assumption has to be made before using computed props: the function gets the `form` instance that can be used to acess other form fields **before they are created**. For this reason, to access a field before its creation, we need to set `strictSelect: false` as form `option`, otherwise an error will be thrown when trying to access an undefined field.
 
 ```javascript
 const fields = [

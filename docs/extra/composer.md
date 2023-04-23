@@ -29,5 +29,9 @@ const forms = composer({
 | **error()** | - | boolean | Check if all forms has errors. | - |
 | **clear({ deep, execHook })** | - | boolean | Clear all forms. | - |
 | **reset({ deep, execHook })** | - | boolean | Reset all forms. | - |
-| **validate({ showErrors })** | - | boolean | Reset all forms. | - |
-| **submit({ validate, execOnSubmitHook, execValidationHooks })** | - | boolean | Submit all forms. | - |
+| **validate()** | - | Promise | Validate all forms. | - |
+| **validate({ showErrors })** | - | Promise | Validate all forms (with options). | - |
+| **submit()** | - | Promise | Submit all forms. | - |
+| **submit({ validate, execOnSubmitHook, execValidationHooks })** | - | Promise | Submit all forms (with options). | - |
+
+> The Promises resolves an object with the forms status and the composer functions
