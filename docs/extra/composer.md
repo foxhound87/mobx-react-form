@@ -27,8 +27,10 @@ const forms = composer({
 | **get(prop)** | string | object | Return an object with a value of the getted prop for each form. | - |
 | **valid()** | - | boolean | Check if all forms are valid. | - |
 | **error()** | - | boolean | Check if all forms has errors. | - |
-| **clear({ deep, execHook })** | - | void | Clear all forms. | - |
-| **reset({ deep, execHook })** | - | void | Reset all forms. | - |
+| **clear()** | - | void | Clear all forms. | - |
+| **clear({ deep, execHook })** | - | void | Clear all forms (with options). | - |
+| **reset()** | - | void | Reset all forms. | - |
+| **reset({ deep, execHook })** | - | void | Reset all forms (with options). | - |
 | **validate()** | - | Promise | Validate all forms. | - |
 | **validate({ showErrors })** | - | Promise | Validate all forms (with options). | - |
 | **submit()** | - | Promise | Submit all forms. | - |

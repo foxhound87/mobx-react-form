@@ -11,6 +11,9 @@
 | **placeholder** | string | The Field placeholder. | - |
 | **related** | boolean | Get Related fields for validation. | - |
 | **options** | object | Individual Field Options, with fallback on Form Options. | - |
+| **rules** | boolean | computed | Get DVR Validation Rules. | - |
+| **validators** | boolean | computed | Get VJF Validation Functions. | - |
+| **validatedWith** | string | computed | Field prop to validate instead `value`. | - |
 | **extra** | any | Additional extra data for the field (useful for a select input). | - |
 | **bindings** | string | The key of the registered bindings to use for the current field. | [help](../bindings/README.md) |
 | **hooks** | object | An object with Event Hooks | [help](../events/event-hooks.html) |
@@ -32,8 +35,6 @@
 | **submitted** | int | computed | Check how many times a field has been submitted. | - |
 | **validating** | boolean | computed | Check if the field is in validation state. | - |
 | **validated** | int | computed | Check how many times a field has been validated. | - |
-| **observers** | object | - | The mobx observers to listen on Fields Props or Fields Map changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
-| **interceptors** | object | - | The mobx interceptors to listen on Fields Props or Fields Map changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
 | **focused** | boolean | computed | Check if the field is focused. | - |
 | **touched** | boolean | computed | Check if the field is touched. | - |
 | **changed** | boolean | computed | Check if the field is changed. | - |
@@ -43,12 +44,11 @@
 | **isPristine** | boolean | computed | Check if the field is pristine. | - |
 | **isDefault** | boolean | computed | Check if the field is to default value. | - |
 | **isEmpty** | boolean | computed | Check if the field is empty. | - |
-| **rules** | boolean | computed | Get DVR Validation Rules. | - |
-| **validators** | boolean | computed | Get VJF Validation Functions. | - |
-| **validatedWith** | string | computed | Field prop to validate instead `value`. | - |
 | **hasError** | boolean | computed | Check if the field has errors. | - |
 | **error** | string | computed | Field error message. | - |
 | **files** | string | computed | Use the `onDrop` Event Handler to retrieve the files data. | - |
 | **validatedValue** | object | computed | Obtain Field `validatedWith` value. | - |
 | **hasNestedFields** | boolean | computed | Check if the field has Nested Fields. | - |
 | **hasIncrementalKeys** | boolean | computed | Check if the nested fields have incremental keys. | - |
+| **observers** | object | - | The mobx observers to listen on Fields Props or Fields Map changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
+| **interceptors** | object | - | The mobx interceptors to listen on Fields Props or Fields Map changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
