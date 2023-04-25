@@ -72,9 +72,7 @@ const form = new Form({ fields, computed, ... }, {
         form.$("products").add();
       },
       onSubmit(form) {
-        alert(
-          alert(prettyPrint(form.values()));
-        );
+        alert(prettyPrint(form.values()));
       }
     }
   })
