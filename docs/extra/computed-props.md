@@ -73,10 +73,7 @@ const form = new Form({ fields, computed, ... }, {
       },
       onSubmit(form) {
         alert(
-          prettyPrint({
-            total: form.total,
-            values: form.values()
-          })
+          alert(prettyPrint(form.values()));
         );
       }
     }
