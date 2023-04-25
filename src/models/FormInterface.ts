@@ -33,6 +33,7 @@ export default interface FormInterface extends BaseInterface {
 export interface FieldsDefinitions {
   struct?: string[];
   fields?: any;
+  computed?: any;
   values?: any;
   labels?: any;
   placeholders?: any;

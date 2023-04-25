@@ -278,6 +278,7 @@ export default class Base implements BaseInterface {
 
     const props = {
       $value: _.get(initial[SeparatedPropsMode.values], path),
+      $computed: _try(SeparatedPropsMode.computed),
       $label: _try(SeparatedPropsMode.labels),
       $placeholder: _try(SeparatedPropsMode.placeholders),
       $default: _try(SeparatedPropsMode.defaults),

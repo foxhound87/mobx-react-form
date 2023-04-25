@@ -8,7 +8,7 @@ export interface PropsGroupsInterface {
   validation: string[];
   separated: string[];
   occurrences: {
-    [index: string]: "some" | "every";
+    [index: string]: FieldPropsOccurrence;
   };
 }
 
@@ -64,6 +64,7 @@ export const props: PropsGroupsInterface = {
     FieldPropsEnum.disabled,
   ],
   separated: [
+    SeparatedPropsMode.computed,
     SeparatedPropsMode.values,
     SeparatedPropsMode.labels,
     SeparatedPropsMode.placeholders,
@@ -91,6 +92,7 @@ export const props: PropsGroupsInterface = {
     SeparatedPropsMode.refs,
   ],
   functions: [
+    FieldPropsEnum.computed,
     FieldPropsEnum.observers,
     FieldPropsEnum.interceptors,
     FieldPropsEnum.converter,

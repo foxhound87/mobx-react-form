@@ -3,7 +3,7 @@ import { Form } from '../../../../src';
 const fields = [{
   name: 'username',
   label: 'Username',
-  value: 'SteveJobs',
+  computed: () => 'SteveJobs', // test computed value
 }, {
   name: 'email',
   label: 'Email',

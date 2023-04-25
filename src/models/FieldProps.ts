@@ -6,6 +6,7 @@ export enum FieldPropsEnum {
   fields = "fields",
   ref= "ref",
   type = "type",
+  computed = "computed",
   value = "value",
   initial = "initial",
   default = "default",
@@ -80,6 +81,7 @@ export enum FieldPropsOccurrence {
 }
 
 export enum SeparatedPropsMode {
+  computed = 'computed',
   values = 'values',
   labels = 'labels',
   placeholders = 'placeholders',

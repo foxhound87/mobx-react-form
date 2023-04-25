@@ -298,26 +298,28 @@ export default class Field extends Base implements FieldInterface {
       newVal = newVal.trim();
     }
     if (this.$value === newVal) return;
-    // handle numbers
-    if (this.state.options.get(OptionsEnum.autoParseNumbers, this)) {
-      if (_.isNumber(this.$initial)) {
-        if (
-          new RegExp("^-?\\d+(,\\d+)*(\\.\\d+([eE]\\d+)?)?$", "g").exec(newVal)
-        ) {
-          this.$value = this.$converter(_.toNumber(newVal));
-          this.$changed ++;
-          if (!this.actionRunning) {
-            this.state.form.$changed ++;
-          };
-          return;
-        }
-      }
-    }
+    if (this.handleSetNumberValue(newVal)) return;
     this.$value = this.$converter(newVal);
     this.$changed ++;
     if (!this.actionRunning) {
       this.state.form.$changed ++;
     };
+  }
+
+  handleSetNumberValue(newVal: any): boolean {
+    if (!this.state.options.get(OptionsEnum.autoParseNumbers, this))
+      return false;
+
+    if (_.isNumber(this.$initial) || this.type == 'number') {
+      if (new RegExp("^-?\\d+(,\\d+)*(\\.\\d+([eE]\\d+)?)?$", "g").exec(newVal)) {
+        this.$value = this.$converter(_.toNumber(newVal));
+        this.$changed ++;
+        if (!this.actionRunning) {
+          this.state.form.$changed ++;
+        };
+        return true;
+      }
+    }
   }
 
   get actionRunning() {
@@ -580,10 +582,10 @@ export default class Field extends Base implements FieldInterface {
           .find((s) => s.substring(structPath.length) === "[]")
       : !!Array.isArray(_.get(struct, this.path));
 
-    const { $type, $input, $output, $converter } = $props;
+    const { $type, $input, $output, $converter, $computed } = $props;
 
     if (_.isPlainObject($data)) {
-      const { type, input, output, converter } = $data;
+      const { type, input, output, converter, computed } = $data;
 
       this.name = _.toString($data.name || $key);
       this.$type = $type || type || "text";
@@ -595,8 +597,8 @@ export default class Field extends Base implements FieldInterface {
         fallbackValueOption,
         isEmptyArray,
         type: this.type,
-        unified: $data.value,
-        separated: $props.$value,
+        unified: computed || $data.value,
+        separated: $computed || $props.$value,
         fallback: $props.$initial,
       });
 
@@ -634,8 +636,8 @@ export default class Field extends Base implements FieldInterface {
       fallbackValueOption,
       isEmptyArray,
       type: this.type,
-      unified: $data,
-      separated: $props.$value,
+      unified: $computed || $data,
+      separated: $computed || $props.$value,
     });
 
     this._value = retrieveFieldPropFunc(value)

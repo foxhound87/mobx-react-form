@@ -1,3 +1,6 @@
+# 6.3.1 (master)
+- Introduced field `computed` prop. To handle nested array fields computed values.
+
 # 6.3.0 (master)
 - Introduced Forms Composer
 - Introduced Functional Computed Field Props
