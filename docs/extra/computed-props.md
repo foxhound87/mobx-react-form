@@ -5,9 +5,11 @@ Form the version `6.3` and above, computed props can be defined providing functi
 
 > The computed function will get an object with `form` and `field` instances in input.
 
-#### Avaliable Field Computed Props
+#### Avaliable Computed Field Props
 
-`value`, `label`, `placeholder`, `disabled`, `rules`, `related`, `deleted`, `validatedWith`, `validators`, `bindings`, `extra`, `options`, `autoFocus`, `inputMode`.
+`computed`: special field prop to handle computed values (defined as function).
+
+or functions can be defined on: `value`, `label`, `placeholder`, `disabled`, `rules`, `related`, `deleted`, `validatedWith`, `validators`, `bindings`, `extra`, `options`, `autoFocus`, `inputMode`.
 
 #### How to implement Computed Props
 
@@ -34,3 +36,55 @@ const form = new Form({ fields, types, values, ... }, {
 ```
 
 > Example using Separated Mode Definition. Unified Mode also supported.
+
+#### Handle Computed Nested Array of fields value
+
+If we want to handle computed props for nested array of fields we can use the special `computed` field prop which accepts a full field `path` and will be applied when using the `add()` action.
+
+```javascript
+
+const fields = [
+    "products[].name",
+    "products[].qty",
+    "products[].amount",
+    "products[].total",
+    "total"
+];
+
+const computed = {
+    "products[].total": ({ field }) => {
+        const qty = field.container()?.$("qty")?.value;
+        const amount = field.container()?.$("amount")?.value;
+        return qty * amount;
+    },
+
+    total: ({ form }) =>
+        form.$("products")?.reduce((acc, field) => acc + field.$("total")?.value, 0)
+},
+
+const form = new Form({ fields, computed, ... }, {
+    options: {
+      strictSelect: false,
+      autoParseNumbers: true
+    },
+    hooks: {
+      onInit(form) {
+        form.$("products").add();
+      },
+      onSubmit(form) {
+        alert(
+          prettyPrint({
+            total: form.total,
+            values: form.values()
+          })
+        );
+      }
+    }
+  })
+
+```
+
+## Examples
+
+- [Nested Computed Field (with constructor)](https://codesandbox.io/s/mobx-react-form--computed-constructor-jeg5b7)
+- [Nested Computed Field (extending classes)](https://codesandbox.io/s/mobx-react-form--computed-ee5kl1)
