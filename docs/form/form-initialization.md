@@ -28,6 +28,7 @@ Provide an object which expects the following properties:
 | Property | Description | Help |
 |---|---|---|
 | **values**    | Object which represents the `value`property for each field key. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-values) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-values) |
+| **computed**    | Object which represents the `computed` value for each field key. | [computed](../extra/computed-props.md) |
 | **labels**    | Object which represents the `label` property for each field key. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-labels) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **placeholders**    | Object which represents the `placeholder` property for each field key. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-placeholders) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
 | **initials**  | Initial values to apply on init if the value prop is not provided. | [flat](../fields/defining-flat-fields/separated-properties.md#defining-initials) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
@@ -40,7 +41,8 @@ Provide an object which expects the following properties:
 | **observers**  | The mobx observers to listen on **Fields Props** or **Fields Map** changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
 | **interceptors**  | The mobx interceptors to listen on **Fields Props** or **Fields Map** changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
 | **validatedWith**  | Specify a different **Field Prop** to use for the Field validation. (before next version) | - |
-| **validatedWith** | Avaiable in next version. | - |
+| **autoFocus**  | Set this to `true` on the first field to be focused on form `initialization` | - |
+| **inputMode**  | Define the input mode of the field, accepted values: `none`, `text`, `decimal`, `numeric`, `tel`, `search`, `email`, `url` | - |
 
 ###### Fields Event Hooks & Event Handlers
 | Property | Description | Help |
@@ -96,6 +98,8 @@ new Form({ values, labels, handlers, ... }, { options });
 
 // using validators with plugins and separated fields properties definition
 new Form({ values, labels, handlers, rules, ... }, { plugins });
+
+// etc...
 ```
 
 ## Initialization Methods
