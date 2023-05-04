@@ -23,6 +23,9 @@
 | **autoFocus** | boolean | Set this to `true` for the first input to be focused at form initialization. | - |
 | **inputMode** | string | The attribute can have any of the following values: `none`, `text`, `decimal`, `numeric`, `tel`, `search`, `email`, `url` | - |
 | **ref** | React Ref | A React Ref will be attached if `bind()` is used. | [help](../bindings/README.md) |
+| **observers** | object | The mobx observers to listen on Fields Props or Fields Map changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
+| **interceptors** | object | The mobx interceptors to listen on Fields Props or Fields Map changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
+
 
 #### Computed Props
 | Property | Type | MobX Type | Info | Help |
@@ -50,5 +53,3 @@
 | **validatedValue** | object | computed | Obtain Field `validatedWith` value. | - |
 | **hasNestedFields** | boolean | computed | Check if the field has Nested Fields. | - |
 | **hasIncrementalKeys** | boolean | computed | Check if the nested fields have incremental keys. | - |
-| **observers** | object | - | The mobx observers to listen on Fields Props or Fields Map changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |
-| **interceptors** | object | - | The mobx interceptors to listen on Fields Props or Fields Map changes. | [help](../extra/mobx-events.md#using-observers--interceptors-objects) |

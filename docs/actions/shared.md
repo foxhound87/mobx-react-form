@@ -123,13 +123,23 @@ Use the second argument (boolean) if you want to check for nested fields too.
 
 ### Programmatically Focus a Field
 
-This will set Field `autoFocus` prop to `true`.
+To focus a field:
 
 ```javascript
 field.focus();
 ```
 
-> Remember to bind `autoFocus` to you input component.
+To use `focus()` you have to use `bind()` on the input. A React `ref` will be attached to the field to focus it.
+
+```javascript
+<input {...field.bind())} />
+```
+
+Otherwise you will have to set the `ref` manually:
+
+```javascript
+<input ref={(ref) => field.set('ref', ref)} />
+```
 
 ---
 
@@ -149,9 +159,9 @@ or filtering by a prop (with nested fields as collections):
 .get('label');
 ```
 
-You can get these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error`, `options`, `extra`.
+You can get these editable props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `disabled`, `options`, `extra`, `autoFocus`, `inputMode`.
 
-or these computed props: `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focused`, `touched`, `changed`, `disabled` and the validation props as well (`rules` and `validators`).
+Or these computed props: `hasError`, `isValid`, `isDirty`, `isPristine`, `isDefault`, `isEmpty`, `focused`, `touched`, `changed`, `error`,  and the validation props as well (`rules` and `validators`).
 
 If you want to get nested fields as `fields` objects instead of collections pass the prop as array:
 
@@ -175,7 +185,7 @@ The `set()` method is intended to be used to change the properties of existent/s
 
 If you need to recreate the fields tree (for example add/del fields array) and provide new values, consider to use the `update()` method instead.
 
-You can pass these props: `value`, `label`, `placeholder`, `initial`, `default`, `disabled`, `related`, `bindings`, `type`, `error` and the validation props as well (`rules` and `validators`).
+You can pass the editable props: `value`, `label`, `placeholder`, `initial`, `default`, `type`,`disabled`, `related`, `bindings`, `hooks`, `handlers`, `observers`, `interceptors`, `extra`, `autoFocus`, `inputMode` as well the validation props (`rules` and `validators`).
 
 ```javascript
 .set('value', {
