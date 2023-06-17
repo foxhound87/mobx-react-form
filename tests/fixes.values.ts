@@ -803,4 +803,15 @@ describe('#615, not to add nested array item', () => {
 		expect($form.select('a.0.b.c', null, false)).not.to.be.undefined
 		expect($form.select('a.0.b.c.0', null, false)).to.be.undefined
 	})
-})
+
+});
+
+describe('$V Field values checks', () => {
+  it('$V pieces[0].length values to be not equal zero', () => expect($.$V.$('pieces[0].length').value).to.be.not.equal(0));
+  it('$V pieces[0].width values to be not equal zero', () => expect($.$V.$('pieces[0].width').value).to.be.not.equal(0));
+  it('$V pieces[0].height values to be not equal zero', () => expect($.$V.$('pieces[0].height').value).to.be.not.equal(0));
+
+  it('$V pieces[1].length values to be not equal zero', () => expect($.$V.$('pieces[1].length').value).to.be.not.equal(0));
+  it('$V pieces[1].width values to be not equal zero', () => expect($.$V.$('pieces[1].width').value).to.be.not.equal(0));
+  it('$V pieces[1].height values to be not equal zero', () => expect($.$V.$('pieces[1].height').value).to.be.not.equal(0));
+});

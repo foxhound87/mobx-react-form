@@ -1,3 +1,6 @@
+# 6.3.2 (master)
+Fix: `preserveDeletedFieldsValues` on `add()` action to handle `fields` prop.
+
 # 6.3.1 (master)
 - Introduced field `computed` prop. To handle nested array fields computed values.
 

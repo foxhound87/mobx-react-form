@@ -90,7 +90,6 @@ const setupDefaultProp = (
   { isEmptyArray: boolean, fallbackValueOption: any }
 ) =>
   parseInput((val) => val, {
-    defaultValue,
     isEmptyArray,
     type: instance.type,
     unified: update
@@ -413,7 +412,7 @@ export default class Field extends Base implements FieldInterface {
   }
 
   get validatedValue() {
-    return parseCheckOutput(this, this.validatedWith as string);
+    return parseCheckOutput(this, this.validatedWith);
   }
 
   get error() {

@@ -667,8 +667,9 @@ export default class Base implements BaseInterface {
     const $path = ($key: string) =>_.trimStart([this.path, $key].join("."), ".");
     const tree = pathToFieldsTree(this.state.struct(), this.path, 0, true);
     const field = this.initField(key, $path(key), _.merge(tree[0], obj));
+    const hasValues = _.has(obj, FieldPropsEnum.value) || _.has(obj, FieldPropsEnum.fields);
 
-    if(!_.has(obj, FieldPropsEnum.value) && !this.state.options.get(OptionsEnum.preserveDeletedFieldsValues, this)) {
+    if(!hasValues && !this.state.options.get(OptionsEnum.preserveDeletedFieldsValues, this)) {
       const fallbackValueOption = this.state.options.get(OptionsEnum.fallbackValue, this);
       field.$value = defaultValue({ fallbackValueOption, value: field.$value, type: field.type });
       field.each((field: any) => field.$value = defaultValue({ fallbackValueOption, value: field.$value, type: field.type }));
