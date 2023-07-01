@@ -1,11 +1,12 @@
 # Form Options
 
-- [Options Object Properties](#options-object-properties)
-- [Set Options On Form Constructor](#set-options-on-form-constructor)
-- [Set Options On Extended Form Class](#set-options-on-extended-form-class)
-- [Set Options After Form Initialization](#set-options-after-form-initialization)
-- [Get Current Form Options](#get-current-form-options)
-- [Get Form Option by key](#get-form-option-by-key)
+- [Form Options](#form-options)
+    - [Options Object Properties](#options-object-properties)
+    - [Set Options On Form Constructor](#set-options-on-form-constructor)
+    - [Set Options On Extended Form Class](#set-options-on-extended-form-class)
+    - [Set Options After Form Initialization](#set-options-after-form-initialization)
+    - [Get Current Form Options](#get-current-form-options)
+    - [Get Form Option by key](#get-form-option-by-key)
 
 [![Edit form-options](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/x7omz8rv9o)
 
@@ -55,9 +56,9 @@
 | **validationPluginsOrder** | string[] | undefined | Specify an array of strings with the validation plugins order. Accepted Plugins: `vjf`, `dvr`, `svk`, `yup`. |
 | **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
 | **validationDebounceOptions** | object | { leading: false, trailing: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |
-| **applyInputConverterOnInit** | boolean | trye | If enabled, apply `input` converter on field `initialization` |
-| **applyInputConverterOnSet** | boolean | trye | If enabled, apply `input` converter on field `set()` |
-| **applyInputConverterOnUpdate** | boolean | trye | If enabled, apply `input` converter on field `update()` |
+| **applyInputConverterOnInit** | boolean | true | If enabled, apply `input` converter on field `initialization` |
+| **applyInputConverterOnSet** | boolean | true | If enabled, apply `input` converter on field `set()` |
+| **applyInputConverterOnUpdate** | boolean | true | If enabled, apply `input` converter on field `update()` |
 | **uniqueId** | function | - | Implement a function to create custom Fields IDs. Useful for SSR. Takes the fields instance in input. |
 
 

@@ -9,7 +9,7 @@
 | **default** | boolean | The default value of the field. | - |
 | **label** | string | The Field label. | - |
 | **placeholder** | string | The Field placeholder. | - |
-| **related** | boolean | Get Related fields for validation. | - |
+| **related** | array of strings (field `path`) | Execute validation on related fields. | - |
 | **options** | object | Individual Field Options, with fallback on Form Options. | - |
 | **rules** | boolean | Get DVR Validation Rules. | - |
 | **validators** | boolean | Get VJF Validation Functions. | - |
