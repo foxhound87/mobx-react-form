@@ -1,3 +1,7 @@
+# 6.3.3 (master)
+Fix: `get('value')` retrieve empty array removed after `update()`
+Fix: `composer` returned in `validate/submit` instead of single methods.
+
 # 6.3.2 (master)
 Fix: `preserveDeletedFieldsValues` on `add()` action to handle `fields` prop.
 

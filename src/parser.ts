@@ -59,11 +59,14 @@ const parseArrayProp = (val: any, prop: string, removeNullishValuesInArrays: boo
   if (removeNullishValuesInArrays && isValProp) {
     return _.without(values, ...[null, undefined, ""]);
   }
+
   return values;
 };
 
-const parseCheckArray = (field: any, value: any, prop: string, removeNullishValuesInArrays: boolean) =>
-  field.hasIncrementalKeys ? parseArrayProp(value, prop, removeNullishValuesInArrays) : value;
+const parseCheckArray = (field: any, value: any, prop: string, removeNullishValuesInArrays: boolean) => {
+  if (!field.fields.size && _.isObject(value) && _.isEmpty(value)) return [];
+  return field.hasIncrementalKeys ? parseArrayProp(value, prop, removeNullishValuesInArrays) : value;
+}
 
 const parseCheckOutput = (field: any, prop: string, retrieveNullifiedEmptyStrings = false) => {
   if (prop === FieldPropsEnum.value || prop.startsWith("value.")) {

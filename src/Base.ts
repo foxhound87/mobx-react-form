@@ -656,7 +656,7 @@ export default class Base implements BaseInterface {
       this.$changed ++;
       this.state.form.$changed ++;
       execEvent && this.execHook(FieldPropsEnum.onAdd);
-      return;
+      return this;
     }
 
     let key;

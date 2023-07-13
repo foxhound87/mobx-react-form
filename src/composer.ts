@@ -44,7 +44,7 @@ export const composer = (forms: { [key in string]: FormInterface }) => {
             Promise.all(Object.values(forms)
                 .map((form: FormInterface) => form.validate({ showErrors })))
                 .then(() => ({
-                    get, check, select, instances, clear, reset,
+                    composer: composer(forms),
                     valid: valid(),
                     error: error(),
                     errors: get('error'),
@@ -60,7 +60,7 @@ export const composer = (forms: { [key in string]: FormInterface }) => {
                     { execOnSubmitHook, execValidationHooks , validate }
                 )))
                 .then(() => ({
-                    get, check, select, instances, clear, reset,
+                    composer: composer(forms),
                     valid: valid(),
                     error: error(),
                     errors: get('error'),
