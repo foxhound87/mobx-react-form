@@ -88,7 +88,7 @@ const fields = [{
 }];
 ```
 
-> See all available [Field Props](https://foxhound87.github.io/mobx-react-form/docs/api-reference/fields-properties.html) on the docs.
+> See [Fields Definitions](https://foxhound87.github.io/mobx-react-form/docs/fields/) and all available [Field Props](https://foxhound87.github.io/mobx-react-form/docs/api-reference/fields-properties.html) on the docs.
 
 #### Define the Validation Hooks
 

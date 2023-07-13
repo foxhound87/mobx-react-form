@@ -1,9 +1,9 @@
 # 6.3.3 (master)
-Fix: `get('value')` retrieve empty array removed after `update()`
-Fix: `composer` returned in `validate/submit` instead of single methods.
+- Fix: `get('value')` retrieve empty array removed by `update()`
+- Fix: `composer` returned in `validate/submit` instead of single methods.
 
 # 6.3.2 (master)
-Fix: `preserveDeletedFieldsValues` on `add()` action to handle `fields` prop.
+- Fix: `preserveDeletedFieldsValues` on `add()` action to handle `fields` prop.
 
 # 6.3.1 (master)
 - Introduced field `computed` prop. To handle nested array fields computed values.
