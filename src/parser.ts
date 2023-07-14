@@ -64,7 +64,7 @@ const parseArrayProp = (val: any, prop: string, removeNullishValuesInArrays: boo
 };
 
 const parseCheckArray = (field: any, value: any, prop: string, removeNullishValuesInArrays: boolean) => {
-  if (!field.fields.size && _.isObject(value) && _.isEmpty(value)) return [];
+  if (field.incremental && _.isObject(value) && _.isEmpty(value)) return [];
   return field.hasIncrementalKeys ? parseArrayProp(value, prop, removeNullishValuesInArrays) : value;
 }
 

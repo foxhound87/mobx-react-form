@@ -1,4 +1,8 @@
-# 6.3.4 (master)
+# 6.3.5 (master)
+- Fix: `parseCheckArray` checks for `incremental` field status.
+- Updated `semantic-release`
+
+- # 6.3.4 (master)
 - Fix: `isEmptyArray` reimplemented in `isArrayFromStruct` util function;
 - Removed lodash `_.isArray()` with `Array.isArray()`
 - Introduced `struct` prop in `makeField` method.

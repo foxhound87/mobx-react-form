@@ -283,7 +283,7 @@ export default class Field extends Base implements FieldInterface {
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
 
-  get checkValidationErrors() {
+  get checkValidationErrors(): boolean {
     return (
       (this.validationAsyncData?.valid === false &&
         !_.isEmpty(this.validationAsyncData)) ||
@@ -322,15 +322,15 @@ export default class Field extends Base implements FieldInterface {
     }
   }
 
-  get actionRunning() {
+  get actionRunning(): boolean {
     return this.submitting || this.clearing || this.resetting;
   }
 
-  get checked() {
+  get checked(): boolean {
     return this.type === "checkbox" ? this.value : undefined;
   }
 
-  get value() {
+  get value(): any {
     return (typeof this._value === 'function' && !this.hasNestedFields)
       ? propGetter(this, FieldPropsEnum.value)
       : this.getComputedProp(FieldPropsEnum.value);
@@ -342,7 +342,7 @@ export default class Field extends Base implements FieldInterface {
       : this.getComputedProp(FieldPropsEnum.initial);
   }
 
-  get default() {
+  get default(): any {
     return this.$default
       ? toJS(this.$default)
       : this.getComputedProp(FieldPropsEnum.default);
