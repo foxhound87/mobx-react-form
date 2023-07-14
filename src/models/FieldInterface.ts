@@ -58,6 +58,7 @@ export default interface FieldInterface extends BaseInterface {
   setupField(
     key: string,
     path: string,
+    struct: string,
     data: any,
     props: any,
     update: boolean
@@ -82,7 +83,8 @@ export default interface FieldInterface extends BaseInterface {
 
 export interface FieldConstructor {
   key: string;
-  path: string;
+  path?: string;
+  struct?: string;
   data?: any;
   props?: any;
   update?: boolean;

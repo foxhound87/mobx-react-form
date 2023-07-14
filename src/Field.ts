@@ -12,7 +12,7 @@ import {
 import _ from "lodash";
 import Base from "./Base";
 
-import { $try, $hasFiles, $isBool, $isEvent, pathToStruct } from "./utils";
+import { $try, $hasFiles, $isBool, $isEvent, pathToStruct, isArrayFromStruct } from "./utils";
 
 import {
   parseInput,
@@ -177,6 +177,7 @@ export default class Field extends Base implements FieldInterface {
   constructor({
     key,
     path,
+    struct,
     data = {},
     props = {},
     update = false,
@@ -255,7 +256,7 @@ export default class Field extends Base implements FieldInterface {
 
     this.state = state;
 
-    this.setupField(key, path, data, props, update);
+    this.setupField(key, path, struct, data, props, update);
     this.checkValidationPlugins();
     this.initNestedFields(data, update);
 
@@ -564,6 +565,7 @@ export default class Field extends Base implements FieldInterface {
   setupField(
     $key: string,
     $path: string,
+    $struct: string,
     $data: any,
     $props: any,
     update: boolean
@@ -571,15 +573,11 @@ export default class Field extends Base implements FieldInterface {
     this.key = $key;
     this.path = $path;
     this.id = this.state.options.get(OptionsEnum.uniqueId)?.apply(this, [this]);
-    const fallbackValueOption = this.state.options.get(OptionsEnum.fallbackValue, this);
-    const applyInputConverterOnInit = this.state.options.get(OptionsEnum.applyInputConverterOnInit, this);
-    const struct = this.state.struct();
-    const structPath = pathToStruct(this.path);
-    const isEmptyArray: boolean = Array.isArray(struct)
-      ? !!struct
-          .filter((s) => s.startsWith(structPath))
-          .find((s) => s.substring(structPath.length) === "[]")
-      : !!Array.isArray(_.get(struct, this.path));
+    const fallbackValueOption: any = this.state.options.get(OptionsEnum.fallbackValue, this);
+    const applyInputConverterOnInit: boolean = this.state.options.get(OptionsEnum.applyInputConverterOnInit, this);
+    const struct: string[] = this.state.struct();
+    const structPath: string = pathToStruct(this.path);
+    const isEmptyArray: boolean = isArrayFromStruct(struct, structPath);
 
     const { $type, $input, $output, $converter, $computed } = $props;
 
@@ -671,7 +669,7 @@ export default class Field extends Base implements FieldInterface {
     // @ts-ignore
     const val = this[`$${key}`];
 
-    if (_.isArray(val) || isObservableArray(val)) {
+    if (Array.isArray(val) || isObservableArray(val)) {
       return [].slice.call(val);
     }
 
@@ -702,14 +700,14 @@ export default class Field extends Base implements FieldInterface {
   initNestedFields(field: any, update: boolean): void {
     const fields = _.isNil(field) ? null : field.fields;
 
-    if (_.isArray(fields) && !_.isEmpty(fields)) {
+    if (Array.isArray(fields) && !_.isEmpty(fields)) {
       this.hasInitialNestedFields = true;
     }
 
     this.initFields({ fields }, update);
 
-    if (!update && _.isArray(fields) && _.isEmpty(fields)) {
-      if (_.isArray(this.value) && !_.isEmpty(this.value)) {
+    if (!update && Array.isArray(fields) && _.isEmpty(fields)) {
+      if (Array.isArray(this.value) && !_.isEmpty(this.value)) {
         this.hasInitialNestedFields = true;
         this.initFields({ fields, values: this.value }, update);
       }
@@ -722,7 +720,7 @@ export default class Field extends Base implements FieldInterface {
       return;
     }
 
-    if (_.isArray(message)) {
+    if (Array.isArray(message)) {
       this.validationErrorStack = message;
       this.showErrors(true);
       return;
@@ -870,7 +868,7 @@ export default class Field extends Base implements FieldInterface {
   }
 
   initMOBXEvent(type: string): void {
-    if (!_.isArray(this[`$${type}`])) return;
+    if (!Array.isArray(this[`$${type}`])) return;
 
     let fn: any;
     if (type === FieldPropsEnum.observers) fn = this.observe;

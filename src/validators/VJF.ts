@@ -59,7 +59,7 @@ export class VJF implements ValidationPluginInterface {
     // get validators from validate property
     const $fn = field.validators;
     // map only if is an array of validator functions
-    if (_.isArray($fn)) {
+    if (Array.isArray($fn)) {
       $fn.map((fn) => this.collectData(fn, field));
     }
     // it's just one function // DEPRECATED
@@ -113,7 +113,7 @@ export class VJF implements ValidationPluginInterface {
     /**
       Handle "array"
     */
-    if (_.isArray(res)) {
+    if (Array.isArray(res)) {
       const isValid = res[0] || false;
       const message = res[1] || "Error";
       return [isValid, message];

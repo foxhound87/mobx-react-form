@@ -307,6 +307,7 @@ export default class Base implements BaseInterface {
     const field = this.state.form.makeField({
       key,
       path,
+      struct,
       data,
       props,
       update,
@@ -393,7 +394,7 @@ export default class Base implements BaseInterface {
     return _.transform(
       $fields,
       (check: any, field: any) => {
-        if (!field.fields.size || !_.isArray(field.initial)) {
+        if (!field.fields.size || !Array.isArray(field.initial)) {
           check.push(field[prop]);
         }
 
@@ -436,7 +437,7 @@ export default class Base implements BaseInterface {
       const applyInputConverterOnUpdate = this.state.options.get(OptionsEnum.applyInputConverterOnUpdate, this);
 
       if (!_.isNil($field) && !_.isUndefined(field)) {
-        if (_.isArray($field.values())) {
+        if (Array.isArray($field.values())) {
           const n: number = _.max(_.map(field.fields, (f, i) => Number(i))) ?? -1;
           _.each(getObservableMapValues($field.fields), ($f) => {
             if (Number($f.name) > n) {
@@ -498,7 +499,7 @@ export default class Base implements BaseInterface {
       );
     }
 
-    allowedProps(AllowedFieldPropsTypes.all, _.isArray(prop) ? prop : [prop]);
+    allowedProps(AllowedFieldPropsTypes.all, Array.isArray(prop) ? prop : [prop]);
 
     if (_.isString(prop)) {
       if (strict && this.fields.size === 0) {

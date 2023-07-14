@@ -16,7 +16,7 @@ const defaultValue = ({
   isEmptyArray = false,
   fallbackValueOption = "",
 }: any): null | false | 0 | [] | "" => {
-  if (_.isArray(value) || isEmptyArray) return [];
+  if (Array.isArray(value) || isEmptyArray) return [];
   if (_.isDate(value) || type === "date" || type === "datetime-local") return null;
   if (_.isNumber(value) || type === "number") return 0;
   if (_.isBoolean(value) || type === "checkbox") return false;
@@ -237,7 +237,7 @@ const handleFieldsPropsFallback = (
     _.transform(
       values,
       (result: any, v, k) => {
-        if (_.isArray(fields[k])) result[k] = v;
+        if (Array.isArray(fields[k])) result[k] = v;
         if (!(k in fields) && (!isNaN(Number(k)) || fallback)) result[k] = v;
       },
       {}

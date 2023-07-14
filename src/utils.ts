@@ -98,17 +98,25 @@ const pathToStruct = (path: string): string => {
   return struct;
 };
 
+const isArrayFromStruct = (struct: string[], structPath: string): boolean => {
+  if (isArrayOfStrings(struct)) return !!struct
+    .filter((s) => s.startsWith(structPath))
+    .find((s) => s.substring(structPath.length) === "[]")
+    || _.endsWith(struct?.find((e) => e === structPath), '[]');
+  else return false;
+};
+
 const hasSome = (obj: any, keys: any): boolean =>
   _.some(keys, _.partial(_.has, obj));
 
 const isEmptyArray = (field: any): boolean =>
-  _.isEmpty(field) && _.isArray(field);
+  _.isEmpty(field) && Array.isArray(field);
 
 const isArrayOfStrings = (struct: any): boolean =>
-  _.isArray(struct) && _.every(struct, _.isString);
+  Array.isArray(struct) && _.every(struct, _.isString);
 
 const isArrayOfObjects = (fields: any): boolean =>
-  _.isArray(fields) && _.every(fields, _.isPlainObject);
+  Array.isArray(fields) && _.every(fields, _.isPlainObject);
 
 const getKeys = (fields: any) =>
   _.union(..._.map(_.values(fields), (values) => _.keys(values)));
@@ -178,6 +186,7 @@ export {
   isEmptyArray,
   isArrayOfObjects,
   pathToStruct,
+  isArrayFromStruct,
   hasUnifiedProps,
   hasSeparatedProps,
   allowNested,

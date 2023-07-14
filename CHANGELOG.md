@@ -1,3 +1,8 @@
+# 6.3.4 (master)
+- Fix: `isEmptyArray` reimplemented in `isArrayFromStruct` util function;
+- Removed lodash `_.isArray()` with `Array.isArray()`
+- Introduced `struct` prop in `makeField` method.
+
 # 6.3.3 (master)
 - Fix: `get('value')` retrieve empty array removed by `update()`
 - Fix: `composer` returned in `validate/submit` instead of single methods.
