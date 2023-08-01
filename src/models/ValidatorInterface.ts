@@ -1,8 +1,8 @@
-import FieldInterface from "./FieldInterface";
-import FormInterface from "./FormInterface";
-import StateInterface from "./StateInterface";
+import {FieldInterface} from "./FieldInterface";
+import {FormInterface} from "./FormInterface";
+import {StateInterface} from "./StateInterface";
 
-export default interface ValidatorInterface {
+export interface ValidatorInterface {
   promises: Promise<any>[];
   form: FormInterface;
   drivers: any;
@@ -43,3 +43,5 @@ export enum ValidationHooks {
   onSuccess = 'onSuccess',
   onError = 'onError',
 }
+
+export default ValidatorInterface;

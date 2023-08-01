@@ -1,5 +1,5 @@
 import { FieldPropsEnum } from "./models/FieldProps";
-import FormInterface from "./models/FormInterface";
+import { FormInterface } from "./models/FormInterface";
 
 export const composer = (forms: { [key in string]: FormInterface }) => {
 
@@ -25,7 +25,7 @@ export const composer = (forms: { [key in string]: FormInterface }) => {
        .every(((val: boolean) => val === true));
 
     const error = () => Object.values(check(FieldPropsEnum.hasError))
-       .every(((val: boolean) => val === true));
+       .some(((val: boolean) => val === true));
 
     const clear = ({ deep = true, execHook = false }
         : { deep?: boolean, execHook?: boolean } = {

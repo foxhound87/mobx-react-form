@@ -1,7 +1,9 @@
-import OptionsModel from "./OptionsModel";
+import {OptionsModel} from "./OptionsModel";
 
-export default interface OptionsInterface {
+export interface OptionsInterface {
   options: OptionsModel;
   get: (key?: string, instance?: any) => any;
   set: (options: OptionsModel) => void;
 }
+
+export default OptionsInterface;

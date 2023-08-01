@@ -3,7 +3,7 @@ import { expect } from "chai";
 import validatorjs from "validatorjs";
 import { Form } from "../../../../src";
 import dvr from "../../../../src/validators/DVR";
-import FormInterface from "../../../../src/models/FormInterface";
+import { FormInterface } from "../../../../src/models/FormInterface";
 
 const fields = [
   "club.name",

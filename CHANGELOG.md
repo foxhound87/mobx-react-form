@@ -1,3 +1,8 @@
+# 6.3.6 (master)
+- Fix: composer `error()` method.
+- Fix: default models/interfaces have now named exports.
+- Fix: check event w/ `isEvent()` to call `preventDefault()` for native support.
+
 # 6.3.5 (master)
 - Fix: `parseCheckArray` checks for `incremental` field status.
 - Updated `semantic-release`

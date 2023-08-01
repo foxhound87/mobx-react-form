@@ -1,11 +1,11 @@
 import { ObservableMap } from "mobx";
-import SharedActionsInterface from "./SharedActionsInterface";
-import SharedEventsInterface from "./SharedEventsInterface";
-import SharedHelpersInterface from "./SharedHelpersInterface";
-import SharedInitializerInterface from "./SharedInitializerInterface";
-import SharedUtilsInferface from "./SharedUtilsInterface";
-import StateInterface from "./StateInterface";
-export default interface BaseInterface
+import {SharedActionsInterface} from "./SharedActionsInterface";
+import {SharedEventsInterface} from "./SharedEventsInterface";
+import {SharedHelpersInterface} from "./SharedHelpersInterface";
+import {SharedInitializerInterface} from "./SharedInitializerInterface";
+import {SharedUtilsInferface} from "./SharedUtilsInterface";
+import {StateInterface} from "./StateInterface";
+export interface BaseInterface
   extends SharedInitializerInterface,
     SharedActionsInterface,
     SharedEventsInterface,
@@ -40,3 +40,5 @@ export default interface BaseInterface
   onAdd(args: any): any;
   onDel(args: any): any;
 }
+
+export default BaseInterface;

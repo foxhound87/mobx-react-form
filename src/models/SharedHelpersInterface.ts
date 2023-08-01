@@ -1,4 +1,4 @@
-export default interface SharedHelpersInterface {
+export  interface SharedHelpersInterface {
   $(key: string|number): any;
   values(): any;
   errors(): any;
@@ -8,3 +8,5 @@ export default interface SharedHelpersInterface {
   initials(): any;
   types(): any;
 }
+
+export default SharedHelpersInterface;

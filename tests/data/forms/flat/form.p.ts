@@ -6,8 +6,8 @@ import { shouldBeEqualTo } from "../../extension/vjf";
 
 import dvr from "../../../../src/validators/DVR";
 import vjf from "../../../../src/validators/VJF";
-import FormInterface from "../../../../src/models/FormInterface";
-import OptionsModel from "../../../../src/models/OptionsModel";
+import { FormInterface } from "../../../../src/models/FormInterface";
+import { OptionsModel } from "../../../../src/models/OptionsModel";
 
 const fields = ["username", "email", "password", "passwordConfirm", "terms"];
 

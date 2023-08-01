@@ -2,7 +2,7 @@ import ajv from "ajv";
 import { Form } from "../../../../src";
 import svkExtend from "../../extension/svk";
 import svk from "../../../../src/validators/SVK";
-import FormInterface from "../../../../src/models/FormInterface";
+import { FormInterface } from "../../../../src/models/FormInterface";
 
 const fields = {
   username: {

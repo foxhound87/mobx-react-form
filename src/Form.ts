@@ -6,8 +6,8 @@ import Validator from "./Validator";
 import State from "./State";
 import Field from "./Field";
 import ValidatorInterface from "./models/ValidatorInterface";
-import FieldInterface, { FieldConstructor } from "./models/FieldInterface";
-import FormInterface, { FieldsDefinitions, FormConfig } from "./models/FormInterface";
+import { FieldInterface, FieldConstructor } from "./models/FieldInterface";
+import { FormInterface, FieldsDefinitions, FormConfig } from "./models/FormInterface";
 import { FieldPropsEnum } from "./models/FieldProps";
 import { OptionsEnum } from "./models/OptionsModel";
 

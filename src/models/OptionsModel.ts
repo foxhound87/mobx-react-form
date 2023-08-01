@@ -45,8 +45,7 @@ export enum OptionsEnum {
   applyInputConverterOnUpdate = 'applyInputConverterOnUpdate',
 }
 
-
-export default interface OptionsModel {
+export interface OptionsModel {
   [OptionsEnum.uniqueId]?: Function;
   [OptionsEnum.fallback]?: boolean;
   [OptionsEnum.fallbackValue]?: any;
@@ -95,3 +94,5 @@ export default interface OptionsModel {
   [OptionsEnum.applyInputConverterOnSet]?: boolean,
   [OptionsEnum.applyInputConverterOnUpdate]?: boolean,
 }
+
+export default OptionsModel;

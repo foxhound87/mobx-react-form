@@ -1,8 +1,8 @@
 import ajv from "ajv";
 import { Form } from "../../../../src";
 import svk from "../../../../src/validators/SVK";
-import FormInterface from "../../../../src/models/FormInterface";
-import OptionsModel from "../../../../src/models/OptionsModel";
+import { FormInterface } from "../../../../src/models/FormInterface";
+import { OptionsModel } from "../../../../src/models/OptionsModel";
 
 const fields = {
   username: {

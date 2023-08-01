@@ -1,6 +1,6 @@
 import { Form } from "../../../../src";
 import { FieldPropsEnum } from "../../../../src/models/FieldProps";
-import FormInterface from "../../../../src/models/FormInterface";
+import { FormInterface } from "../../../../src/models/FormInterface";
 
 
 const fields = [

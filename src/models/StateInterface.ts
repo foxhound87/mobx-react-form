@@ -1,6 +1,6 @@
-import BindingsInterface from "./BindingsInterface";
-import FormInterface from "./FormInterface";
-import OptionsInterface from "./OptionsInterface";
+import {BindingsInterface} from "./BindingsInterface";
+import {FormInterface} from "./FormInterface";
+import {OptionsInterface} from "./OptionsInterface";
 
 export enum RuntimeMode {
   mixed = "mixed",
@@ -8,7 +8,7 @@ export enum RuntimeMode {
   separated = "separated",
 }
 
-export default interface StateInterface {
+export interface StateInterface {
   mode: RuntimeMode;
   strict: boolean;
   form: FormInterface;
@@ -40,3 +40,5 @@ export default interface StateInterface {
   extra(data?: any): any | null;
   observeOptions(): void;
 }
+
+export default StateInterface;

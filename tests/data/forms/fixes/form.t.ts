@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { Form } from "../../../../src";
-import FormInterface from "../../../../src/models/FormInterface";
+import { FormInterface } from "../../../../src/models/FormInterface";
 import formN from "./form.n";
 
 // FIXES #436 #417 #450

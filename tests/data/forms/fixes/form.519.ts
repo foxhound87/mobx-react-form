@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import validatorjs from "validatorjs";
 import { Form } from "../../../../src";
-import FormInterface from "../../../../src/models/FormInterface";
+import { FormInterface } from "../../../../src/models/FormInterface";
 import { ValidationPlugins } from "../../../../src/models/ValidatorInterface";
 import vjf from "../../../../src/validators/VJF";
 import dvr from "../../../../src/validators/DVR";

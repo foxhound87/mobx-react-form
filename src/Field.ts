@@ -12,7 +12,7 @@ import {
 import _ from "lodash";
 import Base from "./Base";
 
-import { $try, $hasFiles, $isBool, $isEvent, pathToStruct, isArrayFromStruct } from "./utils";
+import { $try, hasFiles, isBool, isEvent, pathToStruct, isArrayFromStruct } from "./utils";
 
 import {
   parseInput,
@@ -20,8 +20,8 @@ import {
   defaultValue,
 } from "./parser";
 
-import OptionsModel, { OptionsEnum } from "./models/OptionsModel";
-import FieldInterface, { FieldConstructor } from "./models/FieldInterface";
+import { OptionsModel, OptionsEnum } from "./models/OptionsModel";
+import { FieldInterface, FieldConstructor } from "./models/FieldInterface";
 import { FieldPropsEnum } from "./models/FieldProps";
 
 const applyFieldPropFunc = (instance: FieldInterface, prop: any): any => {
@@ -336,7 +336,7 @@ export default class Field extends Base implements FieldInterface {
       : this.getComputedProp(FieldPropsEnum.value);
   }
 
-  get initial() {
+  get initial(): any {
     return this.$initial
       ? toJS(this.$initial)
       : this.getComputedProp(FieldPropsEnum.initial);
@@ -416,7 +416,7 @@ export default class Field extends Base implements FieldInterface {
     return parseCheckOutput(this, this.validatedWith);
   }
 
-  get error() {
+  get error(): string {
     if (this.showError === false) return null;
     return this.errorAsync || this.errorSync || null;
   }
@@ -472,7 +472,7 @@ export default class Field extends Base implements FieldInterface {
 
   sync = action((e: any, v: any = null) => {
     const $get = ($: any) =>
-      $isBool($, this.value) ? $.target.checked : $.target.value;
+      isBool($, this.value) ? $.target.checked : $.target.value;
 
     // assume "v" or "e" are the values
     if (_.isNil(e) || _.isNil(e.target)) {
@@ -539,7 +539,7 @@ export default class Field extends Base implements FieldInterface {
         const e = args[0];
         let files: unknown[] | null = null;
 
-        if ($isEvent(e) && $hasFiles(e)) {
+        if (isEvent(e) && hasFiles(e)) {
           files = _.map(e.target.files);
         }
 

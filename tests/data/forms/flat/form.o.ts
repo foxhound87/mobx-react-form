@@ -1,6 +1,6 @@
 import { Form } from "../../../../src";
-import FormInterface from "../../../../src/models/FormInterface";
-import OptionsModel from "../../../../src/models/OptionsModel";
+import { FormInterface } from "../../../../src/models/FormInterface";
+import { OptionsModel } from "../../../../src/models/OptionsModel";
 
 const values = {
   username: "SteveJobs",

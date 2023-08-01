@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { ObservableMap, values as mobxValues, keys as mobxKeys } from "mobx";
-import FieldInterface from "./models/FieldInterface";
+import { FieldInterface } from "./models/FieldInterface";
 import { AllowedFieldPropsTypes, FieldPropsEnum, FieldPropsOccurrence } from "./models/FieldProps";
 import { props } from "./props";
 
@@ -131,12 +131,12 @@ const allowNested = (field: any, strictProps: boolean): boolean =>
   _.isObject(field) &&
   !_.isDate(field) &&
   !_.has(field, FieldPropsEnum.fields) &&
-  (!hasSome(field, [
-    ...props.editable,
-    ...props.handlers,
-    ...props.validation,
-    ...props.functions,
-  ]) || strictProps);
+    (!hasSome(field, [
+      ...props.editable,
+      ...props.handlers,
+      ...props.validation,
+      ...props.functions,
+    ]) || strictProps);
 
 const parseIntKeys = (fields: any) =>
   _.map(getObservableMapKeys(fields), _.ary(_.toNumber, 1));
@@ -146,24 +146,21 @@ const hasIntKeys = (fields: any): boolean =>
 
 const maxKey = (fields: any): number => {
   const max = _.max(parseIntKeys(fields));
-  // @ts-ignore
   return _.isUndefined(max) ? 0 : max + 1;
 };
 
 const uniqueId = (field: any): string =>
-  _.uniqueId(
-    [_.replace(field.path, new RegExp("\\.", "g"), "-"), "--"].join("")
-  );
+  _.uniqueId([_.replace(field.path, new RegExp("\\.", "g"), "-"), "--"].join(""));
 
-const $isEvent = (obj: any): boolean => {
+const isEvent = (obj: any): boolean => {
   if (_.isNil(obj) || typeof Event === "undefined") return false;
-  return obj instanceof Event || !_.isNil(obj.target); // eslint-disable-line
+  return obj instanceof Event || !_.isNil(obj.target);
 };
 
-const $hasFiles = ($: any): boolean =>
+const hasFiles = ($: any): boolean =>
   $.target.files && $.target.files.length !== 0;
 
-const $isBool = ($: any, val: any): boolean =>
+const isBool = ($: any, val: any): boolean =>
   _.isBoolean(val) && _.isBoolean($.target.checked);
 
 const $try = (...args: any) => {
@@ -194,9 +191,9 @@ export {
   hasIntKeys,
   maxKey,
   uniqueId,
-  $isEvent,
-  $hasFiles,
-  $isBool,
+  isEvent,
+  hasFiles,
+  isBool,
   $try,
   getObservableMapKeys,
   getObservableMapValues,

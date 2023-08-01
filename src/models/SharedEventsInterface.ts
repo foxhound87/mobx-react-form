@@ -1,6 +1,8 @@
-export default interface SharedEventsInterface {
+export interface SharedEventsInterface {
   MOBXEvent(config: any): void;
   dispose(config: any): void;
   disposeAll(): void;
   disposeSingle(config: any): void;
 }
+
+export default SharedEventsInterface;

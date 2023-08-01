@@ -1,5 +1,5 @@
 import { Form } from "../../../../src";
-import OptionsModel from "../../../../src/models/OptionsModel";
+import { OptionsModel } from "../../../../src/models/OptionsModel";
 
 const fields = ["hobbies[]"];
 

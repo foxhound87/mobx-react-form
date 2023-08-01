@@ -1,5 +1,5 @@
 import { Form } from "../../../../src";
-import FormInterface from "../../../../src/models/FormInterface";
+import { FormInterface } from "../../../../src/models/FormInterface";
 
 const fields = [
     'user.id',

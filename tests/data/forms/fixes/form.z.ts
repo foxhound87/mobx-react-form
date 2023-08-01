@@ -1,6 +1,6 @@
 
 import { Form } from "../../../../src";
-import FormInterface from "../../../../src/models/FormInterface";
+import { FormInterface } from "../../../../src/models/FormInterface";
 import { expect } from "chai";
 
 const values = { pieces: [{ id: "2", blocks: [{ id: "1" }] }] };

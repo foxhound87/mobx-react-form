@@ -6,8 +6,8 @@ import dvrExtend from "../../extension/dvr";
 
 import dvr from "../../../../src/validators/DVR";
 import svk from "../../../../src/validators/SVK";
-import FormInterface from "../../../../src/models/FormInterface";
-import OptionsModel from "../../../../src/models/OptionsModel";
+import { FormInterface } from "../../../../src/models/FormInterface";
+import { OptionsModel } from "../../../../src/models/OptionsModel";
 
 const fields = {
   username: {

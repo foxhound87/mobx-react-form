@@ -119,7 +119,7 @@ import MobxReactForm from 'mobx-react-form';
 const myForm = new MobxReactForm({ fields }, { plugins, hooks });
 ```
 
-> Learn about more on the docs about the [Form Instance](https://foxhound87.github.io/mobx-react-form/docs/form/)
+> Learn more on the docs about the [Form Instance](https://foxhound87.github.io/mobx-react-form/docs/form/)
 
 #### Pass the myForm to a react component
 
@@ -150,7 +150,7 @@ export default observer(({ myForm }) => (
 ));
 ```
 
-> See more on the docs about the [Event Handlers](https://foxhound87.github.io/mobx-react-form/docs/events/event-handlers.html) and the [Event Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/event-hooks.html).
+> See more on the docs about the [Field Props Bindings](https://foxhound87.github.io/mobx-react-form/docs/bindings)
 
 ###### Extending the Form class
 

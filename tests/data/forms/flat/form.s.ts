@@ -2,7 +2,7 @@ import { ValidationPlugins } from "./../../../../src/models/ValidatorInterface";
 import validatorjs from "validatorjs";
 import MobxReactForm from "../../../../src";
 import dvr from "../../../../src/validators/DVR";
-import OptionsModel from "../../../../src/models/OptionsModel";
+import { OptionsModel } from "../../../../src/models/OptionsModel";
 
 const fields = {
   email: {

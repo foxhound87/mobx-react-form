@@ -1,4 +1,4 @@
-export default interface SharedUtilsInferface {
+export interface SharedUtilsInferface {
   select: (path: string|number, fields?: any, isStrict?: boolean) => any;
   container: (path?: string) => any;
   has: (path: string) => boolean;
@@ -6,3 +6,5 @@ export default interface SharedUtilsInferface {
   each: (iteratee: any, fields?: any, depth?: number) => any;
   reduce: (iteratee: any, acc: any) => any;
 }
+
+export default SharedUtilsInferface;

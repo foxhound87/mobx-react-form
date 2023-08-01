@@ -3,8 +3,8 @@ import { FieldConstructor } from "./../../../../src/models/FieldInterface";
 import MobxReactForm, { Field } from "../../../../src";
 import { isEmail, shouldBeEqualTo } from "../../extension/vjf";
 import vjf from "../../../../src/validators/VJF";
-import FormInterface from "../../../../src/models/FormInterface";
-import OptionsModel from "../../../../src/models/OptionsModel";
+import { FormInterface } from "../../../../src/models/FormInterface";
+import { OptionsModel } from "../../../../src/models/OptionsModel";
 
 const fields = {
   email: {

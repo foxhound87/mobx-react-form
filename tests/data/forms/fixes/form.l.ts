@@ -5,7 +5,7 @@ import { Form } from "../../../../src";
 import dvr from "../../../../src/validators/DVR";
 import vjf from "../../../../src/validators/VJF";
 import { ValidationPlugins } from "../../../../src/models/ValidatorInterface";
-import OptionsModel from "../../../../src/models/OptionsModel";
+import { OptionsModel } from "../../../../src/models/OptionsModel";
 
 const fields = ["email"];
 

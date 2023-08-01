@@ -2,8 +2,8 @@ import { ValidationPlugins } from "./../../../../src/models/ValidatorInterface";
 import { Form } from "../../../../src";
 import { isEmail, shouldBeEqualTo } from "../../extension/vjf";
 import vjf from "../../../../src/validators/VJF";
-import OptionsModel from "../../../../src/models/OptionsModel";
-import FormInterface from "../../../../src/models/FormInterface";
+import { OptionsModel } from "../../../../src/models/OptionsModel";
+import { FormInterface } from "../../../../src/models/FormInterface";
 
 const fields = [
   {

@@ -1,4 +1,4 @@
-export default interface SharedActionsInterface {
+export interface SharedActionsInterface {
   validate(opt?: any, obj?: any): Promise<any>;
   submit(hooks: any, opt: { execOnSubmitHook: boolean, execValidationHooks: boolean, validate: boolean }): Promise<any>;
   check(prop: string, deep?: boolean): boolean;
@@ -12,3 +12,5 @@ export default interface SharedActionsInterface {
   add(obj: any): any;
   del(path?: string): any;
 }
+
+export default SharedActionsInterface;

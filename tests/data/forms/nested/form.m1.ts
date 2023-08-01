@@ -2,7 +2,7 @@ import { ValidationPlugins } from "./../../../../src/models/ValidatorInterface";
 import * as yup from "yup";
 import { Form } from "../../../../src";
 import $yup from "../../../../src/validators/YUP";
-import OptionsModel from "../../../../src/models/OptionsModel";
+import { OptionsModel } from "../../../../src/models/OptionsModel";
 
 const fields = {
   club: null,

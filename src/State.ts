@@ -13,13 +13,13 @@ import {
   $try,
 } from "./utils";
 
-import StateInterface from "./models/StateInterface";
 import { RuntimeMode } from "./models/StateInterface";
-import OptionsInterface from "./models/OptionsInterface";
-import BindingsInterface from "./models/BindingsInterface";
-import FormInterface from "./models/FormInterface";
+import { StateInterface } from "./models/StateInterface";
+import { OptionsInterface } from "./models/OptionsInterface";
+import { BindingsInterface } from "./models/BindingsInterface";
+import { FormInterface } from "./models/FormInterface";
 import { OptionsEnum } from "./models/OptionsModel";
-import FieldInterface from "./models/FieldInterface";
+import { FieldInterface } from "./models/FieldInterface";
 
 export default class State implements StateInterface {
   mode = RuntimeMode.mixed;

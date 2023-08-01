@@ -1,7 +1,8 @@
-import BaseInterface from "./BaseInterface";
-import OptionsModel from "./OptionsModel";
-import StateInterface from "./StateInterface";
-export default interface FieldInterface extends BaseInterface {
+import {BaseInterface} from "./BaseInterface";
+import {OptionsModel} from "./OptionsModel";
+import {StateInterface} from "./StateInterface";
+export interface FieldInterface extends BaseInterface {
+  incremental: boolean;
   hasInitialNestedFields: boolean;
   id: string | undefined;
   key: string | undefined;
@@ -91,3 +92,5 @@ export interface FieldConstructor {
   update?: boolean;
   state: StateInterface;
 }
+
+export default FieldInterface;

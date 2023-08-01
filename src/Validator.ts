@@ -6,8 +6,8 @@ import ValidatorInterface, {
   ValidationPluginInterface,
   ValidationPlugins,
 } from "./models/ValidatorInterface";
-import FormInterface from "./models/FormInterface";
-import FieldInterface from "./models/FieldInterface";
+import { FormInterface } from "./models/FormInterface";
+import { FieldInterface } from "./models/FieldInterface";
 import { OptionsEnum } from "./models/OptionsModel";
 
 export default class Validator implements ValidatorInterface {

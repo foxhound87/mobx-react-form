@@ -4,8 +4,8 @@ import { checkUser } from "../../extension/vjf";
 
 import svk from "../../../../src/validators/SVK";
 import vjf from "../../../../src/validators/VJF";
-import FormInterface from "../../../../src/models/FormInterface";
-import OptionsModel from "../../../../src/models/OptionsModel";
+import { FormInterface } from "../../../../src/models/FormInterface";
+import { OptionsModel } from "../../../../src/models/OptionsModel";
 
 const fields = {
   username: {

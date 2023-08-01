@@ -2,7 +2,7 @@ import _ from "lodash";
 import { $try } from "./utils";
 
 import { FieldPropsEnum, FieldPropsType } from "./models/FieldProps";
-import BindingsInterface from "./models/BindingsInterface";
+import { BindingsInterface } from "./models/BindingsInterface";
 
 export default class Bindings implements BindingsInterface {
   templates = {

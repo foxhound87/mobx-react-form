@@ -1,7 +1,7 @@
 import validatorjs from "validatorjs";
 import dvr from "../../../../src/validators/DVR";
 import { Form } from "../../../../src";
-import FormInterface from "../../../../src/models/FormInterface";
+import { FormInterface } from "../../../../src/models/FormInterface";
 
 const fields = [
   "deep",

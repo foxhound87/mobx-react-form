@@ -1,6 +1,6 @@
 import validatorjs from "validatorjs";
 import { Form } from "../../../../src";
-import OptionsModel from "../../../../src/models/OptionsModel";
+import { OptionsModel } from "../../../../src/models/OptionsModel";
 import dvr from "../../../../src/validators/DVR";
 
 const fields = ["from", "to"];

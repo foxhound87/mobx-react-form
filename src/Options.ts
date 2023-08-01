@@ -11,8 +11,8 @@ import _ from "lodash";
 
 import { uniqueId } from "./utils";
 
-import OptionsModel from "./models/OptionsModel";
-import OptionsInterface from "./models/OptionsInterface";
+import {OptionsModel} from "./models/OptionsModel";
+import {OptionsInterface} from "./models/OptionsInterface";
 
 export default class Options implements OptionsInterface {
   options: OptionsModel = {

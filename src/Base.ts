@@ -9,9 +9,9 @@ import {
   ObservableMap,
 } from "mobx";
 import _ from "lodash";
-import BaseInterface from "./models/BaseInterface";
-import StateInterface from "./models/StateInterface";
-import FieldInterface from "./models/FieldInterface";
+import {BaseInterface} from "./models/BaseInterface";
+import {StateInterface} from "./models/StateInterface";
+import {FieldInterface} from "./models/FieldInterface";
 
 import {
   props,
@@ -22,7 +22,7 @@ import {
   getObservableMapValues,
   maxKey,
   $try,
-  $isEvent,
+  isEvent,
   hasIntKeys,
   pathToStruct,
 } from "./utils";
@@ -181,7 +181,7 @@ export default class Base implements BaseInterface {
   */
   onClear = (...args: any): any =>
     this.execHandler(FieldPropsEnum.onClear, args, (e: Event) => {
-      e.preventDefault();
+      isEvent(e) && e.preventDefault();
       (this as any).clear(true, false);
     });
 
@@ -190,7 +190,7 @@ export default class Base implements BaseInterface {
   */
   onReset = (...args: any): any =>
     this.execHandler(FieldPropsEnum.onReset, args, (e: Event) => {
-      e.preventDefault();
+      isEvent(e) && e.preventDefault();
       (this as any).reset(true, false);
     });
 
@@ -199,7 +199,7 @@ export default class Base implements BaseInterface {
    */
   onSubmit = (...args: any): any =>
     this.execHandler(FieldPropsEnum.onSubmit, args, (e: Event, o = {}) => {
-      e.preventDefault();
+      isEvent(e) && e.preventDefault();
       this.submit(o, { execOnSubmitHook: false });
     });
 
@@ -208,8 +208,8 @@ export default class Base implements BaseInterface {
   */
   onAdd = (...args: any): any =>
     this.execHandler(FieldPropsEnum.onAdd, args, (e: Event, val: any) => {
-      e.preventDefault();
-      this.add($isEvent(val) ? null : val, false);
+      isEvent(e) && e.preventDefault();
+      this.add(isEvent(val) ? null : val, false);
     });
 
   /**
@@ -217,8 +217,8 @@ export default class Base implements BaseInterface {
   */
   onDel = (...args: any): any =>
     this.execHandler(FieldPropsEnum.onDel, args, (e: Event, path: string) => {
-      e.preventDefault();
-      this.del($isEvent(path) ? this.path : path, false);
+      isEvent(e) && e.preventDefault();
+      this.del(isEvent(path) ? this.path : path, false);
     });
 
   /******************************************************************

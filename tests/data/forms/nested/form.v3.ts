@@ -1,6 +1,6 @@
 import { Form } from "../../../../src";
-import FieldInterface from "../../../../src/models/FieldInterface";
-import FormInterface from "../../../../src/models/FormInterface";
+import { FieldInterface } from "../../../../src/models/FieldInterface";
+import { FormInterface } from "../../../../src/models/FormInterface";
 
 const fields = [
     'account[].id',
