@@ -102,7 +102,7 @@ export default class Base implements BaseInterface {
       this.noop
     ).apply(this, [this]);
 
-  execHandler = (name: string, args: any, fallback: any = null, hook = null): any => [
+  execHandler = (name: string, args: any, fallback: any = null, hook = null, execHook = true): any => [
     $try(
       this.$handlers[name] && this.$handlers[name].apply(this, [this]),
       (this as any).handlers &&
@@ -111,7 +111,7 @@ export default class Base implements BaseInterface {
       fallback,
       this.noop
     ).apply(this, [...args]),
-    this.execHook(hook || name),
+    execHook && this.execHook(hook || name),
   ];
 
   get resetting(): boolean {
@@ -200,8 +200,8 @@ export default class Base implements BaseInterface {
   onSubmit = (...args: any): any =>
     this.execHandler(FieldPropsEnum.onSubmit, args, (e: Event, o = {}) => {
       isEvent(e) && e.preventDefault();
-      this.submit(o, { execOnSubmitHook: false });
-    });
+      this.submit(o);
+    }, null, false);
 
   /**
     Event Handler: On Add
@@ -336,15 +336,22 @@ export default class Base implements BaseInterface {
     execValidationHooks = true,
     validate = true
   } = {}): Promise<any> {
-    execOnSubmitHook && this.execHook(FieldPropsEnum.onSubmit, hooks);
+    const execOnSubmit = () => this.execHook(FieldPropsEnum.onSubmit, hooks);
+    const submit = execOnSubmitHook ? execOnSubmit() : undefined;
     this.$submitting = true;
     this.$submitted += 1;
 
     if (!validate || !this.state.options.get(OptionsEnum.validateOnSubmit, this)) {
       return Promise
-        .resolve(this)
+        .resolve(submit)
         .then(action(() => (this.$submitting = false)))
-        .then(() => this);
+        .catch(
+          action((err: any) => {
+            this.$submitting = false;
+            throw err;
+          })
+        )
+        .then(() => this)
     }
 
     const exec = (isValid: boolean) => isValid
@@ -357,13 +364,12 @@ export default class Base implements BaseInterface {
       })
         .then(({ isValid }: any) => {
           const handler = execValidationHooks ? exec(isValid) : undefined;
-          if (isValid) return handler;
+          if (isValid) return Promise.all([submit, handler]);
           const $err = this.state.options.get(OptionsEnum.defaultGenericError, this);
           const $throw = this.state.options.get(OptionsEnum.submitThrowsError, this);
           if ($throw && $err) (this as any).invalidate();
-          return handler;
+          return Promise.all([submit, handler]);
         })
-        // eslint-disable-next-line
         .then(action(() => (this.$submitting = false)))
         .catch(
           action((err: any) => {
