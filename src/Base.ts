@@ -98,16 +98,12 @@ export default class Base implements BaseInterface {
     $try(
       fallback[name],
       this.$hooks[name],
-      (this as any).hooks && (this as any).hooks.apply(this, [this])[name],
       this.noop
     ).apply(this, [this]);
 
   execHandler = (name: string, args: any, fallback: any = null, hook = null, execHook = true): any => [
     $try(
       this.$handlers[name] && this.$handlers[name].apply(this, [this]),
-      (this as any).handlers &&
-        (this as any).handlers.apply(this, [this])[name] &&
-        (this as any).handlers.apply(this, [this])[name].apply(this, [this]),
       fallback,
       this.noop
     ).apply(this, [...args]),
@@ -803,7 +799,7 @@ export default class Base implements BaseInterface {
 
   /**
     Fields Selector
-   */
+  */
   select(path: string, fields: any = null, isStrict: boolean = true) {
     const $path = parsePath(path);
     const keys = _.split($path, ".");
@@ -847,6 +843,20 @@ export default class Base implements BaseInterface {
     }
 
     return cpath !== "" ? this.select(cpath, null, false) : this;
+  }
+
+  /**
+    Set Hooks
+  */
+  setHooks(hooks: any = {}): void {
+    Object.assign(this.$hooks, hooks);
+  }
+
+  /**
+    Get Hooks
+  */
+  getHooks(): any {
+    return this.$hooks;
   }
 
   /**

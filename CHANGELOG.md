@@ -1,3 +1,7 @@
+# 6.4.0 (master)
+- Feat: ability to define or override hooks after initialization.
+- Feat: Introduced `setHooks()` & `getHooks()` methods.
+
 # 6.3.7 (master)
 - Fix: handle `onSubmit` hook return promise
 
@@ -268,7 +272,7 @@ fix: #371 #399 #408
 - Introduced `onDrop` Field Event Handler.
 - Introduced `onDrop` Field Hook.
 - Introduced `files` Field prop.
-- Introduced `resetting` && `clearing` computed.
+- Introduced `resetting` & `clearing` computed.
 - Dropzone support.
 - Ability to pass `onChange` & `onToggle` in constructor.
 

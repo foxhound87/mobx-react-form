@@ -30,6 +30,8 @@ export interface BaseInterface
   hasIncrementalKeys: boolean;
   hasNestedFields: boolean;
   size: number;
+  getHooks(): any;
+  setHooks(hooks: any): void;
   execHook(name: string, fallback?: any): any;
   execHandler(name: string, args: any, fallback?: any): any;
   intercept(opt: any): any;

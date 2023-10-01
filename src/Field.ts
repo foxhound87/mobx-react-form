@@ -274,6 +274,10 @@ export default class Field extends Base implements FieldInterface {
     this.initMOBXEvent(FieldPropsEnum.observers);
     this.initMOBXEvent(FieldPropsEnum.interceptors);
 
+    // setup hooks & handlers from initialization methods
+    Object.assign(this.$hooks, (this as any).hooks?.apply(this, [this]));
+    Object.assign(this.$handlers, (this as any).handlers?.apply(this, [this]));
+
     this.execHook(FieldPropsEnum.onInit);
 
     // handle Field onChange Hook

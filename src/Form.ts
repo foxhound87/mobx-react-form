@@ -67,6 +67,10 @@ export default class Form extends Base implements FormInterface {
           : val
     );
 
+    // setup hooks & handlers from initialization methods
+    Object.assign(this.$hooks, (this as any).hooks?.apply(this, [this]));
+    Object.assign(this.$handlers, (this as any).handlers?.apply(this, [this]));
+
     this.state = new State({
       form: this,
       initial: initial.setup,
