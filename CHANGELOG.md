@@ -1,4 +1,8 @@
-# 6.4.0 (master)
+# 6.5.0 (master)
+- Deprecatad: `setHooks()` & `getHooks()` methods.
+- Handle `set()/get()` for `hooks` and `handlers`
+
+- # 6.4.0 (master)
 - Feat: ability to define or override hooks after initialization.
 - Feat: Introduced `setHooks()` & `getHooks()` methods.
 
@@ -44,7 +48,7 @@
 # 6.2.2 (master)
 - Fix: mobx cycle detected in computation (get() strict mode)
 
-# 6.2.1 (master)
+# 6.2.1 (master) - DEPRECATED
 - Refactored set value with input function
 - Deprecated input function on `initial` and `default` props.
 - Fix: input function applied 2 times when using `set()`

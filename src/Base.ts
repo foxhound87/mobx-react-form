@@ -504,6 +504,13 @@ export default class Base implements BaseInterface {
     allowedProps(AllowedFieldPropsTypes.all, Array.isArray(prop) ? prop : [prop]);
 
     if (_.isString(prop)) {
+      if (([
+        FieldPropsEnum.hooks,
+        FieldPropsEnum.handlers
+      ] as string[]).includes(prop)) {
+        return this[`$${prop}`];
+      }
+
       if (strict && this.fields.size === 0) {
         const retrieveNullifiedEmptyStrings = this.state.options.get(OptionsEnum.retrieveNullifiedEmptyStrings, this);
         return parseCheckOutput(this, prop, strict ? retrieveNullifiedEmptyStrings : false);
@@ -590,6 +597,11 @@ export default class Base implements BaseInterface {
           fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
           separated: data,
         });
+      } else if(([
+        FieldPropsEnum.hooks,
+        FieldPropsEnum.handlers,
+      ] as string[]).includes(prop)) {
+        Object.assign(this[`$${prop}`], data)
       } else {
         _.set(this, `$${prop}`, data);
       }
@@ -843,20 +855,6 @@ export default class Base implements BaseInterface {
     }
 
     return cpath !== "" ? this.select(cpath, null, false) : this;
-  }
-
-  /**
-    Set Hooks
-  */
-  setHooks(hooks: any = {}): void {
-    Object.assign(this.$hooks, hooks);
-  }
-
-  /**
-    Get Hooks
-  */
-  getHooks(): any {
-    return this.$hooks;
   }
 
   /**

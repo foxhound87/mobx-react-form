@@ -119,7 +119,7 @@ import MobxReactForm from 'mobx-react-form';
 const myForm = new MobxReactForm({ fields }, { plugins, hooks });
 ```
 
-> Learn more on the docs about the [Form Instance](https://foxhound87.github.io/mobx-react-form/docs/form/)
+> Learn more on the docs about the [Form Instance](https://foxhound87.github.io/mobx-react-form/docs/form/) and the [Form Options](https://foxhound87.github.io/mobx-react-form/docs/form/form-options.html)
 
 #### Pass the myForm to a react component
 
