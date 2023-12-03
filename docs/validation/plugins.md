@@ -6,19 +6,20 @@ All package listed below are not included in the mobx-react-form package and mus
 
 | Driver | | Description | Package | | |
 |---|---|---|---|---|
-| **VJF** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorVJF.umd.min.js) | Vanilla Javascript Functions | **chriso/validator.js** | [GitHub](https://github.com/chriso/validator.js) | [NPM](https://www.npmjs.com/package/validator) |
-| **DVR** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorDVR.umd.min.js) | Declarative Validation Rules | **skaterdav85/validatorjs** | [GitHub](https://github.com/skaterdav85/validatorjs) | [NPM](https://www.npmjs.com/package/validatorjs) |
+| **VJF** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorVJF.umd.min.js) | Vanilla Javascript Functions | **mikeerickson/validatorjs** | [GitHub](https://github.com/mikeerickson/validatorjs) | [NPM](https://www.npmjs.com/package/validator) |
+| **DVR** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorDVR.umd.min.js) | Declarative Validation Rules | **validatorjs/validator.js** | [GitHub](https://github.com/validatorjs/validator.js) | [NPM](https://www.npmjs.com/package/validatorjs) |
 | **SVK** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorSVK.umd.min.js) | Schema Validation Keywords | **epoberezkin/ajv** | [GitHub](https://github.com/epoberezkin/ajv) | [NPM](https://www.npmjs.com/package/ajv) |
 | **YUP** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorYUP.umd.min.js) | Object Schema Validator | **jquense/yup** | [GitHub](https://github.com/jquense/yup) | [NPM](https://www.npmjs.com/package/yup)
+| **ZOD** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorZOD.umd.min.js) | TypeScript-first schema validation | **colinhacks/zod** | [GitHub](https://github.com/colinhacks/zod) | [NPM](https://www.npmjs.com/package/zod)
 
 ###### INFO
 
-* The `chriso/validator` package when setting up `VJF` is optional.
-* `SVK` plugin supports only `flat` or nested `objects` fields, not nested `arrays` of fields.
+* The `mikeerickson/validatorjs` package when setting up `VJF` is optional.
 * To setup custom error messages, see the related plugin repo, each package has a different implementation.
 
 ###### SETUP
-- [Setup Vanilla Javascript Validation Functions (VJF)](plugins/VJF/setup.md)
-- [Setup Declarative Validation Rules (DVR)](plugins/DVR/setup.md)
-- [Setup Schema Validation Keywords (SVK)](plugins/SVK/setup.md)
-- [Setup YUP Object Schema Validator (YUP)](plugins/YUP/setup.md)
+- [Setup VJF - Vanilla Javascript Validation Functions](plugins/VJF/setup.md)
+- [Setup DVR - Declarative Validation Rules](plugins/DVR/setup.md)
+- [Setup SVK - Schema Validation Keywords](plugins/SVK/setup.md)
+- [Setup YUP - Object Schema Validator](plugins/YUP/setup.md)
+- [Setup ZOD - TypeScript-first schema validation](plugins/ZOD/setup.md)
