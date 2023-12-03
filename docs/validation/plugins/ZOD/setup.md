@@ -2,15 +2,13 @@
 
 `colinhacks/zod` is not included in the package, so you have to install it manually.
 
-First of all install [colinhacks/zod](https://github.com/colinhacks/zod) to enable the `YUP` plugin.
+First of all install [colinhacks/zod](https://github.com/colinhacks/zod) to enable the `ZOD` plugin.
 
 ```bash
 npm install --save zod
 ```
 
 #### Define the ZOD schema
-
-Define a ZOD schema:
 
 ```javascript
 const $schema = z.object({
