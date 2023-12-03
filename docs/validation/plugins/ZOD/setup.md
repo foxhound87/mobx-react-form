@@ -10,7 +10,7 @@ npm install --save zod
 
 #### Define the ZOD schema
 
-Define a ZOD schema using a function which takes in input the ZOD instance and returns the schema:
+Define a ZOD schema:
 
 ```javascript
 const $schema = z.object({
