@@ -37,7 +37,7 @@ const plugins = {
     package: z,
     schema: $schema,
     extend: ({ validator, form }) => {
-      ... // access yup validator and form instances
+      ... // access zod validator and form instances
     },
   })
 };
