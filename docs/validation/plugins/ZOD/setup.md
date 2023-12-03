@@ -13,7 +13,7 @@ npm install --save zpd
 Define a ZOD schema using a function which takes in input the ZOD instance and returns the schema:
 
 ```javascript
-const schema = z.object({
+const $schema = z.object({
 	products: z.array(
 		z.object({
 			name: z.string().min(3),
