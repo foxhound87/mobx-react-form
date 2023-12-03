@@ -68,6 +68,7 @@
         * [Setup DVR](docs/validation/plugins/DVR/setup.md)
         * [Setup SVK](docs/validation/plugins/SVK/setup.md)
         * [Setup YUP](docs/validation/plugins/YUP/setup.md)
+        * [Setup ZOD](docs/validation/plugins/ZOD/setup.md)
     * Extend Validators
         * [Extend VJF](docs/validation/plugins/VJF/extend.md)
         * [Extend DVR](docs/validation/plugins/DVR/extend.md)
