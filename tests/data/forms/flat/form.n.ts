@@ -6,6 +6,7 @@ import svk from "../../../../src/validators/SVK";
 import vjf from "../../../../src/validators/VJF";
 import { FormInterface } from "../../../../src/models/FormInterface";
 import { OptionsModel } from "../../../../src/models/OptionsModel";
+import { ValidationPlugins } from "../../../../src/models/ValidatorInterface";
 
 const fields = {
   username: {
@@ -32,7 +33,7 @@ const schema = {
   },
 };
 
-const plugins = {
+const plugins: ValidationPlugins = {
   vjf: vjf(),
   svk: svk({
     package: ajv,

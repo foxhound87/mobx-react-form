@@ -5,6 +5,7 @@ import svkExtend from "../../extension/svk";
 
 import vjf from "../../../../src/validators/VJF";
 import svk from "../../../../src/validators/SVK";
+import { ValidationPlugins } from "../../../../src/models/ValidatorInterface";
 
 const schema = {
   type: "object",
@@ -16,7 +17,7 @@ const schema = {
   },
 };
 
-const plugins = {
+const plugins: ValidationPlugins = {
   vjf: vjf(),
   svk: svk({
     package: ajv,

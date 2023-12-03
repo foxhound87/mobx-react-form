@@ -25,6 +25,7 @@ module.exports = {
     MobxReactFormValidatorDVR: "./src/validators/DVR",
     MobxReactFormValidatorSVK: "./src/validators/SVK",
     MobxReactFormValidatorYUP: "./src/validators/YUP",
+    MobxReactFormValidatorZOD: "./src/validators/ZOD",
   },
   output: {
     path: join(__dirname, "umd"),

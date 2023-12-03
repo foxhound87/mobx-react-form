@@ -3,6 +3,7 @@ import { Form } from "../../../../src";
 import svkExtend from "../../extension/svk";
 import svk from "../../../../src/validators/SVK";
 import { FormInterface } from "../../../../src/models/FormInterface";
+import { ValidationPlugins } from "../../../../src/models/ValidatorInterface";
 
 const fields = {
   username: {
@@ -39,7 +40,7 @@ const schema = {
   },
 };
 
-const plugins = {
+const plugins: ValidationPlugins = {
   svk: svk({
     package: ajv,
     extend: svkExtend,

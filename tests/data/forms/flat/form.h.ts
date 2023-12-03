@@ -2,6 +2,7 @@ import ajv from "ajv";
 import { Form } from "../../../../src";
 import svkExtend from "../../extension/svk";
 import svk from "../../../../src/validators/SVK";
+import { ValidationPlugins } from "../../../../src/models/ValidatorInterface";
 
 const schema = {
   type: "object",
@@ -35,7 +36,7 @@ const schema = {
   },
 };
 
-const plugins = {
+const plugins: ValidationPlugins = {
   svk: svk({
     package: ajv,
     extend: svkExtend,

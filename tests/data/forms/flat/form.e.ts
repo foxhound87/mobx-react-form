@@ -7,6 +7,7 @@ import svkExtend from "../../extension/svk";
 import vjf from "../../../../src/validators/VJF";
 import dvr from "../../../../src/validators/DVR";
 import svk from "../../../../src/validators/SVK";
+import { ValidationPlugins } from "../../../../src/models/ValidatorInterface";
 
 const fields = {
   username: {
@@ -45,7 +46,7 @@ const schema = {
   },
 };
 
-const plugins = {
+const plugins: ValidationPlugins = {
   vjf: vjf(),
   dvr: dvr(validatorjs),
   svk: svk({

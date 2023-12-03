@@ -8,6 +8,7 @@ import $B from "./forms/nested/form.b";
 import $C from "./forms/nested/form.c";
 import $D from "./forms/nested/form.d_";
 import $E from "./forms/nested/form.e";
+import $E2 from "./forms/nested/form.e2";
 import $F from "./forms/nested/form.f";
 import $G from "./forms/nested/form.g";
 import $H from "./forms/nested/form.h";
@@ -30,6 +31,8 @@ import $V2 from "./forms/nested/form.v2";
 import $V3 from "./forms/nested/form.v3";
 import $V4 from "./forms/nested/form.v4";
 import $Z from "./forms/nested/form.z";
+import $Z1 from "./forms/nested/form.z1";
+import $Z2 from "./forms/nested/form.z2";
 import $X from "./forms/nested/form.x";
 
 export default {
@@ -40,6 +43,7 @@ export default {
   $C,
   $D,
   $E,
+  $E2,
   $F,
   $G,
   $H,
@@ -62,5 +66,7 @@ export default {
   $V3,
   $V4,
   $Z,
+  $Z1,
+  $Z2,
   $X,
 };

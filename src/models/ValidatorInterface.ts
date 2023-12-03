@@ -20,6 +20,7 @@ export interface ValidationPlugins {
   dvr?: any;
   svk?: any;
   yup?: any;
+  zod?: any;
 }
 
 export interface ValidationPluginConstructor {

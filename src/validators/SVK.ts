@@ -72,8 +72,7 @@ class SVK implements ValidationPluginInterface {
   }
 
   validate(field) {
-    const data = { [field.path]: field.validatedValue };
-    const validate = this.validator(this.parseValues(data));
+    const validate = this.validator(this.parseValues(field.state.form.validatedValues));
     // check if is $async schema
     if (isPromise(validate)) {
       const $p = validate
@@ -91,7 +90,7 @@ class SVK implements ValidationPluginInterface {
   }
 
   handleSyncError(field, errors) {
-    const fieldErrorObj = this.findError(field.key, errors);
+    const fieldErrorObj = this.findError(field.path, errors);
     // if fieldErrorObj is not undefined, the current field is invalid.
     if (_.isUndefined(fieldErrorObj)) return;
     // the current field is now invalid
@@ -117,9 +116,9 @@ class SVK implements ValidationPluginInterface {
     return _.find(errors, ({ dataPath }) => {
       let $dataPath;
       $dataPath = _.trimStart(dataPath, ".");
-      $dataPath = _.trim($dataPath, "['");
-      $dataPath = _.trim($dataPath, "']");
-      return _.includes($dataPath, `${path}`);
+      $dataPath = _.replace($dataPath, "]", "");
+      $dataPath = _.replace($dataPath, "[", ".");
+      return _.includes($dataPath, path);
     });
   }
 

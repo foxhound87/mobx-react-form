@@ -1,8 +1,13 @@
+# 6.6.0 (master)
+- Introduced ZOD validation driver
+- Added SVK support for array of objects
+- Fix: #404
+
 # 6.5.0 (master)
 - Deprecatad: `setHooks()` & `getHooks()` methods.
 - Handle `set()/get()` for `hooks` and `handlers`
 
-- # 6.4.0 (master)
+# 6.4.0 (master)
 - Feat: ability to define or override hooks after initialization.
 - Feat: Introduced `setHooks()` & `getHooks()` methods.
 

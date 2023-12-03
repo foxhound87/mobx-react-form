@@ -22,6 +22,7 @@ export default class Validator implements ValidatorInterface {
     dvr: undefined,
     svk: undefined,
     yup: undefined,
+    zod: undefined,
   };
 
   error: string | null = null;
