@@ -8,6 +8,7 @@
 - [Setup Declarative Validation Rules (DVR)](plugins/DVR/setup.md)
 - [Setup Schema Validation Keywords (SVK)](plugins/SVK/setup.md)
 - [Setup Object Schema Validator (YUP)](plugins/YUP/setup.md)
+- [Setup TypeScript-first schema validation (ZOD)](plugins/ZOD/setup.md)
 
 ###### Extend Plugins
 - [Extend Vanilla Javascript Validation Functions](plugins/VJF/extend.md)
