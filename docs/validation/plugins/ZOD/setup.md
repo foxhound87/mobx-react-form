@@ -5,7 +5,7 @@
 First of all install [colinhacks/zod](https://github.com/colinhacks/zod) to enable the `YUP` plugin.
 
 ```bash
-npm install --save zpd
+npm install --save zod
 ```
 
 #### Define the ZOD schema
