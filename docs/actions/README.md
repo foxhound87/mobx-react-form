@@ -4,7 +4,6 @@
   * [Validate the Form](form.md#validate-the-form)
   * [Validate Single Field](form.md#validate-single-field)
   * [Validation Errors](form.md#validation-errors)
-  * [Re-Initialize all Fields](form.md#re-initialize-all-fields)
   * [Manual Form Submit](shared.md#manual-submit)
 
 

@@ -2,7 +2,6 @@
 
 | Method | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **init(obj)** | (object) | - | Fields to initialize. | [help](../actions/form.md#re-initialize-all-fields) |
 | **clear()** | - | - | Clear the Form to empty values. | [help](../actions/shared.md#clear--reset-form-or-fields) |
 | **reset()** | - | - | Reset the Form to default values. | [help](../actions/shared.md#clear--reset-form-or-fields) |
 | **invalidate(msg)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | [help](../actions/shared.md#invalidate-the-form-or-a-single-field) |
