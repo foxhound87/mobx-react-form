@@ -185,7 +185,7 @@ The `set()` method is intended to be used to change the properties of existent/s
 
 If you need to recreate the fields tree (for example add/del fields array) and provide new values, consider to use the `update()` method instead.
 
-You can pass the editable props: `value`, `label`, `placeholder`, `initial`, `default`, `type`,`disabled`, `related`, `bindings`, `hooks`, `handlers`, `observers`, `interceptors`, `extra`, `autoFocus`, `inputMode` as well the validation props (`rules` and `validators`).
+You can pass the editable props: `value`, `label`, `placeholder`, `initial`, `default`, `type`,`disabled`, `related`, `bindings`, `hooks`, `handlers`, `observers`, `interceptors`,  `options`, `extra`, `autoFocus`, `inputMode` as well the validation props (`rules` and `validators`).
 
 ```javascript
 .set('value', {
