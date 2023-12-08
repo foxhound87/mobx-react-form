@@ -2,7 +2,7 @@
 
 | Method | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **container()** | (object) | - | Get Parent Field Container. | - |
+| **container()** | string | - | Get Parent Field Container. | - |
 | **bind()** | - | object | Get the current field bindings. | [help](../bindings/README.md) |
 | **clear()** | - | - | Clear the Field or Nested Fields to empty value. | [help](../actions/shared.md#clear--reset-form-or-fields) |
 | **reset()** | - | - | Reset the Field or Nested Fields to default value. | [help](../actions/shared.md#clear--reset-form-or-fields) |
@@ -38,7 +38,6 @@
 | **each(callback)** | (function) | - | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | - |
 | **add(obj)** | (any) | any | Add a Field or Nested Fields. | - |
 | **del(key)** | (any) | - | Delete a Field or Nested Fields by `key` or `path`. | - |
-| **on(event, callback)** | (string, function) | disposer | Define an Event Hook. | - |
 | **observe(obj)** | (object) | - | Define a MobX Observer on Field Props or Field Map. | - |
 | **intercept(obj)** | (object) | - | Define a MobX Interceptor on Field Props or Field Map. | - |
 
