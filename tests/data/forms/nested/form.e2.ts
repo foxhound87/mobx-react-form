@@ -71,7 +71,7 @@ export default new Form({
 }, {
 	plugins,
 	options,
-	name: "Nested-Z1",
+	name: "Nested-E2",
 	hooks: {
 		onInit(form: FormInterface) {
 			describe("Check ajv validation flag", () => {

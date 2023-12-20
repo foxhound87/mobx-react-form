@@ -50,7 +50,7 @@ export default new Form({
 }, {
 	plugins,
 	options,
-	name: "Nested-Z1",
+	name: "Nested-Z2",
 	hooks: {
 		onInit(form: FormInterface) {
 			describe("Check zod validation flag", () => {

@@ -81,6 +81,7 @@ export interface FieldInterface extends BaseInterface {
   disposeValidationOnBlur(): void;
   disposeValidationOnChange(): void;
   initMOBXEvent(type: string): void;
+  bind(props?: any): any;
 }
 
 export interface FieldConstructor {
