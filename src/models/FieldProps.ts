@@ -62,6 +62,8 @@ export enum FieldPropsEnum {
   inputMode = "inputMode",
   onKeyDown = "onKeyDown",
   onKeyUp = 'onKeyUp',
+  // construction 
+  class = "class",
 }
 
 export type FieldPropsType = {
@@ -107,4 +109,5 @@ export enum SeparatedPropsMode {
   autoFocus = 'autoFocus',
   inputMode = 'inputMode',
   refs = 'refs',
+  classes = 'classes',
 }

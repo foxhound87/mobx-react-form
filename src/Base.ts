@@ -269,6 +269,7 @@ export default class Base implements BaseInterface {
         FieldPropsEnum.output,
         FieldPropsEnum.converter,
       ] as string[]).includes(prop) && typeof t !== "function") return undefined;
+
       return t;
     };
 
@@ -300,15 +301,19 @@ export default class Base implements BaseInterface {
       $ref: _try(SeparatedPropsMode.refs),
     };
 
-    const field = this.state.form.makeField({
-      key,
-      path,
-      struct,
-      data,
-      props,
-      update,
-      state: this.state,
-    });
+    const field = this.state.form.makeField(
+      {
+        key,
+        path,
+        struct,
+        data,
+        props,
+        update,
+        state: this.state,
+      },
+
+      data && data[FieldPropsEnum.class] || _try(SeparatedPropsMode.classes)
+    );
 
     this.fields.merge({ [key]: field });
 

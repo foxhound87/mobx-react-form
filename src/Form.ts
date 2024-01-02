@@ -152,8 +152,8 @@ export default class Form extends Base implements FormInterface {
     return this.check(FieldPropsEnum.disabled, true);
   }
 
-  makeField(data: FieldConstructor) {
-    return new Field(data);
+  makeField(data: FieldConstructor, FieldClass: typeof Field = Field) {
+    return new FieldClass(data);
   }
 
   /** DEPRECATED

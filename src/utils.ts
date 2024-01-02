@@ -131,6 +131,7 @@ const allowNested = (field: any, strictProps: boolean): boolean =>
   _.isObject(field) &&
   !_.isDate(field) &&
   !_.has(field, FieldPropsEnum.fields) &&
+  !_.has(field, FieldPropsEnum.class) &&
     (!hasSome(field, [
       ...props.editable,
       ...props.handlers,
