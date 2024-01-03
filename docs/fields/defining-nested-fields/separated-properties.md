@@ -48,7 +48,7 @@ You can use the `values` object as the `fields` if you want to omit the fields `
 
 You can define these properties:
 
-`fields`, `values`, `labels`, `placeholders`, `defaults`, `initials`, `disabled`, `deleted`, `types`, `related`, `rules`,  `options`, `bindings`, `extra`, `hooks`, `handlers`, `validatedWith`, `validators`, `observers`, `interceptors`, `input`, `output`, `autoFocus`, `inputMode`, `refs`.
+`fields`, `values`, `labels`, `placeholders`, `defaults`, `initials`, `disabled`, `deleted`, `types`, `related`, `rules`,  `options`, `bindings`, `extra`, `hooks`, `handlers`, `validatedWith`, `validators`, `observers`, `interceptors`, `input`, `output`, `autoFocus`, `inputMode`, `refs`, `classes`.
 
 Validation properties `rules` (DVR) and `validators` (VJF) can be defined as well.
 
@@ -105,4 +105,4 @@ const bindings = {
 new Form({ bindings, ... });
 ```
 
-[Read how to create new bidings here.](https://foxhound87.github.io/mobx-react-form/docs/bindings/)
+[Read how to create new bindings here.](https://foxhound87.github.io/mobx-react-form/docs/bindings/)

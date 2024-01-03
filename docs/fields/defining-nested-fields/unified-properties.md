@@ -8,7 +8,7 @@ A Field can handle a collection of Nested Fields using the `fields` property.
 
 You can define these properties in each field definition:
 
-`name`, `value`, `label`, `placeholder`, `default`, `initial`, `disabled`, `deleted`, `type`, `related`, `rules`,  `options`, `bindings`, `extra`, `hooks`, `handlers`, `validatedWith`, `validators`, `observers`, `interceptors`, `input`, `output`, `autoFocus`, `inputMode`, `ref`.
+`name`, `value`, `label`, `placeholder`, `default`, `initial`, `disabled`, `deleted`, `type`, `related`, `rules`,  `options`, `bindings`, `extra`, `hooks`, `handlers`, `validatedWith`, `validators`, `observers`, `interceptors`, `input`, `output`, `autoFocus`, `inputMode`, `ref`, `class`.
 
 Validation properties `rules` (DVR) and `validators` (VJF) can be defined as well.
 

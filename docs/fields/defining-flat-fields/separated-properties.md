@@ -2,7 +2,7 @@
 
 You can define these properties:
 
-`fields`, `values`, `labels`, `placeholders`, `defaults`, `initials`, `disabled`, `deleted`, `types`, `related`, `rules`,  `options`, `bindings`, `extra`, `hooks`, `handlers`, `validatedWith`, `validators`, `observers`, `interceptors`, `input`, `output`, `autoFocus`, `inputMode`, `refs`.
+`fields`, `values`, `labels`, `placeholders`, `defaults`, `initials`, `disabled`, `deleted`, `types`, `related`, `rules`,  `options`, `bindings`, `extra`, `hooks`, `handlers`, `validatedWith`, `validators`, `observers`, `interceptors`, `input`, `output`, `autoFocus`, `inputMode`, `refs`, `classes`.
 
 Validation properties `rules` (DVR) and `validators` (VJF) can be defined as well.
 
