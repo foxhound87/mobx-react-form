@@ -10,7 +10,7 @@
 | **blur()** | - | - | Programmatically blur the field if focused. | - |
 | **trim()** | - | - | Apply `trim()` to the field value if is string. It does not trigger `onChange` Event Hook | - |
 | **invalidate(msg)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | [help](../actions/shared.md#invalidate-the-form-or-a-single-field) |
-| **resetValidation()** | - | - | Reset the field validation status. | - |
+| **resetValidation()** | deep | - | Reset the field validation status. | - |
 | **showErrors(bool)** | bool | - | Show or Hide Field Error Messages. | - |
 
 #### Shared Methods
