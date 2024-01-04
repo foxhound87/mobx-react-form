@@ -1,5 +1,8 @@
+# 6.7.0 (master)
+- Feat: introduced `class`/`classes` props to handle `Field` extension in Fields Definitions.
+
 # 6.6.1 (master)
-- Feat: class used to instantiate a field is now configurable
+- Fix: added missing bind method to field interface
 
 # 6.6.0 (master)
 - Introduced ZOD validation driver
