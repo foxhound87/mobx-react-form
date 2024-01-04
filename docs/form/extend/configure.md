@@ -6,18 +6,18 @@
 
 ---
 
-### Extend specific custom Field
+### Extend Field in Field Definition
 
 Import the base `Form` and `Field` class:
 
 ```javascript
-import MobxReactForm, { Field } from 'mobx-react-form';
+import MobxReactForm, { Field } from "mobx-react-form";
 ```
 
 or you can also import the base `Form` like this:
 
 ```javascript
-import { Form, Field } from 'mobx-react-form';
+import { Form, Field } from "mobx-react-form";
 ```
 
 In this example, you can see how to extend a specific field:
@@ -36,24 +36,34 @@ class CustomSelectField extends Field {
 }
 ```
 
-Into `makeField()` we have to match the `field.key` property with our sepcific field key/name.
+#### Specify the class to use in the field definition
+
+##### Separated Definition
 
 ```javascript
-class MyForm extends Form {
-
-  makeField(props) {
-    switch(props.key) {
-      case 'mySelectField':
-        return new CustomSelectField(props);
-      default:
-        return new Field(props);
-    }
-  }
-}
+export default new Form({
+  fields: [
+    "aStandardField", // will default to Field
+    "aCustomField",
+  ],
+  classes: {
+    aCustomField: CustomSelectField,
+  },
+});
 ```
 
-then create the form instance using `MyForm` class:
+##### Unified Definition
 
 ```javascript
-export default new MyForm( ... );
+export default new Form({
+  fields: [
+    {
+      name: "aStandardField", // will default to Field
+    },
+    {
+      name: "aCustomField",
+      class: CustomSelectField,
+    },
+  ],
+});
 ```

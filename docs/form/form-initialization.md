@@ -43,6 +43,7 @@ Provide an object which expects the following properties:
 | **validatedWith**  | Specify a different **Field Prop** to use for the Field validation. | - |
 | **autoFocus**  | Set this to `true` on the first field to be focused on form `initialization` | - |
 | **inputMode**  | Define the input mode of the field, accepted values: `none`, `text`, `decimal`, `numeric`, `tel`, `search`, `email`, `url` | - |
+| **classes**  | The classes used to instantiate the field. It must extend the mobx-react-form Field class | [flat](./extend/configure.md#separated-definition) or [nested](../fields/defining-nested-fields/separated-properties.md#defining-nested-property) |
 
 ###### Fields Event Hooks & Event Handlers
 | Property | Description | Help |
