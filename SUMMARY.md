@@ -19,6 +19,7 @@
     * [Form Options](docs/form/form-options.md)
     * [Extend Form & Field](docs/form/extend/generic.md)
     * [Extend custom Field](docs/form/extend/custom.md)
+    * [Extend in Fields Definitions](docs/form/extend/configure.md)
 
 ## Fields
 * [Defining Fields](docs/fields/README.md)
