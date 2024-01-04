@@ -90,6 +90,7 @@ export const props: PropsGroupsInterface = {
     SeparatedPropsMode.autoFocus,
     SeparatedPropsMode.inputMode,
     SeparatedPropsMode.refs,
+    SeparatedPropsMode.classes,
   ],
   functions: [
     FieldPropsEnum.computed,

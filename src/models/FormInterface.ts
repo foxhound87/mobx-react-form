@@ -2,6 +2,7 @@ import { BaseInterface } from "./BaseInterface";
 import { FieldInterface, FieldConstructor } from "./FieldInterface";
 import { OptionsModel } from "./OptionsModel";
 import { ValidatorInterface, ValidationPlugins } from "./ValidatorInterface";
+import Field from "src/Field";
 export interface FormInterface extends BaseInterface {
   name: string;
   validator: ValidatorInterface;
@@ -27,7 +28,7 @@ export interface FormInterface extends BaseInterface {
   clear(deep?: boolean, execHook?: boolean): void;
   reset(deep?: boolean, execHook?: boolean): void;
 
-  makeField(data: FieldConstructor): FieldInterface;
+  makeField(data: FieldConstructor, FieldClass?: typeof Field): FieldInterface;
 }
 
 export interface FieldsDefinitions {
@@ -58,6 +59,7 @@ export interface FieldsDefinitions {
   autoFocus?: any;
   inputMode?: any;
   refs?: any;
+  classes?: object;
 }
 
 export interface FormConfig {

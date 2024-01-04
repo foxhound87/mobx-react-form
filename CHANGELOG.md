@@ -1,3 +1,6 @@
+# 6.6.1 (master)
+- Feat: class used to instantiate a field is now configurable
+
 # 6.6.0 (master)
 - Introduced ZOD validation driver
 - Added SVK support for array of objects
