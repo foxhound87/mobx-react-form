@@ -1,4 +1,5 @@
-import { Field } from "../src";
+import { Form, Field } from "../src";
+import vjf from "../src/validators/VJF";
 import {
   $OVERRIDE,
   $SEPARATED,
@@ -67,5 +68,15 @@ describe("FieldClass", () => {
         OverrideCustomField,
       );
     });
+  });
+});
+
+describe.only("head", () => {
+  it("doesn't break", () => {
+    // new Form({ fields: ["test"] }).submit({ showErrors: true });
+    new Form(
+      { fields: { name: "test", validators: [() => [true]] } },
+      { plugins: { vjf: vjf() } },
+    ).submit({ showErrors: true });
   });
 });

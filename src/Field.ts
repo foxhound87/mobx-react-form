@@ -812,7 +812,9 @@ export default class Field extends Base implements FieldInterface {
 
   showErrors(show: boolean = true): void {
     this.showError = show;
-    this.errorSync = _.head(this.validationErrorStack) as string;
+    // console.debug("constructor", this.validationErrorStack.constructor.name)
+    // console.debug("length", this.validationErrorStack?.length)
+    this.errorSync = (this.validationErrorStack.length ? this.validationErrorStack[0] : "") as string;
     this.each((field: any) => field.showErrors(show));
   }
 
