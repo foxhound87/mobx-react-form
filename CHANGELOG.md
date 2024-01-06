@@ -1,3 +1,6 @@
+# 6.7.1 (master)
+- Fix: #632 observable hooks and handlers
+
 # 6.7.0 (master)
 - Feat: introduced `class`/`classes` props to handle `Field` extension in Fields Definitions.
 

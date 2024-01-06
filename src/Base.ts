@@ -73,6 +73,8 @@ export default class Base implements BaseInterface {
       $resetting: observable,
       $touched: observable,
       $changed: observable,
+      $hooks: observable,
+      $handlers: observable,
       changed: computed,
       submitted: computed,
       submitting: computed,
