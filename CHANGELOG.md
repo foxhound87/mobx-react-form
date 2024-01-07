@@ -1,3 +1,6 @@
+# 6.7.3 (master)
+- Fix: reset validation action for mobx strict mode
+
 # 6.7.2 (master)
 - Fix: mobx strict mode for hooks and handlers
 

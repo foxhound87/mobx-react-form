@@ -47,6 +47,7 @@ export default class Form extends Base implements FormInterface {
       invalidate: action,
       clear: action,
       reset: action,
+      resetValidation: action,
     });
 
     this.name = name;
