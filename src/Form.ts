@@ -1,4 +1,4 @@
-import { action, computed, observable, makeObservable, autorun } from "mobx";
+import { action, computed, observable, makeObservable, autorun, runInAction } from "mobx";
 import _ from "lodash";
 
 import Base from "./Base";
@@ -50,8 +50,8 @@ export default class Form extends Base implements FormInterface {
     });
 
     this.name = name;
-    this.$hooks = hooks;
-    this.$handlers = handlers;
+    runInAction(() => (this.$hooks = hooks));
+    runInAction(() => (this.$handlers = handlers));
 
     // load data from initializers methods
     const initial = _.each(
@@ -68,8 +68,8 @@ export default class Form extends Base implements FormInterface {
     );
 
     // setup hooks & handlers from initialization methods
-    Object.assign(this.$hooks, (this as any).hooks?.apply(this, [this]));
-    Object.assign(this.$handlers, (this as any).handlers?.apply(this, [this]));
+    runInAction(() => Object.assign(this.$hooks, (this as any).hooks?.apply(this, [this])));
+    runInAction(() => Object.assign(this.$handlers, (this as any).handlers?.apply(this, [this])));
 
     this.state = new State({
       form: this,

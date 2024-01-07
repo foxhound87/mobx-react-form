@@ -8,6 +8,7 @@ import {
   untracked,
   makeObservable,
   autorun,
+  runInAction,
 } from "mobx";
 import _ from "lodash";
 import Base from "./Base";
@@ -275,8 +276,8 @@ export default class Field extends Base implements FieldInterface {
     this.initMOBXEvent(FieldPropsEnum.interceptors);
 
     // setup hooks & handlers from initialization methods
-    Object.assign(this.$hooks, (this as any).hooks?.apply(this, [this]));
-    Object.assign(this.$handlers, (this as any).handlers?.apply(this, [this]));
+    runInAction(() => Object.assign(this.$hooks, (this as any).hooks?.apply(this, [this])));
+    runInAction(() => Object.assign(this.$handlers, (this as any).handlers?.apply(this, [this])));
 
     this.execHook(FieldPropsEnum.onInit);
 
@@ -749,7 +750,7 @@ export default class Field extends Base implements FieldInterface {
       this.$resetting = false;
       this.$clearing = false;
     }))
-    if (deep) this.each((field: any) => field.resetValidation(deep));
+    if (deep) this.each((field: FieldInterface) => field.resetValidation(deep));
   }
 
   clear(deep: boolean = true, execHook: boolean = true): void {
@@ -813,7 +814,7 @@ export default class Field extends Base implements FieldInterface {
   showErrors(show: boolean = true): void {
     this.showError = show;
     this.errorSync = _.head(this.validationErrorStack) as string;
-    this.each((field: any) => field.showErrors(show));
+    this.each((field: FieldInterface) => field.showErrors(show));
   }
 
   showAsyncErrors(): void {

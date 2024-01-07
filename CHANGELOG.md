@@ -1,3 +1,6 @@
+# 6.7.2 (master)
+- Fix: mobx strict mode for hooks and handlers
+
 # 6.7.1 (master)
 - Fix: #632 observable hooks and handlers
 

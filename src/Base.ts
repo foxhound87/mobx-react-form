@@ -918,7 +918,7 @@ export default class Base implements BaseInterface {
    */
   each(iteratee: any, fields: any = null, depth: number = 0) {
     const $fields = fields || this.fields;
-    _.each(getObservableMapValues($fields), (field: FieldInterface, index) => {
+    getObservableMapValues($fields).forEach((field: FieldInterface, index) => {
       iteratee(field, index, depth);
 
       if (field.fields.size !== 0) {
@@ -928,7 +928,7 @@ export default class Base implements BaseInterface {
   }
 
   reduce(iteratee: any, acc: any): any {
-    return _.reduce(getObservableMapValues(this.fields), iteratee, acc);
+    return getObservableMapValues(this.fields).reduce(iteratee, acc);
   }
 
   /******************************************************************
