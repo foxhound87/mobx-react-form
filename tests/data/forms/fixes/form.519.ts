@@ -65,7 +65,7 @@ const fields = [
     },
   };
 
-  export default new Form({ fields }, {
+const form = new Form({ fields }, {
     plugins,
     hooks,
     name: '$519',
@@ -75,3 +75,10 @@ const fields = [
         retrieveOnlyEnabledFieldsValues: true,
         validateDisabledFields: false
     }});
+
+form.set('hooks', {
+  onSuccess(form: FormInterface) {},
+  onError(form: FormInterface) {}
+})
+
+export default form;

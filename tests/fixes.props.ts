@@ -165,3 +165,9 @@ describe('Check Fixes $519', () => {
   it('$519 week value should be equal to empty object', () =>
     expect($.$519.$('week').value).to.be.deep.equal({}));
 });
+
+
+describe("Check Fixes $519 hooks", () => {
+  it("$519 $hooks check onSuccess", () => expect($.$519.$hooks).to.have.property('onSuccess'));
+  it("$519 $hooks check onError", () => expect($.$519.$hooks).to.have.property('onError'));
+});

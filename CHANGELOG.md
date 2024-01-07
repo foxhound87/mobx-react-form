@@ -1,3 +1,6 @@
+# 6.7.4 (master)
+- Fix: extend hooks and handlers on form instance using set()
+
 # 6.7.3 (master)
 - Fix: reset validation action for mobx strict mode
 

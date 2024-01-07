@@ -595,7 +595,13 @@ export default class Base implements BaseInterface {
     // UPDATE CUSTOM PROP
     if (_.isString(prop) && !_.isUndefined(data)) {
       allowedProps(AllowedFieldPropsTypes.editable, [prop]);
-      const deep = (_.isObject(data) && prop === FieldPropsEnum.value) || _.isPlainObject(data);
+
+      const isPlain = ([
+        FieldPropsEnum.hooks,
+        FieldPropsEnum.handlers,
+      ] as string[]).includes(prop);
+
+      const deep: boolean = (_.isObject(data) && prop === FieldPropsEnum.value) || (_.isPlainObject(data) && !isPlain);
       if (deep && this.hasNestedFields) return this.deepSet(prop, data, "", true);
 
       if (prop === FieldPropsEnum.value) {
@@ -604,11 +610,8 @@ export default class Base implements BaseInterface {
           fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
           separated: data,
         });
-      } else if(([
-        FieldPropsEnum.hooks,
-        FieldPropsEnum.handlers,
-      ] as string[]).includes(prop)) {
-        Object.assign(this[`$${prop}`], data)
+      } else if(isPlain) {
+        Object.assign(this[`$${prop}`], data);
       } else {
         _.set(this, `$${prop}`, data);
       }
