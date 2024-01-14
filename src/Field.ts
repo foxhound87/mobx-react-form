@@ -719,20 +719,21 @@ export default class Field extends Base implements FieldInterface {
     }
   }
 
-  invalidate(message: string, async: boolean = false): void {
+  invalidate(message: string, deep: boolean = true, async: boolean = false): void {
     if (async === true) {
       this.errorAsync = message;
+      this.showErrors(true, deep);
       return;
     }
 
     if (Array.isArray(message)) {
       this.validationErrorStack = message;
-      this.showErrors(true);
+      this.showErrors(true, deep);
       return;
     }
 
     this.validationErrorStack.unshift(message);
-    this.showErrors(true);
+    this.showErrors(true, deep);
   }
 
   setValidationAsyncData(valid: boolean = false, message: string = ""): void {

@@ -1,3 +1,6 @@
+# 6.8.0 (master)
+- Field `invalidate()` methods arguments updated, introduced `deep`.
+
 # 6.7.5 (master)
 - better handling of `deep` argument for `showErrors()` & `invalidate()` methods.
 - removed `mixed` mode warning
