@@ -73,16 +73,6 @@ export default class State implements StateInterface {
     const $unified :boolean = hasUnifiedProps(initial);
     const $separated: boolean = hasSeparatedProps(initial);
 
-    if ($unified && $separated) {
-      console.warn(
-        // eslint-disable-line
-        "WARNING: Your mobx-react-form instance ",
-        this.form.name,
-        " is running in MIXED Mode (Unified + Separated) as fields properties definition.",
-        "This mode is experimental, use it at your own risk, or use only one mode."
-      );
-    }
-
     if (($separated || isArrayOfStrings(initial.fields)) && !$unified) {
       const struct: any = $try(initial.struct, initial.fields);
       this.struct(struct);

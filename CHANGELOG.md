@@ -1,3 +1,7 @@
+# 6.7.5 (master)
+- better handling of `deep` argument for `showErrors()` & `invalidate()` methods.
+- removed `mixed` mode warning
+
 # 6.7.4 (master)
 - Fix: extend hooks and handlers on form instance using set()
 

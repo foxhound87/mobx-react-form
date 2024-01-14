@@ -292,9 +292,9 @@ export default class Field extends Base implements FieldInterface {
     return (
       (this.validationAsyncData?.valid === false &&
         !_.isEmpty(this.validationAsyncData)) ||
-      !_.isEmpty(this.validationErrorStack) ||
-      _.isString(this.errorAsync) ||
-      _.isString(this.errorSync)
+        !_.isEmpty(this.validationErrorStack) ||
+        _.isString(this.errorAsync) ||
+        _.isString(this.errorSync)
     );
   }
 
@@ -750,7 +750,8 @@ export default class Field extends Base implements FieldInterface {
       this.$resetting = false;
       this.$clearing = false;
     }))
-    if (deep) this.each((field: FieldInterface) => field.resetValidation(deep));
+
+    deep && this.each((field: FieldInterface) => field.resetValidation(deep));
   }
 
   clear(deep: boolean = true, execHook: boolean = true): void {
@@ -766,7 +767,7 @@ export default class Field extends Base implements FieldInterface {
       type: this.type,
     });
 
-    if (deep) this.each((field: FieldInterface) => field.clear(deep));
+    deep && this.each((field: FieldInterface) => field.clear(deep));
 
     this.state.options.get(OptionsEnum.validateOnClear, this)
       ? this.validate({
@@ -786,7 +787,7 @@ export default class Field extends Base implements FieldInterface {
     if (useDefaultValue) this.value = this.$default;
     if (!useDefaultValue) this.value = this.$initial;
 
-    if (deep) this.each((field: FieldInterface) => field.reset(deep));
+    deep && this.each((field: FieldInterface) => field.reset(deep));
 
     this.state.options.get(OptionsEnum.validateOnReset, this)
       ? this.validate({
@@ -811,10 +812,10 @@ export default class Field extends Base implements FieldInterface {
     this.$value = this.value.trim();
   }
 
-  showErrors(show: boolean = true): void {
+  showErrors(show: boolean = true, deep: boolean = true): void {
     this.showError = show;
     this.errorSync = _.head(this.validationErrorStack) as string;
-    this.each((field: FieldInterface) => field.showErrors(show));
+    deep && this.each((field: FieldInterface) => field.showErrors(show, deep));
   }
 
   showAsyncErrors(): void {
@@ -828,11 +829,8 @@ export default class Field extends Base implements FieldInterface {
   observeValidationOnBlur(): void {
     const opt = this.state.options;
     if (opt.get(OptionsEnum.validateOnBlur, this)) {
-      this.disposeValidationOnBlur = observe(
-        this,
-        "$focused",
-        (change) =>
-          change.newValue === false &&
+      this.disposeValidationOnBlur = observe(this, "$focused",
+        (change) => change.newValue === false &&
           this.debouncedValidation({
             showErrors: opt.get(OptionsEnum.showErrorsOnBlur, this),
           })
@@ -843,31 +841,21 @@ export default class Field extends Base implements FieldInterface {
   observeValidationOnChange(): void {
     const opt = this.state.options;
     if (opt.get(OptionsEnum.validateOnChange, this)) {
-      this.disposeValidationOnChange = observe(
-        this,
-        "$value",
-        () =>
-          !this.actionRunning &&
-          this.debouncedValidation({
-            showErrors: opt.get(OptionsEnum.showErrorsOnChange, this),
-          })
+      this.disposeValidationOnChange = observe(this, "$value", () =>
+        !this.actionRunning && this.debouncedValidation({
+          showErrors: opt.get(OptionsEnum.showErrorsOnChange, this),
+        })
       );
     } else if (
       opt.get(OptionsEnum.validateOnChangeAfterInitialBlur, this) ||
       opt.get(OptionsEnum.validateOnChangeAfterSubmit, this)
     ) {
-      this.disposeValidationOnChange = observe(
-        this,
-        "$value",
-        () =>
-          !this.actionRunning &&
-          ((opt.get(OptionsEnum.validateOnChangeAfterInitialBlur, this) &&
-            this.blurred) ||
-            (opt.get(OptionsEnum.validateOnChangeAfterSubmit, this) &&
-              this.state.form.submitted)) &&
-          this.debouncedValidation({
-            showErrors: opt.get(OptionsEnum.showErrorsOnChange, this),
-          })
+      this.disposeValidationOnChange = observe(this, "$value", () =>
+        !this.actionRunning && ((opt.get(OptionsEnum.validateOnChangeAfterInitialBlur, this) && this.blurred)
+        || (opt.get(OptionsEnum.validateOnChangeAfterSubmit, this) && this.state.form.submitted))
+        && this.debouncedValidation({
+          showErrors: opt.get(OptionsEnum.showErrorsOnChange, this),
+        })
       );
     }
   }

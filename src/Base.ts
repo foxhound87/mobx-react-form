@@ -448,7 +448,7 @@ export default class Base implements BaseInterface {
       if (!_.isNil($field) && !_.isUndefined(field)) {
         if (Array.isArray($field.values())) {
           const n: number = _.max(_.map(field.fields, (f, i) => Number(i))) ?? -1;
-          _.each(getObservableMapValues($field.fields), ($f) => {
+          getObservableMapValues($field.fields).forEach(($f) => {
             if (Number($f.name) > n) {
               $field.$changed ++;
               $field.state.form.$changed ++;

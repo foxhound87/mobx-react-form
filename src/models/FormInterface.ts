@@ -23,8 +23,8 @@ export interface FormInterface extends BaseInterface {
   disabled: boolean;
   // methods
   // init($fields: any): void;
-  invalidate(message?: string | null): void;
-  showErrors(show: boolean): void;
+  invalidate(message?: string | null, deep ?: boolean): void;
+  showErrors(show?: boolean): void;
   clear(deep?: boolean, execHook?: boolean): void;
   reset(deep?: boolean, execHook?: boolean): void;
 

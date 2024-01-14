@@ -172,10 +172,10 @@ export default class Form extends Base implements FormInterface {
   }
   */
 
-  invalidate(message: string | null = null): void {
+  invalidate(message: string | null = null, deep: boolean = true): void {
     this.debouncedValidation.cancel();
-    this.each((field: FieldInterface) => field.debouncedValidation.cancel());
     this.validator.error = message || this.state.options.get(OptionsEnum.defaultGenericError) || true;
+    deep && this.each((field: FieldInterface) => field.debouncedValidation.cancel());
   }
 
   showErrors(show: boolean = true): void {
@@ -184,7 +184,7 @@ export default class Form extends Base implements FormInterface {
 
   resetValidation(deep: boolean = true): void {
     this.validator.error = null;
-    this.each((field: FieldInterface) => field.resetValidation(deep));
+    deep && this.each((field: FieldInterface) => field.resetValidation(deep));
   }
 
   /**
@@ -194,7 +194,7 @@ export default class Form extends Base implements FormInterface {
     execHook && this.execHook(FieldPropsEnum.onClear);
     this.$touched = false;
     this.$changed = 0;
-    this.each((field: FieldInterface) => field.clear(deep));
+    deep && this.each((field: FieldInterface) => field.clear(deep));
   }
 
   /**
@@ -204,6 +204,6 @@ export default class Form extends Base implements FormInterface {
     execHook && this.execHook(FieldPropsEnum.onReset);
     this.$touched = false;
     this.$changed = 0;
-    this.each((field: FieldInterface) => field.reset(deep));
+    deep && this.each((field: FieldInterface) => field.reset(deep));
   }
 }
