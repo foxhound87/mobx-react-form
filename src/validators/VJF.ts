@@ -92,13 +92,13 @@ export class VJF implements ValidationPluginInterface {
   executeValidation(field) {
     // otherwise find an error message to show
     field.validationFunctionsData.map(
-      (rule) => rule.valid === false && field.invalidate(rule.message)
+      (rule) => rule.valid === false && field.invalidate(rule.message, false)
     );
   }
 
   executeAsyncValidation(field) {
     if (field.validationAsyncData.valid === false) {
-      field.invalidate(field.validationAsyncData.message, true, true);
+      field.invalidate(field.validationAsyncData.message, false, true);
     }
   }
 

@@ -97,7 +97,7 @@ class SVK implements ValidationPluginInterface {
     // add additional info to the message
     const msg = `${field.label} ${fieldErrorObj.message}`;
     // invalidate the current field with message
-    field.invalidate(msg);
+    field.invalidate(msg, false);
   }
 
   handleAsyncError(field, errors) {
@@ -124,7 +124,7 @@ class SVK implements ValidationPluginInterface {
 
   executeAsyncValidation(field) {
     if (field.validationAsyncData.valid === false) {
-      field.invalidate(field.validationAsyncData.message, true, true);
+      field.invalidate(field.validationAsyncData.message, false, true);
     }
   }
 

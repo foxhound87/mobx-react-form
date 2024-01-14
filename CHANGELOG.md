@@ -1,3 +1,6 @@
+# 6.8.2 (master)
+- Fix: call `invalidate()` with `deep` argument.
+
 # 6.8.1 (master)
 - Fix: call `invalidate()` with `async` argument.
 

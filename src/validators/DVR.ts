@@ -96,7 +96,7 @@ export class DVR implements ValidationPluginInterface {
     // check validation
     if (validation.passes()) return;
     // the validation is failed, set the field error
-    field.invalidate(_.head(validation.errors.get(field.path)));
+    field.invalidate(_.head(validation.errors.get(field.path)), false);
   }
 
   validateFieldAsync(field, data) {
@@ -138,7 +138,7 @@ export class DVR implements ValidationPluginInterface {
 
   executeAsyncValidation(field) {
     if (field.validationAsyncData.valid === false) {
-      field.invalidate(field.validationAsyncData.message, true);
+      field.invalidate(field.validationAsyncData.message, false, true);
     }
   }
 
