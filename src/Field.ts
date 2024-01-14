@@ -820,11 +820,9 @@ export default class Field extends Base implements FieldInterface {
   }
 
   showAsyncErrors(): void {
-    if (this.validationAsyncData?.valid === false) {
-      this.errorAsync = this.validationAsyncData?.message as string;
-      return;
-    }
-    this.errorAsync = null;
+    this.errorAsync = (this.validationAsyncData?.valid === false)
+      ? this.validationAsyncData?.message as string
+      : null
   }
 
   observeValidationOnBlur(): void {
