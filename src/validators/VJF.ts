@@ -98,7 +98,7 @@ export class VJF implements ValidationPluginInterface {
 
   executeAsyncValidation(field) {
     if (field.validationAsyncData.valid === false) {
-      field.invalidate(field.validationAsyncData.message, true);
+      field.invalidate(field.validationAsyncData.message, true, true);
     }
   }
 
