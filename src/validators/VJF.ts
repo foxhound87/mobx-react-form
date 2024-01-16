@@ -76,8 +76,7 @@ export class VJF implements ValidationPluginInterface {
     if (isPromise(res)) {
       const $p = res
         .then(($res) => field.setValidationAsyncData($res[0], $res[1]))
-        .then(() => this.executeAsyncValidation(field))
-        .then(() => field.showAsyncErrors());
+        .then(() => this.executeAsyncValidation(field));
       // push the promise into array
       this.promises.push($p);
       return;

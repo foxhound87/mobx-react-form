@@ -78,8 +78,7 @@ class SVK implements ValidationPluginInterface {
       const $p = validate
         .then(() => field.setValidationAsyncData(true))
         .catch((err) => err && this.handleAsyncError(field, err.errors))
-        .then(() => this.executeAsyncValidation(field))
-        .then(() => field.showAsyncErrors());
+        .then(() => this.executeAsyncValidation(field));
 
       // push the promise into array
       this.promises.push($p);

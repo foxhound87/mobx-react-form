@@ -1,8 +1,8 @@
+import Field from "../Field";
 import { BaseInterface } from "./BaseInterface";
 import { FieldInterface, FieldConstructor } from "./FieldInterface";
 import { OptionsModel } from "./OptionsModel";
 import { ValidatorInterface, ValidationPlugins } from "./ValidatorInterface";
-import Field from "src/Field";
 export interface FormInterface extends BaseInterface {
   name: string;
   validator: ValidatorInterface;

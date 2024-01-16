@@ -75,7 +75,6 @@ export interface FieldInterface extends BaseInterface {
   reset(deep?: boolean): void;
   focus(): void;
   showErrors(show?: boolean, deep?: boolean): void;
-  showAsyncErrors(): void;
   observeValidationOnBlur(): void;
   observeValidationOnChange(): void;
   disposeValidationOnBlur(): void;

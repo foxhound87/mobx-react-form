@@ -251,7 +251,6 @@ export default class Field extends Base implements FieldInterface {
       focus: action,
       blur: action,
       showErrors: action,
-      showAsyncErrors: action,
       update: action
     });
 
@@ -815,14 +814,9 @@ export default class Field extends Base implements FieldInterface {
 
   showErrors(show: boolean = true, deep: boolean = true): void {
     this.showError = show;
-    this.errorSync = _.head(this.validationErrorStack) as string;
+    this.errorSync = _.head(this.validationErrorStack) as string || null;
+    this.errorAsync = (this.validationAsyncData?.valid === false) ? this.validationAsyncData?.message as string : null
     deep && this.each((field: FieldInterface) => field.showErrors(show, deep));
-  }
-
-  showAsyncErrors(): void {
-    this.errorAsync = (this.validationAsyncData?.valid === false)
-      ? this.validationAsyncData?.message as string
-      : null
   }
 
   observeValidationOnBlur(): void {

@@ -1,3 +1,8 @@
+
+# 6.8.3 (master)
+- Fix: deprecated field `showAsyncErrors()`, use `showErrors()`.
+- FIx: field import in `FormInterface`
+
 # 6.8.2 (master)
 - Fix: call `invalidate()` with `deep` argument.
 
