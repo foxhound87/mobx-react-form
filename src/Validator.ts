@@ -40,7 +40,6 @@ export default class Validator implements ValidatorInterface {
     Object.assign(this.plugins, obj.plugins);
 
     this.initDrivers();
-    this.checkSVKValidationPlugin();
   }
 
   initDrivers(): void {
@@ -170,12 +169,5 @@ export default class Validator implements ValidatorInterface {
         path,
       })
     );
-  }
-
-  checkSVKValidationPlugin(): void {
-    if (_.isNil(this.drivers.svk) && _.get(this.plugins, "svk.config.schema")) {
-      const name = this.form.name ? `Form: ${this.form.name}` : "";
-      throw new Error(`The SVK validation schema is defined but no plugin provided (SVK). ${name}`);
-    }
   }
 }

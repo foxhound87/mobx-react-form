@@ -23,7 +23,6 @@ export interface ValidatorInterface {
   validate(opt?: ValidateOptions, obj?: ValidateOptions): Promise<any>;
   validateField(opt: ValidateOptionsInterface): void;
   validateRelatedFields(field: any, showErrors: boolean): void;
-  checkSVKValidationPlugin(): void;
 }
 
 export type ValidationPlugin  = {
@@ -47,7 +46,7 @@ export type ExtendPlugin = ({ validator, form }: {
 }) => void;
 
 export interface ValidationPluginConfig {
-  package: ValidationPackage;
+  package?: ValidationPackage;
   schema?: any;
   options?: any;
   extend?: ExtendPlugin;

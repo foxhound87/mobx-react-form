@@ -1,3 +1,6 @@
+# 6.9.2 (master)
+- deprecated `checkSVKValidationPlugin`
+
 # 6.9.1 (master)
 - introduced `validate()` input types.
 - introduced `ValidateOptions` & `ValidateOptionsInterface` models.
