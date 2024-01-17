@@ -1,3 +1,6 @@
+# 6.9.3 (master)
+- introduced `SubmitOptions` and `SubmitHooks` models.
+
 # 6.9.2 (master)
 - deprecated `checkSVKValidationPlugin`
 

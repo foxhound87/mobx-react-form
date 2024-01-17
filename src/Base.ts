@@ -40,6 +40,7 @@ import {
 import { AllowedFieldPropsTypes, FieldPropsEnum, SeparatedPropsMode } from "./models/FieldProps";
 import { OptionsEnum } from "./models/OptionsModel";
 import { ValidateOptions, ValidationHooks } from "./models/ValidatorInterface";
+import { SubmitHooks } from "./models/SharedActionsInterface";
 export default class Base implements BaseInterface {
   noop = () => {};
 
@@ -334,7 +335,7 @@ export default class Base implements BaseInterface {
   /**
     Submit
   */
-  submit(hooks: any = {}, {
+  submit(hooks: SubmitHooks = {}, {
     execOnSubmitHook = true,
     execValidationHooks = true,
     validate = true

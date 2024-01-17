@@ -1,6 +1,20 @@
+import { ValidateOptions } from "./ValidatorInterface";
+
+export interface SubmitOptions {
+  execOnSubmitHook: boolean,
+  execValidationHooks: boolean,
+  validate: boolean
+};
+
+export interface SubmitHooks {
+  onSubmit?(instance): void
+  onSuccess?(instance): void
+  onError?(instance): void
+}
+
 export interface SharedActionsInterface {
-  validate(opt?: any, obj?: any): Promise<any>;
-  submit(hooks: any, opt: { execOnSubmitHook: boolean, execValidationHooks: boolean, validate: boolean }): Promise<any>;
+  validate(opt?: ValidateOptions, obj?: ValidateOptions): Promise<any>;
+  submit(hooks: SubmitHooks, opt: SubmitOptions): Promise<any>;
   check(prop: string, deep?: boolean): boolean;
   deepCheck(type: string, prop: string, fields: any): any;
   update(fields: any): void;

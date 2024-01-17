@@ -46,7 +46,7 @@ export type ExtendPlugin = ({ validator, form }: {
 }) => void;
 
 export interface ValidationPluginConfig {
-  package?: ValidationPackage;
+  package: ValidationPackage;
   schema?: any;
   options?: any;
   extend?: ExtendPlugin;
