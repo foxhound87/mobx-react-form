@@ -98,9 +98,3 @@ new Form({ ..., schema }, { plugins });
 <br />
 
 > See here more info about [epoberezkin/ajv options](https://github.com/epoberezkin/ajv#options).
-
-#### Additional Options
-
-| Option | Type | Default | Info |
-|---|---|---|---|
-| **allowRequired** | boolean | false | The json-schema `required` property can work only if the object does not contain the field key/value pair, `allowRequired` can remove it when needed to make `required` work properly. Be careful because enabling it will make `minLength` uneffective when the `string` is `empty`. |

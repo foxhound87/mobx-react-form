@@ -71,7 +71,6 @@ For the previous version **< 1.37** you can use these in the constructor:
 | Option | Type | Default | Info |
 |---|---|---|---|
 | **ajv** | object | - | Additional options for AJV. See all the details of [ajv options](https://github.com/epoberezkin/ajv#options) on the official github page of AJV. |
-| **allowRequired** | boolean | false | The AJV json-schema `required` property can work only if the object does not contain the field key/value pair, `allowRequired` can remove it when needed to make `required` work properly. Be careful because enabling it will make `minLength` uneffective when the `string` is `empty`. |
 
 
 %/accordion%
@@ -85,7 +84,6 @@ const options = {
   showErrorsOnInit: true,
   showErrorsOnChange: false,
   autoParseNumbers: false,
-  allowRequired: true,
   ...
 };
 
@@ -135,7 +133,6 @@ form.state.options.get();
   strictUpdate: false,
   showErrorsOnChange: false,
   defaultGenericError: true,
-  allowRequired: false,
   ...
 }
 ```

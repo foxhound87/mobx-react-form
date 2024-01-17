@@ -18,6 +18,20 @@ import dvr from 'mobx-react-form/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 
 const plugins = {
+  dvr: dvr({ package: validatorjs })
+};
+```
+
+%accordion% **VERSION < 6.9.0** %accordion%
+
+Shortcut:
+
+```javascript
+
+import dvr from 'mobx-react-form/lib/validators/DVR';
+import validatorjs from 'validatorjs';
+
+const plugins = {
   dvr: dvr(validatorjs)
 };
 ```

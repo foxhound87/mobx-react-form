@@ -28,9 +28,24 @@ import vjf from 'mobx-react-form/lib/validators/VJF';
 import validator from 'validator';
 
 const plugins = {
+  vjf: vjf({ package: validator })
+};
+```
+
+%accordion% **VERSION < 6.9.0** %accordion%
+
+Shortcut:
+
+```javascript
+import vjf from 'mobx-react-form/lib/validators/VJF';
+import validator from 'validator';
+
+const plugins = {
   vjf: vjf(validator)
 };
 ```
+
+%/accordion%
 
 %accordion% **VERSION < 1.37** %accordion%
 
