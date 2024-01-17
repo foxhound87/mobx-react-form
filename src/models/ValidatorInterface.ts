@@ -1,6 +1,17 @@
+import Form from "../Form";
+import Field from "../Field";
 import {FieldInterface} from "./FieldInterface";
 import {FormInterface} from "./FormInterface";
 import {StateInterface} from "./StateInterface";
+
+export interface ValidateOptionsInterface {
+  showErrors?: boolean,
+  related?: boolean,
+  field?: FieldInterface,
+  path?: string,
+}
+
+export type ValidateOptions = string | ValidateOptionsInterface | Form | Field;
 
 export interface ValidatorInterface {
   promises: Promise<any>[];
@@ -9,13 +20,8 @@ export interface ValidatorInterface {
   plugins: ValidationPlugins;
   error: string | null;
   initDrivers(): void;
-  validate(opt?: any, obj?: any): Promise<any>;
-  validateField(opt: {
-    showErrors: boolean,
-    related: boolean,
-    field: FieldInterface,
-    path: string,
-  }): void;
+  validate(opt?: ValidateOptions, obj?: ValidateOptions): Promise<any>;
+  validateField(opt: ValidateOptionsInterface): void;
   validateRelatedFields(field: any, showErrors: boolean): void;
   checkSVKValidationPlugin(): void;
 }

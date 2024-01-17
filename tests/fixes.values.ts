@@ -706,7 +706,7 @@ describe('#611 validated with value\'s nested property', () => {
 
     const $form = new Form({fields, values, rules, validatedWith, related}, { plugins, name: 'form'})
 
-    $form.validate({showError: true}).then(({isValid}) => {
+    $form.validate({ showErrors: true}).then(({isValid}) => {
       expect(isValid).to.be.false
       done()
     })
@@ -743,7 +743,7 @@ describe('#611 validated with value\'s nested property', () => {
 
     const $form = new Form({fields, values, rules, validatedWith, related}, { plugins, name: 'form'})
 
-    $form.validate({showError: true}).then(({isValid}) => {
+    $form.validate({ showErrors: true }).then(({isValid}) => {
       expect(isValid).to.be.true
       done()
     })

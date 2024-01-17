@@ -1,3 +1,7 @@
+# 6.9.1 (master)
+- introduced `validate()` input types.
+- introduced `ValidateOptions` & `ValidateOptionsInterface` models.
+
 # 6.9.0 (master)
 - Validator types improvements.
 - introduced `ValidationPlugin`, `ExtendPlugin` and `ValidationPluginConfig` models.

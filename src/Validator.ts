@@ -3,6 +3,7 @@ import _ from "lodash";
 import { $try } from "./utils";
 import ValidatorInterface, {
   DriversMap,
+  ValidateOptions,
   ValidationPlugin,
   ValidationPluginInterface,
   ValidationPlugins,
@@ -53,11 +54,11 @@ export default class Validator implements ValidatorInterface {
   );
   }
 
-  validate(opt: any = {}, obj: any = {}): Promise<any> {
-    const path: string = $try(opt.path, opt);
-    const instance = $try(opt.field, this.form.select(path, null, false), this.form);
-    const related: boolean = $try(opt.related, obj.related, true);
-    const showErrors: boolean = $try(opt.showErrors, obj.showErrors, false);
+  validate(opt: ValidateOptions, obj: ValidateOptions): Promise<any> {
+    const path: string = $try((opt as any)?.path, opt);
+    const instance = $try((opt as any)?.field, this.form.select(path, null, false), this.form);
+    const related: boolean = $try((opt as any)?.related, (obj as any)?.related, true);
+    const showErrors: boolean = $try((opt as any)?.showErrors, (obj as any)?.showErrors, false);
     instance.$validating = true;
     instance.$validated += 1;
 

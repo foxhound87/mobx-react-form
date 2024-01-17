@@ -39,7 +39,7 @@ import {
 } from "./parser";
 import { AllowedFieldPropsTypes, FieldPropsEnum, SeparatedPropsMode } from "./models/FieldProps";
 import { OptionsEnum } from "./models/OptionsModel";
-import { ValidationHooks } from "./models/ValidatorInterface";
+import { ValidateOptions, ValidationHooks } from "./models/ValidatorInterface";
 export default class Base implements BaseInterface {
   noop = () => {};
 
@@ -326,7 +326,7 @@ export default class Base implements BaseInterface {
     Actions
   */
 
-  validate(opt: any = {}, obj: any = {}): Promise<any> {
+  validate(opt?: ValidateOptions, obj?: ValidateOptions): Promise<any> {
     const $opt = _.merge(opt, { path: this.path });
     return this.state.form.validator.validate($opt, obj);
   }
