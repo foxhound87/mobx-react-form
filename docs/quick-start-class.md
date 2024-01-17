@@ -28,7 +28,7 @@ export default class MyForm extends Form {
   */
   plugins() {
     return {
-      dvr: dvr(validatorjs),
+      dvr: dvr({ package: validatorjs }),
     };
   }
 
