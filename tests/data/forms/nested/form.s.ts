@@ -127,7 +127,7 @@ const values = {
 class NewForm extends Form {
   plugins(): ValidationPlugins {
     return {
-      dvr: dvr(validatorjs),
+      dvr: dvr({ package: validatorjs }),
     };
   }
 

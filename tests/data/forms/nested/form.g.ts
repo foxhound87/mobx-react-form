@@ -4,7 +4,7 @@ import { Form } from "../../../../src";
 import dvr from "../../../../src/validators/DVR";
 
 const plugins: ValidationPlugins = {
-  dvr: dvr(validatorjs),
+  dvr: dvr({ package: validatorjs }),
 };
 
 const fields = {

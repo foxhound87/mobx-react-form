@@ -48,7 +48,7 @@ const schema = {
 
 const plugins: ValidationPlugins = {
   vjf: vjf(),
-  dvr: dvr(validatorjs),
+  dvr: dvr({ package: validatorjs }),
   svk: svk({
     package: ajv,
     extend: svkExtend,

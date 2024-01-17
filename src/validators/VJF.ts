@@ -1,4 +1,6 @@
 import {
+  ValidationPlugin,
+  ValidationPluginConfig,
   ValidationPluginConstructor,
   ValidationPluginInterface,
 } from "../models/ValidatorInterface";
@@ -32,14 +34,14 @@ export class VJF implements ValidationPluginInterface {
   validator = null;
 
   constructor({
-    config = {},
+    config,
     state = null,
     promises = [],
   }: ValidationPluginConstructor) {
     this.state = state;
     this.promises = promises;
-    this.extend = config.extend;
-    this.validator = config.package || config;
+    this.extend = config?.extend;
+    this.validator = config?.package;
     this.extendValidator();
   }
 
@@ -146,7 +148,7 @@ export class VJF implements ValidationPluginInterface {
   }
 }
 
-export default (config?: any) => ({
+export default (config?: ValidationPluginConfig): ValidationPlugin => ({
   class: VJF,
   config,
 });

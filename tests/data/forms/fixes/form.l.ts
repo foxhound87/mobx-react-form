@@ -21,7 +21,7 @@ class NewForm extends Form {
   plugins(): ValidationPlugins {
     return {
       vjf: vjf(),
-      dvr: dvr(validatorjs),
+      dvr: dvr({ package: validatorjs }),
     };
   }
 

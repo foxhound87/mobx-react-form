@@ -3,6 +3,7 @@ import _ from "lodash";
 import { $try } from "./utils";
 import ValidatorInterface, {
   DriversMap,
+  ValidationPlugin,
   ValidationPluginInterface,
   ValidationPlugins,
 } from "./models/ValidatorInterface";
@@ -33,33 +34,30 @@ export default class Validator implements ValidatorInterface {
       validate: action,
       validateField: action,
     });
-    _.merge(this.plugins, obj.plugins);
+
     this.form = obj.form;
+    Object.assign(this.plugins, obj.plugins);
 
     this.initDrivers();
     this.checkSVKValidationPlugin();
   }
 
   initDrivers(): void {
-    _.map(
-      this.plugins,
-      (driver, key) =>
-        (this.drivers[key] =
-          driver &&
-          _.has(driver, "class") &&
-          new driver.class({
-            config: driver.config,
+    _.map(this.plugins, (plugin: ValidationPlugin, key: string) =>
+        (this.drivers[key] = (plugin && plugin.class) &&
+          new plugin.class({
+            config: plugin.config,
             state: this.form.state,
             promises: this.promises,
           }))
-    );
+  );
   }
 
   validate(opt: any = {}, obj: any = {}): Promise<any> {
-    const path = $try(opt.path, opt);
+    const path: string = $try(opt.path, opt);
     const instance = $try(opt.field, this.form.select(path, null, false), this.form);
-    const related = $try(opt.related, obj.related, true);
-    const showErrors = $try(opt.showErrors, obj.showErrors, false);
+    const related: boolean = $try(opt.related, obj.related, true);
+    const showErrors: boolean = $try(opt.showErrors, obj.showErrors, false);
     instance.$validating = true;
     instance.$validated += 1;
 
@@ -112,7 +110,7 @@ export default class Validator implements ValidatorInterface {
     related = false,
     field = null,
     path,
-  }: any): void {
+  }): void {
     const instance = field || this.form.select(path);
     const { options } = this.form.state;
     // check if the field is a valid instance
@@ -129,7 +127,7 @@ export default class Validator implements ValidatorInterface {
     if (options.get(OptionsEnum.validateTrimmedValue, instance)) instance.trim();
 
     // get stop on error
-    const stopOnError = options.get(
+    const stopOnError: boolean = options.get(
       OptionsEnum.stopValidationOnError,
       instance
     );
@@ -140,20 +138,18 @@ export default class Validator implements ValidatorInterface {
       instance
     );
 
-    const drivers = validationPluginOrder
+    const drivers: DriversMap = validationPluginOrder
       ? validationPluginOrder.map((n: string) => this.drivers[n])
       : this.drivers;
 
     // validate with all enabled drivers
     _.each(drivers, (driver: ValidationPluginInterface) => {
       driver && driver.validate(instance);
-      if (stopOnError && instance.hasError) {
-        return false;
-      }
+      if (stopOnError && instance.hasError) return;
     });
 
     // send error to the view
-    instance.showErrors(showErrors);
+    instance.showErrors(showErrors, false);
 
     // related validation
     if (related) this.validateRelatedFields(instance, showErrors);
@@ -166,7 +162,7 @@ export default class Validator implements ValidatorInterface {
   validateRelatedFields(field: FieldInterface, showErrors: boolean): void {
     if (!field.related || !field.related.length) return;
 
-    _.each(field.related, (path) =>
+    field.related.map((path) =>
       this.validateField({
         related: false,
         showErrors,
@@ -177,12 +173,8 @@ export default class Validator implements ValidatorInterface {
 
   checkSVKValidationPlugin(): void {
     if (_.isNil(this.drivers.svk) && _.get(this.plugins, "svk.config.schema")) {
-      const form = (this as any).state.form.name
-        ? `Form: ${(this as any).state.form.name}`
-        : "";
-      throw new Error(
-        `The SVK validation schema is defined but no plugin provided (SVK). ${form}`
-      );
+      const name = this.form.name ? `Form: ${this.form.name}` : "";
+      throw new Error(`The SVK validation schema is defined but no plugin provided (SVK). ${name}`);
     }
   }
 }

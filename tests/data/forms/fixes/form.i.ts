@@ -44,7 +44,7 @@ const initials = {
 class NewForm extends Form {
   plugins() {
     return {
-      dvr: dvr(validatorjs),
+      dvr: dvr({ package: validatorjs }),
     };
   }
 

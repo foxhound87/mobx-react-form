@@ -39,7 +39,7 @@ const rules = {
 };
 
 const plugins: ValidationPlugins = {
-  dvr: dvr(validatorjs),
+  dvr: dvr({ package: validatorjs }),
 };
 
 class NewForm extends Form {

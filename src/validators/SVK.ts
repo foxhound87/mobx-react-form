@@ -1,5 +1,7 @@
 import _ from "lodash";
 import {
+  ValidationPlugin,
+  ValidationPluginConfig,
   ValidationPluginConstructor,
   ValidationPluginInterface,
 } from "../models/ValidatorInterface";
@@ -34,20 +36,19 @@ class SVK implements ValidationPluginInterface {
   schema = null;
 
   constructor({
-    config = {},
+    config,
     state = null,
     promises = [],
   }: ValidationPluginConstructor) {
     this.state = state;
     this.promises = promises;
-    this.extend = config.extend;
+    this.extend = config?.extend;
     this.schema = config.schema;
     this.initAJV(config);
   }
 
   extendOptions(options = {}) {
     return Object.assign(options, {
-      allowRequired: _.get(options, "allowRequired") || false,
       errorDataPath: "property",
       allErrors: true,
       coerceTypes: true,
@@ -57,7 +58,7 @@ class SVK implements ValidationPluginInterface {
 
   initAJV(config) {
     // get ajv package
-    const ajv = config.package || config;
+    const ajv = config.package;
     // create ajv instance
     const validator = new ajv(this.extendOptions(config.options));
     // extend ajv using "extend" callback
@@ -72,7 +73,7 @@ class SVK implements ValidationPluginInterface {
   }
 
   validate(field) {
-    const validate = this.validator(this.parseValues(field.state.form.validatedValues));
+    const validate = this.validator(field.state.form.validatedValues);
     // check if is $async schema
     if (isPromise(validate)) {
       const $p = validate
@@ -126,19 +127,9 @@ class SVK implements ValidationPluginInterface {
       field.invalidate(field.validationAsyncData.message, false, true);
     }
   }
-
-  parseValues(values) {
-    if (_.get(this.config, "options.allowRequired") === true) {
-      return _.omitBy(
-        values,
-        _.isEmpty || _.isNull || _.isUndefined || _.isNaN
-      );
-    }
-    return values;
-  }
 }
 
-export default (config?: any) => ({
+export default (config?: ValidationPluginConfig): ValidationPlugin => ({
   class: SVK,
   config,
 });

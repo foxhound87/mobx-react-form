@@ -3,10 +3,10 @@ import { expect } from "chai";
 import { Form } from "../../../../src";
 import { FormInterface } from "../../../../src/models/FormInterface";
 import { ValidationPlugins } from "../../../../src/models/ValidatorInterface";
-import DVR from "../../../../src/validators/DVR";
+import dvr from "../../../../src/validators/DVR";
 
 const plugins: ValidationPlugins = {
-  dvr: DVR(validatorjs)
+  dvr: dvr({ package: validatorjs })
 }
 
 const fields = [

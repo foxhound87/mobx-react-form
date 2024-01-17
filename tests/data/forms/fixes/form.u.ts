@@ -17,7 +17,7 @@ const labels = {
 };
 
 const plugins: ValidationPlugins = {
-  dvr: dvr(validatorjs),
+  dvr: dvr({ package: validatorjs }),
 };
 
 const values = {

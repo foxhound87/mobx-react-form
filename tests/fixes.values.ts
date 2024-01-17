@@ -671,7 +671,7 @@ describe('stop validation on error', () => {
 })
 
 const plugins: ValidationPlugins = {
-  dvr: dvr(validatorjs),
+  dvr: dvr({ package: validatorjs }),
 };
 
 describe('#611 validated with value\'s nested property', () => {

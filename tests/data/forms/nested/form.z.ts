@@ -26,7 +26,7 @@ const values = {
 };
 
 const plugins: ValidationPlugins = {
-  dvr: dvr(validatorjs),
+  dvr: dvr({ package: validatorjs }),
 };
 
 export default new Form(

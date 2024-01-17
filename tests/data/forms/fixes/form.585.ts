@@ -6,7 +6,7 @@ import { ValidationPlugins } from "../../../../src/models/ValidatorInterface";
 import dvr from "../../../../src/validators/DVR";
 
 const plugins: ValidationPlugins = {
-  dvr: dvr(validatorjs)
+  dvr: dvr({ package: validatorjs })
 }
 
 const schema = {

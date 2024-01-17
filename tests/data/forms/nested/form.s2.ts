@@ -2,6 +2,7 @@ import { expect } from "chai";
 import validatorjs from "validatorjs";
 import { Form } from "../../../../src";
 import { ValidationPlugins } from "../../../../src/models/ValidatorInterface";
+import dvr from "../../../../src/validators/DVR";
 
 const fields = [
   "club.name",
@@ -124,7 +125,7 @@ const values = {
 class NewForm extends Form {
   plugins(): ValidationPlugins {
     return {
-      dvr: validatorjs,
+      dvr: dvr({ package: validatorjs }),
     };
   }
 

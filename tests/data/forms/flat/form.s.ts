@@ -22,7 +22,7 @@ class NewForm extends MobxReactForm {
 
   plugins(): ValidationPlugins {
     return {
-      dvr: dvr(validatorjs),
+      dvr: dvr({ package: validatorjs }),
     };
   }
 }

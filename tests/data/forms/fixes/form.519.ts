@@ -8,7 +8,7 @@ import dvr from "../../../../src/validators/DVR";
 
 const plugins: ValidationPlugins = {
     vjf: vjf(),
-    dvr: dvr(validatorjs)
+    dvr: dvr({ package: validatorjs })
 };
 
 const weekValidator = ({ field, form }) => {

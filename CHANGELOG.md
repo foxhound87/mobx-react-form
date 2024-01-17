@@ -1,3 +1,9 @@
+# 6.9.0 (master)
+- Validator types improvements.
+- introduced `ValidationPlugin`, `ExtendPlugin` and `ValidationPluginConfig` models.
+- mandatory `package` prop when defining Validation Plugins.
+- deprecated `allowRequired` option (SVK).
+- Fix: `showErrors()` deep disabled when validating field.
 
 # 6.8.3 (master)
 - Fix: deprecated field `showAsyncErrors()`, use `showErrors()`.
@@ -122,7 +128,7 @@
 - Updated Issue: #283
 
 # 5.9.1 (next)
-Fix: using `autoTrimValue` option will not trigger `onChange` Event Hook
+- Fix: using `autoTrimValue` option will not trigger `onChange` Event Hook
 
 # 5.9.0 (next)
 
@@ -138,10 +144,12 @@ Fix: using `autoTrimValue` option will not trigger `onChange` Event Hook
 - Introduced `validateOnSubmit` form option (active by default).
 - Fix: `ref` prop for separated props mode renamed to `refs` (plural)
 - Fix: #337
+
 # 5.7.1 (next)
 
 - fix: allow `ref` prop on `set()`
 - fix: `ref` computed accessible (before was accessed by $ref)
+
 # 5.7.0 (next)
 
 - Introduced `ref` Field prop. (handle React Refs);
@@ -200,6 +208,7 @@ fix: #371 #399 #408
 
 - Form level onChange hook
 - introduced reducer
+
 # 4.0.0 / 5.0.0 (next)
 
 - Typescript support

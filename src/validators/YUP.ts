@@ -1,4 +1,6 @@
 import {
+  ValidationPlugin,
+  ValidationPluginConfig,
   ValidationPluginConstructor,
   ValidationPluginInterface,
 } from "../models/ValidatorInterface";
@@ -31,14 +33,14 @@ class YUP implements ValidationPluginInterface {
   schema = null;
 
   constructor({
-    config = {},
+    config,
     state = null,
     promises = [],
   }: ValidationPluginConstructor) {
     this.state = state;
     this.promises = promises;
-    this.extend = config.extend;
-    this.validator = config.package || config;
+    this.extend = config?.extend;
+    this.validator = config.package;
     this.schema = config.schema(this.validator);
     this.extendValidator();
   }
@@ -84,7 +86,7 @@ class YUP implements ValidationPluginInterface {
   }
 }
 
-export default (config?: any) => ({
+export default (config?: ValidationPluginConfig): ValidationPlugin => ({
   class: YUP,
   config,
 });
