@@ -46,8 +46,8 @@ class ZOD implements ValidationPluginInterface {
   validate(field): void {
     const result = this.schema.safeParse(field.state.form.validatedValues);
     if (result.success) return;
-    const errors = _.get(result.error.format(), field.path)._errors;
-    if (errors.length) field.validationErrorStack = errors;
+    const errors = _.get(result.error.format(), field.path)?._errors;
+    if (errors?.length) field.validationErrorStack = errors;
   }
 }
 
