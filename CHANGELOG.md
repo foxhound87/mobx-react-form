@@ -1,14 +1,23 @@
+# 6.9.4 (master)
+
+- Fix: #636
+- Fix: Added `editable` props to initial props state.
+
 # 6.9.3 (master)
+
 - introduced `SubmitOptions` and `SubmitHooks` models.
 
 # 6.9.2 (master)
+
 - deprecated `checkSVKValidationPlugin`
 
 # 6.9.1 (master)
+
 - introduced `validate()` input types.
 - introduced `ValidateOptions` & `ValidateOptionsInterface` models.
 
 # 6.9.0 (master)
+
 - Validator types improvements.
 - introduced `ValidationPlugin`, `ExtendPlugin` and `ValidationPluginConfig` models.
 - mandatory `package` prop when defining Validation Plugins.
@@ -16,81 +25,103 @@
 - Fix: `showErrors()` deep disabled when validating field.
 
 # 6.8.3 (master)
+
 - Fix: deprecated field `showAsyncErrors()`, use `showErrors()`.
 - FIx: field import in `FormInterface`
 
 # 6.8.2 (master)
+
 - Fix: call `invalidate()` with `deep` argument.
 
 # 6.8.1 (master)
+
 - Fix: call `invalidate()` with `async` argument.
 
 # 6.8.0 (master)
+
 - Field `invalidate()` methods arguments updated, introduced `deep`.
 
 # 6.7.5 (master)
+
 - better handling of `deep` argument for `showErrors()` & `invalidate()` methods.
 - removed `mixed` mode warning
 
 # 6.7.4 (master)
+
 - Fix: extend hooks and handlers on form instance using set()
 
 # 6.7.3 (master)
+
 - Fix: reset validation action for mobx strict mode
 
 # 6.7.2 (master)
+
 - Fix: mobx strict mode for hooks and handlers
 
 # 6.7.1 (master)
+
 - Fix: #632 observable hooks and handlers
 
 # 6.7.0 (master)
+
 - Feat: introduced `class`/`classes` props to handle `Field` extension in Fields Definitions.
 
 # 6.6.1 (master)
+
 - Fix: added missing bind method to field interface
 
 # 6.6.0 (master)
+
 - Introduced ZOD validation driver
 - Added SVK support for array of objects
 - Fix: #404
 
 # 6.5.0 (master)
+
 - Deprecatad: `setHooks()` & `getHooks()` methods.
 - Handle `set()/get()` for `hooks` and `handlers`
 
 # 6.4.0 (master)
+
 - Feat: ability to define or override hooks after initialization.
 - Feat: Introduced `setHooks()` & `getHooks()` methods.
 
 # 6.3.7 (master)
+
 - Fix: handle `onSubmit` hook return promise
 
 # 6.3.6 (master)
+
 - Fix: composer `error()` method.
 - Fix: default models/interfaces have now named exports.
 - Fix: check event w/ `isEvent()` to call `preventDefault()` for native support.
 
 # 6.3.5 (master)
+
 - Fix: `parseCheckArray` checks for `incremental` field status.
 - Updated `semantic-release`
 
 # 6.3.4 (master)
+
 - Fix: `isEmptyArray` reimplemented in `isArrayFromStruct` util function;
 - Removed lodash `_.isArray()` with `Array.isArray()`
 - Introduced `struct` prop in `makeField` method.
 
 # 6.3.3 (master)
+
 - Fix: `get('value')` retrieve empty array removed by `update()`
 - Fix: `composer` returned in `validate/submit` instead of single methods.
 
 # 6.3.2 (master)
+
 - Fix: `preserveDeletedFieldsValues` on `add()` action to handle `fields` prop.
 
 # 6.3.1 (master)
+
 - Introduced field `computed` prop. To handle nested array fields computed values.
 
 # 6.3.0 (master)
+
 - Introduced Forms Composer
 - Introduced Functional Computed Field Props
 - Introduced `strictSelect` and `strictSet` form options.
@@ -98,37 +129,46 @@
 - Field prop `validators` does not accept anymore a single function, an array of functions is needed.
 
 # 6.2.3 (master)
+
 - Introduced `applyInputConverterOnInit`, `applyInputConverterOnSet`, `applyInputConverterOnUpdate` form options.
 - Introduced `converter` function applied on `set value`.
 - Fix: `input` function removed from `set value`.
 
 # 6.2.2 (master)
+
 - Fix: mobx cycle detected in computation (get() strict mode)
 
 # 6.2.1 (master) - DEPRECATED
+
 - Refactored set value with input function
 - Deprecated input function on `initial` and `default` props.
 - Fix: input function applied 2 times when using `set()`
 
 # 6.2.0 (master)
+
 - Feat: #433 (File input append mode)
 
 # 6.1.1 (master)
+
 - Fix: #624 (defaults() helpers)
 
 # 6.1.0 (master)
+
 - Introduced `fallbackValue` and `retrieveNullifiedEmptyStrings` form options.
 - Fix: `get()` strict mode improved
 - Fix: default type file value;
 
 # 6.0.0 (master)
+
 - stable typescript release
 
 # 5.10.1 (next)
+
 - `set()` will apply `input` function also to `initial` and `default` props.
 - Fix: #519
 
 # 5.10.0 (next)
+
 - Introduced Field `trim()` method.
 - Introduced `validateTrimmedValue` form option.
 - Introduced `resetValidationBeforeValidate` form option.
@@ -138,6 +178,7 @@
 - Updated Issue: #283
 
 # 5.9.1 (next)
+
 - Fix: using `autoTrimValue` option will not trigger `onChange` Event Hook
 
 # 5.9.0 (next)
@@ -181,7 +222,7 @@
 # 5.5.0 (next)
 
 - Updated add()/del()/update() actions to handle `changed` field prop.
-(not triggering anymore `onChange` when using add(), use `onAdd`/`onDel` hooks instead).
+  (not triggering anymore `onChange` when using add(), use `onAdd`/`onDel` hooks instead).
 - Updated `changed` computed prop behavior for nested fields and Event Hooks triggering.
 - Events Hooks now are triggered also from actions if not used Event Handlers.
 - fix: #585 #531
@@ -205,15 +246,19 @@ fix: #371 #399 #408
 # 5.3.2 (next)
 
 - fix: Support `validatedWith` with nested property of a field's value
+
 # 5.3.1 (next)
 
 - fix: cannot change disabled prop on fields
+
 # 5.3.0 (next)
 
 - nested fields trigger onchange hook on container
+
 # 5.2.0 (next)
 
 - trigger onChange hook on add/del
+
 # 5.1.0 (next)
 
 - Form level onChange hook
