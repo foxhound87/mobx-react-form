@@ -49,7 +49,7 @@
 | **isEmpty** | boolean | computed | Check if the field is empty. | - |
 | **hasError** | boolean | computed | Check if the field has errors. | - |
 | **error** | string | computed | Field error message. | - |
-| **files** | string | computed | Use the `onDrop` Event Handler to retrieve the files data. | - |
+| **files** | any | computed | Use the `onDrop` Event Handler to retrieve the files data. | - |
 | **validatedValue** | object | computed | Obtain Field `validatedWith` value. | - |
 | **hasNestedFields** | boolean | computed | Check if the field has Nested Fields. | - |
 | **hasIncrementalKeys** | boolean | computed | Check if the nested fields have incremental keys. | - |
