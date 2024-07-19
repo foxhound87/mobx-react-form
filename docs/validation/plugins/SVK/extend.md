@@ -1,8 +1,8 @@
 ## Custom Json Schema Validation Keywords (SVK)
 
-Using `epoberezkin/ajv` as plugin, the Schema Validation Keywords (**SVK**) funcionalities will be enabled and can be extended too.
+Using `ajv` as plugin, the Schema Validation Keywords (**SVK**) funcionalities will be enabled and can be extended too.
 
-> See the epoberezkin/ajv documentation: [Defining Custom Keywords](https://github.com/epoberezkin/ajv/blob/master/CUSTOM.md) for a deeper explaination
+> See the ajv documentation: [Defining Custom Keywords](https://ajv.js.org/keywords.html) for a deeper explaination
 
 Below we see how to implement it in `mobx-react-form`:
 

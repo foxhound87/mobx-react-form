@@ -1,9 +1,9 @@
 ## Enabling Json Schema Validation Keywords (SVK)
 
-We are using [epoberezkin/ajv](https://github.com/epoberezkin/ajv) to enable Schema Validation Keywords (**SVK**) with automatic Error Messages.
+We are using [ajv](https://github.com/ajv-validator/ajv) to enable Schema Validation Keywords (**SVK**) with automatic Error Messages.
 
-#### Install `epoberezkin/ajv` Package
-`epoberezkin/ajv` is not included in the package, so you have to install it manually.
+#### Install `ajv` Package
+`ajv` is not included in the package, so you have to install it manually.
 
 ```bash
 npm install --save ajv

@@ -6,15 +6,15 @@ All package listed below are not included in the mobx-react-form package and mus
 
 | Driver | | Description | Package | | |
 |---|---|---|---|---|
-| **VJF** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorVJF.umd.min.js) | Vanilla Javascript Functions | **mikeerickson/validatorjs** | [GitHub](https://github.com/mikeerickson/validatorjs) | [NPM](https://www.npmjs.com/package/validator) |
-| **DVR** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorDVR.umd.min.js) | Declarative Validation Rules | **validatorjs/validator.js** | [GitHub](https://github.com/validatorjs/validator.js) | [NPM](https://www.npmjs.com/package/validatorjs) |
-| **SVK** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorSVK.umd.min.js) | Schema Validation Keywords | **epoberezkin/ajv** | [GitHub](https://github.com/epoberezkin/ajv) | [NPM](https://www.npmjs.com/package/ajv) |
-| **YUP** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorYUP.umd.min.js) | Object Schema Validator | **jquense/yup** | [GitHub](https://github.com/jquense/yup) | [NPM](https://www.npmjs.com/package/yup)
-| **ZOD** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorZOD.umd.min.js) | TypeScript-first schema validation | **colinhacks/zod** | [GitHub](https://github.com/colinhacks/zod) | [NPM](https://www.npmjs.com/package/zod)
+| **VJF** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorVJF.umd.min.js) | Vanilla Javascript Functions | **npm i validator** | [GitHub](https://github.com/validatorjs/validator.js) | [NPM](https://www.npmjs.com/package/validator) |
+| **DVR** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorDVR.umd.min.js) | Declarative Validation Rules | **npm i validatorjs** | [GitHub](https://github.com/mikeerickson/validatorjs) | [NPM](https://www.npmjs.com/package/validatorjs) |
+| **SVK** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorSVK.umd.min.js) | Schema Validation Keywords | **npm i ajv** | [GitHub](https://github.com/ajv-validator/ajv) | [NPM](https://www.npmjs.com/package/ajv) |
+| **YUP** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorYUP.umd.min.js) | Object Schema Validator | **npm i yup** | [GitHub](https://github.com/jquense/yup) | [NPM](https://www.npmjs.com/package/yup) |
+| **ZOD** | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorZOD.umd.min.js) | TypeScript-first schema validation | **npm i zod** | [GitHub](https://github.com/colinhacks/zod) | [NPM](https://www.npmjs.com/package/zod) |
 
 ###### INFO
 
-* The `mikeerickson/validatorjs` package when setting up `VJF` is optional.
+* The `validator` package when setting up `VJF` is optional.
 * To setup custom error messages, see the related plugin repo, each package has a different implementation.
 
 ###### SETUP

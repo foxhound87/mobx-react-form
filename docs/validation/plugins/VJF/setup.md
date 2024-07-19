@@ -1,9 +1,9 @@
 ## Enabling Vanilla Javascript Validation Functions (VJF)
 
-When enabling the `VJF` plugin, you can optionally enhance it using [chriso/validator.js](https://github.com/chriso/validator.js).
+When enabling the `VJF` plugin, you can optionally enhance it using [validator.js](https://github.com/validatorjs/validator.js).
 
-#### Install `chriso/validator.js` Package (optional)
-`chriso/validator.js` it's not included in the package, so you have to install it manually.
+#### Install `validator` Package (optional)
+`validator` it's not included in the package, so you have to install it manually.
 
 ```bash
 npm install --save validator
@@ -21,7 +21,7 @@ const plugins = {
 };
 ```
 
-Using `chriso/validator.js`:
+Using `validator.js`:
 
 ```javascript
 import vjf from 'mobx-react-form/lib/validators/VJF';

@@ -1,8 +1,8 @@
 ## Enabling ZOD TypeScript-first schema validation
 
-`colinhacks/zod` is not included in the package, so you have to install it manually.
+`\zod` is not included in the package, so you have to install it manually.
 
-First of all install [colinhacks/zod](https://github.com/colinhacks/zod) to enable the `ZOD` plugin.
+First of all install [zod](https://github.com/colinhacks/zod) to enable the `ZOD` plugin.
 
 ```bash
 npm install --save zod

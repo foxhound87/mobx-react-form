@@ -1,8 +1,8 @@
 ## Enabling YUP Object Schema Validator
 
-`jquense/yup` is not included in the package, so you have to install it manually.
+`yup` is not included in the package, so you have to install it manually.
 
-First of all install [jquense/yup](https://github.com/jquense/yup) to enable the `YUP` plugin.
+First of all install [yup](https://github.com/jquense/yup) to enable the `YUP` plugin.
 
 ```bash
 npm install --save yup
