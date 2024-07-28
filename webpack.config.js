@@ -25,6 +25,7 @@ module.exports = {
     MobxReactFormValidatorDVR: "./src/validators/DVR",
     MobxReactFormValidatorSVK: "./src/validators/SVK",
     MobxReactFormValidatorYUP: "./src/validators/YUP",
+    MobxReactFormValidatorJOI: "./src/validators/JOI",
     MobxReactFormValidatorZOD: "./src/validators/ZOD",
   },
   output: {
