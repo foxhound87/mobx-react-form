@@ -14,9 +14,9 @@ npm install --save joi
 const $schema = j.object({
 	products: j.array().items(
 	  j.object({
-      name: j.string().min(3).required(),
-      qty: j.number().integer().min(0).required(),
-      amount: j.number().min(0).required(),
+        name: j.string().min(3).required(),
+        qty: j.number().integer().min(0).required(),
+        amount: j.number().min(0).required(),
       }).optional()
     )
   });
