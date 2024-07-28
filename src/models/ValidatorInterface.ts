@@ -4,6 +4,11 @@ import {FieldInterface} from "./FieldInterface";
 import {FormInterface} from "./FormInterface";
 import {StateInterface} from "./StateInterface";
 
+export interface ValidatorConstructor {
+  form: FormInterface;
+  plugins: ValidationPlugins;
+}
+
 export interface ValidateOptionsInterface {
   showErrors?: boolean,
   related?: boolean,
@@ -36,6 +41,7 @@ export interface ValidationPlugins {
   svk?: ValidationPlugin;
   yup?: ValidationPlugin;
   zod?: ValidationPlugin;
+  joi?: ValidationPlugin;
 }
 
 export type ValidationPackage = any;
@@ -74,5 +80,6 @@ export enum ValidationHooks {
   onSuccess = 'onSuccess',
   onError = 'onError',
 }
+
 
 export default ValidatorInterface;

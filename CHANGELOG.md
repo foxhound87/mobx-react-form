@@ -1,3 +1,8 @@
+# 6.10.0 (master)
+
+- Introduced `JOI` validation plugin and driver.
+- Added `ValidatorConstructor` inferface
+
 # 6.9.4 (master)
 
 - Fix: #636

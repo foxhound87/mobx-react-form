@@ -7,6 +7,7 @@ import ValidatorInterface, {
   ValidationPlugin,
   ValidationPluginInterface,
   ValidationPlugins,
+  ValidatorConstructor,
 } from "./models/ValidatorInterface";
 import { FormInterface } from "./models/FormInterface";
 import { FieldInterface } from "./models/FieldInterface";
@@ -25,11 +26,12 @@ export default class Validator implements ValidatorInterface {
     svk: undefined,
     yup: undefined,
     zod: undefined,
+    joi: undefined,
   };
 
   error: string | null = null;
 
-  constructor(obj: any = {}) {
+  constructor(obj: ValidatorConstructor) {
     makeObservable(this, {
       error: observable,
       validate: action,
