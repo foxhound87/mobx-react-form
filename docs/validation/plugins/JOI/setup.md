@@ -28,7 +28,7 @@ const $schema = j.object({
 Pass the `JOI` package and the previously defined `schema` to the **JOI** plugin.
 
 ```javascript
-import JOI from 'mobx-react-form/lib/validators/JOI';
+import joi from 'mobx-react-form/lib/validators/JOI';
 import j from 'joi';
 
 const plugins = {
@@ -36,7 +36,7 @@ const plugins = {
     package: j,
     schema: $schema,
     extend: ({ validator, form }) => {
-      ... // access zod validator and form instances
+      ... // access joi validator and form instances
     },
   })
 };
