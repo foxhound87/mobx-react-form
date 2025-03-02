@@ -815,3 +815,47 @@ describe('$V Field values checks', () => {
   it('$V pieces[1].width values to be not equal zero', () => expect($.$V.$('pieces[1].width').value).to.be.not.equal(0));
   it('$V pieces[1].height values to be not equal zero', () => expect($.$V.$('pieces[1].height').value).to.be.not.equal(0));
 });
+
+// issue #167
+describe("#167, null as default value", () => {
+  it("maintains null value on reset", () => {
+    const form = new Form({
+      fields: {
+        customField: {
+          value: null,
+          type: "custom", // use "custom" type to allow null/undefined values
+        },
+      },
+    });
+
+    // Initial state check
+    expect(form.$("customField").value).to.be.equal(null);
+    expect(form.$("customField").initial).to.be.equal(null);
+    expect(form.$("customField").default).to.be.equal(null);
+    expect(form.$("customField").isDirty).to.be.false;
+    expect(form.$("customField").isPristine).to.be.true;
+
+    // Change the value
+    form.$("customField").set("some custom value");
+    expect(form.$("customField").value).to.be.equal("some custom value");
+    expect(form.$("customField").initial).to.be.equal(null);
+    expect(form.$("customField").default).to.be.equal(null);
+    expect(form.$("customField").isDirty).to.be.true;
+    expect(form.$("customField").isPristine).to.be.false;
+
+    // Reset the form
+    form.reset();
+
+    // After reset, the field should maintain null value
+    expect(form.$("customField").value).to.be.equal(null);
+    expect(form.$("customField").initial).to.be.equal(null);
+    expect(form.$("customField").default).to.be.equal(null);
+    expect(form.$("customField").isDirty).to.be.false;
+    expect(form.$("customField").isPristine).to.be.true;
+
+    // Additional check to ensure isDirty works correctly with empty string
+    form.$("customField").set("");
+    expect(form.$("customField").isDirty).to.be.true; // Should be dirty since "" !== null
+    expect(form.$("customField").isPristine).to.be.false;
+  });
+});

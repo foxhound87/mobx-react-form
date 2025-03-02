@@ -27,6 +27,7 @@ import $U from "./forms/fixes/form.u";
 import $V from "./forms/fixes/form.v";
 import $Z from "./forms/fixes/form.z";
 
+import $167 from "./forms/fixes/form.167";
 import $425 from "./forms/fixes/form.425";
 import $472 from "./forms/fixes/form.472";
 import $480 from "./forms/fixes/form.480";
@@ -72,6 +73,7 @@ export default {
   $V,
   $Z,
 
+  $167,
   $425,
   $472,
   $480,

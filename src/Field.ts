@@ -439,12 +439,12 @@ export default class Field extends Base implements FieldInterface {
 
   get isDirty(): boolean {
     const value = this.changed ? this.value : this.initial;
-    return !_.isNil(this.initial) && !_.isEqual(this.initial, value);
+    return !_.isEqual(this.initial, value);
   }
 
   get isPristine(): boolean {
     const value = this.changed ? this.value : this.initial;
-    return !_.isNil(this.initial) && _.isEqual(this.initial, value);
+    return _.isEqual(this.initial, value);
   }
 
   get isEmpty(): boolean {

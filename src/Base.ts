@@ -593,6 +593,11 @@ export default class Base implements BaseInterface {
     Set Fields Props
    */
   set(prop: any, data?: any): void {
+    if (_.isString(prop) && prop === FieldPropsEnum.value && (this as any).type === "custom") {
+      (this as any).value = data;
+      return;
+    }
+
     // UPDATE CUSTOM PROP
     if (_.isString(prop) && !_.isUndefined(data)) {
       allowedProps(AllowedFieldPropsTypes.editable, [prop]);

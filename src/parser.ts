@@ -16,6 +16,7 @@ const defaultValue = ({
   isEmptyArray = false,
   fallbackValueOption = "",
 }: any): null | false | 0 | [] | "" => {
+  if (type === "custom") return undefined; // TODO: might want to provide a way to set a custom default value
   if (Array.isArray(value) || isEmptyArray) return [];
   if (_.isDate(value) || type === "date" || type === "datetime-local") return null;
   if (_.isNumber(value) || type === "number") return 0;
