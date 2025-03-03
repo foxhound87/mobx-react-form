@@ -29,6 +29,7 @@ const values = {
 };
 
 const input = {
+  'members[].firstname': value => value === null ? '' : value,
   'nested.field': value => value.toString(),
 };
 

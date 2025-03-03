@@ -14,6 +14,11 @@ const fields = [
   "items[].name",
 ];
 
+const input = {
+  'people[].name': (value) => value === null ? '' : value,
+  "array[].name": (value) => value === null ? '' : value,
+}
+
 const values = {
   jobs: [],
   number: 1,
@@ -72,6 +77,6 @@ class NewForm extends Form {
 }
 
 export default new NewForm(
-  { fields, values, rules },
+  { fields, values, rules, input },
   { plugins, name: "Fixes-M" }
 );

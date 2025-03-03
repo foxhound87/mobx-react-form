@@ -21,6 +21,11 @@ const labels = {
   "members[].hobbies": "Label Member Hobby",
 };
 
+const input = {
+  "club.name": (value) => value === null ? '' : value,
+  "members[].firstname": (value) => value === null ? '' : value,
+}
+
 class NewForm extends Form {
   hooks() {
     return {
@@ -48,4 +53,4 @@ class NewForm extends Form {
   }
 }
 
-export default new NewForm({ fields, labels }, { name: "Nested-O" });
+export default new NewForm({ fields, labels, input }, { name: "Nested-O" });

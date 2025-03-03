@@ -104,7 +104,7 @@ export default class Base implements BaseInterface {
       this.noop
     ).apply(this, [this]);
 
-  execHandler = (name: string, args: any, fallback: any = null, hook = null, execHook = true): any => [
+  execHandler = (name: string, args: any, fallback: any = undefined, hook = null, execHook = true): any => [
     $try(
       this.$handlers[name] && this.$handlers[name].apply(this, [this]),
       fallback,
@@ -302,6 +302,7 @@ export default class Base implements BaseInterface {
       $output: _try(SeparatedPropsMode.output),
       $autoFocus: _try(SeparatedPropsMode.autoFocus),
       $ref: _try(SeparatedPropsMode.refs),
+      $nullable: _try(SeparatedPropsMode.nullable),
     };
 
     const field = this.state.form.makeField(
@@ -643,6 +644,7 @@ export default class Base implements BaseInterface {
       this.each((field: any) => field.$value = defaultValue({
         fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
         value: field.$value,
+        nullable: field.$nullable,
         type: field.type,
       }));
       return;
@@ -697,8 +699,13 @@ export default class Base implements BaseInterface {
 
     if(!hasValues && !this.state.options.get(OptionsEnum.preserveDeletedFieldsValues, this)) {
       const fallbackValueOption = this.state.options.get(OptionsEnum.fallbackValue, this);
-      field.$value = defaultValue({ fallbackValueOption, value: field.$value, type: field.type });
-      field.each((field: any) => field.$value = defaultValue({ fallbackValueOption, value: field.$value, type: field.type }));
+      field.$value = defaultValue({ fallbackValueOption, value: field.$value, nullable: field.$nullable, type: field.type });
+      field.each((field: any) => field.$value = defaultValue({
+        fallbackValueOption,
+        value: field.$value,
+        nullable: field.$nullable,
+        type: field.type
+      }));
     }
 
     this.$changed ++;

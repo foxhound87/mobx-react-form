@@ -80,6 +80,7 @@ const setupFieldProps = (instance: FieldInterface, props: any, data: any) =>
     $observers: props.$observers || data?.observers || null,
     $interceptors: props.$interceptors || data?.interceptors || null,
     $ref: props.$ref || data?.ref || undefined,
+    $nullable: props.$nullable || data?.nullable || false,
   });
 
 const setupDefaultProp = (
@@ -159,7 +160,8 @@ export default class Field extends Base implements FieldInterface {
   $deleted: boolean = false;
   $autoFocus: boolean = false;
   $inputMode: string = undefined;
-  $ref: any = undefined
+  $ref: any = undefined;
+  $nullable: boolean = false;
 
   showError: boolean = false;
   errorSync: string | null = null;
@@ -360,6 +362,10 @@ export default class Field extends Base implements FieldInterface {
     this.$default = val;
   }
 
+  get nullable(): boolean {
+    return propGetter(this, FieldPropsEnum.nullable);
+  }
+
   get ref() {
     return propGetter(this, FieldPropsEnum.ref)
   }
@@ -439,12 +445,12 @@ export default class Field extends Base implements FieldInterface {
 
   get isDirty(): boolean {
     const value = this.changed ? this.value : this.initial;
-    return !_.isNil(this.initial) && !_.isEqual(this.initial, value);
+    return !_.isEqual(this.initial, value);
   }
 
   get isPristine(): boolean {
     const value = this.changed ? this.value : this.initial;
-    return !_.isNil(this.initial) && _.isEqual(this.initial, value);
+    return _.isEqual(this.initial, value);
   }
 
   get isEmpty(): boolean {
@@ -452,6 +458,7 @@ export default class Field extends Base implements FieldInterface {
     if (_.isBoolean(this.value)) return !!this.$value;
     if (_.isNumber(this.value)) return false;
     if (_.isDate(this.value)) return false;
+    if (_.isNull(this.value)) return false;
     return _.isEmpty(this.value);
   }
 
@@ -583,14 +590,14 @@ export default class Field extends Base implements FieldInterface {
     const structPath: string = pathToStruct(this.path);
     const isEmptyArray: boolean = isArrayFromStruct(struct, structPath);
 
-    const { $type, $input, $output, $converter, $computed } = $props;
+    const { $type, $input, $output, $converter, $converters, $computed } = $props;
 
     if (_.isPlainObject($data)) {
-      const { type, input, output, converter, computed } = $data;
+      const { type, input, output, converter, converters, computed } = $data;
 
       this.name = _.toString($data.name || $key);
       this.$type = $type || type || "text";
-      this.$converter = $try($converter, converter, this.$converter);
+      this.$converter = $try($converter, $converters, converter, converters, this.$converter);
       this.$input = $try($input, input, this.$input);
       this.$output = $try($output, output, this.$output);
 
@@ -629,7 +636,7 @@ export default class Field extends Base implements FieldInterface {
     /* The field IS the value here */
     this.name = _.toString($key);
     this.$type = $type || "text";
-    this.$converter = $try($converter, this.$converter);
+    this.$converter = $try($converter, $converters, this.$converter);
     this.$input = $try($input, this.$input);
     this.$output = $try($output, this.$output);
 
@@ -761,9 +768,11 @@ export default class Field extends Base implements FieldInterface {
     this.$blurred = false;
     this.$changed = 0;
     this.files = undefined;
+
     this.$value = defaultValue({
       fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue),
       value: this.$value,
+      nullable: this.$nullable,
       type: this.type,
     });
 

@@ -31,6 +31,7 @@ export const props: PropsGroupsInterface = {
     FieldPropsEnum.autoFocus,
     FieldPropsEnum.inputMode,
     FieldPropsEnum.ref,
+    FieldPropsEnum.nullable,
   ],
   handlers: [
     FieldPropsEnum.onChange,

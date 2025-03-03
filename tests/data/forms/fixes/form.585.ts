@@ -16,6 +16,12 @@ const schema = {
     "account.id",
     "account.name"
   ],
+  input: {
+    "account.id": (value) => value === null ? '' : value
+  },
+  output: {
+    "account.id": (value) => value === null ? '' : value
+  },
   labels: { email: "Email" },
   rules: { email: "required|email|string|between:5,25" },
   values: {

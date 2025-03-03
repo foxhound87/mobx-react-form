@@ -165,10 +165,10 @@ const isBool = ($: any, val: any): boolean =>
   _.isBoolean(val) && _.isBoolean($.target.checked);
 
 const $try = (...args: any) => {
-  let found: any | null = null;
+  let found: any | null | undefined = undefined;
 
   args.map(( val: any ) =>
-    found === null && !_.isUndefined(val) && (found = val));
+    found === undefined && !_.isUndefined(val) && (found = val));
 
   return found;
 };

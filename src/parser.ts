@@ -13,11 +13,12 @@ import {
 const defaultValue = ({
   type = undefined,
   value = undefined,
+  nullable = undefined,
   isEmptyArray = false,
   fallbackValueOption = "",
 }: any): null | false | 0 | [] | "" => {
   if (Array.isArray(value) || isEmptyArray) return [];
-  if (_.isDate(value) || type === "date" || type === "datetime-local") return null;
+  if (nullable || _.isDate(value) || type === "date" || type === "datetime-local") return null;
   if (_.isNumber(value) || type === "number") return 0;
   if (_.isBoolean(value) || type === "checkbox") return false;
   if (_.isString(value) || type === "file") return "";
@@ -32,7 +33,7 @@ const parsePath = (path: string): string => {
 };
 
 const parseInput = (
-  input: any,
+  input: Function,
   { fallbackValueOption = "", type, isEmptyArray, separated, unified, fallback }: any
 ) =>
   input(

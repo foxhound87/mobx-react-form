@@ -100,7 +100,7 @@ describe('Check Nested $M1 validation', () => {
 
   it('$M1 members[1].yearOfBirth error should be equal to', () => // ERR
     expect($.$M1.$('members[1].yearOfBirth').error)
-      .to.be.equal('The Year of Birth must be a `number` type, but the final value was: `""`.'));
+      .to.be.equal('The Year of Birth is a required field'));
 
   it('$M1 members[1].hobbies[0] isValid should be true', () =>
     expect($.$M1.$('members[1].hobbies[0]').isValid).to.be.true);

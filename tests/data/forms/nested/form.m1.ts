@@ -22,6 +22,13 @@ const fields = {
   ],
 };
 
+const input = {
+  "club": (value) => (value === null ? "" : value),
+  "memebers[].firstname": (value) => (value === null ? "" : value),
+  "memebers[].yearOfBirth": (value) => (value === null ? "" : value),
+  "memebers[].hobbies[]": (value) => (value === null ? "" : value),
+}
+
 const labels = {
   club: "The Club",
   "members[]": "The Members",
@@ -33,13 +40,13 @@ const labels = {
 
 const schema = (y) =>
   y.object().shape({
-    club: y.string().required(),
+    club: y.string().required().nullable(),
     members: y.array().of(
       y.object().shape({
-        firstname: y.string().required(),
+        firstname: y.string().required().nullable(),
         lastname: y.string().required(),
-        yearOfBirth: y.number().required().positive().integer(),
-        hobbies: y.array().of(y.string().required()),
+        yearOfBirth: y.number().required().positive().integer().nullable(),
+        hobbies: y.array().of(y.string().required().nullable()),
       })
     ),
   });
@@ -56,6 +63,6 @@ const options: OptionsModel = {
 };
 
 export default new Form(
-  { fields, labels },
+  { fields, labels, input },
   { plugins, options, name: "Nested-M1" }
 );

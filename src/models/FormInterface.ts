@@ -60,6 +60,8 @@ export interface FieldsDefinitions {
   inputMode?: any;
   refs?: any;
   classes?: object;
+  nullable?: any;
+  converters?: any;
 }
 
 export interface FormConfig {

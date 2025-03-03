@@ -1,3 +1,8 @@
+# 6.11.0 (master)
+
+- Full `null` values support for fields values.
+- Introduced `nullable` field prop.
+
 # 6.10.0 (master)
 
 - Introduced `JOI` validation plugin and driver.
