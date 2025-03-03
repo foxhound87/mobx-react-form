@@ -13,7 +13,7 @@ jobs:
       - run: npm run cover
       - run: npm run coverage:check
       - run: npm run build
-      - run: npm run coverage:report
+      # - run: npm run coverage:report
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
         env:
