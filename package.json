@@ -24,7 +24,7 @@
     "test": "cross-env TEST=true mocha -r ts-node/register ./tests/*.ts",
     "cover": "nyc npm test",
     "coverage:check": "nyc check-coverage --satements 95 --branches 80 --functions 86 --lines 90",
-    "coverage:report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "coverage:report": "mkdir -p coverage && nyc --report-dir=coverage report --reporter=lcov > ./coverage/lcov.info",
     "semantic-release": "semantic-release"
   },
   "repository": {
@@ -88,7 +88,6 @@
     "@typescript-eslint/parser": "^5.54.0",
     "ajv": "^5.2.2",
     "chai": "3.5.0",
-    "codecov": "^3.8.3",
     "commitizen": "^4.3.0",
     "cross-env": "^5.1.4",
     "cz-conventional-changelog": "^2.1.0",

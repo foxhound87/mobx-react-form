@@ -8,12 +8,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - run: npm install --force
       - run: npm run cover
       - run: npm run coverage:check
       - run: npm run build
-      # - run: npm run coverage:report
+      - run: npm run coverage:report
+      - name: Upload Coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
+          files: ./coverage/lcov.info
+          verbose: true
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
         env:
