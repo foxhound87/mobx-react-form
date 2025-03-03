@@ -1,0 +1,1420 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Event Handlers · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-accordion/accordion.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="event-handlers/constructor.html" />
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">Introduction</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../quick-start.html">
+            
+                <a href="../quick-start.html">
+            
+                    
+                    Quick Start
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../quick-start-class.html">
+            
+                <a href="../quick-start-class.html">
+            
+                    
+                    Quick Start (class)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../devtools.html">
+            
+                <a href="../devtools.html">
+            
+                    
+                    DevTools
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../umd-setup.html">
+            
+                <a href="../umd-setup.html">
+            
+                    
+                    UMD Setup
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">API Reference</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../api-reference/form-properties.html">
+            
+                <a href="../api-reference/form-properties.html">
+            
+                    
+                    Form Properties
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../api-reference/form-methods.html">
+            
+                <a href="../api-reference/form-methods.html">
+            
+                    
+                    Form Methods
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../api-reference/fields-properties.html">
+            
+                <a href="../api-reference/fields-properties.html">
+            
+                    
+                    Fields Properties
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../api-reference/fields-methods.html">
+            
+                <a href="../api-reference/fields-methods.html">
+            
+                    
+                    Fields Methods
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Form</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../form/">
+            
+                <a href="../form/">
+            
+                    
+                    Form Instance
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../form/form-initialization.html">
+            
+                <a href="../form/form-initialization.html">
+            
+                    
+                    Form Initialization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../form/form-options.html">
+            
+                <a href="../form/form-options.html">
+            
+                    
+                    Form Options
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../form/extend/generic.html">
+            
+                <a href="../form/extend/generic.html">
+            
+                    
+                    Extend Form & Field
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../form/extend/custom.html">
+            
+                <a href="../form/extend/custom.html">
+            
+                    
+                    Extend custom Field
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.5" data-path="../form/extend/configure.html">
+            
+                <a href="../form/extend/configure.html">
+            
+                    
+                    Extend in Fields Definitions
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Fields</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../fields/">
+            
+                <a href="../fields/">
+            
+                    
+                    Defining Fields
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" >
+            
+                <span>
+            
+                    
+                    Flat Fields
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1.1" data-path="../fields/defining-flat-fields/unified-properties.html">
+            
+                <a href="../fields/defining-flat-fields/unified-properties.html">
+            
+                    
+                    As Unified Properties
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.1.2" data-path="../fields/defining-flat-fields/separated-properties.html">
+            
+                <a href="../fields/defining-flat-fields/separated-properties.html">
+            
+                    
+                    As Separated Properties
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" >
+            
+                <span>
+            
+                    
+                    Nested Fields
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.2.1" data-path="../fields/defining-nested-fields/unified-properties.html">
+            
+                <a href="../fields/defining-nested-fields/unified-properties.html">
+            
+                    
+                    As Unified Properties
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2.2" data-path="../fields/defining-nested-fields/separated-properties.html">
+            
+                <a href="../fields/defining-nested-fields/separated-properties.html">
+            
+                    
+                    As Separated Properties
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Actions</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../actions/">
+            
+                <a href="../actions/">
+            
+                    
+                    Actions
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="../actions/form.html">
+            
+                <a href="../actions/form.html">
+            
+                    
+                    Form Actions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.2" data-path="../actions/shared.html">
+            
+                <a href="../actions/shared.html">
+            
+                    
+                    Shared Actions (Form & Fields)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.3" data-path="../actions/helpers.html">
+            
+                <a href="../actions/helpers.html">
+            
+                    
+                    Helpers (Form & Fields)
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Events & Handlers</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Events & Handlers
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="6.1.1" data-path="event-handlers.html">
+            
+                <a href="event-handlers.html">
+            
+                    
+                    Event Handlers
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.1.1" data-path="event-handlers/constructor.html">
+            
+                <a href="event-handlers/constructor.html">
+            
+                    
+                    On Form Initialization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.1.2" data-path="event-handlers/extending.html">
+            
+                <a href="event-handlers/extending.html">
+            
+                    
+                    Extending the Class
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.1.3" data-path="event-handlers.html">
+            
+                <a href="event-handlers.html#submitting-the-form">
+            
+                    
+                    Submitting the Form
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="event-hooks.html">
+            
+                <a href="event-hooks.html">
+            
+                    
+                    Event Hooks
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.2.1" data-path="event-hooks/constructor.html">
+            
+                <a href="event-hooks/constructor.html">
+            
+                    
+                    On Form Initialization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2.2" data-path="event-hooks/extending.html">
+            
+                <a href="event-hooks/extending.html">
+            
+                    
+                    Extending the Class
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3" data-path="validation-hooks.html">
+            
+                <a href="validation-hooks.html">
+            
+                    
+                    Validation Hooks
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.3.1" data-path="validation-hooks/constructor.html">
+            
+                <a href="validation-hooks/constructor.html">
+            
+                    
+                    On Form Initialization
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3.2" data-path="validation-hooks/extending.html">
+            
+                <a href="validation-hooks/extending.html">
+            
+                    
+                    Extending the Class
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3.3" data-path="validation-hooks/override.html">
+            
+                <a href="validation-hooks/override.html">
+            
+                    
+                    Override with Manual Submit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Bindings</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../bindings/">
+            
+                <a href="../bindings/">
+            
+                    
+                    Bindings
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1" data-path="../bindings/default.html">
+            
+                <a href="../bindings/default.html">
+            
+                    
+                    Default Bindings
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.2" data-path="../bindings/custom.html">
+            
+                <a href="../bindings/custom.html">
+            
+                    
+                    Custom Bindings
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Extra</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../extra/computed-props.html">
+            
+                <a href="../extra/computed-props.html">
+            
+                    
+                    Computed Field Props
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../extra/converters.html">
+            
+                <a href="../extra/converters.html">
+            
+                    
+                    Input & Output Converters
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../extra/mobx-events.html">
+            
+                <a href="../extra/mobx-events.html">
+            
+                    
+                    Observe / Intercept
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="../extra/composer.html">
+            
+                <a href="../extra/composer.html">
+            
+                    
+                    Forms Composer
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Validation</li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" data-path="../validation/">
+            
+                <a href="../validation/">
+            
+                    
+                    Validation
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.1" data-path="../validation/plugins.html">
+            
+                <a href="../validation/plugins.html">
+            
+                    
+                    Plugins & Packages
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2" >
+            
+                <span>
+            
+                    
+                    Setup Plugins
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.2.1" data-path="../validation/plugins/VJF/setup.html">
+            
+                <a href="../validation/plugins/VJF/setup.html">
+            
+                    
+                    Setup VJF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2.2" data-path="../validation/plugins/DVR/setup.html">
+            
+                <a href="../validation/plugins/DVR/setup.html">
+            
+                    
+                    Setup DVR
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2.3" data-path="../validation/plugins/SVK/setup.html">
+            
+                <a href="../validation/plugins/SVK/setup.html">
+            
+                    
+                    Setup SVK
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2.4" data-path="../validation/plugins/YUP/setup.html">
+            
+                <a href="../validation/plugins/YUP/setup.html">
+            
+                    
+                    Setup YUP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2.5" data-path="../validation/plugins/JOI/setup.html">
+            
+                <a href="../validation/plugins/JOI/setup.html">
+            
+                    
+                    Setup JOI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2.6" data-path="../validation/plugins/ZOD/setup.html">
+            
+                <a href="../validation/plugins/ZOD/setup.html">
+            
+                    
+                    Setup ZOD
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3" >
+            
+                <span>
+            
+                    
+                    Extend Validators
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.3.1" data-path="../validation/plugins/VJF/extend.html">
+            
+                <a href="../validation/plugins/VJF/extend.html">
+            
+                    
+                    Extend VJF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3.2" data-path="../validation/plugins/DVR/extend.html">
+            
+                <a href="../validation/plugins/DVR/extend.html">
+            
+                    
+                    Extend DVR
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3.3" data-path="../validation/plugins/SVK/extend.html">
+            
+                <a href="../validation/plugins/SVK/extend.html">
+            
+                    
+                    Extend SVK
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.4" >
+            
+                <span>
+            
+                    
+                    Async Validation
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.4.1" data-path="../validation/plugins/VJF/async.html">
+            
+                <a href="../validation/plugins/VJF/async.html">
+            
+                    
+                    Async VJF
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.4.2" data-path="../validation/plugins/DVR/async.html">
+            
+                <a href="../validation/plugins/DVR/async.html">
+            
+                    
+                    Async DVR
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.4.3" data-path="../validation/plugins/SVK/async.html">
+            
+                <a href="../validation/plugins/SVK/async.html">
+            
+                    
+                    Async SVK
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Event Handlers</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="built-in-event-handlers">Built-In Event Handlers</h1>
+<ul>
+<li><a href="#sync-field-value">Sync Field Value</a></li>
+<li><a href="#focused--touched-state">Focused &amp; Touched State</a></li>
+<li><a href="#clear--reset">Clear &amp; Reset Form or Fields</a></li>
+<li><a href="#nested-array-elements">Nested Array Elements</a></li>
+<li><a href="#submitting-the-form">Submitting the Form</a></li>
+<li><a href="#handle-files">Handle Files</a></li>
+</ul>
+<ul>
+<li><a href="#onchangee--ontogglee">onChange(e) &amp; onToggle(e)</a></li>
+<li><a href="#onfocuse--onblure">onFocus(e) &amp; onBlur(e)</a></li>
+<li><a href="#oncleare--onresete">onClear(e) &amp; onReset(e)</a></li>
+<li><a href="#onadde--ondele">onAdd(e) &amp; onDel(e)</a></li>
+<li><a href="#onsubmite">onSubmit(e)</a></li>
+<li><a href="#ondrope">onDrop(e)</a></li>
+</ul>
+<h1 id="custom-event-handlers">Custom Event Handlers</h1>
+<ul>
+<li><a href="event-handlers/constructor.html">On Form Initialization</a></li>
+<li><a href="event-handlers/extending.html">Extending the Class</a></li>
+</ul>
+<hr>
+<h2 id="sync-field-value">Sync Field Value</h2>
+<h4 id="onchangee--ontogglee">onChange(e) &amp; onToggle(e)</h4>
+<table>
+<thead>
+<tr>
+<th>Handler</th>
+<th>Affected Property</th>
+<th>Executed Hook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onChange(e)</td>
+<td>value</td>
+<td>onChange</td>
+</tr>
+<tr>
+<td>onToggle(e)</td>
+<td>value</td>
+<td>onToggle</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Use the <code>onChange(e)</code> or <code>onToggle(e)</code> handler to update the state of the field.</p>
+<pre class="language-"><code class="lang-html">&lt;input
+  ...
+  onChange={form.$(&apos;username&apos;).onChange}
+/&gt;
+</code></pre>
+<blockquote>
+<p>If you are using a custom component which doesn&apos;t work with the package&apos;s built-in sync handler, <a href="https://github.com/foxhound87/mobx-react-form/issues" target="_blank">open an Issue</a>.</p>
+</blockquote>
+<hr>
+<h2 id="focused--touched-state">Focused &amp; Touched State</h2>
+<h4 id="onfocuse--onblure">onFocus(e) &amp; onBlur(e)</h4>
+<table>
+<thead>
+<tr>
+<th>Handler</th>
+<th>Affected Property</th>
+<th>Executed Hook</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onFocus(e)</td>
+<td>focused</td>
+<td>onFocus</td>
+</tr>
+<tr>
+<td>onBlur(e)</td>
+<td>touched</td>
+<td>onBlur</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>If you need to track <code>touched</code> or <code>focused</code> state, you can use <code>onFocus(e)</code> or <code>onBlur(e)</code> handlers:</p>
+<pre class="language-"><code class="lang-html">&lt;input
+  ...
+  onFocus={form.$(&apos;username&apos;).onFocus}
+  onBlur={form.$(&apos;username&apos;).onBlur}
+/&gt;
+</code></pre>
+<hr>
+<h3 id="clear--reset">Clear &amp; Reset</h3>
+<h4 id="oncleare--onresete">onClear(e) &amp; onReset(e)</h4>
+<table>
+<thead>
+<tr>
+<th>Handler</th>
+<th>Action</th>
+<th>Affected Property</th>
+<th>Executed Hook</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onClear(e)</td>
+<td>clear()</td>
+<td>value</td>
+<td>onClear</td>
+<td>to empty values</td>
+</tr>
+<tr>
+<td>onReset(e)</td>
+<td>reset()</td>
+<td>value</td>
+<td>onReset</td>
+<td>to default values</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>On the form instance:</p>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>button<span class="token punctuation">&quot;</span></span> <span class="token attr-name">onClick</span><span class="token attr-value"><span class="token punctuation">=</span>{form.onClear}</span><span class="token punctuation">&gt;</span></span>Clear<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>button<span class="token punctuation">&quot;</span></span> <span class="token attr-name">onClick</span><span class="token attr-value"><span class="token punctuation">=</span>{form.onReset}</span><span class="token punctuation">&gt;</span></span>Reset<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>or selecting Specific Field or Nested Fields:</p>
+<pre class="language-"><code class="lang-html">&lt;button type=&quot;button&quot; onClick={form.$(&apos;members&apos;).onClear}&gt;Clear<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+&lt;button type=&quot;button&quot; onClick={form.$(&apos;members&apos;).onReset}&gt;Reset<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<hr>
+<h3 id="nested-array-elements">Nested Array Elements</h3>
+<h4 id="onadde--ondele">onAdd(e) &amp; onDel(e)</h4>
+<table>
+<thead>
+<tr>
+<th>Handler</th>
+<th>Action</th>
+<th>Affected Property</th>
+<th>Executed Hook</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onAdd(e)</td>
+<td>add()</td>
+<td>fields</td>
+<td>onAdd</td>
+<td>Add a field</td>
+</tr>
+<tr>
+<td>onDel(e)</td>
+<td>del()</td>
+<td>fields</td>
+<td>onDel</td>
+<td>Remove a field</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h5 id="adding-a-field">Adding a Field</h5>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>button<span class="token punctuation">&quot;</span></span> <span class="token attr-name">onClick</span><span class="token attr-value"><span class="token punctuation">=</span>{hobbies.onAdd}</span><span class="token punctuation">&gt;</span></span>Add Hobby<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>or using the field <code>selector</code>:</p>
+<pre class="language-"><code class="lang-html">&lt;button type=&quot;button&quot; onClick={form.$(&apos;hobbies&apos;).onAdd}&gt;Add Hobby<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>or specify the field <code>value</code> as second argument:</p>
+<pre class="language-"><code class="lang-html">&lt;button type=&quot;button&quot; onClick={e =&gt; form.$(&apos;hobbies&apos;).onAdd(e, &apos;soccer&apos;)}&gt;Add Hobby<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p><br></p>
+<h5 id="deleting-a-field">Deleting a Field</h5>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>button<span class="token punctuation">&quot;</span></span> <span class="token attr-name">onClick</span><span class="token attr-value"><span class="token punctuation">=</span>{hobby.onDel}</span><span class="token punctuation">&gt;</span></span>Delete Hobby<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>or using the field <code>selector</code> with a field <code>key</code>:</p>
+<pre class="language-"><code class="lang-html">&lt;button type=&quot;button&quot; onClick={form.$(&apos;hobbies&apos;).$(3).onDel}&gt;Delete Hobby<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<p>or specify the field <code>path</code> as second argument:</p>
+<pre class="language-"><code class="lang-html">&lt;button type=&quot;button&quot; onClick={e =&gt; form.onDel(e, &apos;hobbies[3]&apos;)}&gt;Delete Hobby<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<hr>
+<h2 id="submitting-the-form">Submitting the Form</h2>
+<h4 id="onsubmite">onSubmit(e)</h4>
+<table>
+<thead>
+<tr>
+<th>Handler</th>
+<th>Action</th>
+<th>Affected Property</th>
+<th>Executed Hook</th>
+<th>FORM</th>
+<th>FIELD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onSubmit(e)</td>
+<td>submit() &gt; validate()</td>
+<td>submitting, validating</td>
+<td>onSubmit</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>onSubmit(e)</code> will <code>validate</code> the form and will call respectively <code>onSuccess(form)</code> or <code>onError(form)</code> <strong>Validation Hooks</strong> if they are implemented.</p>
+<p>The <code>onSuccess(form)</code> and <code>onError(form)</code> methods takes the <code>form</code> object in input. So you can perform more actions after the validation occurs.</p>
+<p>You can easly include the <code>onSubmit(e)</code> handler in your component:</p>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">&quot;</span>submit<span class="token punctuation">&quot;</span></span> <span class="token attr-name">onClick</span><span class="token attr-value"><span class="token punctuation">=</span>{form.onSubmit}</span><span class="token punctuation">&gt;</span></span>Submit<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+<hr>
+<h2 id="handle-files">Handle Files</h2>
+<h4 id="ondrope">onDrop(e)</h4>
+<table>
+<thead>
+<tr>
+<th>Handler</th>
+<th>Affected Property</th>
+<th>Executed Hook</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>onDrop(e)</td>
+<td>files</td>
+<td>onDrop</td>
+<td>Retrieve the files</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>onDrop(e)</code> Event Handler will retrive the files into the <code>files</code> Field prop and exeute the <code>onDrop</code> Hook function.</p>
+<p>Define the field <code>type</code> property as <code>file</code> and then use <code>bind()</code> on your input:</p>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">multiple</span><span class="token attr-value"><span class="token punctuation">=</span>true</span> <span class="token attr-name">{...field.bind()}</span> <span class="token punctuation">/&gt;</span></span>
+</code></pre>
+<p>Otherwise, (without defining the <code>type</code> prop) delegate the input <code>onChange</code> Handler with the <code>onDrop(e)</code> Handler on the <code>bind()</code> method (or create a <a href="../bindings/custom.html">custom bindings</a>).</p>
+<pre class="language-"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span>
+  <span class="token attr-name">multiple</span><span class="token attr-value"><span class="token punctuation">=</span>true</span>
+  <span class="token attr-name">{...field.bind({</span>
+    <span class="token attr-name"><span class="token namespace">onChange:</span></span> <span class="token attr-name">field.onDrop,</span>
+  <span class="token attr-name">})}</span>
+<span class="token punctuation">/&gt;</span></span>
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Events & Handlers">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="event-handlers/constructor.html" class="navigation navigation-next " aria-label="Next page: On Form Initialization">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Event Handlers","level":"6.1.1","depth":2,"next":{"title":"On Form Initialization","level":"6.1.1.1","depth":3,"path":"docs/events/event-handlers/constructor.md","ref":"docs/events/event-handlers/constructor.md","articles":[]},"previous":{"title":"Events & Handlers","level":"6.1","depth":1,"path":"docs/events/README.md","ref":"docs/events/README.md","articles":[{"title":"Event Handlers","level":"6.1.1","depth":2,"path":"docs/events/event-handlers.md","ref":"docs/events/event-handlers.md","articles":[{"title":"On Form Initialization","level":"6.1.1.1","depth":3,"path":"docs/events/event-handlers/constructor.md","ref":"docs/events/event-handlers/constructor.md","articles":[]},{"title":"Extending the Class","level":"6.1.1.2","depth":3,"path":"docs/events/event-handlers/extending.md","ref":"docs/events/event-handlers/extending.md","articles":[]},{"title":"Submitting the Form","level":"6.1.1.3","depth":3,"anchor":"#submitting-the-form","path":"docs/events/event-handlers.md","ref":"docs/events/event-handlers.md#submitting-the-form","articles":[]}]},{"title":"Event Hooks","level":"6.1.2","depth":2,"path":"docs/events/event-hooks.md","ref":"docs/events/event-hooks.md","articles":[{"title":"On Form Initialization","level":"6.1.2.1","depth":3,"path":"docs/events/event-hooks/constructor.md","ref":"docs/events/event-hooks/constructor.md","articles":[]},{"title":"Extending the Class","level":"6.1.2.2","depth":3,"path":"docs/events/event-hooks/extending.md","ref":"docs/events/event-hooks/extending.md","articles":[]}]},{"title":"Validation Hooks","level":"6.1.3","depth":2,"path":"docs/events/validation-hooks.md","ref":"docs/events/validation-hooks.md","articles":[{"title":"On Form Initialization","level":"6.1.3.1","depth":3,"path":"docs/events/validation-hooks/constructor.md","ref":"docs/events/validation-hooks/constructor.md","articles":[]},{"title":"Extending the Class","level":"6.1.3.2","depth":3,"path":"docs/events/validation-hooks/extending.md","ref":"docs/events/validation-hooks/extending.md","articles":[]},{"title":"Override with Manual Submit","level":"6.1.3.3","depth":3,"path":"docs/events/validation-hooks/override.md","ref":"docs/events/validation-hooks/override.md","articles":[]}]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["github","prism","accordion","validate-links"],"pluginsConfig":{"prism":{},"validate-links":{"remote":"disabled","local":"warn","defaultScheme":"https"},"github":{"url":"https://github.com/foxhound87/mobx-react-form/"},"accordion":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"docs/events/event-handlers.md","mtime":"2023-08-30T19:15:59.507Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-03-03T11:48:16.356Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-accordion/accordionSelector.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
