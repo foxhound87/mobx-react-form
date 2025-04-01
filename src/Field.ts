@@ -81,6 +81,7 @@ const setupFieldProps = (instance: FieldInterface, props: any, data: any) =>
     $interceptors: props.$interceptors || data?.interceptors || null,
     $ref: props.$ref || data?.ref || undefined,
     $nullable: props.$nullable || data?.nullable || false,
+    $autocomplete: props.$autocomplete || data?.autocomplete || undefined,
   });
 
 const setupDefaultProp = (
@@ -162,6 +163,7 @@ export default class Field extends Base implements FieldInterface {
   $inputMode: string = undefined;
   $ref: any = undefined;
   $nullable: boolean = false;
+  $autocomplete: string|undefined = undefined;
 
   showError: boolean = false;
   errorSync: string | null = null;
@@ -259,7 +261,7 @@ export default class Field extends Base implements FieldInterface {
     this.state = state;
 
     this.setupField(key, path, struct, data, props, update);
-    this.checkValidationPlugins();
+    // this.checkValidationPlugins();
     this.initNestedFields(data, update);
 
     this.incremental = this.hasIncrementalKeys;
@@ -364,6 +366,10 @@ export default class Field extends Base implements FieldInterface {
 
   get nullable(): boolean {
     return propGetter(this, FieldPropsEnum.nullable);
+  }
+
+  get autocomplete(): string|undefined {
+    return propGetter(this, FieldPropsEnum.autocomplete);
   }
 
   get ref() {
@@ -687,26 +693,26 @@ export default class Field extends Base implements FieldInterface {
     return toJS(val);
   }
 
-  checkValidationPlugins(): void {
-    const { drivers } = this.state.form.validator;
-    const form = this.state.form.name ? `${this.state.form.name}/` : "";
+  // checkValidationPlugins(): void {
+  //   const { drivers } = this.state.form.validator;
+  //   const form = this.state.form.name ? `${this.state.form.name}/` : "";
 
-    if (_.isNil(drivers.dvr) && !_.isNil(this.rules)) {
-      throw new Error(
-        `The DVR validation rules are defined but no DVR plugin provided. Field: "${
-          form + this.path
-        }".`
-      );
-    }
+  //   if (_.isNil(drivers.dvr) && !_.isNil(this.rules)) {
+  //     throw new Error(
+  //       `The DVR validation rules are defined but no DVR plugin provided. Field: "${
+  //         form + this.path
+  //       }".`
+  //     );
+  //   }
 
-    if (_.isNil(drivers.vjf) && !_.isNil(this.validators)) {
-      throw new Error(
-        `The VJF validators functions are defined but no VJF plugin provided. Field: "${
-          form + this.path
-        }".`
-      );
-    }
-  }
+  //   if (_.isNil(drivers.vjf) && !_.isNil(this.validators)) {
+  //     throw new Error(
+  //       `The VJF validators functions are defined but no VJF plugin provided. Field: "${
+  //         form + this.path
+  //       }".`
+  //     );
+  //   }
+  // }
 
   initNestedFields(field: any, update: boolean): void {
     const fields = _.isNil(field) ? null : field.fields;

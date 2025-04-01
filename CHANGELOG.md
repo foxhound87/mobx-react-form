@@ -1,3 +1,9 @@
+# 6.11.1 (master)
+
+- `ValidationPlugins` interface allows custom plugins keys.
+- Introduced `autocomplete` field prop.
+- Deprecated `checkValidationPlugins` method.
+
 # 6.11.0 (master)
 
 - Full `null` values support for fields values.

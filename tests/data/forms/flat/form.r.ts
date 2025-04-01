@@ -12,6 +12,7 @@ const fields = {
     value: "s.jobs@apple.com",
     validators: [isEmail],
     related: ["emailConfirm"],
+    autocomplete: "on",
   },
   emailConfirm: {
     label: "Email",
@@ -43,7 +44,7 @@ class NewForm extends MobxReactForm {
 
   plugins(): ValidationPlugins {
     return {
-      vjf: vjf(),
+      xyz: vjf(), // custom xyz plugin
     };
   }
 

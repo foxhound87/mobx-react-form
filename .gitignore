@@ -14,3 +14,4 @@ npm-debug.log
 coverage.lcov
 codecov.yml
 yarn-error.log
+.qodo

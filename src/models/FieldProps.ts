@@ -62,9 +62,9 @@ export enum FieldPropsEnum {
   inputMode = "inputMode",
   onKeyDown = "onKeyDown",
   onKeyUp = 'onKeyUp',
-  // construction
   class = "class",
   nullable = "nullable",
+  autocomplete = "autocomplete",
 }
 
 export type FieldPropsType = {
@@ -112,4 +112,5 @@ export enum SeparatedPropsMode {
   refs = 'refs',
   classes = 'classes',
   nullable = 'nullable',
+  autocomplete = 'autocomplete',
 }

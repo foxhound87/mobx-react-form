@@ -303,6 +303,7 @@ export default class Base implements BaseInterface {
       $autoFocus: _try(SeparatedPropsMode.autoFocus),
       $ref: _try(SeparatedPropsMode.refs),
       $nullable: _try(SeparatedPropsMode.nullable),
+      $autocomplete: _try(SeparatedPropsMode.autocomplete),
     };
 
     const field = this.state.form.makeField(

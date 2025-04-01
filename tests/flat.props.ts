@@ -39,6 +39,18 @@ describe('Check Flat $R extended field prop', () => {
 
   it('$R email newFieldProp should be true', () =>
     expect($.$R.$('email').newFieldProp).to.be.true);
+
+  it('$R email autocomplete should be equal "on"', () =>
+    expect($.$R.$('email').autocomplete).to.be.equal('on'));
+
+  it('$R email bind() autocomplete should be equal "on"', () =>
+    expect($.$R.$('email').bind().autocomplete).to.be.equal('on'));
+
+  it('$R email autocomplete should be undefined', () =>
+    expect($.$R.$('emailConfirm').autocomplete).to.be.undefined);
+
+  it('$R email bind() autocomplete should be undefined', () =>
+    expect($.$R.$('emailConfirm').bind().autocomplete).to.be.undefined);
 });
 
 describe('Check Flat $G prop', () => {

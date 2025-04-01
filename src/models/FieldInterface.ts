@@ -66,7 +66,7 @@ export interface FieldInterface extends BaseInterface {
     update: boolean
   ): void;
   getComputedProp(key: any): any;
-  checkValidationPlugins(): void;
+  // checkValidationPlugins(): void;
   initNestedFields(field: any, update: boolean): void;
   invalidate(message?: string, deep?: boolean, async?: boolean): void;
   setValidationAsyncData(valid: boolean, message: string): void;

@@ -21,6 +21,7 @@ export default class Bindings implements BindingsInterface {
       label: FieldPropsEnum.label,
       placeholder: FieldPropsEnum.placeholder,
       disabled: FieldPropsEnum.disabled,
+      autocomplete: FieldPropsEnum.autocomplete,
       onChange: FieldPropsEnum.onChange,
       onBlur: FieldPropsEnum.onBlur,
       onFocus: FieldPropsEnum.onFocus,
