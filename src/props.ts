@@ -32,7 +32,7 @@ export const props: PropsGroupsInterface = {
     FieldPropsEnum.inputMode,
     FieldPropsEnum.ref,
     FieldPropsEnum.nullable,
-    FieldPropsEnum.autocomplete,
+    FieldPropsEnum.autoComplete,
   ],
   handlers: [
     FieldPropsEnum.onChange,
@@ -94,7 +94,7 @@ export const props: PropsGroupsInterface = {
     SeparatedPropsMode.refs,
     SeparatedPropsMode.classes,
     SeparatedPropsMode.nullable,
-    SeparatedPropsMode.autocomplete,
+    SeparatedPropsMode.autoComplete,
   ],
   functions: [
     FieldPropsEnum.computed,

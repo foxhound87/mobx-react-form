@@ -81,7 +81,7 @@ const setupFieldProps = (instance: FieldInterface, props: any, data: any) =>
     $interceptors: props.$interceptors || data?.interceptors || null,
     $ref: props.$ref || data?.ref || undefined,
     $nullable: props.$nullable || data?.nullable || false,
-    $autocomplete: props.$autocomplete || data?.autocomplete || undefined,
+    $autoComplete: props.$autoComplete || data?.autoComplete || undefined,
   });
 
 const setupDefaultProp = (
@@ -163,7 +163,7 @@ export default class Field extends Base implements FieldInterface {
   $inputMode: string = undefined;
   $ref: any = undefined;
   $nullable: boolean = false;
-  $autocomplete: string|undefined = undefined;
+  $autoComplete: string|undefined = undefined;
 
   showError: boolean = false;
   errorSync: string | null = null;
@@ -368,8 +368,8 @@ export default class Field extends Base implements FieldInterface {
     return propGetter(this, FieldPropsEnum.nullable);
   }
 
-  get autocomplete(): string|undefined {
-    return propGetter(this, FieldPropsEnum.autocomplete);
+  get autoComplete(): string|undefined {
+    return propGetter(this, FieldPropsEnum.autoComplete);
   }
 
   get ref() {

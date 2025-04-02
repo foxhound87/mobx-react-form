@@ -12,7 +12,7 @@ const fields = {
     value: "s.jobs@apple.com",
     validators: [isEmail],
     related: ["emailConfirm"],
-    autocomplete: "on",
+    autoComplete: "on",
   },
   emailConfirm: {
     label: "Email",

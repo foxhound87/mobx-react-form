@@ -1,3 +1,7 @@
+# 6.11.2 (master)
+
+- Fix: `autocomplete` to `autoComplete`
+
 # 6.11.1 (master)
 
 - `ValidationPlugins` interface allows custom plugins keys.
