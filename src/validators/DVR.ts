@@ -1,38 +1,21 @@
 import _ from "lodash";
-import {
-  ValidationPlugin,
-  ValidationPluginConfig,
-  ValidationPluginConstructor,
-  ValidationPluginInterface,
-} from "../models/ValidatorInterface";
+import FieldInterface from "src/models/FieldInterface";
+import FormInterface from "src/models/FormInterface";
+import { ValidationPlugin, ValidationPluginConfig, ValidationPluginConstructor, ValidationPluginInterface } from "src/models/ValidatorInterface";
 
-/**
-  Declarative Validation Rules
-
-    const plugins = {
-      dvr: dvr({
-        package: validatorjs,
-        extend: callback,
-      }),
-    };
-
-*/
-export class DVR implements ValidationPluginInterface {
-  promises = [];
-
-  config = null;
-
-  state = null;
-
-  extend = null;
-
-  validator = null;
+export class DVR<TValidator = any> implements ValidationPluginInterface<TValidator> {
+  promises: Promise<any>[];
+  config: any;
+  state: any;
+  extend?: (args: { validator: TValidator; form: FormInterface }) => void;
+  validator: TValidator;
+  schema?: any;
 
   constructor({
     config,
     state = null,
     promises = [],
-  }: ValidationPluginConstructor) {
+  }: ValidationPluginConstructor<TValidator>) {
     this.state = state;
     this.promises = promises;
     this.extend = config?.extend;
@@ -41,8 +24,7 @@ export class DVR implements ValidationPluginInterface {
   }
 
   extendValidator() {
-    // extend using "extend" callback
-    if (typeof this.extend === 'function') {
+    if (typeof this.extend === "function") {
       this.extend({
         validator: this.validator,
         form: this.state.form,
@@ -50,14 +32,13 @@ export class DVR implements ValidationPluginInterface {
     }
   }
 
-  validate(field) {
-    // get form fields data
+  validate(field: FieldInterface) {
     const data = this.state.form.validatedValues;
     this.validateFieldAsync(field, data);
     this.validateFieldSync(field, data);
   }
 
-  makeLabels(validation, field) {
+  makeLabels(validation: any, field: FieldInterface) {
     const labels = { [field.path]: field.label };
     _.forIn(validation.rules[field.path], (rule) => {
       if (
@@ -85,34 +66,24 @@ export class DVR implements ValidationPluginInterface {
     validation.setAttributeNames(labels);
   }
 
-  validateFieldSync(field, data) {
+  validateFieldSync(field: FieldInterface, data: any) {
     const $rules = this.rules(field.rules, "sync");
-    // exit if no rules found
     if (_.isEmpty($rules[0])) return;
-    // get field rules
     const rules = { [field.path]: $rules };
-    // create the validator instance
-    const validation = new this.validator(data, rules);
-    // set label into errors messages instead key
+    const validation = new (this.validator as any)(data, rules);
     this.makeLabels(validation, field);
-    // check validation
     if (validation.passes()) return;
-    // the validation is failed, set the field error
     field.invalidate(_.head(validation.errors.get(field.path)), false);
   }
 
-  validateFieldAsync(field, data) {
+  validateFieldAsync(field: FieldInterface, data: any) {
     const $rules = this.rules(field.rules, "async");
-    // exit if no rules found
     if (_.isEmpty($rules[0])) return;
-    // get field rules
     const rules = { [field.path]: $rules };
-    // create the validator instance
-    const validation = new this.validator(data, rules);
-    // set label into errors messages instead key
+    const validation = new (this.validator as any)(data, rules);
     this.makeLabels(validation, field);
 
-    const $p = new Promise((resolve) =>
+    const $p = new Promise((resolve: any) =>
       validation.checkAsync(
         () => this.handleAsyncPasses(field, resolve),
         () => this.handleAsyncFails(field, validation, resolve)
@@ -122,36 +93,40 @@ export class DVR implements ValidationPluginInterface {
     this.promises.push($p);
   }
 
-  handleAsyncPasses(field, resolve) {
+  handleAsyncPasses(field: FieldInterface, resolve: () => void) {
     field.setValidationAsyncData(true);
     resolve();
   }
 
-  handleAsyncFails(field, validation, resolve) {
-    field.setValidationAsyncData(false, _.head(validation.errors.get(field.path)));
+  handleAsyncFails(field: FieldInterface, validation: any, resolve: () => void) {
+    field.setValidationAsyncData(
+      false,
+      _.head(validation.errors.get(field.path))
+    );
     this.executeAsyncValidation(field);
     resolve();
   }
 
-  executeAsyncValidation(field) {
+  executeAsyncValidation(field: FieldInterface) {
     if (field.validationAsyncData.valid === false) {
       field.invalidate(field.validationAsyncData.message, false, true);
     }
   }
 
-  rules(rules, type) {
+  rules(rules: any, type: "sync" | "async") {
     const $rules = _.isString(rules) ? _.split(rules, "|") : rules;
-    // eslint-disable-next-line new-cap
-    const v = new this.validator();
+    const v = new (this.validator as any)();
     return _.filter($rules, ($rule) =>
       type === "async"
-        ? v.getRule(_.split($rule, ":")[0]).async
-        : !v.getRule(_.split($rule, ":")[0]).async
+        ? v.getRule(_.split($rule, ":")[0])?.async
+        : !v.getRule(_.split($rule, ":")[0])?.async
     );
   }
 }
 
-export default (config?: ValidationPluginConfig): ValidationPlugin => ({
-  class: DVR,
-  config,
-});
+export default <TValidator = any>(
+  config?: ValidationPluginConfig<TValidator>
+): ValidationPlugin<TValidator> => ({
+    class: DVR<TValidator>,
+    config,
+  });

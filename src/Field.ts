@@ -106,11 +106,6 @@ const setupDefaultProp = (
     fallback: instance.$initial,
   });
 
-interface ValidationAsyncDataInterface {
-  valid?: boolean;
-  message?: string;
-}
-
 export default class Field extends Base implements FieldInterface {
   hasInitialNestedFields = false;
   incremental = false;
@@ -171,7 +166,7 @@ export default class Field extends Base implements FieldInterface {
 
   validationErrorStack: string[] = [];
   validationFunctionsData: any[] = [];
-  validationAsyncData: ValidationAsyncDataInterface | undefined;
+  validationAsyncData: any;
   debouncedValidation: any;
 
   disposeValidationOnBlur: any;
@@ -293,7 +288,7 @@ export default class Field extends Base implements FieldInterface {
 
   get checkValidationErrors(): boolean {
     return (
-      (this.validationAsyncData?.valid === false &&
+      ((this.validationAsyncData as any)?.valid === false &&
         !_.isEmpty(this.validationAsyncData)) ||
         !_.isEmpty(this.validationErrorStack) ||
         _.isString(this.errorAsync) ||
@@ -756,7 +751,7 @@ export default class Field extends Base implements FieldInterface {
     this.showError = false;
     this.errorSync = null;
     this.errorAsync = null;
-    this.validationAsyncData = {};
+    this.validationAsyncData = undefined;
     this.validationFunctionsData = [];
     this.validationErrorStack = [];
     Promise.resolve().then(action(() => {

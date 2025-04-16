@@ -1,53 +1,43 @@
+import _ from "lodash";
+import FieldInterface from "src/models/FieldInterface";
+import FormInterface from "src/models/FormInterface";
 import {
   ValidationPlugin,
   ValidationPluginConfig,
   ValidationPluginConstructor,
   ValidationPluginInterface,
 } from "../models/ValidatorInterface";
-import _ from "lodash";
-import { toJS } from "mobx";
 
-const isPromise = (obj) =>
-  !!obj &&
-  typeof obj.then === "function" &&
-  (typeof obj === "object" || typeof obj === "function");
+function isPromise(obj: any): obj is Promise<any> {
+  return (
+    !!obj &&
+    typeof obj.then === "function" &&
+    (typeof obj === "object" || typeof obj === "function")
+  );
+}
 
-/**
-  Vanilla JavaScript Functions
-
-    const plugins = {
-      vkf: vkf({
-        package: validator,
-      }),
-    };
-
-*/
-export class VJF implements ValidationPluginInterface {
-  promises = [];
-
-  config = null;
-
-  state = null;
-
-  extend = null;
-
-  validator = null;
+export class VJF<TValidator = any> implements ValidationPluginInterface<TValidator> {
+  promises: Promise<any>[];
+  config: ValidationPluginConfig<TValidator>;
+  state: any;
+  extend?: (args: { validator: TValidator; form: FormInterface }) => void;
+  validator: TValidator;
 
   constructor({
     config,
     state = null,
     promises = [],
-  }: ValidationPluginConstructor) {
+  }: ValidationPluginConstructor<TValidator>) {
     this.state = state;
     this.promises = promises;
+    this.config = config;
     this.extend = config?.extend;
     this.validator = config?.package;
     this.extendValidator();
   }
 
-  extendValidator() {
-    // extend using "extend" callback
-    if (typeof this.extend === 'function') {
+  extendValidator(): void {
+    if (typeof this.extend === "function") {
       this.extend({
         validator: this.validator,
         form: this.state.form,
@@ -55,100 +45,79 @@ export class VJF implements ValidationPluginInterface {
     }
   }
 
-  validate(field) {
-    // exit if field does not have validation functions
+  validate(field: FieldInterface): void {
     if (!field.validators) return;
-    // get validators from validate property
-    const $fn = field.validators;
-    // map only if is an array of validator functions
-    if (Array.isArray($fn)) {
-      $fn.map((fn) => this.collectData(fn, field));
-    }
-    // it's just one function // DEPRECATED
-    // if (typeof $fn === 'function') {
-    //   this.collectData($fn, field);
-    // }
-    // execute the validation function
+
+    const validators = Array.isArray(field.validators) ? field.validators : [field.validators];
+
+    validators.forEach((fn) => this.collectData(fn, field));
+
     this.executeValidation(field);
   }
 
-  collectData($fn, field) {
-    const res = this.handleFunctionResult($fn, field);
-    // check and execute only if is a promise
-    if (isPromise(res)) {
-      const $p = res
-        .then(($res) => field.setValidationAsyncData($res[0], $res[1]))
+  collectData(fn: Function, field: FieldInterface): void {
+    const result = this.handleFunctionResult(fn, field);
+
+    if (isPromise(result)) {
+      const $p = result
+        .then(([valid, message]) => field.setValidationAsyncData(valid, message))
         .then(() => this.executeAsyncValidation(field));
-      // push the promise into array
+
       this.promises.push($p);
       return;
     }
-    // is a plain function
+
     field.validationFunctionsData.unshift({
-      valid: res[0],
-      message: res[1],
+      valid: result[0],
+      message: result[1],
     });
   }
 
-  executeValidation(field) {
-    // otherwise find an error message to show
-    field.validationFunctionsData.map(
-      (rule) => rule.valid === false && field.invalidate(rule.message, false)
-    );
+  executeValidation(field: FieldInterface): void {
+    field.validationFunctionsData.forEach(({ valid, message }) => {
+      if (valid === false) {
+        field.invalidate(message, false);
+      }
+    });
   }
 
-  executeAsyncValidation(field) {
-    if (field.validationAsyncData.valid === false) {
-      field.invalidate(field.validationAsyncData.message, false, true);
+  executeAsyncValidation(field: FieldInterface): void {
+    const data = field.validationAsyncData;
+    if (data.valid === false) {
+      field.invalidate(data.message, false, true);
     }
   }
 
-  handleFunctionResult($fn, field) {
-    // executre validation function
-    const res = $fn({
+  handleFunctionResult(fn: Function, field: FieldInterface): [boolean, string] | Promise<[boolean, string]> {
+    const result = fn({
       validator: this.validator,
       form: this.state.form,
       field,
     });
 
-    /**
-      Handle "array"
-    */
-    if (Array.isArray(res)) {
-      const isValid = res[0] || false;
-      const message = res[1] || "Error";
-      return [isValid, message];
+    if (Array.isArray(result)) {
+      return [result[0] || false, result[1] || "Error"];
     }
 
-    /**
-      Handle "boolean"
-    */
-    if (_.isBoolean(res)) {
-      return [res, "Error"];
+    if (_.isBoolean(result)) {
+      return [result, "Error"];
     }
 
-    /**
-      Handle "string"
-    */
-    if (_.isString(res)) {
-      return [false, res];
+    if (_.isString(result)) {
+      return [false, result];
     }
 
-    /**
-      Handle "object / promise"
-    */
-    if (isPromise(res)) {
-      return res; // the promise
+    if (isPromise(result)) {
+      return result;
     }
 
-    /**
-      Handle other cases
-    */
     return [false, "Error"];
   }
 }
 
-export default (config?: ValidationPluginConfig): ValidationPlugin => ({
-  class: VJF,
-  config,
-});
+export default <TValidator = any>(
+  config?: ValidationPluginConfig<TValidator>
+): ValidationPlugin<TValidator> => ({
+    class: VJF<TValidator>,
+    config,
+  });

@@ -1,4 +1,7 @@
 import _ from "lodash";
+import FieldInterface from "src/models/FieldInterface";
+import FormInterface from "src/models/FormInterface";
+import { ZodSchema, ZodError } from "zod";
 import {
   ValidationPlugin,
   ValidationPluginConfig,
@@ -6,19 +9,13 @@ import {
   ValidationPluginInterface,
 } from "../models/ValidatorInterface";
 
-class ZOD implements ValidationPluginInterface {
-
-  promises = [];
-
-  config = null;
-
-  state = null;
-
-  extend = null;
-
-  validator = null;
-
-  schema = null;
+export class ZOD<TValidator = any> implements ValidationPluginInterface {
+  promises: Promise<any>[];
+  config: ValidationPluginConfig;
+  state: any;
+  extend?: (args: { validator: TValidator; form: FormInterface }) => void;
+  validator: any;
+  schema: ZodSchema<any>;
 
   constructor({
     config,
@@ -27,15 +24,16 @@ class ZOD implements ValidationPluginInterface {
   }: ValidationPluginConstructor) {
     this.state = state;
     this.promises = promises;
+    this.config = config;
     this.extend = config?.extend;
     this.validator = config.package;
-    this.schema = config.schema;
+    this.schema = config.schema as ZodSchema<any>;
+
     this.extendValidator();
   }
 
   extendValidator(): void {
-    // extend using "extend" callback
-    if (typeof this.extend === 'function') {
+    if (typeof this.extend === "function") {
       this.extend({
         validator: this.validator,
         form: this.state.form,
@@ -43,15 +41,23 @@ class ZOD implements ValidationPluginInterface {
     }
   }
 
-  validate(field): void {
+  validate(field: FieldInterface): void {
     const result = this.schema.safeParse(field.state.form.validatedValues);
+
     if (result.success) return;
-    const errors = _.get(result.error.format(), field.path)?._errors;
-    if (errors?.length) field.validationErrorStack = errors;
+
+    const fieldErrors = _.get((result as any).error.format(), field.path)?._errors;
+
+    if (fieldErrors?.length) {
+      field.validationErrorStack = fieldErrors;
+    }
   }
 }
 
-export default (config?: ValidationPluginConfig): ValidationPlugin => ({
-  class: ZOD,
-  config,
-});
+
+export default <TValidator = any>(
+  config?: ValidationPluginConfig<TValidator>
+): ValidationPlugin<TValidator> => ({
+    class: ZOD<TValidator>,
+    config,
+  });

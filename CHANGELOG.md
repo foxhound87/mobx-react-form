@@ -1,3 +1,7 @@
+# 6.12.0 (master)
+
+- Feat: validation package type inference when extending validation plugins
+
 # 6.11.2 (master)
 
 - Fix: `autocomplete` to `autoComplete`

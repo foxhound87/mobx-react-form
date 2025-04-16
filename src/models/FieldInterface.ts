@@ -16,6 +16,7 @@ export interface FieldInterface extends BaseInterface {
   errorAsync: string | null;
   validationErrorStack: string[];
   validationFunctionsData: any[];
+  validationAsyncData: { valid?: boolean, message?: string | null;};
   debouncedValidation: any;
   autoFocus: boolean;
   inputMode: string;
@@ -69,7 +70,7 @@ export interface FieldInterface extends BaseInterface {
   // checkValidationPlugins(): void;
   initNestedFields(field: any, update: boolean): void;
   invalidate(message?: string, deep?: boolean, async?: boolean): void;
-  setValidationAsyncData(valid: boolean, message: string): void;
+  setValidationAsyncData(valid?: boolean, message?: string): void;
   resetValidation(deep: boolean): void;
   clear(deep?: boolean): void;
   reset(deep?: boolean): void;

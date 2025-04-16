@@ -5,32 +5,15 @@ import {
   ValidationPluginInterface,
 } from "../models/ValidatorInterface";
 import _ from "lodash";
+import FormInterface from "src/models/FormInterface";
 
-/**
-  YUP - Dead simple Object schema validation
-
-    const plugins = {
-      yup: $yup({
-        package: yup,
-        schema: (y) => (),
-        extend,
-      }),
-    };
-
-*/
-
-class YUP implements ValidationPluginInterface {
-  promises = [];
-
-  config = null;
-
-  state = null;
-
-  extend = null;
-
-  validator = null;
-
-  schema = null;
+class YUP<TValidator = any> implements ValidationPluginInterface {
+  promises: Promise<any>[] = [];
+  config: ValidationPluginConfig<TValidator>;
+  state: any;
+  extend?: (args: { validator: TValidator; form: FormInterface }) => void;
+  validator: TValidator;
+  schema: any;
 
   constructor({
     config,
@@ -45,8 +28,8 @@ class YUP implements ValidationPluginInterface {
     this.extendValidator();
   }
 
-  extendValidator() {
-    // extend using "extend" callback
+  // Metodo per estendere il validatore
+  extendValidator(): void {
     if (typeof this.extend === 'function') {
       this.extend({
         validator: this.validator,
@@ -55,38 +38,48 @@ class YUP implements ValidationPluginInterface {
     }
   }
 
-  validate(field) {
-    const $p = new Promise((resolve) =>
-      this.validator
+  // Metodo di validazione principale
+  validate(field: any): void {
+    const fieldValidationPromise = this.createValidationPromise(field);
+    this.promises.push(fieldValidationPromise);
+  }
+
+  // Creazione della promise per la validazione
+  private createValidationPromise(field: any): Promise<any> {
+    return new Promise((resolve) =>
+      (this.validator as any)
         .reach(this.schema, field.path)
         .label(field.label)
         .validate(field.validatedValue, { strict: true })
         .then(() => this.handleAsyncPasses(field, resolve))
         .catch((error) => this.handleAsyncFails(field, resolve, error))
     );
-
-    this.promises.push($p);
   }
 
-  handleAsyncPasses(field, resolve) {
+  // Gestione dei successi della validazione asincrona
+  private handleAsyncPasses(field: any, resolve: Function): void {
     field.setValidationAsyncData(true);
     resolve();
   }
 
-  handleAsyncFails(field, resolve, error) {
+  // Gestione dei fallimenti della validazione asincrona
+  private handleAsyncFails(field: any, resolve: Function, error: any): void {
     field.setValidationAsyncData(false, error.errors[0]);
     this.executeAsyncValidation(field);
     resolve();
   }
 
-  executeAsyncValidation(field) {
+  // Esecuzione della validazione asincrona
+  private executeAsyncValidation(field: any): void {
     if (field.validationAsyncData.valid === false) {
       field.invalidate(field.validationAsyncData.message, false, true);
     }
   }
 }
 
-export default (config?: ValidationPluginConfig): ValidationPlugin => ({
-  class: YUP,
-  config,
-});
+export default <TValidator = any>(
+  config?: ValidationPluginConfig<TValidator>
+): ValidationPlugin<TValidator> => ({
+    class: YUP<TValidator>,
+    config,
+  });

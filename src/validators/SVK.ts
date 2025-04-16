@@ -1,4 +1,6 @@
 import _ from "lodash";
+import FieldInterface from "src/models/FieldInterface";
+import FormInterface from "src/models/FormInterface";
 import {
   ValidationPlugin,
   ValidationPluginConfig,
@@ -6,113 +8,92 @@ import {
   ValidationPluginInterface,
 } from "../models/ValidatorInterface";
 
-const isPromise = (obj) =>
-  !!obj &&
-  typeof obj.then === "function" &&
-  (typeof obj === "object" || typeof obj === "function");
+function isPromise(obj: any): obj is Promise<any> {
+  return (
+    !!obj &&
+    typeof obj.then === "function" &&
+    (typeof obj === "object" || typeof obj === "function")
+  );
+}
 
-/**
-  Schema Validation Keywords
-
-    const plugins = {
-      svk: svk({
-        package: ajv,
-        extend: callback,
-      }),
-    };
-
-*/
-class SVK implements ValidationPluginInterface {
-  promises = [];
-
-  config = null;
-
-  state = null;
-
-  extend = null;
-
-  validator = null;
-
-  schema = null;
+class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
+  promises: Promise<any>[];
+  config: ValidationPluginConfig<TValidator>;
+  state: any;
+  extend?: (args: { validator: TValidator; form: FormInterface }) => void;
+  validator: any;
+  schema: any;
 
   constructor({
     config,
     state = null,
     promises = [],
-  }: ValidationPluginConstructor) {
+  }: ValidationPluginConstructor<TValidator>) {
     this.state = state;
     this.promises = promises;
+    this.config = config;
     this.extend = config?.extend;
     this.schema = config.schema;
-    this.initAJV(config);
+    this.initValidator();
   }
 
-  extendOptions(options = {}) {
-    return Object.assign(options, {
+  extendOptions(options: any = {}) {
+    return {
+      ...options,
       errorDataPath: "property",
       allErrors: true,
       coerceTypes: true,
       v5: true,
-    });
+    };
   }
 
-  initAJV(config) {
-    // get ajv package
-    const ajv = config.package;
-    // create ajv instance
-    const validator = new ajv(this.extendOptions(config.options));
-    // extend ajv using "extend" callback
-    if (typeof this.extend === 'function') {
+  initValidator(): void {
+    const AJV = this.config.package as any;
+    const validatorInstance = new AJV(this.extendOptions(this.config.options));
+
+    if (typeof this.extend === "function") {
       this.extend({
         form: this.state.form,
-        validator,
+        validator: validatorInstance,
       });
     }
-    // create ajv validator (compiling rules)
-    this.validator = validator.compile(this.schema);
+
+    this.validator = validatorInstance.compile(this.schema);
   }
 
-  validate(field) {
-    const validate = this.validator(field.state.form.validatedValues);
-    // check if is $async schema
-    if (isPromise(validate)) {
-      const $p = validate
+  validate(field: FieldInterface): void {
+    const result = this.validator(field.state.form.validatedValues);
+
+    if (isPromise(result)) {
+      const $p = result
         .then(() => field.setValidationAsyncData(true))
         .catch((err) => err && this.handleAsyncError(field, err.errors))
         .then(() => this.executeAsyncValidation(field));
 
-      // push the promise into array
       this.promises.push($p);
       return;
     }
-    // check sync errors
+
     this.handleSyncError(field, this.validator.errors);
   }
 
-  handleSyncError(field, errors) {
-    const fieldErrorObj = this.findError(field.path, errors);
-    // if fieldErrorObj is not undefined, the current field is invalid.
-    if (_.isUndefined(fieldErrorObj)) return;
-    // the current field is now invalid
-    // add additional info to the message
-    const msg = `${field.label} ${fieldErrorObj.message}`;
-    // invalidate the current field with message
-    field.invalidate(msg, false);
+  handleSyncError(field: FieldInterface, errors: any[]): void {
+    const fieldError = this.findError(field.path, errors);
+    if (!fieldError) return;
+
+    const message = `${field.label} ${fieldError.message}`;
+    field.invalidate(message, false);
   }
 
-  handleAsyncError(field, errors) {
-    // find current field error message from ajv errors
-    const fieldErrorObj = this.findError(field.path, errors);
-    // if fieldErrorObj is not undefined, the current field is invalid.
-    if (_.isUndefined(fieldErrorObj)) return;
-    // the current field is now invalid
-    // add additional info to the message
-    const msg = `${field.label} ${fieldErrorObj.message}`;
-    // set async validation data on the field
-    field.setValidationAsyncData(false, msg);
+  handleAsyncError(field: FieldInterface, errors: any[]): void {
+    const fieldError = this.findError(field.path, errors);
+    if (!fieldError) return;
+
+    const message = `${field.label} ${fieldError.message}`;
+    field.setValidationAsyncData(false, message);
   }
 
-  findError(path, errors) {
+  findError(path: string, errors: any[]): any {
     return _.find(errors, ({ dataPath }) => {
       let $dataPath;
       $dataPath = _.trimStart(dataPath, ".");
@@ -122,14 +103,17 @@ class SVK implements ValidationPluginInterface {
     });
   }
 
-  executeAsyncValidation(field) {
-    if (field.validationAsyncData.valid === false) {
-      field.invalidate(field.validationAsyncData.message, false, true);
+  executeAsyncValidation(field: FieldInterface): void {
+    const asyncData = field.validationAsyncData;
+    if (asyncData.valid === false) {
+      field.invalidate(asyncData.message, false, true);
     }
   }
 }
 
-export default (config?: ValidationPluginConfig): ValidationPlugin => ({
-  class: SVK,
-  config,
+export default <TValidator = any>(
+  config?: ValidationPluginConfig<TValidator>
+): ValidationPlugin<TValidator> => ({
+    class: SVK<TValidator>,
+    config,
 });
