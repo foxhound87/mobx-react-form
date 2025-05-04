@@ -4,13 +4,13 @@ import {
   ValidationPluginConstructor,
   ValidationPluginInterface,
 } from "../models/ValidatorInterface";
-import _ from "lodash";
 import FormInterface from "src/models/FormInterface";
+import StateInterface from "src/models/StateInterface";
 
 class YUP<TValidator = any> implements ValidationPluginInterface {
   promises: Promise<any>[] = [];
   config: ValidationPluginConfig<TValidator>;
-  state: any;
+  state: StateInterface;
   extend?: (args: { validator: TValidator; form: FormInterface }) => void;
   validator: TValidator;
   schema: any;

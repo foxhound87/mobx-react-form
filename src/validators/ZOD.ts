@@ -1,7 +1,8 @@
 import _ from "lodash";
 import FieldInterface from "src/models/FieldInterface";
 import FormInterface from "src/models/FormInterface";
-import { ZodSchema, ZodError } from "zod";
+import StateInterface from "src/models/StateInterface";
+import { ZodSchema } from "zod";
 import {
   ValidationPlugin,
   ValidationPluginConfig,
@@ -12,7 +13,7 @@ import {
 export class ZOD<TValidator = any> implements ValidationPluginInterface {
   promises: Promise<any>[];
   config: ValidationPluginConfig;
-  state: any;
+  state: StateInterface;
   extend?: (args: { validator: TValidator; form: FormInterface }) => void;
   validator: any;
   schema: ZodSchema<any>;

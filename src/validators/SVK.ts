@@ -1,6 +1,7 @@
 import _ from "lodash";
 import FieldInterface from "src/models/FieldInterface";
 import FormInterface from "src/models/FormInterface";
+import StateInterface from "src/models/StateInterface";
 import {
   ValidationPlugin,
   ValidationPluginConfig,
@@ -19,7 +20,7 @@ function isPromise(obj: any): obj is Promise<any> {
 class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
   promises: Promise<any>[];
   config: ValidationPluginConfig<TValidator>;
-  state: any;
+  state: StateInterface;
   extend?: (args: { validator: TValidator; form: FormInterface }) => void;
   validator: any;
   schema: any;
@@ -104,9 +105,8 @@ class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
   }
 
   executeAsyncValidation(field: FieldInterface): void {
-    const asyncData = field.validationAsyncData;
-    if (asyncData.valid === false) {
-      field.invalidate(asyncData.message, false, true);
+    if (field.validationAsyncData.valid === false) {
+      field.invalidate(field.validationAsyncData.message, false, true);
     }
   }
 }

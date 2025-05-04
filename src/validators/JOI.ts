@@ -1,6 +1,7 @@
 import _ from "lodash";
 import FieldInterface from "src/models/FieldInterface";
 import FormInterface from "src/models/FormInterface";
+import StateInterface from "src/models/StateInterface";
 import {
   ValidationPlugin,
   ValidationPluginConfig,
@@ -11,7 +12,7 @@ import {
 class JOI<TValidator = any> implements ValidationPluginInterface<TValidator> {
   promises: Promise<any>[];
   config: ValidationPluginConfig<TValidator>;
-  state: any;
+  state: StateInterface;
   extend?: (args: { validator: TValidator; form: FormInterface }) => void;
   validator: TValidator;
   schema: any;

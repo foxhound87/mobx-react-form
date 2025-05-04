@@ -166,7 +166,7 @@ export default class Field extends Base implements FieldInterface {
 
   validationErrorStack: string[] = [];
   validationFunctionsData: any[] = [];
-  validationAsyncData: any;
+  validationAsyncData = { valid: true, message: null };
   debouncedValidation: any;
 
   disposeValidationOnBlur: any;
@@ -288,8 +288,7 @@ export default class Field extends Base implements FieldInterface {
 
   get checkValidationErrors(): boolean {
     return (
-      ((this.validationAsyncData as any)?.valid === false &&
-        !_.isEmpty(this.validationAsyncData)) ||
+      !this.validationAsyncData.valid ||
         !_.isEmpty(this.validationErrorStack) ||
         _.isString(this.errorAsync) ||
         _.isString(this.errorSync)
@@ -743,7 +742,7 @@ export default class Field extends Base implements FieldInterface {
     this.showErrors(true, deep);
   }
 
-  setValidationAsyncData(valid: boolean = false, message: string = ""): void {
+  setValidationAsyncData(valid: boolean = false, message: string|null = null): void {
     this.validationAsyncData = { valid, message };
   }
 
@@ -751,7 +750,7 @@ export default class Field extends Base implements FieldInterface {
     this.showError = false;
     this.errorSync = null;
     this.errorAsync = null;
-    this.validationAsyncData = undefined;
+    this.validationAsyncData = { valid: true, message: null };
     this.validationFunctionsData = [];
     this.validationErrorStack = [];
     Promise.resolve().then(action(() => {
@@ -825,7 +824,7 @@ export default class Field extends Base implements FieldInterface {
   showErrors(show: boolean = true, deep: boolean = true): void {
     this.showError = show;
     this.errorSync = _.head(this.validationErrorStack) as string || null;
-    this.errorAsync = (this.validationAsyncData?.valid === false) ? this.validationAsyncData?.message as string : null
+    this.errorAsync = !this.validationAsyncData.valid ? this.validationAsyncData.message : null
     deep && this.each((field: FieldInterface) => field.showErrors(show, deep));
   }
 
