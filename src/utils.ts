@@ -164,13 +164,11 @@ const hasFiles = ($: any): boolean =>
 const isBool = ($: any, val: any): boolean =>
   _.isBoolean(val) && _.isBoolean($.target.checked);
 
-const $try = (...args: any) => {
-  let found: any | null | undefined = undefined;
-
-  args.map(( val: any ) =>
-    found === undefined && !_.isUndefined(val) && (found = val));
-
-  return found;
+const $try = (...args: any[]) => {
+  for (const val of args) {
+    if (val !== undefined) return val;
+  }
+  return undefined;
 };
 
 export {

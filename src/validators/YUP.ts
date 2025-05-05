@@ -46,16 +46,13 @@ class YUP<TValidator = any> implements ValidationPluginInterface {
 
   // Creazione della promise per la validazione
   private createValidationPromise(field: any): Promise<any> {
-    return new Promise((resolve) =>
-      (this.validator as any)
-        .reach(this.schema, field.path)
-        .label(field.label)
-        .validate(field.validatedValue, { strict: true })
+    return new Promise((resolve) => {
+      this.schema
+        .validateAt(field.path, this.state.form.values(), { strict: true })
         .then(() => this.handleAsyncPasses(field, resolve))
-        .catch((error) => this.handleAsyncFails(field, resolve, error))
-    );
+        .catch((error) => this.handleAsyncFails(field, resolve, error));
+    });
   }
-
   // Gestione dei successi della validazione asincrona
   private handleAsyncPasses(field: any, resolve: Function): void {
     field.setValidationAsyncData(true);
@@ -64,9 +61,16 @@ class YUP<TValidator = any> implements ValidationPluginInterface {
 
   // Gestione dei fallimenti della validazione asincrona
   private handleAsyncFails(field: any, resolve: Function, error: any): void {
-    field.setValidationAsyncData(false, error.errors[0]);
-    this.executeAsyncValidation(field);
-    resolve();
+    // Yup a volte restituisce errori senza path (es. array vuoti)
+    const isSameField = error.path === field.path || error.path === undefined;
+
+    if (isSameField) {
+      const message = error.message?.replace(error.path ?? field.path, field.label);
+      field.setValidationAsyncData(false, message);
+      this.executeAsyncValidation(field);
+    }
+
+    resolve(undefined);
   }
 
   // Esecuzione della validazione asincrona

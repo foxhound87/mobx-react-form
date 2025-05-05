@@ -1,3 +1,8 @@
+# 6.12.1 (master)
+
+- Feat: Support for YUP .ref() and .when() methods
+- Fix: #626
+
 # 6.12.0 (master)
 
 - Feat: validation package type inference when extending validation plugins

@@ -47,6 +47,9 @@ import $519 from "./forms/fixes/form.519";
 import $585 from "./forms/fixes/form.585";
 import $531 from "./forms/fixes/form.531";
 
+import { form626a as $626a } from "./forms/fixes/form.626a";
+import { form626b as $626b } from "./forms/fixes/form.626b";
+
 export default {
   $formEmptyConstructor,
   $A,
@@ -92,4 +95,7 @@ export default {
 
   $585,
   $531,
+
+  $626a,
+  $626b,
 };
