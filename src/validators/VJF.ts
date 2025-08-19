@@ -1,7 +1,7 @@
 import _ from "lodash";
-import FieldInterface from "src/models/FieldInterface";
-import FormInterface from "src/models/FormInterface";
-import StateInterface from "src/models/StateInterface";
+import FieldInterface from "../models/FieldInterface";
+import FormInterface from "../models/FormInterface";
+import StateInterface from "../models/StateInterface";
 import {
   ValidationPlugin,
   ValidationPluginConfig,
