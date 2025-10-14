@@ -2,3 +2,4 @@
 /_book
 .DS_Store
 *.log
+.qodo
