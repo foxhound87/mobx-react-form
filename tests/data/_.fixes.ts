@@ -2,6 +2,7 @@
   FIXES
 */
 import $formEmptyConstructor from "./forms/form.empty.constructor";
+import $formExtra from "./forms/form.extra";
 
 import $A from "./forms/fixes/form.a";
 import $A1 from "./forms/fixes/form.a1";
@@ -52,6 +53,7 @@ import { form626b as $626b } from "./forms/fixes/form.626b";
 
 export default {
   $formEmptyConstructor,
+  $formExtra,
   $A,
   $A1,
   $B,

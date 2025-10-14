@@ -1,3 +1,12 @@
+# 6.12.3 (master)
+
+- Introduced `extra` form config for better dependencies injection.
+- Deprecated form.validatedValues in Form class. use form.flatMapValues instead.
+
+# 6.12.2 (master)
+
+- Fixed imports paths in validation plugins.
+
 # 6.12.1 (master)
 
 - Feat: Support for YUP .ref() and .when() methods

@@ -2,9 +2,16 @@ import _ from "lodash";
 import FieldInterface from "../models/FieldInterface";
 import FormInterface from "../models/FormInterface";
 import StateInterface from "../models/StateInterface";
-import { ValidationPlugin, ValidationPluginConfig, ValidationPluginConstructor, ValidationPluginInterface } from "../models/ValidatorInterface";
+import {
+  ValidationPlugin,
+  ValidationPluginConfig,
+  ValidationPluginConstructor,
+  ValidationPluginInterface,
+} from "../models/ValidatorInterface";
 
-export class DVR<TValidator = any> implements ValidationPluginInterface<TValidator> {
+export class DVR<TValidator = any>
+  implements ValidationPluginInterface<TValidator>
+{
   promises: Promise<any>[];
   config: any;
   state: StateInterface;
@@ -34,7 +41,7 @@ export class DVR<TValidator = any> implements ValidationPluginInterface<TValidat
   }
 
   validate(field: FieldInterface) {
-    const data = this.state.form.validatedValues;
+    const data = this.state.form.flatMapValues;
     this.validateFieldAsync(field, data);
     this.validateFieldSync(field, data);
   }
@@ -99,7 +106,11 @@ export class DVR<TValidator = any> implements ValidationPluginInterface<TValidat
     resolve();
   }
 
-  handleAsyncFails(field: FieldInterface, validation: any, resolve: () => void) {
+  handleAsyncFails(
+    field: FieldInterface,
+    validation: any,
+    resolve: () => void
+  ) {
     field.setValidationAsyncData(
       false,
       _.head(validation.errors.get(field.path))
@@ -128,6 +139,6 @@ export class DVR<TValidator = any> implements ValidationPluginInterface<TValidat
 export default <TValidator = any>(
   config?: ValidationPluginConfig<TValidator>
 ): ValidationPlugin<TValidator> => ({
-    class: DVR<TValidator>,
-    config,
-  });
+  class: DVR<TValidator>,
+  config,
+});

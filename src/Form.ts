@@ -1,4 +1,11 @@
-import { action, computed, observable, makeObservable, autorun, runInAction } from "mobx";
+import {
+  action,
+  computed,
+  observable,
+  makeObservable,
+  autorun,
+  runInAction,
+} from "mobx";
 import _ from "lodash";
 
 import Base from "./Base";
@@ -7,13 +14,18 @@ import State from "./State";
 import Field from "./Field";
 import ValidatorInterface from "./models/ValidatorInterface";
 import { FieldInterface, FieldConstructor } from "./models/FieldInterface";
-import { FormInterface, FieldsDefinitions, FormConfig } from "./models/FormInterface";
+import {
+  FormInterface,
+  FieldsDefinitions,
+  FormConfig,
+} from "./models/FormInterface";
 import { FieldPropsEnum } from "./models/FieldProps";
 import { OptionsEnum } from "./models/OptionsModel";
 
 export default class Form extends Base implements FormInterface {
   name: string;
   path = null;
+  extra = null;
   validator: ValidatorInterface;
 
   debouncedValidation: any = null;
@@ -27,11 +39,14 @@ export default class Form extends Base implements FormInterface {
       bindings = {},
       hooks = {},
       handlers = {},
+      extra = {},
     }: FormConfig = {}
   ) {
     super();
     makeObservable(this, {
+      extra: observable,
       fields: observable,
+      flatMapValues: computed,
       validatedValues: computed,
       error: computed,
       hasError: computed,
@@ -51,6 +66,7 @@ export default class Form extends Base implements FormInterface {
     });
 
     this.name = name;
+    this.extra = extra;
     runInAction(() => (this.$hooks = hooks));
     runInAction(() => (this.$handlers = handlers));
 
@@ -63,14 +79,18 @@ export default class Form extends Base implements FormInterface {
         bindings,
       },
       (val, key) =>
-        (typeof (this as any)[key] === 'function')
+        typeof (this as any)[key] === "function"
           ? _.merge(val, (this as any)[key].apply(this, [this]))
           : val
     );
 
     // setup hooks & handlers from initialization methods
-    runInAction(() => Object.assign(this.$hooks, (this as any).hooks?.apply(this, [this])));
-    runInAction(() => Object.assign(this.$handlers, (this as any).handlers?.apply(this, [this])));
+    runInAction(() =>
+      Object.assign(this.$hooks, (this as any).hooks?.apply(this, [this]))
+    );
+    runInAction(() =>
+      Object.assign(this.$handlers, (this as any).handlers?.apply(this, [this]))
+    );
 
     this.state = new State({
       form: this,
@@ -93,8 +113,8 @@ export default class Form extends Base implements FormInterface {
     );
 
     // execute validation on form initialization
-    this.state.options.get(OptionsEnum.validateOnInit)
-      && this.validator.validate({
+    this.state.options.get(OptionsEnum.validateOnInit) &&
+      this.validator.validate({
         showErrors: this.state.options.get(OptionsEnum.showErrorsOnInit),
       });
 
@@ -108,6 +128,11 @@ export default class Form extends Base implements FormInterface {
   /* COMPUTED */
 
   get validatedValues(): object {
+    console.warn("validatedValues is deprecated, use flatMapValues instead.");
+    return this.flatMapValues;
+  }
+
+  get flatMapValues(): object {
     const data: any = {};
     this.each(($field: any) => (data[$field.path] = $field.validatedValue));
     return data;
@@ -174,8 +199,12 @@ export default class Form extends Base implements FormInterface {
 
   invalidate(message: string | null = null, deep: boolean = true): void {
     this.debouncedValidation.cancel();
-    this.validator.error = message || this.state.options.get(OptionsEnum.defaultGenericError) || true;
-    deep && this.each((field: FieldInterface) => field.debouncedValidation.cancel());
+    this.validator.error =
+      message ||
+      this.state.options.get(OptionsEnum.defaultGenericError) ||
+      true;
+    deep &&
+      this.each((field: FieldInterface) => field.debouncedValidation.cancel());
   }
 
   showErrors(show: boolean = true): void {

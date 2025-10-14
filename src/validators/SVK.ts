@@ -63,7 +63,7 @@ class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
   }
 
   validate(field: FieldInterface): void {
-    const result = this.validator(field.state.form.validatedValues);
+    const result = this.validator(field.state.form.flatMapValues);
 
     if (isPromise(result)) {
       const $p = result
@@ -114,6 +114,6 @@ class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
 export default <TValidator = any>(
   config?: ValidationPluginConfig<TValidator>
 ): ValidationPlugin<TValidator> => ({
-    class: SVK<TValidator>,
-    config,
+  class: SVK<TValidator>,
+  config,
 });

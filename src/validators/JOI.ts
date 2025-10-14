@@ -41,7 +41,7 @@ class JOI<TValidator = any> implements ValidationPluginInterface<TValidator> {
   }
 
   validate(field: FieldInterface): void {
-    const data = this.state.form.validatedValues;
+    const data = this.state.form.flatMapValues;
     const { error } = this.schema.validate(data, { abortEarly: false });
 
     if (!error) return;
@@ -59,7 +59,10 @@ class JOI<TValidator = any> implements ValidationPluginInterface<TValidator> {
       })
       .map((detail) => {
         const label = detail.context?.label || detail.path.join(".");
-        const message = detail.message.replace(`${detail.path.join(".")}`, label);
+        const message = detail.message.replace(
+          `${detail.path.join(".")}`,
+          label
+        );
         return message;
       });
 
@@ -72,6 +75,6 @@ class JOI<TValidator = any> implements ValidationPluginInterface<TValidator> {
 export default <TValidator = any>(
   config?: ValidationPluginConfig<TValidator>
 ): ValidationPlugin<TValidator> => ({
-    class: JOI<TValidator>,
-    config,
-  });
+  class: JOI<TValidator>,
+  config,
+});

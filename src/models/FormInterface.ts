@@ -5,9 +5,11 @@ import { OptionsModel } from "./OptionsModel";
 import { ValidatorInterface, ValidationPlugins } from "./ValidatorInterface";
 export interface FormInterface extends BaseInterface {
   name: string;
+  extra: any;
   validator: ValidatorInterface;
   debouncedValidation: any;
   // getters
+  flatMapValues: object;
   validatedValues: object;
   clearing: boolean;
   resetting: boolean;
@@ -23,7 +25,7 @@ export interface FormInterface extends BaseInterface {
   disabled: boolean;
   // methods
   // init($fields: any): void;
-  invalidate(message?: string | null, deep ?: boolean): void;
+  invalidate(message?: string | null, deep?: boolean): void;
   showErrors(show?: boolean): void;
   clear(deep?: boolean, execHook?: boolean): void;
   reset(deep?: boolean, execHook?: boolean): void;
@@ -71,6 +73,7 @@ export interface FormConfig {
   bindings?: any;
   hooks?: any;
   handlers?: any;
+  extra?: any;
 }
 
 export default FormInterface;

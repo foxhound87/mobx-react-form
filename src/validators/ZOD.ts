@@ -43,11 +43,14 @@ export class ZOD<TValidator = any> implements ValidationPluginInterface {
   }
 
   validate(field: FieldInterface): void {
-    const result = this.schema.safeParse(field.state.form.validatedValues);
+    const result = this.schema.safeParse(field.state.form.flatMapValues);
 
     if (result.success) return;
 
-    const fieldErrors = _.get((result as any).error.format(), field.path)?._errors;
+    const fieldErrors = _.get(
+      (result as any).error.format(),
+      field.path
+    )?._errors;
 
     if (fieldErrors?.length) {
       field.validationErrorStack = fieldErrors;
@@ -55,10 +58,9 @@ export class ZOD<TValidator = any> implements ValidationPluginInterface {
   }
 }
 
-
 export default <TValidator = any>(
   config?: ValidationPluginConfig<TValidator>
 ): ValidationPlugin<TValidator> => ({
-    class: ZOD<TValidator>,
-    config,
-  });
+  class: ZOD<TValidator>,
+  config,
+});

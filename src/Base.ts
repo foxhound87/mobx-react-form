@@ -9,9 +9,9 @@ import {
   ObservableMap,
 } from "mobx";
 import _ from "lodash";
-import {BaseInterface} from "./models/BaseInterface";
-import {StateInterface} from "./models/StateInterface";
-import {FieldInterface} from "./models/FieldInterface";
+import { BaseInterface } from "./models/BaseInterface";
+import { StateInterface } from "./models/StateInterface";
+import { FieldInterface } from "./models/FieldInterface";
 
 import {
   props,
@@ -37,11 +37,15 @@ import {
   pathToFieldsTree,
   defaultValue,
 } from "./parser";
-import { AllowedFieldPropsTypes, FieldPropsEnum, SeparatedPropsMode } from "./models/FieldProps";
+import {
+  AllowedFieldPropsTypes,
+  FieldPropsEnum,
+  SeparatedPropsMode,
+} from "./models/FieldProps";
 import { OptionsEnum } from "./models/OptionsModel";
 import { ValidateOptions, ValidationHooks } from "./models/ValidatorInterface";
 import { SubmitHooks } from "./models/SharedActionsInterface";
-export default class Base implements BaseInterface {
+export default abstract class Base implements BaseInterface {
   noop = () => {};
 
   state: StateInterface;
@@ -98,13 +102,15 @@ export default class Base implements BaseInterface {
   }
 
   execHook = (name: string, fallback: any = {}): any =>
-    $try(
-      fallback[name],
-      this.$hooks[name],
-      this.noop
-    ).apply(this, [this]);
+    $try(fallback[name], this.$hooks[name], this.noop).apply(this, [this]);
 
-  execHandler = (name: string, args: any, fallback: any = undefined, hook = null, execHook = true): any => [
+  execHandler = (
+    name: string,
+    args: any,
+    fallback: any = undefined,
+    hook = null,
+    execHook = true
+  ): any => [
     $try(
       this.$handlers[name] && this.$handlers[name].apply(this, [this]),
       fallback,
@@ -114,11 +120,15 @@ export default class Base implements BaseInterface {
   ];
 
   get resetting(): boolean {
-    return this.hasNestedFields ? this.check(FieldPropsEnum.resetting, true) : this.$resetting;
+    return this.hasNestedFields
+      ? this.check(FieldPropsEnum.resetting, true)
+      : this.$resetting;
   }
 
   get clearing(): boolean {
-    return this.hasNestedFields ? this.check(FieldPropsEnum.clearing, true) : this.$clearing;
+    return this.hasNestedFields
+      ? this.check(FieldPropsEnum.clearing, true)
+      : this.$clearing;
   }
 
   get submitted(): number {
@@ -151,7 +161,10 @@ export default class Base implements BaseInterface {
 
   get changed(): number {
     return !_.isNil(this.path) && this.hasNestedFields
-      ? (this.reduce((acc: number, field: FieldInterface) => (acc + field.changed), 0) + this.$changed)
+      ? this.reduce(
+          (acc: number, field: FieldInterface) => acc + field.changed,
+          0
+        ) + this.$changed
       : this.$changed;
   }
 
@@ -160,7 +173,7 @@ export default class Base implements BaseInterface {
   */
   intercept = (opt: any): any =>
     this.MOBXEvent(
-      (typeof opt === 'function')
+      typeof opt === "function"
         ? { type: "interceptor", call: opt }
         : { type: "interceptor", ...opt }
     );
@@ -170,7 +183,7 @@ export default class Base implements BaseInterface {
   */
   observe = (opt: any): any =>
     this.MOBXEvent(
-      (typeof opt === 'function')
+      typeof opt === "function"
         ? { type: "observer", call: opt }
         : { type: "observer", ...opt }
     );
@@ -197,10 +210,16 @@ export default class Base implements BaseInterface {
     Event Handler: On Submit
    */
   onSubmit = (...args: any): any =>
-    this.execHandler(FieldPropsEnum.onSubmit, args, (e: Event, o = {}) => {
-      isEvent(e) && e.preventDefault();
-      this.submit(o);
-    }, null, false);
+    this.execHandler(
+      FieldPropsEnum.onSubmit,
+      args,
+      (e: Event, o = {}) => {
+        isEvent(e) && e.preventDefault();
+        this.submit(o);
+      },
+      null,
+      false
+    );
 
   /**
     Event Handler: On Add
@@ -246,7 +265,8 @@ export default class Base implements BaseInterface {
             .find(
               (s: any) =>
                 s.charAt(structPath.length) === "." ||
-                s.substring(structPath.length, structPath.length + 2) === "[]" ||
+                s.substring(structPath.length, structPath.length + 2) ===
+                  "[]" ||
                 s === structPath
             );
 
@@ -267,11 +287,17 @@ export default class Base implements BaseInterface {
     // try to get props from separated objects
     const _try = (prop: string) => {
       const t = _.get(initial[prop], struct);
-      if (([
-        FieldPropsEnum.input,
-        FieldPropsEnum.output,
-        FieldPropsEnum.converter,
-      ] as string[]).includes(prop) && typeof t !== "function") return undefined;
+      if (
+        (
+          [
+            FieldPropsEnum.input,
+            FieldPropsEnum.output,
+            FieldPropsEnum.converter,
+          ] as string[]
+        ).includes(prop) &&
+        typeof t !== "function"
+      )
+        return undefined;
 
       return t;
     };
@@ -317,7 +343,7 @@ export default class Base implements BaseInterface {
         state: this.state,
       },
 
-      data && data[FieldPropsEnum.class] || _try(SeparatedPropsMode.classes)
+      (data && data[FieldPropsEnum.class]) || _try(SeparatedPropsMode.classes)
     );
 
     this.fields.merge({ [key]: field });
@@ -337,19 +363,24 @@ export default class Base implements BaseInterface {
   /**
     Submit
   */
-  submit(hooks: SubmitHooks = {}, {
-    execOnSubmitHook = true,
-    execValidationHooks = true,
-    validate = true
-  } = {}): Promise<any> {
+  submit(
+    hooks: SubmitHooks = {},
+    {
+      execOnSubmitHook = true,
+      execValidationHooks = true,
+      validate = true,
+    } = {}
+  ): Promise<any> {
     const execOnSubmit = () => this.execHook(FieldPropsEnum.onSubmit, hooks);
     const submit = execOnSubmitHook ? execOnSubmit() : undefined;
     this.$submitting = true;
     this.$submitted += 1;
 
-    if (!validate || !this.state.options.get(OptionsEnum.validateOnSubmit, this)) {
-      return Promise
-        .resolve(submit)
+    if (
+      !validate ||
+      !this.state.options.get(OptionsEnum.validateOnSubmit, this)
+    ) {
+      return Promise.resolve(submit)
         .then(action(() => (this.$submitting = false)))
         .catch(
           action((err: any) => {
@@ -357,34 +388,39 @@ export default class Base implements BaseInterface {
             throw err;
           })
         )
-        .then(() => this)
+        .then(() => this);
     }
 
-    const exec = (isValid: boolean) => isValid
-      ? this.execHook(ValidationHooks.onSuccess, hooks)
-      : this.execHook(ValidationHooks.onError, hooks);
+    const exec = (isValid: boolean) =>
+      isValid
+        ? this.execHook(ValidationHooks.onSuccess, hooks)
+        : this.execHook(ValidationHooks.onError, hooks);
 
-    return (
-      this.validate({
-        showErrors: this.state.options.get(OptionsEnum.showErrorsOnSubmit, this),
+    return this.validate({
+      showErrors: this.state.options.get(OptionsEnum.showErrorsOnSubmit, this),
+    })
+      .then(({ isValid }: any) => {
+        const handler = execValidationHooks ? exec(isValid) : undefined;
+        if (isValid) return Promise.all([submit, handler]);
+        const $err = this.state.options.get(
+          OptionsEnum.defaultGenericError,
+          this
+        );
+        const $throw = this.state.options.get(
+          OptionsEnum.submitThrowsError,
+          this
+        );
+        if ($throw && $err) (this as any).invalidate();
+        return Promise.all([submit, handler]);
       })
-        .then(({ isValid }: any) => {
-          const handler = execValidationHooks ? exec(isValid) : undefined;
-          if (isValid) return Promise.all([submit, handler]);
-          const $err = this.state.options.get(OptionsEnum.defaultGenericError, this);
-          const $throw = this.state.options.get(OptionsEnum.submitThrowsError, this);
-          if ($throw && $err) (this as any).invalidate();
-          return Promise.all([submit, handler]);
+      .then(action(() => (this.$submitting = false)))
+      .catch(
+        action((err: any) => {
+          this.$submitting = false;
+          throw err;
         })
-        .then(action(() => (this.$submitting = false)))
-        .catch(
-          action((err: any) => {
-            this.$submitting = false;
-            throw err;
-          })
-        )
-        .then(() => this)
-    );
+      )
+      .then(() => this);
   }
 
   /**
@@ -410,10 +446,12 @@ export default class Base implements BaseInterface {
           check.push(field[prop]);
         }
 
-        check.push(checkPropOccurrence({
-          data: this.deepCheck(type, prop, field.fields),
-          type,
-        }));
+        check.push(
+          checkPropOccurrence({
+            data: this.deepCheck(type, prop, field.fields),
+            type,
+          })
+        );
 
         return check;
       },
@@ -438,43 +476,73 @@ export default class Base implements BaseInterface {
     );
   }
 
-  deepUpdate(fields: any, path: string = "", recursion: boolean = true, raw?: any): void {
+  deepUpdate(
+    fields: any,
+    path: string = "",
+    recursion: boolean = true,
+    raw?: any
+  ): void {
     _.each(fields, (field, key) => {
       const $key = _.has(field, FieldPropsEnum.name) ? field.name : key;
       const $path = _.trimStart(`${path}.${$key}`, ".");
 
-      const strictUpdate = this.state.options.get(OptionsEnum.strictUpdate, this);
+      const strictUpdate = this.state.options.get(
+        OptionsEnum.strictUpdate,
+        this
+      );
       const $field = this.select($path, null, strictUpdate);
-      const $container = this.select(path, null, false) || this.state.form.select(this.path, null, false);
-      const applyInputConverterOnUpdate = this.state.options.get(OptionsEnum.applyInputConverterOnUpdate, this);
+      const $container =
+        this.select(path, null, false) ||
+        this.state.form.select(this.path, null, false);
+      const applyInputConverterOnUpdate = this.state.options.get(
+        OptionsEnum.applyInputConverterOnUpdate,
+        this
+      );
 
       if (!_.isNil($field) && !_.isUndefined(field)) {
         if (Array.isArray($field.values())) {
-          const n: number = _.max(_.map(field.fields, (f, i) => Number(i))) ?? -1;
+          const n: number =
+            _.max(_.map(field.fields, (f, i) => Number(i))) ?? -1;
           getObservableMapValues($field.fields).forEach(($f) => {
             if (Number($f.name) > n) {
-              $field.$changed ++;
-              $field.state.form.$changed ++;
+              $field.$changed++;
+              $field.state.form.$changed++;
               $field.fields.delete($f.name);
             }
           });
         }
         if (field?.fields) {
           const fallback = this.state.options.get(OptionsEnum.fallback);
-          const x = this.state.struct().findIndex(s => s.startsWith($field.path.replace(/\.\d+\./, '[].') + '[]'));
+          const x = this.state
+            .struct()
+            .findIndex((s) =>
+              s.startsWith($field.path.replace(/\.\d+\./, "[].") + "[]")
+            );
           if (!fallback && $field.fields.size === 0 && x < 0) {
-            $field.value = parseInput(applyInputConverterOnUpdate ? $field.$input : (val) => val, {
-              fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
-              separated: _.get(raw, $path),
-            });
+            $field.value = parseInput(
+              applyInputConverterOnUpdate ? $field.$input : (val) => val,
+              {
+                fallbackValueOption: this.state.options.get(
+                  OptionsEnum.fallbackValue,
+                  this
+                ),
+                separated: _.get(raw, $path),
+              }
+            );
             return;
           }
         }
         if (_.isNull(field) || _.isNil(field.fields)) {
-          $field.value = parseInput(applyInputConverterOnUpdate ? $field.$input : (val) => val, {
-            fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
-            separated: field,
-          });
+          $field.value = parseInput(
+            applyInputConverterOnUpdate ? $field.$input : (val) => val,
+            {
+              fallbackValueOption: this.state.options.get(
+                OptionsEnum.fallbackValue,
+                this
+              ),
+              separated: field,
+            }
+          );
           return;
         }
       }
@@ -483,8 +551,8 @@ export default class Base implements BaseInterface {
         // get full path when using update() with select() - FIX: #179
         const $newFieldPath = _.trimStart([this.path, $path].join("."), ".");
         // init field into the container field
-        $container.$changed ++;
-        $container.state.form.$changed ++;
+        $container.$changed++;
+        $container.state.form.$changed++;
         $container.initField($key, $newFieldPath, field, true);
       } else if (recursion) {
         if (_.has(field, FieldPropsEnum.fields) && !_.isNil(field.fields)) {
@@ -507,29 +575,48 @@ export default class Base implements BaseInterface {
       return this.deepGet(
         [...props.computed, ...props.editable, ...props.validation],
         this.fields,
-        strict,
+        strict
       );
     }
 
-    allowedProps(AllowedFieldPropsTypes.all, Array.isArray(prop) ? prop : [prop]);
+    allowedProps(
+      AllowedFieldPropsTypes.all,
+      Array.isArray(prop) ? prop : [prop]
+    );
 
     if (_.isString(prop)) {
-      if (([
-        FieldPropsEnum.hooks,
-        FieldPropsEnum.handlers
-      ] as string[]).includes(prop)) {
+      if (
+        ([FieldPropsEnum.hooks, FieldPropsEnum.handlers] as string[]).includes(
+          prop
+        )
+      ) {
         return this[`$${prop}`];
       }
 
       if (strict && this.fields.size === 0) {
-        const retrieveNullifiedEmptyStrings = this.state.options.get(OptionsEnum.retrieveNullifiedEmptyStrings, this);
-        return parseCheckOutput(this, prop, strict ? retrieveNullifiedEmptyStrings : false);
+        const retrieveNullifiedEmptyStrings = this.state.options.get(
+          OptionsEnum.retrieveNullifiedEmptyStrings,
+          this
+        );
+        return parseCheckOutput(
+          this,
+          prop,
+          strict ? retrieveNullifiedEmptyStrings : false
+        );
       }
 
       const value = this.deepGet(prop, this.fields, strict);
-      const removeNullishValuesInArrays = this.state.options.get(OptionsEnum.removeNullishValuesInArrays, this);
+      const removeNullishValuesInArrays = this.state.options.get(
+        OptionsEnum.removeNullishValuesInArrays,
+        this
+      );
 
-      return parseCheckArray(this, value, prop, strict ? removeNullishValuesInArrays : false);
+      return parseCheckArray(
+        this,
+        value,
+        prop,
+        strict ? removeNullishValuesInArrays : false
+      );
     }
 
     return this.deepGet(prop, this.fields, strict);
@@ -542,9 +629,8 @@ export default class Base implements BaseInterface {
     return _.transform(
       getObservableMapValues(fields),
       (obj: any, field: any) => {
-        const $nested = ($fields: any) => $fields.size !== 0
-          ? this.deepGet(prop, $fields, strict)
-          : undefined;
+        const $nested = ($fields: any) =>
+          $fields.size !== 0 ? this.deepGet(prop, $fields, strict) : undefined;
 
         Object.assign(obj, {
           [field.key]: { fields: $nested(field.fields) },
@@ -553,17 +639,34 @@ export default class Base implements BaseInterface {
         if (_.isString(prop)) {
           const opt = this.state.options;
           const removeProp =
-            ((opt.get(OptionsEnum.retrieveOnlyDirtyFieldsValues, this) && prop === FieldPropsEnum.value && field.isPristine) ||
-            (opt.get(OptionsEnum.retrieveOnlyEnabledFieldsValues, this) && prop === FieldPropsEnum.value && field.disabled) ||
-            (opt.get(OptionsEnum.retrieveOnlyEnabledFieldsErrors, this) && prop === FieldPropsEnum.error && field.disabled && field.isValid && (!field.error || !field.hasError)) ||
-            (opt.get(OptionsEnum.softDelete, this) && prop === FieldPropsEnum.value && field.deleted));
+            (opt.get(OptionsEnum.retrieveOnlyDirtyFieldsValues, this) &&
+              prop === FieldPropsEnum.value &&
+              field.isPristine) ||
+            (opt.get(OptionsEnum.retrieveOnlyEnabledFieldsValues, this) &&
+              prop === FieldPropsEnum.value &&
+              field.disabled) ||
+            (opt.get(OptionsEnum.retrieveOnlyEnabledFieldsErrors, this) &&
+              prop === FieldPropsEnum.error &&
+              field.disabled &&
+              field.isValid &&
+              (!field.error || !field.hasError)) ||
+            (opt.get(OptionsEnum.softDelete, this) &&
+              prop === FieldPropsEnum.value &&
+              field.deleted);
 
           if (field.fields.size === 0) {
             delete obj[field.key];
             if (removeProp) return obj;
-            const retrieveNullifiedEmptyStrings = this.state.options.get(OptionsEnum.retrieveNullifiedEmptyStrings, this);
+            const retrieveNullifiedEmptyStrings = this.state.options.get(
+              OptionsEnum.retrieveNullifiedEmptyStrings,
+              this
+            );
             return Object.assign(obj, {
-              [field.key]: parseCheckOutput(field, prop, strict ? retrieveNullifiedEmptyStrings : false),
+              [field.key]: parseCheckOutput(
+                field,
+                prop,
+                strict ? retrieveNullifiedEmptyStrings : false
+              ),
             });
           }
 
@@ -572,10 +675,18 @@ export default class Base implements BaseInterface {
 
           delete obj[field.key];
           if (removeProp) return obj;
-          const removeNullishValuesInArrays = this.state.options.get(OptionsEnum.removeNullishValuesInArrays, this);
+          const removeNullishValuesInArrays = this.state.options.get(
+            OptionsEnum.removeNullishValuesInArrays,
+            this
+          );
 
           return Object.assign(obj, {
-            [field.key]: parseCheckArray(field, value, prop, strict ? removeNullishValuesInArrays : false),
+            [field.key]: parseCheckArray(
+              field,
+              value,
+              prop,
+              strict ? removeNullishValuesInArrays : false
+            ),
           });
         }
 
@@ -599,21 +710,32 @@ export default class Base implements BaseInterface {
     if (_.isString(prop) && !_.isUndefined(data)) {
       allowedProps(AllowedFieldPropsTypes.editable, [prop]);
 
-      const isPlain = ([
-        FieldPropsEnum.hooks,
-        FieldPropsEnum.handlers,
-      ] as string[]).includes(prop);
+      const isPlain = (
+        [FieldPropsEnum.hooks, FieldPropsEnum.handlers] as string[]
+      ).includes(prop);
 
-      const deep: boolean = (_.isObject(data) && prop === FieldPropsEnum.value) || (_.isPlainObject(data) && !isPlain);
-      if (deep && this.hasNestedFields) return this.deepSet(prop, data, "", true);
+      const deep: boolean =
+        (_.isObject(data) && prop === FieldPropsEnum.value) ||
+        (_.isPlainObject(data) && !isPlain);
+      if (deep && this.hasNestedFields)
+        return this.deepSet(prop, data, "", true);
 
       if (prop === FieldPropsEnum.value) {
-        const applyInputConverterOnSet = this.state.options.get(OptionsEnum.applyInputConverterOnSet, this);
-        (this as any).value = parseInput(applyInputConverterOnSet ? (this as any).$input : (val) => val, {
-          fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
-          separated: data,
-        });
-      } else if(isPlain) {
+        const applyInputConverterOnSet = this.state.options.get(
+          OptionsEnum.applyInputConverterOnSet,
+          this
+        );
+        (this as any).value = parseInput(
+          applyInputConverterOnSet ? (this as any).$input : (val) => val,
+          {
+            fallbackValueOption: this.state.options.get(
+              OptionsEnum.fallbackValue,
+              this
+            ),
+            separated: data,
+          }
+        );
+      } else if (isPlain) {
         Object.assign(this[`$${prop}`], data);
       } else {
         _.set(this, `$${prop}`, data);
@@ -624,7 +746,8 @@ export default class Base implements BaseInterface {
 
     // NO PROP NAME PROVIDED ("prop" is value)
     if (_.isNil(data)) {
-      if (this.hasNestedFields) this.deepSet(FieldPropsEnum.value, prop, "", true);
+      if (this.hasNestedFields)
+        this.deepSet(FieldPropsEnum.value, prop, "", true);
       else this.set(FieldPropsEnum.value, prop);
     }
   }
@@ -642,12 +765,18 @@ export default class Base implements BaseInterface {
     const isStrict = this.state.options.get(OptionsEnum.strictSet, this);
 
     if (_.isNil(data)) {
-      this.each((field: any) => field.$value = defaultValue({
-        fallbackValueOption: this.state.options.get(OptionsEnum.fallbackValue, this),
-        value: field.$value,
-        nullable: field.$nullable,
-        type: field.type,
-      }));
+      this.each(
+        (field: any) =>
+          (field.$value = defaultValue({
+            fallbackValueOption: this.state.options.get(
+              OptionsEnum.fallbackValue,
+              this
+            ),
+            value: field.$value,
+            nullable: field.$nullable,
+            type: field.type,
+          }))
+      );
       return;
     }
 
@@ -682,8 +811,8 @@ export default class Base implements BaseInterface {
         })
       );
 
-      this.$changed ++;
-      this.state.form.$changed ++;
+      this.$changed++;
+      this.state.form.$changed++;
       execEvent && this.execHook(FieldPropsEnum.onAdd);
       return this;
     }
@@ -693,24 +822,40 @@ export default class Base implements BaseInterface {
     if (_.has(obj, FieldPropsEnum.name)) key = obj.name;
     if (!key) key = maxKey(this.fields);
 
-    const $path = ($key: string) =>_.trimStart([this.path, $key].join("."), ".");
+    const $path = ($key: string) =>
+      _.trimStart([this.path, $key].join("."), ".");
     const tree = pathToFieldsTree(this.state.struct(), this.path, 0, true);
     const field = this.initField(key, $path(key), _.merge(tree[0], obj));
-    const hasValues = _.has(obj, FieldPropsEnum.value) || _.has(obj, FieldPropsEnum.fields);
+    const hasValues =
+      _.has(obj, FieldPropsEnum.value) || _.has(obj, FieldPropsEnum.fields);
 
-    if(!hasValues && !this.state.options.get(OptionsEnum.preserveDeletedFieldsValues, this)) {
-      const fallbackValueOption = this.state.options.get(OptionsEnum.fallbackValue, this);
-      field.$value = defaultValue({ fallbackValueOption, value: field.$value, nullable: field.$nullable, type: field.type });
-      field.each((field: any) => field.$value = defaultValue({
+    if (
+      !hasValues &&
+      !this.state.options.get(OptionsEnum.preserveDeletedFieldsValues, this)
+    ) {
+      const fallbackValueOption = this.state.options.get(
+        OptionsEnum.fallbackValue,
+        this
+      );
+      field.$value = defaultValue({
         fallbackValueOption,
         value: field.$value,
         nullable: field.$nullable,
-        type: field.type
-      }));
+        type: field.type,
+      });
+      field.each(
+        (field: any) =>
+          (field.$value = defaultValue({
+            fallbackValueOption,
+            value: field.$value,
+            nullable: field.$nullable,
+            type: field.type,
+          }))
+      );
     }
 
-    this.$changed ++;
-    this.state.form.$changed ++;
+    this.$changed++;
+    this.state.form.$changed++;
     execEvent && this.execHook(FieldPropsEnum.onAdd);
     return field;
   }
@@ -731,8 +876,8 @@ export default class Base implements BaseInterface {
       throwError(fullpath, null, msg);
     }
 
-    container.$changed ++;
-    container.state.form.$changed ++;
+    container.$changed++;
+    container.state.form.$changed++;
 
     if (this.state.options.get(OptionsEnum.softDelete, this)) {
       return this.select(fullpath).set(FieldPropsEnum.deleted, true);
@@ -755,7 +900,7 @@ export default class Base implements BaseInterface {
     key = null,
     path = null,
     call,
-    type
+    type,
   }: any): void {
     let $prop = key || prop;
     allowedProps(AllowedFieldPropsTypes.observable, [$prop]);
@@ -788,7 +933,7 @@ export default class Base implements BaseInterface {
 
     _.merge(this.state.disposers[type], {
       [$dkey]:
-      $prop === FieldPropsEnum.fields
+        $prop === FieldPropsEnum.fields
           ? ffn.apply((change: any) => $call(change))
           : (fn as any)($instance, $prop, (change: any) => $call(change)),
     });
@@ -838,9 +983,7 @@ export default class Base implements BaseInterface {
 
     keys.shift();
 
-    let $fields = _.isNil(fields)
-      ? this.fields.get(head)
-      : fields.get(head);
+    let $fields = _.isNil(fields) ? this.fields.get(head) : fields.get(head);
 
     let stop = false;
     _.each(keys, ($key) => {
