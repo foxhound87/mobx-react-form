@@ -1,3 +1,7 @@
+# 6.12.4 (master)
+
+- Replace Webpack with Rollup
+
 # 6.12.3 (master)
 
 - Introduced `extra` form config for better dependencies injection.
