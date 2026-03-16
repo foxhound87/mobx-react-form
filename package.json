@@ -6,20 +6,60 @@
   "description": "Reactive MobX Form State Management",
   "homepage": "https://github.com/foxhound87/mobx-react-form#readme",
   "main": "./lib/index.js",
+  "module": "./lib/esm/index.js",
   "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "typesVersions": {
+    "*": {
+      "composer": ["./lib/composer.d.ts"],
+      "lib/composer": ["./lib/composer.d.ts"],
+      "validators/*": ["./lib/validators/*.d.ts"],
+      "lib/validators/*": ["./lib/validators/*.d.ts"],
+      "lib/utils": ["./lib/utils.d.ts"]
+    }
+  },
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/esm/index.js",
+      "require": "./lib/index.js"
+    },
+    "./composer": {
+      "types": "./lib/composer.d.ts",
+      "import": "./lib/esm/composer.js",
+      "require": "./lib/composer.js"
+    },
+    "./validators/*": {
+      "types": "./lib/validators/*.d.ts",
+      "import": "./lib/esm/validators/*.js",
+      "require": "./lib/validators/*.js"
+    },
+    "./lib/validators/*": {
+      "types": "./lib/validators/*.d.ts",
+      "import": "./lib/esm/validators/*.js",
+      "require": "./lib/validators/*.js"
+    },
+    "./lib/composer": {
+      "types": "./lib/composer.d.ts",
+      "import": "./lib/esm/composer.js",
+      "require": "./lib/composer.js"
+    },
+    "./lib/utils": {
+      "types": "./lib/utils.d.ts",
+      "import": "./lib/esm/utils.js",
+      "require": "./lib/utils.js"
+    }
+  },
   "scripts": {
     "clean:build": "rimraf lib && rimraf umd",
     "clean:modules": "rimraf node_modules && npm cache clean",
     "clean:all": "npm run clean:build && npm run clean:modules",
     "lint": "eslint . --ext .ts --ignore-path .gitignore",
-    "build": "npm-run-all --parallel build:*",
-    "build:main": "tsc -d",
-    "build:umd": "webpack",
-    "build:umdmin": "cross-env MINIFY=YES webpack",
+    "build": "rollup -c rollup.config.mjs",
     "prebuild": "npm run clean:build",
     "precommit": "npm run lint && npm run cover",
     "commit": "git-cz && git push origin",
-    "watch:build": "tsc --watch -d",
+    "watch:build": "rollup -c rollup.config.mjs --watch",
     "watch:test": "npm run test -- -w",
     "test": "cross-env TEST=true mocha -r ts-node/register ./tests/*.ts",
     "cover": "nyc npm test",
@@ -78,6 +118,12 @@
     "mobx": "^6.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@rollup/plugin-babel": "^7.0.0",
+    "@rollup/plugin-commonjs": "^29.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^1.0.0",
+    "@rollup/plugin-typescript": "^12.3.0",
     "@types/chai": "^4.3.0",
     "@types/lodash": "^4.14.178",
     "@types/mocha": "^9.1.0",
@@ -87,6 +133,7 @@
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
     "ajv": "^5.2.2",
+    "babel-plugin-lodash": "^3.3.4",
     "chai": "3.5.0",
     "commitizen": "^4.3.0",
     "cross-env": "^5.1.4",
@@ -95,21 +142,16 @@
     "eslint-plugin-import": "^2.27.5",
     "husky": "0.13.1",
     "joi": "^17.13.3",
-    "json-loader": "0.5.4",
-    "lodash-webpack-plugin": "^0.11.6",
     "mobx": "^6.3.3",
     "mocha": "^9.2.1",
-    "npm-run-all": "4.0.1",
     "nyc": "^15.1.0",
     "rimraf": "2.5.4",
+    "rollup": "^4.59.0",
     "semantic-release": "^21.0.1",
-    "ts-loader": "^8.4.0",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5",
     "validator": "^13.7.0",
     "validatorjs": "^3.15.1",
-    "webpack": "^5.70.0",
-    "webpack-cli": "^4.9.2",
     "yup": "^0.32.11",
     "zod": "^3.22.4"
   }
