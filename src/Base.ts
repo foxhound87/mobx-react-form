@@ -8,7 +8,7 @@ import {
   intercept,
   ObservableMap,
 } from "mobx";
-import _ from "lodash";
+import { each, forIn, get, has, head, isNil, isNull, isObject, isPlainObject, isString, isUndefined, last, map, max, merge, set, split, transform, trim, trimStart } from "lodash";
 import { BaseInterface } from "./models/BaseInterface";
 import { StateInterface } from "./models/StateInterface";
 import { FieldInterface } from "./models/FieldInterface";
@@ -160,7 +160,7 @@ export default abstract class Base implements BaseInterface {
   }
 
   get changed(): number {
-    return !_.isNil(this.path) && this.hasNestedFields
+    return !isNil(this.path) && this.hasNestedFields
       ? this.reduce(
           (acc: number, field: FieldInterface) => acc + field.changed,
           0
@@ -244,17 +244,17 @@ export default abstract class Base implements BaseInterface {
   */
   initFields(initial: any, update: boolean = false): void {
     const fallback = this.state.options.get(OptionsEnum.fallback);
-    const $path = (key: string) => _.trimStart([this.path, key].join("."), ".");
+    const $path = (key: string) => trimStart([this.path, key].join("."), ".");
 
     let fields;
     fields = prepareFieldsData(initial, this.state.strict, fallback);
     fields = mergeSchemaDefaults(fields, (this as any).validator);
 
     // create fields
-    _.forIn(fields, (field, key) => {
+    forIn(fields, (field, key) => {
       const path = $path(key);
       const $f = this.select(path, null, false);
-      if (_.isNil($f)) {
+      if (isNil($f)) {
         if (fallback) {
           this.initField(key, path, field, update);
         } else {
@@ -286,7 +286,7 @@ export default abstract class Base implements BaseInterface {
     const struct = pathToStruct(path);
     // try to get props from separated objects
     const _try = (prop: string) => {
-      const t = _.get(initial[prop], struct);
+      const t = get(initial[prop], struct);
       if (
         (
           [
@@ -303,7 +303,7 @@ export default abstract class Base implements BaseInterface {
     };
 
     const props = {
-      $value: _.get(initial[SeparatedPropsMode.values], path),
+      $value: get(initial[SeparatedPropsMode.values], path),
       $computed: _try(SeparatedPropsMode.computed),
       $label: _try(SeparatedPropsMode.labels),
       $placeholder: _try(SeparatedPropsMode.placeholders),
@@ -356,7 +356,7 @@ export default abstract class Base implements BaseInterface {
   */
 
   validate(opt?: ValidateOptions, obj?: ValidateOptions): Promise<any> {
-    const $opt = _.merge(opt, { path: this.path });
+    const $opt = merge(opt, { path: this.path });
     return this.state.form.validator.validate($opt, obj);
   }
 
@@ -439,7 +439,7 @@ export default abstract class Base implements BaseInterface {
 
   deepCheck(type: string, prop: string, fields: any): any {
     const $fields = getObservableMapValues(fields);
-    return _.transform(
+    return transform(
       $fields,
       (check: any, field: any) => {
         if (!field.fields.size || !Array.isArray(field.initial)) {
@@ -464,7 +464,7 @@ export default abstract class Base implements BaseInterface {
     OR Create Field if 'undefined'
    */
   update(fields: any): void {
-    if (!_.isPlainObject(fields)) {
+    if (!isPlainObject(fields)) {
       throw new Error("The update() method accepts only plain objects.");
     }
 
@@ -482,9 +482,9 @@ export default abstract class Base implements BaseInterface {
     recursion: boolean = true,
     raw?: any
   ): void {
-    _.each(fields, (field, key) => {
-      const $key = _.has(field, FieldPropsEnum.name) ? field.name : key;
-      const $path = _.trimStart(`${path}.${$key}`, ".");
+    each(fields, (field, key) => {
+      const $key = has(field, FieldPropsEnum.name) ? field.name : key;
+      const $path = trimStart(`${path}.${$key}`, ".");
 
       const strictUpdate = this.state.options.get(
         OptionsEnum.strictUpdate,
@@ -499,10 +499,10 @@ export default abstract class Base implements BaseInterface {
         this
       );
 
-      if (!_.isNil($field) && !_.isUndefined(field)) {
+      if (!isNil($field) && !isUndefined(field)) {
         if (Array.isArray($field.values())) {
           const n: number =
-            _.max(_.map(field.fields, (f, i) => Number(i))) ?? -1;
+            max(map(field.fields, (f, i) => Number(i))) ?? -1;
           getObservableMapValues($field.fields).forEach(($f) => {
             if (Number($f.name) > n) {
               $field.$changed++;
@@ -526,13 +526,13 @@ export default abstract class Base implements BaseInterface {
                   OptionsEnum.fallbackValue,
                   this
                 ),
-                separated: _.get(raw, $path),
+                separated: get(raw, $path),
               }
             );
             return;
           }
         }
-        if (_.isNull(field) || _.isNil(field.fields)) {
+        if (isNull(field) || isNil(field.fields)) {
           $field.value = parseInput(
             applyInputConverterOnUpdate ? $field.$input : (val) => val,
             {
@@ -547,15 +547,15 @@ export default abstract class Base implements BaseInterface {
         }
       }
 
-      if (!_.isNil($container) && _.isNil($field)) {
+      if (!isNil($container) && isNil($field)) {
         // get full path when using update() with select() - FIX: #179
-        const $newFieldPath = _.trimStart([this.path, $path].join("."), ".");
+        const $newFieldPath = trimStart([this.path, $path].join("."), ".");
         // init field into the container field
         $container.$changed++;
         $container.state.form.$changed++;
         $container.initField($key, $newFieldPath, field, true);
       } else if (recursion) {
-        if (_.has(field, FieldPropsEnum.fields) && !_.isNil(field.fields)) {
+        if (has(field, FieldPropsEnum.fields) && !isNil(field.fields)) {
           // handle nested fields if defined
           this.deepUpdate(field.fields, $path);
         } else {
@@ -571,7 +571,7 @@ export default abstract class Base implements BaseInterface {
     Get Fields Props
    */
   get(prop: any = null, strict: boolean = true): any {
-    if (_.isNil(prop)) {
+    if (isNil(prop)) {
       return this.deepGet(
         [...props.computed, ...props.editable, ...props.validation],
         this.fields,
@@ -584,7 +584,7 @@ export default abstract class Base implements BaseInterface {
       Array.isArray(prop) ? prop : [prop]
     );
 
-    if (_.isString(prop)) {
+    if (isString(prop)) {
       if (
         ([FieldPropsEnum.hooks, FieldPropsEnum.handlers] as string[]).includes(
           prop
@@ -626,7 +626,7 @@ export default abstract class Base implements BaseInterface {
     Get Fields Props Recursively
    */
   deepGet(prop: any, fields: any, strict = true): any {
-    return _.transform(
+    return transform(
       getObservableMapValues(fields),
       (obj: any, field: any) => {
         const $nested = ($fields: any) =>
@@ -636,7 +636,7 @@ export default abstract class Base implements BaseInterface {
           [field.key]: { fields: $nested(field.fields) },
         });
 
-        if (_.isString(prop)) {
+        if (isString(prop)) {
           const opt = this.state.options;
           const removeProp =
             (opt.get(OptionsEnum.retrieveOnlyDirtyFieldsValues, this) &&
@@ -690,7 +690,7 @@ export default abstract class Base implements BaseInterface {
           });
         }
 
-        _.each(prop, ($prop) =>
+        each(prop, ($prop) =>
           Object.assign(obj[field.key], {
             [$prop]: field[$prop],
           })
@@ -707,7 +707,7 @@ export default abstract class Base implements BaseInterface {
    */
   set(prop: any, data?: any): void {
     // UPDATE CUSTOM PROP
-    if (_.isString(prop) && !_.isUndefined(data)) {
+    if (isString(prop) && !isUndefined(data)) {
       allowedProps(AllowedFieldPropsTypes.editable, [prop]);
 
       const isPlain = (
@@ -715,8 +715,8 @@ export default abstract class Base implements BaseInterface {
       ).includes(prop);
 
       const deep: boolean =
-        (_.isObject(data) && prop === FieldPropsEnum.value) ||
-        (_.isPlainObject(data) && !isPlain);
+        (isObject(data) && prop === FieldPropsEnum.value) ||
+        (isPlainObject(data) && !isPlain);
       if (deep && this.hasNestedFields)
         return this.deepSet(prop, data, "", true);
 
@@ -738,14 +738,14 @@ export default abstract class Base implements BaseInterface {
       } else if (isPlain) {
         Object.assign(this[`$${prop}`], data);
       } else {
-        _.set(this, `$${prop}`, data);
+        set(this, `$${prop}`, data);
       }
 
       return;
     }
 
     // NO PROP NAME PROVIDED ("prop" is value)
-    if (_.isNil(data)) {
+    if (isNil(data)) {
       if (this.hasNestedFields)
         this.deepSet(FieldPropsEnum.value, prop, "", true);
       else this.set(FieldPropsEnum.value, prop);
@@ -764,7 +764,7 @@ export default abstract class Base implements BaseInterface {
     const err = "You are updating a not existent field:";
     const isStrict = this.state.options.get(OptionsEnum.strictSet, this);
 
-    if (_.isNil(data)) {
+    if (isNil(data)) {
       this.each(
         (field: any) =>
           (field.$value = defaultValue({
@@ -780,20 +780,20 @@ export default abstract class Base implements BaseInterface {
       return;
     }
 
-    _.each(data, ($val, $key) => {
-      const $path = _.trimStart(`${path}.${$key}`, ".");
+    each(data, ($val, $key) => {
+      const $path = trimStart(`${path}.${$key}`, ".");
       // get the field by path joining keys recursively
       const field = this.select($path, null, isStrict);
       // if no field found when is strict update, throw error
       if (isStrict) throwError($path, field, err);
       // update the field/fields if defined
-      if (!_.isUndefined(field)) {
+      if (!isUndefined(field)) {
         // update field values or others props
-        if (!_.isUndefined($val)) {
+        if (!isUndefined($val)) {
           field.set(prop, $val, recursion);
         }
         // update values recursively only if field has nested
-        if (field.fields.size && _.isObject($val)) {
+        if (field.fields.size && isObject($val)) {
           this.deepSet(prop, $val, $path, recursion);
         }
       }
@@ -805,7 +805,7 @@ export default abstract class Base implements BaseInterface {
    */
   add(obj: any, execEvent: boolean = true): any {
     if (isArrayOfObjects(obj)) {
-      _.each(obj, (values) =>
+      each(obj, (values) =>
         this.update({
           [maxKey(this.fields)]: values,
         })
@@ -818,16 +818,16 @@ export default abstract class Base implements BaseInterface {
     }
 
     let key;
-    if (_.has(obj, FieldPropsEnum.key)) key = obj.key;
-    if (_.has(obj, FieldPropsEnum.name)) key = obj.name;
+    if (has(obj, FieldPropsEnum.key)) key = obj.key;
+    if (has(obj, FieldPropsEnum.name)) key = obj.name;
     if (!key) key = maxKey(this.fields);
 
     const $path = ($key: string) =>
-      _.trimStart([this.path, $key].join("."), ".");
+      trimStart([this.path, $key].join("."), ".");
     const tree = pathToFieldsTree(this.state.struct(), this.path, 0, true);
-    const field = this.initField(key, $path(key), _.merge(tree[0], obj));
+    const field = this.initField(key, $path(key), merge(tree[0], obj));
     const hasValues =
-      _.has(obj, FieldPropsEnum.value) || _.has(obj, FieldPropsEnum.fields);
+      has(obj, FieldPropsEnum.value) || has(obj, FieldPropsEnum.fields);
 
     if (
       !hasValues &&
@@ -866,13 +866,13 @@ export default abstract class Base implements BaseInterface {
   del($path: string | null = null, execEvent: boolean = true) {
     const isStrict = this.state.options.get(OptionsEnum.strictDelete, this);
     const path = parsePath($path ?? this.path);
-    const fullpath = _.trim([this.path, path].join("."), ".");
+    const fullpath = trim([this.path, path].join("."), ".");
     const container = this.container($path);
-    const keys = _.split(path, ".");
-    const last = _.last(keys);
+    const keys = split(path, ".");
+    const lastKey = last(keys);
 
-    if (isStrict && !container.fields.has(last)) {
-      const msg = `Key "${last}" not found when trying to delete field`;
+    if (isStrict && !container.fields.has(lastKey)) {
+      const msg = `Key "${lastKey}" not found when trying to delete field`;
       throwError(fullpath, null, msg);
     }
 
@@ -885,7 +885,7 @@ export default abstract class Base implements BaseInterface {
 
     container.each((field) => field.debouncedValidation.cancel());
     execEvent && this.execHook(FieldPropsEnum.onDel);
-    return container.fields.delete(last);
+    return container.fields.delete(lastKey);
   }
 
   /******************************************************************
@@ -931,7 +931,7 @@ export default abstract class Base implements BaseInterface {
     }
     const $dkey = $instance.path ? `${$prop}@${$instance.path}` : $prop;
 
-    _.merge(this.state.disposers[type], {
+    merge(this.state.disposers[type], {
       [$dkey]:
         $prop === FieldPropsEnum.fields
           ? ffn.apply((change: any) => $call(change))
@@ -952,8 +952,8 @@ export default abstract class Base implements BaseInterface {
    */
   disposeAll() {
     const dispose = (disposer: any) => disposer.apply();
-    _.each(this.state.disposers.interceptor, dispose);
-    _.each(this.state.disposers.observer, dispose);
+    each(this.state.disposers.interceptor, dispose);
+    each(this.state.disposers.observer, dispose);
     this.state.disposers = { interceptor: {}, observer: {} };
     return null;
   }
@@ -978,17 +978,17 @@ export default abstract class Base implements BaseInterface {
   */
   select(path: string, fields: any = null, isStrict: boolean = true) {
     const $path = parsePath(path);
-    const keys = _.split($path, ".");
-    const head = _.head(keys);
+    const keys = split($path, ".");
+    const headKey = head(keys);
 
     keys.shift();
 
-    let $fields = _.isNil(fields) ? this.fields.get(head) : fields.get(head);
+    let $fields = isNil(fields) ? this.fields.get(headKey) : fields.get(headKey);
 
     let stop = false;
-    _.each(keys, ($key) => {
+    each(keys, ($key) => {
       if (stop) return;
-      if (_.isNil($fields)) {
+      if (isNil($fields)) {
         $fields = undefined;
         stop = true;
       } else {
@@ -1008,9 +1008,9 @@ export default abstract class Base implements BaseInterface {
    */
   container($path: string) {
     const path = parsePath($path ?? this.path);
-    const cpath = _.trim(path.replace(new RegExp("[^./]+$"), ""), ".");
+    const cpath = trim(path.replace(new RegExp("[^./]+$"), ""), ".");
 
-    if (!!this.path && _.isNil($path)) {
+    if (!!this.path && isNil($path)) {
       return cpath !== ""
         ? this.state.form.select(cpath, null, false)
         : this.state.form;

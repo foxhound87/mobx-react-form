@@ -7,7 +7,7 @@ import {
   makeObservable,
 } from "mobx";
 
-import _ from "lodash";
+import { get, has } from "lodash";
 
 import { uniqueId } from "./utils";
 
@@ -74,14 +74,14 @@ export default class Options implements OptionsInterface {
 
   get(key: string, field: any = null): OptionsModel {
     // handle field option
-    if (_.has(field, "path")) {
-      if (_.has(field.$options, key)) {
+    if (has(field, "path")) {
+      if (has(field.$options, key)) {
         return field.$options[key];
       }
     }
 
     // fallback on global form options
-    if (key) return _.get(this.options, key);
+    if (key) return get(this.options, key);
     return toJS(this.options);
   }
 

@@ -6,7 +6,7 @@ import {
   autorun,
   runInAction,
 } from "mobx";
-import _ from "lodash";
+import { debounce, each, merge } from "lodash";
 
 import Base from "./Base";
 import Validator from "./Validator";
@@ -71,7 +71,7 @@ export default class Form extends Base implements FormInterface {
     runInAction(() => (this.$handlers = handlers));
 
     // load data from initializers methods
-    const initial = _.each(
+    const initial = each(
       {
         setup,
         options,
@@ -80,7 +80,7 @@ export default class Form extends Base implements FormInterface {
       },
       (val, key) =>
         typeof (this as any)[key] === "function"
-          ? _.merge(val, (this as any)[key].apply(this, [this]))
+          ? merge(val, (this as any)[key].apply(this, [this]))
           : val
     );
 
@@ -106,7 +106,7 @@ export default class Form extends Base implements FormInterface {
 
     this.initFields(initial.setup);
 
-    this.debouncedValidation = _.debounce(
+    this.debouncedValidation = debounce(
       this.validate,
       this.state.options.get(OptionsEnum.validationDebounceWait),
       this.state.options.get(OptionsEnum.validationDebounceOptions)
