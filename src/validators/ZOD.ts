@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { get } from "lodash";
 import FieldInterface from "../models/FieldInterface";
 import FormInterface from "../models/FormInterface";
 import StateInterface from "../models/StateInterface";
@@ -47,7 +47,7 @@ export class ZOD<TValidator = any> implements ValidationPluginInterface {
 
     if (result.success) return;
 
-    const fieldErrors = _.get(
+    const fieldErrors = get(
       (result as any).error.format(),
       field.path
     )?._errors;

@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { each, get, has, isPlainObject, merge } from "lodash";
 import { $try } from "./utils";
 
 import { FieldPropsEnum, FieldPropsType } from "./models/FieldProps";
@@ -33,9 +33,9 @@ export default class Bindings implements BindingsInterface {
   };
 
   register(bindings: FieldPropsType): Bindings {
-    _.each(bindings, (val, key) => {
-      if ((typeof val === 'function')) _.merge(this.templates, { [key]: val });
-      if (_.isPlainObject(val)) _.merge(this.rewriters, { [key]: val });
+    each(bindings, (val, key) => {
+      if ((typeof val === 'function')) merge(this.templates, { [key]: val });
+      if (isPlainObject(val)) merge(this.rewriters, { [key]: val });
     });
 
     return this;
@@ -43,27 +43,27 @@ export default class Bindings implements BindingsInterface {
 
   load(field: any, name: string = FieldPropsEnum.default, props: FieldPropsType) {
     const args = ({
-      keys: _.get(this.rewriters, FieldPropsEnum.default),
+      keys: get(this.rewriters, FieldPropsEnum.default),
       form: field.state.form,
       field,
       props,
       $try,
     });
 
-    if (_.has(this.templates, FieldPropsEnum.default)) {
-      return _.get(this.templates, name)(args);
+    if (has(this.templates, FieldPropsEnum.default)) {
+      return get(this.templates, name)(args);
     }
 
-    if (_.has(this.rewriters, name)) {
+    if (has(this.rewriters, name)) {
       const $bindings = {};
 
-      _.each(_.get(this.rewriters, name), ($v, $k) =>
-        _.merge($bindings, { [$v]: $try(props[$k], field[$k]) })
+      each(get(this.rewriters, name), ($v, $k) =>
+        merge($bindings, { [$v]: $try(props[$k], field[$k]) })
       );
 
       return $bindings;
     }
 
-    return _.get(this.templates, name)(args);
+    return get(this.templates, name)(args);
   }
 }

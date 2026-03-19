@@ -10,7 +10,7 @@ import {
   autorun,
   runInAction,
 } from "mobx";
-import _ from "lodash";
+import { debounce, head, isEmpty, isBoolean, isDate, isEqual, isNil, isNull, isNumber, isPlainObject, isString, map, omit, toNumber, toString } from "lodash";
 import Base from "./Base";
 
 import { $try, hasFiles, isBool, isEvent, pathToStruct, isArrayFromStruct } from "./utils";
@@ -261,7 +261,7 @@ export default class Field extends Base implements FieldInterface {
 
     this.incremental = this.hasIncrementalKeys;
 
-    this.debouncedValidation = _.debounce(
+    this.debouncedValidation = debounce(
       this.validate,
       this.state.options.get(OptionsEnum.validationDebounceWait, this),
       this.state.options.get(OptionsEnum.validationDebounceOptions, this)
@@ -289,14 +289,14 @@ export default class Field extends Base implements FieldInterface {
   get checkValidationErrors(): boolean {
     return (
       !this.validationAsyncData.valid ||
-        !_.isEmpty(this.validationErrorStack) ||
-        _.isString(this.errorAsync) ||
-        _.isString(this.errorSync)
+        !isEmpty(this.validationErrorStack) ||
+        isString(this.errorAsync) ||
+        isString(this.errorSync)
     );
   }
 
   set value(newVal) {
-    if (_.isString(newVal) && this.state.options.get(OptionsEnum.autoTrimValue, this)) {
+    if (isString(newVal) && this.state.options.get(OptionsEnum.autoTrimValue, this)) {
       newVal = newVal.trim();
     }
     if (this.$value === newVal) return;
@@ -312,9 +312,9 @@ export default class Field extends Base implements FieldInterface {
     if (!this.state.options.get(OptionsEnum.autoParseNumbers, this))
       return false;
 
-    if (_.isNumber(this.$initial) || this.type == 'number') {
+    if (isNumber(this.$initial) || this.type == 'number') {
       if (new RegExp("^-?\\d+(,\\d+)*(\\.\\d+([eE]\\d+)?)?$", "g").exec(newVal)) {
-        this.$value = this.$converter(_.toNumber(newVal));
+        this.$value = this.$converter(toNumber(newVal));
         this.$changed ++;
         if (!this.actionRunning) {
           this.state.form.$changed ++;
@@ -440,26 +440,26 @@ export default class Field extends Base implements FieldInterface {
   }
 
   get isDefault(): boolean {
-    return !_.isNil(this.default) && _.isEqual(this.default, this.value);
+    return !isNil(this.default) && isEqual(this.default, this.value);
   }
 
   get isDirty(): boolean {
     const value = this.changed ? this.value : this.initial;
-    return !_.isEqual(this.initial, value);
+    return !isEqual(this.initial, value);
   }
 
   get isPristine(): boolean {
     const value = this.changed ? this.value : this.initial;
-    return _.isEqual(this.initial, value);
+    return isEqual(this.initial, value);
   }
 
   get isEmpty(): boolean {
     if (this.hasNestedFields) return this.check(FieldPropsEnum.isEmpty, true);
-    if (_.isBoolean(this.value)) return !!this.$value;
-    if (_.isNumber(this.value)) return false;
-    if (_.isDate(this.value)) return false;
-    if (_.isNull(this.value)) return false;
-    return _.isEmpty(this.value);
+    if (isBoolean(this.value)) return !!this.$value;
+    if (isNumber(this.value)) return false;
+    if (isDate(this.value)) return false;
+    if (isNull(this.value)) return false;
+    return isEmpty(this.value);
   }
 
   get focused(): boolean {
@@ -486,8 +486,8 @@ export default class Field extends Base implements FieldInterface {
       isBool($, this.value) ? $.target.checked : $.target.value;
 
     // assume "v" or "e" are the values
-    if (_.isNil(e) || _.isNil(e.target)) {
-      if (!_.isNil(v) && !_.isNil(v.target)) {
+    if (isNil(e) || isNil(e.target)) {
+      if (!isNil(v) && !isNil(v.target)) {
         v = $get(v); // eslint-disable-line
       }
 
@@ -495,7 +495,7 @@ export default class Field extends Base implements FieldInterface {
       return;
     }
 
-    if (!_.isNil(e.target)) {
+    if (!isNil(e.target)) {
       this.value = $get(e);
       return;
     }
@@ -551,11 +551,11 @@ export default class Field extends Base implements FieldInterface {
         let files: unknown[] | null = null;
 
         if (isEvent(e) && hasFiles(e)) {
-          files = _.map(e.target.files);
+          files = map(e.target.files);
         }
 
         this.files = [
-          ..._.map(this.files),
+          ...map(this.files),
           ...(files || args)
         ];
       })
@@ -592,10 +592,10 @@ export default class Field extends Base implements FieldInterface {
 
     const { $type, $input, $output, $converter, $converters, $computed } = $props;
 
-    if (_.isPlainObject($data)) {
+    if (isPlainObject($data)) {
       const { type, input, output, converter, converters, computed } = $data;
 
-      this.name = _.toString($data.name || $key);
+      this.name = toString($data.name || $key);
       this.$type = $type || type || "text";
       this.$converter = $try($converter, $converters, converter, converters, this.$converter);
       this.$input = $try($input, input, this.$input);
@@ -634,7 +634,7 @@ export default class Field extends Base implements FieldInterface {
     }
 
     /* The field IS the value here */
-    this.name = _.toString($key);
+    this.name = toString($key);
     this.$type = $type || "text";
     this.$converter = $try($converter, $converters, this.$converter);
     this.$input = $try($input, this.$input);
@@ -691,7 +691,7 @@ export default class Field extends Base implements FieldInterface {
   //   const { drivers } = this.state.form.validator;
   //   const form = this.state.form.name ? `${this.state.form.name}/` : "";
 
-  //   if (_.isNil(drivers.dvr) && !_.isNil(this.rules)) {
+  //   if (isNil(drivers.dvr) && !isNil(this.rules)) {
   //     throw new Error(
   //       `The DVR validation rules are defined but no DVR plugin provided. Field: "${
   //         form + this.path
@@ -699,7 +699,7 @@ export default class Field extends Base implements FieldInterface {
   //     );
   //   }
 
-  //   if (_.isNil(drivers.vjf) && !_.isNil(this.validators)) {
+  //   if (isNil(drivers.vjf) && !isNil(this.validators)) {
   //     throw new Error(
   //       `The VJF validators functions are defined but no VJF plugin provided. Field: "${
   //         form + this.path
@@ -709,16 +709,16 @@ export default class Field extends Base implements FieldInterface {
   // }
 
   initNestedFields(field: any, update: boolean): void {
-    const fields = _.isNil(field) ? null : field.fields;
+    const fields = isNil(field) ? null : field.fields;
 
-    if (Array.isArray(fields) && !_.isEmpty(fields)) {
+    if (Array.isArray(fields) && !isEmpty(fields)) {
       this.hasInitialNestedFields = true;
     }
 
     this.initFields({ fields }, update);
 
-    if (!update && Array.isArray(fields) && _.isEmpty(fields)) {
-      if (Array.isArray(this.value) && !_.isEmpty(this.value)) {
+    if (!update && Array.isArray(fields) && isEmpty(fields)) {
+      if (Array.isArray(this.value) && !isEmpty(this.value)) {
         this.hasInitialNestedFields = true;
         this.initFields({ fields, values: this.value }, update);
       }
@@ -817,13 +817,13 @@ export default class Field extends Base implements FieldInterface {
   }
 
   trim(): void {
-    if (!_.isString(this.value)) return;
+    if (!isString(this.value)) return;
     this.$value = this.value.trim();
   }
 
   showErrors(show: boolean = true, deep: boolean = true): void {
     this.showError = show;
-    this.errorSync = _.head(this.validationErrorStack) as string || null;
+    this.errorSync = head(this.validationErrorStack) as string || null;
     this.errorAsync = !this.validationAsyncData.valid ? this.validationAsyncData.message : null
     deep && this.each((field: FieldInterface) => field.showErrors(show, deep));
   }
@@ -868,7 +868,7 @@ export default class Field extends Base implements FieldInterface {
     let fn: any;
     if (type === FieldPropsEnum.observers) fn = this.observe;
     if (type === FieldPropsEnum.interceptors) fn = this.intercept;
-    this[`$${type}`].map((obj: any) => fn(_.omit(obj, FieldPropsEnum.path)));
+    this[`$${type}`].map((obj: any) => fn(omit(obj, FieldPropsEnum.path)));
   }
 
   bind(props = {}) {
@@ -879,7 +879,7 @@ export default class Field extends Base implements FieldInterface {
   }
 
   update(fields: any): void {
-    if (!_.isPlainObject(fields)) {
+    if (!isPlainObject(fields)) {
       throw new Error("The update() method accepts only plain objects.");
     }
     const fallback = this.state.options.get(OptionsEnum.fallback, this);

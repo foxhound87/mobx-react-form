@@ -1,4 +1,4 @@
-import _ from "lodash";
+import { filter, forIn, head, isEmpty, isString, split } from "lodash";
 import FieldInterface from "../models/FieldInterface";
 import FormInterface from "../models/FormInterface";
 import StateInterface from "../models/StateInterface";
@@ -48,12 +48,12 @@ export class DVR<TValidator = any>
 
   makeLabels(validation: any, field: FieldInterface) {
     const labels = { [field.path]: field.label };
-    _.forIn(validation.rules[field.path], (rule) => {
+    forIn(validation.rules[field.path], (rule) => {
       if (
         typeof rule.value === "string" &&
         rule.name.match(/^(required_|same|different)/)
       ) {
-        _.forIn(rule.value.split(","), (p, i: any) => {
+        forIn(rule.value.split(","), (p, i: any) => {
           if (!rule.name.match(/^required_(if|unless)/) || i % 2 === 0) {
             const f = this.state.form.$(p);
             if (f && f.path && f.label) {
@@ -76,17 +76,17 @@ export class DVR<TValidator = any>
 
   validateFieldSync(field: FieldInterface, data: any) {
     const $rules = this.rules(field.rules, "sync");
-    if (_.isEmpty($rules[0])) return;
+    if (isEmpty($rules[0])) return;
     const rules = { [field.path]: $rules };
     const validation = new (this.validator as any)(data, rules);
     this.makeLabels(validation, field);
     if (validation.passes()) return;
-    field.invalidate(_.head(validation.errors.get(field.path)), false);
+    field.invalidate(head(validation.errors.get(field.path)), false);
   }
 
   validateFieldAsync(field: FieldInterface, data: any) {
     const $rules = this.rules(field.rules, "async");
-    if (_.isEmpty($rules[0])) return;
+    if (isEmpty($rules[0])) return;
     const rules = { [field.path]: $rules };
     const validation = new (this.validator as any)(data, rules);
     this.makeLabels(validation, field);
@@ -113,7 +113,7 @@ export class DVR<TValidator = any>
   ) {
     field.setValidationAsyncData(
       false,
-      _.head(validation.errors.get(field.path))
+      head(validation.errors.get(field.path))
     );
     this.executeAsyncValidation(field);
     resolve();
@@ -126,12 +126,12 @@ export class DVR<TValidator = any>
   }
 
   rules(rules: any, type: "sync" | "async") {
-    const $rules = _.isString(rules) ? _.split(rules, "|") : rules;
+    const $rules = isString(rules) ? split(rules, "|") : rules;
     const v = new (this.validator as any)();
-    return _.filter($rules, ($rule) =>
+    return filter($rules, ($rule) =>
       type === "async"
-        ? v.getRule(_.split($rule, ":")[0])?.async
-        : !v.getRule(_.split($rule, ":")[0])?.async
+        ? v.getRule(split($rule, ":")[0])?.async
+        : !v.getRule(split($rule, ":")[0])?.async
     );
   }
 }
