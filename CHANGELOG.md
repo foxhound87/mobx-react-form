@@ -1,3 +1,7 @@
+# 6.12.5 (master)
+
+- Bundler optimizations
+
 # 6.12.4 (master)
 
 - Replace Webpack with Rollup
