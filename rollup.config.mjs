@@ -1,10 +1,11 @@
 import typescript from "@rollup/plugin-typescript";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import babel from "@rollup/plugin-babel";
+import alias from "@rollup/plugin-alias";
 import terser from "@rollup/plugin-terser";
 
 const external = ["mobx", /^lodash(\/|$)/];
+const esmExternal = ["mobx", /^lodash-es(\/|$)/];
 const umdExternal = ["mobx", "lodash"];
 const umdGlobals = { mobx: "mobx", lodash: "_" };
 
@@ -12,10 +13,8 @@ const tsOptions = (outDir, extra = {}) => ({
   compilerOptions: { module: "esnext", declaration: false, declarationMap: false, outDir, ...extra },
 });
 
-const babelPlugin = babel({
-  babelHelpers: "bundled",
-  plugins: ["lodash"],
-  extensions: [".ts"],
+const lodashToEsm = alias({
+  entries: [{ find: /^lodash$/, replacement: "lodash-es" }],
 });
 
 const libEntries = [
@@ -54,10 +53,7 @@ export default [
     },
     external,
     plugins: [
-      resolve(),
-      commonjs(),
       typescript(tsOptions("lib", { declaration: true, declarationMap: true, declarationDir: "lib" })),
-      babelPlugin,
     ],
   },
 
@@ -71,8 +67,8 @@ export default [
       preserveModulesRoot: "src",
       sourcemap: true,
     },
-    external,
-    plugins: [resolve(), commonjs(), typescript(tsOptions("lib/esm")), babelPlugin],
+    external: esmExternal,
+    plugins: [lodashToEsm, typescript(tsOptions("lib/esm"))],
   },
 
   // UMD (dev + min)
