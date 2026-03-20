@@ -1,3 +1,7 @@
+# 6.12.6 (master)
+
+- fix: umd bundler defaults exports
+
 # 6.12.5 (master)
 
 - Bundler optimizations
