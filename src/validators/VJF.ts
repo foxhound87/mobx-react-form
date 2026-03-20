@@ -17,7 +17,7 @@ function isPromise(obj: any): obj is Promise<any> {
   );
 }
 
-export class VJF<TValidator = any> implements ValidationPluginInterface<TValidator> {
+class VJF<TValidator = any> implements ValidationPluginInterface<TValidator> {
   promises: Promise<any>[];
   config: ValidationPluginConfig<TValidator>;
   state: StateInterface;

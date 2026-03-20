@@ -9,7 +9,7 @@ import {
   ValidationPluginInterface,
 } from "../models/ValidatorInterface";
 
-export class DVR<TValidator = any>
+class DVR<TValidator = any>
   implements ValidationPluginInterface<TValidator>
 {
   promises: Promise<any>[];

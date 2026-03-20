@@ -8,7 +8,7 @@
   </head>
   <body>
     <script src="https://unpkg.com/lodash@x.x.x/lodash.min.js"></script>
-    <script src="https://unpkg.com/mobx@x.x.x/lib/mobx.umd.js"></script>
+    <script src="https://unpkg.com/mobx@x.x.x/dist/mobx.umd.development.js"></script>
     <script src="umd/MobxReactForm.umd.min.js"></script>
     <script src="umd/MobxReactFormValidatorDVR.umd.min.js"></script>
     <script src="https://unpkg.com/validatorjs@x.x.x/dist/validator.js"></script>
@@ -45,7 +45,7 @@
       });
 
       console.log('form.values()', form.values()); // { email: "" }
-      console.log('form.errors()', form.errors()); // { email: "The Email format is invalid." }
+      console.log('form.errors()', form.errors()); // { email: "The Email field is required." }
     </script>
   </body>
 </html>

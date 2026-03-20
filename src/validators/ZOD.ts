@@ -10,7 +10,7 @@ import {
   ValidationPluginInterface,
 } from "../models/ValidatorInterface";
 
-export class ZOD<TValidator = any> implements ValidationPluginInterface {
+class ZOD<TValidator = any> implements ValidationPluginInterface {
   promises: Promise<any>[];
   config: ValidationPluginConfig;
   state: StateInterface;

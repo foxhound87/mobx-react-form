@@ -17,27 +17,18 @@ const lodashToEsm = alias({
   entries: [{ find: /^lodash$/, replacement: "lodash-es" }],
 });
 
-const libEntries = [
-  "src/index.ts",
-  "src/composer.ts",
-  "src/validators/VJF.ts",
-  "src/validators/DVR.ts",
-  "src/validators/SVK.ts",
-  "src/validators/YUP.ts",
-  "src/validators/JOI.ts",
-  "src/validators/ZOD.ts",
-];
-
 const umdEntries = {
-  MobxReactForm: "./src/index.ts",
-  MobxReactFormComposer: "./src/composer.ts",
-  MobxReactFormValidatorVJF: "./src/validators/VJF.ts",
-  MobxReactFormValidatorDVR: "./src/validators/DVR.ts",
-  MobxReactFormValidatorSVK: "./src/validators/SVK.ts",
-  MobxReactFormValidatorYUP: "./src/validators/YUP.ts",
-  MobxReactFormValidatorJOI: "./src/validators/JOI.ts",
-  MobxReactFormValidatorZOD: "./src/validators/ZOD.ts",
+  MobxReactForm: { input: "./src/index.ts", exports: "named" },
+  MobxReactFormComposer: { input: "./src/composer.ts", exports: "named" },
+  MobxReactFormValidatorVJF: { input: "./src/validators/VJF.ts", exports: "default" },
+  MobxReactFormValidatorDVR: { input: "./src/validators/DVR.ts", exports: "default" },
+  MobxReactFormValidatorSVK: { input: "./src/validators/SVK.ts", exports: "default" },
+  MobxReactFormValidatorYUP: { input: "./src/validators/YUP.ts", exports: "default" },
+  MobxReactFormValidatorJOI: { input: "./src/validators/JOI.ts", exports: "default" },
+  MobxReactFormValidatorZOD: { input: "./src/validators/ZOD.ts", exports: "default" },
 };
+
+const libEntries = Object.values(umdEntries).map(({ input }) => input);
 
 export default [
   // CJS — with declarations
@@ -72,16 +63,16 @@ export default [
   },
 
   // UMD (dev + min)
-  ...Object.entries(umdEntries).flatMap(([name, input]) => [
+  ...Object.entries(umdEntries).flatMap(([name, { input, exports: umdExports }]) => [
     {
       input,
-      output: { file: `umd/${name}.umd.js`, format: "umd", name, globals: umdGlobals, sourcemap: true },
+      output: { file: `umd/${name}.umd.js`, format: "umd", name, exports: umdExports, globals: umdGlobals, sourcemap: true },
       external: umdExternal,
       plugins: [resolve(), commonjs(), typescript(tsOptions("umd"))],
     },
     {
       input,
-      output: { file: `umd/${name}.umd.min.js`, format: "umd", name, globals: umdGlobals, sourcemap: true },
+      output: { file: `umd/${name}.umd.min.js`, format: "umd", name, exports: umdExports, globals: umdGlobals, sourcemap: true },
       external: umdExternal,
       plugins: [resolve(), commonjs(), typescript(tsOptions("umd")), terser()],
     },
