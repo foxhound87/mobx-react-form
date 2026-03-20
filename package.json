@@ -146,7 +146,7 @@
     "nyc": "^15.1.0",
     "rimraf": "2.5.4",
     "rollup": "^4.59.0",
-    "semantic-release": "^21.0.1",
+    "semantic-release": "^25.0.3",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5",
     "validator": "^13.7.0",
