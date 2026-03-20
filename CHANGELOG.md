@@ -1,3 +1,7 @@
+# 6.12.7 (master)
+
+- fix: Mobx error `Field not found.`
+
 # 6.12.6 (master)
 
 - fix: umd bundler defaults exports
