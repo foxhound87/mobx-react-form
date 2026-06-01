@@ -1,7 +1,7 @@
 import _ from "lodash";
 import simulateAsyncFindUserCall from "./_.async";
 
-const asyncRules = {
+const asyncRules: Record<string, (value: any, attr: string, key: string, passes: Function) => void> = {
   checkUser: (value, attr, key, passes) => {
     const msg = `Hey! The :attribute ${value} is already taken.`;
     // show error if the call does not returns entries
@@ -14,14 +14,7 @@ const asyncRules = {
   },
 };
 
-// const rules = {
-//   telephone: {
-//     function: value => value.match(/^\d{3}-\d{3}-\d{4}$/),
-//     message: 'The :attribute phone number is not in the format XXX-XXX-XXXX.',
-//   },
-// };
-
-export default ({ validator }) =>
+export default ({ validator }: { validator: any }) =>
   Object.keys(asyncRules).forEach((key) =>
     validator.registerAsync(key, asyncRules[key])
   );

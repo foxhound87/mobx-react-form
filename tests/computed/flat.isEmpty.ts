@@ -1,6 +1,7 @@
 import { expect } from 'chai';
+import { FormInterface } from "../../src/models/FormInterface";
 
-export default ($) => {
+export default ($: Record<string, FormInterface>) => {
   describe('Form isEmpty', () => {
     it('$A isEmpty should be false', () => expect($.$A.isEmpty).to.be.false);
     it('$B isEmpty should be true', () => expect($.$B.isEmpty).to.be.true);

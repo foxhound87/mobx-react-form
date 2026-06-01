@@ -1,8 +1,11 @@
 /**
   METHODS
 */
+import { FormInterface } from "../../src/models/FormInterface";
 import $set from "./forms/methods/form.set";
 
-export default {
+const forms: Record<string, FormInterface> = {
   $set,
 };
+
+export default forms;

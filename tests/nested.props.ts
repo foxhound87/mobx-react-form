@@ -1,12 +1,16 @@
 import { expect } from 'chai';
+import { FieldInterface } from "../src/models/FieldInterface";
+import { FormInterface } from "../src/models/FormInterface";
 
 import $ from './data/_.nested'; // FORMS
 
-const checkDeepPropEqual = (target, prop, path, value) =>
+
+
+const checkDeepPropEqual = (target: FormInterface | FieldInterface, prop: string | string[], path: string, value: any) =>
   it(`${target.state.form.name} get([${prop}]) ${path} should be equal to "${value}"`, () =>
     expect(target.get(prop)).to.have.deep.property(path, value));
 
-const checkDeepPropType = (target, prop, path, type) =>
+const checkDeepPropType = (target: FormInterface | FieldInterface, prop: string | string[], path: string, type: string) =>
   it(`${target.state.form.name} get([${prop}]) ${path} should be an "${type}"`, () =>
     expect(target.get(prop)).to.have.deep.property(path).that.is.an(type));
 

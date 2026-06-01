@@ -1,8 +1,10 @@
+import { FieldPropsType } from "../../../src/models/FieldProps";
+
 /**
   Fields Bindings
 */
 export default {
-  MaterialTextFieldTemplate: ({ field, props, $try }) => ({
+  MaterialTextFieldTemplate: ({ field, props, $try }: { field: any; props: FieldPropsType; $try: Function }) => ({
     type: $try(props.type, field.type),
     id: $try(props.id, field.id),
     name: $try(props.name, field.name),

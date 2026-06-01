@@ -1,8 +1,8 @@
 import _ from "lodash";
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export default (query: any = {}, ignoreCase?) => {
+export default (query: any = {}, ignoreCase?: boolean) => {
   // assume these usernames are in the database
   const db = [
     { user: "Claudio" },
@@ -10,7 +10,7 @@ export default (query: any = {}, ignoreCase?) => {
     { user: "Steve Jobs" },
   ];
 
-  const checkLowerCase = (o: any) =>
+  const checkLowerCase = (o: { user: string }) =>
     _.lowerCase(o.user) === _.lowerCase(query.user);
 
   return sleep(25).then(

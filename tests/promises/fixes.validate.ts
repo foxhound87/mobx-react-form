@@ -1,6 +1,7 @@
 import { expect } from "chai";
+import { FormInterface } from "../../src/models/FormInterface";
 
-export default ($) => {
+export default ($: Record<string, FormInterface>) => {
   describe("Fixes Form validate()", () => {
     // $L
     it("$L validate() should be false", (done) => {

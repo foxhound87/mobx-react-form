@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 
+import { FormInterface } from "../src/models/FormInterface";
 import $ from './data/_.nested'; // FORMS
+
 
 describe('Form error test', () => {
   it('$A select() should throw error', () =>

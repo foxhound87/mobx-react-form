@@ -1,21 +1,23 @@
 import simulateAsyncFindUserCall from "./_.async";
 
-const extend = {
+const extend: {
+  keywords: Record<string, any>;
+} = {
   keywords: {
     range: {
       type: "number",
-      compile: (sch, parentSchema) => {
+      compile: (sch: number[], parentSchema: { exclusiveRange?: boolean }) => {
         const min = sch[0];
         const max = sch[1];
 
         return parentSchema.exclusiveRange === true
-          ? (data) => data > min && data < max
-          : (data) => data >= min && data <= max;
+          ? (data: number) => data > min && data < max
+          : (data: number) => data >= min && data <= max;
       },
     },
     checkUser: {
       async: true,
-      validate: (field, value) =>
+      validate: (field: string, value: any) =>
         simulateAsyncFindUserCall({ [field]: value }).then(
           (items: any) => items.length === 0
         ),
@@ -24,7 +26,7 @@ const extend = {
   // formats: {},
 };
 
-export default ({ validator }) => {
+export default ({ validator }: { validator: any }) => {
   Object.keys(extend.keywords).forEach((key) =>
     validator.addKeyword(key, extend.keywords[key])
   );

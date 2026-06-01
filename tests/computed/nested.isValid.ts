@@ -1,6 +1,7 @@
 import { expect } from 'chai';
+import { FormInterface } from "../../src/models/FormInterface";
 
-export default ($) => {
+export default ($: Record<string, FormInterface>) => {
   describe('Nested Form isValid', () => {
     it('$A isValid should be false', () => expect($.$A.isValid).to.be.false);
     it('$R isValid should be true', () => expect($.$R.isValid).to.be.true);

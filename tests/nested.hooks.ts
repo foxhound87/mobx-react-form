@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 
+import { FormInterface } from "../src/models/FormInterface";
 import $ from './data/_.nested'; // FORMS
+
 
 describe('Check form onChange hook', () => {
     it('$V form changed should equal form $changed', () =>

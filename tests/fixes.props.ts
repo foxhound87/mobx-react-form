@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 
+import { FormInterface } from "../src/models/FormInterface";
 import $ from './data/_.fixes'; // FORMS
+
 
 describe('Check Fixes $E props check', () => {
   it('$formEmptyConstrcutor size should be equal 0', () =>

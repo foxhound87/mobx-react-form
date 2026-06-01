@@ -1,6 +1,8 @@
 import { expect } from "chai";
 
+import { FormInterface } from "../src/models/FormInterface";
 import $ from "./data/_.fixes"; // FORMS
+
 
 describe("Check Fixes $425 labels", () => {
   it("$425 labels() check", () =>

@@ -1,6 +1,7 @@
 import { expect } from 'chai';
+import { FormInterface } from "../../src/models/FormInterface";
 
-export default ($) => {
+export default ($: Record<string, FormInterface>) => {
   describe('Form hasError', () => {
     it('$A hasError should be false', () => expect($.$A.hasError).to.be.false);
     it('$B hasError should be true', () => expect($.$B.hasError).to.be.true);

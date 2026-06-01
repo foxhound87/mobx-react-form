@@ -3,7 +3,7 @@ import { hasUnifiedProps, hasSeparatedProps } from '../src/utils'
 
 describe('utils', () => {
 	it('Issue #598, hasUnifiedProps()', () => {
-		const fields = [
+		const fields: Array<{name: string, label?: string}> = [
 			{
 				name: 'field1'
 			},

@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 
+import { FormInterface } from "../src/models/FormInterface";
 import $ from './data/_.nested'; // FORMS
+
 
 describe('Form state extra', () => {
   it('$A state.$extra should have "foo" property', () =>

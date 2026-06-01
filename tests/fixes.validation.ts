@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 
+import { FormInterface } from "../src/models/FormInterface";
 import $ from './data/_.fixes'; // FORMS
+
 
 // $M
 describe('$M Check jobs[0] ', () => {

@@ -1,6 +1,7 @@
 /**
   FLAT
 */
+import { FormInterface } from "../../src/models/FormInterface";
 import $A from "./forms/flat/form.a";
 import $B from "./forms/flat/form.b";
 import $C from "./forms/flat/form.c";
@@ -19,7 +20,7 @@ import $Q from "./forms/flat/form.q";
 import $R from "./forms/flat/form.r";
 import $T from "./forms/flat/form.t";
 
-export default {
+const forms: Record<string, FormInterface> = {
   $A,
   $B,
   $C,
@@ -38,3 +39,5 @@ export default {
   $R,
   $T,
 };
+
+export default forms;

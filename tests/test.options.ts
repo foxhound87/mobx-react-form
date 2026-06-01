@@ -1,7 +1,9 @@
 import { expect } from "chai";
 
+import { FormInterface } from "../src/models/FormInterface";
 import $flat from "./data/_.flat"; // FORMS
 import $fixes from "./data/_.fixes"; // FORMS
+
 
 describe("Field values checks", () => {
   it('Fixes $A state.options.get(loadingMessage) should be equal to "Custom Loading Message..."', () =>

@@ -1,6 +1,8 @@
 import { expect, assert } from 'chai';
 
+import { FormInterface } from "../src/models/FormInterface";
 import $ from './data/_.flat'; // FORMS
+
 
 describe('$L Form', () => {
   it('$L username.value should be empty', () =>

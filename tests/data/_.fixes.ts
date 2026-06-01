@@ -1,6 +1,7 @@
 /**
   FIXES
 */
+import { FormInterface } from "../../src/models/FormInterface";
 import $formEmptyConstructor from "./forms/form.empty.constructor";
 import $formExtra from "./forms/form.extra";
 
@@ -51,7 +52,7 @@ import $531 from "./forms/fixes/form.531";
 import { form626a as $626a } from "./forms/fixes/form.626a";
 import { form626b as $626b } from "./forms/fixes/form.626b";
 
-export default {
+const forms: Record<string, FormInterface> = {
   $formEmptyConstructor,
   $formExtra,
   $A,
@@ -101,3 +102,5 @@ export default {
   $626a,
   $626b,
 };
+
+export default forms;

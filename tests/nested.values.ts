@@ -1,6 +1,8 @@
 import { expect } from "chai";
 
+import { FormInterface } from "../src/models/FormInterface";
 import $ from "./data/_.nested"; // FORMS
+
 
 describe("Check Nested $F Unified Properties (values)", () => {
   it("$F state.city id should be a string", () =>

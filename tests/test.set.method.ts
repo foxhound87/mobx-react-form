@@ -1,8 +1,11 @@
 import { expect } from "chai";
+import { FormInterface } from "../src/models/FormInterface";
 import $methods from "./data/_.methods"; // FORMS
 
 
 describe("after field set() method checks", () => {
+  const $ = $methods;
+
     it('disable prop should be true', () => expect($methods.$set.$('test').disabled).to.be.true);
     it('deleted prop should be true', () => expect($methods.$set.$('test').deleted).to.be.true);
     it('type prop should be true', () => expect($methods.$set.$('test').type).to.be.equal("number"));

@@ -1,6 +1,7 @@
 /**
   NESTED
 */
+import { FormInterface } from "../../src/models/FormInterface";
 import $A from "./forms/nested/form.a";
 import $A1 from "./forms/nested/form.a1";
 import $A2 from "./forms/nested/form.a2";
@@ -37,7 +38,7 @@ import $Z3 from "./forms/nested/form.z3";
 import $Z4 from "./forms/nested/form.z4";
 import $X from "./forms/nested/form.x";
 
-export default {
+const forms: Record<string, FormInterface> = {
   $A,
   $A1,
   $A2,
@@ -74,3 +75,5 @@ export default {
   $Z4,
   $X,
 };
+
+export default forms;

@@ -1,20 +1,21 @@
 import _ from 'lodash';
 import { expect, assert } from 'chai';
 
+import { FormInterface } from "../src/models/FormInterface";
 import $forms from './data/_.flat'; // FORMS
 
 
-const checkHelperIsObject = helper =>
-  _.each($forms, (form, key) => it(`${key} ${helper}() is object`, () =>
-    assert.isObject(form[helper](), `${key}.${helper}() is not object`)));
+const checkHelperIsObject = (helper: string) =>
+  _.each($forms, (form: FormInterface, key: string) => it(`${key} ${helper}() is object`, () =>
+    assert.isObject((form as any)[helper](), `${key}.${helper}() is not object`)));
 
-const checkComputedIsBoolean = computed =>
-  _.each($forms, (form, key) => it(`${key} ${computed} is boolean`, () =>
-    assert.isBoolean(form[computed], `${key}.${computed} is not boolean`)));
+const checkComputedIsBoolean = (computed: string) =>
+  _.each($forms, (form: FormInterface, key: string) => it(`${key} ${computed} is boolean`, () =>
+    assert.isBoolean((form as any)[computed], `${key}.${computed} is not boolean`)));
 
-const checkComputedIsNumber = computed =>
-  _.each($forms, (form, key) => it(`${key} ${computed} is numbser`, () =>
-    assert.isNumber(form[computed], `${key}.${computed} is not numbser`)));
+const checkComputedIsNumber = (computed: string) =>
+  _.each($forms, (form: FormInterface, key: string) => it(`${key} ${computed} is numbser`, () =>
+    assert.isNumber((form as any)[computed], `${key}.${computed} is not numbser`)));
 
 
 describe('Check validate() returns promise that resolves to boolean', () => {

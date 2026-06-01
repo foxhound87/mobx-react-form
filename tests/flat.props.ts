@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 
+import { FormInterface } from "../src/models/FormInterface";
 import $ from './data/_.flat'; // FORMS
+
 
 describe('Check Flat $A placeholder field prop', () => {
   it('$A username placeholder should be equal to "Username Placeholder"', () =>

@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 
+import { FormInterface } from "../src/models/FormInterface";
 import $ from './data/_.nested'; // FORMS
+
 
 describe('Check Nested $A Unified Properties (label)', () => {
   it('$A user.email label should be equal to "Email"', () =>

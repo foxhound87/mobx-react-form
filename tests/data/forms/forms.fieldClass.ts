@@ -1,4 +1,5 @@
 import { Form, Field } from "../../../src";
+import { FieldConstructor } from "../../../src/models/FieldInterface";
 
 export enum FieldPaths {
   standardField = "standardField",
@@ -52,7 +53,7 @@ export class OverrideForm extends Form {
     };
   }
 
-  makeField(data, FieldClass) {
+  makeField(data: FieldConstructor, FieldClass: typeof Field = Field) {
     switch (data.path) {
       case FieldPaths.nestedCustomField: {
         return new OverrideCustomField(data);
