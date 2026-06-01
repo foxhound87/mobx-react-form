@@ -1,0 +1,17 @@
+import { expect } from 'chai';
+
+import { FormInterface } from "../../src/models/FormInterface";
+import $ from '../fixtures/_.nested'; // FORMS
+
+
+describe('Nested Form Manual submit()', () => {
+  // $R
+  it('$R.submit() should call onSuccess callback', (done) => {
+    $.$R.$('members').submit().then((instance) => {
+      expect(instance.submitted).to.equal(1);
+      expect(instance.hasError).to.be.false;
+      expect(instance.isValid).to.be.true;
+      done();
+    });
+  });
+});

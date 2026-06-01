@@ -61,7 +61,7 @@
     "commit": "git-cz && git push origin",
     "watch:build": "rollup -c rollup.config.mjs --watch",
     "watch:test": "npm run test -- -w",
-    "test": "cross-env TEST=true mocha -r ts-node/register ./tests/*.ts",
+    "test": "cross-env TEST=true TS_NODE_TRANSPILE_ONLY=true mocha -r ts-node/register ./tests/integration/*.ts ./tests/unit/*.ts",
     "cover": "nyc npm test",
     "coverage:check": "nyc check-coverage --satements 95 --branches 80 --functions 86 --lines 90",
     "coverage:report": "mkdir -p coverage && nyc --report-dir=coverage report --reporter=lcov > ./coverage/lcov.info",

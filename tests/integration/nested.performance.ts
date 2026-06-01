@@ -1,0 +1,17 @@
+import { expect } from 'chai';
+
+import { FormInterface } from "../../src/models/FormInterface";
+import $ from '../fixtures/_.nested'; // FORMS
+
+
+// describe('Form performance', () => {
+//
+//   it('DVR enabled', () => {
+//     const t0 = Date.now();
+//
+//     $.$Z.submit();
+//     const span = Date.now() - t0;
+//     expect(span).lessThan(5000);
+//   });
+//
+// });
