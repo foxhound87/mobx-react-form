@@ -1,4 +1,4 @@
-import { ValidationPlugins } from "./../../../../src/models/ValidatorInterface";
+import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
 import validatorjs from "validatorjs";
 import { Form } from "../../../src";
 import dvrExtend from "../extension/dvr";

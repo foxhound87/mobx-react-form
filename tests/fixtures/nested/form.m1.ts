@@ -1,4 +1,4 @@
-import { ValidationPlugins } from "./../../../../src/models/ValidatorInterface";
+import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
 import * as yup from "yup";
 import { Form } from "../../../src";
 import $yup from "../../../src/validators/YUP";

@@ -1,4 +1,4 @@
-import { ValidationPlugins } from "./../../../../src/models/ValidatorInterface";
+import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
 import { expect } from "chai";
 import validatorjs from "validatorjs";
 import { Form } from "../../../src";

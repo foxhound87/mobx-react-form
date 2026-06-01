@@ -1,4 +1,4 @@
-import { ValidationPlugins } from "./../../../../src/models/ValidatorInterface";
+import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
 import { Form } from "../../../src";
 import { isInt } from "../extension/vjf";
 import vjf from "../../../src/validators/VJF";

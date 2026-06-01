@@ -1,4 +1,4 @@
-import { ValidationPlugins } from "./../../../../src/models/ValidatorInterface";
+import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
 import validatorjs from "validatorjs";
 import MobxReactForm from "../../../src";
 import dvr from "../../../src/validators/DVR";

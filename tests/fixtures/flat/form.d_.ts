@@ -1,4 +1,4 @@
-import { ValidationPlugins } from "./../../../../src/models/ValidatorInterface";
+import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
 import ajv from "ajv";
 import { Form } from "../../../src";
 import svkExtend from "../extension/svk";
