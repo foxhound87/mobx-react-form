@@ -33,7 +33,7 @@
 - Functional [Computed Field Props](https://foxhound87.github.io/mobx-react-form/docs/extra/computed-props.html)
 - Field Props [Observers & Interceptors](https://foxhound87.github.io/mobx-react-form/docs/extra/mobx-events.html)
 - Field [Props Bindings](https://foxhound87.github.io/mobx-react-form/docs/bindings) for custom Components.
-- Support for Material UI, React Widgets, React Select & more.
+- Support for Material UI, Ant Design, React Widgets, React Select, React Aria, Headless UI & more.
 - [Forms Composer](https://foxhound87.github.io/mobx-react-form/docs/extra/composer.html): to handle multi-forms submit, validations and other actions
 - Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
 
