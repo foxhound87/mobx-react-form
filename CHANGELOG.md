@@ -1,6 +1,9 @@
 # 6.13.0 (master)
 
 - feat: add generics to Form&lt;F&gt; and Field&lt;T&gt; for type-safe field access
+- feat: enable strictNullChecks across all source files
+- fix: resolve all noImplicitAny errors across source files
+- chore: enable strictFunctionTypes, alwaysStrict, strictBindCallApply, noImplicitThis, useUnknownInCatchVariables, strictPropertyInitialization
 
 # 6.12.7 (master)
 
