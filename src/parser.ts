@@ -171,7 +171,7 @@ TO:
 }]
 
 */
-const mapNestedValuesToUnifiedValues = (data: object): any =>
+const mapNestedValuesToUnifiedValues = (data: Record<string, any>): any =>
   isPlainObject(data)
     ? map(data, (value, name) => ({ value, name }))
     : undefined;
@@ -205,7 +205,7 @@ TO:
 };
 
 */
-const reduceValuesToUnifiedFields = (values: object): object =>
+const reduceValuesToUnifiedFields = (values: Record<string, any>): Record<string, any> =>
   transform(
     values,
     (obj, value, key) =>

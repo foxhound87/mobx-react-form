@@ -55,13 +55,13 @@ class YUP<TValidator = any> implements ValidationPluginInterface {
     });
   }
   // Gestione dei successi della validazione asincrona
-  private handleAsyncPasses(field: any, resolve: Function): void {
+  private handleAsyncPasses(field: any, resolve: (value?: undefined) => void): void {
     field.setValidationAsyncData(true);
     resolve();
   }
 
   // Gestione dei fallimenti della validazione asincrona
-  private handleAsyncFails(field: any, resolve: Function, error: any): void {
+  private handleAsyncFails(field: any, resolve: (value?: undefined) => void, error: any): void {
     // Yup a volte restituisce errori senza path (es. array vuoti)
     const isSameField = error.path === field.path || error.path === undefined;
 

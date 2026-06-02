@@ -56,7 +56,7 @@ class VJF<TValidator = any> implements ValidationPluginInterface<TValidator> {
     this.executeValidation(field);
   }
 
-  collectData(fn: Function, field: FieldInterface): void {
+  collectData(fn: (args: { validator: TValidator; form: FormInterface; field: FieldInterface }) => [boolean, string] | Promise<[boolean, string]>, field: FieldInterface): void {
     const result = this.handleFunctionResult(fn, field);
 
     if (isPromise(result)) {
@@ -88,7 +88,7 @@ class VJF<TValidator = any> implements ValidationPluginInterface<TValidator> {
     }
   }
 
-  handleFunctionResult(fn: Function, field: FieldInterface): [boolean, string] | Promise<[boolean, string]> {
+  handleFunctionResult(fn: (args: { validator: TValidator; form: FormInterface; field: FieldInterface }) => [boolean, string] | Promise<[boolean, string]>, field: FieldInterface): [boolean, string] | Promise<[boolean, string]> {
     const result = fn({
       validator: this.validator,
       form: this.state!.form,

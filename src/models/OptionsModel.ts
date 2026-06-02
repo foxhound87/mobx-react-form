@@ -46,7 +46,7 @@ export enum OptionsEnum {
 }
 
 export interface OptionsModel {
-  [OptionsEnum.uniqueId]?: Function;
+  [OptionsEnum.uniqueId]?: (field: any) => string | undefined;
   [OptionsEnum.fallback]?: boolean;
   [OptionsEnum.fallbackValue]?: any;
   [OptionsEnum.defaultGenericError]?: null | string;

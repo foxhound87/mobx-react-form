@@ -9,17 +9,17 @@ export const composer = (forms: { [key in string]: FormInterface }) => {
 
     const check = (prop: string): any => Object
         .entries(forms)
-        .reduce((acc: object, entry: any) =>
+        .reduce((acc: Record<string, any>, entry: any) =>
             Object.assign(acc, {
                 [entry[0]]: (entry[1] as FormInterface).check(prop)
-            }), {});
+            }), {} as Record<string, any>);
 
     const get = (prop: string): any => Object
         .entries(forms)
-        .reduce((acc: object, entry: any) =>
+        .reduce((acc: Record<string, any>, entry: any) =>
             Object.assign(acc, {
                 [entry[0]]: (entry[1] as FormInterface).get(prop)
-            }), {});
+            }), {} as Record<string, any>);
 
     const valid = () => (Object.values(check(FieldPropsEnum.isValid)) as boolean[])
        .every((val: boolean) => val === true);

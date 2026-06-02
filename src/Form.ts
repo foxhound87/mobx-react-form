@@ -24,7 +24,7 @@ import { OptionsEnum } from "./models/OptionsModel";
 
 export default class Form<F extends Record<string, any> = Record<string, any>> extends Base<F> implements FormInterface<F> {
   name: string;
-  path: any = null;
+  override path: any = null;
   extra: Record<string, any> = {};
   validator: ValidatorInterface;
 
@@ -127,12 +127,12 @@ export default class Form<F extends Record<string, any> = Record<string, any>> e
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
 
-  get validatedValues(): object {
+  get validatedValues(): Record<string, any> {
     console.warn("validatedValues is deprecated, use flatMapValues instead.");
     return this.flatMapValues;
   }
 
-  get flatMapValues(): object {
+  get flatMapValues(): Record<string, any> {
     const data: any = {};
     this.each(($field: any) => (data[$field.path] = $field.validatedValue));
     return data;
@@ -182,11 +182,11 @@ export default class Form<F extends Record<string, any> = Record<string, any>> e
     return new FieldClass(data);
   }
 
-  $(key: keyof F): Field<F[keyof F]> {
+  override $(key: keyof F): Field<F[keyof F]> {
     return super.$(key as string) as Field<F[keyof F]>;
   }
 
-  values(): { [K in keyof F]?: F[K] } {
+  override values(): { [K in keyof F]?: F[K] } {
     return super.values() as { [K in keyof F]?: F[K] };
   }
 

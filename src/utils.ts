@@ -18,7 +18,7 @@ const checkObserveItem =
     change.newValue === to &&
     exec.apply(change, [change]);
 
-const checkObserve = (collection: object[]) => (change: any) =>
+const checkObserve = (collection: Record<string, any>[]) => (change: any) =>
   collection.map(checkObserveItem(change));
 
 const checkPropOccurrence = ({ type, data }: any): boolean => {

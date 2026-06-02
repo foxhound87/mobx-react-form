@@ -502,7 +502,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
       if (!isNil($field) && !isUndefined(field)) {
         if (Array.isArray($field.values())) {
           const n: number =
-            max(map(field.fields, (f, i) => Number(i))) ?? -1;
+            max(map(field.fields, (_, i) => Number(i))) ?? -1;
           getObservableMapValues($field.fields).forEach(($f) => {
             if (Number($f.name) > n) {
               $field.$changed++;

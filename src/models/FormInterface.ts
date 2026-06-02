@@ -61,7 +61,7 @@ export interface FieldsDefinitions {
   autoFocus?: any;
   inputMode?: any;
   refs?: any;
-  classes?: object;
+  classes?: Record<string, any>;
   nullable?: any;
   converters?: any;
 }

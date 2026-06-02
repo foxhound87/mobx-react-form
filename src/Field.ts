@@ -646,7 +646,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
   setupField(
     $key: string,
     $path: string | undefined | null,
-    $struct: string | undefined | null,
+    _$struct: string | undefined | null,
     $data: any,
     $props: any,
     update: boolean,
@@ -1002,7 +1002,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
     };
   }
 
-  update(fields: any): void {
+  override update(fields: any): void {
     if (!isPlainObject(fields)) {
       throw new Error("The update() method accepts only plain objects.");
     }
