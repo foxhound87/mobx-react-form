@@ -23,11 +23,11 @@ const fields = {
 };
 
 const input = {
-  "club": (value) => (value === null ? "" : value),
+  club: (value) => (value === null ? "" : value),
   "memebers[].firstname": (value) => (value === null ? "" : value),
   "memebers[].yearOfBirth": (value) => (value === null ? "" : value),
   "memebers[].hobbies[]": (value) => (value === null ? "" : value),
-}
+};
 
 const labels = {
   club: "The Club",
@@ -47,7 +47,7 @@ const schema = (y) =>
         lastname: y.string().required(),
         yearOfBirth: y.number().required().positive().integer().nullable(),
         hobbies: y.array().of(y.string().required().nullable()),
-      })
+      }),
     ),
   });
 
@@ -64,5 +64,5 @@ const options: OptionsModel = {
 
 export default new Form(
   { fields, labels, input },
-  { plugins, options, name: "Nested-M1" }
+  { plugins, options, name: "Nested-M1" },
 );

@@ -18,6 +18,7 @@ import {
   FormInterface,
   FieldsDefinitions,
   FormConfig,
+  PathsOf,
 } from "./models/FormInterface";
 import { FieldPropsEnum } from "./models/FieldProps";
 import { OptionsEnum } from "./models/OptionsModel";
@@ -184,21 +185,20 @@ export default class Form<F extends Record<string, any> = Record<string, any>> e
 
   /**
    * Select a field by key with type inference.
-   * Provides autocomplete for field keys when the form is typed with a generic `F`.
+   * Provides transparent autocomplete for both top-level keys (`keyof F`)
+   * AND nested paths (`PathsOf<F>`) without any type annotations needed.
    *
    * @example
-   * // Top-level keys get autocomplete from keyof F:
+   * // Top-level keys — autocomplete from keyof F:
    * form.$('username'); // returns Field<string>
    *
    * @example
-   * // For nested paths, use the `PathsOf` utility type:
-   * import { PathsOf } from 'mobx-react-form';
-   *
-   * function getField(form: Form<NestedClubFields>, path: PathsOf<NestedClubFields>) {
-   *   return form.$(path); // path autocompletes to "club" | "club.name" | "members[].firstname" | ...
-   * }
+   * // Nested paths — autocomplete from PathsOf<F>:
+   * form.$('club');                // "club"
+   * form.$('club.name');           // "club.name"  ← autocomplete after dot!
+   * form.$('members[].firstname'); // "members[].firstname"
    */
-  override $(key: keyof F): Field<F[keyof F]> {
+  override $(key: keyof F | PathsOf<F>): Field<F[keyof F]> {
     return super.$(key as string) as Field<F[keyof F]>;
   }
 
