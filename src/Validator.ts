@@ -16,7 +16,7 @@ import { OptionsEnum } from "./models/OptionsModel";
 export default class Validator implements ValidatorInterface {
   promises: Promise<any>[] = [];
 
-  form: FormInterface = null;
+  form: FormInterface | null = null;
 
   drivers: DriversMap = {};
 
@@ -49,7 +49,7 @@ export default class Validator implements ValidatorInterface {
         (this.drivers[key] = (plugin && plugin.class) &&
           new plugin.class({
             config: plugin.config,
-            state: this.form.state,
+            state: this.form!.state,
             promises: this.promises,
           }))
   );
@@ -57,7 +57,7 @@ export default class Validator implements ValidatorInterface {
 
   validate(opt: ValidateOptions, obj: ValidateOptions): Promise<any> {
     const path: string = $try((opt as any)?.path, opt);
-    const instance = $try((opt as any)?.field, this.form.select(path, null, false), this.form);
+    const instance = $try((opt as any)?.field, this.form!.select(path, null, false), this.form!);
     const related: boolean = $try((opt as any)?.related, (obj as any)?.related, true);
     const showErrors: boolean = $try((opt as any)?.showErrors, (obj as any)?.showErrors, false);
     instance.$validating = true;
@@ -113,8 +113,8 @@ export default class Validator implements ValidatorInterface {
     field = null,
     path,
   }: { showErrors?: boolean; related?: boolean; field?: any; path?: any }): void {
-    const instance = field || this.form.select(path);
-    const { options } = this.form.state;
+    const instance = field || this.form!.select(path);
+    const { options } = this.form!.state;
     // check if the field is a valid instance
     if (!instance.path) throw new Error("Validation Error: Invalid Field Instance");
     // do not validate soft deleted fields

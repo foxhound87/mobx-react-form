@@ -214,7 +214,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
   $blurred: boolean = false;
   $deleted: boolean = false;
   $autoFocus: boolean = false;
-  $inputMode: string = undefined;
+  $inputMode: string | undefined = undefined;
   $ref: any = undefined;
   $nullable: boolean = false;
   $autoComplete: string | undefined = undefined;
@@ -378,7 +378,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
     }
   }
 
-  handleSetNumberValue(newVal: any): boolean {
+  handleSetNumberValue(newVal: any): boolean | undefined {
     if (!this.state.options.get(OptionsEnum.autoParseNumbers, this))
       return false;
 
@@ -498,7 +498,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
     return parseCheckOutput(this, this.validatedWith);
   }
 
-  get error(): string {
+  get error(): string | null {
     if (this.showError === false) return null;
     return this.errorAsync || this.errorSync || null;
   }
@@ -645,8 +645,8 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
 
   setupField(
     $key: string,
-    $path: string,
-    $struct: string,
+    $path: string | undefined | null,
+    $struct: string | undefined | null,
     $data: any,
     $props: any,
     update: boolean,
@@ -663,7 +663,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
       this,
     );
     const struct: string[] = this.state.struct();
-    const structPath: string = pathToStruct(this.path);
+    const structPath: string = pathToStruct(this.path ?? "");
     const isEmptyArray: boolean = isArrayFromStruct(struct, structPath);
 
     const { $type, $input, $output, $converter, $converters, $computed } =
@@ -1014,7 +1014,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
     const x = this.state
       .struct()
       .findIndex((s) =>
-        s.startsWith(this.path.replace(/\.\d+\./, "[].") + "[]"),
+        s.startsWith((this.path ?? "").replace(/\.\d+\./, "[].") + "[]"),
       );
     if (!fallback && this.fields.size === 0 && x < 0) {
       this.value = parseInput(

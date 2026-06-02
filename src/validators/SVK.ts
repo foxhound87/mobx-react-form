@@ -20,7 +20,7 @@ function isPromise(obj: any): obj is Promise<any> {
 class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
   promises: Promise<any>[];
   config: ValidationPluginConfig<TValidator>;
-  state: StateInterface;
+  state: StateInterface | null;
   extend?: (args: { validator: TValidator; form: FormInterface }) => void;
   validator: any;
   schema: any;
@@ -54,7 +54,7 @@ class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
 
     if (typeof this.extend === "function") {
       this.extend({
-        form: this.state.form,
+        form: this.state!.form,
         validator: validatorInstance,
       });
     }
@@ -79,7 +79,7 @@ class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
   }
 
   handleSyncError(field: FieldInterface, errors: any[]): void {
-    const fieldError = this.findError(field.path, errors);
+    const fieldError = this.findError(field.path ?? '', errors);
     if (!fieldError) return;
 
     const message = `${field.label} ${fieldError.message}`;
@@ -87,7 +87,7 @@ class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
   }
 
   handleAsyncError(field: FieldInterface, errors: any[]): void {
-    const fieldError = this.findError(field.path, errors);
+    const fieldError = this.findError(field.path ?? '', errors);
     if (!fieldError) return;
 
     const message = `${field.label} ${fieldError.message}`;
@@ -106,7 +106,7 @@ class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
 
   executeAsyncValidation(field: FieldInterface): void {
     if (field.validationAsyncData.valid === false) {
-      field.invalidate(field.validationAsyncData.message, false, true);
+      field.invalidate(field.validationAsyncData.message ?? undefined, false, true);
     }
   }
 }

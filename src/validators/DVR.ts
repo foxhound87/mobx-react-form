@@ -14,7 +14,7 @@ class DVR<TValidator = any>
 {
   promises: Promise<any>[];
   config: any;
-  state: StateInterface;
+  state: StateInterface | null;
   extend?: (args: { validator: TValidator; form: FormInterface }) => void;
   validator: TValidator;
   schema?: any;
@@ -35,27 +35,27 @@ class DVR<TValidator = any>
     if (typeof this.extend === "function") {
       this.extend({
         validator: this.validator,
-        form: this.state.form,
+        form: this.state!.form,
       });
     }
   }
 
   validate(field: FieldInterface) {
-    const data = this.state.form.flatMapValues;
+    const data = this.state!.form.flatMapValues;
     this.validateFieldAsync(field, data);
     this.validateFieldSync(field, data);
   }
 
   makeLabels(validation: any, field: FieldInterface) {
-    const labels = { [field.path]: field.label };
-    forIn(validation.rules[field.path], (rule) => {
+    const labels: Record<string, any> = { [field.path ?? ""]: field.label };
+    forIn(validation.rules[field.path ?? ""], (rule) => {
       if (
         typeof rule.value === "string" &&
         rule.name.match(/^(required_|same|different)/)
       ) {
         forIn(rule.value.split(","), (p, i: any) => {
           if (!rule.name.match(/^required_(if|unless)/) || i % 2 === 0) {
-            const f = this.state.form.$(p);
+            const f = this.state!.form.$(p);
             if (f && f.path && f.label) {
               labels[f.path] = f.label;
             }
@@ -65,7 +65,7 @@ class DVR<TValidator = any>
         typeof rule.value === "string" &&
         rule.name.match(/^(before|after)/)
       ) {
-        const f = this.state.form.$(rule.value);
+        const f = this.state!.form.$(rule.value);
         if (f && f.path && f.label) {
           labels[f.path] = f.label;
         }
@@ -77,7 +77,7 @@ class DVR<TValidator = any>
   validateFieldSync(field: FieldInterface, data: any) {
     const $rules = this.rules(field.rules, "sync");
     if (isEmpty($rules[0])) return;
-    const rules = { [field.path]: $rules };
+    const rules = { [field.path ?? ""]: $rules };
     const validation = new (this.validator as any)(data, rules);
     this.makeLabels(validation, field);
     if (validation.passes()) return;
@@ -87,7 +87,7 @@ class DVR<TValidator = any>
   validateFieldAsync(field: FieldInterface, data: any) {
     const $rules = this.rules(field.rules, "async");
     if (isEmpty($rules[0])) return;
-    const rules = { [field.path]: $rules };
+    const rules = { [field.path ?? ""]: $rules };
     const validation = new (this.validator as any)(data, rules);
     this.makeLabels(validation, field);
 
@@ -121,7 +121,7 @@ class DVR<TValidator = any>
 
   executeAsyncValidation(field: FieldInterface) {
     if (field.validationAsyncData.valid === false) {
-      field.invalidate(field.validationAsyncData.message, false, true);
+      field.invalidate(field.validationAsyncData.message ?? undefined, false, true);
     }
   }
 

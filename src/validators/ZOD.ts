@@ -13,7 +13,7 @@ import {
 class ZOD<TValidator = any> implements ValidationPluginInterface {
   promises: Promise<any>[];
   config: ValidationPluginConfig;
-  state: StateInterface;
+  state: StateInterface | null;
   extend?: (args: { validator: TValidator; form: FormInterface }) => void;
   validator: any;
   schema: ZodSchema<any>;
@@ -37,7 +37,7 @@ class ZOD<TValidator = any> implements ValidationPluginInterface {
     if (typeof this.extend === "function") {
       this.extend({
         validator: this.validator,
-        form: this.state.form,
+        form: this.state!.form,
       });
     }
   }
@@ -49,7 +49,7 @@ class ZOD<TValidator = any> implements ValidationPluginInterface {
 
     const fieldErrors = get(
       (result as any).error.format(),
-      field.path
+      field.path ?? ""
     )?._errors;
 
     if (fieldErrors?.length) {

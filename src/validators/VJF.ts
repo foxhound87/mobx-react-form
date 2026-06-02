@@ -20,7 +20,7 @@ function isPromise(obj: any): obj is Promise<any> {
 class VJF<TValidator = any> implements ValidationPluginInterface<TValidator> {
   promises: Promise<any>[];
   config: ValidationPluginConfig<TValidator>;
-  state: StateInterface;
+  state: StateInterface | null;
   extend?: (args: { validator: TValidator; form: FormInterface }) => void;
   validator: TValidator;
 
@@ -41,7 +41,7 @@ class VJF<TValidator = any> implements ValidationPluginInterface<TValidator> {
     if (typeof this.extend === "function") {
       this.extend({
         validator: this.validator,
-        form: this.state.form,
+        form: this.state!.form,
       });
     }
   }
@@ -84,14 +84,14 @@ class VJF<TValidator = any> implements ValidationPluginInterface<TValidator> {
 
   executeAsyncValidation(field: FieldInterface): void {
     if (field.validationAsyncData.valid === false) {
-      field.invalidate(field.validationAsyncData.message, false, true);
+      field.invalidate(field.validationAsyncData.message ?? undefined, false, true);
     }
   }
 
   handleFunctionResult(fn: Function, field: FieldInterface): [boolean, string] | Promise<[boolean, string]> {
     const result = fn({
       validator: this.validator,
-      form: this.state.form,
+      form: this.state!.form,
       field,
     });
 

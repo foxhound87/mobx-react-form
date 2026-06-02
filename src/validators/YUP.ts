@@ -10,7 +10,7 @@ import StateInterface from "../models/StateInterface";
 class YUP<TValidator = any> implements ValidationPluginInterface {
   promises: Promise<any>[] = [];
   config: ValidationPluginConfig<TValidator>;
-  state: StateInterface;
+  state: StateInterface | null;
   extend?: (args: { validator: TValidator; form: FormInterface }) => void;
   validator: TValidator;
   schema: any;
@@ -33,7 +33,7 @@ class YUP<TValidator = any> implements ValidationPluginInterface {
     if (typeof this.extend === 'function') {
       this.extend({
         validator: this.validator,
-        form: this.state.form,
+        form: this.state!.form,
       });
     }
   }
@@ -48,7 +48,7 @@ class YUP<TValidator = any> implements ValidationPluginInterface {
   private createValidationPromise(field: any): Promise<any> {
     return new Promise((resolve) => {
       this.schema
-        .validateAt(field.path, this.state.form.values(), { strict: true })
+        .validateAt(field.path, this.state!.form.values(), { strict: true })
         .then(() => this.handleAsyncPasses(field, resolve))
         .catch((error: any) => this.handleAsyncFails(field, resolve, error));
     });

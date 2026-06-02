@@ -11,7 +11,7 @@ import {
 class JOI<TValidator = any> implements ValidationPluginInterface<TValidator> {
   promises: Promise<any>[];
   config: ValidationPluginConfig<TValidator>;
-  state: StateInterface;
+  state: StateInterface | null;
   extend?: (args: { validator: TValidator; form: FormInterface }) => void;
   validator: TValidator;
   schema: any;
@@ -34,18 +34,18 @@ class JOI<TValidator = any> implements ValidationPluginInterface<TValidator> {
     if (typeof this.extend === "function") {
       this.extend({
         validator: this.validator,
-        form: this.state.form,
+        form: this.state!.form,
       });
     }
   }
 
   validate(field: FieldInterface): void {
-    const data = this.state.form.flatMapValues;
+    const data = this.state!.form.flatMapValues;
     const { error } = this.schema.validate(data, { abortEarly: false });
 
     if (!error) return;
 
-    const fieldPathArray = field.path.split(".");
+    const fieldPathArray = (field.path ?? "").split(".");
 
     const fieldErrors = error.details
       .filter((detail: any) => {

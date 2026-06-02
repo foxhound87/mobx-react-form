@@ -493,7 +493,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
       const $field = this.select($path, null, strictUpdate);
       const $container =
         this.select(path, null, false) ||
-        this.state.form.select(this.path, null, false);
+        this.state.form.select(this.path ?? '', null, false);
       const applyInputConverterOnUpdate = this.state.options.get(
         OptionsEnum.applyInputConverterOnUpdate,
         this
@@ -824,7 +824,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
 
     const $path = ($key: string) =>
       trimStart([this.path, $key].join("."), ".");
-    const tree = pathToFieldsTree(this.state.struct(), this.path, 0, true);
+    const tree = pathToFieldsTree(this.state.struct(), this.path ?? '', 0, true);
     const field = this.initField(key, $path(key), merge(tree[0], obj));
     const hasValues =
       has(obj, FieldPropsEnum.value) || has(obj, FieldPropsEnum.fields);
@@ -865,8 +865,8 @@ export default abstract class Base<F extends Record<string, any> = Record<string
    */
   del($path: string | null = null, execEvent: boolean = true) {
     const isStrict = this.state.options.get(OptionsEnum.strictDelete, this);
-    const path = parsePath($path ?? this.path);
-    const fullpath = trim([this.path, path].join("."), ".");
+    const path = parsePath($path ?? this.path ?? '');
+    const fullpath = trim([this.path ?? '', path ?? ''].join("."), ".");
     const container = this.container($path);
     const keys = split(path, ".");
     const lastKey = last(keys);
@@ -904,7 +904,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   }: any): void {
     let $prop = key || prop;
     allowedProps(AllowedFieldPropsTypes.observable, [$prop]);
-    const $instance = this.select(path || this.path, null, null) || this;
+    const $instance = this.select(path || this.path, null, false) || this;
 
     const $call = (change: any) =>
       call.apply(null, [
@@ -950,12 +950,12 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   /**
     Dispose All Events (observe/intercept)
    */
-  disposeAll(): null {
+  disposeAll(): void {
     const dispose = (disposer: any) => disposer.apply();
     each(this.state.disposers.interceptor, dispose);
     each(this.state.disposers.observer, dispose);
     this.state.disposers = { interceptor: {}, observer: {} };
-    return null;
+    return;
   }
 
   /**
@@ -1007,8 +1007,8 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   /**
     Get Container
    */
-  container($path: string) {
-    const path = parsePath($path ?? this.path);
+  container($path: string | null) {
+    const path = parsePath($path ?? this.path ?? '');
     const cpath = trim(path.replace(new RegExp("[^./]+$"), ""), ".");
 
     if (!!this.path && isNil($path)) {

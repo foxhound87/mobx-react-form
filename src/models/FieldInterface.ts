@@ -60,8 +60,8 @@ export interface FieldInterface<T = any> extends BaseInterface {
   // methods: {
   setupField(
     key: string,
-    path: string,
-    struct: string,
+    path: string | undefined | null,
+    struct: string | undefined | null,
     data: any,
     props: any,
     update: boolean

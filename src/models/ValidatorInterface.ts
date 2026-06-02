@@ -5,7 +5,7 @@ import { FormInterface } from "./FormInterface";
 import { StateInterface } from "./StateInterface";
 
 export interface ValidatorConstructor {
-  form: FormInterface;
+  form: FormInterface | null;
   plugins: ValidationPlugins;
 }
 
@@ -20,7 +20,7 @@ export type ValidateOptions = string | ValidateOptionsInterface | Form | Field;
 
 export interface ValidatorInterface {
   promises: Promise<any>[];
-  form: FormInterface;
+  form: FormInterface | null;
   drivers: any;
   plugins: ValidationPlugins;
   error: string | null;
@@ -46,7 +46,7 @@ export interface ValidationPluginConfig<TValidator = ValidationPackage> {
 
 export interface ValidationPluginConstructor<TValidator = ValidationPackage> {
   config: ValidationPluginConfig<TValidator>;
-  state: StateInterface;
+  state: StateInterface | null;
   promises: Promise<unknown>[];
 }
 
