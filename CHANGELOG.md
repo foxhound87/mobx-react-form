@@ -4,6 +4,11 @@
 - feat: enable strictNullChecks across all source files
 - fix: resolve all noImplicitAny errors across source files
 - chore: enable strictFunctionTypes, alwaysStrict, strictBindCallApply, noImplicitThis, useUnknownInCatchVariables, strictPropertyInitialization
+- feat: add `FieldDefinition` interface for autocomplete of field props in constructor
+- feat: add `PathsOf<T>` recursive utility type for nested field path inference
+- feat: override `select()` in `Form` with proper return type
+- feat: export `PathsOf` and `FieldDefinition` from package entry point
+- docs: improved JSDoc on `$()` and `PathsOf` with usage examples
 
 # 6.12.7 (master)
 
@@ -517,7 +522,7 @@ fix: #371 #399 #408
 - Introduced Form & Field `validating` mobx computed (async check).
 - Events Hooks: returned Form instance (was a Field instance).
 - Fixed Async error state (removed `loadingMessage`)
-- Fixed Async "validating..." Message (null as default).
+- Fixed Async \"validating...\" Message (null as default).
 - `loadingMessage` option removed.
 
 # 1.19
@@ -527,7 +532,7 @@ fix: #371 #399 #408
 - Better Array Handling.
 - Optional `submit()` onSuccess/onError callbacks.
 - Fixed Empty Array Handling in Field Container.
-- Removed Initial Array element "0" (no more del(0)).
+- Removed Initial Array element \"0\" (no more del(0)).
 
 # 1.18
 
@@ -547,7 +552,7 @@ fix: #371 #399 #408
 - Introduced form computed validating().
 - Introduced alwaysShowDefaultError option.
 - Introduced setup() method.
-- Introduced "disabled" computed prop
+- Introduced \"disabled\" computed prop
 - Introduced Fields Props Bindings
 - Introduced initial props: types, bindings.
 - Introduced field props: type, bindings.
@@ -594,67 +599,4 @@ fix: #371 #399 #408
 
 # 1.10
 
-- Fixed some documentation errors
-- Enabled VJF enhancement
-- Support for React Select
-
-# 1.9
-
-- Validation Plugins
-- Multiple Validation Styles
-- Support for Async Validation
-- Support for Material UI, React Widgets
-- Package name changed from `mobx-ajv-form` to `mobx-react-form`
-
-# 1.8
-
-- Decoupled validator from fields
-
-# 1.7
-
-- Validation using mobx observe on field $value
-- Display errors of related fields
-
-# 1.5
-
-- Custom Validation Functions
-
-# 1.4
-
-- Support for v5 json schema rules
-
-# 1.3
-
-- Updated constructor with single object
-- Custom Validation Keywords
-- Created API Documentation
-- Added methods: isDirty();
-- Renamed computed values: valid to isValid
-- Added some tests
-
-# 1.2
-
-- Added silent mode
-- Updated methods: validate(); clear(); reset();
-- Clear genericErrorMessage on clear/reset
-
-# 1.2
-
-- Added methods: reset();
-- Updated methods: clear();
-
-# 1.1
-
-- Fixed UMD build external libs
-
-# 1.1
-
-- Added UMD build/support
-
-# 1.1
-
-- Updated README.md
-
-# 1.0
-
-- First Release
+- Fix

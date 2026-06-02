@@ -182,8 +182,32 @@ export default class Form<F extends Record<string, any> = Record<string, any>> e
     return new FieldClass(data);
   }
 
+  /**
+   * Select a field by key with type inference.
+   * Provides autocomplete for field keys when the form is typed with a generic `F`.
+   *
+   * @example
+   * // Top-level keys get autocomplete from keyof F:
+   * form.$('username'); // returns Field<string>
+   *
+   * @example
+   * // For nested paths, use the `PathsOf` utility type:
+   * import { PathsOf } from 'mobx-react-form';
+   *
+   * function getField(form: Form<NestedClubFields>, path: PathsOf<NestedClubFields>) {
+   *   return form.$(path); // path autocompletes to "club" | "club.name" | "members[].firstname" | ...
+   * }
+   */
   override $(key: keyof F): Field<F[keyof F]> {
     return super.$(key as string) as Field<F[keyof F]>;
+  }
+
+  /**
+   * Select a field by path.
+   * For typed autocomplete, use `$()` instead, which is typed with `keyof F`.
+   */
+  override select(path: string | number, fields: any = null, isStrict: boolean = true): Field<any> {
+    return super.select(path, fields, isStrict) as Field<any>;
   }
 
   override values(): { [K in keyof F]?: F[K] } {
