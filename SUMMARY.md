@@ -4,6 +4,7 @@
 * [Introduction](README.md)
 * [Quick Start](docs/quick-start.md)
 * [Quick Start (class)](docs/quick-start-class.md)
+* [TypeScript Usage](docs/typescript.md)
 * [DevTools](docs/devtools.md)
 * [UMD Setup](docs/umd-setup.md)
 
@@ -23,12 +24,11 @@
 
 ## Fields
 * [Defining Fields](docs/fields/README.md)
-    * Flat Fields
-        * [As Unified Properties](docs/fields/defining-flat-fields/unified-properties.md)
-        * [As Separated Properties](docs/fields/defining-flat-fields/separated-properties.md)
-    * Nested Fields
-        * [As Unified Properties](docs/fields/defining-nested-fields/unified-properties.md)
-        * [As Separated Properties](docs/fields/defining-nested-fields/separated-properties.md)
+    * [Flat Fields (Unified)](docs/fields/README.md#flat-unified-mode)
+    * [Flat Fields (Separated)](docs/fields/README.md#flat-separated-mode)
+    * [Nested Fields (Unified)](docs/fields/README.md#nested-unified-mode)
+    * [Nested Fields (Separated)](docs/fields/README.md#nested-separated-mode)
+    * [Mixed Mode](docs/fields/README.md#mixed-mode-unified--separated)
 
 ## Actions
 * [Actions](docs/actions/README.md)
@@ -41,7 +41,6 @@
     * [Event Handlers](docs/events/event-handlers.md)
         * [On Form Initialization](docs/events/event-handlers/constructor.md)
         * [Extending the Class](docs/events/event-handlers/extending.md)
-        * [Submitting the Form](docs/events/event-handlers.md#submitting-the-form)
     * [Event Hooks](docs/events/event-hooks.md)
         * [On Form Initialization](docs/events/event-hooks/constructor.md)
         * [Extending the Class](docs/events/event-hooks/extending.md)
@@ -60,6 +59,10 @@
 * [Input & Output Converters](docs/extra/converters.md)
 * [Observe / Intercept](docs/extra/mobx-events.md)
 * [Forms Composer](docs/extra/composer.md)
+
+## Advanced
+* [Recipes & Patterns](docs/recipes.md)
+* [Troubleshooting & FAQ](docs/troubleshooting.md)
 
 ## Validation
 * [Validation](docs/validation/README.md)

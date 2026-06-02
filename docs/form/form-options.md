@@ -34,6 +34,8 @@
 | **validateOnChange** | boolean | false | Validate fields value `on change`. |
 | **validateOnChangeAfterSubmit** | boolean | false | Validate fields value `on change` after form submit. |
 | **validateOnChangeAfterInitialBlur** | boolean | false | Validate fields value `on blur` and then also `on change` only if already blurred. |
+| **validateOnClear** | boolean | false | Validate fields value `on clear`. |
+| **validateOnReset** | boolean | false | Validate fields value `on reset`. |
 | **validateDeletedFields** | boolean | false | Enable or disable field validation based on their `deleted` property. |
 | **validateDisabledFields** | boolean | false | Enable or disable field validation based on their `disabled` property. |
 | **validatePristineFields** | boolean | true | Enable or disable field validation based on their `isPristine` property. |
@@ -53,7 +55,7 @@
 | **autoParseNumbers** | boolean | false | Try to parse strings to numbers automatically if the initial value of the field is a number. |
 | **stopValidationOnError** | boolean | false | If enabled, the validation stops to validate the field with new validation driver (and its functions) if has alredy marked invalid. |
 | **resetValidationBeforeValidate** | boolean | true | If disabled, the validation state will not be resetted to its initials before `validate` (experimental) |
-| **validationPluginsOrder** | string[] | undefined | Specify an array of strings with the validation plugins order. Accepted Plugins: `vjf`, `dvr`, `svk`, `yup`. |
+| **validationPluginsOrder** | string[] | undefined | Specify an array of strings with the validation plugins order. Accepted Plugins: `vjf`, `dvr`, `svk`, `yup`, `zod`, `joi`. |
 | **validationDebounceWait** | int | 250 | The number of milliseconds to delay. |
 | **validationDebounceOptions** | object | { leading: false, trailing: true } | Lodash [_.debounce](https://lodash.com/docs/4.17.4#debounce) options. |
 | **applyInputConverterOnInit** | boolean | true | If enabled, apply `input` converter on field `initialization` |

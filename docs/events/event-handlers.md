@@ -25,16 +25,19 @@
 
 ## Sync Field Value
 
-#### onChange(e) & onToggle(e)
+#### onChange(e), onToggle(e) & sync(e)
 
 | Handler | Affected Property| Executed Hook |
 |---|---|---|
+| sync(e) | value | — |
 | onChange(e) | value | onChange |
 | onToggle(e) | value | onToggle |
 
 <br>
 
-Use the `onChange(e)` or `onToggle(e)` handler to update the state of the field.
+Use `onChange(e)` or `onToggle(e)` to update the field's value and trigger the corresponding hook.
+
+Use `sync(e)` if you want to update the value **without** triggering the `onChange` or `onToggle` hook.
 
 ```html
 <input
@@ -42,6 +45,8 @@ Use the `onChange(e)` or `onToggle(e)` handler to update the state of the field.
   onChange={form.$('username').onChange}
 />
 ```
+
+> `onChange` is an alias of `onSync`, which calls `sync` internally.
 
 > If you are using a custom component which doesn't work with the package's built-in sync handler, [open an Issue](https://github.com/foxhound87/mobx-react-form/issues).
 
@@ -65,6 +70,29 @@ If you need to track `touched` or `focused` state, you can use `onFocus(e)` or `
   ...
   onFocus={form.$('username').onFocus}
   onBlur={form.$('username').onBlur}
+/>
+```
+
+---
+
+### Key Events
+
+#### onKeyDown(e) & onKeyUp(e)
+
+| Handler | Affected Property | Executed Hook |
+|---|---|---|
+| onKeyDown(e) | — | onKeyDown |
+| onKeyUp(e) | — | onKeyUp |
+
+<br>
+
+Use `onKeyDown(e)` or `onKeyUp(e)` to listen for keyboard events:
+
+```html
+<input
+  ...
+  onKeyDown={form.$('search').onKeyDown}
+  onKeyUp={form.$('search').onKeyUp}
 />
 ```
 

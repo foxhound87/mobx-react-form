@@ -15,10 +15,9 @@
 | **disabled**           | boolean | computed  | Check if the form is disabled.                           | -    |
 | **focused**            | boolean | computed  | Check if the form is focused.                            | -    |
 | **touched**            | boolean | computed  | Check if the form is touched.                            | -    |
-| **changed**            | boolean | computed  | Check if the form is changed.                            | -    |
-| **blurred**            | boolean | computed  | Check if the form is blurred.                            | -    |
+| **changed**            | int     | computed  | Check how many times the value has changed.                       | -    |
 | **hasError**           | boolean | computed  | Check if the form has errors.                            | -    |
 | **error**              | string  | computed  | A default/generic error message (not related to fields). | -    |
-| **flatMapValues**      | object  | computed  | Obtain flat map values.                                  | -    |
+| **flatMapValues**      | object  | computed  | Flat map of all field paths to their validated values (path → value). | -    |
 | **hasNestedFields**    | boolean | computed  | Check if the form has Nested Fields.                     | -    |
 | **hasIncrementalKeys** | boolean | computed  | Check if the nested fields have incremental keys.        | -    |

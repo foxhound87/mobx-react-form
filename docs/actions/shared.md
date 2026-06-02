@@ -143,6 +143,28 @@ Otherwise you will have to set the `ref` manually:
 
 ---
 
+### Programmatically Blur a Field
+
+```javascript
+field.blur();
+```
+
+> Requires a `ref` to be attached to the input (via `bind()` or manually).
+
+---
+
+### Trim Field Value
+
+The `trim()` method removes whitespace from the field value if it is a string. It does **not** trigger the `onChange` Event Hook.
+
+```javascript
+field.trim();
+```
+
+> This is useful for trimming values before submission. For automatic trimming on every change, use the `autoTrimValue` option.
+
+---
+
 ### Get Fields Properties
 
 > Return an `object` with fields `key:val` pairs (with nested fields).

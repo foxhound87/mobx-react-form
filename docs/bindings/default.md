@@ -43,7 +43,7 @@ export default observer(({ field, type = 'password', placeholder = 'Insert Passw
 
 The props passed to the `bind()` method will not mutate the package's store but only your component.
 
-Do this only for handling edge cases, as it's not the default behavior to handle field props, [define fields](../defining-fields.md) normally instead.
+Do this only for handling edge cases, as it's not the default behavior to handle field props, [define fields](../fields/) normally instead.
 
 
 <br>

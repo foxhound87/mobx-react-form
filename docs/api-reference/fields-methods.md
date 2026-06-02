@@ -2,14 +2,14 @@
 
 | Method | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **container()** | string | - | Get Parent Field Container. | - |
-| **bind()** | - | object | Get the current field bindings. | [help](../bindings/README.md) |
-| **clear()** | - | - | Clear the Field or Nested Fields to empty value. | [help](../actions/shared.md#clear--reset-form-or-fields) |
-| **reset()** | - | - | Reset the Field or Nested Fields to default value. | [help](../actions/shared.md#clear--reset-form-or-fields) |
-| **focus()** | - | - | Programmatically set focus on the field. | [help](../actions/shared.md#programmatically-focus-a-field) |
-| **blur()** | - | - | Programmatically blur the field if focused. | - |
-| **trim()** | - | - | Apply `trim()` to the field value if is string. It does not trigger `onChange` Event Hook | - |
-| **invalidate(msg)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | [help](../actions/shared.md#invalidate-the-form-or-a-single-field) |
+| **container()** | string | - | Get Parent Field Container. | [help](../actions/shared.html#field-container) |
+| **bind()** | - | object | Get the current field bindings. | [help](../bindings/) |
+| **clear()** | - | - | Clear the Field or Nested Fields to empty value. | [help](../actions/shared.html#clear--reset-form-or-fields) |
+| **reset()** | - | - | Reset the Field or Nested Fields to default value. | [help](../actions/shared.html#clear--reset-form-or-fields) |
+| **focus()** | - | - | Programmatically set focus on the field. | [help](../actions/shared.html#programmatically-focus-a-field) |
+| **blur()** | - | - | Programmatically blur the field if focused. | [help](../actions/shared.html#programmatically-blur-a-field) |
+| **trim()** | - | - | Apply `trim()` to the field value if is string. It does not trigger `onChange` Event Hook | [help](../actions/shared.html#trim-field-value) |
+| **invalidate(msg)** | string | - | Mark the field as invalid. Pass an optional error message or a default error will be shown. | [help](../actions/shared.html#invalidate-the-form-or-a-single-field) |
 | **resetValidation()** | deep | - | Reset the field validation status. | - |
 | **showErrors(bool)** | bool | - | Show or Hide Field Error Messages. | - |
 
@@ -17,29 +17,29 @@
 
 | Method | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **select(path)** | (string) | object | Field Selector. Can be chained. | - |
-| **update(obj)** | (object) | - | Update Fields Values. Will create new fields auomatically. | - |
-| **submit(obj)** | (object) | - | Perform fields validation. After successful validation triggers onSuccess event and onError event in case of validation error. | - |
-| **validate()** | - | - | Check if the field is valid and return a promise. | [help](../actions/shared.md#validate-a-field) |
-| **validate(path)** | (string) | promise | Takes a field `path` in input. Check if the field and nested fields are valid and return a promise. | [help](../actions/shared.md#validate-a-field) |
-| **validate(opt)** | (object) | promise | Takes a an object in input with `related` or `showErrors` options. | - |
-| **validate(path, opt)** | (string, object) | promise | Takes a field `path` as first arg. and object as second arg. with `related` or `showErrors` options. | - |
-| **check(computed)** | (string) | boolean | Check field computed property. | - |
-| **check(computed, deep)** | (string, boolean) | boolean | Check all nested fields computed property if `deep` is `true` | - |
-| **get()** | - | object | Get all field and nested fields data with all props and computed values. | - |
-| **get(prop)** | (any) | object | Get all field filtering by certain `props` (string or array). | - |
-| **set(val)** | (any) | - | Set field value. Takes the value. | - |
-| **set(obj)** | (object) | - | Provide an object to set nested fields values. | - |
-| **set(prop, val)** | (string, any) | - | Set field property. Takes prop key and prop value. | - |
-| **set(prop, obj)** | (string, object) | - | Provide a prop key and object to set nested fields properties. | - |
-| **has(key)** | (string) | - | Provide Field key to check if exist. | - |
-| **map(callback)** | (function) | - | Map Nested Fields | - |
-| **reduce(callback, acc)** | (function, any) | - | Reduce Nested Fields | - |
-| **each(callback)** | (function) | - | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | - |
-| **add(obj)** | (any) | any | Add a Field or Nested Fields. | - |
-| **del(key)** | (any) | - | Delete a Field or Nested Fields by `key` or `path`. | - |
-| **observe(obj)** | (object) | - | Define a MobX Observer on Field Props or Field Map. | - |
-| **intercept(obj)** | (object) | - | Define a MobX Interceptor on Field Props or Field Map. | - |
+| **select(path)** | (string) | object | Field Selector. Can be chained. | [help](../actions/shared.html#field-selector) |
+| **update(obj)** | (object) | - | Update Fields Values. Will create new fields auomatically. | [help](../actions/shared.html#update-the-fields) |
+| **submit(obj)** | (object) | - | Perform fields validation. After successful validation triggers onSuccess event and onError event in case of validation error. | [help](../actions/shared.html#manual-submit) |
+| **validate()** | - | - | Check if the field is valid and return a promise. | [help](../actions/shared.html#validate-a-field) |
+| **validate(path)** | (string) | promise | Takes a field `path` in input. Check if the field and nested fields are valid and return a promise. | [help](../actions/shared.html#validate-a-field) |
+| **validate(opt)** | (object) | promise | Takes a an object in input with `related` or `showErrors` options. | [help](../actions/form.html#validation-errors) |
+| **validate(path, opt)** | (string, object) | promise | Takes a field `path` as first arg. and object as second arg. with `related` or `showErrors` options. | [help](../actions/form.html#validation-errors) |
+| **check(computed)** | (string) | boolean | Check field computed property. | [help](../actions/shared.html#check-field-computed-values) |
+| **check(computed, deep)** | (string, boolean) | boolean | Check all nested fields computed property if `deep` is `true` | [help](../actions/shared.html#check-field-computed-values) |
+| **get()** | - | object | Get all field and nested fields data with all props and computed values. | [help](../actions/shared.html#get-fields-properties) |
+| **get(prop)** | (any) | object | Get all field filtering by certain `props` (string or array). | [help](../actions/shared.html#get-fields-properties) |
+| **set(val)** | (any) | - | Set field value. Takes the value. | [help](../actions/shared.html#set-fields-properties) |
+| **set(obj)** | (object) | - | Provide an object to set nested fields values. | [help](../actions/shared.html#set-fields-properties) |
+| **set(prop, val)** | (string, any) | - | Set field property. Takes prop key and prop value. | [help](../actions/shared.html#set-fields-properties) |
+| **set(prop, obj)** | (string, object) | - | Provide a prop key and object to set nested fields properties. | [help](../actions/shared.html#set-fields-properties) |
+| **has(key)** | (string) | - | Provide Field key to check if exist. | [help](../actions/shared.html#has) |
+| **map(callback)** | (function) | - | Map Nested Fields | [help](../actions/shared.html#map) |
+| **reduce(callback, acc)** | (function, any) | - | Reduce Nested Fields | [help](../actions/shared.html#reduce) |
+| **each(callback)** | (function) | - | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | [help](../actions/shared.html#each) |
+| **add(obj)** | (any) | any | Add a Field or Nested Fields. | [help](../actions/shared.html#add--del) |
+| **del(key)** | (any) | - | Delete a Field or Nested Fields by `key` or `path`. | [help](../actions/shared.html#add--del) |
+| **observe(obj)** | (object) | - | Define a MobX Observer on Field Props or Field Map. | [help](../extra/mobx-events.html) |
+| **intercept(obj)** | (object) | - | Define a MobX Interceptor on Field Props or Field Map. | [help](../extra/mobx-events.html) |
 
 > $(path) is like of select(path).
 
@@ -47,30 +47,30 @@
 
 | Property | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **values()** | - | object | Get Field & Nested Fields Values. | - |
-| **errors()** | - | object | Get Field & Nested Fields Errors. | - |
-| **labels()** | - | object | Get Field & Nested Fields Labels. | - |
-| **placeholders()** | - | object | Get Field & Nested Fields Placeholders. | - |
-| **defaults()** | - | object | Get Field & Nested Fields Default Values. | - |
-| **initials()** | - | object | Get Field & Nested Fields Initial Values. | - |
-| **types()** | - | object | Get Field & Nested Fields Type. | - |
+| **values()** | - | object | Get Field & Nested Fields Values. | [help](../actions/helpers.html#get-all-fields-values) |
+| **errors()** | - | object | Get Field & Nested Fields Errors. | [help](../actions/helpers.html#get-all-fields-errors) |
+| **labels()** | - | object | Get Field & Nested Fields Labels. | [help](../actions/helpers.html#get-all-fields-labels) |
+| **placeholders()** | - | object | Get Field & Nested Fields Placeholders. | [help](../actions/helpers.html#get-all-fields-placeholders) |
+| **defaults()** | - | object | Get Field & Nested Fields Default Values. | [help](../actions/helpers.html#get-all-fields-defaults-values) |
+| **initials()** | - | object | Get Field & Nested Fields Initial Values. | [help](../actions/helpers.html#get-all-fields-initials-values) |
+| **types()** | - | object | Get Field & Nested Fields Type. | [help](../actions/helpers.html#get-all-fields-types) |
 
 #### Event Handlers
 
 | Property | Input | Output | Info | Help |
 |---|---|---|---|---|
-| **sync(e)** | - | object | Update the `value` of the field. | - |
-| **onChange(e)** | - | object | Update the `value` of the field. (alias of `sync(e)`) | - |
-| **onToggle(e)** | - | object | Update the `value` of the field. (alias of `sync(e)`) | - |
-| **onFocus(e)** | - | object | Track the `focused` property of the field. | - |
-| **onBlur(e)** | - | object | Track the `touched` property of the field. | - |
-| **onSubmit(e)** | - | object | Sub-Form Submission: Validate the fieldset and call `onSuccess(fieldset)` or `onError(fieldset)`. | - |
-| **onClear(e)** | - | object | Clear all the Fields and Nested Fields to `empty` value. | - |
-| **onReset(e)** | - | object | Reset all the Fields and Nested Fields to `default` value. | - |
-| **onAdd(e)** | - | object | Add a Field or Nested Fields. | - |
-| **onDel(e)** | - | object | Delete a Field or Nested Fields. | - |
-| **onKeyUp(e)** | - | object | Executed on field key up | - |
-| **onKeyDown(e)** | - | object | Executed on field key down | - |
+| **sync(e)** | - | object | Update the `value` of the field. | [help](../events/event-handlers.html#onchangee--ontogglee) |
+| **onChange(e)** | - | object | Update the `value` of the field. (alias of `sync(e)`) | [help](../events/event-handlers.html#onchangee--ontogglee) |
+| **onToggle(e)** | - | object | Update the `value` of the field. (alias of `sync(e)`) | [help](../events/event-handlers.html#onchangee--ontogglee) |
+| **onFocus(e)** | - | object | Track the `focused` property of the field. | [help](../events/event-handlers.html#onfocuse--onblure) |
+| **onBlur(e)** | - | object | Track the `touched` property of the field. | [help](../events/event-handlers.html#onfocuse--onblure) |
+| **onSubmit(e)** | - | object | Sub-Form Submission: Validate the fieldset and call `onSuccess(fieldset)` or `onError(fieldset)`. | [help](../events/event-handlers.html#onsubmite) |
+| **onClear(e)** | - | object | Clear all the Fields and Nested Fields to `empty` value. | [help](../events/event-handlers.html#oncleare--onresete) |
+| **onReset(e)** | - | object | Reset all the Fields and Nested Fields to `default` value. | [help](../events/event-handlers.html#oncleare--onresete) |
+| **onAdd(e)** | - | object | Add a Field or Nested Fields. | [help](../events/event-handlers.html#onadde--ondele) |
+| **onDel(e)** | - | object | Delete a Field or Nested Fields. | [help](../events/event-handlers.html#onadde--ondele) |
+| **onKeyUp(e)** | - | object | Executed on field key up | [help](../events/event-handlers.html#key-events) |
+| **onKeyDown(e)** | - | object | Executed on field key down | [help](../events/event-handlers.html#key-events) |
 
 
 > All Event Handlers takes the Proxy object in input.

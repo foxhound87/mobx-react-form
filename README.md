@@ -64,7 +64,7 @@ These issues, and the ones which provides also PR with failing tests will get hi
 ### Contributors
 
 This project exists thanks to all the people who contribute.
-<a href="graphs/contributors"><img src="https://opencollective.com/mobx-react-form/contributors.svg?width=890&button=false" /></a>
+<img src="https://opencollective.com/mobx-react-form/contributors.svg?width=890&button=false" />
 
 
 ### Backers

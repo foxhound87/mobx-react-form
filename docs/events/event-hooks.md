@@ -16,18 +16,20 @@ The lifecycle of all events is:
 
 ---
 
+> Available on both Field and Form (`onChange`) instances.
+
 ##### Available Event Hooks
 > Triggered by Event Handlers
 
 | Event Handler | Affected Property | Executed Hook | FORM | FIELD |
 |---|---|---|---|---|
-| onChange(e) | value | onChange | YES * | YES |
+| onChange(e) | value | onChange | YES | YES |
 | onToggle(e) | value | onToggle | NO | YES |
 | onFocus(e) | focused | onFocus | NO | YES |
 | onBlur(e) | touched | onBlur | NO | YES |
 | onDrop(e) | files | onDrop | NO | YES |
-
-> (*) next pre-release >= 5.1.0
+| onKeyDown(e) | key events | onKeyDown | NO | YES |
+| onKeyUp(e) | key events | onKeyUp | NO | YES |
 
 ##### Available Event Hooks w/ Actions
 > Triggered by Event Handlers

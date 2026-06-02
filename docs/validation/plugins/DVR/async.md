@@ -22,11 +22,11 @@ import validatorjs from 'validatorjs';
 const plugins = {
   dvr: dvr({
     package: validatorjs,
-    extend: ({ plugin }) => {
-      // here we can access the `validatorjs` instance (plugin) and we
+    extend: ({ validator, form }) => {
+      // here we can access the `validatorjs` instance (validator) and we
       // can add the rules using the `registerAsyncRule()` method.
       Object.keys(asyncRules).forEach((key) =>
-        plugin.registerAsync(key, asyncRules[key]));
+        validator.registerAsync(key, asyncRules[key]));
     };
   }),
 };

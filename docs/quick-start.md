@@ -88,11 +88,11 @@ import { observer } from 'mobx-react';
 
 export default observer(({ form }) => (
   <form>
-    <label htmlFor={form.$('username').id}>
-      {form.$('username').label}
+    <label htmlFor={form.$('email').id}>
+      {form.$('email').label}
     </label>
-    <input {...form.$('username').bind()} />
-    <p>{form.$('username').error}</p>
+    <input {...form.$('email').bind()} />
+    <p>{form.$('email').error}</p>
 
     {/* ... other inputs ... */}
 
