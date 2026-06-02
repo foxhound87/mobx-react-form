@@ -165,7 +165,7 @@ const setupDefaultProp = (
     fallback: instance.$initial,
   });
 
-export default class Field extends Base implements FieldInterface {
+export default class Field<T = any> extends Base implements FieldInterface<T> {
   hasInitialNestedFields = false;
   incremental = false;
 
@@ -361,16 +361,17 @@ export default class Field extends Base implements FieldInterface {
     );
   }
 
-  set value(newVal) {
+  set value(newVal: T) {
+    let val: any = newVal;
     if (
-      isString(newVal) &&
+      isString(val) &&
       this.state.options.get(OptionsEnum.autoTrimValue, this)
     ) {
-      newVal = newVal.trim();
+      val = val.trim();
     }
-    if (this.$value === newVal) return;
-    if (this.handleSetNumberValue(newVal)) return;
-    this.$value = this.$converter(newVal);
+    if (this.$value === val) return;
+    if (this.handleSetNumberValue(val)) return;
+    this.$value = this.$converter(val);
     this.$changed++;
     if (!this.actionRunning) {
       this.state.form.$changed++;
@@ -399,33 +400,33 @@ export default class Field extends Base implements FieldInterface {
     return this.submitting || this.clearing || this.resetting;
   }
 
-  get checked(): boolean {
+  get checked(): T | undefined {
     return this.type === "checkbox" ? this.value : undefined;
   }
 
-  get value(): any {
+  get value(): T {
     return typeof this._value === "function" && !this.hasNestedFields
       ? propGetter(this, FieldPropsEnum.value)
       : this.getComputedProp(FieldPropsEnum.value);
   }
 
-  get initial(): any {
+  get initial(): T {
     return this.$initial
       ? toJS(this.$initial)
       : this.getComputedProp(FieldPropsEnum.initial);
   }
 
-  get default(): any {
+  get default(): T {
     return this.$default
       ? toJS(this.$default)
       : this.getComputedProp(FieldPropsEnum.default);
   }
 
-  set initial(val) {
+  set initial(val: T) {
     this.$initial = val;
   }
 
-  set default(val) {
+  set default(val: T) {
     this.$default = val;
   }
 

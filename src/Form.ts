@@ -22,7 +22,7 @@ import {
 import { FieldPropsEnum } from "./models/FieldProps";
 import { OptionsEnum } from "./models/OptionsModel";
 
-export default class Form extends Base implements FormInterface {
+export default class Form<F extends Record<string, any> = Record<string, any>> extends Base {
   name: string;
   path = null;
   extra = null;
@@ -93,14 +93,14 @@ export default class Form extends Base implements FormInterface {
     );
 
     this.state = new State({
-      form: this,
+      form: this as any,
       initial: initial.setup,
       options: initial.options,
       bindings: initial.bindings,
     });
 
     this.validator = new Validator({
-      form: this,
+      form: this as any,
       plugins: initial.plugins,
     });
 
@@ -180,6 +180,14 @@ export default class Form extends Base implements FormInterface {
 
   makeField(data: FieldConstructor, FieldClass: typeof Field = Field) {
     return new FieldClass(data);
+  }
+
+  $(key: keyof F): Field<F[keyof F]> {
+    return super.$(key as string) as Field<F[keyof F]>;
+  }
+
+  values(): { [K in keyof F]?: F[K] } {
+    return super.values() as { [K in keyof F]?: F[K] };
   }
 
   /** DEPRECATED

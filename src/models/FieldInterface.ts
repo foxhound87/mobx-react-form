@@ -1,7 +1,7 @@
 import {BaseInterface} from "./BaseInterface";
 import {OptionsModel} from "./OptionsModel";
 import {StateInterface} from "./StateInterface";
-export interface FieldInterface extends BaseInterface {
+export interface FieldInterface<T = any> extends BaseInterface {
   incremental: boolean;
   hasInitialNestedFields: boolean;
   id: string | undefined;
@@ -24,9 +24,9 @@ export interface FieldInterface extends BaseInterface {
   showError: boolean;
   checkValidationErrors: boolean;
   checked: any;
-  value: any;
-  initial: any;
-  default: any;
+  value: T;
+  initial: T;
+  default: T;
   actionRunning: boolean;
   bindings: any;
   disabled: boolean;

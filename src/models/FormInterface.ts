@@ -3,7 +3,7 @@ import { BaseInterface } from "./BaseInterface";
 import { FieldInterface, FieldConstructor } from "./FieldInterface";
 import { OptionsModel } from "./OptionsModel";
 import { ValidatorInterface, ValidationPlugins } from "./ValidatorInterface";
-export interface FormInterface extends BaseInterface {
+export interface FormInterface<F extends Record<string, any> = Record<string, any>> extends BaseInterface {
   name: string;
   extra: any;
   validator: ValidatorInterface;
