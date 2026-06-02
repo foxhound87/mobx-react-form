@@ -45,7 +45,7 @@ import {
 import { OptionsEnum } from "./models/OptionsModel";
 import { ValidateOptions, ValidationHooks } from "./models/ValidatorInterface";
 import { SubmitHooks } from "./models/SharedActionsInterface";
-export default abstract class Base implements BaseInterface {
+export default abstract class Base<F extends Record<string, any> = Record<string, any>> implements BaseInterface<F> {
   noop = () => {};
 
   state: StateInterface;

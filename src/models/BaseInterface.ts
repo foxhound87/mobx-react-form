@@ -5,12 +5,12 @@ import {SharedHelpersInterface} from "./SharedHelpersInterface";
 import {SharedInitializerInterface} from "./SharedInitializerInterface";
 import {SharedUtilsInferface} from "./SharedUtilsInterface";
 import {StateInterface} from "./StateInterface";
-export interface BaseInterface
+export interface BaseInterface<F extends Record<string, any> = Record<string, any>>
   extends SharedInitializerInterface,
     SharedActionsInterface,
     SharedEventsInterface,
     SharedUtilsInferface,
-    SharedHelpersInterface {
+    SharedHelpersInterface<F> {
   state: StateInterface;
   fields: ObservableMap;
   path: string | undefined | null;

@@ -165,7 +165,7 @@ const setupDefaultProp = (
     fallback: instance.$initial,
   });
 
-export default class Field<T = any> extends Base implements FieldInterface<T> {
+export default class Field<T = any> extends Base<Record<string, any>> implements FieldInterface<T> {
   hasInitialNestedFields = false;
   incremental = false;
 

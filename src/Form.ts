@@ -22,10 +22,10 @@ import {
 import { FieldPropsEnum } from "./models/FieldProps";
 import { OptionsEnum } from "./models/OptionsModel";
 
-export default class Form<F extends Record<string, any> = Record<string, any>> extends Base {
+export default class Form<F extends Record<string, any> = Record<string, any>> extends Base<F> implements FormInterface<F> {
   name: string;
   path = null;
-  extra = null;
+  extra: Record<string, any> = {};
   validator: ValidatorInterface;
 
   debouncedValidation: any = null;

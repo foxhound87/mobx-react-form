@@ -11,7 +11,7 @@ export interface FieldInterface<T = any> extends BaseInterface {
   type: string | undefined;
   label: string | undefined;
   placeholder: string | undefined;
-  extra: any;
+  extra: Record<string, any>;
   errorSync: string | null;
   errorAsync: string | null;
   validationErrorStack: string[];
@@ -23,7 +23,7 @@ export interface FieldInterface<T = any> extends BaseInterface {
   ref: any;
   showError: boolean;
   checkValidationErrors: boolean;
-  checked: any;
+  checked: T | undefined;
   value: T;
   initial: T;
   default: T;

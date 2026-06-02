@@ -3,14 +3,14 @@ import { BaseInterface } from "./BaseInterface";
 import { FieldInterface, FieldConstructor } from "./FieldInterface";
 import { OptionsModel } from "./OptionsModel";
 import { ValidatorInterface, ValidationPlugins } from "./ValidatorInterface";
-export interface FormInterface<F extends Record<string, any> = Record<string, any>> extends BaseInterface {
+export interface FormInterface<F extends Record<string, any> = Record<string, any>> extends BaseInterface<F> {
   name: string;
-  extra: any;
+  extra: Record<string, any>;
   validator: ValidatorInterface;
   debouncedValidation: any;
   // getters
-  flatMapValues: object;
-  validatedValues: object;
+  flatMapValues: Record<string, any>;
+  validatedValues: Record<string, any>;
   clearing: boolean;
   resetting: boolean;
   error: string | null;
@@ -70,10 +70,10 @@ export interface FormConfig {
   name?: string;
   options?: OptionsModel;
   plugins?: ValidationPlugins;
-  bindings?: any;
-  hooks?: any;
-  handlers?: any;
-  extra?: any;
+  bindings?: Record<string, any>;
+  hooks?: Record<string, any>;
+  handlers?: Record<string, any>;
+  extra?: Record<string, any>;
 }
 
 export default FormInterface;
