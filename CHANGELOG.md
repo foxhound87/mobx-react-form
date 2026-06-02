@@ -1,3 +1,7 @@
+# 6.13.0 (master)
+
+- feat: add generics to Form&lt;F&gt; and Field&lt;T&gt; for type-safe field access
+
 # 6.12.7 (master)
 
 - fix: Mobx error `Field not found.`
