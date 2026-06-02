@@ -21,11 +21,11 @@ export const composer = (forms: { [key in string]: FormInterface }) => {
                 [entry[0]]: (entry[1] as FormInterface).get(prop)
             }), {});
 
-    const valid = () => Object.values(check(FieldPropsEnum.isValid))
-       .every(((val: boolean) => val === true));
+    const valid = () => (Object.values(check(FieldPropsEnum.isValid)) as boolean[])
+       .every((val: boolean) => val === true);
 
-    const error = () => Object.values(check(FieldPropsEnum.hasError))
-       .some(((val: boolean) => val === true));
+    const error = () => (Object.values(check(FieldPropsEnum.hasError)) as boolean[])
+       .some((val: boolean) => val === true);
 
     const clear = ({ deep = true, execHook = false }
         : { deep?: boolean, execHook?: boolean } = {

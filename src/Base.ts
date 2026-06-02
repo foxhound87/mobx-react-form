@@ -48,7 +48,7 @@ import { SubmitHooks } from "./models/SharedActionsInterface";
 export default abstract class Base<F extends Record<string, any> = Record<string, any>> implements BaseInterface<F> {
   noop = () => {};
 
-  state: StateInterface;
+  state!: StateInterface;
 
   fields: ObservableMap = observable.map({});
   path: string | undefined | null;
@@ -977,8 +977,8 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   /**
     Fields Selector
   */
-  select(path: string, fields: any = null, isStrict: boolean = true) {
-    const $path = parsePath(path);
+  select(path: string | number, fields: any = null, isStrict: boolean = true) {
+    const $path = parsePath(String(path));
     const keys = split($path, ".");
     const headKey = head(keys);
 
@@ -998,7 +998,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     });
 
     if (isStrict && this.state.options.get(OptionsEnum.strictSelect, this)) {
-      throwError(path, $fields);
+      throwError(String(path), $fields);
     }
 
     return $fields;
@@ -1007,7 +1007,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   /**
     Get Container
    */
-  container($path: string | null) {
+  container($path?: string | null) {
     const path = parsePath($path ?? this.path ?? '');
     const cpath = trim(path.replace(new RegExp("[^./]+$"), ""), ".");
 

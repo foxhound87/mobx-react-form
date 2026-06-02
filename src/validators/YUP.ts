@@ -22,6 +22,7 @@ class YUP<TValidator = any> implements ValidationPluginInterface {
   }: ValidationPluginConstructor) {
     this.state = state;
     this.promises = promises;
+    this.config = config;
     this.extend = config?.extend;
     this.validator = config.package;
     this.schema = config.schema(this.validator);

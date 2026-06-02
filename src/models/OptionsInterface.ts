@@ -2,7 +2,7 @@ import {OptionsModel} from "./OptionsModel";
 
 export interface OptionsInterface {
   options: OptionsModel;
-  get: (key?: string, instance?: any) => any;
+  get: (key: string, instance?: any) => any;
   set: (options: OptionsModel) => void;
 }
 

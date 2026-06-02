@@ -26,6 +26,7 @@ class DVR<TValidator = any>
   }: ValidationPluginConstructor<TValidator>) {
     this.state = state;
     this.promises = promises;
+    this.config = config;
     this.extend = config?.extend;
     this.validator = config.package;
     this.extendValidator();

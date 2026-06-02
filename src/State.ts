@@ -26,7 +26,7 @@ export default class State implements StateInterface {
 
   strict = false;
 
-  form: FormInterface;
+  form!: FormInterface;
 
   options: OptionsInterface;
 

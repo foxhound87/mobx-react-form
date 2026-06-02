@@ -180,20 +180,20 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
   $input = ($: any) => $;
   $output = ($: any) => $;
 
-  _value: Function;
-  _label: Function;
-  _placeholder: Function;
-  _disabled: Function;
-  _rules: Function;
-  _related: Function;
-  _deleted: Function;
-  _validatedWith: Function;
-  _validators: Function;
-  _bindings: Function;
-  _extra: Function;
-  _options: Function;
-  _autoFocus: Function;
-  _inputMode: Function;
+  _value!: Function;
+  _label!: Function;
+  _placeholder!: Function;
+  _disabled!: Function;
+  _rules!: Function;
+  _related!: Function;
+  _deleted!: Function;
+  _validatedWith!: Function;
+  _validators!: Function;
+  _bindings!: Function;
+  _extra!: Function;
+  _options!: Function;
+  _autoFocus!: Function;
+  _inputMode!: Function;
 
   $options: OptionsModel | undefined = undefined;
   $value: any = undefined;
