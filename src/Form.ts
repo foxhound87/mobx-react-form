@@ -24,7 +24,7 @@ import { OptionsEnum } from "./models/OptionsModel";
 
 export default class Form<F extends Record<string, any> = Record<string, any>> extends Base<F> implements FormInterface<F> {
   name: string;
-  path = null;
+  path: any = null;
   extra: Record<string, any> = {};
   validator: ValidatorInterface;
 

@@ -108,7 +108,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     name: string,
     args: any,
     fallback: any = undefined,
-    hook = null,
+    hook: any = null,
     execHook = true
   ): any => [
     $try(
@@ -590,7 +590,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
           prop
         )
       ) {
-        return this[`$${prop}`];
+        return (this as any)[`$${prop}`];
       }
 
       if (strict && this.fields.size === 0) {
@@ -736,7 +736,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
           }
         );
       } else if (isPlain) {
-        Object.assign(this[`$${prop}`], data);
+        Object.assign((this as any)[`$${prop}`], data);
       } else {
         set(this, `$${prop}`, data);
       }
@@ -883,7 +883,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
       return this.select(fullpath).set(FieldPropsEnum.deleted, true);
     }
 
-    container.each((field) => field.debouncedValidation.cancel());
+    container.each((field: any) => field.debouncedValidation.cancel());
     execEvent && this.execHook(FieldPropsEnum.onDel);
     return container.fields.delete(lastKey);
   }
@@ -931,7 +931,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     }
     const $dkey = $instance.path ? `${$prop}@${$instance.path}` : $prop;
 
-    merge(this.state.disposers[type], {
+    merge((this.state.disposers as any)[type], {
       [$dkey]:
         $prop === FieldPropsEnum.fields
           ? ffn.apply((change: any) => $call(change))
@@ -942,7 +942,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   /**
     Dispose MOBX Events
    */
-  dispose(opt = null): void {
+  dispose(opt: any = null): void {
     if (this.path && opt) return this.disposeSingle(opt);
     return this.disposeAll();
   }
@@ -950,7 +950,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   /**
     Dispose All Events (observe/intercept)
    */
-  disposeAll() {
+  disposeAll(): null {
     const dispose = (disposer: any) => disposer.apply();
     each(this.state.disposers.interceptor, dispose);
     each(this.state.disposers.observer, dispose);
@@ -965,8 +965,9 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     const $path = parsePath(path ?? this.path);
     // eslint-disable-next-line
     if (type === "interceptor") key = `$${key}`; // target observables
-    this.state.disposers[type][`${key}@${$path}`].apply();
-    delete this.state.disposers[type][`${key}@${$path}`];
+    const disposersType = (this.state.disposers as any)[type];
+    disposersType[`${key}@${$path}`].apply();
+    delete disposersType[`${key}@${$path}`];
   }
 
   /******************************************************************

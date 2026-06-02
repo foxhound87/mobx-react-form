@@ -58,7 +58,7 @@ export default class Bindings implements BindingsInterface {
       const $bindings = {};
 
       each(get(this.rewriters, name), ($v, $k) =>
-        merge($bindings, { [$v]: $try(props[$k], field[$k]) })
+        merge($bindings, { [$v]: $try((props as any)[$k], field[$k]) })
       );
 
       return $bindings;

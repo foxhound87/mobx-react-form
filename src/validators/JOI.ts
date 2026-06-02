@@ -48,7 +48,7 @@ class JOI<TValidator = any> implements ValidationPluginInterface<TValidator> {
     const fieldPathArray = field.path.split(".");
 
     const fieldErrors = error.details
-      .filter((detail) => {
+      .filter((detail: any) => {
         const errorPathString = detail.path.join(".");
         const fieldPathString = fieldPathArray.join(".");
         return (
@@ -56,7 +56,7 @@ class JOI<TValidator = any> implements ValidationPluginInterface<TValidator> {
           errorPathString.startsWith(`${fieldPathString}.`)
         );
       })
-      .map((detail) => {
+      .map((detail: any) => {
         const label = detail.context?.label || detail.path.join(".");
         const message = detail.message.replace(
           `${detail.path.join(".")}`,

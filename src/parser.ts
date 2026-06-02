@@ -33,7 +33,7 @@ const parsePath = (path: string): string => {
 };
 
 const parseInput = (
-  input: Function,
+  input: (...args: any[]) => any,
   { fallbackValueOption = "", type, isEmptyArray, separated, unified, fallback }: any
 ) =>
   input(

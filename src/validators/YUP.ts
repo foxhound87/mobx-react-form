@@ -50,7 +50,7 @@ class YUP<TValidator = any> implements ValidationPluginInterface {
       this.schema
         .validateAt(field.path, this.state.form.values(), { strict: true })
         .then(() => this.handleAsyncPasses(field, resolve))
-        .catch((error) => this.handleAsyncFails(field, resolve, error));
+        .catch((error: any) => this.handleAsyncFails(field, resolve, error));
     });
   }
   // Gestione dei successi della validazione asincrona

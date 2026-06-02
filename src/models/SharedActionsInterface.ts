@@ -7,9 +7,9 @@ export interface SubmitOptions {
 };
 
 export interface SubmitHooks {
-  onSubmit?(instance): void
-  onSuccess?(instance): void
-  onError?(instance): void
+  onSubmit?(instance: any): void
+  onSuccess?(instance: any): void
+  onError?(instance: any): void
 }
 
 export interface SharedActionsInterface {

@@ -44,7 +44,7 @@ import { OptionsModel, OptionsEnum } from "./models/OptionsModel";
 import { FieldInterface, FieldConstructor } from "./models/FieldInterface";
 import { FieldPropsEnum } from "./models/FieldProps";
 
-const applyFieldPropFunc = (instance: FieldInterface, prop: any): any => {
+const applyFieldPropFunc = (instance: any, prop: any): any => {
   if (typeof prop !== "function") return prop;
   return prop.apply(instance, [
     {
@@ -57,7 +57,7 @@ const applyFieldPropFunc = (instance: FieldInterface, prop: any): any => {
 const retrieveFieldPropFunc = (prop: any): Function | any | undefined =>
   typeof prop === "function" ? prop : undefined;
 
-const propGetter = (instance: FieldInterface, prop: FieldPropsEnum): any =>
+const propGetter = (instance: any, prop: FieldPropsEnum): any =>
   typeof instance[`_${prop}`] === "function"
     ? instance[`_${prop}`].apply(instance, [
         {
@@ -67,7 +67,7 @@ const propGetter = (instance: FieldInterface, prop: FieldPropsEnum): any =>
       ])
     : instance[`$${prop}`];
 
-const setupFieldProps = (instance: FieldInterface, props: any, data: any) =>
+const setupFieldProps = (instance: any, props: any, data: any) =>
   Object.assign(instance, {
     // retrieve functions
     _label: retrieveFieldPropFunc(props.$label || data?.label),
@@ -151,7 +151,7 @@ const setupDefaultProp = (
     fallbackValueOption,
   }: { isEmptyArray: boolean; fallbackValueOption: any },
 ) =>
-  parseInput((val) => val, {
+  parseInput((val: any) => val, {
     isEmptyArray,
     type: instance.type,
     unified: update
@@ -225,7 +225,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
 
   validationErrorStack: string[] = [];
   validationFunctionsData: any[] = [];
-  validationAsyncData = { valid: true, message: null };
+  validationAsyncData: { valid: boolean; message: string | null } = { valid: true, message: null };
   debouncedValidation: any;
 
   disposeValidationOnBlur: any;
@@ -438,63 +438,63 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
     return propGetter(this, FieldPropsEnum.autoComplete);
   }
 
-  get ref() {
+  get ref(): any {
     return propGetter(this, FieldPropsEnum.ref);
   }
 
-  get extra() {
+  get extra(): any {
     return propGetter(this, FieldPropsEnum.extra);
   }
 
-  get autoFocus() {
+  get autoFocus(): any {
     return propGetter(this, FieldPropsEnum.autoFocus);
   }
 
-  get inputMode() {
+  get inputMode(): any {
     return propGetter(this, FieldPropsEnum.inputMode);
   }
 
-  get type() {
+  get type(): any {
     return propGetter(this, FieldPropsEnum.type);
   }
 
-  get label() {
+  get label(): any {
     return propGetter(this, FieldPropsEnum.label);
   }
 
-  get placeholder() {
+  get placeholder(): any {
     return propGetter(this, FieldPropsEnum.placeholder);
   }
 
-  get options() {
+  get options(): any {
     return propGetter(this, FieldPropsEnum.options);
   }
 
-  get bindings() {
+  get bindings(): any {
     return propGetter(this, FieldPropsEnum.bindings);
   }
 
-  get related() {
+  get related(): any {
     return propGetter(this, FieldPropsEnum.related);
   }
 
-  get disabled() {
+  get disabled(): any {
     return propGetter(this, FieldPropsEnum.disabled);
   }
 
-  get rules() {
+  get rules(): any {
     return propGetter(this, FieldPropsEnum.rules);
   }
 
-  get validators() {
+  get validators(): any {
     return propGetter(this, FieldPropsEnum.validators);
   }
 
-  get validatedWith() {
+  get validatedWith(): any {
     return propGetter(this, FieldPropsEnum.validatedWith);
   }
 
-  get validatedValue() {
+  get validatedValue(): any {
     return parseCheckOutput(this, this.validatedWith);
   }
 
@@ -685,7 +685,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
       this.$output = $try($output, output, this.$output);
 
       const value = parseInput(
-        applyInputConverterOnInit ? this.$input : (val) => val,
+        applyInputConverterOnInit ? this.$input : (val: any) => val,
         {
           fallbackValueOption,
           isEmptyArray,
@@ -702,7 +702,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
           ? applyFieldPropFunc(this, value)
           : value;
 
-      this.$initial = parseInput((val) => val, {
+      this.$initial = parseInput((val: any) => val, {
         fallbackValueOption,
         isEmptyArray,
         type: this.type,
@@ -728,7 +728,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
     this.$output = $try($output, this.$output);
 
     const value = parseInput(
-      applyInputConverterOnInit ? this.$input : (val) => val,
+      applyInputConverterOnInit ? this.$input : (val: any) => val,
       {
         fallbackValueOption,
         isEmptyArray,
@@ -744,7 +744,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
         ? applyFieldPropFunc(this, value)
         : value;
 
-    this.$initial = parseInput((val) => val, {
+    this.$initial = parseInput((val: any) => val, {
       fallbackValueOption,
       isEmptyArray,
       type: this.type,
@@ -986,18 +986,19 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
   }
 
   initMOBXEvent(type: string): void {
-    if (!Array.isArray(this[`$${type}`])) return;
+    const arr: any[] = (this as any)[`$${type}`];
+    if (!Array.isArray(arr)) return;
 
     let fn: any;
     if (type === FieldPropsEnum.observers) fn = this.observe;
     if (type === FieldPropsEnum.interceptors) fn = this.intercept;
-    this[`$${type}`].map((obj: any) => fn(omit(obj, FieldPropsEnum.path)));
+    arr.map((obj: any) => fn(omit(obj, FieldPropsEnum.path)));
   }
 
   bind(props = {}) {
     return {
       ...this.state.bindings.load(this, this.bindings, props),
-      ref: ($ref) => (this.$ref = $ref),
+      ref: ($ref: any) => (this.$ref = $ref),
     };
   }
 
@@ -1017,7 +1018,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
       );
     if (!fallback && this.fields.size === 0 && x < 0) {
       this.value = parseInput(
-        applyInputConverterOnUpdate ? this.$input : (val) => val,
+        applyInputConverterOnUpdate ? this.$input : (val: any) => val,
         {
           fallbackValueOption: this.state.options.get(
             OptionsEnum.fallbackValue,
