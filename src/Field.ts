@@ -482,7 +482,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
 
   get error(): string | null {
     if (this.showError === false) return null;
-    return this.errorAsync || this.errorSync || null;
+    return this.errorAsync || this.errorSync || this.firstError() || null;
   }
 
   get hasError(): boolean {

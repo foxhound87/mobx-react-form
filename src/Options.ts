@@ -63,6 +63,7 @@ export default class Options implements OptionsInterface {
     applyInputConverterOnInit: true,
     applyInputConverterOnSet: true,
     applyInputConverterOnUpdate: true,
+    bubbleUpErrorMessages: false,
   };
 
   constructor() {

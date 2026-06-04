@@ -140,7 +140,7 @@ export default class Form<F extends Record<string, any> = Record<string, any>> e
   }
 
   get error(): string | null {
-    return this.validator.error;
+    return this.validator.error || this.firstError() || null;
   }
 
   get hasError(): boolean {

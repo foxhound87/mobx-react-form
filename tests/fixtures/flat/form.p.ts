@@ -40,6 +40,7 @@ const disabled = {
 const options: OptionsModel = {
   validateOnReset: true,
   validateOnClear: true,
+  bubbleUpErrorMessages: true,
 };
 
 class NewForm extends Form {

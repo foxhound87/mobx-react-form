@@ -43,6 +43,7 @@ export enum OptionsEnum {
   applyInputConverterOnInit = 'applyInputConverterOnInit',
   applyInputConverterOnSet = 'applyInputConverterOnSet',
   applyInputConverterOnUpdate = 'applyInputConverterOnUpdate',
+  bubbleUpErrorMessages = 'bubbleUpErrorMessages',
 }
 
 export interface OptionsModel {
@@ -93,6 +94,7 @@ export interface OptionsModel {
   [OptionsEnum.applyInputConverterOnInit]?: boolean,
   [OptionsEnum.applyInputConverterOnSet]?: boolean,
   [OptionsEnum.applyInputConverterOnUpdate]?: boolean,
+  [OptionsEnum.bubbleUpErrorMessages]?: boolean,
 }
 
 export default OptionsModel;

@@ -39,6 +39,7 @@ export interface BaseInterface<F extends Record<string, any> = Record<string, an
   onSubmit(args: any): any;
   onAdd(args: any): any;
   onDel(args: any): any;
+  firstError(): string | null;
 }
 
 export default BaseInterface;

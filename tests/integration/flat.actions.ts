@@ -68,8 +68,8 @@ describe('$P Form fields', () => {
   it('$P terms.disabled should be true', () =>
     expect($.$P.$('terms').disabled).to.be.true);
 
-  it('$P error should be null', () =>
-    expect($.$P.error).to.be.null);
+  it('$P error should bubble up from child field', () =>
+    expect($.$P.error).to.equal('The UserName format is invalid.'));
 });
 
 describe('$Q Form fields', () => {

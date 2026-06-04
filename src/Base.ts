@@ -459,6 +459,18 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     );
   }
 
+  firstError(): string | null {
+    if (!this.state.options.get(OptionsEnum.bubbleUpErrorMessages, this as any)) return null;
+    for (const field of getObservableMapValues(this.fields)) {
+      if (field.error) return field.error;
+      if (field.fields.size) {
+        const nested = field.firstError();
+        if (nested) return nested;
+      }
+    }
+    return null;
+  }
+
   /**
     Update Field Values recurisvely
     OR Create Field if 'undefined'
