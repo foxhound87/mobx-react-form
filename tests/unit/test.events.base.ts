@@ -31,6 +31,7 @@ describe("Base Event Handlers", () => {
     });
 
     it("should work without event argument", () => {
+      form.$("username").set("new-value");
       form.onClear();
       expect(form.$("username").value).to.be.empty;
     });

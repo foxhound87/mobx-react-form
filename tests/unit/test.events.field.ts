@@ -52,7 +52,7 @@ describe("Field Event Handlers", () => {
       expect(field.value).to.equal("direct-value");
     });
 
-    it("should fallback to e when v is null and e is a direct value", () => {
+    it("should keep null when v is null and e is a direct value", () => {
       // $try(null, 'fallback-value') returns null since null !== undefined
       field.sync(null, "fallback-value");
       expect(field.value).to.be.null;

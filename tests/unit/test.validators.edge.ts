@@ -7,13 +7,10 @@ import * as yup from "yup";
 import { Form } from "../../src";
 import dvr from "../../src/validators/DVR";
 import vjf from "../../src/validators/VJF";
-import svk from "../../src/validators/SVK";
 import joiValidator from "../../src/validators/JOI";
 import zodValidator from "../../src/validators/ZOD";
 import yupValidator from "../../src/validators/YUP";
-import ajv from "ajv";
 import validator from "validator";
-import svkExtend from "../fixtures/extension/svk";
 
 describe("Validator Edge Cases", () => {
   describe("JOI - nested path errors", () => {

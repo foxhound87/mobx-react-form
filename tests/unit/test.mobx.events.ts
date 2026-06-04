@@ -90,6 +90,7 @@ describe("MOBX Events (observe/intercept/dispose)", () => {
 
       field.set("changed");
       expect(intercepted).to.be.true;
+      expect(field.value).to.equal("initial"); // Change was blocked
     });
 
     it("should accept function directly as callback", () => {
