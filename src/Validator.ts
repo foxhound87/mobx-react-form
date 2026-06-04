@@ -4,7 +4,6 @@ import { $try } from "./utils";
 import ValidatorInterface, {
   DriversMap,
   ValidateOptions,
-  ValidationPlugin,
   ValidationPluginInterface,
   ValidationPlugins,
   ValidatorConstructor,

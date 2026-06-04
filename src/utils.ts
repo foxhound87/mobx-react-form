@@ -32,7 +32,7 @@ const checkPropOccurrence = ({ type, data }: any): boolean => {
 };
 
 const hasProps = ($type: string, $data: any): boolean => {
-  let $props;
+  let $props: string[] | null;
   switch ($type) {
     case AllowedFieldPropsTypes.computed:
       $props = props.computed;
@@ -69,7 +69,7 @@ const hasProps = ($type: string, $data: any): boolean => {
       $props = null;
   }
 
-  return $data.filter((x: string) => $props.includes(x)).length > 0;
+  return $data.filter((x: string) => $props!.includes(x)).length > 0;
 };
 
 /**
