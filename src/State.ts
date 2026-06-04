@@ -1,5 +1,5 @@
 import { observe } from "mobx";
-import { get, isString, pick } from "lodash";
+import { get } from "lodash";
 
 import Options from "./Options";
 import Bindings from "./Bindings";
@@ -61,13 +61,16 @@ export default class State implements StateInterface {
   }
 
   initProps(initial: any = {}) {
-    const initialProps: any = pick(initial, [
+    const pickKeys = [
       ...props.editable,
       ...props.separated,
       ...props.validation,
       ...props.functions,
       ...props.handlers,
-    ]);
+    ];
+    const initialProps: any = Object.fromEntries(
+      Object.entries(initial).filter(([k]) => pickKeys.includes(k))
+    );
 
     this.set("initial", "props", initialProps);
 
@@ -121,7 +124,7 @@ export default class State implements StateInterface {
   }
 
   extra(data: any | null = null): any | null {
-    if (isString(data)) return get(this.$extra, data);
+    if (typeof data === 'string') return get(this.$extra, data);
     if (data === null) return this.$extra;
     this.$extra = data;
     return null;

@@ -1,5 +1,5 @@
 import { action, observable, makeObservable } from "mobx";
-import { each, isString, map } from "lodash";
+import { each } from "lodash";
 import { $try } from "./utils";
 import ValidatorInterface, {
   DriversMap,
@@ -45,14 +45,14 @@ export default class Validator implements ValidatorInterface {
   }
 
   initDrivers(): void {
-    map(this.plugins, (plugin: ValidationPlugin, key: string) =>
-        (this.drivers[key] = (plugin && plugin.class) &&
-          new plugin.class({
-            config: plugin.config,
-            state: this.form!.state,
-            promises: this.promises,
-          }))
-  );
+    Object.entries(this.plugins).forEach(([key, plugin]) => {
+      this.drivers[key] = (plugin && (plugin as any).class) &&
+        new ((plugin as any).class)({
+          config: (plugin as any).config,
+          state: this.form!.state,
+          promises: this.promises,
+        });
+    });
   }
 
   validate(opt: ValidateOptions, obj: ValidateOptions): Promise<any> {
@@ -67,7 +67,7 @@ export default class Validator implements ValidatorInterface {
 
     return new Promise((resolve) => {
       // validate instance (form or filed)
-      if (instance.path || isString(path)) {
+      if (instance.path || typeof path === 'string') {
         this.validateField({
           field: instance,
           showErrors,

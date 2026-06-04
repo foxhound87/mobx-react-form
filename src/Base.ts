@@ -8,7 +8,7 @@ import {
   intercept,
   ObservableMap,
 } from "mobx";
-import { each, forIn, get, has, head, isNil, isNull, isObject, isPlainObject, isString, isUndefined, last, map, max, merge, set, split, transform, trim, trimStart } from "lodash";
+import { each, forIn, get, has, isPlainObject, merge, set, transform } from "lodash";
 import { BaseInterface } from "./models/BaseInterface";
 import { StateInterface } from "./models/StateInterface";
 import { FieldInterface } from "./models/FieldInterface";
@@ -160,7 +160,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   }
 
   get changed(): number {
-    return !isNil(this.path) && this.hasNestedFields
+    return this.path != null && this.hasNestedFields
       ? this.reduce(
           (acc: number, field: FieldInterface) => acc + field.changed,
           0
@@ -244,7 +244,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   */
   initFields(initial: any, update: boolean = false): void {
     const fallback = this.state.options.get(OptionsEnum.fallback);
-    const $path = (key: string) => trimStart([this.path, key].join("."), ".");
+    const $path = (key: string) => [this.path, key].join(".").replace(/^\.+/, "");
 
     let fields;
     fields = prepareFieldsData(initial, this.state.strict, fallback);
@@ -254,7 +254,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     forIn(fields, (field, key) => {
       const path = $path(key);
       const $f = this.select(path, null, false);
-      if (isNil($f)) {
+      if ($f == null) {
         if (fallback) {
           this.initField(key, path, field, update);
         } else {
@@ -484,7 +484,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   ): void {
     each(fields, (field, key) => {
       const $key = has(field, FieldPropsEnum.name) ? field.name : key;
-      const $path = trimStart(`${path}.${$key}`, ".");
+      const $path = `${path}.${$key}`.replace(/^\.+/, "");
 
       const strictUpdate = this.state.options.get(
         OptionsEnum.strictUpdate,
@@ -499,10 +499,9 @@ export default abstract class Base<F extends Record<string, any> = Record<string
         this
       );
 
-      if (!isNil($field) && !isUndefined(field)) {
+      if ($field != null && field !== void 0) {
         if (Array.isArray($field.values())) {
-          const n: number =
-            max(map(field.fields, (_, i) => Number(i))) ?? -1;
+            const n: number = Math.max(-1, ...Object.keys(field.fields || {}).map(Number));
           getObservableMapValues($field.fields).forEach(($f) => {
             if (Number($f.name) > n) {
               $field.$changed++;
@@ -532,7 +531,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
             return;
           }
         }
-        if (isNull(field) || isNil(field.fields)) {
+        if (field === null || field.fields == null) {
           $field.value = parseInput(
             applyInputConverterOnUpdate ? $field.$input : (val) => val,
             {
@@ -547,15 +546,15 @@ export default abstract class Base<F extends Record<string, any> = Record<string
         }
       }
 
-      if (!isNil($container) && isNil($field)) {
+      if ($container != null && $field == null) {
         // get full path when using update() with select() - FIX: #179
-        const $newFieldPath = trimStart([this.path, $path].join("."), ".");
+        const $newFieldPath = [this.path, $path].join(".").replace(/^\.+/, "");
         // init field into the container field
         $container.$changed++;
         $container.state.form.$changed++;
         $container.initField($key, $newFieldPath, field, true);
       } else if (recursion) {
-        if (has(field, FieldPropsEnum.fields) && !isNil(field.fields)) {
+        if (has(field, FieldPropsEnum.fields) && field.fields != null) {
           // handle nested fields if defined
           this.deepUpdate(field.fields, $path);
         } else {
@@ -571,7 +570,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     Get Fields Props
    */
   get(prop: any = null, strict: boolean = true): any {
-    if (isNil(prop)) {
+    if (prop == null) {
       return this.deepGet(
         [...props.computed, ...props.editable, ...props.validation],
         this.fields,
@@ -584,7 +583,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
       Array.isArray(prop) ? prop : [prop]
     );
 
-    if (isString(prop)) {
+    if (typeof prop === 'string') {
       if (
         ([FieldPropsEnum.hooks, FieldPropsEnum.handlers] as string[]).includes(
           prop
@@ -636,7 +635,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
           [field.key]: { fields: $nested(field.fields) },
         });
 
-        if (isString(prop)) {
+        if (typeof prop === 'string') {
           const opt = this.state.options;
           const removeProp =
             (opt.get(OptionsEnum.retrieveOnlyDirtyFieldsValues, this) &&
@@ -707,7 +706,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
    */
   set(prop: any, data?: any): void {
     // UPDATE CUSTOM PROP
-    if (isString(prop) && !isUndefined(data)) {
+    if (typeof prop === 'string' && data !== void 0) {
       allowedProps(AllowedFieldPropsTypes.editable, [prop]);
 
       const isPlain = (
@@ -715,7 +714,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
       ).includes(prop);
 
       const deep: boolean =
-        (isObject(data) && prop === FieldPropsEnum.value) ||
+        (data !== null && typeof data === 'object' && prop === FieldPropsEnum.value) ||
         (isPlainObject(data) && !isPlain);
       if (deep && this.hasNestedFields)
         return this.deepSet(prop, data, "", true);
@@ -745,7 +744,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     }
 
     // NO PROP NAME PROVIDED ("prop" is value)
-    if (isNil(data)) {
+    if (data == null) {
       if (this.hasNestedFields)
         this.deepSet(FieldPropsEnum.value, prop, "", true);
       else this.set(FieldPropsEnum.value, prop);
@@ -764,7 +763,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     const err = "You are updating a not existent field:";
     const isStrict = this.state.options.get(OptionsEnum.strictSet, this);
 
-    if (isNil(data)) {
+    if (data == null) {
       this.each(
         (field: any) =>
           (field.$value = defaultValue({
@@ -781,19 +780,19 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     }
 
     each(data, ($val, $key) => {
-      const $path = trimStart(`${path}.${$key}`, ".");
+      const $path = `${path}.${$key}`.replace(/^\.+/, "");
       // get the field by path joining keys recursively
       const field = this.select($path, null, isStrict);
       // if no field found when is strict update, throw error
       if (isStrict) throwError($path, field, err);
       // update the field/fields if defined
-      if (!isUndefined(field)) {
+      if (field !== void 0) {
         // update field values or others props
-        if (!isUndefined($val)) {
+        if ($val !== void 0) {
           field.set(prop, $val, recursion);
         }
         // update values recursively only if field has nested
-        if (field.fields.size && isObject($val)) {
+        if (field.fields.size && $val !== null && typeof $val === 'object') {
           this.deepSet(prop, $val, $path, recursion);
         }
       }
@@ -823,7 +822,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     if (!key) key = maxKey(this.fields);
 
     const $path = ($key: string) =>
-      trimStart([this.path, $key].join("."), ".");
+      [this.path, $key].join(".").replace(/^\.+/, "");
     const tree = pathToFieldsTree(this.state.struct(), this.path ?? '', 0, true);
     const field = this.initField(key, $path(key), merge(tree[0], obj));
     const hasValues =
@@ -866,10 +865,10 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   del($path: string | null = null, execEvent: boolean = true) {
     const isStrict = this.state.options.get(OptionsEnum.strictDelete, this);
     const path = parsePath($path ?? this.path ?? '');
-    const fullpath = trim([this.path ?? '', path ?? ''].join("."), ".");
+    const fullpath = [this.path ?? '', path ?? ''].join(".").replace(/^\.+|\.+$/g, "");
     const container = this.container($path);
-    const keys = split(path, ".");
-    const lastKey = last(keys);
+    const keys = path.split(".");
+    const lastKey = keys[keys.length - 1];
 
     if (isStrict && !container.fields.has(lastKey)) {
       const msg = `Key "${lastKey}" not found when trying to delete field`;
@@ -962,7 +961,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     Dispose Single Event (observe/intercept)
    */
   disposeSingle({ type, key = FieldPropsEnum.value, path = null }: any) {
-    const $path = parsePath(path ?? this.path);
+    const $path = parsePath(path ?? this.path ?? '');
     // eslint-disable-next-line
     if (type === "interceptor") key = `$${key}`; // target observables
     const disposersType = (this.state.disposers as any)[type];
@@ -979,17 +978,17 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   */
   select(path: string | number, fields: any = null, isStrict: boolean = true) {
     const $path = parsePath(String(path));
-    const keys = split($path, ".");
-    const headKey = head(keys);
+    const keys = $path.split(".");
+    const headKey = keys[0];
 
     keys.shift();
 
-    let $fields = isNil(fields) ? this.fields.get(headKey) : fields.get(headKey);
+    let $fields = fields == null ? this.fields.get(headKey) : fields.get(headKey);
 
     let stop = false;
     each(keys, ($key) => {
       if (stop) return;
-      if (isNil($fields)) {
+      if ($fields == null) {
         $fields = undefined;
         stop = true;
       } else {
@@ -1009,9 +1008,9 @@ export default abstract class Base<F extends Record<string, any> = Record<string
    */
   container($path?: string | null) {
     const path = parsePath($path ?? this.path ?? '');
-    const cpath = trim(path.replace(new RegExp("[^./]+$"), ""), ".");
+    const cpath = path.replace(/[^./]+$/, "").replace(/^\.+|\.+$/g, "");
 
-    if (!!this.path && isNil($path)) {
+    if (!!this.path && $path == null) {
       return cpath !== ""
         ? this.state.form.select(cpath, null, false)
         : this.state.form;

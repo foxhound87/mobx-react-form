@@ -1,4 +1,4 @@
-import { each, endsWith, filter, get, has, isBoolean, isDate, isEmpty, isNumber, isObject, isPlainObject, isString, last, map, merge, reduceRight, replace, set, split, startsWith, transform, trimEnd, values as lodashValues, without } from "lodash";
+import { each, get, has, isEmpty, isPlainObject, merge, set, transform } from "lodash";
 import { FieldPropsEnum, SeparatedPropsMode } from "./models/FieldProps";
 import {
   $try,
@@ -18,17 +18,17 @@ const defaultValue = ({
   fallbackValueOption = "",
 }: any): null | false | 0 | [] | "" => {
   if (Array.isArray(value) || isEmptyArray) return [];
-  if (nullable || isDate(value) || type === "date" || type === "datetime-local") return null;
-  if (isNumber(value) || type === "number") return 0;
-  if (isBoolean(value) || type === "checkbox") return false;
-  if (isString(value) || type === "file") return "";
+  if (nullable || value instanceof Date || type === "date" || type === "datetime-local") return null;
+  if (typeof value === 'number' || type === "number") return 0;
+  if (typeof value === 'boolean' || type === "checkbox") return false;
+  if (typeof value === 'string' || type === "file") return "";
   return fallbackValueOption;
 };
 
-const parsePath = (path: string): string => {
-  let $path = path;
-  $path = replace($path, new RegExp("\\[", "g"), ".");
-  $path = replace($path, new RegExp("\\]", "g"), "");
+const parsePath = (path: any): string => {
+  let $path = String(path ?? '');
+  $path = $path.replace(/\[/g, ".");
+  $path = $path.replace(/\]/g, "");
   return $path;
 };
 
@@ -50,7 +50,7 @@ const parseInput = (
   );
 
 const parseArrayProp = (val: any, prop: string, removeNullishValuesInArrays: boolean): any => {
-  const values = lodashValues(val);
+  const values = Object.values(val);
   const isValProp: boolean = ([
     FieldPropsEnum.value,
     FieldPropsEnum.initial,
@@ -58,14 +58,14 @@ const parseArrayProp = (val: any, prop: string, removeNullishValuesInArrays: boo
   ] as string[]).includes(prop)
 
   if (removeNullishValuesInArrays && isValProp) {
-    return without(values, ...[null, undefined, ""]);
+    return values.filter(v => v !== null && v !== undefined && v !== "");
   }
 
   return values;
 };
 
 const parseCheckArray = (field: any, value: any, prop: string, removeNullishValuesInArrays: boolean) => {
-  if (field.incremental && isObject(value) && isEmpty(value)) return [];
+  if (field.incremental && value !== null && typeof value === 'object' && isEmpty(value)) return [];
   return field.hasIncrementalKeys ? parseArrayProp(value, prop, removeNullishValuesInArrays) : value;
 }
 
@@ -73,25 +73,24 @@ const parseCheckOutput = (field: any, prop: string, retrieveNullifiedEmptyString
   if (prop === FieldPropsEnum.value || prop.startsWith("value.")) {
     const base = field.$output ? field.$output(field[FieldPropsEnum.value]) : field[FieldPropsEnum.value]
     const value = prop.startsWith("value.") ? get(base, prop.substring(6)) : base
-    if (isString(value) && isEmpty(value) && retrieveNullifiedEmptyStrings) return null
+    if (typeof value === 'string' && isEmpty(value) && retrieveNullifiedEmptyStrings) return null
     return value;
   }
   return field[prop];
 }
 
 const defineFieldsFromStruct = (struct: string[], add: boolean = false) =>
-  reduceRight(
-    struct,
+  struct.reduceRight(
     ($, name) => {
       const obj: any = {};
-      if (endsWith(name, "[]")) {
+      if (name.endsWith("[]")) {
         const val = add ? [$] : [];
-        obj[trimEnd(name, "[]")] = val;
+        obj[name.replace(/\[\]$/, "")] = val;
         return obj;
       }
       // no brakets
       const prev = struct[struct.indexOf(name) - 1];
-      const stop = endsWith(prev, "[]") && last(struct) === name;
+      const stop = !!prev && prev.endsWith("[]") && struct[struct.length - 1] === name;
       if (!add && stop) return obj;
       obj[name] = $;
       return obj;
@@ -106,7 +105,7 @@ const handleFieldsArrayOfStrings = ($fields: any, add = false) => {
     fields = transform(
       fields,
       ($obj, $) => {
-        const pathStruct = split($, ".");
+        const pathStruct = $.split(".");
         // as array of strings (with empty values)
         if (!pathStruct.length) return Object.assign($obj, { [$]: "" });
         // define flat or nested fields from pathStruct
@@ -173,7 +172,7 @@ TO:
 */
 const mapNestedValuesToUnifiedValues = (data: Record<string, any>): any =>
   isPlainObject(data)
-    ? map(data, (value, name) => ({ value, name }))
+    ? Object.entries(data).map(([name, value]) => ({ value, name }))
     : undefined;
 
 /* reduceValuesToUnifiedFields
@@ -279,21 +278,22 @@ const prepareFieldsData = (
 };
 
 const pathToFieldsTree = (
-  struct: string[],
+  struct: any,
   path: string,
   n: number = 0,
   add: boolean = false
 ) => {
+  const $struct = (Array.isArray(struct) ? struct : Object.values(struct)).filter((item: any) => typeof item === 'string');
   const structPath = pathToStruct(path);
-  const structArray = filter(struct, (item) =>
-    startsWith(item, structPath)
+  const structArray = $struct.filter((item) =>
+    item.startsWith(structPath)
   );
   const $tree = handleFieldsArrayOfStrings(structArray, add);
-  const $struct = replace(structPath, new RegExp("\\[]", "g"), `[${n}]`);
-  const fields = handleFieldsNested(get($tree, $struct));
+  const $structPath = structPath.replace(/\[\]/g, `[${n}]`);
+  const fields = handleFieldsNested(get($tree, $structPath));
 
   // fix issues #614 & #615
-  struct.length && struct
+  $struct.length && $struct
     .filter(s => s.startsWith(path + '[]'))
     .map(s => s.substring((path + '[].').length))
     .filter(s => s.endsWith('[]'))

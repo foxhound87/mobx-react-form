@@ -1,4 +1,4 @@
-import { isBoolean, isString } from "lodash";
+
 import FieldInterface from "../models/FieldInterface";
 import FormInterface from "../models/FormInterface";
 import StateInterface from "../models/StateInterface";
@@ -99,11 +99,11 @@ class VJF<TValidator = any> implements ValidationPluginInterface<TValidator> {
       return [result[0] || false, result[1] || "Error"];
     }
 
-    if (isBoolean(result)) {
+    if (typeof result === 'boolean') {
       return [result, "Error"];
     }
 
-    if (isString(result)) {
+    if (typeof result === 'string') {
       return [false, result];
     }
 

@@ -1,4 +1,4 @@
-import { find, includes, replace, trimStart } from "lodash";
+
 import FieldInterface from "../models/FieldInterface";
 import FormInterface from "../models/FormInterface";
 import StateInterface from "../models/StateInterface";
@@ -95,12 +95,13 @@ class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
   }
 
   findError(path: string, errors: any[]): any {
-    return find(errors, ({ dataPath }) => {
+    if (!errors) return;
+    return errors.find(({ dataPath }) => {
       let $dataPath;
-      $dataPath = trimStart(dataPath, ".");
-      $dataPath = replace($dataPath, "]", "");
-      $dataPath = replace($dataPath, "[", ".");
-      return includes($dataPath, path);
+      $dataPath = dataPath.replace(/^\.+/, "");
+      $dataPath = $dataPath.replace(/\]/g, "");
+      $dataPath = $dataPath.replace(/\[/g, ".");
+      return $dataPath.includes(path);
     });
   }
 

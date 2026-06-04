@@ -10,23 +10,7 @@ import {
   autorun,
   runInAction,
 } from "mobx";
-import {
-  debounce,
-  head,
-  isEmpty,
-  isBoolean,
-  isDate,
-  isEqual,
-  isNil,
-  isNull,
-  isNumber,
-  isPlainObject,
-  isString,
-  map,
-  omit,
-  toNumber,
-  toString,
-} from "lodash";
+import { isEmpty, isEqual, isNil, isPlainObject, debounce, omit } from "lodash";
 import Base from "./Base";
 
 import {
@@ -45,13 +29,11 @@ import { FieldInterface, FieldConstructor } from "./models/FieldInterface";
 import { FieldPropsEnum } from "./models/FieldProps";
 
 const applyFieldPropFunc = (instance: any, prop: any): any => {
-  if (typeof prop !== "function") return prop;
-  return prop.apply(instance, [
-    {
-      field: instance,
-      form: instance.state.form,
-    },
-  ]);
+    if (typeof prop !== "function") return prop;
+  return prop({
+    field: instance,
+    form: instance.state.form,
+  });
 };
 
 const retrieveFieldPropFunc = (prop: any): Function | any | undefined =>
@@ -356,15 +338,15 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
     return (
       !this.validationAsyncData.valid ||
       !isEmpty(this.validationErrorStack) ||
-      isString(this.errorAsync) ||
-      isString(this.errorSync)
+      typeof this.errorAsync === 'string' ||
+      typeof this.errorSync === 'string'
     );
   }
 
   set value(newVal: T) {
     let val: any = newVal;
     if (
-      isString(val) &&
+      typeof val === 'string' &&
       this.state.options.get(OptionsEnum.autoTrimValue, this)
     ) {
       val = val.trim();
@@ -382,11 +364,11 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
     if (!this.state.options.get(OptionsEnum.autoParseNumbers, this))
       return false;
 
-    if (isNumber(this.$initial) || this.type == "number") {
+    if (typeof this.$initial === 'number' || this.type == "number") {
       if (
         new RegExp("^-?\\d+(,\\d+)*(\\.\\d+([eE]\\d+)?)?$", "g").exec(newVal)
       ) {
-        this.$value = this.$converter(toNumber(newVal));
+        this.$value = this.$converter(Number(newVal));
         this.$changed++;
         if (!this.actionRunning) {
           this.state.form.$changed++;
@@ -531,10 +513,10 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
 
   get isEmpty(): boolean {
     if (this.hasNestedFields) return this.check(FieldPropsEnum.isEmpty, true);
-    if (isBoolean(this.value)) return !!this.$value;
-    if (isNumber(this.value)) return false;
-    if (isDate(this.value)) return false;
-    if (isNull(this.value)) return false;
+    if (typeof this.value === 'boolean') return !!this.$value;
+    if (typeof this.value === 'number') return false;
+    if (this.value instanceof Date) return false;
+    if (this.value === null) return false;
     return isEmpty(this.value);
   }
 
@@ -631,10 +613,10 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
         let files: unknown[] | null = null;
 
         if (isEvent(e) && hasFiles(e)) {
-          files = map(e.target.files);
+          files = Array.from(e.target.files);
         }
 
-        this.files = [...map(this.files), ...(files || args)];
+        this.files = [...(this.files || []), ...(files || args)];
       }),
     );
 
@@ -672,7 +654,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
     if (isPlainObject($data)) {
       const { type, input, output, converter, converters, computed } = $data;
 
-      this.name = toString($data.name || $key);
+      this.name = $data.name ?? String($key);
       this.$type = $type || type || "text";
       this.$converter = $try(
         $converter,
@@ -721,7 +703,7 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
     }
 
     /* The field IS the value here */
-    this.name = toString($key);
+    this.name = String($key);
     this.$type = $type || "text";
     this.$converter = $try($converter, $converters, this.$converter);
     this.$input = $try($input, this.$input);
@@ -925,13 +907,13 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
   }
 
   trim(): void {
-    if (!isString(this.value)) return;
+    if (typeof this.value !== 'string') return;
     this.$value = this.value.trim();
   }
 
   showErrors(show: boolean = true, deep: boolean = true): void {
     this.showError = show;
-    this.errorSync = (head(this.validationErrorStack) as string) || null;
+    this.errorSync = this.validationErrorStack.length ? (this.validationErrorStack[0] as string) : null;
     this.errorAsync = !this.validationAsyncData.valid
       ? this.validationAsyncData.message
       : null;

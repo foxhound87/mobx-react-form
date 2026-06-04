@@ -1,4 +1,4 @@
-import { filter, forIn, head, isEmpty, isString, split } from "lodash";
+import { forIn, isEmpty } from "lodash";
 import FieldInterface from "../models/FieldInterface";
 import FormInterface from "../models/FormInterface";
 import StateInterface from "../models/StateInterface";
@@ -82,7 +82,7 @@ class DVR<TValidator = any>
     const validation = new (this.validator as any)(data, rules);
     this.makeLabels(validation, field);
     if (validation.passes()) return;
-    field.invalidate(head(validation.errors.get(field.path)), false);
+    field.invalidate((validation.errors.get(field.path) as any[])[0], false);
   }
 
   validateFieldAsync(field: FieldInterface, data: any) {
@@ -114,7 +114,7 @@ class DVR<TValidator = any>
   ) {
     field.setValidationAsyncData(
       false,
-      head(validation.errors.get(field.path))
+      (validation.errors.get(field.path) as any[])[0]
     );
     this.executeAsyncValidation(field);
     resolve();
@@ -127,12 +127,12 @@ class DVR<TValidator = any>
   }
 
   rules(rules: any, type: "sync" | "async") {
-    const $rules = isString(rules) ? split(rules, "|") : rules;
+    const $rules = Array.isArray(rules) ? rules : typeof rules === 'string' ? rules.split("|") : [];
     const v = new (this.validator as any)();
-    return filter($rules, ($rule) =>
+    return $rules.filter(($rule: any) =>
       type === "async"
-        ? v.getRule(split($rule, ":")[0])?.async
-        : !v.getRule(split($rule, ":")[0])?.async
+        ? v.getRule($rule.split(":")[0])?.async
+        : !v.getRule($rule.split(":")[0])?.async
     );
   }
 }

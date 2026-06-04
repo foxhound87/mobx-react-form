@@ -1,4 +1,4 @@
-import { ary, endsWith, every, has, intersection, isBoolean, isDate, isEmpty, isInteger, isNil, isObject, isPlainObject, isString, isUndefined, keys, map, max, partial, replace, some, toNumber, trim, union, uniqueId as _uniqueId, values } from "lodash";
+import { has, isEmpty, isPlainObject } from "lodash";
 import { ObservableMap, values as mobxValues, keys as mobxKeys } from "mobx";
 import { FieldInterface } from "./models/FieldInterface";
 import { AllowedFieldPropsTypes, FieldPropsEnum, FieldPropsOccurrence } from "./models/FieldProps";
@@ -24,8 +24,8 @@ const checkObserve = (collection: Record<string, any>[]) => (change: any) =>
 const checkPropOccurrence = ({ type, data }: any): boolean => {
   let $check: any;
   switch (type) {
-    case FieldPropsOccurrence.some: $check = ($data: object) => some($data, Boolean); break;
-    case FieldPropsOccurrence.every: $check = ($data: object) => every($data, Boolean); break;
+    case FieldPropsOccurrence.some: $check = ($data: object) => ($data as any[]).some(Boolean); break;
+    case FieldPropsOccurrence.every: $check = ($data: object) => ($data as any[]).every(Boolean); break;
     default: throw new Error('Occurrence not found for specified prop');
   }
   return $check(data);
@@ -69,7 +69,7 @@ const hasProps = ($type: string, $data: any): boolean => {
       $props = null;
   }
 
-  return intersection($data, $props).length > 0;
+  return $data.filter((x: string) => $props.includes(x)).length > 0;
 };
 
 /**
@@ -85,16 +85,16 @@ const allowedProps = (type: string, data: string[]): void => {
   Throw Error if undefined Fields
 */
 const throwError = (path: string, fields: any, msg: null | string = null): void => {
-  if (!isNil(fields)) return;
-  const $msg = isNil(msg) ? "The selected field is not defined" : msg;
+  if (fields != null) return;
+  const $msg = msg == null ? "The selected field is not defined" : msg;
   throw new Error(`${$msg} (${path})`);
 };
 
 const pathToStruct = (path: string): string => {
   let struct;
-  struct = replace(path, new RegExp("[.]\\d+($|.)", "g"), "[].");
-  struct = replace(struct, "..", ".");
-  struct = trim(struct, ".");
+  struct = path.replace(/\.\d+($|\.)/g, "[].");
+  struct = struct.replace("..", ".");
+  struct = struct.replace(/^\.+|\.+$/g, "");
   return struct;
 };
 
@@ -102,24 +102,24 @@ const isArrayFromStruct = (struct: string[], structPath: string): boolean => {
   if (isArrayOfStrings(struct)) return !!struct
     .filter((s) => s.startsWith(structPath))
     .find((s) => s.substring(structPath.length) === "[]")
-    || endsWith(struct?.find((e) => e === structPath), '[]');
+    || (struct?.find((e) => e === structPath)?.endsWith('[]') ?? false);
   else return false;
 };
 
 const hasSome = (obj: any, keys: any): boolean =>
-  some(keys, partial(has, obj));
+  keys.some((key: string) => has(obj, key));
 
 const isEmptyArray = (field: any): boolean =>
   isEmpty(field) && Array.isArray(field);
 
 const isArrayOfStrings = (struct: any): boolean =>
-  Array.isArray(struct) && every(struct, isString);
+  Array.isArray(struct) && struct.every((s: any) => typeof s === 'string');
 
 const isArrayOfObjects = (fields: any): boolean =>
-  Array.isArray(fields) && every(fields, isPlainObject);
+  Array.isArray(fields) && fields.every((f: any) => isPlainObject(f));
 
 const getKeys = (fields: any) =>
-  union(...map(values(fields), (values) => keys(values)));
+  fields ? [...new Set(Object.values(fields).flatMap((values) => values ? Object.keys(values) : []))] : [];
 
 const hasUnifiedProps = ({ fields }: any) =>
   !isArrayOfStrings({ fields }) && hasProps(AllowedFieldPropsTypes.editable, getKeys(fields));
@@ -128,8 +128,8 @@ const hasSeparatedProps = (initial: any): boolean =>
   hasSome(initial, props.separated) || hasSome(initial, props.validation);
 
 const allowNested = (field: any, strictProps: boolean): boolean =>
-  isObject(field) &&
-  !isDate(field) &&
+  field !== null && typeof field === 'object' &&
+  !(field instanceof Date) &&
   !has(field, FieldPropsEnum.fields) &&
   !has(field, FieldPropsEnum.class) &&
     (!hasSome(field, [
@@ -140,29 +140,33 @@ const allowNested = (field: any, strictProps: boolean): boolean =>
     ]) || strictProps);
 
 const parseIntKeys = (fields: any) =>
-  map(getObservableMapKeys(fields), ary(toNumber, 1));
+  Array.from(getObservableMapKeys(fields)).map(Number);
 
 const hasIntKeys = (fields: any): boolean =>
-  every(parseIntKeys(fields), isInteger);
+  parseIntKeys(fields).every((x: any) => Number.isInteger(x));
 
 const maxKey = (fields: any): number => {
-  const maxVal = max(parseIntKeys(fields));
-  return isUndefined(maxVal) ? 0 : maxVal + 1;
+  const keys = parseIntKeys(fields);
+  const maxVal = keys.length ? Math.max(...keys) : undefined;
+  return maxVal === void 0 ? 0 : maxVal + 1;
 };
 
+let _idCounter = 0;
+const _localUniqueId = (prefix: string): string => `${prefix}${++_idCounter}`;
+
 const uniqueId = (field: any): string =>
-  _uniqueId([replace(field.path, new RegExp("\\.", "g"), "-"), "--"].join(""));
+  _localUniqueId([field.path.replace(/\./g, "-"), "--"].join(""));
 
 const isEvent = (obj: any): boolean => {
-  if (isNil(obj) || typeof Event === "undefined") return false;
-  return obj instanceof Event || !isNil(obj.target);
+  if (obj == null || typeof Event === "undefined") return false;
+  return obj instanceof Event || obj.target != null;
 };
 
 const hasFiles = ($: any): boolean =>
   $.target.files && $.target.files.length !== 0;
 
 const isBool = ($: any, val: any): boolean =>
-  isBoolean(val) && isBoolean($.target.checked);
+  typeof val === 'boolean' && typeof $.target.checked === 'boolean';
 
 const $try = (...args: any[]) => {
   for (const val of args) {
