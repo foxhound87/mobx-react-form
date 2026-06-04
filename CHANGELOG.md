@@ -1,4 +1,4 @@
-# 6.15.0 (master)
+# 6.14.1 (master)
 
 - refactor: remove 36 EASY lodash functions, replace with vanilla JS
 - fix: resolve TS warnings (type annotation, unused import)
