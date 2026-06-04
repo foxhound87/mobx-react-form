@@ -1,3 +1,12 @@
+# 6.15.0 (master)
+
+- refactor: remove 36 EASY lodash functions, replace with vanilla JS
+- fix: resolve TS warnings (type annotation, unused import)
+- fix: resolve test bugs (nested describe, intercept assert, robust onClear)
+- fix: uncomment and restore DVR performance test
+- chore: merge master into agent (keep clean lodash imports, inline vanilla JS)
+- docs: add gzip bundle size badge to README
+
 # 6.14.0 (master)
 
 - feat: add ArrayMap.move() with guard clauses (bounds, negative, same index)
