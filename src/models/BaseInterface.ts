@@ -1,10 +1,10 @@
-import { ObservableMap } from "mobx";
-import {SharedActionsInterface} from "./SharedActionsInterface";
-import {SharedEventsInterface} from "./SharedEventsInterface";
-import {SharedHelpersInterface} from "./SharedHelpersInterface";
-import {SharedInitializerInterface} from "./SharedInitializerInterface";
-import {SharedUtilsInferface} from "./SharedUtilsInterface";
-import {StateInterface} from "./StateInterface";
+import { SharedActionsInterface } from "./SharedActionsInterface";
+import { SharedEventsInterface } from "./SharedEventsInterface";
+import { SharedHelpersInterface } from "./SharedHelpersInterface";
+import { SharedInitializerInterface } from "./SharedInitializerInterface";
+import { SharedUtilsInferface } from "./SharedUtilsInterface";
+import { StateInterface } from "./StateInterface";
+import ArrayMap from "../ArrayMap";
 export interface BaseInterface<F extends Record<string, any> = Record<string, any>>
   extends SharedInitializerInterface,
     SharedActionsInterface,
@@ -12,7 +12,7 @@ export interface BaseInterface<F extends Record<string, any> = Record<string, an
     SharedUtilsInferface,
     SharedHelpersInterface<F> {
   state: StateInterface;
-  fields: ObservableMap;
+  fields: ArrayMap;
   path: string | undefined | null;
   $hooks: any;
   $handlers: any;

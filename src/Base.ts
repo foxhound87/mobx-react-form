@@ -6,8 +6,8 @@ import {
   makeObservable,
   observe,
   intercept,
-  ObservableMap,
 } from "mobx";
+import ArrayMap from "./ArrayMap";
 import { each, forIn, get, has, isPlainObject, merge, set, transform } from "lodash";
 import { BaseInterface } from "./models/BaseInterface";
 import { StateInterface } from "./models/StateInterface";
@@ -50,7 +50,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
 
   state!: StateInterface;
 
-  fields: ObservableMap = observable.map({});
+  fields: ArrayMap = new ArrayMap();
   path: string | undefined | null;
 
   $submitted: number = 0;
@@ -625,8 +625,9 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     Get Fields Props Recursively
    */
   deepGet(prop: any, fields: any, strict = true): any {
-    return transform(
-      getObservableMapValues(fields),
+    const _fieldsArr = getObservableMapValues(fields);
+    const _result = transform(
+      _fieldsArr,
       (obj: any, field: any) => {
         const $nested = ($fields: any) =>
           $fields.size !== 0 ? this.deepGet(prop, $fields, strict) : undefined;
@@ -697,8 +698,19 @@ export default abstract class Base<F extends Record<string, any> = Record<string
 
         return obj;
       },
-      {}
+      {} as Record<string, any>
     );
+
+    // Array fields with integer keys must preserve _entries order
+    // (JavaScript Object.assign sorts integer-like keys regardless of insertion order)
+    if (typeof prop === "string" && _fieldsArr.length > 0 && hasIntKeys(fields)) {
+      const keysInResult = new Set(Object.keys(_result));
+      return _fieldsArr
+        .filter(f => keysInResult.has(String(f.key)))
+        .map(f => _result[String(f.key)]);
+    }
+
+    return _result;
   }
 
   /**
@@ -920,7 +932,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
 
     if (type === "observer") {
       fn = observe;
-      ffn = (cb: any) => observe($instance.fields, cb); // fields
+      ffn = (cb: any) => observe($instance.fields.toArray(), cb); // fields
     }
 
     if (type === "interceptor") {
@@ -1084,6 +1096,17 @@ export default abstract class Base<F extends Record<string, any> = Record<string
 
   reduce(iteratee: any, acc: any): any {
     return getObservableMapValues(this.fields).reduce(iteratee, acc);
+  }
+
+  /******************************************************************
+    Array Operations
+  */
+
+  /**
+    Move a field from one index to another (for sortable lists).
+   */
+  move(fromIndex: number, toIndex: number): void {
+    this.fields.move(fromIndex, toIndex);
   }
 
   /******************************************************************

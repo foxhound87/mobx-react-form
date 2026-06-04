@@ -1,3 +1,8 @@
+# 6.14.0 (master)
+
+- feat: add ArrayMap.move() with guard clauses (bounds, negative, same index)
+- test: 26 tests for ArrayMap.move() and fields.move() — reorder, guards, chains, consistency
+
 # 6.13.0 (master)
 
 - feat: add generics to Form&lt;F&gt; and Field&lt;T&gt; for type-safe field access

@@ -1,14 +1,28 @@
 import { has, isEmpty, isPlainObject } from "lodash";
-import { ObservableMap, values as mobxValues, keys as mobxKeys } from "mobx";
+import { values as mobxValues, keys as mobxKeys } from "mobx";
 import { FieldInterface } from "./models/FieldInterface";
 import { AllowedFieldPropsTypes, FieldPropsEnum, FieldPropsOccurrence } from "./models/FieldProps";
 import { props } from "./props";
 
-const getObservableMapValues = (observableMap: ObservableMap):
-  ReadonlyArray<FieldInterface> => mobxValues(observableMap);
+const getObservableMapValues = (fields: any):
+  ReadonlyArray<FieldInterface> => {
+  // ArrayMap duck-typing
+  if (fields && fields._isArrayMap) {
+    const result: FieldInterface[] = [];
+    fields.forEach((value: FieldInterface) => result.push(value));
+    return result;
+  }
+  return mobxValues(fields);
+};
 
-const getObservableMapKeys = (observableMap: ObservableMap):
-  ReadonlyArray<FieldInterface> => mobxKeys(observableMap);
+const getObservableMapKeys = (fields: any):
+  ReadonlyArray<any> => {
+  // ArrayMap duck-typing
+  if (fields && fields._isArrayMap) {
+    return Array.from(fields.keys());
+  }
+  return mobxKeys(fields);
+};
 
 const checkObserveItem =
   (change: any) =>
