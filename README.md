@@ -9,6 +9,7 @@
 ![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/foxhound87/mobx-react-form/ci.yml?branch=master)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/foxhound87/mobx-react-form)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/mobx-react-form)
+![npm bundle size (gzip)](https://img.shields.io/bundlephobia/minzip/mobx-react-form)
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/foxhound87/mobx-react-form/master.svg)](https://codecov.io/gh/foxhound87/mobx-react-form)
 [![node](https://img.shields.io/node/v/mobx-react-form.svg)]()
 [![GitHub license](https://img.shields.io/github/license/foxhound87/mobx-react-form.svg)]()
@@ -46,6 +47,9 @@
 - [Events & Handlers](docs/events/README.md)
 - [Bindings](docs/bindings/README.md)
 - [Validation](docs/validation/README.md)
+- [Advanced](docs/advanced/README.md)
+- [Recipes & Patterns](docs/recipes.md)
+- [Troubleshooting & FAQ](docs/troubleshooting.md)
 
 ## Contributing
 

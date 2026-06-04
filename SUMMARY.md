@@ -54,13 +54,26 @@
  * [Default Bindings](docs/bindings/default.md)
  * [Custom Bindings](docs/bindings/custom.md)
 
+## Advanced
+* [Overview](docs/advanced/README.md)
+* Demo Implementations
+    * [Sortable List](docs/advanced/sortable.md)
+    * [Interceptors](docs/advanced/interceptors.md)
+    * [Observers](docs/advanced/observers.md)
+    * [Reactive Computed](docs/advanced/reactive-computed.md)
+    * [Cross Validation](docs/advanced/cross-validation.md)
+    * [Nested Composition](docs/advanced/nested-composition.md)
+    * [Wizard](docs/advanced/wizard.md)
+    * [Bindings Demo](docs/advanced/bindings-demo.md)
+    * [Markdown Editor](docs/advanced/markdown.md)
+    * [File Upload](docs/advanced/file-upload.md)
+
 ## Extra
+* [Overview](docs/extra/README.md)
 * [Computed Field Props](docs/extra/computed-props.md)
 * [Input & Output Converters](docs/extra/converters.md)
 * [Observe / Intercept](docs/extra/mobx-events.md)
 * [Forms Composer](docs/extra/composer.md)
-
-## Advanced
 * [Recipes & Patterns](docs/recipes.md)
 * [Troubleshooting & FAQ](docs/troubleshooting.md)
 
