@@ -1,3 +1,10 @@
+# 6.15.0 (master)
+
+- feat: add `bubbleUpErrorMessages` form option (default `false`)
+- feat: `Field.error` and `Form.error` bubble up first nested error when option enabled
+- feat: add `firstError()` method to Base for recursive error traversal
+- fix: #378 — error messages bubble up from nested child fields
+
 # 6.14.1 (master)
 
 - refactor: remove 36 EASY lodash functions, replace with vanilla JS
