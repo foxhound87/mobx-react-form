@@ -53,6 +53,7 @@
 | **preserveDeletedFieldsValues** | boolean | false | After deleting and adding same field, the defined initial values will be preserverd if this option is activated. |
 | **autoTrimValue** | boolean | false | Trim field value if is a string. |
 | **autoParseNumbers** | boolean | false | Try to parse strings to numbers automatically if the initial value of the field is a number. |
+| **bubbleUpErrorMessages** | boolean | false | If enabled, the `error` getter on container fields and forms will return the first error message found in nested child fields, instead of `null`. |
 | **stopValidationOnError** | boolean | false | If enabled, the validation stops to validate the field with new validation driver (and its functions) if has alredy marked invalid. |
 | **resetValidationBeforeValidate** | boolean | true | If disabled, the validation state will not be resetted to its initials before `validate` (experimental) |
 | **validationPluginsOrder** | string[] | undefined | Specify an array of strings with the validation plugins order. Accepted Plugins: `vjf`, `dvr`, `svk`, `yup`, `zod`, `joi`. |
