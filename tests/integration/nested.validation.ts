@@ -131,7 +131,7 @@ describe('Check Nested $R validation', () => {
   it('$R members[1].lastname isValid should be true', () =>
     expect($.$R.$('members[1].lastname').isValid).to.be.true);
 
-  it('$R members[1].hobbies[0] isValid should be true', () =>
+  it('$R members[1].hobbies[1] isValid should be true', () =>
     expect($.$R.$('members[1].hobbies[1]').isValid).to.be.true);
 
   it('$R members[1].hobbies[1] isValid should be true', () =>
@@ -151,7 +151,7 @@ describe('Check Nested $S validation', () => {
   it('$S members[1].lastname isValid should be false', () =>
     expect($.$S.$('members[1].lastname').isValid).to.be.false);
 
-  it('$S members[1].hobbies[0] isValid should be false', () =>
+  it('$S members[1].hobbies[1] isValid should be false', () =>
     expect($.$S.$('members[1].hobbies[1]').isValid).to.be.false);
 
   it('$S members[1].hobbies[1] isValid should be false', () =>

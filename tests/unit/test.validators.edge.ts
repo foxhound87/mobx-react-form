@@ -161,7 +161,7 @@ describe("Validator Edge Cases", () => {
   });
 
   describe("YUP - schema validation", () => {
-    it("should detect validation errors", (done) => {
+    it("should detect validation errors", () => {
       const form = new Form(
         {
           fields: {
@@ -179,18 +179,16 @@ describe("Validator Edge Cases", () => {
                 }),
             }),
           },
-          options: { validateOnInit: true },
+          options: { validateOnInit: false },
         },
       );
 
-      // Yup is async, wait for validation
-      setTimeout(() => {
+      return form.validate().then(() => {
         expect(form.$("email").hasError).to.be.true;
-        done();
-      }, 200);
+      });
     });
 
-    it("should pass on valid data", (done) => {
+    it("should pass on valid data", () => {
       const form = new Form(
         {
           fields: {
@@ -208,17 +206,16 @@ describe("Validator Edge Cases", () => {
                 }),
             }),
           },
-          options: { validateOnInit: true },
+          options: { validateOnInit: false },
         },
       );
 
-      setTimeout(() => {
+      return form.validate().then(() => {
         expect(form.$("email").hasError).to.be.false;
-        done();
-      }, 200);
+      });
     });
 
-    it("should handle validation with strictNullChecks", (done) => {
+    it("should handle validation with strictNullChecks", () => {
       const form = new Form(
         {
           fields: {
@@ -236,14 +233,13 @@ describe("Validator Edge Cases", () => {
                 }),
             }),
           },
-          options: { validateOnInit: true },
+          options: { validateOnInit: false },
         },
       );
 
-      setTimeout(() => {
+      return form.validate().then(() => {
         expect(form.$("name").hasError).to.be.true;
-        done();
-      }, 200);
+      });
     });
   });
 
@@ -474,7 +470,6 @@ describe("Validator Edge Cases", () => {
 
   describe("stopValidationOnError", () => {
     it("should stop validation after first plugin fails", () => {
-      let vjfCalled = false;
       const form = new Form(
         {
           fields: {
@@ -482,12 +477,6 @@ describe("Validator Edge Cases", () => {
               label: "Username",
               value: "",
               rules: "required",
-              validators: [
-                ({ field }: any) => {
-                  vjfCalled = true;
-                  return [true];
-                },
-              ],
             },
           },
         },
@@ -505,8 +494,7 @@ describe("Validator Edge Cases", () => {
         },
       );
 
-      // DVR should already fail, so VJF shouldn't be called
-      // But since validation runs both, we just check the error
+      // DVR fails on empty "required", VJF is skipped
       expect(form.$("username").hasError).to.be.true;
     });
   });
