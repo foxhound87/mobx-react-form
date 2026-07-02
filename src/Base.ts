@@ -8,7 +8,16 @@ import {
   intercept,
 } from "mobx";
 import ArrayMap from "./ArrayMap";
-import { each, forIn, get, has, isPlainObject, merge, set, transform } from "lodash";
+import {
+  each,
+  forIn,
+  get,
+  has,
+  isPlainObject,
+  merge,
+  set,
+  transform,
+} from "lodash";
 import { BaseInterface } from "./models/BaseInterface";
 import { StateInterface } from "./models/StateInterface";
 import { FieldInterface } from "./models/FieldInterface";
@@ -45,7 +54,9 @@ import {
 import { OptionsEnum } from "./models/OptionsModel";
 import { ValidateOptions, ValidationHooks } from "./models/ValidatorInterface";
 import { SubmitHooks } from "./models/SharedActionsInterface";
-export default abstract class Base<F extends Record<string, any> = Record<string, any>> implements BaseInterface<F> {
+export default abstract class Base<
+  F extends Record<string, any> = Record<string, any>,
+> implements BaseInterface<F> {
   noop = () => {};
 
   state!: StateInterface;
@@ -109,12 +120,12 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     args: any,
     fallback: any = undefined,
     hook: any = null,
-    execHook = true
+    execHook = true,
   ): any => [
     $try(
       this.$handlers[name] && this.$handlers[name].apply(this, [this]),
       fallback,
-      this.noop
+      this.noop,
     ).apply(this, [...args]),
     execHook && this.execHook(hook || name),
   ];
@@ -163,7 +174,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     return this.path != null && this.hasNestedFields
       ? this.reduce(
           (acc: number, field: FieldInterface) => acc + field.changed,
-          0
+          0,
         ) + this.$changed
       : this.$changed;
   }
@@ -175,7 +186,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     this.MOBXEvent(
       typeof opt === "function"
         ? { type: "interceptor", call: opt }
-        : { type: "interceptor", ...opt }
+        : { type: "interceptor", ...opt },
     );
 
   /**
@@ -185,7 +196,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     this.MOBXEvent(
       typeof opt === "function"
         ? { type: "observer", call: opt }
-        : { type: "observer", ...opt }
+        : { type: "observer", ...opt },
     );
 
   /**
@@ -218,7 +229,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
         this.submit(o);
       },
       null,
-      false
+      false,
     );
 
   /**
@@ -244,7 +255,8 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   */
   initFields(initial: any, update: boolean = false): void {
     const fallback = this.state.options.get(OptionsEnum.fallback);
-    const $path = (key: string) => [this.path, key].join(".").replace(/^\.+/, "");
+    const $path = (key: string) =>
+      [this.path, key].join(".").replace(/^\.+/, "");
 
     let fields;
     fields = prepareFieldsData(initial, this.state.strict, fallback);
@@ -267,7 +279,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
                 s.charAt(structPath.length) === "." ||
                 s.substring(structPath.length, structPath.length + 2) ===
                   "[]" ||
-                s === structPath
+                s === structPath,
             );
 
           if (found) this.initField(key, path, field, update);
@@ -280,7 +292,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     key: string,
     path: string,
     data: any,
-    update: boolean = false
+    update: boolean = false,
   ): any {
     const initial = this.state.get("current", "props");
     const struct = pathToStruct(path);
@@ -343,7 +355,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
         state: this.state,
       },
 
-      (data && data[FieldPropsEnum.class]) || _try(SeparatedPropsMode.classes)
+      (data && data[FieldPropsEnum.class]) || _try(SeparatedPropsMode.classes),
     );
 
     this.fields.merge({ [key]: field });
@@ -369,7 +381,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
       execOnSubmitHook = true,
       execValidationHooks = true,
       validate = true,
-    } = {}
+    } = {},
   ): Promise<any> {
     const execOnSubmit = () => this.execHook(FieldPropsEnum.onSubmit, hooks);
     const submit = execOnSubmitHook ? execOnSubmit() : undefined;
@@ -386,7 +398,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
           action((err: any) => {
             this.$submitting = false;
             throw err;
-          })
+          }),
         )
         .then(() => this);
     }
@@ -404,11 +416,11 @@ export default abstract class Base<F extends Record<string, any> = Record<string
         if (isValid) return Promise.all([submit, handler]);
         const $err = this.state.options.get(
           OptionsEnum.defaultGenericError,
-          this
+          this,
         );
         const $throw = this.state.options.get(
           OptionsEnum.submitThrowsError,
-          this
+          this,
         );
         if ($throw && $err) (this as any).invalidate();
         return Promise.all([submit, handler]);
@@ -418,7 +430,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
         action((err: any) => {
           this.$submitting = false;
           throw err;
-        })
+        }),
       )
       .then(() => this);
   }
@@ -450,17 +462,18 @@ export default abstract class Base<F extends Record<string, any> = Record<string
           checkPropOccurrence({
             data: this.deepCheck(type, prop, field.fields),
             type,
-          })
+          }),
         );
 
         return check;
       },
-      []
+      [],
     );
   }
 
   firstError(): string | null {
-    if (!this.state.options.get(OptionsEnum.bubbleUpErrorMessages, this as any)) return null;
+    if (!this.state.options.get(OptionsEnum.bubbleUpErrorMessages, this as any))
+      return null;
     for (const field of getObservableMapValues(this.fields)) {
       if (field.error) return field.error;
       if (field.fields.size) {
@@ -484,7 +497,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
       prepareFieldsData({ fields }, this.state.strict),
       undefined,
       undefined,
-      fields
+      fields,
     );
   }
 
@@ -492,7 +505,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     fields: any,
     path: string = "",
     recursion: boolean = true,
-    raw?: any
+    raw?: any,
   ): void {
     each(fields, (field, key) => {
       const $key = has(field, FieldPropsEnum.name) ? field.name : key;
@@ -500,20 +513,23 @@ export default abstract class Base<F extends Record<string, any> = Record<string
 
       const strictUpdate = this.state.options.get(
         OptionsEnum.strictUpdate,
-        this
+        this,
       );
       const $field = this.select($path, null, strictUpdate);
       const $container =
         this.select(path, null, false) ||
-        this.state.form.select(this.path ?? '', null, false);
+        this.state.form.select(this.path ?? "", null, false);
       const applyInputConverterOnUpdate = this.state.options.get(
         OptionsEnum.applyInputConverterOnUpdate,
-        this
+        this,
       );
 
       if ($field != null && field !== void 0) {
         if (Array.isArray($field.values())) {
-            const n: number = Math.max(-1, ...Object.keys(field.fields || {}).map(Number));
+          const n: number = Math.max(
+            -1,
+            ...Object.keys(field.fields || {}).map(Number),
+          );
           getObservableMapValues($field.fields).forEach(($f) => {
             if (Number($f.name) > n) {
               $field.$changed++;
@@ -527,7 +543,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
           const x = this.state
             .struct()
             .findIndex((s) =>
-              s.startsWith($field.path.replace(/\.\d+\./, "[].") + "[]")
+              s.startsWith($field.path.replace(/\.\d+\./, "[].") + "[]"),
             );
           if (!fallback && $field.fields.size === 0 && x < 0) {
             $field.value = parseInput(
@@ -535,10 +551,10 @@ export default abstract class Base<F extends Record<string, any> = Record<string
               {
                 fallbackValueOption: this.state.options.get(
                   OptionsEnum.fallbackValue,
-                  this
+                  this,
                 ),
                 separated: get(raw, $path),
-              }
+              },
             );
             return;
           }
@@ -549,10 +565,10 @@ export default abstract class Base<F extends Record<string, any> = Record<string
             {
               fallbackValueOption: this.state.options.get(
                 OptionsEnum.fallbackValue,
-                this
+                this,
               ),
               separated: field,
-            }
+            },
           );
           return;
         }
@@ -586,19 +602,19 @@ export default abstract class Base<F extends Record<string, any> = Record<string
       return this.deepGet(
         [...props.computed, ...props.editable, ...props.validation],
         this.fields,
-        strict
+        strict,
       );
     }
 
     allowedProps(
       AllowedFieldPropsTypes.all,
-      Array.isArray(prop) ? prop : [prop]
+      Array.isArray(prop) ? prop : [prop],
     );
 
-    if (typeof prop === 'string') {
+    if (typeof prop === "string") {
       if (
         ([FieldPropsEnum.hooks, FieldPropsEnum.handlers] as string[]).includes(
-          prop
+          prop,
         )
       ) {
         return (this as any)[`$${prop}`];
@@ -607,26 +623,26 @@ export default abstract class Base<F extends Record<string, any> = Record<string
       if (strict && this.fields.size === 0) {
         const retrieveNullifiedEmptyStrings = this.state.options.get(
           OptionsEnum.retrieveNullifiedEmptyStrings,
-          this
+          this,
         );
         return parseCheckOutput(
           this,
           prop,
-          strict ? retrieveNullifiedEmptyStrings : false
+          strict ? retrieveNullifiedEmptyStrings : false,
         );
       }
 
       const value = this.deepGet(prop, this.fields, strict);
       const removeNullishValuesInArrays = this.state.options.get(
         OptionsEnum.removeNullishValuesInArrays,
-        this
+        this,
       );
 
       return parseCheckArray(
         this,
         value,
         prop,
-        strict ? removeNullishValuesInArrays : false
+        strict ? removeNullishValuesInArrays : false,
       );
     }
 
@@ -648,7 +664,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
           [field.key]: { fields: $nested(field.fields) },
         });
 
-        if (typeof prop === 'string') {
+        if (typeof prop === "string") {
           const opt = this.state.options;
           const removeProp =
             (opt.get(OptionsEnum.retrieveOnlyDirtyFieldsValues, this) &&
@@ -671,13 +687,13 @@ export default abstract class Base<F extends Record<string, any> = Record<string
             if (removeProp) return obj;
             const retrieveNullifiedEmptyStrings = this.state.options.get(
               OptionsEnum.retrieveNullifiedEmptyStrings,
-              this
+              this,
             );
             return Object.assign(obj, {
               [field.key]: parseCheckOutput(
                 field,
                 prop,
-                strict ? retrieveNullifiedEmptyStrings : false
+                strict ? retrieveNullifiedEmptyStrings : false,
               ),
             });
           }
@@ -689,7 +705,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
           if (removeProp) return obj;
           const removeNullishValuesInArrays = this.state.options.get(
             OptionsEnum.removeNullishValuesInArrays,
-            this
+            this,
           );
 
           return Object.assign(obj, {
@@ -697,7 +713,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
               field,
               value,
               prop,
-              strict ? removeNullishValuesInArrays : false
+              strict ? removeNullishValuesInArrays : false,
             ),
           });
         }
@@ -705,21 +721,25 @@ export default abstract class Base<F extends Record<string, any> = Record<string
         each(prop, ($prop) =>
           Object.assign(obj[field.key], {
             [$prop]: field[$prop],
-          })
+          }),
         );
 
         return obj;
       },
-      {} as Record<string, any>
+      {} as Record<string, any>,
     );
 
     // Array fields with integer keys must preserve _entries order
     // (JavaScript Object.assign sorts integer-like keys regardless of insertion order)
-    if (typeof prop === "string" && _fieldsArr.length > 0 && hasIntKeys(fields)) {
+    if (
+      typeof prop === "string" &&
+      _fieldsArr.length > 0 &&
+      hasIntKeys(fields)
+    ) {
       const keysInResult = new Set(Object.keys(_result));
       return _fieldsArr
-        .filter(f => keysInResult.has(String(f.key)))
-        .map(f => _result[String(f.key)]);
+        .filter((f) => keysInResult.has(String(f.key)))
+        .map((f) => _result[String(f.key)]);
     }
 
     return _result;
@@ -730,7 +750,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
    */
   set(prop: any, data?: any): void {
     // UPDATE CUSTOM PROP
-    if (typeof prop === 'string' && data !== void 0) {
+    if (typeof prop === "string" && data !== void 0) {
       allowedProps(AllowedFieldPropsTypes.editable, [prop]);
 
       const isPlain = (
@@ -738,7 +758,9 @@ export default abstract class Base<F extends Record<string, any> = Record<string
       ).includes(prop);
 
       const deep: boolean =
-        (data !== null && typeof data === 'object' && prop === FieldPropsEnum.value) ||
+        (data !== null &&
+          typeof data === "object" &&
+          prop === FieldPropsEnum.value) ||
         (isPlainObject(data) && !isPlain);
       if (deep && this.hasNestedFields)
         return this.deepSet(prop, data, "", true);
@@ -746,17 +768,17 @@ export default abstract class Base<F extends Record<string, any> = Record<string
       if (prop === FieldPropsEnum.value) {
         const applyInputConverterOnSet = this.state.options.get(
           OptionsEnum.applyInputConverterOnSet,
-          this
+          this,
         );
         (this as any).value = parseInput(
           applyInputConverterOnSet ? (this as any).$input : (val) => val,
           {
             fallbackValueOption: this.state.options.get(
               OptionsEnum.fallbackValue,
-              this
+              this,
             ),
             separated: data,
-          }
+          },
         );
       } else if (isPlain) {
         Object.assign((this as any)[`$${prop}`], data);
@@ -782,7 +804,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     prop: any,
     data: any,
     path: string = "",
-    recursion: boolean = false
+    recursion: boolean = false,
   ): void {
     const err = "You are updating a not existent field:";
     const isStrict = this.state.options.get(OptionsEnum.strictSet, this);
@@ -793,12 +815,12 @@ export default abstract class Base<F extends Record<string, any> = Record<string
           (field.$value = defaultValue({
             fallbackValueOption: this.state.options.get(
               OptionsEnum.fallbackValue,
-              this
+              this,
             ),
             value: field.$value,
             nullable: field.$nullable,
             type: field.type,
-          }))
+          })),
       );
       return;
     }
@@ -816,7 +838,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
           field.set(prop, $val, recursion);
         }
         // update values recursively only if field has nested
-        if (field.fields.size && $val !== null && typeof $val === 'object') {
+        if (field.fields.size && $val !== null && typeof $val === "object") {
           this.deepSet(prop, $val, $path, recursion);
         }
       }
@@ -826,12 +848,12 @@ export default abstract class Base<F extends Record<string, any> = Record<string
   /**
     Add Field
    */
-  add(obj: any, execEvent: boolean = true): any {
+  add(obj?: any, execEvent: boolean = true): any {
     if (isArrayOfObjects(obj)) {
       each(obj, (values) =>
         this.update({
           [maxKey(this.fields)]: values,
-        })
+        }),
       );
 
       this.$changed++;
@@ -847,7 +869,12 @@ export default abstract class Base<F extends Record<string, any> = Record<string
 
     const $path = ($key: string) =>
       [this.path, $key].join(".").replace(/^\.+/, "");
-    const tree = pathToFieldsTree(this.state.struct(), this.path ?? '', 0, true);
+    const tree = pathToFieldsTree(
+      this.state.struct(),
+      this.path ?? "",
+      0,
+      true,
+    );
     const field = this.initField(key, $path(key), merge(tree[0], obj));
     const hasValues =
       has(obj, FieldPropsEnum.value) || has(obj, FieldPropsEnum.fields);
@@ -858,7 +885,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     ) {
       const fallbackValueOption = this.state.options.get(
         OptionsEnum.fallbackValue,
-        this
+        this,
       );
       field.$value = defaultValue({
         fallbackValueOption,
@@ -873,7 +900,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
             value: field.$value,
             nullable: field.$nullable,
             type: field.type,
-          }))
+          })),
       );
     }
 
@@ -888,8 +915,10 @@ export default abstract class Base<F extends Record<string, any> = Record<string
    */
   del($path: string | null = null, execEvent: boolean = true) {
     const isStrict = this.state.options.get(OptionsEnum.strictDelete, this);
-    const path = parsePath($path ?? this.path ?? '');
-    const fullpath = [this.path ?? '', path ?? ''].join(".").replace(/^\.+|\.+$/g, "");
+    const path = parsePath($path ?? this.path ?? "");
+    const fullpath = [this.path ?? "", path ?? ""]
+      .join(".")
+      .replace(/^\.+|\.+$/g, "");
     const container = this.container($path);
     const keys = path.split(".");
     const lastKey = keys[keys.length - 1];
@@ -985,7 +1014,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     Dispose Single Event (observe/intercept)
    */
   disposeSingle({ type, key = FieldPropsEnum.value, path = null }: any) {
-    const $path = parsePath(path ?? this.path ?? '');
+    const $path = parsePath(path ?? this.path ?? "");
     // eslint-disable-next-line
     if (type === "interceptor") key = `$${key}`; // target observables
     const disposersType = (this.state.disposers as any)[type];
@@ -1007,7 +1036,8 @@ export default abstract class Base<F extends Record<string, any> = Record<string
 
     keys.shift();
 
-    let $fields = fields == null ? this.fields.get(headKey) : fields.get(headKey);
+    let $fields =
+      fields == null ? this.fields.get(headKey) : fields.get(headKey);
 
     let stop = false;
     each(keys, ($key) => {
@@ -1031,7 +1061,7 @@ export default abstract class Base<F extends Record<string, any> = Record<string
     Get Container
    */
   container($path?: string | null) {
-    const path = parsePath($path ?? this.path ?? '');
+    const path = parsePath($path ?? this.path ?? "");
     const cpath = path.replace(/[^./]+$/, "").replace(/^\.+|\.+$/g, "");
 
     if (!!this.path && $path == null) {
