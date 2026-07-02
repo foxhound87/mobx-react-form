@@ -23,7 +23,7 @@ export interface SharedActionsInterface {
   deepGet(prop: any, fields: any): any;
   set(prop: any, data?: any): void;
   deepSet(prop: any, data: any, path: string, recursion: boolean): void;
-  add(obj: any): any;
+  add(obj?: any): any;
   del(path?: string): any;
 }
 

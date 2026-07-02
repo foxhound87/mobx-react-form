@@ -1,3 +1,10 @@
+# 6.15.1 (master)
+
+- fix: `add()` parameter optional in `SharedActionsInterface` to match runtime signature
+- fix: `$()` typed with `PathsOf<F>` in `FormInterface` for IDE autocomplete of nested paths
+- fix: change `select` from function property to method syntax in `SharedUtilsInterface` for correct variance
+- test: add typed schema test for `PathsOf` path resolution with `$()`
+
 # 6.15.0 (master)
 
 - feat: add `bubbleUpErrorMessages` form option (default `false`)

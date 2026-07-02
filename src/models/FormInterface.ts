@@ -83,6 +83,8 @@ export interface FormInterface<F extends Record<string, any> = Record<string, an
   reset(deep?: boolean, execHook?: boolean): void;
 
   makeField(data: FieldConstructor, FieldClass?: typeof Field): FieldInterface;
+
+  $(key: keyof F | PathsOf<F>): Field<F[keyof F]>;
 }
 
 export interface FieldDefinition {

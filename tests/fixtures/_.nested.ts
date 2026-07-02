@@ -36,6 +36,7 @@ import $Z1 from "./nested/form.z1";
 import $Z2 from "./nested/form.z2";
 import $Z3 from "./nested/form.z3";
 import $Z4 from "./nested/form.z4";
+import $W from "./nested/form.w";
 import $X from "./nested/form.x";
 
 const forms: Record<string, FormInterface> = {
@@ -68,6 +69,7 @@ const forms: Record<string, FormInterface> = {
   $V2,
   $V3,
   $V4,
+  $W,
   $Z,
   $Z1,
   $Z2,
