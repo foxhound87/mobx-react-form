@@ -7,6 +7,7 @@
 * [TypeScript Usage](docs/typescript.md)
 * [DevTools](docs/devtools.md)
 * [UMD Setup](docs/umd-setup.md)
+* [AI Agent Skills](docs/skills.md)
 
 ## API Reference
 * [Form Properties](docs/api-reference/form-properties.md)
