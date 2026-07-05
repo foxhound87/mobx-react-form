@@ -15,6 +15,9 @@
   * [Field Container](shared.md#field-container)
   * [Check Field Computed Values](shared.md#check-field-computed-values)
   * [Programmatically Focus a Field](shared.md#programmatically-focus-a-field)
+  * [Programmatically Blur a Field](shared.md#programmatically-blur-a-field)
+  * [Trim Field Value](shared.md#trim-field-value)
+  * [move(fromIndex, toIndex)](shared.md#movefromindex-toindex)
 
 
   * [Get Fields Properties](shared.md#get-fields-properties)
