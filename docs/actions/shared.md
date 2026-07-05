@@ -28,6 +28,8 @@ The shared actions can be used on the form instance or every field and nested fi
 * [Validate a Field](#validate-a-field)
 * [Validation Errors](#validation-errors)
 * [Invalidate the Form or a single Field](#invalidate-the-form-or-a-single-field)
+* [Reset Validation](#reset-validation)
+* [Show / Hide Error Messages](#show--hide-error-messages)
 ---
 
 ### Update the fields
@@ -489,3 +491,91 @@ To invalidate a single field:
 ```javascript
 form.$('password').invalidate('The password is wrong!');
 ```
+
+---
+
+### Reset Validation
+
+The `resetValidation()` method clears the validation status of a form or field back to its initial state — removing all sync errors, async errors, and the validation error stack.
+
+> Available on **Form** and **Field** instances.
+
+**Parameters:**
+
+| Param | Type | Default | Description |
+|-------|------|---------|-------------|
+| `deep` | `boolean` | `false` | If `true`, resets validation on all nested fields recursively |
+
+**What it clears:**
+- `errorSync` — synchronous validation error
+- `errorAsync` — asynchronous validation error
+- `validationAsyncData` — async validation result data
+- `validationFunctionsData` — validation function results
+- `validationErrorStack` — the error message stack
+- `showError` — resets to `false` (errors hidden)
+
+```javascript
+// Reset validation on a single field
+form.$('password').resetValidation();
+
+// Deep reset: recursively resets all nested fields
+form.resetValidation(true);
+
+// After resetting, errors are cleared:
+form.$('password').error; // => null
+form.$('password').hasError; // => false
+```
+
+> `resetValidation()` is called internally by `clear()` and `reset()` actions. Use it when you need to programmatically clear validation state without changing field values.
+
+---
+
+### Show / Hide Error Messages
+
+The `showErrors()` method controls the visibility of validation error messages for a form or field.
+
+> Available on **Form** and **Field** instances.
+
+**Parameters:**
+
+| Param | Type | Default | Description |
+|-------|------|---------|-------------|
+| `bool` | `boolean` | — | `true` to show errors, `false` to hide |
+| `deep` | `boolean` | `true` | If `true`, applies to all nested fields recursively |
+
+**How it works:**
+
+The `error` computed property checks `showError` before returning a message:
+- If `showError === false`, `error` returns `null` (errors hidden)
+- If `showError === true`, `error` returns the actual error message
+
+```javascript
+// Show errors on a field
+form.$('password').showErrors(true);
+
+// Hide errors on a field
+form.$('password').showErrors(false);
+
+// Show errors on the whole form (deep = true by default)
+form.showErrors(true);
+
+// Hide errors without affecting nested fields
+form.$('address').showErrors(false, false);
+```
+
+**Typical use cases:**
+
+```javascript
+// Show errors after failed validation
+form.validate({ showErrors: true });
+
+// Manually show errors after invalidation
+form.$('email').invalidate('Invalid email');
+form.$('email').showErrors(true); // ensure the error is visible
+
+// Hide all errors (e.g. after the user starts correcting)
+form.showErrors(false);
+```
+
+> The `invalidate()` method automatically calls `showErrors(true, deep)` internally.
+> You can also control error visibility globally via the `showErrorsOnInit` and `showErrorsOnChange` [Form Options](../form/form-options.md).

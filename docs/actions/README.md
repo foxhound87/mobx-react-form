@@ -36,6 +36,8 @@
   * [Validate a Field](shared.md#validate-a-field)
   * [Validation Errors](shared.md#validation-errors)
   * [Invalidate the Form or a single Field](shared.md#invalidate-the-form-or-a-single-field)
+  * [Reset Validation](shared.md#reset-validation)
+  * [Show / Hide Error Messages](shared.md#show--hide-error-messages)
 
 
 ### [Helpers (Form & Fields)](helpers.md)

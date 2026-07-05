@@ -10,8 +10,8 @@
 | **blur()** | - | void | Programmatically blur the field if focused. Requires a `ref`. | [help](../actions/shared.html#programmatically-blur-a-field) |
 | **trim()** | - | void | Apply `trim()` to the field value if is string. Does **not** trigger `onChange` Event Hook. | [help](../actions/shared.html#trim-field-value) |
 | **invalidate(msg, deep, async)** | (string, boolean, boolean) | void | Mark the field as invalid. Pass error message. `deep` (default `true`) for nested fields. `async` (default `false`) stores in `errorAsync` instead of `errorSync`. | [help](../actions/shared.html#invalidate-the-form-or-a-single-field) |
-| **resetValidation(deep)** | (boolean) | void | Reset the field validation status (clears sync/async errors, resets error stack). Pass `true` for deep reset of nested fields. | - |
-| **showErrors(bool, deep)** | (boolean, boolean) | void | Show or Hide Field Error Messages. `deep` (default `true`) for nested fields. | - |
+| **resetValidation(deep)** | (boolean) | void | Reset the field validation status (clears sync/async errors, resets error stack). Pass `true` for deep reset of nested fields. | [help](../actions/shared.html#reset-validation) |
+| **showErrors(bool, deep)** | (boolean, boolean) | void | Show or Hide Field Error Messages. `deep` (default `true`) for nested fields. | [help](../actions/shared.html#show--hide-error-messages) |
 | **dispose()** | - | void | Remove all observers and interceptors on this field and all nested fields recursively. | [help](../extra/mobx-events.html#disposers) |
 
 #### Shared Methods

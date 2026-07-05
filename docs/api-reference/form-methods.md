@@ -5,8 +5,8 @@
 | **clear()** | - | void | Clear the Form to empty values. | [help](../actions/shared.html#clear--reset-form-or-fields) |
 | **reset()** | - | void | Reset the Form to default values. | [help](../actions/shared.html#clear--reset-form-or-fields) |
 | **invalidate(msg)** | (string) | void | Mark the field as invalid. Pass an optional error message or a default error will be shown. | [help](../actions/shared.html#invalidate-the-form-or-a-single-field) |
-| **resetValidation()** | (boolean) | void | Reset the form validation status. Pass `true` for deep reset of nested fields. | - |
-| **showErrors(bool)** | (boolean) | void | Show or Hide Field Error Messages. | [help](../actions/form.html#validation-errors) |
+| **resetValidation(deep)** | (boolean) | void | Reset the form validation status. Pass `true` for deep reset of nested fields. | [help](../actions/shared.html#reset-validation) |
+| **showErrors(bool)** | (boolean) | void | Show or Hide Field Error Messages. | [help](../actions/shared.html#show--hide-error-messages) |
 
 #### Shared Methods
 
