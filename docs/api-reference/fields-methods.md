@@ -6,12 +6,13 @@
 | **bind()** | - | object | Get the current field bindings. | [help](../bindings/) |
 | **clear()** | - | void | Clear the Field or Nested Fields to empty value. | [help](../actions/shared.html#clear--reset-form-or-fields) |
 | **reset()** | - | void | Reset the Field or Nested Fields to default value. | [help](../actions/shared.html#clear--reset-form-or-fields) |
-| **focus()** | - | void | Programmatically set focus on the field. | [help](../actions/shared.html#programmatically-focus-a-field) |
-| **blur()** | - | void | Programmatically blur the field if focused. | [help](../actions/shared.html#programmatically-blur-a-field) |
-| **trim()** | - | void | Apply `trim()` to the field value if is string. It does not trigger `onChange` Event Hook | [help](../actions/shared.html#trim-field-value) |
-| **invalidate(msg)** | (string) | void | Mark the field as invalid. Pass an optional error message or a default error will be shown. | [help](../actions/shared.html#invalidate-the-form-or-a-single-field) |
-| **resetValidation()** | (boolean) | void | Reset the field validation status. Pass `true` for deep reset. | - |
-| **showErrors(bool)** | (boolean) | void | Show or Hide Field Error Messages. | - |
+| **focus()** | - | void | Programmatically set focus on the field. Requires a `ref` (set via `bind()` or manually). | [help](../actions/shared.html#programmatically-focus-a-field) |
+| **blur()** | - | void | Programmatically blur the field if focused. Requires a `ref`. | [help](../actions/shared.html#programmatically-blur-a-field) |
+| **trim()** | - | void | Apply `trim()` to the field value if is string. Does **not** trigger `onChange` Event Hook. | [help](../actions/shared.html#trim-field-value) |
+| **invalidate(msg, deep, async)** | (string, boolean, boolean) | void | Mark the field as invalid. Pass error message. `deep` (default `true`) for nested fields. `async` (default `false`) stores in `errorAsync` instead of `errorSync`. | [help](../actions/shared.html#invalidate-the-form-or-a-single-field) |
+| **resetValidation(deep)** | (boolean) | void | Reset the field validation status (clears sync/async errors, resets error stack). Pass `true` for deep reset of nested fields. | - |
+| **showErrors(bool, deep)** | (boolean, boolean) | void | Show or Hide Field Error Messages. `deep` (default `true`) for nested fields. | - |
+| **dispose()** | - | void | Remove all observers and interceptors on this field and all nested fields recursively. | [help](../extra/mobx-events.html#disposers) |
 
 #### Shared Methods
 

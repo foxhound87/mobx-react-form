@@ -149,3 +149,205 @@ form.state.options.get('showErrorsOnInit');
 => true
 ```
 
+---
+
+## Practical Examples
+
+### Debounced Validation (`validationDebounceWait`, `validationDebounceOptions`)
+
+Control the debounce behavior of validation on change/blur. Useful for search-as-you-type or expensive validations:
+
+```javascript
+const options = {
+  validateOnChange: true,
+  validationDebounceWait: 500,       // wait 500ms after last change
+  validationDebounceOptions: {
+    leading: false,                   // don't fire immediately
+    trailing: true,                   // fire after the wait period
+    maxWait: 2000,                    // force execution at most every 2s
+  },
+};
+```
+
+### Validation Plugin Order (`validationPluginsOrder`)
+
+When using multiple validation plugins, specify the order in which they run. The first plugin to find an error sets the message:
+
+```javascript
+const options = {
+  validationPluginsOrder: ['vjf', 'dvr', 'svk'], // run VJF first, then DVR, then SVK
+};
+```
+
+### Bubble Up Error Messages (`bubbleUpErrorMessages`)
+
+When enabled, container fields (groups) will show the first error from their child fields instead of `null`:
+
+```javascript
+const options = {
+  bubbleUpErrorMessages: true, // form.$('address').error shows first child error
+};
+
+// Without this, form.$('address').error is null even if child fields have errors
+// With this enabled, it returns the first error found in child fields
+```
+
+### Stop Validation on First Error (`stopValidationOnError`)
+
+Prevent further validation after a field is marked invalid — useful for performance:
+
+```javascript
+const options = {
+  stopValidationOnError: true, // skip validation for already-invalid fields
+};
+```
+
+### Auto Trim (`autoTrimValue`)
+
+Automatically trim whitespace from string values on every change:
+
+```javascript
+const options = {
+  autoTrimValue: true, // "  hello  " → "hello"
+};
+```
+
+### Soft Delete (`softDelete` + `deleted`)
+
+Instead of removing fields with `del()`, mark them as deleted. The field still exists in the form but is excluded from validation and serialization:
+
+```javascript
+const options = {
+  softDelete: true,
+  validateDeletedFields: false,   // don't validate deleted fields
+};
+
+// Later:
+form.$('hobbies').del(1);  // marks field as deleted, doesn't remove it
+form.$('hobbies[1]').deleted; // => true
+```
+
+### Validate Only After Initial Blur (`validateOnChangeAfterInitialBlur`)
+
+Start validating on change only after the user has left the field at least once:
+
+```javascript
+const options = {
+  validateOnChange: false,                    // don't validate on change initially
+  validateOnChangeAfterInitialBlur: true,     // validate on change only after first blur
+  showErrorsOnChange: true,
+};
+```
+
+### Validate Only After First Submit (`validateOnChangeAfterSubmit`)
+
+Start validating on change only after the first form submission:
+
+```javascript
+const options = {
+  validateOnChangeAfterSubmit: true,          // validate on change only after first submit
+  showErrorsOnChange: true,
+};
+```
+
+### Auto Parse Numbers (`autoParseNumbers`)
+
+Automatically convert string input to numbers when the initial field value is a number:
+
+```javascript
+const options = {
+  autoParseNumbers: true,
+};
+
+const fields = {
+  price: { value: 10, type: 'text' }, // initial is number
+};
+// User types "20" → stored as number 20, not string "20"
+```
+
+### Fallback Value (`fallbackValue`)
+
+The default value used when a field is cleared or created without an explicit value:
+
+```javascript
+const options = {
+  fallbackValue: null, // default is ""
+};
+
+// Now form.$('myField').clear() sets value to null instead of ""
+```
+
+### Default Generic Error (`defaultGenericError`) & `submitThrowsError`
+
+Set a generic error message on the form when validation fails, and control whether `submit()` throws:
+
+```javascript
+const options = {
+  defaultGenericError: 'Please fix the errors before submitting.',
+  submitThrowsError: false,   // don't throw, just show error
+};
+```
+
+### Retrieve Only Specific Field Values (`retrieveOnlyEnabledFieldsValues`, `retrieveOnlyDirtyFieldsValues`)
+
+Filter field values when calling `form.values()` or `get('value')`:
+
+```javascript
+const options = {
+  retrieveOnlyEnabledFieldsValues: true,   // exclude disabled fields
+  retrieveOnlyDirtyFieldsValues: true,     // exclude unchanged fields
+};
+```
+
+### Nullify Empty Strings (`retrieveNullifiedEmptyStrings`)
+
+Convert empty strings to `null` when retrieving values:
+
+```javascript
+const options = {
+  retrieveNullifiedEmptyStrings: true,     // "" → null
+};
+```
+
+### Preserve Deleted Field Values (`preserveDeletedFieldsValues`)
+
+When using `softDelete`, preserve initial values so that re-adding the same field restores its original data:
+
+```javascript
+const options = {
+  softDelete: true,
+  preserveDeletedFieldsValues: true,
+};
+```
+
+### Custom Unique ID Generator (`uniqueId`)
+
+Generate deterministic field IDs — useful for SSR to avoid hydration mismatches:
+
+```javascript
+const options = {
+  uniqueId: (field) => `${field.path}-${Date.now()}`,
+};
+```
+
+### Filter Nullish Values in Arrays (`removeNullishValuesInArrays`)
+
+When getting field values, remove `null`, `undefined`, and `""` from arrays:
+
+```javascript
+const options = {
+  removeNullishValuesInArrays: true,  // [1, null, 3, ""] → [1, 3]
+};
+```
+
+### Input Converter Control (`applyInputConverterOnInit`, `applyInputConverterOnSet`, `applyInputConverterOnUpdate`)
+
+Control when the `input` converter function is applied:
+
+```javascript
+const options = {
+  applyInputConverterOnInit: true,     // apply converter on field creation
+  applyInputConverterOnSet: true,      // apply converter on set()
+  applyInputConverterOnUpdate: true,   // apply converter on update()
+};
+```

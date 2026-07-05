@@ -24,5 +24,13 @@ Each demo below links to its source code so you can see the implementation in co
 
 ---
 
+## Advanced Internals
+
+| Topic | Description |
+|-------|-------------|
+| [ArrayMap](array-map.md) | The ordered key-value collection powering dynamic array fields |
+
+---
+
 > 💡 **Tip:** Run `npm run dev` in the demo repository to explore these implementations locally.  
 > 📘 **API features** (Computed Props, Converters, MobX Events, Forms Composer) are in the [Extra](../extra/README.md) section.

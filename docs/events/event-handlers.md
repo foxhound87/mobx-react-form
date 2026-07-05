@@ -27,24 +27,45 @@
 
 #### onChange(e), onToggle(e) & sync(e)
 
-| Handler | Affected Property| Executed Hook |
-|---|---|---|
-| sync(e) | value | — |
-| onChange(e) | value | onChange |
-| onToggle(e) | value | onToggle |
+| Handler | Affected Property| Executed Hook | Use Case |
+|---|---|---|---|
+| `sync(e)` | value | — | Update value without triggering hooks (silent update) |
+| `onChange(e)` | value | `onChange` hook | Standard value update with side effects |
+| `onToggle(e)` | value | `onToggle` hook | Toggle/checkbox value update (same as `onChange`) |
 
 <br>
 
-Use `onChange(e)` or `onToggle(e)` to update the field's value and trigger the corresponding hook.
+Use `onChange(e)` or `onToggle(e)` to update the field's value and trigger the corresponding `onChange`/`onToggle` hook.
 
-Use `sync(e)` if you want to update the value **without** triggering the `onChange` or `onToggle` hook.
+Use `sync(e)` if you want to update the value **without** triggering the `onChange` or `onToggle` hook — useful for batch updates or programmatic changes where you don't want side effects.
+
+### How `sync(e)` works
+
+The `sync()` method handles multiple input types automatically:
+
+| Input type | Behavior |
+|---|---|
+| Event with `e.target` (standard input) | Reads `e.target.value` (or `e.target.checked` for checkbox) |
+| Direct value (string, number) | Sets the value directly |
+| Two arguments: `sync(e, value)` | Uses the second argument `value` |
+| `null` or `undefined` | Tries the second argument `v`, then uses `$try(e, v)` |
 
 ```html
 <input
-  ...
-  onChange={form.$('username').onChange}
+  {...field.bind()}  <!-- bind() handles onChange automatically -->
 />
+
+<!-- Or use onChange explicitly -->
+<input onChange={form.$('username').onChange} />
+
+<!-- For custom components that pass values directly -->
+<CustomInput onChange={form.$('username').sync} />
+
+<!-- Silent update: no onChange hook triggered -->
+<CustomInput onChange={form.$('username').sync} />
 ```
+
+> **Key difference:** `sync(e)` → no hook fires; `onChange(e)` → `onChange` hook fires; `onToggle(e)` → `onToggle` hook fires.
 
 > `onChange` is an alias of `onSync`, which calls `sync` internally.
 
@@ -86,15 +107,50 @@ If you need to track `touched` or `focused` state, you can use `onFocus(e)` or `
 
 <br>
 
-Use `onKeyDown(e)` or `onKeyUp(e)` to listen for keyboard events:
+Use `onKeyDown(e)` or `onKeyUp(e)` to listen for keyboard events. These handlers are **pass-through** — they do not modify any field property but fire the corresponding hook for you to handle:
 
 ```html
 <input
-  ...
+  {...field.bind()}
   onKeyDown={form.$('search').onKeyDown}
   onKeyUp={form.$('search').onKeyUp}
 />
 ```
+
+### Example: keyboard shortcuts with hooks
+
+```javascript
+const hooks = {
+  'search': {
+    onKeyDown(field, e) {
+      if (e.key === 'Enter') {
+        performSearch(field.value);
+      }
+      if (e.key === 'Escape') {
+        field.clear();
+      }
+    },
+  },
+};
+```
+
+### Example: debounced autocomplete with onKeyUp
+
+```javascript
+const hooks = {
+  'search': {
+    onKeyUp: debounce((field, e) => {
+      if (field.value.length >= 3) {
+        fetchSuggestions(field.value);
+      }
+    }, 300),
+  },
+};
+```
+
+> Unlike `onChange` which fires on every value mutation, `onKeyDown`/`onKeyUp` fire on every keyboard event — including arrow keys, modifier keys, etc. Use them when you need raw keyboard access.
+
+> **Note:** Both `onKeyDown` and `onKeyUp` receive the field instance as `this` and the native keyboard event as the first argument.
 
 ---
 
@@ -154,6 +210,15 @@ or specify the field `value` as second argument:
 <button type="button" onClick={e => form.$('hobbies').onAdd(e, 'soccer')}>Add Hobby</button>
 ```
 
+or specify a custom `key` and `value` as an object:
+
+```html
+<button type="button" onClick={e => form.$('hobbies').onAdd(e, {
+  key: 'customKey',
+  value: 'custom value',
+})}>Add Hobby</button>
+```
+
 <br>
 
 ##### Deleting a Field
@@ -173,6 +238,8 @@ or specify the field `path` as second argument:
 ```html
 <button type="button" onClick={e => form.onDel(e, 'hobbies[3]')}>Delete Hobby</button>
 ```
+
+> **Note:** These are Event Handlers, not actions. For programmatic add/delete without hooks, use [add() and del() actions](../actions/shared.html#add--del) instead.
 
 ---
 
@@ -194,9 +261,7 @@ You can easly include the `onSubmit(e)` handler in your component:
 <button type="submit" onClick={form.onSubmit}>Submit</button>
 ```
 
----
-
-## Handle Files
+---## Handle Files
 
 #### onDrop(e)
 
@@ -204,21 +269,92 @@ You can easly include the `onSubmit(e)` handler in your component:
 |---|---|---|---|
 | onDrop(e) | files | onDrop | Retrieve the files |
 
-The `onDrop(e)` Event Handler will retrive the files into the `files` Field prop and exeute the `onDrop` Hook function.
+The `onDrop(e)` Event Handler retrieves files into the `files` field property and executes the `onDrop` Hook function. When `type: 'file'` is set, the field's `onSync`/`onChange` automatically delegates to `onDrop`.
 
-Define the field `type` property as `file` and then use `bind()` on your input:
+#### How it works
 
-```html
-<input multiple=true {...field.bind()} />
+```javascript
+// Field.ts source logic:
+onDrop = (...args) =>
+  this.execHandler('onDrop', args, action(() => {
+    const e = args[0];
+    let files = null;
+    if (isEvent(e) && hasFiles(e)) {
+      files = Array.from(e.target.files);
+    }
+    this.files = [...(this.files || []), ...(files || args)];
+  }));
 ```
 
-Otherwise, (without defining the `type` prop) delegate the input `onChange` Handler with the `onDrop(e)` Handler on the `bind()` method (or create a [custom bindings](../bindings/custom.md)).
+The handler:
+1. Extracts files from `e.target.files` (standard file input) or uses the raw arguments (drag-and-drop)
+2. Appends files to the existing `field.files` array (preserving previous uploads)
+3. Fires the `onDrop` hook
+
+#### Method 1: `type: 'file'` with `bind()`
+
+Define the field `type` property as `file` and use `bind()` on your input — `onChange` will automatically delegate to `onDrop`:
+
+```javascript
+const fields = {
+  avatar: {
+    type: 'file',
+    hooks: {
+      onDrop(field) {
+        const file = field.files?.[0];
+        if (file) console.log('Uploaded:', file.name);
+      },
+    },
+  },
+};
+```
+
+```html
+<input type="file" multiple {...field.bind()} />
+```
+
+#### Method 2: Custom binding with `onDrop` override
+
+Without `type: 'file'`, override the `onChange` handler in `bind()` to use `onDrop`:
 
 ```html
 <input
-  multiple=true
-  {...field.bind({
-    onChange: field.onDrop,
-  })}
+  type="file"
+  multiple
+  {...field.bind({ onChange: field.onDrop })}
 />
+```
+
+#### Method 3: Drag-and-drop zone
+
+Create a custom drop zone and call `onDrop` manually:
+
+```jsx
+<div
+  onDragOver={(e) => e.preventDefault()}
+  onDrop={(e) => {
+    e.preventDefault();
+    field.onDrop(e); // or field.hooks.onDrop(field, e)
+  }}
+>
+  Drop files here
+</div>
+```
+
+#### Accessing uploaded files
+
+After a drop or file selection:
+
+```javascript
+field.files;  // Array of File objects
+
+// Example: read first file as data URL
+const file = field.files?.[0];
+if (file) {
+  const reader = new FileReader();
+  reader.onload = (e) => field.set('extra', {
+    previewUrl: e.target.result,
+  });
+  reader.readAsDataURL(file);
+}
 ```

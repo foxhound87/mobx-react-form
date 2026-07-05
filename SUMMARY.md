@@ -56,7 +56,6 @@
 
 ## Advanced
 * [Overview](docs/advanced/README.md)
-* Demo Implementations
     * [Sortable List](docs/advanced/sortable.md)
     * [Interceptors](docs/advanced/interceptors.md)
     * [Observers](docs/advanced/observers.md)
@@ -67,11 +66,13 @@
     * [Bindings Demo](docs/advanced/bindings-demo.md)
     * [Markdown Editor](docs/advanced/markdown.md)
     * [File Upload](docs/advanced/file-upload.md)
+    * [ArrayMap](docs/advanced/array-map.md)
 
 ## Extra
 * [Overview](docs/extra/README.md)
 * [Computed Field Props](docs/extra/computed-props.md)
 * [Input & Output Converters](docs/extra/converters.md)
+* [Validated Value & Flat Map](docs/extra/validated-value.md)
 * [Observe / Intercept](docs/extra/mobx-events.md)
 * [Forms Composer](docs/extra/composer.md)
 * [Recipes & Patterns](docs/recipes.md)

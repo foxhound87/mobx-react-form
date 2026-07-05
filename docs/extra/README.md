@@ -6,6 +6,7 @@ API reference pages for advanced form configuration features — computed props,
 |-------|-------------|
 | [Computed Field Props](computed-props.md) | Dynamic computed values for field properties using function-based definitions |
 | [Input & Output Converters](converters.md) | Transform values between user input and store representation |
+| [Validated Value & Flat Map](validated-value.md) | `validatedWith`, `validatedValue`, and `flatMapValues` — understanding what gets validated |
 | [Observe / Intercept](mobx-events.md) | React to field changes with MobX observers and interceptors |
 | [Forms Composer](composer.md) | Manage multiple form instances as a group for batch actions |
 | [Recipes & Patterns](../recipes.md) | Practical examples of real-world form scenarios |

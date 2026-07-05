@@ -71,7 +71,7 @@ form.$('password')
 
 Here we are defining observers or interceptors to be passed in the [First Argument of the Form Constructor](../form/form-initialization.md#first-constructor-argument).
 
-This method is useful if you need to handle nested fields. The observers/interceptors will be automatically loaded when add/del fields dynamically.
+This method is useful if you need to handle nested fields. The observers/interceptors will be **automatically loaded** when add/del fields dynamically, thanks to the `initMOBXEvent` method called during field construction.
 
 Define an `observers` / `interceptors` **object** like this:
 
@@ -91,6 +91,63 @@ new Form({ observers, interceptors, ... });
 ```
 
 > This is an example using **Separated Field Properties Definition** mode but **Unified** mode is also supported.
+
+### Per-field observers/interceptors
+
+You can also define observers/interceptors directly in the **field definition** (unified mode):
+
+```javascript
+const fields = {
+  username: {
+    value: 'John',
+    observers: [{
+      key: 'value',
+      call: ({ change }) => console.log('Username changed:', change.newValue),
+    }],
+    interceptors: [{
+      key: 'value',
+      call: ({ change }) => {
+        // Reject empty values
+        if (change.newValue === '') return null;
+        return change;
+      },
+    }],
+  },
+};
+```
+
+Or in separated mode:
+
+```javascript
+const observers = {
+  username: [{
+    key: 'value',
+    call: ({ form, field, change }) => {
+      console.log(`${field.path} changed to:`, change.newValue);
+    },
+  }],
+};
+```
+
+### Auto-loading for dynamic arrays
+
+When you add new fields dynamically with `add()`, any observers/interceptors defined with `[]` array notation (e.g., `'members[].hobbies[]'`) are automatically applied to newly created fields. This happens because the `initMOBXEvent` method is called during field construction:
+
+```javascript
+// Defined in form setup:
+const observers = {
+  'products[].total': [{
+    key: 'value',
+    call: ({ change }) => console.log('Product total:', change.newValue),
+  }],
+};
+
+// Later, adding a new product:
+form.$('products').add({ value: { name: 'New', total: 0 } });
+// → The observer is automatically applied to the new field
+```
+
+> This auto-loading behavior is one of the main advantages of using the `observers`/`interceptors` props over manually calling `observe()`/`intercept()` in component code — you never have to re-attach listeners after dynamic operations.
 
 ## Disposers
 

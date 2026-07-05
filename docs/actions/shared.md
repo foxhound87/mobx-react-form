@@ -151,17 +151,85 @@ field.blur();
 
 > Requires a `ref` to be attached to the input (via `bind()` or manually).
 
+The `blur()` method:
+1. Calls `ref.blur()` on the DOM element (if a ref is attached)
+2. Sets `$focused = false`
+3. Sets `$blurred = true`
+
+This is useful for programmatically dismissing keyboard focus, for example after a successful action:
+
+```javascript
+function handleSubmitSuccess() {
+  form.$('username').blur();
+  form.$('email').blur();
+}
+```
+
 ---
 
 ### Trim Field Value
 
-The `trim()` method removes whitespace from the field value if it is a string. It does **not** trigger the `onChange` Event Hook.
+The `trim()` method removes whitespace from the field value if it is a string. It does **not** trigger the `onChange` Event Hook, making it safe to use in pre-submit processing:
 
 ```javascript
 field.trim();
+// field.value is now trimmed, no onChange hook fires
 ```
 
 > This is useful for trimming values before submission. For automatic trimming on every change, use the `autoTrimValue` option.
+
+---
+
+### move(fromIndex, toIndex)
+
+Move an array field item from one index to another. Available on every **Form** and **Field** instance that contains array fields:
+
+```javascript
+form.move(fromIndex, toIndex);
+form.$('hobbies').move(fromIndex, toIndex);
+```
+
+Internally, `move()` delegates to the [ArrayMap](../advanced/array-map.md) `move()` method, which performs a **single MobX-reactive splice operation** — reordering items without breaking field bindings or validation state.
+
+**Parameters:**
+
+| Param | Type | Description |
+|-------|------|-------------|
+| `fromIndex` | `number` | Current index of the item to move |
+| `toIndex` | `number` | Target index to place the item |
+
+**Behavior:**
+- No-op if `fromIndex === toIndex` or either index is out of bounds
+- All field references, values, and validation state are preserved after the move
+- The change is fully tracked by MobX — any observer re-renders automatically
+
+**Example with up/down buttons:**
+
+```javascript
+function handleMoveUp(index) {
+  if (index > 0) form.$('hobbies').move(index, index - 1);
+}
+
+function handleMoveDown(index) {
+  if (index < form.$('hobbies').size - 1) form.$('hobbies').move(index, index + 1);
+}
+```
+
+**Example with drag-and-drop:**
+
+```javascript
+// With @dnd-kit or similar:
+function handleDragEnd(event) {
+  const { active, over } = event;
+  if (active.id !== over.id) {
+    const oldIndex = items.findIndex((f) => f.key === active.id);
+    const newIndex = items.findIndex((f) => f.key === over.id);
+    form.$('products').move(oldIndex, newIndex);
+  }
+}
+```
+
+> `move()` is a pure action (no Event Handler or Hook involved). For the full sortable demo, see [Sortable Arrays](../advanced/sortable.md).
 
 ---
 
