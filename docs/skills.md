@@ -21,8 +21,6 @@ Each skill covers a focused area of the library, so the AI uses only what it nee
 
 ## Available Skills
 
-### Core
-
 | Skill | Description |
 |-------|-------------|
 | **mobx-react-form-api** | Core API — installation, Form/Field constructor, properties, methods, helpers, event handlers |
@@ -31,11 +29,6 @@ Each skill covers a focused area of the library, so the AI uses only what it nee
 | **mobx-react-form-validation** | Validation — DVR, VJF, SVK, YUP, JOI, ZOD plugins, async validation, cross-validation, hooks |
 | **mobx-react-form-bindings** | Field bindings — default rewriter/template, custom bindings, `$try`, per-field mapping, UI frameworks |
 | **mobx-react-form-multi-step** | Multi-step wizard forms — nested groups, per-step validation, navigation, review screen |
-
-### Advanced
-
-| Skill | Description |
-|-------|-------------|
 | **mobx-react-form-events** | Event hooks & handlers — onInit, onChange, onFocus, onBlur, onSubmit, onSuccess, onError, key events |
 | **mobx-react-form-observers-interceptors** | MobX observers & interceptors — observe field changes, intercept mutations, reject/modify values, disposers |
 | **mobx-react-form-computed** | Reactive computed props & autorun — computed field values, autorun-derived totals, row calculations |
@@ -45,12 +38,6 @@ Each skill covers a focused area of the library, so the AI uses only what it nee
 | **mobx-react-form-sortable** | Sortable arrays — move(), ArrayMap reordering, drag-and-drop with @dnd-kit, up/down buttons |
 | **mobx-react-form-extend** | Extend Form & Field classes — custom field classes, makeField(), generic/specific extension |
 | **mobx-react-form-options** | Form & field options — validation timing, error display, strict modes, debounce, data retrieval |
-
-### Other
-
-| Skill | Description |
-|-------|-------------|
-| **ios-theme-color** | Diagnose and fix Safari iOS rendering issues — theme-color, Liquid Glass, safe areas, viewport |
 
 ---
 
@@ -107,17 +94,6 @@ Example prompts:
 Skills integrate with agentic coding tools that support the [skills.sh](https://skills.sh) protocol. After installation, the AI will reference the skill files when generating code, ensuring correct API usage and conventions.
 
 ---
-
-## Compatibility
-
-Skills are framework-agnostic and work with any AI assistant that supports the skills.sh protocol, including:
-
-- [Codebuff](https://codebuff.com)
-- [Cursor](https://cursor.sh)
-- [Windsurf](https://codeium.com/windsurf)
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code)
-- [GitHub Copilot](https://github.com/features/copilot)
-- [Opencode](https://opencode.sh/)
 
 ---
 
