@@ -39,7 +39,7 @@
 | **each(callback)** | (function) | void | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | [help](../actions/shared.html#each) |
 | **add(obj)** | (any) | any | Add a Field or Nested Fields. | [help](../actions/shared.html#add--del) |
 | **del(key)** | (any) | void | Delete a Field or Nested Fields by `key` or `path`. | [help](../actions/shared.html#add--del) |
-| **move(fromIndex, toIndex)** | (number, number) | void | Move an array field item from one index to another. Delegates to `ArrayMap.move()`. | [help](../actions/shared.html) |
+| **move(fromIndex, toIndex)** | (number, number) | void | Move an array field item from one index to another. Delegates to `ArrayMap.move()`. | [help](../actions/shared.html#movefromindex-toindex) |
 | **observe(obj)** | (object) | function | Define a MobX Observer on Field Props or Field Map. Returns a disposer function. | [help](../extra/mobx-events.html) |
 | **intercept(obj)** | (object) | function | Define a MobX Interceptor on Field Props or Field Map. Returns a disposer function. | [help](../extra/mobx-events.html) |
 

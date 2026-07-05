@@ -7,6 +7,9 @@ The shared actions can be used on the form instance or every field and nested fi
 * [Field Container](#field-container)
 * [Check Field Computed Values](#check-field-computed-values)
 * [Programmatically Focus a Field](#programmatically-focus-a-field)
+* [Programmatically Blur a Field](#programmatically-blur-a-field)
+* [Trim Field Value](#trim-field-value)
+* [move(fromIndex, toIndex)](#movefromindex-toindex)
 
 
 * [Get Fields Properties](#get-fields-properties)
