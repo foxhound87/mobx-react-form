@@ -1,4 +1,4 @@
-# Sortable Arrays
+# Sortable List
 
 Array fields in MobX React Form are backed by `ArrayMap` — an ordered key-value collection that exposes array-like operations while maintaining full MobX reactivity. This enables **drag-and-drop reordering** of dynamic array items.
 
