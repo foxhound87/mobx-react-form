@@ -1,4 +1,4 @@
-# Wizard
+# Wizard (multi-step)
 
 A **multi-step registration wizard** with per-step validation, step indicators, a final review screen, and full form submission — all built with nested field groups and React state for navigation.
 

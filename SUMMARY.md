@@ -62,7 +62,7 @@
     * [Reactive Computed](docs/advanced/reactive-computed.md)
     * [Cross Validation](docs/advanced/cross-validation.md)
     * [Nested Composition](docs/advanced/nested-composition.md)
-    * [Wizard](docs/advanced/wizard.md)
+    * [Wizard (multi-step)](docs/advanced/wizard.md)
     * [Bindings Demo](docs/advanced/bindings-demo.md)
     * [Markdown Editor](docs/advanced/markdown.md)
     * [File Upload](docs/advanced/file-upload.md)
