@@ -1,6 +1,9 @@
-# 6.16.0 (master)
+# 6.17.0 (master)
 
 - feat: `add()` now accepts flat objects as nested field values (no `value` wrapper needed for nested structs)
+
+# 6.16.0 (master)
+
 - chore: align README with unified header bar, npm badges (nodei.co + shields.io), feature links
 - chore: add AI Agent Skills section to README features list
 - chore: fix broken bindings URL in Features section
