@@ -90,7 +90,9 @@
 
 ## Validation
 * [Validation](docs/validation/README.md)
+    * [Choosing a Plugin](docs/validation/README.md#choosing-a-validation-plugin)
     * [Plugins & Packages](docs/validation/plugins.md)
+    * [Validation Lifecycle](docs/validation/lifecycle.md)
     * Setup Plugins
         * [Setup VJF](docs/validation/plugins/VJF/setup.md)
         * [Setup DVR](docs/validation/plugins/DVR/setup.md)

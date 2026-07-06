@@ -47,3 +47,5 @@ const plugins = {
 ```javascript
 new Form({ ... }, { plugins });
 ```
+
+> **Note:** YUP does not support the `extend` callback or async validation pipelines through mobx-react-form's plugin system. For custom rules and async validation, use YUP's native `.test()` method on the schema directly.

@@ -46,3 +46,5 @@ const plugins = {
 ```javascript
 new Form({ ... }, { plugins });
 ```
+
+> **Note:** ZOD does not support the `extend` callback or async validation pipelines through mobx-react-form's plugin system. For custom validation and async rules, use ZOD's native `.refine()` or `.superRefine()` methods on the schema directly.

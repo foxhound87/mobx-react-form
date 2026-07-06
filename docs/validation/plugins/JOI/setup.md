@@ -47,3 +47,5 @@ const plugins = {
 ```javascript
 new Form({ ... }, { plugins });
 ```
+
+> **Note:** JOI does not support the `extend` callback or async validation pipelines through mobx-react-form's plugin system. For custom validation and async rules, use JOI's native `.custom()` method on the schema directly.
