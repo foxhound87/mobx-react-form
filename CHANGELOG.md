@@ -1,10 +1,13 @@
-# 6.15.1 (master)
+# 6.16.0 (agent)
 
 - chore: align README with unified header bar, npm badges (nodei.co + shields.io), feature links
 - chore: add AI Agent Skills section to README features list
 - chore: fix broken bindings URL in Features section
 - docs: add AI Agent Skills documentation page and links to docs navigation
 - docs: remove ios-theme-color skill from MRF docs, merge core+advanced skill tables
+
+# 6.15.1 (master)
+
 - fix: `add()` parameter optional in `SharedActionsInterface` to match runtime signature
 - fix: `$()` typed with `PathsOf<F>` in `FormInterface` for IDE autocomplete of nested paths
 - fix: change `select` from function property to method syntax in `SharedUtilsInterface` for correct variance
