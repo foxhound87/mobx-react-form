@@ -1,79 +1,261 @@
 # Fields Methods
 
-| Method | Input | Output | Info | Help |
-|---|---|---|---|---|
-| **container()** | - | object | Get Parent Field Container (or `null` if none). | [help](../actions/shared.html#field-container) |
-| **bind()** | - | object | Get the current field bindings. | [help](../bindings/) |
-| **clear()** | - | void | Clear the Field or Nested Fields to empty value. | [help](../actions/shared.html#clear--reset-form-or-fields) |
-| **reset()** | - | void | Reset the Field or Nested Fields to default value. | [help](../actions/shared.html#clear--reset-form-or-fields) |
-| **focus()** | - | void | Programmatically set focus on the field. Requires a `ref` (set via `bind()` or manually). | [help](../actions/shared.html#programmatically-focus-a-field) |
-| **blur()** | - | void | Programmatically blur the field if focused. Requires a `ref`. | [help](../actions/shared.html#programmatically-blur-a-field) |
-| **trim()** | - | void | Apply `trim()` to the field value if is string. Does **not** trigger `onChange` Event Hook. | [help](../actions/shared.html#trim-field-value) |
-| **invalidate(msg, deep, async)** | (string, boolean, boolean) | void | Mark the field as invalid. Pass error message. `deep` (default `true`) for nested fields. `async` (default `false`) stores in `errorAsync` instead of `errorSync`. | [help](../actions/shared.html#invalidate-the-form-or-a-single-field) |
-| **resetValidation(deep)** | (boolean) | void | Reset the field validation status (clears sync/async errors, resets error stack). Pass `true` for deep reset of nested fields. | [help](../actions/shared.html#reset-validation) |
-| **showErrors(bool, deep)** | (boolean, boolean) | void | Show or Hide Field Error Messages. `deep` (default `true`) for nested fields. | [help](../actions/shared.html#show--hide-error-messages) |
-| **dispose()** | - | void | Remove all observers and interceptors on this field and all nested fields recursively. | [help](../extra/mobx-events.html#disposers) |
+Methods available on each field and form instance. Use `$('path')` as a shorthand for `select('path')`.
 
-#### Shared Methods
+---
 
-| Method | Input | Output | Info | Help |
-|---|---|---|---|---|
-| **select(path)** | (string) | object | Field Selector. Can be chained. | [help](../actions/shared.html#field-selector) |
-| **update(obj)** | (object) | void | Update Fields Values. Will create new fields auomatically. | [help](../actions/shared.html#update-the-fields) |
-| **submit(obj)** | (object) | promise | Perform fields validation. After successful validation triggers onSuccess event and onError event in case of validation error. | [help](../actions/shared.html#manual-submit) |
-| **validate()** | - | promise | Check if the field is valid and return a promise. | [help](../actions/shared.html#validate-a-field) |
-| **validate(path)** | (string) | promise | Takes a field `path` in input. Check if the field and nested fields are valid and return a promise. | [help](../actions/shared.html#validate-a-field) |
-| **validate(opt)** | (object) | promise | Takes a an object in input with `related` or `showErrors` options. | [help](../actions/form.html#validation-errors) |
-| **validate(path, opt)** | (string, object) | promise | Takes a field `path` as first arg. and object as second arg. with `related` or `showErrors` options. | [help](../actions/form.html#validation-errors) |
-| **check(computed)** | (string) | boolean | Check field computed property. | [help](../actions/shared.html#check-field-computed-values) |
-| **check(computed, deep)** | (string, boolean) | boolean | Check all nested fields computed property if `deep` is `true` | [help](../actions/shared.html#check-field-computed-values) |
-| **get()** | - | object | Get all field and nested fields data with all props and computed values. | [help](../actions/shared.html#get-fields-properties) |
-| **get(prop)** | (any) | object | Get all field filtering by certain `props` (string or array). | [help](../actions/shared.html#get-fields-properties) |
-| **set(val)** | (any) | void | Set field value. Takes the value. | [help](../actions/shared.html#set-fields-properties) |
-| **set(obj)** | (object) | void | Provide an object to set nested fields values. | [help](../actions/shared.html#set-fields-properties) |
-| **set(prop, val)** | (string, any) | void | Set field property. Takes prop key and prop value. | [help](../actions/shared.html#set-fields-properties) |
-| **set(prop, obj)** | (string, object) | void | Provide a prop key and object to set nested fields properties. | [help](../actions/shared.html#set-fields-properties) |
-| **has(key)** | (string) | boolean | Provide Field key to check if exist. | [help](../actions/shared.html#has) |
-| **map(callback)** | (function) | array | Map Nested Fields | [help](../actions/shared.html#map) |
-| **reduce(callback, acc)** | (function, any) | any | Reduce Nested Fields | [help](../actions/shared.html#reduce) |
-| **each(callback)** | (function) | void | Iterates over fields and nested fields recursively and invokes a callback which get each field in input. | [help](../actions/shared.html#each) |
-| **add(obj)** | (any) | any | Add a Field or Nested Fields. | [help](../actions/shared.html#add--del) |
-| **del(key)** | (any) | void | Delete a Field or Nested Fields by `key` or `path`. | [help](../actions/shared.html#add--del) |
-| **move(fromIndex, toIndex)** | (number, number) | void | Move an array field item from one index to another. Delegates to `ArrayMap.move()`. | [help](../actions/shared.html#movefromindex-toindex) |
-| **observe(obj)** | (object) | function | Define a MobX Observer on Field Props or Field Map. Returns a disposer function. | [help](../extra/mobx-events.html) |
-| **intercept(obj)** | (object) | function | Define a MobX Interceptor on Field Props or Field Map. Returns a disposer function. | [help](../extra/mobx-events.html) |
+## Navigation & Selection
 
-> `$('path')` is an alias of `select(path)`.
+| Method | Signature | Returns | Description |
+|--------|-----------|---------|-------------|
+| `select(path)` | `(path: string) => Field` | Field | Select a field by dot/array path. Can be chained. |
+| `$(path)` | `(path: string) => Field` | Field | Alias for `select(path)` |
+| `has(key)` | `(key: string) => boolean` | boolean | Check if a child field with the given key exists |
+| `container()` | `() => Field or null` | Field or null | Get the parent field container, or `null` if root |
 
-#### Helpers
+```javascript
+form.$('address.city');              // via alias
+form.select('members[0].firstname'); // via select()
+form.$('members').$(0).$('firstname'); // chained
+form.$('members').container();       // → the form itself (root)
+```
 
-| Property | Input | Output | Info | Help |
-|---|---|---|---|---|
-| **values()** | - | object | Get Field & Nested Fields Values. | [help](../actions/helpers.html#get-all-fields-values) |
-| **errors()** | - | object | Get Field & Nested Fields Errors. | [help](../actions/helpers.html#get-all-fields-errors) |
-| **labels()** | - | object | Get Field & Nested Fields Labels. | [help](../actions/helpers.html#get-all-fields-labels) |
-| **placeholders()** | - | object | Get Field & Nested Fields Placeholders. | [help](../actions/helpers.html#get-all-fields-placeholders) |
-| **defaults()** | - | object | Get Field & Nested Fields Default Values. | [help](../actions/helpers.html#get-all-fields-defaults-values) |
-| **initials()** | - | object | Get Field & Nested Fields Initial Values. | [help](../actions/helpers.html#get-all-fields-initials-values) |
-| **types()** | - | object | Get Field & Nested Fields Type. | [help](../actions/helpers.html#get-all-fields-types) |
+---
 
-#### Event Handlers
+## Value Operations
 
-| Property | Input | Output | Info | Help |
-|---|---|---|---|---|
-| **sync(e)** | - | object | Update the `value` of the field. | [help](../events/event-handlers.html#onchangee--ontogglee) |
-| **onChange(e)** | - | object | Update the `value` of the field. (alias of `sync(e)`) | [help](../events/event-handlers.html#onchangee--ontogglee) |
-| **onToggle(e)** | - | object | Update the `value` of the field. (alias of `sync(e)`) | [help](../events/event-handlers.html#onchangee--ontogglee) |
-| **onFocus(e)** | - | object | Track the `focused` property of the field. | [help](../events/event-handlers.html#onfocuse--onblure) |
-| **onBlur(e)** | - | object | Track the `touched` property of the field. | [help](../events/event-handlers.html#onfocuse--onblure) |
-| **onSubmit(e)** | - | object | Sub-Form Submission: Validate the fieldset and call `onSuccess(fieldset)` or `onError(fieldset)`. | [help](../events/event-handlers.html#onsubmite) |
-| **onClear(e)** | - | object | Clear all the Fields and Nested Fields to `empty` value. | [help](../events/event-handlers.html#oncleare--onresete) |
-| **onReset(e)** | - | object | Reset all the Fields and Nested Fields to `default` value. | [help](../events/event-handlers.html#oncleare--onresete) |
-| **onAdd(e)** | - | object | Add a Field or Nested Fields. | [help](../events/event-handlers.html#onadde--ondele) |
-| **onDel(e)** | - | object | Delete a Field or Nested Fields. | [help](../events/event-handlers.html#onadde--ondele) |
-| **onKeyUp(e)** | - | object | Executed on field key up | [help](../events/event-handlers.html#key-events) |
-| **onKeyDown(e)** | - | object | Executed on field key down | [help](../events/event-handlers.html#key-events) |
-| **onDrop(e)** | - | object | Handle file drop events when `type: 'file'`. Access files via `field.files`. | [help](../events/event-handlers.html#ondrope) |
+| Method | Signature | Returns | Description |
+|--------|-----------|---------|-------------|
+| `get()` | `() => any` | object | Get all field data with all props and computed values |
+| `get(prop)` | `(prop: string or string[]) => any` | any | Get value of a specific prop (or an array of props) |
+| `set(val)` | `(val: any) => void` | void | Set field value directly |
+| `set(obj)` | `(obj: object) => void` | void | Set nested field values from an object |
+| `set(prop, val)` | `(prop: string, val: any) => void` | void | Set a specific field property |
+| `set(prop, obj)` | `(prop: string, obj: object) => void` | void | Set a property on nested fields from an object |
+| `update(fields)` | `(fields: object) => void` | void | Update field values, auto-creating new fields as needed |
+| `add(obj)` | `(obj?: any) => any` | any | Add a new field or nested field entry |
+| `del(key)` | `(key: string) => void` | void | Delete a field or nested field by key or path |
+| `move(fromIndex, toIndex)` | `(from: number, to: number) => void` | void | Move an array field item from one index to another |
 
+```javascript
+// Get all props
+form.$('username').get();
 
-> All Event Handlers takes the Proxy object in input.
+// Set field value
+form.$('username').set('newValue');
+
+// Set a specific prop
+form.$('username').set('label', 'Display Name');
+
+// Add to nested array
+form.$('members').add({ firstname: 'John', lastname: 'Doe' });
+
+// Add to simple array
+form.$('hobbies').add({ value: 'Tennis' });
+
+// Delete by key
+form.$('members').del(0);
+
+// Move array item
+form.$('members').move(0, 2);
+
+// Update multiple values
+form.update({ username: 'Jane', email: 'jane@example.com' });
+```
+
+---
+
+## Validation
+
+| Method | Signature | Returns | Description |
+|--------|-----------|---------|-------------|
+| `validate()` | `() => Promise` | Promise | Validate the field and return a promise resolving to `true`/`false` |
+| `validate(path)` | `(path: string) => Promise` | Promise | Validate a specific field by path |
+| `validate(opt)` | `(opt: { related?: boolean, showErrors?: boolean }) => Promise` | Promise | Validate with options |
+| `validate(path, opt)` | `(path: string, opt: object) => Promise` | Promise | Validate a path with options |
+| `check(prop)` | `(prop: string) => boolean` | boolean | Check a computed property on this field |
+| `check(prop, deep)` | `(prop: string, deep: boolean) => boolean` | boolean | Check a computed property, recursing into nested fields |
+| `invalidate(msg, deep?, async?)` | `(msg: string, deep?: boolean, async?: boolean) => void` | void | Mark the field as invalid with an error message |
+| `resetValidation(deep?)` | `(deep?: boolean) => void` | void | Reset validation status (clears errors, resets error stack) |
+
+```javascript
+// Validate field
+const isValid = await form.$('email').validate();
+
+// Validate with options
+await form.$('email').validate({ related: true, showErrors: true });
+
+// Check computed
+form.$('email').check('isDirty');          // false
+form.$('address').check('isValid', true);  // deep check
+
+// Invalidate manually
+form.$('email').invalidate('Custom error message');
+form.$('email').invalidate('Async error', true, true);
+
+// Reset validation
+form.$('email').resetValidation(true);
+```
+
+---
+
+## Actions
+
+| Method | Signature | Returns | Description |
+|--------|-----------|---------|-------------|
+| `clear(deep?)` | `(deep?: boolean) => void` | void | Clear the field to empty value |
+| `reset(deep?)` | `(deep?: boolean) => void` | void | Reset the field to default value |
+| `submit(hooks?, opts?)` | `(hooks?: object, opts?: object) => Promise` | Promise | Validate and trigger `onSuccess`/`onError` hooks |
+| `focus()` | `() => void` | void | Programmatically focus the field (requires `ref`) |
+| `blur()` | `() => void` | void | Programmatically blur the field (requires `ref`) |
+| `trim()` | `() => void` | void | Apply `String.trim()` to the value if it's a string |
+
+```javascript
+// Clear to empty
+form.$('username').clear();
+
+// Reset to default
+form.$('username').reset();
+
+// Submit a fieldset
+form.$('step1').submit({
+  onSuccess: (fieldset) => console.log('Step 1 valid!', fieldset.values()),
+  onError:   (fieldset) => console.log('Step 1 errors:', fieldset.errors()),
+});
+
+// Focus / Blur
+form.$('email').focus();
+form.$('email').blur();
+
+// Trim whitespace
+form.$('username').trim();
+```
+
+### Submit Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `execOnSubmitHook` | boolean | `true` | Execute the `onSubmit` hook before validating |
+| `execValidationHooks` | boolean | `true` | Execute `onSuccess` / `onError` hooks after validation |
+| `validate` | boolean | `true` | Perform validation before calling hooks |
+
+---
+
+## UI & Bindings
+
+| Method | Signature | Returns | Description |
+|--------|-----------|---------|-------------|
+| `bind(props?)` | `(props?: object) => object` | object | Get the current field bindings (template/rewriter). Sets `ref` automatically. |
+| `showErrors(show?, deep?)` | `(show?: boolean, deep?: boolean) => void` | void | Show or hide error messages |
+
+```javascript
+// In a React component:
+<input {...form.$('email').bind()} />
+
+// With custom props:
+<input {...form.$('email').bind({ className: 'my-input' })} />
+
+// Show/hide errors
+form.$('email').showErrors(true);   // display errors
+form.$('email').showErrors(false);  // hide errors
+```
+
+---
+
+## MobX Events
+
+| Method | Signature | Returns | Description |
+|--------|-----------|---------|-------------|
+| `observe(opt)` | `(opt: object) => function` | disposer | Define a MobX observer on field props or fields map |
+| `intercept(opt)` | `(opt: object) => function` | disposer | Define a MobX interceptor on field props or fields map |
+| `dispose()` | `() => void` | void | Remove all observers and interceptors on this field and nested fields |
+
+```javascript
+const disposer = form.$('email').observe({
+  props: ['value', 'error'],
+  callback: (change) => console.log(change),
+});
+
+// Clean up
+disposer();
+```
+
+---
+
+## Helpers
+
+Convenience methods to extract structured data from a field and its nested fields.
+
+| Method | Signature | Returns | Description |
+|--------|-----------|---------|-------------|
+| `values()` | `() => object` | object | Get field and nested field values |
+| `errors()` | `() => object` | object | Get field and nested field errors |
+| `labels()` | `() => object` | object | Get field and nested field labels |
+| `placeholders()` | `() => object` | object | Get field and nested field placeholders |
+| `defaults()` | `() => object` | object | Get field and nested field default values |
+| `initials()` | `() => object` | object | Get field and nested field initial values |
+| `types()` | `() => object` | object | Get field and nested field types |
+
+```javascript
+form.values();
+// { username: 'SteveJobs', email: 's.jobs@apple.com' }
+
+form.$('address').values();
+// { street: 'Broadway', city: 'New York' }
+```
+
+---
+
+## Iteration
+
+| Method | Signature | Returns | Description |
+|--------|-----------|---------|-------------|
+| `map(callback)` | `(fn: (field) => any) => any[]` | array | Map over nested fields |
+| `reduce(callback, acc)` | `(fn: (acc, field) => any, init: any) => any` | any | Reduce nested fields |
+| `each(callback)` | `(fn: (field) => void) => void` | void | Iterate over all fields and nested fields recursively |
+
+```javascript
+// Get all values
+form.$('members').map(field => field.value);
+
+// Sum computed values
+form.$('products').reduce((sum, field) => sum + field.value.price, 0);
+
+// Log every field path
+form.each(field => console.log(field.path));
+```
+
+---
+
+## Event Handlers
+
+Event handlers bind to DOM events and update field state automatically. They accept a Proxy-like event object or direct value.
+
+| Handler | Input | Description |
+|---------|-------|-------------|
+| `sync(e)` / `onChange(e)` | Event or any | Update `value` from DOM event (input, checkbox) or direct value |
+| `onToggle(e)` | Event or any | Update `value` from toggle/checkbox event (alias of `sync`) |
+| `onFocus(e)` | Event | Track `focused` state on focus |
+| `onBlur(e)` | Event | Track `touched` and `blurred` state on blur |
+| `onKeyUp(e)` | Event | Executed on key up |
+| `onKeyDown(e)` | Event | Executed on key down |
+| `onDrop(e)` | Event | Handle file drop events when `type: "file"`. Access files via `field.files`. |
+| `onSubmit(e)` | Event | Sub-form submission: validate fieldset, call `onSuccess` / `onError` |
+| `onClear(e)` | Event | Clear all fields and nested fields to empty value |
+| `onReset(e)` | Event | Reset all fields and nested fields to default value |
+| `onAdd(e)` | Event | Add a new field or nested field entry |
+| `onDel(e)` | Event | Delete a field or nested field by key |
+
+```javascript
+// In JSX:
+<input {...form.$('email').bind()} onChange={form.$('email').onChange} />
+
+// All event handlers accept the event object:
+<input
+  onFocus={form.$('email').onFocus}
+  onBlur={form.$('email').onBlur}
+/>
+
+// Direct value (without event):
+form.$('email').onChange('new@email.com');
+```

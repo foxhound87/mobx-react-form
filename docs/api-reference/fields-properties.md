@@ -1,64 +1,151 @@
 # Fields Properties
 
-#### Editable Props
-| Property | Type | Info | Help |
-|---|---|---|---|
-| **type** | string | Field type (default: `text`). | [help](../fields/) |
-| **value** | any | Value of the field. | [help](../fields/) |
-| **initial** | any | The initial value of the field. | [help](../fields/) |
-| **default** | any | The default value of the field. | [help](../fields/) |
-| **label** | string | The Field label. | [help](../fields/) |
-| **placeholder** | string | The Field placeholder. | [help](../fields/) |
-| **related** | array of strings (field `path`) | Execute validation on related fields. | [help](../fields/#common-patterns) |
-| **options** | object | Individual Field Options, with fallback on Form Options. | [help](../form/form-options.html) |
-| **rules** | string | Get DVR Validation Rules. | [help](../validation/plugins/DVR/setup.html) |
-| **validators** | array | Get VJF Validation Functions. | [help](../validation/plugins/VJF/setup.html) |
-| **validatedWith** | string | Field prop to validate instead `value`. See [validatedValue](../extra/validated-value.md). | [help](../extra/validated-value.html) |
-| **extra** | any | Additional extra data for the field (useful for a select input). | [help](../extra/converters.html) |
-| **bindings** | string | The key of the registered bindings to use for the current field. | [help](../bindings/) |
-| **hooks** | object | An object with Event Hooks | [help](../events/event-hooks.html) |
-| **handlers** | object | An object with Event Handlers. | [help](../events/event-handlers.html) |
-| **deleted** | boolean | The deleted state of the field (see `softDelete` option). | [help](../form/form-options.html#softdelete) |
-| **disabled** | boolean | The disabled state of the field. | [help](../fields/#separated-mode) |
-| **autoFocus** | boolean | Set this to `true` for the first input to be focused at form initialization. | - |
-| **inputMode** | string | The HTML `inputmode` attribute: `none`, `text`, `decimal`, `numeric`, `tel`, `search`, `email`, `url`. | - |
-| **converter** | function | Function to control `value` computed prop output. | [help](../extra/converters.html) |
-| **converters** | function[] | Array of converter functions. | [help](../extra/converters.html) |
-| **computed** | function | Function returning the value dynamically. Gets `{ form, field }` in input. | [help](../extra/computed-props.html) |
-| **nullable** | boolean | Handle `null` field value. | [help](../troubleshooting.html) |
-| **autoComplete** | string | HTML `autocomplete` attribute value. | - |
-| **ref** | React Ref | A React Ref will be attached if `bind()` is used. | [help](../bindings/) |
-| **class** | class (constructor) | Custom Field class to use for this field (unified mode only). | [help](../form/extend/configure.html#unified-definition) |
-| **classes** | object | Custom Field classes keyed by field path (separated mode only). | [help](../form/extend/configure.html#separated-definition) |
-| **observers** | object | The mobx observers to listen on Fields Props or Fields Map changes. Auto-loaded for dynamic arrays. | [help](../extra/mobx-events.html#using-observers--interceptors-objects) |
-| **interceptors** | object | The mobx interceptors to listen on Fields Props or Fields Map changes. Auto-loaded for dynamic arrays. | [help](../extra/mobx-events.html#using-observers--interceptors-objects) |
+Every field exposes **editable props** (set during definition, mutable at runtime) and **computed props** (read-only values derived from field state).
 
+---
 
-#### Computed Props
-| Property | Type | MobX Type | Info | Help |
-|---|---|---|---|---|
-| **key** | string | - | Field key (same of `name` if not provided) | - |
-| **name** | string | - | Field name (same of `key` if not provided). | - |
-| **path** | string | - | Field path (for nested fields). | [help](../fields/) |
-| **size** | int | computed | Number of contained child fields. | - |
-| **submitting** | boolean | computed | Check if the field is in submitting state. | - |
-| **submitted** | int | computed | Check how many times a field has been submitted. | - |
-| **validating** | boolean | computed | Check if the field is in validation state. | - |
-| **validated** | int | computed | Check how many times a field has been validated. | - |
-| **focused** | boolean | computed | Check if the field is focused. | [help](../events/event-handlers.html#onfocuse--onblure) |
-| **touched** | boolean | computed | Check if the field is touched (has been focused at least once). | [help](../events/event-handlers.html#onfocuse--onblure) |
-| **blurred** | boolean | computed | Check if the field has been blurred (focus lost at least once). | [help](../events/event-handlers.html#onfocuse--onblure) |
-| **changed** | int | computed | Number of times the field value has changed. | - |
-| **isValid** | boolean | computed | Check if the field is valid. | [help](../validation/) |
-| **isDirty** | boolean | computed | Check if the field is dirty (value differs from initial). | [help](../actions/shared.html#check-field-computed-values) |
-| **isPristine** | boolean | computed | Check if the field is pristine (value equals initial). | [help](../actions/shared.html#check-field-computed-values) |
-| **isDefault** | boolean | computed | Check if the field equals its default value. | [help](../actions/shared.html#check-field-computed-values) |
-| **isEmpty** | boolean | computed | Check if the field is empty. | [help](../actions/shared.html#check-field-computed-values) |
-| **hasError** | boolean | computed | Check if the field has errors. | [help](../actions/shared.html#check-field-computed-values) |
-| **error** | string | computed | Field error message. | - |
-| **files** | any | computed | File data (populated by `onDrop` Event Handler for `type: 'file'` fields). | [help](../events/event-handlers.html#ondrope) |
-| **checked** | any | computed | The current value when `type` is `"checkbox"`; `undefined` otherwise. | - |
-| **validatedValue** | any | computed | The value of the field prop specified by `validatedWith` (default: `value`). | [help](../extra/validated-value.html) |
-| **actionRunning** | boolean | computed | `true` while a clear, reset, or submit action is in progress. Useful for showing loading spinners. | - |
-| **hasNestedFields** | boolean | computed | Check if the field has Nested Fields. | [help](../fields/) |
-| **hasIncrementalKeys** | boolean | computed | Check if the nested fields have incremental (numeric) keys. | - |
+## Editable Props
+
+Props you can define when creating fields and modify at runtime via `field.set(prop, value)`.
+
+### Value & Display
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `type` | string | `"text"` | HTML input type (`text`, `email`, `checkbox`, `file`, `number`, etc.) |
+| `value` | any | `undefined` | Current field value |
+| `initial` | any | `undefined` | Initial value on mount |
+| `default` | any | `undefined` | Value used when `reset()` is called |
+| `label` | string | `""` | Human-readable field label |
+| `placeholder` | string | `""` | Placeholder text for the input |
+| `extra` | any | `null` | Arbitrary metadata (useful for select options, custom data) |
+
+### Input Behavior
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `disabled` | boolean | `false` | Field disabled state |
+| `deleted` | boolean | `false` | Soft-deleted state (requires `softDelete` option) |
+| `nullable` | boolean | `false` | Allow `null` as a field value |
+| `autoFocus` | boolean | `false` | Focus this field on form initialization |
+| `inputMode` | string | `undefined` | Mobile keyboard mode: `none`, `text`, `decimal`, `numeric`, `tel`, `search`, `email`, `url` |
+| `autoComplete` | string | `undefined` | HTML `autocomplete` attribute |
+| `ref` | React Ref | `undefined` | React ref, populated automatically when `bind()` is used |
+
+### Validation
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `rules` | string | `null` | DVR validation rules (e.g. `"required&#124;email&#124;min:6"`) |
+| `validators` | array | `null` | VJF validation functions |
+| `validatedWith` | string | `"value"` | Field prop to validate instead of `value` (see [validatedValue](../extra/validated-value.html)) |
+| `related` | string[] | `[]` | Other field paths to re-validate when this field changes |
+
+### Converters & Computed
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `converter` | function | identity | Function controlling the `value` computed prop output |
+| `converters` | function[] | - | Array of converter functions |
+| `input` | function | identity | Input converter: maps user input to stored value |
+| `output` | function | identity | Output converter: maps stored value to output |
+| `computed` | function | `undefined` | Dynamic value function: `({ form, field }) => value` |
+
+### Bindings & Options
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `bindings` | string | `"default"` | Key of the registered binding template/rewriter to use |
+| `options` | object | `{}` | Per-field [Form Options](../form/form-options.html), with fallback on global options |
+| `class` | class | `undefined` | Custom Field class (unified mode only, must extend `Form.Field`) |
+| `classes` | object | `undefined` | Custom Field classes keyed by field path (separated mode only) |
+
+### Events & MobX
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `hooks` | object | `{}` | Event hook functions |
+| `handlers` | object | `{}` | Event handler functions |
+| `observers` | array | `null` | MobX observers on field props or fields map. Auto-loaded for dynamic arrays. |
+| `interceptors` | array | `null` | MobX interceptors on field props or fields map. Auto-loaded for dynamic arrays. |
+
+### Nested
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `fields` | array | `undefined` | Nested sub-field definitions |
+| `name` | string | `key` | Overrides the object key as field name (array syntax) |
+
+---
+
+## Computed Props
+
+Read-only properties derived from the field state. Accessible at runtime (e.g. `field.isValid`, `field.error`).
+
+### Validation State
+
+| Property | Type | MobX | Description |
+|----------|------|------|-------------|
+| `isValid` | boolean | computed | `true` if the field and all nested fields pass validation |
+| `hasError` | boolean | computed | `true` if the field or any nested field has errors |
+| `error` | string | computed | First error message (`null` if no error, `null` when `showError` is `false`) |
+| `errorSync` | string | observable | Synchronous error message |
+| `errorAsync` | string | observable | Asynchronous error message (from async validation) |
+| `validating` | boolean | computed | `true` while validation is in progress |
+| `validated` | int | computed | Number of times the field has been validated |
+
+### Identity & Structure
+
+| Property | Type | MobX | Description |
+|----------|------|------|-------------|
+| `key` | string | - | Field key (same as `name` if not provided) |
+| `name` | string | - | Field name (same as `key` if not provided) |
+| `path` | string | - | Full field path (dot-notated for nested fields, e.g. `"address.city"`) |
+| `size` | int | computed | Number of child fields (0 for leaf fields) |
+| `id` | string | - | Unique field ID (generated by `uniqueId` option) |
+| `hasNestedFields` | boolean | computed | `true` if the field contains nested sub-fields |
+| `hasIncrementalKeys` | boolean | computed | `true` if nested fields use incremental numeric keys |
+
+### State & Interaction
+
+| Property | Type | MobX | Description |
+|----------|------|------|-------------|
+| `focused` | boolean | computed | `true` if the field is currently focused |
+| `blurred` | boolean | computed | `true` if the field has lost focus at least once |
+| `touched` | boolean | computed | `true` if the field has been focused at least once |
+| `changed` | int | computed | Number of times the field value has changed |
+| `submitting` | boolean | computed | `true` while the form/fieldset is submitting |
+| `submitted` | int | computed | Number of times the fieldset has been submitted |
+| `actionRunning` | boolean | computed | `true` while a clear, reset, or submit action is in progress (useful for loading spinners) |
+| `resetting` | boolean | observable | `true` while the field is being reset |
+| `clearing` | boolean | observable | `true` while the field is being cleared |
+
+### Value Comparison
+
+| Property | Type | MobX | Description |
+|----------|------|------|-------------|
+| `isDirty` | boolean | computed | `true` if the current value differs from the initial value |
+| `isPristine` | boolean | computed | `true` if the current value equals the initial value |
+| `isDefault` | boolean | computed | `true` if the current value equals the default value |
+| `isEmpty` | boolean | computed | `true` if the field value is empty (delegates to child fields for nested fields) |
+
+### Special
+
+| Property | Type | MobX | Description |
+|----------|------|------|-------------|
+| `checked` | any | computed | Current value when `type` is `"checkbox"`; `undefined` otherwise |
+| `validatedValue` | any | computed | Value of the field prop specified by `validatedWith` (default: `"value"`) |
+| `files` | any | observable | File data populated by `onDrop` event handler for `type: "file"` fields |
+| `showError` | boolean | observable | Controls whether error messages are visible |
+| `validationErrorStack` | string[] | observable | Stack of validation error messages |
+
+---
+
+## Occurrence Strategy
+
+Some computed props use different aggregation strategies when checking nested fields:
+
+| Property | Strategy | Meaning |
+|----------|----------|---------|
+| `isValid`, `isPristine`, `isDefault`, `isEmpty` | **every** | Must be `true` for ALL nested fields |
+| `hasError`, `isDirty`, `focused`, `blurred`, `touched` | **some** | `true` if ANY nested field is `true` |
