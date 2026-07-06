@@ -18,7 +18,7 @@ Validation can be triggered:
 | Style | Driver | Best For | Example |
 |---|---|---|---|
 | **Custom functions** | VJF | Full control, custom logic, server checks | `({ field }) => [field.value.length > 3, 'Too short']` |
-| **Declarative rules** | DVR | Simple string-based rules (like Laravel) | `'required\|email\|min:5'` |
+| **Declarative rules** | DVR | Simple string-based rules (like Laravel) | `'required or email or min:5'` |
 | **JSON Schema** | SVK | JSON-first projects, API compatibility | `{ type: 'string', minLength: 3 }` |
 | **Object schema** | YUP | Modern JS/TS, chainable API | `y.string().required().min(3)` |
 | **Object schema** | JOI | Enterprise-grade, rich error messages | `j.string().min(3).required()` |
