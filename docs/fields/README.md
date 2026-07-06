@@ -1,6 +1,6 @@
 # Defining Fields
 
-Fields can be defined in two modes: **Unified Properties** (props grouped per field) or **Separated Properties** (props split across objects). Both modes support flat and nested fields.
+Fields can be defined in two modes: **Unified Properties** (all props grouped per field) or **Separated Properties** (props split across parallel objects). Both modes support flat and nested fields.
 
 ---
 
@@ -21,9 +21,9 @@ Fields can be defined in two modes: **Unified Properties** (props grouped per fi
 
 | Aspect | Unified | Separated |
 |---|---|---|
-| **Structure** | `{ fields: { username: { label, value, rules, ... } } }` | `{ fields: ['username'], values: { ... }, labels: { ... }, rules: { ... } }` |
+| **Structure** | `{ fields: { username: { label, value, ... } } }` | `{ fields: ['username'], values: { ... }, labels: { ... } }` |
 | **Pros** | Compact, self-contained, TS-friendly | Flexible, decoupled, easy to dynamically generate |
-| **Cons** | Verbose for large forms, harder to dynamically build | More boilerplate for tiny forms |
+| **Cons** | Verbose for large forms, harder to build dynamically | More boilerplate for tiny forms |
 | **When to use** | Small forms, prototyping, TypeScript | Large forms, dynamic fields, server data |
 | **Nested fields** | `fields: [{ name, fields: [...] }]` | Dot notation `'parent.child'` + array notation `'arr[]'` |
 
@@ -32,79 +32,81 @@ Fields can be defined in two modes: **Unified Properties** (props grouped per fi
 ## Available Props Reference
 
 ### Unified Mode
-Each field is an object keyed by name. Available props per field:
+
+Each field is an object keyed by name. Available props:
 
 | Prop | Type | Description |
-|---|---|---|
+|------|------|-------------|
 | `value` | any | Initial value |
-| `label` | string | Field label |
-| `placeholder` | string | Placeholder text |
-| `rules` | string | DVR validation rules (e.g. `'required|email'`) |
-| `validators` | array | VJF validation functions |
+| `default` | any | Value used on `reset()` |
+| `initial` | any | Fallback for `value` when not set |
+| `label` | string | Human-readable field label |
+| `placeholder` | string | Placeholder text for the input |
 | `type` | string | Field type, default `"text"` |
+| `autoFocus` | boolean | Auto-focus this field on init |
+| `inputMode` | string | Mobile keyboard mode: `none`, `text`, `decimal`, `numeric`, `tel`, `search`, `email`, `url` |
+| `autoComplete` | string | HTML autocomplete attribute |
+| `rules` | string | DVR validation rules (e.g. `'required\|email'`) |
+| `validators` | array | VJF validation functions |
+| `validatedWith` | string | Validate a different field prop instead of `value` |
+| `related` | string[] | Other field paths to validate together |
 | `disabled` | boolean | Disabled state |
 | `deleted` | boolean | Soft-deleted state (needs `softDelete` option) |
-| `related` | string[] | Related field paths to validate together |
-| `default` | any | Default value (used on `reset`) |
-| `initial` | any | Initial value (fallback for `value`) |
-| `bindings` | string | Binding template/rewriter key |
-| `options` | object | Field-level options (same as Form Options) |
+| `nullable` | boolean | Allow `null` field values |
+| `options` | object | Per-field options (same keys as [Form Options](../form/form-options.html)) |
+| `bindings` | string | Name of the binding template/rewriter |
 | `extra` | any | Extra metadata (useful for select options) |
-| `hooks` | object | Event hooks (see Events) |
-| `handlers` | object | Event handlers (see Events) |
-| `input` | function | Input converter: `value => stored` |
-| `output` | function | Output converter: `stored => output` |
-| `converter` | function | Value converter (alias for input/output) |
+| `class` | any | Custom Field class (must extend `Form.Field`) |
+| `input` | function | Input converter: `user value => stored value` |
+| `output` | function | Output converter: `stored value => output value` |
+| `converter` | function | Alias for both input and output |
 | `converters` | function[] | Array of converter functions |
-| `computed` | function | Computed value function `({ form, field }) => value` |
-| `validatedWith` | string | Field prop to validate instead of `value` |
-| `observers` | array | MobX observers |
-| `interceptors` | array | MobX interceptors |
-| `autoFocus` | boolean | Auto-focus on init |
-| `inputMode` | string | Mobile keyboard mode |
-| `ref` | any | React ref |
-| `nullable` | boolean | Allow null values |
-| `autoComplete` | string | HTML autocomplete attribute |
-| `class` | any | Custom Field class |
+| `computed` | function | Dynamic value: `({ form, field }) => value` |
+| `hooks` | object | Event hook functions |
+| `handlers` | object | Event handler functions |
+| `observers` | array | MobX observers on field props |
+| `interceptors` | array | MobX interceptors on field props |
 | `fields` | array | Nested sub-field definitions |
 | `name` | string | Overrides the object key as field name |
+| `ref` | any | React ref |
 
 ### Separated Mode
-Props are split across parallel objects keyed by field name or path:
+
+Props are split across parallel objects keyed by field name or dot/array path:
 
 | Object Key | Type | Description |
 |---|---|---|
-| `fields` | string[] | Field structure (array of paths) |
+| `fields` | string[] | Array of field paths (dot + `[]` notation) |
+| `struct` | string[] | Alias for `fields` in separated mode |
 | `values` | object | Initial values |
-| `labels` | object | Labels |
-| `placeholders` | object | Placeholders |
-| `defaults` | object | Default values (on reset) |
-| `initials` | object | Initial values (fallback for `values`) |
-| `disabled` | object | Disabled states |
-| `deleted` | object | Soft-deleted states |
+| `initials` | object | Fallback values when `value` is not set |
+| `defaults` | object | Values used on `reset()` |
+| `labels` | object | Field labels |
+| `placeholders` | object | Placeholder text |
 | `types` | object | Field types |
-| `related` | object | Related field paths |
+| `autoFocus` | object | Auto-focus flags |
+| `inputMode` | object | Mobile keyboard modes |
+| `autoComplete` | object | Autocomplete attributes |
 | `rules` | object | DVR validation rules |
 | `validators` | object | VJF validation functions |
+| `validatedWith` | object | Validation prop overrides |
+| `related` | object | Related field paths |
+| `disabled` | object | Disabled states |
+| `deleted` | object | Soft-deleted states |
+| `nullable` | object | Nullable flags |
+| `options` | object | Per-field options |
 | `bindings` | object | Binding keys |
 | `extra` | object | Extra metadata |
-| `options` | object | Field-level options |
-| `hooks` | object | Event hooks |
-| `handlers` | object | Event handlers |
-| `validatedWith` | object | Validation prop overrides |
-| `validators` | object | VJF functions |
-| `observers` | object | MobX observers |
-| `interceptors` | object | MobX interceptors |
+| `computed` | object | Computed value functions |
+| `converters` | object | Converter functions |
 | `input` | object | Input converter functions |
 | `output` | object | Output converter functions |
-| `converters` | object | Converter functions |
-| `computed` | object | Computed value functions |
-| `autoFocus` | object | Auto-focus flags |
-| `inputMode` | object | Input modes |
-| `refs` | object | React refs |
+| `hooks` | object | Event hook functions |
+| `handlers` | object | Event handler functions |
+| `observers` | object | MobX observers |
+| `interceptors` | object | MobX interceptors |
 | `classes` | object | Custom Field classes |
-| `nullable` | object | Nullable flags |
-| `autoComplete` | object | Autocomplete attributes |
+| `refs` | object | React refs |
 
 ---
 
@@ -113,14 +115,14 @@ Props are split across parallel objects keyed by field name or path:
 ### Flat: Unified Mode
 
 ```javascript
+import { Form } from 'mobx-react-form';
+
 const fields = {
   username: {
     label: 'Username',
     value: 'SteveJobs',
     placeholder: 'Enter username',
     rules: 'required|string|between:5,15',
-    type: 'text',
-    disabled: false,
   },
   email: {
     label: 'Email',
@@ -129,15 +131,21 @@ const fields = {
   },
 };
 
-new Form({ fields });
+const form = new Form({ fields });
 ```
 
-> TypeScript tip: annotate with `Record<string, FieldDefinition>` for autocomplete:
+> 💡 **TypeScript:** Annotate with `Record<string, FieldDefinition>` for autocomplete:
 > ```typescript
-> const fields: Record<string, FieldDefinition> = { username: { label: '...' } };
+> import { Form, FieldDefinition } from 'mobx-react-form';
+>
+> const fields: Record<string, FieldDefinition> = {
+>   username: { label: 'Username', value: 'SteveJobs' },
+> };
+>
+> const form = new Form(fields);
 > ```
 
-**Shorthand:** you can also pass an array of objects with a `name` key:
+**Shorthand (array of objects):**
 
 ```javascript
 const fields = [
@@ -148,9 +156,11 @@ const fields = [
 new Form({ fields });
 ```
 
+> The `name` property is **required** when using array syntax.
+
 ### Flat: Separated Mode
 
-Define the field names as an array (or object), then provide props in parallel objects:
+Define field names as an array, then provide props in parallel objects:
 
 ```javascript
 const fields = ['username', 'email', 'password'];
@@ -175,7 +185,7 @@ const rules = {
 new Form({ fields, values, labels, rules });
 ```
 
-> Providing only `values` (without `fields` array) will implicitly create the fields:
+> **Auto-create:** Providing only `values` (without `fields` array) will implicitly create the fields:
 > ```javascript
 > new Form({ values: { username: 'SteveJobs' } }); // field 'username' auto-created
 > ```
@@ -183,30 +193,30 @@ new Form({ fields, values, labels, rules });
 #### Validation in Separated Mode
 
 ```javascript
-// DVR rules
+// DVR rules (declarative)
 const rules = {
   email: 'required|email',
   password: 'required|string|min:6',
 };
 
-// VJF functions
+// VJF functions (vanilla)
 const validators = {
   email: isEmail,
   emailConfirm: [isEmail, shouldBeEqualTo('email')],
 };
 
-new Form({ fields, rules, validators, ... });
+new Form({ fields, rules, validators });
 ```
 
 ---
 
 ## Nested Fields
 
-Nested fields allow grouping fields into objects and arrays. The syntax differs between modes.
+Nested fields group fields into objects and arrays. The syntax differs between modes.
 
 ### Nested: Unified Mode
 
-Use the `fields` property inside a field definition to create nested sub-fields:
+**Plain nested objects** (single instance):
 
 ```javascript
 const fields = [{
@@ -229,7 +239,7 @@ new Form({ fields });
 
 > The `name` property is required for each field when using array syntax.
 
-**Arrays of nested fields:**
+**Arrays of nested fields** (multiple instances):
 
 ```javascript
 const fields = [{
@@ -249,7 +259,7 @@ new Form({ fields });
 // Add a new member dynamically:
 form.$('members').add({ firstname: 'John', lastname: 'Doe' });
 
-// Or with explicit value wrapper (equivalent for simple fields):
+// Simple array (no nested fields):
 form.$('hobbies').add({ value: 'Tennis' });
 ```
 
@@ -273,7 +283,7 @@ const fields = [{
 
 ### Nested: Separated Mode
 
-Define the structure using **dot notation** for nested objects and **`[]` notation** for arrays:
+Use **dot notation** for nested objects and **`[]` notation** for arrays:
 
 ```javascript
 const fields = [
@@ -287,10 +297,7 @@ const fields = [
 ];
 
 const values = {
-  club: {
-    name: 'Jazz Club',
-    city: 'New York',
-  },
+  club: { name: 'Jazz Club', city: 'New York' },
   members: [{
     firstname: 'Clint',
     lastname: 'Eastwood',
@@ -321,9 +328,11 @@ const rules = {
 new Form({ fields, values, labels, rules });
 ```
 
-> Dot notation keys reference field paths. Array notation `members[]` applies to every element in the array.
+> **Dot notation** — keys reference field paths (e.g., `'club.name'`).
+> **Array notation** — `members[]` applies to every element in the array.
+> **Deeply nested arrays** — `hobbies[]` inside `members[]` creates arrays of arrays.
 
-**Property values as nested objects** (alternative syntax):
+**Alternative syntax** — property values as nested objects:
 
 ```javascript
 const labels = {
@@ -340,31 +349,28 @@ const labels = {
 
 ---
 
-## Mixed Mode (Unified / Separated)
+## Mixed Mode (Unified + Separated)
 
-You can mix both modes in the same form definition. Props defined in the unified `fields` object take precedence over separated props.
+You can combine both modes. Props defined in the `fields` object (unified) take precedence over separated props:
 
 ```javascript
 new Form({
-  // Separated mode props
-  values: {
-    username: 'SteveJobs',
-  },
-  labels: {
-    username: 'Username',
-  },
-  rules: {
-    username: 'required|string',
-  },
-  // Unified mode override for specific fields
+  // Separated mode props (applied first)
+  values: { username: 'SteveJobs' },
+  labels: { username: 'Username' },
+  rules:  { username: 'required|string' },
+
+  // Unified mode override (takes precedence)
   fields: {
     username: {
-      type: 'email', // overrides the default 'text' type
+      type: 'email',     // overrides default 'text'
       disabled: false,
     },
   },
 });
 ```
+
+> When `fallback` option is `true` (default), field props not found in separated mode fall back to the unified definition.
 
 ---
 
@@ -385,7 +391,7 @@ const fields = {
 
 ### Fields with Per-Field Options
 
-Each field can override form-level options:
+Override form-level options on individual fields:
 
 ```javascript
 const fields = {
@@ -412,17 +418,34 @@ const fields = {
 };
 ```
 
+### Fields with Auto-Focus
+
+```javascript
+const fields = {
+  email: {
+    label: 'Email',
+    autoFocus: true, // focused on form mount
+  },
+};
+```
+
 ---
 
 ## Accessing Fields at Runtime
 
-Once the form is created, access fields via `$()` or `select()`:
-
 ```javascript
 form.$('username');              // flat field
-form.$('address.city');          // nested field
+form.$('address.city');          // nested field (dot notation)
 form.$('members[0].firstname');  // array element by index
 form.$('members').$(0).$('firstname'); // chained selector
 ```
 
-> The `$()` method supports transparent autocomplete for both top-level and nested paths when using TypeScript with `Form<F>` (see [TypeScript Usage](../typescript.html)).
+> 💡 **TypeScript:** The `$()` method provides type-safe autocomplete for both top-level and nested paths when using `Form<F>`:
+> ```typescript
+> interface MyForm {
+>   members: Array<{ firstname: string; lastname: string }>;
+> }
+> const form = new Form<MyForm>({ fields });
+> form.$('members[0].firstname').value; // typed as string
+> ```
+> See the [TypeScript Guide](../typescript.html) for details.
