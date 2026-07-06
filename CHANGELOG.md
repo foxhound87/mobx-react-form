@@ -1,4 +1,4 @@
-# 6.16.0 (agent)
+# 6.16.0 (master)
 
 - chore: align README with unified header bar, npm badges (nodei.co + shields.io), feature links
 - chore: add AI Agent Skills section to README features list
