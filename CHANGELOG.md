@@ -1,10 +1,13 @@
 # 6.16.0 (master)
 
+- feat: `add()` now accepts flat objects as nested field values (no `value` wrapper needed for nested structs)
 - chore: align README with unified header bar, npm badges (nodei.co + shields.io), feature links
 - chore: add AI Agent Skills section to README features list
 - chore: fix broken bindings URL in Features section
 - docs: add AI Agent Skills documentation page and links to docs navigation
 - docs: remove ios-theme-color skill from MRF docs, merge core+advanced skill tables
+- docs: update `add()` examples to show flat object syntax for nested fields
+- docs: update README alignment for rfx-core and mobx-react-form-devtools
 
 # 6.15.1 (master)
 
