@@ -1,11 +1,11 @@
 
-### [Documentation](https://foxhound87.github.io/mobx-react-form) &bull; [Live Demo](https://foxhound87.github.io/mobx-react-form-demo) &bull; [Demo Code](https://github.com/foxhound87/mobx-react-form-demo) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Discord Channel](https://discord.gg/CVV8w4zat4)
+### [Repo](https://github.com/foxhound87/mobx-react-form) &bull; [Documentation](https://foxhound87.github.io/mobx-react-form) &bull; [Live Demo](https://foxhound87.github.io/mobx-react-form-demo) &bull; [Demo Code](https://github.com/foxhound87/mobx-react-form-demo) &bull; [NPM](https://www.npmjs.com/package/mobx-react-form) &bull; [Skills](https://github.com/foxhound87/skills) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Discord Channel](https://discord.gg/CVV8w4zat4)
 
 # MobX React Form
 
 ### Reactive MobX Form State Management
 
-[![NPM](https://nodei.co/npm/mobx-react-form.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/mobx-react-form/)
+[![NPM](https://nodei.co/npm/mobx-react-form.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/mobx-react-form)
 
 ![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/foxhound87/mobx-react-form/ci.yml?branch=master)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/foxhound87/mobx-react-form)
@@ -33,8 +33,9 @@
 - [Event Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/event-hooks.html), [Event Handlers](https://foxhound87.github.io/mobx-react-form/docs/events/event-handlers.html) & [Validation Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/validation-hooks.html)
 - Functional [Computed Field Props](https://foxhound87.github.io/mobx-react-form/docs/extra/computed-props.html)
 - Field Props [Observers & Interceptors](https://foxhound87.github.io/mobx-react-form/docs/extra/mobx-events.html)
-- Field [Props Bindings](https://foxhound87.github.io/mobx-react-form/docs/bindings) for custom Components.
+- Field [Props Bindings](https://foxhound87.github.io/mobx-react-form/docs/bindings/README.html) for custom Components.
 - Support for Material UI, Ant Design, React Widgets, React Select, React Aria, Headless UI & more.
+- [AI Agent Skills](https://github.com/foxhound87/skills): installable guides for AI coding assistants
 - [Forms Composer](https://foxhound87.github.io/mobx-react-form/docs/extra/composer.html): to handle multi-forms submit, validations and other actions
 - Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
 
