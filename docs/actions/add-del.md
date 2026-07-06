@@ -55,7 +55,7 @@ form.$('hobbies').add({
 });
 ```
 
-> These are not Event Handlers. If you need `onAdd(e)` with hook execution, see the [Event Handlers](../events/event-handlers.html#onadde--ondele) section.
+> These are not Event Handlers. If you need `onAdd(e)` with hook execution, see the [Event Handlers](../events/event-handlers#onadde--ondele) section.
 
 ---
 

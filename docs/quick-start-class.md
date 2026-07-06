@@ -127,8 +127,8 @@ export default observer(({ form }) => (
 |-------|------|
 | Simple (non-class) form definition | [Quick Start](quick-start.md) |
 | TypeScript usage | [TypeScript Guide](typescript.md) |
-| Nested & array fields | [Defining Fields](fields/README.md) |
-| Validation plugins deep-dive | [Validation](validation/README.md) |
+| Nested & array fields | [Defining Fields](fields/) |
+| Validation plugins deep-dive | [Validation](validation/) |
 | Live demo | [foxhound87.github.io/mobx-react-form-demo](https://foxhound87.github.io/mobx-react-form-demo) |
 
 ---

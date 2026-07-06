@@ -46,7 +46,7 @@ const fields = [{
 }];
 ```
 
-> Fields can also be defined as an **object** (unified mode) or via **separated props** — see [Defining Fields](fields/README.md).
+> Fields can also be defined as an **object** (unified mode) or via **separated props** — see [Defining Fields](fields/).
 
 ---
 
@@ -114,8 +114,8 @@ export default observer(({ form }) => (
 |-------|------|
 | Class-based form definition | [Quick Start (class)](quick-start-class.md) |
 | TypeScript usage | [TypeScript Guide](typescript.md) |
-| Nested & array fields | [Defining Fields](fields/README.md) |
-| Validation plugins deep-dive | [Validation](validation/README.md) |
+| Nested & array fields | [Defining Fields](fields/) |
+| Validation plugins deep-dive | [Validation](validation/) |
 | Live demo | [foxhound87.github.io/mobx-react-form-demo](https://foxhound87.github.io/mobx-react-form-demo) |
 
 ---

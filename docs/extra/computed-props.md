@@ -1,7 +1,7 @@
 # Computed Field Props
 
 Before version `< 6.3`, to implement computed props you had to [extend](../form/extend/generic.md) a `Form` or `Field` class.
-Form the version `6.3` and above, computed props can be defined providing functions in [Fields Definitions](../fields/README.md).
+Form the version `6.3` and above, computed props can be defined providing functions in [Fields Definitions](../fields/).
 
 > The computed function will get an object with `form` and `field` instances in input.
 

@@ -12,4 +12,4 @@ API reference pages for advanced form configuration features — computed props,
 | [Recipes & Patterns](../recipes.md) | Practical examples of real-world form scenarios |
 | [Troubleshooting & FAQ](../troubleshooting.md) | Common issues, errors, and solutions |
 
-> 🔗 **Live Demo:** See the [Advanced demos](../advanced/README.md) for interactive implementations of these features.
+> 🔗 **Live Demo:** See the [Advanced demos](../advanced/) for interactive implementations of these features.

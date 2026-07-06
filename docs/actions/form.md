@@ -38,7 +38,7 @@ form.validate('email')
 
 > The validation promise resolves the validated instance (Form or Field).
 
-> This is an alternative syntax to [Actions - Validate a Field](validate.html#validate-1).
+> This is an alternative syntax to [Actions - Validate a Field](validate#validate-1).
 
 ### Validation Errors
 

@@ -25,17 +25,17 @@
 
 ## Features
 
-- Extensibles [Validation Plugins](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html).
+- Extensibles [Validation Plugins](https://foxhound87.github.io/mobx-react-form/validation/plugins).
 - Sync & Async Validation (w/ Promises & automatic errors).
 - Nested Fields (w/ Serialization & Validation).
 - Nested Forms (w/ Nested Submission & Validation Hooks).
-- [Event Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/event-hooks.html), [Event Handlers](https://foxhound87.github.io/mobx-react-form/docs/events/event-handlers.html) & [Validation Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/validation-hooks.html)
-- Functional [Computed Field Props](https://foxhound87.github.io/mobx-react-form/docs/extra/computed-props.html)
-- Field Props [Observers & Interceptors](https://foxhound87.github.io/mobx-react-form/docs/extra/mobx-events.html)
-- Field [Props Bindings](https://foxhound87.github.io/mobx-react-form/docs/bindings/README.html) for custom Components.
+- [Event Hooks](https://foxhound87.github.io/mobx-react-form/events/event-hooks), [Event Handlers](https://foxhound87.github.io/mobx-react-form/events/event-handlers) & [Validation Hooks](https://foxhound87.github.io/mobx-react-form/events/validation-hooks)
+- Functional [Computed Field Props](https://foxhound87.github.io/mobx-react-form/extra/computed-props)
+- Field Props [Observers & Interceptors](https://foxhound87.github.io/mobx-react-form/extra/mobx-events)
+- Field [Props Bindings](https://foxhound87.github.io/mobx-react-form/bindings/) for custom Components.
 - Support for Material UI, Ant Design, React Widgets, React Select, React Aria, Headless UI & more.
 - [AI Agent Skills](https://github.com/foxhound87/skills): installable guides for AI coding assistants
-- [Forms Composer](https://foxhound87.github.io/mobx-react-form/docs/extra/composer.html): to handle multi-forms submit, validations and other actions
+- [Forms Composer](https://foxhound87.github.io/mobx-react-form/extra/composer): to handle multi-forms submit, validations and other actions
 - Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
 
 ## Summary
@@ -43,13 +43,13 @@
 - [Quick Start](docs/quick-start.md)
 - [DevTools](docs/devtools.md)
 - [UMD Setup](docs/umd-setup.md)
-- [Form Instance](docs/form/README.md)
-- [Defining Fields](docs/fields/README.md)
-- [Actions](docs/actions/README.md)
-- [Events & Handlers](docs/events/README.md)
-- [Bindings](docs/bindings/README.md)
-- [Validation](docs/validation/README.md)
-- [Advanced](docs/advanced/README.md)
+- [Form Instance](docs/form/)
+- [Defining Fields](docs/fields/)
+- [Actions](docs/actions/)
+- [Events & Handlers](docs/events/)
+- [Bindings](docs/bindings/)
+- [Validation](docs/validation/)
+- [Advanced](docs/advanced/)
 - [Skills & AI Agent Guides](docs/skills.md)
 - [Recipes & Patterns](docs/recipes.md)
 - [Troubleshooting & FAQ](docs/troubleshooting.md)

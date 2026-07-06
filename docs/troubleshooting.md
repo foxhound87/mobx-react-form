@@ -210,4 +210,4 @@ If you get module resolution errors, ensure your bundler (webpack, vite, etc.) c
 
 - [Open an issue](https://github.com/foxhound87/mobx-react-form/issues) on GitHub
 - Check the [demo project](https://github.com/foxhound87/mobx-react-form-demo) for real-world examples
-- Review the [API Reference](api-reference/README.md) for full method and property documentation
+- Review the [API Reference](api-reference/) for full method and property documentation

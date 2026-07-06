@@ -33,4 +33,4 @@ Each demo below links to its source code so you can see the implementation in co
 ---
 
 > 💡 **Tip:** Run `npm run dev` in the demo repository to explore these implementations locally.  
-> 📘 **API features** (Computed Props, Converters, MobX Events, Forms Composer) are in the [Extra](../extra/README.md) section.
+> 📘 **API features** (Computed Props, Converters, MobX Events, Forms Composer) are in the [Extra](../extra/) section.

@@ -1,5 +1,8 @@
 /node_modules
 /_book
+/.vitepress/cache
+/.vitepress/dist
 .DS_Store
 *.log
 .qodo
+
