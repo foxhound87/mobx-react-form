@@ -1,18 +1,16 @@
 # Getting Started
 
-[![Edit form-quickstart](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrrZgG8y4)
-
 ## Install
 
 ```bash
 npm install --save mobx-react-form
 ```
 
-#### Choose and Setup a Validation Plugin
+---
 
-> See [Validation Plugins](validation/plugins.html) for more info on supported packages.
+## 1. Choose a Validation Plugin
 
-Below we are creating a `plugins` object using the `validatorjs` package to enable `DVR` functionalities (Declarative Validation Rules).
+MobX React Form supports multiple validation plugins. Below we use **DVR** (Declarative Validation Rules) with `validatorjs`:
 
 ```javascript
 import dvr from 'mobx-react-form/lib/validators/DVR';
@@ -23,9 +21,11 @@ const plugins = {
 };
 ```
 
-#### Define the Form Fields
+> See [Validation Plugins](validation/plugins.html) for all supported validators: **VJF** (vanilla functions), **DVR** (declarative rules), **SVK** (JSON Schema), **YUP**, **JOI**, **ZOD**.
 
-Define the `fields` as a collection with a `rules` property for the validation.
+---
+
+## 2. Define the Fields
 
 ```javascript
 const fields = [{
@@ -46,45 +46,44 @@ const fields = [{
 }];
 ```
 
-> You can also define `fields` as an `object`.
+> Fields can also be defined as an **object** (unified mode) or via **separated props** — see [Defining Fields](fields/README.html).
 
-#### Define the Validation Hooks
+---
+
+## 3. Define Hooks
 
 ```javascript
 const hooks = {
   onSuccess(form) {
     alert('Form is valid! Send the request here.');
-    // get field values
     console.log('Form Values!', form.values());
   },
   onError(form) {
     alert('Form has errors!');
-    // get all form errors
     console.log('All form errors', form.errors());
-  }
-}
+  },
+};
 ```
 
-#### Initialize the Form
+---
 
-Simply pass the `fields`, `plugins` and `hooks` objects to the constructor
+## 4. Create the Form
 
 ```javascript
-import MobxReactForm from 'mobx-react-form';
+import { Form } from 'mobx-react-form';
 
-const form = new MobxReactForm({ fields }, { plugins, hooks });
+const form = new Form({ fields }, { plugins, hooks });
 ```
 
-#### Pass the form to a react component
+---
 
-The package provide some built-in and ready to use Event Handlers:
+## 5. Use in a React Component
 
-`onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more...](events/event-handlers.html)
+The form provides built-in Event Handlers: `onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more](events/event-handlers.html).
 
-```javascript
+```jsx
 import React from 'react';
 import { observer } from 'mobx-react';
-
 
 export default observer(({ form }) => (
   <form>
@@ -94,7 +93,7 @@ export default observer(({ form }) => (
     <input {...form.$('email').bind()} />
     <p>{form.$('email').error}</p>
 
-    {/* ... other inputs ... */}
+    {/* ... other fields ... */}
 
     <button type="submit" onClick={form.onSubmit}>Submit</button>
     <button type="button" onClick={form.onClear}>Clear</button>
@@ -105,9 +104,33 @@ export default observer(({ form }) => (
 ));
 ```
 
-> Other Field Props are available. See the [docs](api-reference/fields-properties.html) for more details.
+> All field props are accessible via `form.$('fieldName')` — see [Field Properties](api-reference/fields-properties.html).
 
-###### Extending the Form class
+---
 
-[See how to implement the same configuration of this quickstart extending the Form class](quick-start-class.html)
+## What's Next?
 
+| Topic | Link |
+|-------|------|
+| Class-based form definition | [Quick Start (class)](quick-start-class.html) |
+| TypeScript usage | [TypeScript Guide](typescript.html) |
+| Nested & array fields | [Defining Fields](fields/README.html) |
+| Validation plugins deep-dive | [Validation](validation/README.html) |
+| Live demo | [foxhound87.github.io/mobx-react-form-demo](https://foxhound87.github.io/mobx-react-form-demo) |
+
+---
+
+> 💡 **TypeScript** — The `Form` class accepts a generic for type-safe field access:
+> ```typescript
+> import { Form } from 'mobx-react-form';
+>
+> interface MyFields {
+>   email: string;
+>   password: string;
+>   passwordConfirm: string;
+> }
+>
+> const form = new Form<MyFields>({ fields }, { plugins, hooks });
+> form.$('email').value; // typed as string
+> ```
+> See the [TypeScript Guide](typescript.html) for details.

@@ -1,41 +1,45 @@
 # Getting Started (class)
 
-[![Edit form-quickstart-class](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/lyj5p91x5z)
-
 ## Install
 
 ```bash
 npm install --save mobx-react-form
 ```
 
-#### Choose and Setup a Validation Plugin
+---
 
-> See [Validation Plugins & Modes](validation/plugins.html)
- and [Supported Validation Packages](validation/plugins.html) for more info.
+## 1. Choose a Validation Plugin
 
-#### Define the Form Class
+MobX React Form supports multiple validation plugins. Below we use **DVR** (Declarative Validation Rules) with `validatorjs`:
+
+```javascript
+import dvr from 'mobx-react-form/lib/validators/DVR';
+import validatorjs from 'validatorjs';
+```
+
+> See [Validation Plugins](validation/plugins.html) for all supported validators: **VJF** (vanilla functions), **DVR** (declarative rules), **SVK** (JSON Schema), **YUP**, **JOI**, **ZOD**.
+
+---
+
+## 2. Define the Form Class
+
+Extend the `Form` class and use its lifecycle methods to configure plugins, fields, and hooks:
 
 ```javascript
 import { Form } from 'mobx-react-form';
 import dvr from 'mobx-react-form/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 
-export default class MyForm extends Form {
+class MyForm extends Form {
 
-  /*
-    Below we are returning a `plugins` object using the `validatorjs` package
-    to enable `DVR` functionalities (Declarative Validation Rules).
-  */
+  // Validation plugins
   plugins() {
     return {
       dvr: dvr({ package: validatorjs }),
     };
   }
 
-  /*
-    Return the `fields` as a collection into the `setup()` method
-    with a `rules` property for the validation.
-  */
+  // Fields definition
   setup() {
     return {
       fields: [{
@@ -43,7 +47,7 @@ export default class MyForm extends Form {
         label: 'Email',
         placeholder: 'Insert Email',
         rules: 'required|email|string|between:5,25',
-        value: 's.jobs@apple.com'
+        value: 's.jobs@apple.com',
       }, {
         name: 'password',
         label: 'Password',
@@ -58,47 +62,39 @@ export default class MyForm extends Form {
     };
   }
 
-  /*
-    Event Hooks
-  */
+  // Event hooks
   hooks() {
     return {
-      /*
-        Success Validation Hook
-      */
       onSuccess(form) {
         alert('Form is valid! Send the request here.');
-        // get field values
         console.log('Form Values!', form.values());
       },
-      /*
-        Error Validation Hook
-      */
       onError(form) {
         alert('Form has errors!');
-        // get all form errors
         console.log('All form errors', form.errors());
-      }
+      },
     };
   }
 }
 ```
 
-#### Initialize the Form
+> The `setup()` method replaces the first constructor argument. Similarly, `options()`, `plugins()`, `bindings()`, `hooks()`, and `handlers()` can be defined as class methods.
 
-Now we can create our form instance:
+---
+
+## 3. Create the Form
 
 ```javascript
 const form = new MyForm();
 ```
 
-#### Pass the form to a react component
+---
 
-The package provide some built-in and ready to use Event Handlers:
+## 4. Use in a React Component
 
-`onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more...](events/event-handlers.html)
+The form provides built-in Event Handlers: `onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more](events/event-handlers.html).
 
-```javascript
+```jsx
 import React from 'react';
 import { observer } from 'mobx-react';
 
@@ -110,7 +106,7 @@ export default observer(({ form }) => (
     <input {...form.$('email').bind()} />
     <p>{form.$('email').error}</p>
 
-    {/* ... other inputs ... */}
+    {/* ... other fields ... */}
 
     <button type="submit" onClick={form.onSubmit}>Submit</button>
     <button type="button" onClick={form.onClear}>Clear</button>
@@ -121,4 +117,29 @@ export default observer(({ form }) => (
 ));
 ```
 
-> Other Field Props are available. See the [docs](api-reference/fields-properties.html) for more details.
+> All field props are accessible via `form.$('fieldName')` — see [Field Properties](api-reference/fields-properties.html).
+
+---
+
+## What's Next?
+
+| Topic | Link |
+|-------|------|
+| Simple (non-class) form definition | [Quick Start](quick-start.html) |
+| TypeScript usage | [TypeScript Guide](typescript.html) |
+| Nested & array fields | [Defining Fields](fields/README.html) |
+| Validation plugins deep-dive | [Validation](validation/README.html) |
+| Live demo | [foxhound87.github.io/mobx-react-form-demo](https://foxhound87.github.io/mobx-react-form-demo) |
+
+---
+
+> 💡 **TypeScript** — The `Form` class accepts a generic for type-safe field access:
+> ```typescript
+> class MyForm extends Form<{ email: string; password: string }> {
+>   // ...
+> }
+>
+> const form = new MyForm();
+> form.$('email').value; // typed as string
+> ```
+> See the [TypeScript Guide](typescript.html) for details.
