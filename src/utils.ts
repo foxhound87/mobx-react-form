@@ -211,6 +211,7 @@ export {
   isEvent,
   hasFiles,
   isBool,
+  hasSome,
   $try,
   getObservableMapKeys,
   getObservableMapValues,

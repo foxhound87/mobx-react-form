@@ -34,6 +34,7 @@ import {
   isEvent,
   hasIntKeys,
   pathToStruct,
+  hasSome,
 } from "./utils";
 
 import {
@@ -879,29 +880,44 @@ export default abstract class Base<
     const hasValues =
       has(obj, FieldPropsEnum.value) || has(obj, FieldPropsEnum.fields);
 
-    if (
-      !hasValues &&
-      !this.state.options.get(OptionsEnum.preserveDeletedFieldsValues, this)
-    ) {
-      const fallbackValueOption = this.state.options.get(
-        OptionsEnum.fallbackValue,
-        this,
-      );
-      field.$value = defaultValue({
-        fallbackValueOption,
-        value: field.$value,
-        nullable: field.$nullable,
-        type: field.type,
-      });
-      field.each(
-        (field: any) =>
-          (field.$value = defaultValue({
-            fallbackValueOption,
-            value: field.$value,
-            nullable: field.$nullable,
-            type: field.type,
-          })),
-      );
+    if (!hasValues) {
+      // When the struct defines nested fields and obj is a plain object
+      // without field-definition props (key, name), treat obj properties
+      // directly as nested field values (e.g. add({ firstname: 'John' }))
+      if (
+        tree[0]?.fields &&
+        isPlainObject(obj) &&
+        !hasSome(obj, [FieldPropsEnum.key, FieldPropsEnum.name])
+      ) {
+        each(obj, (val, fieldName) => {
+          const nestedField = field.select(fieldName as string);
+          if (nestedField && !nestedField.hasNestedFields) {
+            nestedField.set(FieldPropsEnum.value, val);
+          }
+        });
+      } else if (
+        !this.state.options.get(OptionsEnum.preserveDeletedFieldsValues, this)
+      ) {
+        const fallbackValueOption = this.state.options.get(
+          OptionsEnum.fallbackValue,
+          this,
+        );
+        field.$value = defaultValue({
+          fallbackValueOption,
+          value: field.$value,
+          nullable: field.$nullable,
+          type: field.type,
+        });
+        field.each(
+          (f: any) =>
+            (f.$value = defaultValue({
+              fallbackValueOption,
+              value: f.$value,
+              nullable: f.$nullable,
+              type: f.type,
+            })),
+        );
+      }
     }
 
     this.$changed++;
