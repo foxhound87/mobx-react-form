@@ -33,7 +33,9 @@ Fields can be defined in two modes: **Unified Properties** (all props grouped pe
 
 ### Unified Mode
 
-Each field is an object keyed by name. Available props:
+Each field is an object keyed by name. Props are grouped by category below.
+
+**Value & Display**
 
 | Prop | Type | Description |
 |------|------|-------------|
@@ -43,32 +45,57 @@ Each field is an object keyed by name. Available props:
 | `label` | string | Human-readable field label |
 | `placeholder` | string | Placeholder text for the input |
 | `type` | string | Field type, default `"text"` |
+| `extra` | any | Extra metadata (useful for select options) |
+
+**Input Behavior & Accessibility**
+
+| Prop | Type | Description |
+|------|------|-------------|
 | `autoFocus` | boolean | Auto-focus this field on init |
 | `inputMode` | string | Mobile keyboard mode: `none`, `text`, `decimal`, `numeric`, `tel`, `search`, `email`, `url` |
 | `autoComplete` | string | HTML autocomplete attribute |
-| `rules` | string | DVR validation rules (e.g. `'required\|email'`) |
-| `validators` | array | VJF validation functions |
-| `validatedWith` | string | Validate a different field prop instead of `value` |
-| `related` | string[] | Other field paths to validate together |
 | `disabled` | boolean | Disabled state |
 | `deleted` | boolean | Soft-deleted state (needs `softDelete` option) |
 | `nullable` | boolean | Allow `null` field values |
-| `options` | object | Per-field options (same keys as [Form Options](../form/form-options.html)) |
-| `bindings` | string | Name of the binding template/rewriter |
-| `extra` | any | Extra metadata (useful for select options) |
-| `class` | any | Custom Field class (must extend `Form.Field`) |
+| `ref` | any | React ref |
+
+**Validation**
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `rules` | string | DVR validation rules (e.g. `'required|email'`) |
+| `validators` | array | VJF validation functions |
+| `validatedWith` | string | Validate a different field prop instead of `value` |
+| `related` | string[] | Other field paths to validate together |
+
+**Converters & Computed**
+
+| Prop | Type | Description |
+|------|------|-------------|
 | `input` | function | Input converter: `user value => stored value` |
 | `output` | function | Output converter: `stored value => output value` |
 | `converter` | function | Alias for both input and output |
 | `converters` | function[] | Array of converter functions |
 | `computed` | function | Dynamic value: `({ form, field }) => value` |
+
+**Events & MobX**
+
+| Prop | Type | Description |
+|------|------|-------------|
 | `hooks` | object | Event hook functions |
 | `handlers` | object | Event handler functions |
 | `observers` | array | MobX observers on field props |
 | `interceptors` | array | MobX interceptors on field props |
+
+**Nested & Advanced**
+
+| Prop | Type | Description |
+|------|------|-------------|
 | `fields` | array | Nested sub-field definitions |
+| `options` | object | Per-field options (same keys as [Form Options](../form/form-options.html)) |
+| `bindings` | string | Name of the binding template/rewriter |
+| `class` | any | Custom Field class (must extend `Form.Field`) |
 | `name` | string | Overrides the object key as field name |
-| `ref` | any | React ref |
 
 ### Separated Mode
 
