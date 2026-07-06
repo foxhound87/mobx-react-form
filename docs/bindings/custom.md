@@ -1,32 +1,29 @@
 # Custom Bindings
 
-Here we can see how to register custom bindings for a **Material-UI TextField**
+Create custom bindings for third-party UI libraries like Material-UI, Ant Design, or Bootstrap.
 
-- [Custom Bindings](#custom-bindings)
-  - [Implement a `Rewriter`](#implement-a-rewriter)
-  - [Implement a `Template`](#implement-a-template)
+> All examples below use **Material-UI TextField**, but the same pattern applies to any component library.
 
 ---
 
-## Implement a `Rewriter`
+## Implement a Rewriter (Simple)
 
-In the Form Class implement a `bindings()` methods which will return an object with our **Rewriter** object.
+A Rewriter maps field props to component props. Use this when you only need to rename props.
 
 ```javascript
-class MyForm extends MobxReactForm {
-
+class MyForm extends Form {
   bindings() {
     return {
-      // we can choose a name as key
+      // The key is the binding name — set it on each field via `bindings: 'MaterialTextField'`
       MaterialTextField: {
         id: 'id',
         name: 'name',
         type: 'type',
         value: 'value',
-        label: 'floatingLabelText',
-        placeholder: 'hintText',
+        label: 'floatingLabelText',      // field.label → component.floatingLabelText
+        placeholder: 'hintText',          // field.placeholder → component.hintText
         disabled: 'disabled',
-        error: 'errorText',
+        error: 'errorText',               // field.error → component.errorText
         onChange: 'onChange',
         onBlur: 'onBlur',
         onFocus: 'onFocus',
@@ -37,62 +34,79 @@ class MyForm extends MobxReactForm {
 }
 ```
 
-> In every `Rewriter` the `props` passed to the `bind()` method always takes precedence on the `field` properties.
+**Precedence:** In any Rewriter, props passed to `bind()` take precedence over field properties.
 
-As you can see, the `keys` are the **Current Fields** properties, the `values` are the **Material-UI TextField** component properties.
+### Usage
 
-If we want to use the `MaterialTextField` **Rewriter** on some fields, we need to assign it on each field we want using the `bindings` property, for example:
+Assign the binding name to each field:
 
 ```javascript
-...
-
-username: {
-  label: 'Username',
-  value: 'SteveJobs',
-  placeholder: 'Insert User Name',
-  rules: 'checkUser|required|string|between:5,15',
-  bindings: 'MaterialTextField', // <<< Use `MaterialTextField` Rewriter
-},
-
-...
+const fields = {
+  username: {
+    label: 'Username',
+    value: 'SteveJobs',
+    placeholder: 'Insert User Name',
+    rules: 'required|string|between:5,15',
+    bindings: 'MaterialTextField', // ← use the custom binding
+  },
+};
 ```
 
-Now we can use the `bind()` function on the component:
+Then use `bind()` on the component:
 
-```javascript
+```jsx
 import TextField from 'material-ui/TextField';
 
-export default observer(({ field }) => (
+const FormField = observer(({ field }) => (
   <div>
     <TextField {...field.bind()} />
   </div>
 ));
-
 ```
 
-<br>
+### Apply to all fields of a type
+
+Use the `onInit` hook to assign a binding to all matching fields automatically:
+
+```javascript
+class MyForm extends Form {
+  onInit() {
+    this.each(field =>
+      field.type === 'text' && field.set('bindings', 'MaterialTextField')
+    );
+  }
+}
+```
+
+Or via field-level `onInit`:
+
+```javascript
+class MyField extends Field {
+  onInit() {
+    if (this.type === 'text') this.set('bindings', 'MaterialTextField');
+  }
+}
+```
 
 ---
 
-## Implement a `Template`
+## Implement a Template (Full Control)
 
-The `Template` is useful if you need to change how the properties are obtained, for example we  want to reimplement an Event Handler one time for all the same kind of fields or we want to swap their properties priorities and use those passed to the `bind()` method as **fallbacks**.
-
-In the Form Class implement a `bindings()` methods which will return an object with our **Template** function.
-
-In the following example some props passed to the `bind()` method will get priority over the `fields` ones. The new bindings will enable validation on `onBlur` handler (it is reimplemented by providing a custom function), and ErrorText & ErrorStyle are henanched to display a custom loading indicator for async calls.
+Use a Template when you need:
+- Custom event handlers shared across all fields
+- Different fallback priority (e.g., `bind()` props as fallbacks, field props as primary)
+- Conditional logic (e.g., loading indicator during async validation)
+- Access to the `form` instance for global state (e.g., `form.submitting`)
 
 ```javascript
-// custom onBlur with field validation
+// Custom onBlur that triggers validation
 const onBlur = field => (e) => {
   e.preventDefault();
   field.onBlur();
   field.validate();
 };
 
-// define bindings templates
-class MyForm extends MobxReactForm {
-
+class MyForm extends Form {
   bindings() {
     return {
       MaterialTextField: ({ $try, form, field, props }) => ({
@@ -102,9 +116,19 @@ class MyForm extends MobxReactForm {
         value: $try(props.value, field.value),
         floatingLabelText: $try(props.label, field.label),
         hintText: $try(props.placeholder, field.placeholder),
-        errorText: field.validating ? props.validatingText : $try(props.error, field.error),
-        errorStyle: field.validating ? { background: 'yellow', color: 'black' } : {},
-        disabled: props.disabled || field.disabled || form.disabled || form.submitting,
+
+        // Conditional: show loading indicator during async validation
+        errorText: field.validating
+          ? 'Validating...'
+          : $try(props.error, field.error),
+        errorStyle: field.validating
+          ? { background: 'yellow', color: 'black' }
+          : {},
+
+        // Global state: disabled while form is submitting
+        disabled: props.disabled || field.disabled || form.submitting,
+
+        // Custom event handler
         onChange: $try(props.onChange, field.onChange),
         onBlur: $try(props.onBlur, onBlur(field)),
         onFocus: $try(props.onFocus, field.onFocus),
@@ -115,10 +139,14 @@ class MyForm extends MobxReactForm {
 }
 ```
 
-> You can access the `field` and also the `form` instance in input to bindings template.
+**Template function parameters:**
 
-> `$try()` is a small helper function which takes unlimited arguments in input, it returns the first defined.
+| Param | Type | Description |
+|-------|------|-------------|
+| `$try` | function | Helper: returns the first defined argument |
+| `form` | Form | The form instance (access `form.submitting`, `form.disabled`, etc.) |
+| `field` | Field | The current field instance |
+| `props` | object | Props passed to `bind()` at the component level |
+| `keys` | object | (optional) The Rewriter key mapping if used alongside a template |
 
-> In the default `Template` the `props` takes precedence on `field`.
-
-Now we can use `MaterialTextField` as `bindings` prop on a field and use the `bind()` method on our components.
+> In the `default` Rewriter, `props` takes precedence over `field`. In a custom Template, you control the priority — swap `$try(props.x, field.x)` to `$try(field.x, props.x)` to give field values priority over component props.

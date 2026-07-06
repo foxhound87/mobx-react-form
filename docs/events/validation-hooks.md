@@ -6,29 +6,40 @@
 
 ---
 
-The Validation Hooks are special Event Hooks called after the submit or validation actions.
+Validation Hooks are special Event Hooks called after the submit or validation actions. They can return Promises.
 
-##### Available Validation Hooks
-> Triggered by Actions
+#### Available Validation Hooks
 
-| Action | Executed Hook | FORM | FIELD |
-|---|---|---|---|
-| submit() > validate() | onSuccess | YES | YES |
-| submit() > validate() | onError | YES | YES |
+| Action | Executed Hook | Form | Field |
+|--------|---------------|------|-------|
+| submit() → validate() | onSuccess | ✓ | ✓ |
+| submit() → validate() | onError | ✓ | ✓ |
 
-> The Validation Hooks can return a Promise
+> The Validation Hooks can return a Promise to wait for async operations.
 
 ---
 
-%accordion% **VERSION < 1.32** %accordion%
+%accordion% **Legacy API — Version < 1.32** %accordion%
 
-The `onClear`, `onReset` & `onSubmit` are handled differently:
+In older versions, `onClear`, `onReset` & `onSubmit` were handled differently:
 
-If you define them in the **Form or Field Class**, they are **Event Handlers**.
+- If defined in the **Form or Field Class**, they were treated as **Event Handlers**.
+- If defined in the **Field Definition**, they were treated as **Event Hooks**.
+- `onSuccess` & `onError` defined in the **Form or Field Class** were always **Event Hooks**.
 
-If you define them in the **Field Definition**, they are **Event Hooks**.
+Also, Validation Hooks were passed as `onSubmit` instead of `hooks`:
 
-If you define `onSuccess` & `onError` in the **Form or Field Class**, they are **Event Hooks**.
+```javascript
+const onSubmit = {
+  onSuccess(form) {
+    console.log('Form Values!', form.values());
+  },
+  onError(form) {
+    console.log('All form errors', form.errors());
+  },
+};
+
+new Form({ ... }, { onSubmit }); // <--- was `onSubmit`, now `hooks`
+```
 
 %/accordion%
-

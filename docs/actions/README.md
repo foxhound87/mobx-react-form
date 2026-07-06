@@ -4,7 +4,7 @@
   * [Validate the Form](form.md#validate-the-form)
   * [Validate Single Field](form.md#validate-single-field)
   * [Validation Errors](form.md#validation-errors)
-  * [Manual Form Submit](validate.html#submit)
+  * [Manual Form Submit](validate.md#submit)
 
 
 ### [Navigation & Iteration](shared.md)
@@ -18,33 +18,33 @@
   * [reduce()](shared.md#reduce)
 
 
-### [Get, Set & Update](get-set.html)
-  * [get()](get-set.html#get)
-  * [set()](get-set.html#set)
-  * [update()](get-set.html#update)
+### [Get, Set & Update](get-set.md)
+  * [get()](get-set.md#get)
+  * [set()](get-set.md#set)
+  * [update()](get-set.md#update)
 
 
-### [Add, Delete & Move](add-del.html)
-  * [add()](add-del.html#add)
-  * [del()](add-del.html#del)
-  * [move()](add-del.html#move)
+### [Add, Delete & Move](add-del.md)
+  * [add()](add-del.md#add)
+  * [del()](add-del.md#del)
+  * [move()](add-del.md#move)
 
 
-### [Clear, Reset & Focus](clear-reset.html)
-  * [clear()](clear-reset.html#clear)
-  * [reset()](clear-reset.html#reset)
-  * [focus()](clear-reset.html#focus)
-  * [blur()](clear-reset.html#blur)
-  * [trim()](clear-reset.html#trim)
+### [Clear, Reset & Focus](clear-reset.md)
+  * [clear()](clear-reset.md#clear)
+  * [reset()](clear-reset.md#reset)
+  * [focus()](clear-reset.md#focus)
+  * [blur()](clear-reset.md#blur)
+  * [trim()](clear-reset.md#trim)
 
 
-### [Validation & Submit](validate.html)
-  * [validate()](validate.html#validate)
-  * [check()](validate.html#check)
-  * [invalidate()](validate.html#invalidate)
-  * [resetValidation()](validate.html#resetvalidation)
-  * [showErrors()](validate.html#showerrors)
-  * [submit()](validate.html#submit)
+### [Validation & Submit](validate.md)
+  * [validate()](validate.md#validate)
+  * [check()](validate.md#check)
+  * [invalidate()](validate.md#invalidate)
+  * [resetValidation()](validate.md#resetvalidation)
+  * [showErrors()](validate.md#showerrors)
+  * [submit()](validate.md#submit)
 
 
 ### [Helpers (Form & Fields)](helpers.md)

@@ -1,43 +1,114 @@
-# Fields Properties Bindings
+# Field Bindings
 
-With **Bindings** you can easly pass the fields properties to the input components.
-
-
-### [Default Bindings](default.md)
-  * [Simple Usage](default.md#simple-usage)
-  * [Properties Overwrite](default.md#properties-overwrite)
-
-
-  * [Defaults Bindings](default.md#warning)
-    * [Default Rewriter](default.md#default-rewriter)
-    * [Default Template](default.md#default-template)
-
-### [Custom Bindings](custom.md)
-  * [Implement a Rewriter](custom.md#implement-a-rewriter)
-  * [Implement a Template](custom.md#implement-a-template)
+Bindings connect your field definitions to your input components. They map field properties (`value`, `label`, `onChange`, etc.) to component props, reducing boilerplate and keeping your code clean.
 
 ---
 
-## Why should I use Bindings?
+## Quick Visual Example
 
-Bindings has many advantages:
+Without bindings, you pass each field prop manually:
 
-- reduce code boilerplate and errors
-- better mainteninance and readability
-- handle props fallback / overwrite.
-- reimplement the event handlers.
+```jsx
+// Without bindings — manual, repetitive
+<input
+  type={field.type}
+  value={field.value}
+  placeholder={field.placeholder}
+  disabled={field.disabled}
+  onChange={field.onChange}
+  onBlur={field.onBlur}
+  onFocus={field.onFocus}
+/>
+```
 
+With bindings, `field.bind()` does all of the above automatically:
 
-## How it works
+```jsx
+// With bindings — clean, consistent
+<input {...field.bind()} />
+```
 
-The binding system works with two modes:
+The result is identical — `bind()` returns an object of props that the input receives:
 
-* **REWRITER**: an object which assigns the **component props names** to the **fields props names**.
-* **TEMPLATE**: a function which assigns the  **fields props values** to the **component props names**.
+```javascript
+// What bind() returns internally:
+{
+  type: 'text',
+  value: 'SteveJobs',
+  placeholder: 'Enter username',
+  disabled: false,
+  onChange: field.onChange,
+  onBlur: field.onBlur,
+  onFocus: field.onFocus,
+  autoFocus: false,
+  id: 'username',
+  name: 'username',
+}
+```
 
+---
 
-Use the **Rewrite Mode** if you need a simple a synthetic way to map custom components properties and you are ok using the defaults props priorities and fallbacks.
+## Why Use Bindings?
 
-Use the **Template Mode** if you need to redefine your properties priorities/fallbacks, customize the Event Handlers or reimplement the bindings from scratch.
+- **Reduce boilerplate** — one `{...field.bind()}` replaces 10+ manual props
+- **Consistency** — all fields follow the same prop mapping
+- **Override support** — pass props to `bind()` that take precedence over field values
+- **Customizable** — two modes for different needs: Rewriter (simple mapping) and Template (full control)
+- **Fallback chain** — props → field values → defaults, handled automatically
 
-More info on how to implement custom `rewriters`/`templates` can be found in the [Custom Bindings](custom.md) section, otherwise if you are using default html inputs you don't need them, see the [Default Bindings](default.md) section.
+---
+
+## How It Works
+
+The binding system has two modes:
+
+| Mode | What it is | Best for |
+|------|-----------|----------|
+| **Rewriter** | An object mapping field prop names → component prop names | Simple remapping (e.g., `label` → `floatingLabelText` for Material-UI) |
+| **Template** | A function building the output props object | Full control: custom event handlers, fallback priorities, conditional logic |
+
+### The `bind()` method
+
+Every field has a `bind(props?)` method:
+
+```javascript
+const outputProps = field.bind();
+// or with overrides:
+const outputProps = field.bind({ type: 'password', placeholder: 'Enter password' });
+```
+
+The `ref` is set automatically — `<input {...field.bind()} />` assigns the DOM node to `field.$ref`.
+
+### Built-in Default
+
+The library ships with a built-in `default` binding that maps standard HTML input attributes:
+
+```javascript
+// Default Rewriter (built-in)
+{
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  value: 'value',
+  checked: 'checked',
+  label: 'label',
+  placeholder: 'placeholder',
+  disabled: 'disabled',
+  autoComplete: 'autoComplete',
+  onChange: 'onChange',
+  onBlur: 'onBlur',
+  onFocus: 'onFocus',
+  autoFocus: 'autoFocus',
+  inputMode: 'inputMode',
+  onKeyUp: 'onKeyUp',
+  onKeyDown: 'onKeyDown',
+}
+```
+
+---
+
+### [Default Bindings](default.md)
+  Simple usage, properties overwrite, built-in template & rewriter.
+
+### [Custom Bindings](custom.md)
+  Implement custom rewriters and templates for third-party UI libraries.

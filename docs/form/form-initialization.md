@@ -16,14 +16,14 @@ The first argument defines the fields and their properties. It supports two mode
 - **Unified** — all field props in one `fields` object
 - **Separated** — props split across parallel objects (`values`, `labels`, `rules`, etc.)
 
-See [Defining Fields](../fields/README.html) for a detailed comparison.
+See [Defining Fields](../fields/README.md) for a detailed comparison.
 
 ### Structure
 
 | Property | Description | Help |
 |----------|-------------|------|
 | **struct** | Field structure as an array of string paths (dot + `[]` notation). Only needed for separated mode. | — |
-| **fields** | **Unified mode:** an object of field definitions. **Separated mode:** an array of field path strings. | [Defining Fields](../fields/README.html) |
+| **fields** | **Unified mode:** an object of field definitions. **Separated mode:** an array of field path strings. | [Defining Fields](../fields/README.md) |
 
 ### Field Properties (Separated Mode)
 
@@ -33,65 +33,65 @@ Props are passed as parallel objects keyed by field name or dot/array path.
 
 | Prop Key | Description | Help |
 |----------|-------------|------|
-| **values** | Initial values for each field | [Fields docs](../fields/README.html#flat-separated-mode) |
-| **labels** | Human-readable field labels | [Fields docs](../fields/README.html#flat-separated-mode) |
-| **placeholders** | Placeholder text for inputs | [Fields docs](../fields/README.html#flat-separated-mode) |
-| **initials** | Initial values (fallback if `value` is not set) | [Fields docs](../fields/README.html#flat-separated-mode) |
-| **defaults** | Default values (applied on `reset()`) | [Fields docs](../fields/README.html#flat-separated-mode) |
+| **values** | Initial values for each field | [Fields docs](../fields/README.md#flat-separated-mode) |
+| **labels** | Human-readable field labels | [Fields docs](../fields/README.md#flat-separated-mode) |
+| **placeholders** | Placeholder text for inputs | [Fields docs](../fields/README.md#flat-separated-mode) |
+| **initials** | Initial values (fallback if `value` is not set) | [Fields docs](../fields/README.md#flat-separated-mode) |
+| **defaults** | Default values (applied on `reset()`) | [Fields docs](../fields/README.md#flat-separated-mode) |
 
 #### Behavior & State
 
 | Prop Key | Description | Help |
 |----------|-------------|------|
-| **disabled** | Disabled state per field | [Fields docs](../fields/README.html#flat-separated-mode) |
-| **deleted** | Soft-deleted state (needs `softDelete` option) | [Fields docs](../fields/README.html#flat-separated-mode) |
+| **disabled** | Disabled state per field | [Fields docs](../fields/README.md#flat-separated-mode) |
+| **deleted** | Soft-deleted state (needs `softDelete` option) | [Fields docs](../fields/README.md#flat-separated-mode) |
 | **autoFocus** | Set to `true` on the first field to focus on init | — |
 | **inputMode** | Mobile keyboard mode: `none`, `text`, `decimal`, `numeric`, `tel`, `search`, `email`, `url` | — |
 | **nullable** | Allow `null` field values | — |
 | **autoComplete** | HTML autocomplete attribute for the field | — |
-| **extra** | Extra metadata (useful for select option lists) | [Fields docs](../fields/README.html#flat-separated-mode) |
-| **options** | Per-field options (same keys as [Form Options](form-options.html), fallback to form-level) | [Form Options](form-options.html) |
-| **bindings** | Name of the binding rewriter/template to use for this field | [Bindings](../bindings/README.html) |
+| **extra** | Extra metadata (useful for select option lists) | [Fields docs](../fields/README.md#flat-separated-mode) |
+| **options** | Per-field options (same keys as [Form Options](form-options.md), fallback to form-level) | [Form Options](form-options.md) |
+| **bindings** | Name of the binding rewriter/template to use for this field | [Bindings](../bindings/README.md) |
 
 #### Validation
 
 | Prop Key | Description | Help |
 |----------|-------------|------|
-| **rules** | DVR validation rules (e.g. `'required\|email'`) | [DVR setup](../validation/plugins/DVR/setup.html) |
-| **validators** | VJF validation functions | [VJF setup](../validation/plugins/VJF/setup.html) |
+| **rules** | DVR validation rules (e.g. `'required\|email'`) | [DVR setup](../validation/plugins/DVR/setup.md) |
+| **validators** | VJF validation functions | [VJF setup](../validation/plugins/VJF/setup.md) |
 | **validatedWith** | Validate a different field prop instead of `value` | — |
-| **related** | Other field paths to validate together with this field | [Fields docs](../fields/README.html#flat-separated-mode) |
+| **related** | Other field paths to validate together with this field | [Fields docs](../fields/README.md#flat-separated-mode) |
 
 #### Converters & Computed
 
 | Prop Key | Description | Help |
 |----------|-------------|------|
-| **computed** | Function `({ form, field }) => value` for dynamic field values | [Computed Props](../extra/computed-props.html) |
+| **computed** | Function `({ form, field }) => value` for dynamic field values | [Computed Props](../extra/computed-props.md) |
 | **converters** | Array of converter functions applied to the field value | — |
-| **input** | Input converter function (`user input → stored value`) | [Converters](../extra/converters.html) |
-| **output** | Output converter function (`stored value → output value`) | [Converters](../extra/converters.html) |
+| **input** | Input converter function (`user input → stored value`) | [Converters](../extra/converters.md) |
+| **output** | Output converter function (`stored value → output value`) | [Converters](../extra/converters.md) |
 
 #### MobX Events
 
 | Prop Key | Description | Help |
 |----------|-------------|------|
-| **observers** | MobX observers on field props or fields map changes | [Observe / Intercept](../extra/mobx-events.html) |
-| **interceptors** | MobX interceptors on field props or fields map changes | [Observe / Intercept](../extra/mobx-events.html) |
+| **observers** | MobX observers on field props or fields map changes | [Observe / Intercept](../extra/mobx-events.md) |
+| **interceptors** | MobX interceptors on field props or fields map changes | [Observe / Intercept](../extra/mobx-events.md) |
 
 #### Event Hooks & Handlers
 
 | Prop Key | Description | Help |
 |----------|-------------|------|
-| **hooks** | Event hook functions. Available: `onInit`, `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onSuccess`, `onError`, `onClear`, `onReset`, `onAdd`, `onDel`, `onKeyUp`, `onKeyDown` | [Event Hooks](../events/event-hooks.html) |
-| **handlers** | Event handler functions. Available: `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`, `onKeyUp`, `onKeyDown` | [Event Handlers](../events/event-handlers.html) |
+| **hooks** | Event hook functions. Available: `onInit`, `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onSuccess`, `onError`, `onClear`, `onReset`, `onAdd`, `onDel`, `onKeyUp`, `onKeyDown` | [Event Hooks](../events/event-hooks.md) |
+| **handlers** | Event handler functions. Available: `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`, `onKeyUp`, `onKeyDown` | [Event Handlers](../events/event-handlers.md) |
 
 #### Custom Field Classes
 
 | Prop Key | Description | Help |
 |----------|-------------|------|
-| **classes** | Custom Field classes (must extend `Form.Field`) | [Extend in fields definition](../form/extend/configure.html) |
+| **classes** | Custom Field classes (must extend `Form.Field`) | [Extend in fields definition](../form/extend/configure.md) |
 
-> **Note:** In **unified mode**, all props above are inlined inside each field definition object instead of being split across separate objects. See [Defining Fields](../fields/README.html) for examples of both modes.
+> **Note:** In **unified mode**, all props above are inlined inside each field definition object instead of being split across separate objects. See [Defining Fields](../fields/README.md) for examples of both modes.
 
 ---
 
@@ -101,12 +101,12 @@ The second argument configures plugins, options, bindings, and form-level hooks/
 
 | Property | Description | Help |
 |----------|-------------|------|
-| **plugins** | Enable validation via external libraries | [Validation Plugins](../validation/plugins.html) |
-| **options** | Form-level options (validation behavior, error display, etc.) | [Form Options](form-options.html) |
-| **bindings** | Define how field props are passed to input components | [Props Bindings](../bindings/README.html) |
+| **plugins** | Enable validation via external libraries | [Validation Plugins](../validation/plugins.md) |
+| **options** | Form-level options (validation behavior, error display, etc.) | [Form Options](form-options.md) |
+| **bindings** | Define how field props are passed to input components | [Props Bindings](../bindings/README.md) |
 | **extra** | Inject extra objects accessible as `form.extra` | — |
-| **hooks** | Form-level event hooks. Available: `onInit`, `onSubmit`, `onSuccess`, `onError`, `onClear`, `onReset`, `onAdd`, `onDel` | [Event Hooks](../events/event-hooks.html) |
-| **handlers** | Form-level event handlers. Available: `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel` | [Event Handlers](../events/event-handlers.html) |
+| **hooks** | Form-level event hooks. Available: `onInit`, `onSubmit`, `onSuccess`, `onError`, `onClear`, `onReset`, `onAdd`, `onDel` | [Event Hooks](../events/event-hooks.md) |
+| **handlers** | Form-level event handlers. Available: `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel` | [Event Handlers](../events/event-handlers.md) |
 
 ---
 

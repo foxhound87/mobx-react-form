@@ -44,20 +44,20 @@
 ## Events & Handlers
 * [Events & Handlers](docs/events/README.md)
     * [Event Handlers](docs/events/event-handlers.md)
-        * [On Form Initialization](docs/events/event-handlers/constructor.md)
-        * [Extending the Class](docs/events/event-handlers/extending.md)
+    * [Custom Event Handlers](docs/events/event-handlers/constructor.md)
+    * [Extend Handlers Class](docs/events/event-handlers/extending.md)
     * [Event Hooks](docs/events/event-hooks.md)
-        * [On Form Initialization](docs/events/event-hooks/constructor.md)
-        * [Extending the Class](docs/events/event-hooks/extending.md)
+    * [Custom Event Hooks](docs/events/event-hooks/constructor.md)
+    * [Extend Hooks Class](docs/events/event-hooks/extending.md)
     * [Validation Hooks](docs/events/validation-hooks.md)
-        * [On Form Initialization](docs/events/validation-hooks/constructor.md)
-        * [Extending the Class](docs/events/validation-hooks/extending.md)
-        * [Override with Manual Submit](docs/events/validation-hooks/override.md)
+    * [Validation Init](docs/events/validation-hooks/constructor.md)
+    * [Validation Extend](docs/events/validation-hooks/extending.md)
+    * [Validation Override](docs/events/validation-hooks/override.md)
 
 ## Bindings
 * [Bindings](docs/bindings/README.md)
- * [Default Bindings](docs/bindings/default.md)
- * [Custom Bindings](docs/bindings/custom.md)
+    * [Default Bindings](docs/bindings/default.md)
+    * [Custom Bindings](docs/bindings/custom.md)
 
 ## Advanced
 * [Overview](docs/advanced/README.md)
@@ -72,6 +72,11 @@
     * [Markdown Editor](docs/advanced/markdown.md)
     * [File Upload](docs/advanced/file-upload.md)
     * [ArrayMap](docs/advanced/array-map.md)
+
+## Guides
+* [Migration Guide](docs/migration-guide.md)
+* [Error Handling](docs/error-handling.md)
+* [Performance & SSR](docs/performance-ssr.md)
 
 ## Extra
 * [Overview](docs/extra/README.md)

@@ -1,4 +1,4 @@
-# Event Hooks
+# Custom Event Hooks
 
 * [On Form Initialization](constructor.md)
 * [Extending the Class](extending.md)
@@ -7,11 +7,11 @@
 
 ## On Form Initialization
 
-Define an `hooks` object with an Event Hook function and pass them to the **Form Constructor**:
+Define a `hooks` object with Event Hook functions and pass them to the **Form Constructor** (second argument) or to the **Field Definition** (first argument).
 
 #### Defining hooks on Form
 
-Availables Handlers on Form: `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`.
+Available hooks on Form: `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`.
 
 > Pass the `hooks` object to the **Second Argument**.
 
@@ -22,19 +22,21 @@ const hooks = {
   },
 };
 
-new Form({ ... }, { hooks }); <---
+new Form({ ... }, { hooks }); // <--- second argument
 ```
 
 #### Defining hooks on Field
 
-Availables Handlers on Field: `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`, `onKeyUp`, `onKeyDown`.
+Available hooks on Field: `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`, `onKeyUp`, `onKeyDown`.
 
 > Pass the `hooks` object to the **First Argument** in the field definitions (unified or separated).
+
+**Unified mode:**
 
 ```javascript
 const fields = {
   username: {
-    label 'Username',
+    label: 'Username',
     value: 'SteveJobs',
     hooks: {
       onBlur(field) {
@@ -44,5 +46,19 @@ const fields = {
   },
 };
 
-new Form({ fields }, { ... }); <---
+new Form({ fields }, { ... });
+```
+
+**Separated mode:**
+
+```javascript
+const hooks = {
+  username: {
+    onBlur(field) {
+      console.log('-> onBlur HOOK - Field:', field.path);
+    },
+  },
+};
+
+new Form({ fields: ['username'], hooks });
 ```

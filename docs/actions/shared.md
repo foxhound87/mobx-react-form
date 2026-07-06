@@ -85,12 +85,12 @@ form.$('products').reduce((sum, field) => {
 
 | Page | Methods covered |
 |------|----------------|
-| [Get & Set](get-set.html) | `get()`, `set()`, `update()` |
-| [Add, Delete & Move](add-del.html) | `add()`, `del()`, `move()` |
+| [Get & Set](get-set.md) | `get()`, `set()`, `update()` |
+| [Add, Delete & Move](add-del.md) | `add()`, `del()`, `move()` |
 
 ## State Actions
 
 | Page | Methods covered |
 |------|----------------|
-| [Clear, Reset & Focus](clear-reset.html) | `clear()`, `reset()`, `focus()`, `blur()`, `trim()` |
-| [Validation & Submit](validate.html) | `validate()`, `check()`, `invalidate()`, `resetValidation()`, `showErrors()`, `submit()` |
+| [Clear, Reset & Focus](clear-reset.md) | `clear()`, `reset()`, `focus()`, `blur()`, `trim()` |
+| [Validation & Submit](validate.md) | `validate()`, `check()`, `invalidate()`, `resetValidation()`, `showErrors()`, `submit()` |

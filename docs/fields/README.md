@@ -92,7 +92,7 @@ Each field is an object keyed by name. Props are grouped by category below.
 | Prop | Type | Description |
 |------|------|-------------|
 | `fields` | array | Nested sub-field definitions |
-| `options` | object | Per-field options (same keys as [Form Options](../form/form-options.html)) |
+| `options` | object | Per-field options (same keys as [Form Options](../form/form-options.md)) |
 | `bindings` | string | Name of the binding template/rewriter |
 | `class` | any | Custom Field class (must extend `Form.Field`) |
 | `name` | string | Overrides the object key as field name |
@@ -475,4 +475,4 @@ form.$('members').$(0).$('firstname'); // chained selector
 > const form = new Form<MyForm>({ fields });
 > form.$('members[0].firstname').value; // typed as string
 > ```
-> See the [TypeScript Guide](../typescript.html) for details.
+> See the [TypeScript Guide](../typescript.md) for details.

@@ -7,12 +7,7 @@
 
 ## Extending the Field Class
 
-Extend the **Form** or **Field** class with an `handlers()` method which will return a Event Handlers function.
-
-Availables Handlers on Form: `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`.
-
-Availables Handlers on Field: `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`.
-
+Override handlers by extending the **Form** or **Field** class with a `handlers()` method or by directly assigning handler properties.
 
 ```javascript
 import { Form, Field } from 'mobx-react-form';
@@ -28,4 +23,8 @@ class MyForm extends Form {
 }
 ```
 
-> The handlers will not get the current field in input, just use `this`.
+> When extending, handlers receive the field/form instance as `this` — no argument needed. The handlers will not get the current field in input, just use `this`.
+
+Available handlers on Form: `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`.
+
+Available handlers on Field: `onChange`, `onToggle`, `onFocus`, `onBlur`, `onDrop`, `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`.

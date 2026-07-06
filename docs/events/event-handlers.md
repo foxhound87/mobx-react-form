@@ -1,39 +1,33 @@
-# Built-In Event Handlers
+# Event Handlers
+
+Event Handlers bind to DOM events and update field/form state automatically. They accept a Proxy-like event object or a direct value.
+
+> **Lifecycle:** `User Input` → **Event Handler** / **Action** → `Mutate Store` → `Event Hook`
+
+---
 
 * [Sync Field Value](#sync-field-value)
 * [Focused & Touched State](#focused--touched-state)
-* [Clear & Reset Form or Fields](#clear--reset)
+* [Key Events](#key-events)
+* [Clear & Reset](#clear--reset)
 * [Nested Array Elements](#nested-array-elements)
 * [Submitting the Form](#submitting-the-form)
 * [Handle Files](#handle-files)
-
-
-* [onChange(e) & onToggle(e)](#onchangee--ontogglee)
-* [onFocus(e) & onBlur(e)](#onfocuse--onblure)
-* [onClear(e) & onReset(e)](#oncleare--onresete)
-* [onAdd(e) & onDel(e)](#onadde--ondele)
-* [onSubmit(e)](#onsubmite)
-* [onDrop(e)](#ondrope)
-
-
-# Custom Event Handlers
-
-* [On Form Initialization](event-handlers/constructor.md)
-* [Extending the Class](event-handlers/extending.md)
+* [Custom Event Handlers](#custom-event-handlers)
+  * [On Form Initialization](#on-form-initialization)
+  * [Extending the Class](#extending-the-class)
 
 ---
 
 ## Sync Field Value
 
-#### onChange(e), onToggle(e) & sync(e)
+### onChange(e), onToggle(e) & sync(e)
 
-| Handler | Affected Property| Executed Hook | Use Case |
-|---|---|---|---|
+| Handler | Affected Property | Executed Hook | Use Case |
+|---------|-------------------|---------------|----------|
 | `sync(e)` | value | — | Update value without triggering hooks (silent update) |
-| `onChange(e)` | value | `onChange` hook | Standard value update with side effects |
-| `onToggle(e)` | value | `onToggle` hook | Toggle/checkbox value update (same as `onChange`) |
-
-<br>
+| `onChange(e)` | value | `onChange` | Standard value update with side effects |
+| `onToggle(e)` | value | `onToggle` | Toggle/checkbox value update (same as `onChange`) |
 
 Use `onChange(e)` or `onToggle(e)` to update the field's value and trigger the corresponding `onChange`/`onToggle` hook.
 
@@ -51,9 +45,7 @@ The `sync()` method handles multiple input types automatically:
 | `null` or `undefined` | Tries the second argument `v`, then uses `$try(e, v)` |
 
 ```html
-<input
-  {...field.bind()}  <!-- bind() handles onChange automatically -->
-/>
+<input {...field.bind()} />  <!-- bind() handles onChange automatically -->
 
 <!-- Or use onChange explicitly -->
 <input onChange={form.$('username').onChange} />
@@ -75,20 +67,18 @@ The `sync()` method handles multiple input types automatically:
 
 ## Focused & Touched State
 
-#### onFocus(e) & onBlur(e)
+### onFocus(e) & onBlur(e)
 
 | Handler | Affected Property | Executed Hook |
-|---|---|---|
-| onFocus(e) | focused | onFocus |
-| onBlur(e) | touched | onBlur |
+|---------|-------------------|---------------|
+| `onFocus(e)` | focused | onFocus |
+| `onBlur(e)` | touched, blurred | onBlur |
 
-<br>
-
-If you need to track `touched` or `focused` state, you can use `onFocus(e)` or `onBlur(e)` handlers:
+If you need to track `touched` or `focused` state, use `onFocus(e)` or `onBlur(e)` handlers:
 
 ```html
 <input
-  ...
+  {...field.bind()}
   onFocus={form.$('username').onFocus}
   onBlur={form.$('username').onBlur}
 />
@@ -96,16 +86,14 @@ If you need to track `touched` or `focused` state, you can use `onFocus(e)` or `
 
 ---
 
-### Key Events
+## Key Events
 
-#### onKeyDown(e) & onKeyUp(e)
+### onKeyDown(e) & onKeyUp(e)
 
 | Handler | Affected Property | Executed Hook |
-|---|---|---|
-| onKeyDown(e) | — | onKeyDown |
-| onKeyUp(e) | — | onKeyUp |
-
-<br>
+|---------|-------------------|---------------|
+| `onKeyDown(e)` | — | onKeyDown |
+| `onKeyUp(e)` | — | onKeyUp |
 
 Use `onKeyDown(e)` or `onKeyUp(e)` to listen for keyboard events. These handlers are **pass-through** — they do not modify any field property but fire the corresponding hook for you to handle:
 
@@ -121,14 +109,10 @@ Use `onKeyDown(e)` or `onKeyUp(e)` to listen for keyboard events. These handlers
 
 ```javascript
 const hooks = {
-  'search': {
+  search: {
     onKeyDown(field, e) {
-      if (e.key === 'Enter') {
-        performSearch(field.value);
-      }
-      if (e.key === 'Escape') {
-        field.clear();
-      }
+      if (e.key === 'Enter') performSearch(field.value);
+      if (e.key === 'Escape') field.clear();
     },
   },
 };
@@ -138,11 +122,9 @@ const hooks = {
 
 ```javascript
 const hooks = {
-  'search': {
+  search: {
     onKeyUp: debounce((field, e) => {
-      if (field.value.length >= 3) {
-        fetchSuggestions(field.value);
-      }
+      if (field.value.length >= 3) fetchSuggestions(field.value);
     }, 300),
   },
 };
@@ -154,16 +136,14 @@ const hooks = {
 
 ---
 
-### Clear & Reset
+## Clear & Reset
 
-#### onClear(e) & onReset(e)
+### onClear(e) & onReset(e)
 
 | Handler | Action | Affected Property | Executed Hook | Result |
-|---|---|---|---|
-| onClear(e) | clear() | value | onClear | to empty values |
-| onReset(e) | reset() | value | onReset | to default values |
-
-<br>
+|---------|--------|-------------------|---------------|--------|
+| `onClear(e)` | clear() | value | onClear | Empty values |
+| `onReset(e)` | reset() | value | onReset | Default values |
 
 On the form instance:
 
@@ -172,102 +152,92 @@ On the form instance:
 <button type="button" onClick={form.onReset}>Reset</button>
 ```
 
-or selecting Specific Field or Nested Fields:
+On a specific field or nested fields:
 
 ```html
-<button type="button" onClick={form.$('members').onClear}>Clear</button>
-<button type="button" onClick={form.$('members').onReset}>Reset</button>
+<button type="button" onClick={form.$('members').onClear}>Clear Members</button>
+<button type="button" onClick={form.$('members').onReset}>Reset Members</button>
 ```
 
 ---
 
-### Nested Array Elements
+## Nested Array Elements
 
-#### onAdd(e) & onDel(e)
+### onAdd(e) & onDel(e)
 
 | Handler | Action | Affected Property | Executed Hook | Result |
-|---|---|---|---|---|
-| onAdd(e) | add() | fields | onAdd | Add a field |
-| onDel(e) | del() | fields | onDel | Remove a field |
+|---------|--------|-------------------|---------------|--------|
+| `onAdd(e)` | add() | fields | onAdd | Add a field |
+| `onDel(e)` | del() | fields | onDel | Remove a field |
 
-<br>
-
-##### Adding a Field
-
-```html
-<button type="button" onClick={hobbies.onAdd}>Add Hobby</button>
-```
-
-or using the field `selector`:
+#### Adding a Field
 
 ```html
 <button type="button" onClick={form.$('hobbies').onAdd}>Add Hobby</button>
 ```
 
-or specify the field `value` as second argument:
+Or specify the field value as second argument:
 
 ```html
 <button type="button" onClick={e => form.$('hobbies').onAdd(e, 'soccer')}>Add Hobby</button>
 ```
 
-or specify a custom `key` and `value` as an object:
+Or specify a custom key and value as an object:
 
 ```html
 <button type="button" onClick={e => form.$('hobbies').onAdd(e, {
-  key: 'customKey',
-  value: 'custom value',
-})}>Add Hobby</button>
+  key: 'favorite',
+  value: 'soccer',
+})}>Add Favorite</button>
 ```
 
-<br>
-
-##### Deleting a Field
+#### Deleting a Field
 
 ```html
-<button type="button" onClick={hobby.onDel}>Delete Hobby</button>
+<button type="button" onClick={field.onDel}>Delete Hobby</button>
 ```
 
-or using the field `selector` with a field `key`:
+Or using the field selector with a field key:
 
 ```html
-<button type="button" onClick={form.$('hobbies').$(3).onDel}>Delete Hobby</button>
+<button type="button" onClick={form.$('hobbies').$(3).onDel}>Delete Hobby 3</button>
 ```
 
-or specify the field `path` as second argument:
+Or specify the field path as second argument:
 
 ```html
-<button type="button" onClick={e => form.onDel(e, 'hobbies[3]')}>Delete Hobby</button>
+<button type="button" onClick={e => form.onDel(e, 'hobbies[3]')}>Delete Hobby 3</button>
 ```
 
-> **Note:** These are Event Handlers, not actions. For programmatic add/delete without hooks, use [add() and del() actions](../actions/add-del.html#add) instead.
+> **Note:** These are Event Handlers, not actions. For programmatic add/delete without hooks, use [add() and del() actions](../actions/add-del.md#add) instead.
 
 ---
 
 ## Submitting the Form
 
-#### onSubmit(e)
+### onSubmit(e)
 
-| Handler | Action | Affected Property | Executed Hook | FORM | FIELD |
-|---|---|---|---|---|
-| onSubmit(e) | submit() > validate() | submitting, validating | onSubmit | YES | YES |
+| Handler | Action | Affected Property | Executed Hook | Form | Field |
+|---------|--------|-------------------|---------------|------|-------|
+| `onSubmit(e)` | submit() → validate() | submitting, validating | onSubmit | ✓ | ✓ |
 
-The `onSubmit(e)` will `validate` the form and will call respectively `onSuccess(form)` or `onError(form)` **Validation Hooks** if they are implemented.
+The `onSubmit(e)` will validate the form and call `onSuccess(form)` or `onError(form)` **Validation Hooks** if they are implemented.
 
-The `onSuccess(form)` and `onError(form)` methods takes the `form` object in input. So you can perform more actions after the validation occurs.
-
-You can easly include the `onSubmit(e)` handler in your component:
+The `onSuccess(form)` and `onError(form)` methods take the form object in input, so you can perform more actions after validation occurs.
 
 ```html
 <button type="submit" onClick={form.onSubmit}>Submit</button>
 ```
 
----## Handle Files
+---
 
-#### onDrop(e)
+## Handle Files
+
+### onDrop(e)
 
 | Handler | Affected Property | Executed Hook | Result |
-|---|---|---|---|
-| onDrop(e) | files | onDrop | Retrieve the files |
+|---------|-------------------|---------------|--------|
+| `onDrop(e)` | files | onDrop | Retrieve the files |
 
 The `onDrop(e)` Event Handler retrieves files into the `files` field property and executes the `onDrop` Hook function. When `type: 'file'` is set, the field's `onSync`/`onChange` automatically delegates to `onDrop`.
 
@@ -291,7 +261,7 @@ The handler:
 2. Appends files to the existing `field.files` array (preserving previous uploads)
 3. Fires the `onDrop` hook
 
-#### Method 1: `type: 'file'` with `bind()`
+#### Method 1: type: 'file' with bind() (recommended)
 
 Define the field `type` property as `file` and use `bind()` on your input — `onChange` will automatically delegate to `onDrop`:
 
@@ -313,16 +283,12 @@ const fields = {
 <input type="file" multiple {...field.bind()} />
 ```
 
-#### Method 2: Custom binding with `onDrop` override
+#### Method 2: Custom binding with onDrop override
 
 Without `type: 'file'`, override the `onChange` handler in `bind()` to use `onDrop`:
 
 ```html
-<input
-  type="file"
-  multiple
-  {...field.bind({ onChange: field.onDrop })}
-/>
+<input type="file" multiple {...field.bind({ onChange: field.onDrop })} />
 ```
 
 #### Method 3: Drag-and-drop zone
@@ -334,7 +300,7 @@ Create a custom drop zone and call `onDrop` manually:
   onDragOver={(e) => e.preventDefault()}
   onDrop={(e) => {
     e.preventDefault();
-    field.onDrop(e); // or field.hooks.onDrop(field, e)
+    field.onDrop(e);
   }}
 >
   Drop files here
@@ -346,7 +312,7 @@ Create a custom drop zone and call `onDrop` manually:
 After a drop or file selection:
 
 ```javascript
-field.files;  // Array of File objects
+field.files; // Array of File objects
 
 // Example: read first file as data URL
 const file = field.files?.[0];
@@ -358,3 +324,8 @@ if (file) {
   reader.readAsDataURL(file);
 }
 ```
+
+
+---
+
+> **Next:** [Custom Event Handlers](event-handlers/constructor.md) — define handlers on initialization or by extending the class.

@@ -38,7 +38,7 @@ Props you can define when creating fields and modify at runtime via `field.set(p
 |----------|------|---------|-------------|
 | `rules` | string | `null` | DVR validation rules (e.g. `"required&#124;email&#124;min:6"`) |
 | `validators` | array | `null` | VJF validation functions |
-| `validatedWith` | string | `"value"` | Field prop to validate instead of `value` (see [validatedValue](../extra/validated-value.html)) |
+| `validatedWith` | string | `"value"` | Field prop to validate instead of `value` (see [validatedValue](../extra/validated-value.md)) |
 | `related` | string[] | `[]` | Other field paths to re-validate when this field changes |
 
 ### Converters & Computed
@@ -56,7 +56,7 @@ Props you can define when creating fields and modify at runtime via `field.set(p
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `bindings` | string | `"default"` | Key of the registered binding template/rewriter to use |
-| `options` | object | `{}` | Per-field [Form Options](../form/form-options.html), with fallback on global options |
+| `options` | object | `{}` | Per-field [Form Options](../form/form-options.md), with fallback on global options |
 | `class` | class | `undefined` | Custom Field class (unified mode only, must extend `Form.Field`) |
 | `classes` | object | `undefined` | Custom Field classes keyed by field path (separated mode only) |
 

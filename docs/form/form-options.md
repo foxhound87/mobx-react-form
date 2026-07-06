@@ -216,7 +216,7 @@ const options = {
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| **fallback** | boolean | `true` | When using mixed mode (unified + separated), enables field props to fall back from the unified definition if not found in separated props. Set to `false` to require all props from separated mode only. |
+| **fallback** | boolean | `true` | Controls whether fields and their props can be resolved outside the strict `struct`/`fields` definition. When `true`: fields are created from definition data even if not in the struct; values with keys not in `fields` are included as field data. When `false`: fields are created only if they exist in the struct, and only explicitly defined field keys receive values. See [Mixed Mode](../fields/README.html#mixed-mode-unified--separated). |
 
 ---
 

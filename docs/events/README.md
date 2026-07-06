@@ -1,35 +1,32 @@
-### [Built-In Events Handlers](event-handlers.md)
+# Events & Handlers
+
+### [Built-In Event Handlers](event-handlers.md)
   * [Sync Field Value](event-handlers.md#sync-field-value)
   * [Focused & Touched State](event-handlers.md#focused--touched-state)
-  * [Clear & Reset Form or Fields](event-handlers.md#clear--reset)
+  * [Key Events](event-handlers.md#key-events)
+  * [Clear & Reset](event-handlers.md#clear--reset)
   * [Nested Array Elements](event-handlers.md#nested-array-elements)
   * [Submitting the Form](event-handlers.md#submitting-the-form)
   * [Handle Files](event-handlers.md#handle-files)
 
-
-  * [onChange(e) & onToggle(e)](event-handlers.md#onchangee--ontogglee)
-  * [onFocus(e) & onBlur(e)](event-handlers.md#onfocuse--onblure)
-  * [onClear(e) & onReset(e)](event-handlers.md#oncleare--onresete)
-  * [onAdd(e) & onDel(e)](event-handlers.md#onadde--ondele)
-  * [onSubmit(e)](event-handlers.md#onsubmite)
-  * [onDrop(e)](event-handlers.md#ondrope)
-
-### Custom Event Handlers
-  When Built-In Handlers are not enough.
-
+### [Custom Event Handlers](event-handlers/constructor.md)
   * [On Form Initialization](event-handlers/constructor.md)
   * [Extending the Class](event-handlers/extending.md)
 
-
 ### [Event Hooks](event-hooks.md)
+  * [Triggered by Event Handlers](event-hooks.md#triggered-by-event-handlers)
+  * [Triggered by Actions](event-hooks.md#triggered-by-event-handlers-which-trigger-actions)
+  * [onInit](event-hooks.md#oninit)
+  * [Legacy API &lt; 1.29](event-hooks.md#legacy-api--version--129)
+
+### [Custom Event Hooks](event-hooks/constructor.md)
   * [On Form Initialization](event-hooks/constructor.md)
   * [Extending the Class](event-hooks/extending.md)
-  * [Submitting the Form](event-hooks.md#submitting-the-form)
-  * [Execute code on Instance Init](event-hooks.md#execute-code-on-instance-init)
-
 
 ### [Validation Hooks](validation-hooks.md)
+  * [Available Hooks](validation-hooks.md#available-validation-hooks)
   * [On Form Initialization](validation-hooks/constructor.md)
+  * [Sub-Form Submission](validation-hooks/constructor.md#sub-form-submission)
   * [Extending the Class](validation-hooks/extending.md)
   * [Override on Manual Submit](validation-hooks/override.md)
-
+  * [Legacy API &lt; 1.32](validation-hooks.md#legacy-api--version--132)

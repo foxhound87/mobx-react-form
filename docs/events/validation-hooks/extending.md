@@ -7,31 +7,24 @@
 ---
 
 ## Extending the Class
+
 #### onSuccess() & onError()
 
-These methods are called when the form validation is done.
-
-> They can return promises to wait on submit.
-
-Extend the **Form** or **Field** class with an `hooks()` method which will return the `onSuccess(form)` or `onError(form)` Validation Hooks.
+Extend the **Form** or **Field** class with a `hooks()` method which returns Validation Hooks.
 
 ```javascript
-import MobxReactForm from 'mobx-react-form';
+import { Form } from 'mobx-react-form';
 
-class MyForm extends MobxReactForm {
-
+class MyForm extends Form {
   hooks() {
     return {
       onSuccess() {
         alert('Form is valid! Send the request here.');
-        // get field values
         console.log('Form Values!', this.values());
         // can return a promise here!
       },
       onError() {
-        // get all form errors
         console.log('All form errors', this.errors());
-        // invalidate the form with a custom error message
         this.invalidate('This is a generic error message!');
         // can return a promise here!
       },
@@ -40,31 +33,10 @@ class MyForm extends MobxReactForm {
 }
 ```
 
-%accordion% **VERSION < 1.32** %accordion%
+#### Sub-Form Submission
 
-```javascript
-import MobxReactForm from 'mobx-react-form';
-
-class MyForm extends MobxReactForm {
-
-  onSuccess() {
-    console.log('Form Values!', form.values());
-  }
-
-  onError() {
-    console.log('All form errors', this.errors());
-  }
-}
-```
-
-%/accordion%
-
-# Sub-Form Submission
-#### onSuccess(fieldset) & onError(fieldset)
-
-The Validation Hooks can be implemented on extended Field class as well.
+Validation Hooks can be implemented on extended Field classes as well for sub-form patterns.
 
 [Read more on how to extend custom Field](../../form/extend/custom.md)
 
-[Read more on how to register Sub-Form Validation Hooks without extendig the Fields](constructor.md)
-
+[Read more on how to register Sub-Form Validation Hooks without extending the Fields](constructor.md)

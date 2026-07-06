@@ -21,7 +21,7 @@ const plugins = {
 };
 ```
 
-> See [Validation Plugins](validation/plugins.html) for all supported validators: **VJF** (vanilla functions), **DVR** (declarative rules), **SVK** (JSON Schema), **YUP**, **JOI**, **ZOD**.
+> See [Validation Plugins](validation/plugins.md) for all supported validators: **VJF** (vanilla functions), **DVR** (declarative rules), **SVK** (JSON Schema), **YUP**, **JOI**, **ZOD**.
 
 ---
 
@@ -46,7 +46,7 @@ const fields = [{
 }];
 ```
 
-> Fields can also be defined as an **object** (unified mode) or via **separated props** — see [Defining Fields](fields/README.html).
+> Fields can also be defined as an **object** (unified mode) or via **separated props** — see [Defining Fields](fields/README.md).
 
 ---
 
@@ -79,7 +79,7 @@ const form = new Form({ fields }, { plugins, hooks });
 
 ## 5. Use in a React Component
 
-The form provides built-in Event Handlers: `onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more](events/event-handlers.html).
+The form provides built-in Event Handlers: `onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more](events/event-handlers.md).
 
 ```jsx
 import React from 'react';
@@ -104,7 +104,7 @@ export default observer(({ form }) => (
 ));
 ```
 
-> All field props are accessible via `form.$('fieldName')` — see [Field Properties](api-reference/fields-properties.html).
+> All field props are accessible via `form.$('fieldName')` — see [Field Properties](api-reference/fields-properties.md).
 
 ---
 
@@ -112,10 +112,10 @@ export default observer(({ form }) => (
 
 | Topic | Link |
 |-------|------|
-| Class-based form definition | [Quick Start (class)](quick-start-class.html) |
-| TypeScript usage | [TypeScript Guide](typescript.html) |
-| Nested & array fields | [Defining Fields](fields/README.html) |
-| Validation plugins deep-dive | [Validation](validation/README.html) |
+| Class-based form definition | [Quick Start (class)](quick-start-class.md) |
+| TypeScript usage | [TypeScript Guide](typescript.md) |
+| Nested & array fields | [Defining Fields](fields/README.md) |
+| Validation plugins deep-dive | [Validation](validation/README.md) |
 | Live demo | [foxhound87.github.io/mobx-react-form-demo](https://foxhound87.github.io/mobx-react-form-demo) |
 
 ---
@@ -133,4 +133,4 @@ export default observer(({ form }) => (
 > const form = new Form<MyFields>({ fields }, { plugins, hooks });
 > form.$('email').value; // typed as string
 > ```
-> See the [TypeScript Guide](typescript.html) for details.
+> See the [TypeScript Guide](typescript.md) for details.

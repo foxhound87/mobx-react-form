@@ -150,7 +150,7 @@ form.$('email').invalidate('Invalid email');
 form.$('email').showErrors(true);
 ```
 
-> You can also control error visibility globally via `showErrorsOnInit`, `showErrorsOnChange`, etc. in [Form Options](../form/form-options.html).
+> You can also control error visibility globally via `showErrorsOnInit`, `showErrorsOnChange`, etc. in [Form Options](../form/form-options.md).
 
 ---
 

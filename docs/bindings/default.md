@@ -1,95 +1,110 @@
 # Default Bindings
 
-- [Simple Usage](#simple-usage)
-- [Properties Overwrite](#properties-overwrite)
-
-- [Default Bindings](#built-in-default-template--rewriter)
-  - [Default Rewriter](#default-rewriter)
-  - [Default Template](#default-template)
-  - [Override Default Bindings Template](#override-default-bindings-template)
+The built-in `default` bindings work with standard HTML inputs and most React form components.
 
 ---
 
 ## Simple Usage
 
-The **Default Bindings** can be used on any input component using the fields `bind()` method:
+```jsx
+import { observer } from 'mobx-react';
 
-```javascript
-export default observer(({ field }) => (
+const InputField = observer(({ field }) => (
   <div>
+    <label>{field.label}</label>
     <input {...field.bind()} />
   </div>
 ));
 ```
 
-<br>
-
-## Properties Overwrite
-
-The `bind()` method will **overwrite any component property**, just pass to it an object with all properties you want to overwrite:
+The `bind()` method returns an object with all the props your input needs:
 
 ```javascript
-export default observer(({ field, type = 'password', placeholder = 'Insert Password' }) => (
+field.bind();
+// → {
+//   id: 'username',
+//   name: 'username',
+//   type: 'text',
+//   value: 'SteveJobs',
+//   placeholder: 'Enter username',
+//   disabled: false,
+//   onChange: field.onChange,
+//   onBlur: field.onBlur,
+//   onFocus: field.onFocus,
+//   autoFocus: false,
+// }
+```
+
+> `bind()` also sets the `ref` automatically — `field.$ref` points to the DOM node for `focus()` and `blur()`.
+
+---
+
+## Properties Override
+
+Pass props to `bind()` to override field values at the component level:
+
+```jsx
+const PasswordField = observer(({ field }) => (
   <div>
-    <input {...field.bind({ type, placeholder })} />
+    <input {...field.bind({ type: 'password', placeholder: 'Enter password' })} />
   </div>
 ));
 ```
 
-> When passing properties to the `bind()` method, the field properties which are defined on form initialization will be treated as **fallbacks** (until you implement a new `Template`).
+**Override precedence:** `bind()` props **take precedence** over field properties in the default Rewriter.
 
-
-#### IMPORTANT!
-
-The props passed to the `bind()` method will not mutate the package's store but only your component.
-
-Do this only for handling edge cases, as it's not the default behavior to handle field props, [define fields](../fields/) normally instead.
-
-
-<br>
-<br>
+> Props passed to `bind()` do **not** mutate the field store — they only affect the rendered output. Use this for edge cases. For normal field configuration, [define fields](../fields/) instead.
 
 ---
 
-## BUILT-IN `default` Template & Rewriter
+## Built-in Default Rewriter
 
-Here you can see the structure of the `default` Template & Rewriter.
-
-The `default` rewriter define which component properties has assigned to the field property key
-
-
-### Default Rewriter
+The default Rewriter maps field prop names to HTML attribute names:
 
 ```javascript
-export default {
-  default: {
-    id: 'id',
-    name: 'name',
-    type: 'type',
-    value: 'value',
-    label: 'label',
-    placeholder: 'placeholder',
-    disabled: 'disabled',
-    onChange: 'onChange',
-    onBlur: 'onBlur',
-    onFocus: 'onFocus',
-    autoFocus: 'autoFocus',
-  }
+// Built-in — no configuration needed
+{
+  id: 'id',
+  name: 'name',
+  type: 'type',
+  value: 'value',
+  checked: 'checked',
+  label: 'label',
+  placeholder: 'placeholder',
+  disabled: 'disabled',
+  autoComplete: 'autoComplete',
+  onChange: 'onChange',
+  onBlur: 'onBlur',
+  onFocus: 'onFocus',
+  autoFocus: 'autoFocus',
+  inputMode: 'inputMode',
+  onKeyUp: 'onKeyUp',
+  onKeyDown: 'onKeyDown',
 }
 ```
 
-> In every `Rewriter` the `props` passed to the `bind()` method always takes precedence on the `field` properties.
-
-
-Then these keys are assigned to the template which will handle the props values priorities and fallbacks:
-
-### Default Template
+**How the Rewriter works internally:**
 
 ```javascript
-export default {
+// Simplified logic from Bindings.ts:
+each(rewriter, (componentProp, fieldProp) => {
+  output[componentProp] = $try(props[fieldProp], field[fieldProp]);
+});
+```
+
+`$try()` returns the first defined value — so `bind()` props take priority, then field values.
+
+---
+
+## Override the Default Template
+
+If you need to customize the fallback chain or add logic without changing all field bindings names, override the `default` template:
+
+**Via the Form constructor:**
+
+```javascript
+const bindings = {
   default: ({ $try, form, field, props, keys }) => ({
-    [keys.id]: $try(props.id, field.id),
-    [keys.name]: $try(props.name, field.name),
     [keys.type]: $try(props.type, field.type),
     [keys.value]: $try(props.value, field.value),
     [keys.label]: $try(props.label, field.label),
@@ -100,48 +115,38 @@ export default {
     [keys.onFocus]: $try(props.onFocus, field.onFocus),
     [keys.autoFocus]: $try(props.autoFocus, field.autoFocus),
   }),
-}
+};
+
+new Form({ ... }, { bindings });
 ```
 
-> `$try()` is a small helper function which takes unlimited arguments in input, it returns the first defined.
-
-The function takes in input an object with the following props:
-
-- the `form`: which is the form instance, you can retrieve the form properites form it.
-- the `field`: which is the current field, you can retrieve the fields properites form it.
-- the `props`: which are the properties passed from the components as fallback.
-- the `keys`: which contains the properties defined in the `rewriter` that will match the components properties.
-
-
-### Override Default Bindings Template
-
-If you want to override the default bindings with a custom template for all defined fields you can name the template function as `default`.
-
-> No need to update fields bindings name because they are already `default`
-
-Using `default` template with Form Constructor:
-
-```javascript
-const bindings = {
-  default: ({ $try, form, field, props, keys }) => ({
-    ... define bindings here
-  }),
-}
-
-new Form({ ... }, { bindings, ... })
-```
-
-Using `default` template extending Form Class:
+**Via class extension:**
 
 ```javascript
 class MyForm extends Form {
-
   bindings() {
     return {
       default: ({ $try, form, field, props }) => ({
-        ... define bindings here
+        type: $try(props.type, field.type),
+        value: $try(props.value, field.value),
+        label: $try(props.label, field.label),
+        placeholder: $try(props.placeholder, field.placeholder),
+        disabled: $try(props.disabled, field.disabled),
+        onChange: $try(props.onChange, field.onChange),
+        onBlur: $try(props.onBlur, field.onBlur),
+        onFocus: $try(props.onFocus, field.onFocus),
       }),
     };
   }
 }
 ```
+
+**The template function receives:**
+
+| Param | Type | Description |
+|-------|------|-------------|
+| `$try` | function | Helper: returns the first defined argument |
+| `form` | Form | The form instance (access `form.submitting`, `form.disabled`, etc.) |
+| `field` | Field | The current field instance |
+| `props` | object | Props passed to `bind()` at the component level |
+| `keys` | object | The Rewriter key mapping (field prop → component prop names) |
