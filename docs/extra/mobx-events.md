@@ -143,7 +143,7 @@ const observers = {
 };
 
 // Later, adding a new product:
-form.$('products').add({ value: { name: 'New', total: 0 } });
+form.$('products').add({ name: 'New', total: 0 });
 // → The observer is automatically applied to the new field
 ```
 

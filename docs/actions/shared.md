@@ -361,10 +361,25 @@ Add fields or nested fields:
 
 > If you have specified an **Array of Fields** (`[]`) into the field **struct** you can call add() without input arguments to create a new empty field with its incremental array index as `key/name`.
 
-provide the initial value to the new added field:
+**For simple arrays** (no nested fields), provide the value with a `value` wrapper:
 
 ```javascript
 .$('hobbies').add({ value: 'soccer' });
+```
+
+**For nested arrays** (fields with sub-fields), you can pass the values directly:
+
+```javascript
+.$('members').add({ firstname: 'John', lastname: 'Doe' });
+```
+
+Or use an array of objects to add multiple entries at once:
+
+```javascript
+.$('members').add([
+  { firstname: 'Alice', lastname: 'Wonder' },
+  { firstname: 'Bob', lastname: 'Marley' },
+]);
 ```
 
 provide a custom key as field index:

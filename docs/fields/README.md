@@ -247,7 +247,10 @@ const fields = [{
 new Form({ fields });
 
 // Add a new member dynamically:
-form.$('members').add({ value: { firstname: 'John', lastname: 'Doe' } });
+form.$('members').add({ firstname: 'John', lastname: 'Doe' });
+
+// Or with explicit value wrapper (equivalent for simple fields):
+form.$('hobbies').add({ value: 'Tennis' });
 ```
 
 **Related fields across nesting levels:**

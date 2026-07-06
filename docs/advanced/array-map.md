@@ -134,7 +134,11 @@ The `add()` and `del()` methods on fields delegate to the underlying `ArrayMap`:
 
 ```javascript
 // These are equivalent:
+// Simple arrays: value wrapper
 form.$('hobbies').add({ value: 'Tennis' });
+
+// Nested arrays: pass values directly
+form.$('members').add({ firstname: 'John', lastname: 'Doe' });
 form.$('hobbies').fields.set('newKey', { /* field definition */ });
 
 // Similarly:
