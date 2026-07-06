@@ -152,7 +152,7 @@ const options = {
 
 ### Forms Composer
 
-For multi-step workflows (wizards), split the form using the [Forms Composer](../extra/composer.md) — each step is its own form, validated independently:
+For multi-step workflows (wizards), split the form using the [Forms Composer](../extra/composer.html) — each step is its own form, validated independently:
 
 ```javascript
 import { composer } from 'mobx-react-form';

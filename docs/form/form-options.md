@@ -216,7 +216,7 @@ const options = {
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| **fallback** | boolean | `true` | Controls whether fields and their props can be resolved outside the strict `struct`/`fields` definition. When `true`: fields are created from definition data even if not in the struct; values with keys not in `fields` are included as field data. When `false`: fields are created only if they exist in the struct, and only explicitly defined field keys receive values. See [Mixed Mode](../fields/README.html#mixed-mode-unified--separated). |
+| **fallback** | boolean | `true` | Controls whether fields and their props can be resolved outside the strict `struct`/`fields` definition. When `true`: fields are created from definition data even if not in the struct; values with keys not in `fields` are included as field data. When `false`: fields are created only if they exist in the struct, and only explicitly defined field keys receive values. See [Mixed Mode](../fields/README.md#mixed-mode-unified--separated). |
 
 ---
 
