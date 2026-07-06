@@ -32,7 +32,8 @@ const plugins = {
 };
 ```
 
-%accordion% **VERSION < 6.9.0** %accordion%
+<details markdown="1">
+<summary><strong>VERSION &lt; 6.9.0</strong></summary>
 
 Shortcut:
 
@@ -45,9 +46,10 @@ const plugins = {
 };
 ```
 
-%/accordion%
+</details>
 
-%accordion% **VERSION < 1.37** %accordion%
+<details markdown="1">
+<summary><strong>VERSION &lt; 1.37</strong></summary>
 
 No need to import the plugin function:
 
@@ -59,7 +61,8 @@ const plugins = {
 };
 ```
 
-%/accordion%
+</details>
+
 
 #### Create the form passing the `plugins` object
 

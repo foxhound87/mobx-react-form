@@ -19,7 +19,8 @@ Validation Hooks are special Event Hooks called after the submit or validation a
 
 ---
 
-%accordion% **Legacy API — Version < 1.32** %accordion%
+<details markdown="1">
+<summary><strong>Legacy API — Version &lt; 1.32</strong></summary>
 
 In older versions, `onClear`, `onReset` & `onSubmit` were handled differently:
 
@@ -42,4 +43,5 @@ const onSubmit = {
 new Form({ ... }, { onSubmit }); // <--- was `onSubmit`, now `hooks`
 ```
 
-%/accordion%
+</details>
+

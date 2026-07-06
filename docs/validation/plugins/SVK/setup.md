@@ -40,7 +40,8 @@ const plugins = {
 };
 ```
 
-%accordion% **VERSION < 1.37** %accordion%
+<details markdown="1">
+<summary><strong>VERSION &lt; 1.37</strong></summary>
 
 No need to import the plugin function:
 
@@ -58,7 +59,8 @@ and the `schema` goes to the form initialization:
 new Form({ ..., schema }, { plugins });
 ```
 
-%/accordion%
+</details>
+
 
 <br />
 

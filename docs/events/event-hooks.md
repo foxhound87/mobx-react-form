@@ -206,7 +206,8 @@ form.submit({ onSuccess: hooks.onSuccess, onError: hooks.onError });
 
 ---
 
-%accordion% **Legacy API — Version < 1.29** %accordion%
+<details markdown="1">
+<summary><strong>Legacy API — Version &lt; 1.29</strong></summary>
 
 In older versions, Event Hooks could be used to catch events on specific fields using the `on()` method:
 
@@ -223,9 +224,10 @@ The callback receives: `{ form, field, path, event, change }`.
 
 > For more info on the mobx `change` object, see the [mobx observe documentation](https://mobxjs.github.io/mobx/refguide/observe.md).
 
-%/accordion%
+</details>
 
-%accordion% **Legacy API — Version < 1.32** %accordion%
+<details markdown="1">
+<summary><strong>Legacy API — Version &lt; 1.32</strong></summary>
 
 In older versions, `onClear`, `onReset` & `onSubmit` were handled differently:
 
@@ -248,4 +250,5 @@ const onSubmit = {
 new Form({ ... }, { onSubmit }); // <--- was `onSubmit`, now `hooks`
 ```
 
-%/accordion%
+</details>
+

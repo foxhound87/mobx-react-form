@@ -61,7 +61,8 @@ new Form({
 
 ---
 
-%accordion% **Legacy API — Version < 1.32** %accordion%
+<details markdown="1">
+<summary><strong>Legacy API — Version &lt; 1.32</strong></summary>
 
 In older versions, the object was called `onSubmit` instead of `hooks`:
 
@@ -88,4 +89,5 @@ const onSubmit = {
 new Form({ ... }, { onSubmit });
 ```
 
-%/accordion%
+</details>
+
