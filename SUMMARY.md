@@ -34,7 +34,11 @@
 ## Actions
 * [Actions](docs/actions/README.md)
     * [Form Actions](docs/actions/form.md)
-    * [Shared Actions (Form & Fields)](docs/actions/shared.md)
+    * [Navigation & Iteration](docs/actions/shared.md)
+    * [Get, Set & Update](docs/actions/get-set.md)
+    * [Add, Delete & Move](docs/actions/add-del.md)
+    * [Clear, Reset & Focus](docs/actions/clear-reset.md)
+    * [Validation & Submit](docs/actions/validate.md)
     * [Helpers (Form & Fields)](docs/actions/helpers.md)
 
 ## Events & Handlers

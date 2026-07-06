@@ -4,40 +4,47 @@
   * [Validate the Form](form.md#validate-the-form)
   * [Validate Single Field](form.md#validate-single-field)
   * [Validation Errors](form.md#validation-errors)
-  * [Manual Form Submit](shared.md#manual-submit)
+  * [Manual Form Submit](validate.html#submit)
 
 
-### [Shared Actions (Form & Fields)](shared.md)
+### [Navigation & Iteration](shared.md)
   The shared actions can be used on the form instance or every field and nested field.
 
-  * [Update the fields](shared.md#update-the-fields)
   * [Field Selector](shared.md#field-selector)
   * [Field Container](shared.md#field-container)
-  * [Check Field Computed Values](shared.md#check-field-computed-values)
-  * [Programmatically Focus a Field](shared.md#programmatically-focus-a-field)
-  * [Programmatically Blur a Field](shared.md#programmatically-blur-a-field)
-  * [Trim Field Value](shared.md#trim-field-value)
-  * [move(fromIndex, toIndex)](shared.md#movefromindex-toindex)
-
-
-  * [Get Fields Properties](shared.md#get-fields-properties)
-  * [Set Fields Properties](shared.md#set-fields-properties)
-
-
   * [has()](shared.md#has)
   * [map()](shared.md#map)
   * [each()](shared.md#each)
   * [reduce()](shared.md#reduce)
-  * [add() & del()](shared.md#add--del)
-  * [clear() & reset()](shared.md#clear--reset)
 
 
-  * [Manual Submit](shared.md#manual-submit)
-  * [Validate a Field](shared.md#validate-a-field)
-  * [Validation Errors](shared.md#validation-errors)
-  * [Invalidate the Form or a single Field](shared.md#invalidate-the-form-or-a-single-field)
-  * [Reset Validation](shared.md#reset-validation)
-  * [Show / Hide Error Messages](shared.md#show--hide-error-messages)
+### [Get, Set & Update](get-set.html)
+  * [get()](get-set.html#get)
+  * [set()](get-set.html#set)
+  * [update()](get-set.html#update)
+
+
+### [Add, Delete & Move](add-del.html)
+  * [add()](add-del.html#add)
+  * [del()](add-del.html#del)
+  * [move()](add-del.html#move)
+
+
+### [Clear, Reset & Focus](clear-reset.html)
+  * [clear()](clear-reset.html#clear)
+  * [reset()](clear-reset.html#reset)
+  * [focus()](clear-reset.html#focus)
+  * [blur()](clear-reset.html#blur)
+  * [trim()](clear-reset.html#trim)
+
+
+### [Validation & Submit](validate.html)
+  * [validate()](validate.html#validate)
+  * [check()](validate.html#check)
+  * [invalidate()](validate.html#invalidate)
+  * [resetValidation()](validate.html#resetvalidation)
+  * [showErrors()](validate.html#showerrors)
+  * [submit()](validate.html#submit)
 
 
 ### [Helpers (Form & Fields)](helpers.md)

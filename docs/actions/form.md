@@ -38,7 +38,7 @@ form.validate('email')
 
 > The validation promise resolves the validated instance (Form or Field).
 
-> This is an alternative syntax to [Actions - Validate a Field](https://foxhound87.github.io/mobx-react-form/docs/actions/shared.html#validate-a-field).
+> This is an alternative syntax to [Actions - Validate a Field](validate.html#validate-1).
 
 ### Validation Errors
 

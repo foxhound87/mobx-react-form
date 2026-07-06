@@ -239,7 +239,7 @@ or specify the field `path` as second argument:
 <button type="button" onClick={e => form.onDel(e, 'hobbies[3]')}>Delete Hobby</button>
 ```
 
-> **Note:** These are Event Handlers, not actions. For programmatic add/delete without hooks, use [add() and del() actions](../actions/shared.html#add--del) instead.
+> **Note:** These are Event Handlers, not actions. For programmatic add/delete without hooks, use [add() and del() actions](../actions/add-del.html#add) instead.
 
 ---
 
