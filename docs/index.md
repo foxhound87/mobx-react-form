@@ -337,6 +337,24 @@ See the [UMD Setup guide](/umd-setup) for vanilla HTML/JS usage, or the [Binding
   color: var(--vp-c-text-2);
 }
 
+/* Hero GitHub stars badge — placed inside hero actions */
+.hero-stars {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.hero-stars img {
+  vertical-align: middle;
+  border-radius: 6px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-stars a:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.35);
+}
+
 /* Inline code in home */
 .home-sections code {
   background: var(--vp-c-bg-soft);
@@ -383,6 +401,39 @@ See the [UMD Setup guide](/umd-setup) for vanilla HTML/JS usage, or the [Binding
 <script>
 (function() {
   if (typeof window === 'undefined') return;
+
+  function injectBadge() {
+    var actions = document.querySelector('.VPHomeHero .actions');
+    if (!actions) return false;
+    // Avoid double injection
+    if (actions.querySelector('.hero-stars')) return true;
+    var wrap = document.createElement('span');
+    wrap.className = 'hero-stars';
+    var link = document.createElement('a');
+    link.href = 'https://github.com/foxhound87/mobx-react-form';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    var img = document.createElement('img');
+    img.src = 'https://img.shields.io/github/stars/foxhound87/mobx-react-form?style=for-the-badge&logo=github&label=Stars&color=e11d48';
+    img.alt = 'GitHub stars';
+    link.appendChild(img);
+    wrap.appendChild(link);
+    actions.appendChild(wrap);
+    return true;
+  }
+
+  // Try immediately (SSR case)
+  if (!injectBadge()) {
+    // Vue might not have rendered yet — watch for it
+    var observer = new MutationObserver(function() {
+      if (injectBadge()) observer.disconnect();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    // Safety timeout
+    setTimeout(function() { observer.disconnect(); }, 5000);
+  }
+
+  // Framework grid items interactions
   document.addEventListener('DOMContentLoaded', function() {
     var items = document.querySelectorAll('#framework-grid .framework-item');
     if (!items.length) return;

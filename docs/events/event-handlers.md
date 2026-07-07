@@ -105,16 +105,18 @@ Use `onKeyDown(e)` or `onKeyUp(e)` to listen for keyboard events. These handlers
 />
 ```
 
-### Example: keyboard shortcuts with handlers
+### Example: keyboard shortcuts with hooks
 
-Unlike hooks, **handlers** use a curried pattern `(field) => (e) => { ... }` that gives you access to both the field instance and the native DOM event:
+Hooks receive both the field instance and the native DOM event when triggered by an event handler:
 
 ```javascript
-const handlers = {
+const fields = {
   search: {
-    onKeyDown: (field) => (e) => {
-      if (e.key === 'Enter') performSearch(field.value);
-      if (e.key === 'Escape') field.clear();
+    hooks: {
+      onKeyDown(field, e) {
+        if (e.key === 'Enter') performSearch(field.value);
+        if (e.key === 'Escape') field.clear();
+      },
     },
   },
 };
@@ -123,10 +125,12 @@ const handlers = {
 ### Example: autocomplete with onKeyUp
 
 ```javascript
-const handlers = {
+const fields = {
   search: {
-    onKeyUp: (field) => (e) => {
-      if (field.value.length >= 3) fetchSuggestions(field.value);
+    hooks: {
+      onKeyUp(field, e) {
+        if (field.value.length >= 3) fetchSuggestions(field.value);
+      },
     },
   },
 };
@@ -134,7 +138,7 @@ const handlers = {
 
 > Unlike `onChange` which fires on every value mutation, `onKeyDown`/`onKeyUp` fire on every keyboard event — including arrow keys, modifier keys, etc. Use them when you need raw keyboard access.
 
-> **Note:** Hooks receive only the field instance as parameter (`onKeyDown(field)`). If you need access to the native DOM event, use **handlers** with the curried pattern `(field) => (e) => { ... }` shown above.
+> **Note:** Hooks receive the field instance as the first parameter and the native DOM event as the second parameter (`onKeyDown(field, e)`) when triggered by an event handler. For hooks called directly from actions (e.g. `onInit`, `onClear`, `onReset`), only the field instance is passed.
 
 ---
 

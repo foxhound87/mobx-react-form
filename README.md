@@ -51,6 +51,7 @@
 - [Validation](docs/validation/)
 - [Advanced](docs/advanced/)
 - [Skills & AI Agent Guides](docs/skills.md)
+- [LLM Guide — AI Navigation](docs/LLMs.md)
 - [Recipes & Patterns](docs/recipes.md)
 - [Troubleshooting & FAQ](docs/troubleshooting.md)
 

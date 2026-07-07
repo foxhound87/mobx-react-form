@@ -35,7 +35,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/quick-start' },
-      { text: 'API', link: '/api-reference/form-properties' },
+      { text: 'API', link: '/api-reference/' },
       { text: 'Demo', link: 'https://foxhound87.github.io/mobx-react-form-demo/' },
       {
         text: 'Resources',
@@ -43,6 +43,7 @@ export default defineConfig({
           { text: 'NPM', link: 'https://www.npmjs.com/package/mobx-react-form' },
           { text: 'GitHub', link: 'https://github.com/foxhound87/mobx-react-form' },
           { text: 'Discord', link: 'https://discord.gg/CVV8w4zat4' },
+          { text: 'LLM Guide', link: '/LLMs' },
           { text: 'AI Skills', link: 'https://github.com/foxhound87/skills' },
           { text: 'Demo Code', link: 'https://github.com/foxhound87/mobx-react-form-demo' },
         ],
@@ -56,18 +57,20 @@ export default defineConfig({
     sidebar: [
       {
         text: 'Introduction',
+        link: '/',
         items: [
-          { text: 'Introduction', link: '/' },
           { text: 'Quick Start', link: '/quick-start' },
           { text: 'Quick Start (class)', link: '/quick-start-class' },
           { text: 'TypeScript Usage', link: '/typescript' },
           { text: 'DevTools', link: '/devtools' },
           { text: 'UMD Setup', link: '/umd-setup' },
           { text: 'AI Agent Skills', link: '/skills' },
+          { text: 'LLM Guide', link: '/LLMs' },
         ],
       },
       {
         text: 'API Reference',
+        link: '/api-reference/',
         items: [
           { text: 'Form Properties', link: '/api-reference/form-properties' },
           { text: 'Form Methods', link: '/api-reference/form-methods' },
@@ -95,19 +98,18 @@ export default defineConfig({
       {
         text: 'Fields',
         link: '/fields/',
-        collapsed: true,
         items: [
           { text: 'Flat Fields (Unified)', link: '/fields/#flat-unified-mode' },
           { text: 'Flat Fields (Separated)', link: '/fields/#flat-separated-mode' },
           { text: 'Nested Fields (Unified)', link: '/fields/#nested-unified-mode' },
           { text: 'Nested Fields (Separated)', link: '/fields/#nested-separated-mode' },
-          { text: 'Mixed Mode', link: '/fields/#mixed-mode-unified--separated' },
+          { text: 'Mixed Mode', link: '/fields/#mixed-mode-unified-separated' },
         ],
       },
       {
         text: 'Actions',
+        link: '/actions/',
         items: [
-          { text: 'Actions', link: '/actions/' },
           { text: 'Form Actions', link: '/actions/form' },
           { text: 'Navigation & Iteration', link: '/actions/shared' },
           { text: 'Get, Set & Update', link: '/actions/get-set' },
@@ -119,18 +121,36 @@ export default defineConfig({
       },
       {
         text: 'Events & Handlers',
+        link: '/events/',
         items: [
-          { text: 'Events & Handlers', link: '/events/' },
-          { text: 'Event Handlers', link: '/events/event-handlers' },
-          { text: 'Custom Event Handlers', link: '/events/event-handlers/constructor' },
-          { text: 'Extend Handlers Class', link: '/events/event-handlers/extending' },
-          { text: 'Event Hooks', link: '/events/event-hooks' },
-          { text: 'Custom Event Hooks', link: '/events/event-hooks/constructor' },
-          { text: 'Extend Hooks Class', link: '/events/event-hooks/extending' },
-          { text: 'Validation Hooks', link: '/events/validation-hooks' },
-          { text: 'Validation Init', link: '/events/validation-hooks/constructor' },
-          { text: 'Validation Extend', link: '/events/validation-hooks/extending' },
-          { text: 'Validation Override', link: '/events/validation-hooks/override' },
+          {
+            text: 'Event Handlers',
+            collapsed: true,
+            items: [
+              { text: 'Event Handlers', link: '/events/event-handlers' },
+              { text: 'Custom Event Handlers', link: '/events/event-handlers/constructor' },
+              { text: 'Extend Handlers Class', link: '/events/event-handlers/extending' },
+            ],
+          },
+          {
+            text: 'Event Hooks',
+            collapsed: true,
+            items: [
+              { text: 'Event Hooks', link: '/events/event-hooks' },
+              { text: 'Custom Event Hooks', link: '/events/event-hooks/constructor' },
+              { text: 'Extend Hooks Class', link: '/events/event-hooks/extending' },
+            ],
+          },
+          {
+            text: 'Validation Hooks',
+            collapsed: true,
+            items: [
+              { text: 'Validation Hooks', link: '/events/validation-hooks' },
+              { text: 'Validation Init', link: '/events/validation-hooks/constructor' },
+              { text: 'Validation Extend', link: '/events/validation-hooks/extending' },
+              { text: 'Validation Override', link: '/events/validation-hooks/override' },
+            ],
+          },
         ],
       },
       {
@@ -143,6 +163,7 @@ export default defineConfig({
       },
       {
         text: 'Advanced',
+        link: '/advanced/',
         items: [
           { text: 'Overview', link: '/advanced/' },
           { text: 'Sortable List', link: '/advanced/sortable' },
@@ -168,8 +189,8 @@ export default defineConfig({
       },
       {
         text: 'Extra',
+        link: '/extra/',
         items: [
-          { text: 'Overview', link: '/extra/' },
           { text: 'Computed Field Props', link: '/extra/computed-props' },
           { text: 'Input & Output Converters', link: '/extra/converters' },
           { text: 'Validated Value & Flat Map', link: '/extra/validated-value' },
@@ -221,7 +242,7 @@ export default defineConfig({
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2018 — now foxhound87',
+      copyright: '© 2016 — now<br><a href="https://github.com/foxhound87/" target="_blank" rel="noreferrer">foxhound87</a>',
     },
 
     socialLinks: [

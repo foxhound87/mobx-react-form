@@ -456,6 +456,40 @@ const fields = {
 };
 ```
 
+### Fields with Password Confirmation
+
+Use the `related` prop to re-validate the confirmation field when the password changes:
+
+```javascript
+const fields = {
+  password: {
+    label: 'Password',
+    type: 'password',
+    rules: 'required|string|min:8',
+    related: ['passwordConfirm'],   // re-validate confirm on password change
+  },
+  passwordConfirm: {
+    label: 'Confirm Password',
+    type: 'password',
+    validators: [shouldBeEqualTo('password')],
+  },
+};
+```
+
+> The `related` property on `password` tells the form to re-validate `passwordConfirm` every time the password value changes. This ensures the confirmation error message appears/disappears in real-time as the user types.
+> 
+> The `shouldBeEqualTo('password')` validator (custom VJF function) compares the confirmation value against the password field.
+
+```javascript
+// Custom validator function
+function shouldBeEqualTo(target) {
+  return ({ field, form }) => {
+    const match = form.$(target).value === field.value;
+    return [match, `${field.label} should be equal to ${form.$(target).label}`];
+  };
+}
+```
+
 ---
 
 ## Accessing Fields at Runtime

@@ -4,7 +4,7 @@ Event Hooks are called after Event Handlers or Actions. They let you react to st
 
 > **Lifecycle:** `User Input` → `Event Handler` / `Action` → `Mutate Store` → **Event Hook**
 
-> All hooks receive the current instance (Form or Field) as the first argument.
+> All hooks receive the current instance (Form or Field) as the first argument. When triggered by an event handler (e.g. `onChange`, `onKeyDown`, `onBlur`), the hook also receives the native DOM event as the second argument: `onChange(field, e)`.
 
 ---
 

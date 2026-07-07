@@ -23,14 +23,14 @@
   <!-- Form icon - checkmark -->
   <g filter="url(#glow)">
     <!-- Document outline -->
-    <rect x="70" y="62" width="60" height="76" rx="8" stroke="url(#icon-grad)" stroke-width="4" fill="none" opacity="0.95"/>
+    <rect x="65" y="48" width="70" height="88" rx="8" stroke="url(#icon-grad)" stroke-width="3" fill="none" opacity="0.9"/>
 
     <!-- Lines on document -->
-    <line x1="82" y1="80" x2="118" y2="80" stroke="url(#icon-grad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
-    <line x1="82" y1="94" x2="118" y2="94" stroke="url(#icon-grad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
-    <line x1="82" y1="108" x2="106" y2="108" stroke="url(#icon-grad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+    <line x1="78" y1="68" x2="122" y2="68" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+    <line x1="78" y1="80" x2="122" y2="80" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+    <line x1="78" y1="92" x2="110" y2="92" stroke="url(#icon-grad)" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
 
     <!-- Checkmark -->
-    <path d="M80 114 L92 126 L120 102" stroke="url(#icon-grad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M78 112 L92 126 L122 100" stroke="url(#icon-grad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   </g>
 </svg>
