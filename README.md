@@ -1,5 +1,4 @@
-
-### [Repo](https://github.com/foxhound87/mobx-react-form) &bull; [Documentation](https://foxhound87.github.io/mobx-react-form) &bull; [Live Demo](https://foxhound87.github.io/mobx-react-form-demo) &bull; [Demo Code](https://github.com/foxhound87/mobx-react-form-demo) &bull; [NPM](https://www.npmjs.com/package/mobx-react-form) &bull; [Skills](https://github.com/foxhound87/skills) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Discord Channel](https://discord.gg/CVV8w4zat4)
+### [Documentation](https://foxhound87.github.io/mobx-react-form) &bull; [Live Demo](https://foxhound87.github.io/mobx-react-form-demo) &bull; [Demo Code](https://github.com/foxhound87/mobx-react-form-demo) &bull; [NPM](https://www.npmjs.com/package/mobx-react-form) &bull; [Skills](https://github.com/foxhound87/skills) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Discord Channel](https://discord.gg/CVV8w4zat4)
 
 # MobX React Form
 
@@ -22,28 +21,26 @@
 [![Backers on Open Collective](https://opencollective.com/mobx-react-form/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/mobx-react-form/sponsors/badge.svg)](#sponsors)
 
-
 <br>
 
 ## Features
 
-- Extensibles [Validation Plugins](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html).
+- Extensibles [Validation Plugins](https://foxhound87.github.io/mobx-react-form/validation/plugins.html).
 - Sync & Async Validation (w/ Promises & automatic errors).
 - Nested Fields (w/ Serialization & Validation).
 - Nested Forms (w/ Nested Submission & Validation Hooks).
-- [Event Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/event-hooks.html), [Event Handlers](https://foxhound87.github.io/mobx-react-form/docs/events/event-handlers.html) & [Validation Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/validation-hooks.html)
-- Functional [Computed Field Props](https://foxhound87.github.io/mobx-react-form/docs/extra/computed-props.html)
-- Field Props [Observers & Interceptors](https://foxhound87.github.io/mobx-react-form/docs/extra/mobx-events.html)
-- Field [Props Bindings](https://foxhound87.github.io/mobx-react-form/docs/bindings/README.html) for custom Components.
+- [Event Hooks](https://foxhound87.github.io/mobx-react-form/events/event-hooks.html), [Event Handlers](https://foxhound87.github.io/mobx-react-form/events/event-handlers.html) & [Validation Hooks](https://foxhound87.github.io/mobx-react-form/events/validation-hooks.html)
+- Functional [Computed Field Props](https://foxhound87.github.io/mobx-react-form/extra/computed-props.html)
+- Field Props [Observers & Interceptors](https://foxhound87.github.io/mobx-react-form/extra/mobx-events.html)
+- Field [Props Bindings](https://foxhound87.github.io/mobx-react-form/bindings/README.html) for custom Components.
 - Support for Material UI, Ant Design, React Widgets, React Select, React Aria, Headless UI & more.
 - [AI Agent Skills](https://github.com/foxhound87/skills): installable guides for AI coding assistants
-- [Forms Composer](https://foxhound87.github.io/mobx-react-form/docs/extra/composer.html): to handle multi-forms submit, validations and other actions
+- [Forms Composer](https://foxhound87.github.io/mobx-react-form/extra/composer.html): to handle multi-forms submit, validations and other actions
 - Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
 
 <br>
 
 ## Quick Start
-
 
 [![Edit form-quickstart](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrrZgG8y4)
 
@@ -56,110 +53,118 @@ npm install --save mobx-react-form
 Below we are creating a `plugins` object using the `validatorjs` package to enable `DVR` functionalities (Declarative Validation Rules).
 
 ```javascript
-import dvr from 'mobx-react-form/lib/validators/DVR';
-import validatorjs from 'validatorjs';
+import dvr from "mobx-react-form/lib/validators/DVR";
+import validatorjs from "validatorjs";
 
 const plugins = {
   dvr: dvr({
-    package: validatorjs
-  })
+    package: validatorjs,
+  }),
 };
 ```
 
-> See [Validation Plugins](https://foxhound87.github.io/mobx-react-form/docs/validation/plugins.html) for more info on supported packages.
+> See [Validation Plugins](https://foxhound87.github.io/mobx-react-form/validation/plugins.html) for more info on supported packages.
 
 #### Define the Form Fields
 
 Define the `fields` as a collection with a `rules` property for the validation.
 
 ```javascript
-const fields = [{
-  name: 'email',
-  label: 'Email',
-  placeholder: 'Insert Email',
-  rules: 'required|email|string|between:5,25',
-}, {
-  name: 'password',
-  label: 'Password',
-  placeholder: 'Insert Password',
-  rules: 'required|string|between:5,25',
-  type: 'password',
-}, {
-  name: 'passwordConfirm',
-  label: 'Password Confirmation',
-  placeholder: 'Confirm Password',
-  rules: 'required|string|same:password',
-  type: 'password',
-}];
+const fields = [
+  {
+    name: "email",
+    label: "Email",
+    placeholder: "Insert Email",
+    rules: "required|email|string|between:5,25",
+  },
+  {
+    name: "password",
+    label: "Password",
+    placeholder: "Insert Password",
+    rules: "required|string|between:5,25",
+    type: "password",
+  },
+  {
+    name: "passwordConfirm",
+    label: "Password Confirmation",
+    placeholder: "Confirm Password",
+    rules: "required|string|same:password",
+    type: "password",
+  },
+];
 ```
 
-> See [Fields Definitions](https://foxhound87.github.io/mobx-react-form/docs/fields/) and all available [Field Props](https://foxhound87.github.io/mobx-react-form/docs/api-reference/fields-properties.html) on the docs.
+> See [Fields Definitions](https://foxhound87.github.io/mobx-react-form/fields/) and all available [Field Props](https://foxhound87.github.io/mobx-react-form/api-reference/fields-properties.html) on the docs.
 
 #### Define the Validation Hooks
 
 ```javascript
 const hooks = {
   onSuccess(form) {
-    alert('Form is valid! Send the request here.');
+    alert("Form is valid! Send the request here.");
     // get field values
-    console.log('Form Values!', form.values());
+    console.log("Form Values!", form.values());
   },
   onError(form) {
-    alert('Form has errors!');
+    alert("Form has errors!");
     // get all form errors
-    console.log('All form errors', form.errors());
-  }
-}
+    console.log("All form errors", form.errors());
+  },
+};
 ```
 
-> See more on the docs about the [Validation Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/validation-hooks.html) and the [Event Hooks](https://foxhound87.github.io/mobx-react-form/docs/events/event-hooks.html)
+> See more on the docs about the [Validation Hooks](https://foxhound87.github.io/mobx-react-form/events/validation-hooks.html) and the [Event Hooks](https://foxhound87.github.io/mobx-react-form/events/event-hooks.html)
 
 #### Initialize the Form
 
 Simply pass the `fields`, `plugins` and `hooks` objects to the constructor
 
 ```javascript
-import MobxReactForm from 'mobx-react-form';
+import MobxReactForm from "mobx-react-form";
 
 const myForm = new MobxReactForm({ fields }, { plugins, hooks });
 ```
 
-> Learn more on the docs about the [Form Instance](https://foxhound87.github.io/mobx-react-form/docs/form/) and the [Form Options](https://foxhound87.github.io/mobx-react-form/docs/form/form-options.html)
+> Learn more on the docs about the [Form Instance](https://foxhound87.github.io/mobx-react-form/form/) and the [Form Options](https://foxhound87.github.io/mobx-react-form/form/form-options.html)
 
 #### Pass the myForm to a react component
 
 The package provide some built-in and ready to use Event Handlers:
 
-`onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more...](https://foxhound87.github.io/mobx-react-form/docs/events/event-handlers.html)
+`onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more...](https://foxhound87.github.io/mobx-react-form/events/event-handlers.html)
 
 ```javascript
-import React from 'react';
-import { observer } from 'mobx-react';
+import React from "react";
+import { observer } from "mobx-react";
 
 export default observer(({ myForm }) => (
   <form onSubmit={myForm.onSubmit}>
-    <label htmlFor={myForm.$('email').id}>
-      {myForm.$('email').label}
-    </label>
-    <input {...myForm.$('email').bind()} />
-    <p>{myForm.$('email').error}</p>
+    <label htmlFor={myForm.$("email").id}>{myForm.$("email").label}</label>
+    <input {...myForm.$("email").bind()} />
+    <p>{myForm.$("email").error}</p>
 
     {/* ... other inputs ... */}
 
-    <button type="submit" onClick={myForm.onSubmit}>Submit</button>
-    <button type="button" onClick={myForm.onClear}>Clear</button>
-    <button type="button" onClick={myForm.onReset}>Reset</button>
+    <button type="submit" onClick={myForm.onSubmit}>
+      Submit
+    </button>
+    <button type="button" onClick={myForm.onClear}>
+      Clear
+    </button>
+    <button type="button" onClick={myForm.onReset}>
+      Reset
+    </button>
 
     <p>{myForm.error}</p>
   </form>
 ));
 ```
 
-> See more on the docs about the [Field Props Bindings](https://foxhound87.github.io/mobx-react-form/docs/bindings)
+> See more on the docs about the [Field Props Bindings](https://foxhound87.github.io/mobx-react-form/bindings)
 
 ###### Extending the Form class
 
-[See how to implement the same configuration of this quickstart extending the Form class](https://foxhound87.github.io/mobx-react-form/docs/quick-start-class.html)
+[See how to implement the same configuration of this quickstart extending the Form class](https://foxhound87.github.io/mobx-react-form/quick-start-class.html)
 
 <br>
 
@@ -182,18 +187,14 @@ These issues, and the ones which provides also PR with failing tests will get hi
 This project exists thanks to all the people who contribute.
 <a href="graphs/contributors"><img src="https://opencollective.com/mobx-react-form/contributors.svg?width=890&button=false" /></a>
 
-
 ### Backers
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/mobx-react-form#backer)]
 
 <a href="https://opencollective.com/mobx-react-form#backers" target="_blank"><img src="https://opencollective.com/mobx-react-form/backers.svg?width=890"></a>
 
-
 ### Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/mobx-react-form#sponsor)]
 
 <img src="https://opencollective.com/mobx-react-form/sponsors.svg"/>
-
-
