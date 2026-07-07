@@ -27,6 +27,21 @@ export default defineConfig({
         --vp-home-hero-image-filter: blur(68px);
       }
     `],
+    ['script', {}, `
+(function() {
+  var count = 0, timer = setInterval(function() {
+    var a = document.querySelector('.VPHomeHero .actions');
+    if (a && !a.querySelector('.hero-stars')) {
+      var w = document.createElement('span');
+      w.className = 'hero-stars';
+      w.innerHTML = '<a href="https://github.com/foxhound87/mobx-react-form" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/github/stars/foxhound87/mobx-react-form?style=for-the-badge&logo=github&label=Stars&color=e11d48" alt="GitHub stars"></a>';
+      a.appendChild(w);
+      clearInterval(timer);
+    }
+    if (++count > 50) clearInterval(timer);
+  }, 150);
+})();
+    `],
   ],
 
   themeConfig: {
