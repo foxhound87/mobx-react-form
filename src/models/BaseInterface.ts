@@ -30,7 +30,7 @@ export interface BaseInterface<F extends Record<string, any> = Record<string, an
   hasIncrementalKeys: boolean;
   hasNestedFields: boolean;
   size: number;
-  execHook(name: string, fallback?: any): any;
+  execHook(name: string, fallback?: any, ...args: any[]): any;
   execHandler(name: string, args: any, fallback?: any): any;
   intercept(opt: any): any;
   observe(opt: any): any;

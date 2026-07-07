@@ -338,4 +338,172 @@ describe("Field Event Handlers", () => {
       expect(result).to.be.an("array");
     });
   });
+
+  describe("Hook args passing — execHandler forwards args to execHook", () => {
+    it("should pass both field and keyboard event to onKeyDown hook", () => {
+      let receivedArgs: any[] = [];
+      const hookForm = new Form(
+        {
+          fields: {
+            search: {
+              value: "",
+              hooks: {
+                onKeyDown: (...args: any[]) => {
+                  receivedArgs = args;
+                },
+              },
+            },
+          },
+        },
+        { name: "HookArgsTest" },
+      );
+      const event = { key: "Enter", target: { value: "test" } };
+      hookForm.$("search").onKeyDown(event);
+      expect(receivedArgs).to.have.lengthOf(2);
+      expect(receivedArgs[0]).to.have.property("path", "search");
+      expect(receivedArgs[1]).to.have.property("key", "Enter");
+    });
+
+    it("should pass both field and keyboard event to onKeyUp hook", () => {
+      let receivedArgs: any[] = [];
+      const hookForm = new Form(
+        {
+          fields: {
+            search: {
+              value: "",
+              hooks: {
+                onKeyUp: (...args: any[]) => {
+                  receivedArgs = args;
+                },
+              },
+            },
+          },
+        },
+        { name: "HookArgsTest2" },
+      );
+      const event = { key: "Escape", target: { value: "test" } };
+      hookForm.$("search").onKeyUp(event);
+      expect(receivedArgs).to.have.lengthOf(2);
+      expect(receivedArgs[0]).to.have.property("path", "search");
+      expect(receivedArgs[1]).to.have.property("key", "Escape");
+    });
+
+    it("should pass both field and blur event to onBlur hook", () => {
+      let receivedArgs: any[] = [];
+      const hookForm = new Form(
+        {
+          fields: {
+            test: {
+              value: "x",
+              hooks: {
+                onBlur: (...args: any[]) => {
+                  receivedArgs = args;
+                },
+              },
+            },
+          },
+        },
+        { name: "BlurArgsTest" },
+      );
+      const event = { target: {} };
+      const field = hookForm.$("test");
+      field.onBlur(event);
+      expect(receivedArgs).to.have.lengthOf(2);
+      expect(receivedArgs[0]).to.have.property("path", "test");
+      expect(receivedArgs[1]).to.deep.equal(event);
+    });
+
+    it("should pass both field and files payload to onDrop hook", () => {
+      let receivedArgs: any[] = [];
+      const hookForm = new Form(
+        {
+          fields: {
+            avatar: {
+              type: "file",
+              hooks: {
+                onDrop: (...args: any[]) => {
+                  receivedArgs = args;
+                },
+              },
+            },
+          },
+        },
+        { name: "DropArgsTest" },
+      );
+      const file = { name: "photo.jpg", size: 100 };
+      hookForm.$("avatar").onDrop(file);
+      expect(receivedArgs).to.have.lengthOf(2);
+      expect(receivedArgs[0]).to.have.property("path", "avatar");
+      expect(receivedArgs[1]).to.deep.equal(file);
+    });
+
+    it("should pass only field to onInit hook (called directly, not via execHandler)", () => {
+      let receivedArgs: any[] = [];
+      new Form(
+        {
+          fields: {
+            test: {
+              value: "x",
+              hooks: {
+                onInit: (...args: any[]) => {
+                  receivedArgs = args;
+                },
+              },
+            },
+          },
+        },
+        { name: "InitNoArgsTest" },
+      );
+      expect(receivedArgs).to.have.lengthOf(1);
+      expect(receivedArgs[0]).to.have.property("path", "test");
+    });
+
+    it("should pass only field to onClear hook (called directly, not via execHandler)", () => {
+      let receivedArgs: any[] = [];
+      const hookForm = new Form(
+        {
+          fields: {
+            test: {
+              value: "x",
+              hooks: {
+                onClear: (...args: any[]) => {
+                  receivedArgs = args;
+                },
+              },
+            },
+          },
+        },
+        { name: "ClearNoArgsTest" },
+      );
+      hookForm.$("test").clear();
+      expect(receivedArgs).to.have.lengthOf(1);
+      expect(receivedArgs[0]).to.have.property("path", "test");
+    });
+
+    it("should pass multiple event args to hooks (onAdd with event + value)", () => {
+      let receivedArgs: any[] = [];
+      const hookForm = new Form(
+        {
+          fields: {
+            members: {
+              fields: [],
+              hooks: {
+                onAdd: (...args: any[]) => {
+                  receivedArgs = args;
+                },
+              },
+            },
+          },
+        },
+        { name: "MultiArgsTest" },
+      );
+      const event = { preventDefault: () => {} };
+      const val = { name: "John" };
+      hookForm.$("members").onAdd(event, val);
+      expect(receivedArgs).to.have.lengthOf(3);
+      expect(receivedArgs[0]).to.have.property("path", "members");
+      expect(receivedArgs[1]).to.deep.equal(event);
+      expect(receivedArgs[2]).to.deep.equal(val);
+    });
+  });
 });

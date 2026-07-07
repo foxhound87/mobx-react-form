@@ -113,8 +113,8 @@ export default abstract class Base<
     });
   }
 
-  execHook = (name: string, fallback: any = {}): any =>
-    $try(fallback[name], this.$hooks[name], this.noop).apply(this, [this]);
+  execHook = (name: string, fallback: any = {}, ...args: any[]): any =>
+    $try(fallback[name], this.$hooks[name], this.noop).apply(this, [this, ...args]);
 
   execHandler = (
     name: string,
@@ -128,7 +128,7 @@ export default abstract class Base<
       fallback,
       this.noop,
     ).apply(this, [...args]),
-    execHook && this.execHook(hook || name),
+    execHook && this.execHook(hook || name, {}, ...args),
   ];
 
   get resetting(): boolean {

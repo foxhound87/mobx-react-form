@@ -1,3 +1,8 @@
+# 6.18.0 (master)
+
+- feat: `execHandler` now forwards DOM event args to hooks via `execHook` — hooks can receive `(field, event)` instead of only `(field)`
+- test: add 7 tests for hook args passing (onKeyDown, onKeyUp, onBlur, onDrop, onAdd + regression on onInit/onClear)
+
 # 6.17.0 (master)
 
 - feat: `add()` now accepts flat objects as nested field values (no `value` wrapper needed for nested structs)
