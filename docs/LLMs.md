@@ -1,6 +1,6 @@
 # Guide for AI Agents (LLMs)
 
-A concise navigation guide for LLMs and AI coding agents reading the MobX React Form documentation.
+A concise guide for LLMs working with **MobX React Form** — the reactive MobX form state management library.
 
 ---
 
@@ -13,282 +13,683 @@ A concise navigation guide for LLMs and AI coding agents reading the MobX React 
 | **GitHub** | [github.com/foxhound87/mobx-react-form](https://github.com/foxhound87/mobx-react-form) |
 | **Docs** | [foxhound87.github.io/mobx-react-form](https://foxhound87.github.io/mobx-react-form/) |
 | **Version** | 6.x (current: 6.18.0) |
-| **License** | MIT |
 | **Size** | ~8KB gzip (tree-shakeable) |
-| **Dependencies** | MobX (peer dependency), React (optional — can be used headless) |
+| **License** | MIT |
+| **Dependencies** | MobX (peer), lodash, React (optional) |
 
 ---
 
-## 2. Architecture
+## 2. Philosophy
+
+MobX React Form is built on three core principles:
+
+1. **Reactive by default** — Every field is a MobX observable. Form state (value, error, dirty, touched, etc.) is reactive. Your UI updates automatically with `observer()` — no manual `setState`, no change handlers to write.
+
+2. **Composable by design** — Fields nest infinitely (objects, arrays, arrays of arrays). Forms compose via `composer()` for wizards and multi-step flows. `ArrayMap` preserves insertion order for dynamic lists.
+
+3. **Plugin-driven validation** — 6 validation drivers (DVR, VJF, SVK, YUP, JOI, ZOD) share a uniform lifecycle. Swap or combine them without changing field definitions.
+
+The result: you define your form structure declaratively, and reactivity, validation, change tracking, and UI bindings are automatic.
+
+---
+
+## 3. Architecture
 
 ```
-npm install mobx-react-form
-         │
-    ┌────┴────┐
-    │  Form   │  ← main class you instantiate
-    └────┬────┘
-         │ creates
-    ┌────┴────┐
-    │  Field  │  ← wraps each form field, extends Base
-    └────┬────┘
-         │
-    ┌────┴────────┐
-    │  Bindings   │  ← maps field props → component props
-    └─────────────┘
+┌──────────────────────────────────────────────────────┐
+│                      Form                            │
+│  entry point — creates fields, runs validation,      │
+│  manages form-level computed state (isValid, error)  │
+├──────────────────────────────────────────────────────┤
+│  fields: ArrayMap<Field>       validator: Validator  │
+│  $hooks / $handlers            options: Options      │
+│  state: State (initial/current props, struct, etc.)  │
+└──────────────────────┬───────────────────────────────┘
+                       │ creates
+┌──────────────────────┴───────────────────────────────┐
+│                      Field                            │
+│  wraps each form input — value, validation, events    │
+├──────────────────────────────────────────────────────┤
+│  $value (observable)   errorSync / errorAsync         │
+│  $focused / $blurred / $touched / $changed            │
+│  $label / $placeholder / $disabled / $rules           │
+│  $hooks / $handlers    $observers / $interceptors     │
+│  $converter / $input / $output                        │
+│  fields: ArrayMap (nested sub-fields)                 │
+└──────────────────────┬───────────────────────────────┘
+                       │ shared via Base
+┌──────────────────────┴───────────────────────────────┐
+│                      Base                             │
+│  $(), get(), set(), validate(), submit(), add(),      │
+│  del(), update(), clear(), reset(), each(), map()     │
+│  execHook(), execHandler()                            │
+│  onClear(), onReset(), onSubmit(), onAdd(), onDel()   │
+└──────────────────────────────────────────────────────┘
 ```
 
-### Core Classes
+### Supporting Classes
 
-- **`Form`** — entry point. Accepts field definitions + options + plugins.
-- **`Field`** — individual field instance. Holds value, validation state, event handlers.
-- **`Base`** — shared methods for both Form and Field (`$()`, `get()`, `set()`, `validate()`, etc.).
-- **`Options`** — form-level configuration (validation triggers, debounce, softDelete, etc.).
-- **`Validator`** — plugin driver that runs validation rules.
-- **`Bindings`** — mapping layer between Field props and UI component props.
+| Class | Role |
+|-------|------|
+| **`Validator`** | Runs validation across all enabled drivers. Manages `validate()`, `validateField()`, `validateRelatedFields()`. |
+| **`Options`** | 40+ form-level configuration flags (validation triggers, debounce, strict modes, converters, soft delete, etc.). |
+| **`Bindings`** | Maps field props → component props via rewriters (simple key mapping) or templates (function-based). |
+| **`State`** | Holds initial, current, and struct data. Bridges field → form during initialization. |
+| **`ArrayMap`** | Ordered key-value collection (backed by observable array). Supports `move(from, to)` for sortable lists. |
+| **`composer()`** | Utility function for orchestrating multiple Form instances (wizards, multi-step flows). |
 
-### Constructor
+---
+
+## 4. Key Concepts
+
+### 4.1 Form
+
+The entry point. Instantiated with field definitions + config:
 
 ```javascript
-const form = new Form(
-  { fields, values, labels, rules, ... },   // first arg: field definitions
-  { plugins, hooks, options }               // second arg: config
-);
-```
-
----
-
-## 3. Documentation Map (for quick lookup)
-
-When an LLM needs to answer a question, use this table to find the right page:
-
-| If the user asks about... | Open this page |
-|---------------------------|----------------|
-| Installation & first form | [`quick-start.md`](./quick-start.md) |
-| Class-based setup | [`quick-start-class.md`](./quick-start-class.md) |
-| Field definitions (flat/nested/unified/separated) | [`fields/index.md`](./fields/index.md) |
-| Form options (validateOnChange, softDelete, etc.) | [`form/form-options.md`](./form/form-options.md) |
-| Form initialization | [`form/form-initialization.md`](./form/form-initialization.md) |
-| All form properties (isValid, error, size...) | [`api-reference/form-properties.md`](./api-reference/form-properties.md) |
-| All form methods (validate, submit, clear...) | [`api-reference/form-methods.md`](./api-reference/form-methods.md) |
-| All field properties (value, error, touched...) | [`api-reference/fields-properties.md`](./api-reference/fields-properties.md) |
-| All field methods (bind, set, validate...) | [`api-reference/fields-methods.md`](./api-reference/fields-methods.md) |
-| Getting/setting values | [`actions/get-set.md`](./actions/get-set.md) |
-| Add/delete/move dynamic fields | [`actions/add-del.md`](./actions/add-del.md) |
-| Validation & submit actions | [`actions/validate.md`](./actions/validate.md) |
-| Clear, reset, focus | [`actions/clear-reset.md`](./actions/clear-reset.md) |
-| Navigation & iteration ($, map, each) | [`actions/shared.md`](./actions/shared.md) |
-| Helper methods (values(), errors(), etc.) | [`actions/helpers.md`](./actions/helpers.md) |
-| Event handlers (onChange, onFocus, etc.) | [`events/event-handlers.md`](./events/event-handlers.md) |
-| Event hooks (onInit, hooks lifecycle) | [`events/event-hooks.md`](./events/event-hooks.md) |
-| Validation hooks (onSuccess, onError) | [`events/validation-hooks.md`](./events/validation-hooks.md) |
-| Custom event handlers | [`events/event-handlers/constructor.md`](./events/event-handlers/constructor.md) |
-| Custom event hooks | [`events/event-hooks/constructor.md`](./events/event-hooks/constructor.md) |
-| Extend handlers class | [`events/event-handlers/extending.md`](./events/event-handlers/extending.md) |
-| Extend hooks class | [`events/event-hooks/extending.md`](./events/event-hooks/extending.md) |
-| Validation lifecycle | [`validation/lifecycle.md`](./validation/lifecycle.md) |
-| Choosing a validation plugin | [`validation/index.md`](./validation/index.md) |
-| Setup VJF (vanilla functions) | [`validation/plugins/VJF/setup.md`](./validation/plugins/VJF/setup.md) |
-| Setup DVR (declarative rules) | [`validation/plugins/DVR/setup.md`](./validation/plugins/DVR/setup.md) |
-| Setup SVK (JSON Schema) | [`validation/plugins/SVK/setup.md`](./validation/plugins/SVK/setup.md) |
-| Setup YUP | [`validation/plugins/YUP/setup.md`](./validation/plugins/YUP/setup.md) |
-| Setup JOI | [`validation/plugins/JOI/setup.md`](./validation/plugins/JOI/setup.md) |
-| Setup ZOD | [`validation/plugins/ZOD/setup.md`](./validation/plugins/ZOD/setup.md) |
-| Extend validators (VJF/DVR/SVK) | [`validation/plugins/VJF/extend.md`](./validation/plugins/VJF/extend.md) (also DVR, SVK variants) |
-| Async validation | [`validation/plugins/VJF/async.md`](./validation/plugins/VJF/async.md) (also DVR, SVK variants) |
-| Bindings (default & custom) | [`bindings/index.md`](./bindings/index.md) |
-| Custom bindings for MUI/AntD | [`bindings/custom.md`](./bindings/custom.md) |
-| Default bindings reference | [`bindings/default.md`](./bindings/default.md) |
-| TypeScript usage & type inference | [`typescript.md`](./typescript.md) |
-| Observers & Interceptors | [`advanced/observers.md`](./advanced/observers.md) & [`advanced/interceptors.md`](./advanced/interceptors.md) |
-| Reactive computed props | [`extra/computed-props.md`](./extra/computed-props.md) |
-| Input/Output converters | [`extra/converters.md`](./extra/converters.md) |
-| Validated Value | [`extra/validated-value.md`](./extra/validated-value.md) |
-| MobX observe/intercept | [`extra/mobx-events.md`](./extra/mobx-events.md) |
-| Forms Composer (multi-form) | [`extra/composer.md`](./extra/composer.md) |
-| Sortable lists | [`advanced/sortable.md`](./advanced/sortable.md) |
-| Wizard (multi-step) | [`advanced/wizard.md`](./advanced/wizard.md) |
-| File upload | [`advanced/file-upload.md`](./advanced/file-upload.md) |
-| Cross validation | [`advanced/cross-validation.md`](./advanced/cross-validation.md) |
-| Nested composition | [`advanced/nested-composition.md`](./advanced/nested-composition.md) |
-| Markdown editor | [`advanced/markdown.md`](./advanced/markdown.md) |
-| ArrayMap | [`advanced/array-map.md`](./advanced/array-map.md) |
-| Extend Form & Field class | [`form/extend/generic.md`](./form/extend/generic.md) |
-| Extend custom Field class | [`form/extend/custom.md`](./form/extend/custom.md) |
-| Extend in field definitions | [`form/extend/configure.md`](./form/extend/configure.md) |
-| Recipes & patterns | [`recipes.md`](./recipes.md) |
-| Error handling | [`error-handling.md`](./error-handling.md) |
-| Performance & SSR | [`performance-ssr.md`](./performance-ssr.md) |
-| Troubleshooting & FAQ | [`troubleshooting.md`](./troubleshooting.md) |
-| Migration guide | [`migration-guide.md`](./migration-guide.md) |
-| DevTools | [`devtools.md`](./devtools.md) |
-| UMD setup (vanilla JS) | [`umd-setup.md`](./umd-setup.md) |
-| AI agent skills | [`skills.md`](./skills.md) |
-
----
-
-## 4. Key Concepts & Vocabulary
-
-| Term | Meaning |
-|------|---------|
-| **Unified Mode** | All field props in a single object per field |
-| **Separated Mode** | Props split across parallel objects (values, labels, rules...) |
-| **Mixed Mode** | Combine both modes; unified overrides separated |
-| **Flat Fields** | Single-level form fields |
-| **Nested Fields** | Fields nested in objects/arrays, accessed via dot notation |
-| **DVR** | Declarative Validation Rules (string rules like `'required\|email'`) |
-| **VJF** | Vanilla JavaScript Functions (custom validator functions) |
-| **SVK** | JSON Schema Validation Keywords |
-| **Bindings** | Mapping field props to UI component props via `field.bind()` |
-| **Rewriter** | Simple object mapping prop names (e.g., `label` → `floatingLabelText`) |
-| **Template** | Function that builds output props object (full control) |
-| **Hooks** | Lifecycle callbacks (`onInit`, `onChange`, `onSuccess`, `onError`, etc.) |
-| **Handlers** | Event handler functions (`onChange`, `onFocus`, `onKeyDown`, etc.) |
-| **Related Fields** | Fields that trigger re-validation of other fields (`related: ['passwordConfirm']`) |
-| **Soft Delete** | Mark fields as deleted without removing them (requires `softDelete: true` option) |
-| **Fallback** | Option to resolve field props outside strict `struct`/`fields` definition (default: `true`) |
-| **$()** | Universal field selector — `form.$('path')` or `field.$('subpath')` |
-| **ArrayMap** | Utility for deeply nested dynamic arrays with MobX observable tracking |
-
----
-
-## 5. Core Patterns
-
-### Creating a Form
-
-```javascript
-import { Form } from 'mobx-react-form';
-import dvr from 'mobx-react-form/lib/validators/DVR';
-import validatorjs from 'validatorjs';
-
 const form = new Form(
   { fields: [{ name: 'email', label: 'Email', rules: 'required|email' }] },
-  { plugins: { dvr: dvr({ package: validatorjs }) } }
+  { plugins: { dvr: dvr({ package: validatorjs }) }, hooks: { onSuccess(form) { ... } } }
 );
 ```
 
-### Accessing Fields
-
-```javascript
-form.$('email');                    // → Field instance
-form.$('address.city');            // nested via dot notation
-form.$('members[0].firstname');    // array element by index
+**Constructor signature:**
+```
+Form(setup: FieldsDefinitions, config: FormConfig)
 ```
 
-### Reading/Writing Values
+| Config key | Type | Purpose |
+|------------|------|---------|
+| `plugins` | `{ dvr?, vjf?, svk?, yup?, zod?, joi? }` | Validation drivers |
+| `hooks` | `{ onInit?, onChange?, onSuccess?, onError?, ... }` | Lifecycle callbacks |
+| `handlers` | `{ onSubmit?, onKeyDown?, ... }` | Custom event handlers (curried) |
+| `options` | `OptionsModel` | Form behavior flags |
+| `bindings` | `Record<string, Rewriter | Template>` | Custom bindings for UI libs |
+| `extra` | `Record<string, any>` | Arbitrary metadata |
+| `name` | `string` | Form name for debugging |
+
+### 4.2 Field
+
+Represents a single form input. Observable properties drive UI reactivity:
+
+**Core props:** `value`, `initial`, `default`, `label`, `placeholder`, `type`, `bindings`, `extra`, `options`, `related`, `rules`, `validators`, `disabled`, `deleted`, `autoFocus`, `inputMode`, `ref`, `nullable`, `autoComplete`
+
+**Computed state:** `error`, `isValid`, `isDirty`, `isPristine`, `isEmpty`, `isDefault`, `hasError`, `focused`, `blurred`, `touched`, `validatedValue`, `checked`, `changed`, `validating`, `submitting`, `clearing`, `resetting`, `actionRunning`
+
+**Converters:** `$converter` (value transform), `$input` (apply on input), `$output` (apply on output via `values()`)
+
+### 4.3 Nested Fields
+
+Fields can contain sub-fields — infinitely nestable. Accessed via dot notation:
 
 ```javascript
-form.$('email').value;             // get
-form.$('email').set('new@email');  // set
-form.values();                     // all values as plain object
-form.set('email', 'new@email');    // set via form
+// Definition
+{ name: 'address', fields: [
+  { name: 'city', rules: 'required' },
+  { name: 'zip', rules: 'required|digits:5' }
+]}
+
+// Access
+form.$('address');              // Field (container)
+form.$('address.city');         // Field (nested)
+form.values();                  // { address: { city: '...', zip: '...' } }
+
+// Arrays
+{ name: 'members', fields: [
+  { name: '0', fields: [{ name: 'name' }, { name: 'email' }] }
+]}
+form.$('members[0]');           // Field
+form.$('members[0].name');      // nested inside array element
+form.$('members[].name');       // applies to all array elements
 ```
 
-### Validation
+**ArrayMap** provides ordered key-value storage with array-like operations (`move(from, to)` for sortable lists) while exposing the full Map API.
+
+### 4.4 Computed (Functional) Props
+
+Any field prop can be a function that receives `{ field, form }` and returns a reactive value:
 
 ```javascript
-form.validate();                   // validate all fields
-form.$('email').validate();        // validate single field
-form.submit();                     // validate + call onSuccess/onError
-form.$('email').validate({ related: true });  // validate field + related fields
-form.check();                      // check-only (no error display)
-form.showErrors();                 // show all validation errors
-form.invalidate('email', 'Custom error');  // manually set error
+const fields = [{
+  name: 'total',
+  value: ({ field, form }) =>
+    form.$('items').values().reduce((sum, item) => sum + item.price * item.qty, 0),
+  disabled: ({ field, form }) => !form.$('items').values().length,
+}];
 ```
 
-### Event Hooks vs Handlers
+Computed props re-evaluate automatically when their dependencies (MobX observables they read) change. Available on: `value`, `label`, `placeholder`, `disabled`, `rules`, `related`, `bindings`, `extra`, `options`, `deleted`, `autoFocus`, `inputMode`, and all `computed` fields.
 
-- **Handlers** (`onSubmit`, `onChange`, `onFocus`, etc.) are methods on the Field. They receive `(event)` and are passed directly to DOM elements via `field.bind()`.
-- **Hooks** (`onChange(field, e)`, `onInit(field)`, `onSuccess(form)`, etc.) are lifecycle callbacks you define. When triggered by a handler, hooks receive `(field, event)`. When called directly from actions, hooks receive only `(field)`.
+### 4.5 Hooks
 
-Example:
+Lifecycle callbacks. You define them in the form config or in field definitions:
+
 ```javascript
 const hooks = {
-  onSuccess(form) { console.log(form.values()); },
-  onError(form) { console.log(form.errors()); },
-};
+  // Form lifecycle
+  onInit(form) { ... },                         // After form creation
+  onChange(form) { ... },                       // On any field value change
 
+  // Submit lifecycle
+  onSuccess(form) { ... },                      // Validation passed
+  onError(form) { ... },                        // Validation failed
+  onSubmit(form) { ... },                       // Before validation
+
+  // Field lifecycle
+  onChange(field, event) { ... },               // Field value changed
+  onBlur(field, event) { ... },                 // Field lost focus
+  onFocus(field, event) { ... },                // Field gained focus
+  onClear(field) { ... },                       // Field cleared
+  onReset(field) { ... },                       // Field reset
+  onAdd(field) { ... },                         // Field added dynamically
+  onDel(field) { ... },                         // Field removed dynamically
+};
+```
+
+**Important:** Hooks receive `(field, event)` when triggered by event handlers, but only `(field)` when called directly from actions.
+
+### 4.6 Handlers
+
+Event handler functions passed to DOM elements via `field.bind()`. Custom handlers are **curried**: `(field) => (event) => {}`:
+
+```javascript
 const handlers = {
   onKeyDown: (field) => (e) => {
     if (e.key === 'Enter') field.submit();
   },
-};
-```
-
-### Field Bindings
-
-```jsx
-<input {...form.$('email').bind()} />
-// Equivalent to:
-<input
-  id="email"
-  name="email"
-  type="text"
-  value="..."
-  placeholder="..."
-  disabled={...}
-  onChange={field.onChange}
-  onBlur={field.onBlur}
-  ...
-/>
-```
-
-### Custom Bindings (for UI libraries)
-
-```javascript
-const customBindings = {
-  MaterialTextField: {
-    rewriter: { label: 'floatingLabelText', placeholder: 'hintText' },
+  onSubmit: (form) => (e) => {
+    e.preventDefault();
+    console.log('submitted');
   },
 };
-
-const form = new Form(
-  { fields: [{ name: 'email', bindings: 'MaterialTextField' }] },
-  { options: { bindings: customBindings } }
-);
 ```
 
----
+Built-in handlers on Field: `onChange` (aliased as `onSync`), `onBlur`, `onFocus`, `onKeyDown`, `onKeyUp`, `onToggle`, `onDrop`.
 
-## 6. Important Gotchas
+Built-in handlers on Form/Base: `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDel`.
 
-| Gotcha | Detail |
-|--------|--------|
-| **Hooks args** | Hooks receive `(field, event)` when triggered by event handlers, but only `(field)` when called directly from actions. |
-| **`stopValidationOnError`** | When `true`, validation stops at the first plugin that finds an error. |
-| **`submitThrowsError`** | When `true` (default), `submit()` throws on validation error — wrap in try/catch. |
-| **SoftDelete** | Requires `softDelete: true` option. Fields are not removed from the form but are excluded from `values()`. |
-| **`field.ref`** | After `field.bind()` renders, `field.$ref` holds the DOM node reference. |
-| **`field.validatedValue`** | Returns the value after converters are applied. |
-| **`fallback` option** | When `true` (default), fields missing from `struct`/`fields` are auto-created from other props (values, labels, etc.). |
-| **Separated mode auto-create** | Providing `values` without `fields` array implicitly creates fields. |
-| **Array notation** | `members[]` in dot notation applies to all array elements. `members[].hobbies[]` is deeply nested arrays. |
-| **Multiple plugins** | Enable multiple plugins; order is configurable via `validationPluginsOrder`. |
+### 4.7 Validation Drivers
 
----
+Six plugins sharing a uniform lifecycle. Enable one or more:
 
-## 7. Quick Reference — Validation Plugins
+```javascript
+import dvr from 'mobx-react-form/lib/validators/DVR';
+import vjf from 'mobx-react-form/lib/validators/VJF';
+import yupPlugin from 'mobx-react-form/lib/validators/YUP';
+import joiPlugin from 'mobx-react-form/lib/validators/JOI';
+import zodPlugin from 'mobx-react-form/lib/validators/ZOD';
+import svk from 'mobx-react-form/lib/validators/SVK';
+```
 
 | Driver | Rules Format | Async | Extend | Best For |
 |--------|-------------|-------|--------|----------|
-| **VJF** | Custom functions | ✅ | ✅ | Full control |
-| **DVR** | String rules (`'required\|email'`) | ✅ | ✅ | Simple forms |
-| **SVK** | JSON Schema | ✅ | ✅ | API compatibility |
+| **DVR** | String rules (`'required\|email'`) | ✅ | ✅ | Simple forms, quick setup |
+| **VJF** | Custom functions `() => [bool, msg]` | ✅ | ✅ | Full control, complex logic |
+| **SVK** | JSON Schema | ✅ | ✅ | API compatibility, schema-first |
 | **YUP** | `y.string().required()` | ❌ | ❌ | Modern JS/TS |
-| **JOI** | `j.string().required()` | ❌ | ❌ | Enterprise |
+| **JOI** | `j.string().required()` | ❌ | ❌ | Enterprise, rich rules |
 | **ZOD** | `z.string().min(3)` | ❌ | ❌ | TypeScript-native |
+
+**Example — enable DVR + VJF together:**
+```javascript
+const plugins = {
+  dvr: dvr({ package: validatorjs }),
+  vjf: vjf(),
+};
+```
+
+Control order via `options.validationPluginsOrder: ['vjf', 'dvr']`.
+
+### 4.8 Bindings
+
+`field.bind()` returns props for your UI component. Two strategies:
+
+**Default bindings** (text input → `{ id, name, type, value, onChange, onBlur, ... }`):
+```jsx
+<input {...form.$('email').bind()} />
+```
+
+**Rewriters** — simple key mapping for UI libraries:
+```javascript
+const bindings = {
+  MaterialTextField: { label: 'floatingLabelText', placeholder: 'hintText' },
+};
+// Then: <TextField {...form.$('email').bind()} />
+```
+
+**Templates** — full control with a function:
+```javascript
+const bindings = {
+  CustomSelect: ({ field, form, keys, props, $try }) => ({
+    value: field.value,
+    onChange: (e, val) => (field.value = val),
+    error: field.error,
+    options: field.extra.options,
+  }),
+};
+```
+
+### 4.9 Options
+
+40+ configuration flags. Set via `options` in the form config:
+
+| Group | Key Options |
+|-------|-------------|
+| **Validation triggers** | `validateOnInit` (true), `validateOnBlur` (true), `validateOnChange` (false), `validateOnSubmit` (true), `validateOnClear` (false), `validateOnReset` (false) |
+| **Error display** | `showErrorsOnInit` (false), `showErrorsOnBlur` (true), `showErrorsOnChange` (true), `showErrorsOnSubmit` (true), `showErrorsOnClear` (false), `showErrorsOnReset` (true) |
+| **Debounce** | `validationDebounceWait` (250ms), `validationDebounceOptions` `{ leading: false, trailing: true }` |
+| **Strict modes** | `strictSelect` (true), `strictDelete` (true), `strictSet` (false), `strictUpdate` (false) |
+| **Converters** | `applyInputConverterOnInit` (true), `applyInputConverterOnSet` (true), `applyInputConverterOnUpdate` (true) |
+| **Retrieval** | `retrieveOnlyDirtyFieldsValues` (false), `retrieveOnlyEnabledFieldsValues` (false), `softDelete` (false), `retrieveNullifiedEmptyStrings` (false), `removeNullishValuesInArrays` (false) |
+| **Validation** | `stopValidationOnError` (false), `resetValidationBeforeValidate` (true), `validateDisabledFields` (false), `validateDeletedFields` (false), `validatePristineFields` (true), `validationPluginsOrder` (undefined) |
+| **Other** | `submitThrowsError` (true), `defaultGenericError` (null), `fallback` (true), `fallbackValue` (''), `autoTrimValue` (false), `autoParseNumbers` (false), `bubbleUpErrorMessages` (false), `preserveDeletedFieldsValues` (false) |
+
+Options can be overridden **per-field** via `field.$options`:
+
+```javascript
+const fields = [{
+  name: 'email',
+  options: { validateOnChange: true, validationDebounceWait: 500 }
+}];
+```
+
+### 4.10 Field Definition Modes
+
+**Unified mode** — all props in one object per field:
+```javascript
+const fields = [{ name: 'email', label: 'Email', rules: 'required|email', value: 'test@test.com' }];
+```
+
+**Separated mode** — props split across parallel objects:
+```javascript
+const fields = {
+  struct: ['email'],
+  values: { email: 'test@test.com' },
+  labels: { email: 'Email' },
+  rules:  { email: 'required|email' },
+};
+```
+
+**Mixed mode** — unified overrides separated. Any combination works.
+
+### 4.11 Field Converters
+
+Three levels of value transformation:
+
+- **`$converter`** — transforms the raw value whenever it's set (e.g., uppercase, trim)
+- **`$input`** — applied when value comes from user input (via `sync`, `onChange`, `update`, `set`)
+- **`$output`** — applied when value is read via `values()`, `flatMapValues`, or `get('value')`
+
+Apply via field definition:
+```javascript
+{
+  name: 'email',
+  input: (val) => val.toLowerCase().trim(),
+  output: (val) => val ? `***@${val.split('@')[1]}` : '',
+  converter: (val) => val?.toUpperCase(),
+}
+```
 
 ---
 
-## 8. Related Repositories
+## 5. Core API Reference
+
+### 5.1 Field Selection
+
+```javascript
+form.$('email');                        // typed: Field<EmailType>
+form.$('address.city');                 // nested by dot notation
+form.$('members[0].name');              // array by index
+form.$('members[].name');               // returns Field for first element
+form.select('email');                   // untyped variant
+form.has('email');                      // boolean check
+form.$('email').$('nestedField');       // relative selection from a field
+```
+
+### 5.2 Getting / Setting Values
+
+```javascript
+// Single
+form.$('email').value;                  // get
+form.$('email').value = 'new@test.com'; // set via setter
+form.$('email').set('new@test.com');    // set via method
+form.set('email', 'new@test.com');      // set via form
+
+// Bulk
+form.values();                          // { email: '...', address: { city: '...' } }
+form.update({ email: 'new@test.com', address: { city: 'New York' } });  // nested
+form.get('value');                      // same as values()
+form.get('error');                      // { email: '...', address: { city: '...' } }
+form.errors();                          // same
+form.get(['value', 'error']);           // { email: { value: '...', error: '...' } }
+form.$('email').get(['value', 'error']); // { value: '...', error: '...' }
+
+// Field-level
+field.value;                            // get
+field.value = 'new';                    // set
+field.initial;                          // original value
+field.default;                          // default value
+field.validatedValue;                   // value after converters applied
+```
+
+### 5.3 Validation
+
+```javascript
+// Validate all fields
+await form.validate();
+await form.validate({ showErrors: true, related: true });
+
+// Submit (validate + hooks)
+await form.submit();                    // calls onSuccess or onError
+await form.submit({ onSuccess, onError }, { validate: true });
+
+// Single field
+await form.$('email').validate();
+await form.$('email').validate({ related: true });  // validates related fields too
+
+// Manual error
+form.$('email').invalidate('Custom error');
+form.invalidate('Form-level error');
+
+// Control error display
+form.showErrors(true);                  // show all errors
+form.$('email').showErrors(false);      // hide specific field error
+form.check();                           // check without displaying errors
+```
+
+### 5.4 Dynamic Fields
+
+```javascript
+form.add({ name: 'newField', value: 'test' });       // add a field
+form.add({ name: 'guest', fields: [{ name: 'email' }] }); // add nested field
+form.del('oldField');                                 // remove a field
+form.$('members').add({ name: 'John' });              // add to array container
+form.$('members').del('0');                           // remove array element
+form.$('members').move(0, 2);                         // reorder (sortable lists)
+```
+
+### 5.5 Clear / Reset
+
+```javascript
+form.clear();                           // clear all values + reset validation
+form.reset();                           // restore initial/default values
+form.$('email').clear();                // single field
+form.$('email').reset();
+```
+
+### 5.6 State Checks
+
+```javascript
+form.isValid;        // all fields valid (every)
+form.isDirty;        // any field changed (some)
+form.isPristine;     // no field changed (every)
+form.isEmpty;        // all fields empty
+form.hasError;       // any field has error (some)
+form.error;          // first error message (requires bubbleUpErrorMessages)
+form.focused;        // any field focused
+form.touched;        // any field blurred at least once
+form.disabled;       // all fields disabled (every)
+form.changed;        // change count (number)
+form.submitted;      // submission count (number)
+form.validating;     // validation in progress (boolean)
+form.submitting;     // submission in progress (boolean)
+form.size;           // number of top-level fields
+```
+
+### 5.7 Event Wiring
+
+```javascript
+// In JSX — built-in handlers
+<form onSubmit={form.onSubmit}>
+  <input {...form.$('email').bind()} />
+  <button onClick={form.onClear}>Clear</button>
+  <button onClick={form.onReset}>Reset</button>
+</form>
+
+// The bind() output includes: id, name, type, value, checked,
+// label, placeholder, disabled, autoComplete, onChange, onBlur,
+// onFocus, autoFocus, inputMode, onKeyUp, onKeyDown
+```
+
+### 5.8 TypeScript
+
+```typescript
+import { Form, Field } from 'mobx-react-form';
+import type { PathsOf, FieldDefinition } from 'mobx-react-form';
+
+// Typed form
+interface Profile {
+  username: string;
+  email: string;
+  address: { city: string; zip: string };
+}
+
+const form = new Form<Profile>({ fields: [...] });
+form.$('username');                    // Field<string>
+form.$('address.city');                // Field<string> (with PathsOf autocomplete)
+
+// Typed field definitions
+const fields: Record<string, FieldDefinition> = [
+  { name: 'email', rules: 'required|email' },
+];
+```
+
+### 5.9 Composer (Multi-Form)
+
+```javascript
+import { composer } from 'mobx-react-form/lib/composer';
+
+const wizard = composer({ step1: form1, step2: form2 });
+wizard.validate();                      // validates all forms
+wizard.submit();                        // submits all forms
+wizard.clear();                         // clears all forms
+wizard.valid();                         // all forms valid?
+wizard.error();                         // any form has error?
+wizard.get('value');                    // { step1: {...}, step2: {...} }
+wizard.select('step1');                 // individual form
+```
+
+### 5.10 Observers & Interceptors
+
+MobX `observe`/`intercept` on any field prop:
+
+```javascript
+const fields = [{
+  name: 'email',
+  observers: [{
+    prop: 'value',
+    call: ({ change, field, form }) =>
+      console.log('Email changed:', change.newValue),
+  }],
+  interceptors: [{
+    prop: 'value',
+    call: ({ change }) => change.newValue?.length > 50 ? null : change,
+  }],
+}];
+
+// Or imperatively:
+field.observe(({ change, field, form }) => { ... });
+field.intercept(({ change }) => change);
+form.intercept({ prop: 'value', path: 'email', call: ({ change }) => change });
+```
+
+---
+
+## 6. Field Definition Reference
+
+All properties you can define per field:
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `name` | `string` | Field name (overrides key) |
+| `value` | `any` | Field value |
+| `computed` | `({ field, form }) => any` | Reactive computed value |
+| `label` | `string \| function` | Display label |
+| `placeholder` | `string \| function` | Placeholder text |
+| `type` | `string` | Input type (`text`, `checkbox`, `password`, `file`, `number`, etc.) |
+| `rules` | `string` | Validation rules (DVR: `'required\|email'`, VJF/SVK/YUP/JOI/ZOD: per-driver) |
+| `validators` | `function[]` | Custom validation functions (VJF) |
+| `related` | `string[]` | Re-validate these field paths when this field changes |
+| `disabled` | `boolean \| function` | Disabled state |
+| `deleted` | `boolean \| function` | Soft-delete flag (requires `softDelete: true`) |
+| `default` | `any` | Default value (used on reset) |
+| `initial` | `any` | Initial value (set on creation) |
+| `fields` | `array` | Nested field definitions |
+| `bindings` | `string` | Name of binding to use (from `form.bindings`) |
+| `extra` | `any` | Arbitrary metadata |
+| `options` | `OptionsModel` | Per-field option overrides |
+| `hooks` | `object` | Field-level hooks |
+| `handlers` | `object` | Field-level handlers |
+| `autoFocus` | `boolean \| function` | Auto-focus on mount |
+| `inputMode` | `string \| function` | Mobile keyboard mode |
+| `ref` | `any` | Ref callback/object |
+| `nullable` | `boolean` | Allow null value |
+| `autoComplete` | `string` | Autocomplete attribute |
+| `input` | `function` | Input converter (user → internal) |
+| `output` | `function` | Output converter (internal → API) |
+| `converter` | `function` | Transform on set |
+| `observers` | `array` | MobX observers |
+| `interceptors` | `array` | MobX interceptors |
+| `class` | `class` | Custom Field class for this field |
+| `validatedWith` | `string` | Which prop to validate (`'value'` default) |
+
+---
+
+## 7. Best Practices
+
+### Validation
+
+- **Prefer hooks over raw handlers** for most validation logic. Define `onSuccess` and `onError` in the form config.
+- **VJF is best for complex logic** — regex, API checks, cross-field rules, async validation.
+- **DVR is best for simple forms** — string rules like `'required|email|between:5,25'` are concise.
+- **Use `related`** to auto-revalidate dependent fields (e.g., `passwordConfirm` when `password` changes).
+- **`validateOnChange` is false by default** — enable it per-field when needed, or use `validateOnBlur` (default: true).
+- **Set `validationDebounceWait`** higher (e.g., 500ms) for expensive async validation.
+
+### Performance
+
+- **Use `retrieveOnlyDirtyFieldsValues: true`** to only submit changed fields.
+- **Use `retrieveOnlyEnabledFieldsValues: true`** to exclude disabled fields from API payloads.
+- **Keep forms flat where possible** — deeply nested fields add overhead.
+- **Use `bubbleUpErrorMessages: true`** for a quick `form.error` string.
+- **Lazy validation** — disable `validateOnInit` for forms with many fields that aren't immediately visible.
+
+### Reactivity
+
+- **Wrap components with `observer()`** from `mobx-react` to auto-render on field changes.
+- **Computed props** `({ field, form }) => ...` are reactive — use them instead of manual `reaction()`.
+- **Don't spread `field.bind()` deeply** — the spread is reactive as long as the component is observed.
+- **Use `field.validatedValue`** when converters are applied and you need the processed value.
+
+### Structure
+
+- **Unified mode** is simplest for small forms. **Separated mode** helps when fields, values, labels come from different sources.
+- **Use `struct`** in separated mode to explicitly define the shape when `fallback: false`.
+- **Dynamic arrays**: use `form.$('items').add({ name: 'newItem' })` and `form.$('items').del('0')`.
+- **Sortable lists**: `form.$('items').move(oldIndex, newIndex)` — integrated with drag-and-drop.
+- **Nested forms**: use `composer()` for independent form instances in wizards.
+
+### TypeScript
+
+- **Always pass the data interface** as a generic: `new Form<MyInterface>(...)`.
+- **Use `PathsOf<F>`** for type-safe nested field access.
+- **Define fields with `Record<string, FieldDefinition>`** for autocomplete.
+- **Custom Field classes** can extend `Field` for reusable field behavior.
+
+### Gotchas
+
+| Gotcha | Detail |
+|--------|--------|
+| **Handlers are curried** | Custom handlers: `(field) => (e) => {}`, not `(field, e) => {}`. |
+| **`submitThrowsError: true`** | Default — wrap `submit()` in try/catch or use validation hooks. |
+| **`onSubmit` hook** receives form, not field. `onSuccess`/`onError` receive form. |
+| **`field.bind()`** sets `field.$ref` after render. Access in `useEffect` or similar. |
+| **`softDelete`** requires `softDelete: true` option; deleted fields are excluded from `values()`. |
+| **`fallback: false`** + missing fields from struct won't be auto-created. Useful for strict schemas. |
+| **`strictSelect: true`** (default) throws on invalid field paths — catch or disable for dynamic paths. |
+| **`fallbackValue`** controls the default empty value (`''` by default; can be `null`, `undefined`, `0`). |
+
+---
+
+## 8. Quick Patterns
+
+### Simplest possible form
+```javascript
+const form = new Form({
+  fields: [{ name: 'email', rules: 'required|email' }]
+}, {
+  plugins: { dvr: dvr({ package: validatorjs }) },
+  hooks: { onSuccess: (f) => console.log(f.values()) },
+});
+```
+
+### Field with computed value
+```javascript
+{ name: 'fullName', value: ({ field, form }) =>
+  `${form.$('firstName').value} ${form.$('lastName').value}`.trim()
+}
+```
+
+### Custom error handling
+```javascript
+try {
+  await form.submit();
+} catch {
+  console.log('Validation failed:', form.errors());
+}
+```
+
+### Per-field validation on change
+```javascript
+{ name: 'email', options: { validateOnChange: true } }
+```
+
+### Async validation (VJF)
+```javascript
+{ name: 'username', validators: [({ field }) =>
+  fetch(`/api/check-username?q=${field.value}`)
+    .then(r => r.json())
+    .then(({ available }) => [available, 'Username taken'])
+]}
+```
+
+### Array with dynamic items
+```javascript
+const fields = [{
+  name: 'items',
+  fields: [{ name: '0', fields: [
+    { name: 'name', rules: 'required' },
+    { name: 'qty', rules: 'required|numeric' },
+  ]}]
+}];
+// Add: form.$('items').add({ name: 'New', qty: 1 })
+// Remove: form.$('items').del('0')
+```
+
+### Custom binding for MUI TextField
+```javascript
+const bindings = {
+  MuiTextField: {
+    id: 'id', name: 'name', type: 'type', value: 'value',
+    label: 'label', placeholder: 'placeholder',
+    disabled: 'disabled', autoFocus: 'autoFocus',
+    onChange: 'onChange', onBlur: 'onBlur', onFocus: 'onFocus',
+    error: 'error', helperText: 'error',  // MUI specific
+  },
+};
+```
+
+---
+
+## 9. Related Repositories
 
 | Repo | Purpose |
 |------|---------|
 | [mobx-react-form-demo](https://github.com/foxhound87/mobx-react-form-demo) | Live demo app with React components |
 | [mobx-react-form-devtools](https://github.com/foxhound87/mobx-react-form-devtools) | DevTools panel for debugging |
-| [rfx-core](https://github.com/foxhound87/rfx-core) | Core utilities (path matching) |
-| [skills](https://github.com/foxhound87/skills) | AI skill files for Cursor, Windsurf, Claude Code, etc. |
+| [skills](https://github.com/foxhound87/skills) | AI skill files for Cursor, Windsurf, Claude Code, Codebuff |
 | [mobx-react-form--docs](https://github.com/foxhound87/mobx-react-form--docs) | This documentation site |
 
 ---
 
-> **For LLMs:** When helping users with mobx-react-form, always check the validation plugin being used (VJF vs DVR vs SVK vs YUP vs JOI vs ZOD) — patterns differ. Prefer hooks over raw handlers for most use cases. Use `field.bind()` instead of manual prop wiring.
+> **For LLMs:** When helping users with mobx-react-form, always check which validation plugin is being used — patterns differ significantly between DVR/VJF/SVK/YUP/JOI/ZOD. Prefer `computed` props over manual reactivity. Always wrap components with `observer()`. Use `field.bind()` instead of manual prop wiring. Custom handlers are **curried** `(field) => (e) =>`.
