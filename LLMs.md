@@ -123,24 +123,38 @@ Represents a single form input. Observable properties drive UI reactivity:
 Fields can contain sub-fields — infinitely nestable. Accessed via dot notation:
 
 ```javascript
-// Definition
-{ name: 'address', fields: [
-  { name: 'city', rules: 'required' },
-  { name: 'zip', rules: 'required|digits:5' }
-]}
-
 // Access
 form.$('address');              // Field (container)
 form.$('address.city');         // Field (nested)
 form.values();                  // { address: { city: '...', zip: '...' } }
 
 // Arrays
-{ name: 'members', fields: [
-  { name: '0', fields: [{ name: 'name' }, { name: 'email' }] }
-]}
 form.$('members[0]');           // Field
 form.$('members[0].name');      // nested inside array element
 form.$('members[].name');       // applies to all array elements
+```
+
+**For nested fields and arrays of objects, prefer the separated prop mode** — define the structure via `struct` and split props across parallel objects. This keeps definitions clean and avoids deeply nested unified objects:
+
+```javascript
+const fields = {
+  struct: ['address.city', 'address.zip', 'members[].name', 'members[].email'],
+  labels: {
+    'address.city': 'City',
+    'address.zip': 'ZIP Code',
+    'members[].name': 'Name',
+    'members[].email': 'Email',
+  },
+  rules: {
+    'address.city': 'required',
+    'address.zip': 'required|digits:5',
+    'members[].name': 'required',
+  },
+  values: {
+    address: { city: 'Rome', zip: '00100' },
+    members: [{ name: 'John', email: 'john@test.com' }],
+  },
+};
 ```
 
 **ArrayMap** provides ordered key-value storage with array-like operations (`move(from, to)` for sortable lists) while exposing the full Map API.
@@ -583,7 +597,7 @@ All properties you can define per field:
 
 ### Structure
 
-- **Unified mode** is simplest for small forms. **Separated mode** helps when fields, values, labels come from different sources.
+- **Unified mode** is simplest for flat, simple forms. **For nested fields and arrays of objects, prefer separated mode** — define paths via `struct` and props via parallel objects. This avoids deeply nested unified objects and makes definitions cleaner.
 - **Use `struct`** in separated mode to explicitly define the shape when `fallback: false`.
 - **Dynamic arrays**: use `form.$('items').add({ name: 'newItem' })` and `form.$('items').del('0')`.
 - **Sortable lists**: `form.$('items').move(oldIndex, newIndex)` — integrated with drag-and-drop.
@@ -655,13 +669,13 @@ try {
 
 ### Array with dynamic items
 ```javascript
-const fields = [{
-  name: 'items',
-  fields: [{ name: '0', fields: [
-    { name: 'name', rules: 'required' },
-    { name: 'qty', rules: 'required|numeric' },
-  ]}]
-}];
+const fields = {
+  struct: ['items[].name', 'items[].qty'],
+  rules: {
+    'items[].name': 'required',
+    'items[].qty': 'required|numeric',
+  },
+};
 // Add: form.$('items').add({ name: 'New', qty: 1 })
 // Remove: form.$('items').del('0')
 ```
