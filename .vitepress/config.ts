@@ -58,7 +58,7 @@ export default defineConfig({
           { text: 'NPM', link: 'https://www.npmjs.com/package/mobx-react-form' },
           { text: 'GitHub', link: 'https://github.com/foxhound87/mobx-react-form' },
           { text: 'Discord', link: 'https://discord.gg/CVV8w4zat4' },
-          { text: 'LLM Guide', link: '/LLMs' },
+          { text: 'AI Agent Guide', link: '/AGENTS' },
           { text: 'AI Skills', link: 'https://github.com/foxhound87/skills' },
           { text: 'Demo Code', link: 'https://github.com/foxhound87/mobx-react-form-demo' },
         ],
@@ -80,7 +80,7 @@ export default defineConfig({
           { text: 'DevTools', link: '/devtools' },
           { text: 'UMD Setup', link: '/umd-setup' },
           { text: 'AI Agent Skills', link: '/skills' },
-          { text: 'LLM Guide', link: '/LLMs' },
+          { text: 'AI Agent Guide', link: '/AGENTS' },
         ],
       },
       {
