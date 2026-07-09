@@ -1,4 +1,4 @@
-# Guide for AI Agents (LLMs)
+# Guide for AI Agents
 
 A concise guide for LLMs working with **MobX React Form** — the reactive MobX form state management library.
 
