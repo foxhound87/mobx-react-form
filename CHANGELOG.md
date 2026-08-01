@@ -1,3 +1,7 @@
+# 6.18.1 (master)
+
+- fix: added AGENTS.md for AI agent directions
+
 # 6.18.0 (master)
 
 - feat: `execHandler` now forwards DOM event args to hooks via `execHook` — hooks can receive `(field, event)` instead of only `(field)`

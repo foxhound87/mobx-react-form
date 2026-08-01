@@ -101,7 +101,8 @@
   "files": [
     "src",
     "lib",
-    "umd"
+    "umd",
+    "AGENTS.md"
   ],
   "engines": {
     "node": ">=8.0.0"
