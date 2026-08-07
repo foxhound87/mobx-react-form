@@ -48,6 +48,8 @@
 npm install --save mobx-react-form
 ```
 
+> **MobX 6 & 7 support**: `mobx-react-form` works with both `mobx@6` and `mobx@7` (peer dependency: `^6.0.0 || ^7.0.0`). For MobX 7 use the matching React bindings (`mobx-react@^10`).
+
 #### Choose and Setup a Validation Plugin
 
 Below we are creating a `plugins` object using the `validatorjs` package to enable `DVR` functionalities (Declarative Validation Rules).

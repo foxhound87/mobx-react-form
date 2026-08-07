@@ -1,3 +1,7 @@
+# 6.19.0 (master)
+
+- feat: support MobX 7 alongside MobX 6 — peer dependency widened to `^6.0.0 || ^7.0.0`; tests and CI run on both majors (`mobx@6`, `mobx@7`)
+
 # 6.18.1 (master)
 
 - fix: added AGENTS.md for AI agent directions

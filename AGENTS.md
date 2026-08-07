@@ -15,7 +15,7 @@ A concise guide for LLMs working with **MobX React Form** — the reactive MobX 
 | **Version**      | 6.x (current: 6.18.0)                                                                  |
 | **Size**         | ~8KB gzip (tree-shakeable)                                                             |
 | **License**      | MIT                                                                                    |
-| **Dependencies** | MobX (peer), lodash, React (optional)                                                  |
+| **Dependencies** | MobX 6 & 7 (peer: `^6.0.0 \|\| ^7.0.0`), lodash, React (optional)                      |
 
 ---
 
