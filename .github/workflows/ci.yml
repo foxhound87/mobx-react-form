@@ -6,10 +6,15 @@ on:
 jobs:
   CI:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mobx: [6, 7]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - run: npm install --force
+      - name: Install MobX ${{ matrix.mobx }}
+        run: npm install --no-save --force mobx@${{ matrix.mobx }}
       - run: npm run cover
       - run: npm run coverage:check
       - run: npm run build
@@ -22,6 +27,7 @@ jobs:
           verbose: true
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Semantic Release
+        if: matrix.mobx == 7
         uses: cycjimmy/semantic-release-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

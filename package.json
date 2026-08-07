@@ -117,7 +117,7 @@
     "lodash-es": "^4.17.21"
   },
   "peerDependencies": {
-    "mobx": "^6.0.0"
+    "mobx": "^6.0.0 || ^7.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^6.0.0",
@@ -142,7 +142,7 @@
     "eslint-plugin-import": "^2.27.5",
     "husky": "0.13.1",
     "joi": "^17.13.3",
-    "mobx": "^6.3.3",
+    "mobx": "^6.3.3 || ^7.0.0",
     "mocha": "^9.2.1",
     "nyc": "^15.1.0",
     "rimraf": "2.5.4",
