@@ -41,10 +41,7 @@ Install `mobx-react` (or `mobx-react-lite`), wrap your components with `observer
 import { observer } from 'mobx-react-lite';
 
 const EmailField = observer(({ form }) => (
-  <input
-    value={form.$('email').value}
-    onChange={(e) => form.$('email').set(e.target.value)}
-  />
+  <input value={form.$('email').value} onChange={form.$('email').onChange} />
 ));
 ```
 
@@ -60,10 +57,7 @@ React is the reference integration — see the [Quick Start](quick-start.md), [B
 import { observer } from '@octanejs/mobx';
 
 export const EmailField = observer(({ form }) => (
-  <input
-    value={form.$('email').value}
-    onChange={(e) => form.$('email').set(e.target.value)}
-  />
+  <input value={form.$('email').value} onChange={form.$('email').onChange} />
 ));
 ```
 
@@ -88,7 +82,7 @@ const form = new Form({ fields: { email: { rules: 'required|email' } } });
     <label>{{ form.$('email').label }}</label>
     <input
       :value="form.$('email').value"
-      @input="form.$('email').set($event.target.value)"
+      @input="form.$('email').onSync"
     />
     <p v-if="form.$('email').error">{{ form.$('email').error }}</p>
   </Observer>
@@ -116,7 +110,7 @@ export class EmailField extends MobxLitElement {
       <label>${this.form.$('email').label}</label>
       <input
         .value=${this.form.$('email').value}
-        @input=${(e) => this.form.$('email').set(e.target.value)}
+        @input=${this.form.$('email').onChange}
       />
       ${this.form.$('email').error
         ? html`<p>${this.form.$('email').error}</p>`
@@ -145,7 +139,7 @@ import { Form } from 'mobx-react-form';
     <div *mobxAutorun>
       <input
         [value]="form.$('email').value"
-        (input)="form.$('email').set($any($event.target).value)"
+        (input)="form.$('email').onSync($event)"
       />
       <p *ngIf="form.$('email').error">{{ form.$('email').error }}</p>
     </div>
@@ -169,10 +163,7 @@ import { observer } from 'mobx-solid';
 import { Form } from 'mobx-react-form';
 
 const EmailField = observer(({ form }) => (
-  <input
-    value={form.$('email').value}
-    onChange={(e) => form.$('email').set(e.currentTarget.value)}
-  />
+  <input value={form.$('email').value} onChange={form.$('email').onChange} />
 ));
 ```
 
