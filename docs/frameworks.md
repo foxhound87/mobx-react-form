@@ -59,14 +59,12 @@ React is the reference integration — see the [Quick Start](quick-start.md), [B
 ```tsx
 import { observer } from '@octanejs/mobx';
 
-export function EmailField(props) {
-  return (
-    <input
-      value={props.form.$('email').value}
-      onChange={(e) => props.form.$('email').set(e.target.value)}
-    />
-  );
-}
+export const EmailField = observer(({ form }) => (
+  <input
+    value={form.$('email').value}
+    onChange={(e) => form.$('email').set(e.target.value)}
+  />
+));
 ```
 
 > ⚠️ The binding targets compiled Octane function components. React class components, legacy `Provider`/`inject`, and React DevTools integration are not included (v1 limits).
