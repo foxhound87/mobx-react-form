@@ -1,3 +1,10 @@
+# 6.20.0 (master)
+
+- chore: remediate 62 npm vulnerabilities (0 remaining in production deps, 0 critical) — lodash/lodash-es `^4.17.24`, mocha `^11.8`, nyc `^17.1`, ajv `^8`, validator `^13.15.20`, semantic-release `^24`, commitizen `^4.3.2`, cz-conventional-changelog `^3.3.0`
+- chore: migrate SVK validator to ajv 8 — `instancePath` instead of `dataPath`, `strict: false`, custom `email` format, path normalization backward-compatible
+- chore: bump engines node to `>=18`; serialize-javascript override to fix mocha transitive high
+- chore: update test script with `--no-experimental-strip-types` flags for node >=22.18
+
 # 6.19.0 (master)
 
 - feat: support MobX 7 alongside MobX 6 — peer dependency widened to `^6.0.0 || ^7.0.0`; tests and CI run on both majors (`mobx@6`, `mobx@7`)
