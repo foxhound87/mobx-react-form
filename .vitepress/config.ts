@@ -79,6 +79,7 @@ export default defineConfig({
           { text: 'TypeScript Usage', link: '/typescript' },
           { text: 'DevTools', link: '/devtools' },
           { text: 'UMD Setup', link: '/umd-setup' },
+          { text: 'Render Engine Support', link: '/frameworks' },
           { text: 'AI Agent Skills', link: '/skills' },
           { text: 'AI Agent Guide', link: '/AGENTS' },
         ],
