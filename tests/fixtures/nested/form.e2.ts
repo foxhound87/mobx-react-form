@@ -80,8 +80,8 @@ export default new Form({
 			});
 
 			describe("Check ajv validation errors", () => {
-				it('products[0].qty error should equal zod error', () => expect(form.$('products[0].qty').error).to.be.equal('Quantity should be >= 0'));
-				it('products[0].amount error should equal zod error', () => expect(form.$('products[0].amount').error).to.be.equal('Amount should be >= 0'));
+				it('products[0].qty error should equal ajv error', () => expect(form.$('products[0].qty').error).to.be.equal('Quantity must be >= 0'));
+				it('products[0].amount error should equal ajv error', () => expect(form.$('products[0].amount').error).to.be.equal('Amount must be >= 0'));
 			});
 
 		}

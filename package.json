@@ -61,7 +61,7 @@
     "commit": "git-cz && git push origin",
     "watch:build": "rollup -c rollup.config.mjs --watch",
     "watch:test": "npm run test -- -w",
-    "test": "cross-env TEST=true TS_NODE_TRANSPILE_ONLY=true mocha -r ts-node/register ./tests/integration/*.ts ./tests/unit/*.ts",
+    "test": "cross-env TEST=true TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=--no-experimental-strip-types\\ --no-experimental-detect-module mocha -r ts-node/register ./tests/integration/*.ts ./tests/unit/*.ts",
     "cover": "nyc npm test",
     "coverage:check": "nyc check-coverage --satements 95 --branches 80 --functions 86 --lines 90",
     "coverage:report": "mkdir -p coverage && nyc --report-dir=coverage report --reporter=lcov > ./coverage/lcov.info",
@@ -105,16 +105,19 @@
     "AGENTS.md"
   ],
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=18.0.0"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
   },
+  "overrides": {
+    "serialize-javascript": "^7.1.0"
+  },
   "dependencies": {
-    "lodash": "^4.17.21",
-    "lodash-es": "^4.17.21"
+    "lodash": "^4.17.24",
+    "lodash-es": "^4.17.24"
   },
   "peerDependencies": {
     "mobx": "^6.0.0 || ^7.0.0"
@@ -127,30 +130,30 @@
     "@rollup/plugin-typescript": "^12.3.0",
     "@types/chai": "^4.3.0",
     "@types/lodash": "^4.14.178",
-    "@types/mocha": "^9.1.0",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^17.0.18",
     "@types/validator": "^13.7.1",
     "@types/validatorjs": "^3.15.0",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
-    "ajv": "^5.2.2",
+    "ajv": "^8.0.0",
     "chai": "3.5.0",
-    "commitizen": "^4.3.0",
+    "commitizen": "^4.3.2",
     "cross-env": "^5.1.4",
-    "cz-conventional-changelog": "^2.1.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.35.0",
     "eslint-plugin-import": "^2.27.5",
     "husky": "0.13.1",
     "joi": "^17.13.3",
     "mobx": "^6.3.3 || ^7.0.0",
-    "mocha": "^9.2.1",
-    "nyc": "^15.1.0",
+    "mocha": "^11.8.0",
+    "nyc": "^17.1.0",
     "rimraf": "2.5.4",
     "rollup": "^4.59.0",
-    "semantic-release": "^21.0.1",
+    "semantic-release": "^24.0.0",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5",
-    "validator": "^13.7.0",
+    "validator": "^13.15.20",
     "validatorjs": "^3.15.1",
     "yup": "^0.32.11",
     "zod": "^3.22.4"

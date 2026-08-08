@@ -41,16 +41,23 @@ class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
   extendOptions(options: any = {}) {
     return {
       ...options,
-      errorDataPath: "property",
       allErrors: true,
       coerceTypes: true,
-      v5: true,
+      strict: false,
     };
   }
 
   initValidator(): void {
     const AJV = this.config.package as any;
     const validatorInstance = new AJV(this.extendOptions(this.config.options));
+
+    if (typeof validatorInstance.addFormat === "function") {
+      validatorInstance.addFormat("email", (value: any) =>
+        typeof value === "string"
+          ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+          : false
+      );
+    }
 
     if (typeof this.extend === "function") {
       this.extend({
@@ -94,14 +101,22 @@ class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
     field.setValidationAsyncData(false, message);
   }
 
+  normalizePath(value: any): string {
+    return String(value)
+      .replace(/^[./]+/, "")
+      .replace(/\]/g, "")
+      .replace(/\[/g, ".")
+      .replace(/\//g, ".");
+  }
+
   findError(path: string, errors: any[]): any {
     if (!errors) return;
-    return errors.find(({ dataPath }) => {
-      let $dataPath;
-      $dataPath = dataPath.replace(/^\.+/, "");
-      $dataPath = $dataPath.replace(/\]/g, "");
-      $dataPath = $dataPath.replace(/\[/g, ".");
-      return $dataPath.includes(path);
+    const $path = this.normalizePath(path);
+    return errors.find(({ instancePath, dataPath }) => {
+      const $dataPath = this.normalizePath(
+        typeof instancePath === "string" ? instancePath : dataPath
+      );
+      return $dataPath.includes($path);
     });
   }
 
