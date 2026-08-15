@@ -3,10 +3,10 @@ import {
   computed,
   action,
   toJS,
-  makeObservable,
   observe,
   intercept,
 } from "mobx";
+import { makeObservable } from "./compat";
 import ArrayMap from "./ArrayMap";
 import {
   each,
@@ -369,7 +369,7 @@ export default abstract class Base<
   */
 
   validate(opt?: ValidateOptions, obj?: ValidateOptions): Promise<any> {
-    const $opt = merge(opt, { path: this.path });
+    const $opt = merge({}, opt, { path: this.path });
     return this.state.form.validator.validate($opt, obj);
   }
 

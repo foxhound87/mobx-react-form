@@ -5,7 +5,7 @@ import { Form } from "../../../src";
 import dvrExtend from "../extension/dvr";
 
 import dvr from "../../../src/validators/DVR";
-import svk from "../../../src/validators/SVK";
+import ajvPlugin from "../../../src/validators/AJV";
 import { FormInterface } from "../../../src/models/FormInterface";
 import { OptionsModel } from "../../../src/models/OptionsModel";
 import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
@@ -37,7 +37,7 @@ const schema = {
 };
 
 const plugins: ValidationPlugins = {
-  svk: svk({
+  ajv: ajvPlugin({
     package: ajv,
     schema,
   }),

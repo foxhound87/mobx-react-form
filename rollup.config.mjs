@@ -22,7 +22,7 @@ const umdEntries = {
   MobxReactFormComposer: { input: "./src/composer.ts", exports: "named" },
   MobxReactFormValidatorVJF: { input: "./src/validators/VJF.ts", exports: "default" },
   MobxReactFormValidatorDVR: { input: "./src/validators/DVR.ts", exports: "default" },
-  MobxReactFormValidatorSVK: { input: "./src/validators/SVK.ts", exports: "default" },
+  MobxReactFormValidatorAJV: { input: "./src/validators/AJV.ts", exports: "default" },
   MobxReactFormValidatorYUP: { input: "./src/validators/YUP.ts", exports: "default" },
   MobxReactFormValidatorJOI: { input: "./src/validators/JOI.ts", exports: "default" },
   MobxReactFormValidatorZOD: { input: "./src/validators/ZOD.ts", exports: "default" },

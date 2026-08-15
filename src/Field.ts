@@ -6,10 +6,10 @@ import {
   isObservableArray,
   toJS,
   untracked,
-  makeObservable,
   autorun,
   runInAction,
 } from "mobx";
+import { makeObservable } from "./compat";
 import { isEmpty, isEqual, isNil, isPlainObject, debounce, omit } from "lodash";
 import Base from "./Base";
 
@@ -52,75 +52,75 @@ const propGetter = (instance: any, prop: FieldPropsEnum): any =>
 const setupFieldProps = (instance: any, props: any, data: any) =>
   Object.assign(instance, {
     // retrieve functions
-    _label: retrieveFieldPropFunc(props.$label || data?.label),
+    _label: retrieveFieldPropFunc(props.$label ?? data?.label),
     _placeholder: retrieveFieldPropFunc(
-      props.$placeholder || data?.placeholder,
+      props.$placeholder ?? data?.placeholder,
     ),
-    _disabled: retrieveFieldPropFunc(props.$disabled || data?.disabled),
-    _rules: retrieveFieldPropFunc(props.$rules || data?.rules),
-    _related: retrieveFieldPropFunc(props.$related || data?.related),
-    _deleted: retrieveFieldPropFunc(props.$deleted || data?.deleted),
-    _validators: retrieveFieldPropFunc(props.$validators || data?.validators),
+    _disabled: retrieveFieldPropFunc(props.$disabled ?? data?.disabled),
+    _rules: retrieveFieldPropFunc(props.$rules ?? data?.rules),
+    _related: retrieveFieldPropFunc(props.$related ?? data?.related),
+    _deleted: retrieveFieldPropFunc(props.$deleted ?? data?.deleted),
+    _validators: retrieveFieldPropFunc(props.$validators ?? data?.validators),
     _validatedWith: retrieveFieldPropFunc(
-      props.$validatedWith || data?.validatedWith,
+      props.$validatedWith ?? data?.validatedWith,
     ),
-    _bindings: retrieveFieldPropFunc(props.$bindings || data?.bindings),
-    _extra: retrieveFieldPropFunc(props.$extra || data?.extra),
-    _options: retrieveFieldPropFunc(props.$options || data?.options),
-    _autoFocus: retrieveFieldPropFunc(props.$autoFocus || data?.autoFocus),
-    _inputMode: retrieveFieldPropFunc(props.$inputMode || data?.inputMode),
+    _bindings: retrieveFieldPropFunc(props.$bindings ?? data?.bindings),
+    _extra: retrieveFieldPropFunc(props.$extra ?? data?.extra),
+    _options: retrieveFieldPropFunc(props.$options ?? data?.options),
+    _autoFocus: retrieveFieldPropFunc(props.$autoFocus ?? data?.autoFocus),
+    _inputMode: retrieveFieldPropFunc(props.$inputMode ?? data?.inputMode),
     // apply functions or value
-    $label: applyFieldPropFunc(instance, props.$label || data?.label || ""),
+    $label: applyFieldPropFunc(instance, props.$label ?? data?.label ?? ""),
     $placeholder: applyFieldPropFunc(
       instance,
-      props.$placeholder || data?.placeholder || "",
+      props.$placeholder ?? data?.placeholder ?? "",
     ),
     $disabled: applyFieldPropFunc(
       instance,
-      props.$disabled || data?.disabled || false,
+      props.$disabled ?? data?.disabled ?? false,
     ),
-    $rules: applyFieldPropFunc(instance, props.$rules || data?.rules || null),
+    $rules: applyFieldPropFunc(instance, props.$rules ?? data?.rules ?? null),
     $related: applyFieldPropFunc(
       instance,
-      props.$related || data?.related || [],
+      props.$related ?? data?.related ?? [],
     ),
     $deleted: applyFieldPropFunc(
       instance,
-      props.$deleted || data?.deleted || false,
+      props.$deleted ?? data?.deleted ?? false,
     ),
     $validatedWith: applyFieldPropFunc(
       instance,
-      props.$validatedWith || data?.validatedWith || FieldPropsEnum.value,
+      props.$validatedWith ?? data?.validatedWith ?? FieldPropsEnum.value,
     ),
     $bindings: applyFieldPropFunc(
       instance,
-      props.$bindings || data?.bindings || FieldPropsEnum.default,
+      props.$bindings ?? data?.bindings ?? FieldPropsEnum.default,
     ),
-    $extra: applyFieldPropFunc(instance, props.$extra || data?.extra || null),
+    $extra: applyFieldPropFunc(instance, props.$extra ?? data?.extra ?? null),
     $options: applyFieldPropFunc(
       instance,
-      props.$options || data?.options || {},
+      props.$options ?? data?.options ?? {},
     ),
     $autoFocus: applyFieldPropFunc(
       instance,
-      props.$autoFocus || data?.autoFocus || false,
+      props.$autoFocus ?? data?.autoFocus ?? false,
     ),
     $inputMode: applyFieldPropFunc(
       instance,
-      props.$inputMode || data?.inputMode || undefined,
+      props.$inputMode ?? data?.inputMode ?? undefined,
     ),
     $validators: applyFieldPropFunc(
       instance,
-      props.$validators || data?.validators || null,
+      props.$validators ?? data?.validators ?? null,
     ),
     // other props
-    $hooks: props.$hooks || data?.hooks || {},
-    $handlers: props.$handlers || data?.handlers || {},
-    $observers: props.$observers || data?.observers || null,
-    $interceptors: props.$interceptors || data?.interceptors || null,
-    $ref: props.$ref || data?.ref || undefined,
-    $nullable: props.$nullable || data?.nullable || false,
-    $autoComplete: props.$autoComplete || data?.autoComplete || undefined,
+    $hooks: props.$hooks ?? data?.hooks ?? {},
+    $handlers: props.$handlers ?? data?.handlers ?? {},
+    $observers: props.$observers ?? data?.observers ?? null,
+    $interceptors: props.$interceptors ?? data?.interceptors ?? null,
+    $ref: props.$ref ?? data?.ref ?? undefined,
+    $nullable: props.$nullable ?? data?.nullable ?? false,
+    $autoComplete: props.$autoComplete ?? data?.autoComplete ?? undefined,
   });
 
 const setupDefaultProp = (
@@ -616,7 +616,25 @@ export default class Field<T = any> extends Base<Record<string, any>> implements
           files = Array.from(e.target.files);
         }
 
-        this.files = [...(this.files || []), ...(files || args)];
+        const incoming: unknown[] = files || args;
+        const current: unknown[] = this.files || [];
+        // dedupe repeated file drops (fixes .vault/FIXES.md row 28)
+        const seen = new Set(
+          current.map((f: any) =>
+            [f?.name, f?.size, f?.lastModified].join("|")
+          ),
+        );
+
+        this.files = [
+          ...current,
+          ...incoming.filter((f: any) => {
+            if (!f || typeof f.size !== "number") return true;
+            const signature = [f.name, f.size, f.lastModified].join("|");
+            if (seen.has(signature)) return false;
+            seen.add(signature);
+            return true;
+          }),
+        ];
       }),
     );
 

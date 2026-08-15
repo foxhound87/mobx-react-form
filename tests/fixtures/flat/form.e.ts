@@ -2,11 +2,11 @@ import ajv from "ajv";
 import validatorjs from "validatorjs";
 import { Form } from "../../../src";
 import { isEmail, shouldBeEqualTo } from "../extension/vjf";
-import svkExtend from "../extension/svk";
+import ajvExtend from "../extension/ajv";
 
 import vjf from "../../../src/validators/VJF";
 import dvr from "../../../src/validators/DVR";
-import svk from "../../../src/validators/SVK";
+import ajvPlugin from "../../../src/validators/AJV";
 import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
 
 const fields = {
@@ -49,9 +49,9 @@ const schema = {
 const plugins: ValidationPlugins = {
   vjf: vjf(),
   dvr: dvr({ package: validatorjs }),
-  svk: svk({
+  ajv: ajvPlugin({
     package: ajv,
-    extend: svkExtend,
+    extend: ajvExtend,
     schema,
   }),
 };

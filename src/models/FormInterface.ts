@@ -62,7 +62,6 @@ export interface FormInterface<F extends Record<string, any> = Record<string, an
   debouncedValidation: any;
   // getters
   flatMapValues: Record<string, any>;
-  validatedValues: Record<string, any>;
   clearing: boolean;
   resetting: boolean;
   error: string | null;

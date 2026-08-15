@@ -62,8 +62,9 @@
     "watch:build": "rollup -c rollup.config.mjs --watch",
     "watch:test": "npm run test -- -w",
     "test": "cross-env TEST=true TS_NODE_TRANSPILE_ONLY=true NODE_OPTIONS=--no-experimental-strip-types\\ --no-experimental-detect-module mocha -r ts-node/register ./tests/integration/*.ts ./tests/unit/*.ts",
+    "test:mobx5": "npm install --no-save --force mobx@^5.15.0 && npm test",
     "cover": "nyc npm test",
-    "coverage:check": "nyc check-coverage --satements 95 --branches 80 --functions 86 --lines 90",
+    "coverage:check": "nyc check-coverage --statements 95 --branches 80 --functions 86 --lines 90",
     "coverage:report": "mkdir -p coverage && nyc --report-dir=coverage report --reporter=lcov > ./coverage/lcov.info",
     "semantic-release": "semantic-release"
   },
@@ -120,7 +121,7 @@
     "lodash-es": "^4.17.24"
   },
   "peerDependencies": {
-    "mobx": "^6.0.0 || ^7.0.0"
+    "mobx": "^5.15.0 || ^6.0.0 || ^7.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^6.0.0",
@@ -145,7 +146,7 @@
     "eslint-plugin-import": "^2.27.5",
     "husky": "0.13.1",
     "joi": "^17.13.3",
-    "mobx": "^6.3.3 || ^7.0.0",
+    "mobx": "^5.15.0 || ^6.3.3 || ^7.0.0",
     "mocha": "^11.8.0",
     "nyc": "^17.1.0",
     "rimraf": "2.5.4",

@@ -2,10 +2,10 @@ import {
   action,
   computed,
   observable,
-  makeObservable,
   autorun,
   runInAction,
 } from "mobx";
+import { makeObservable } from "./compat";
 import { debounce, each, merge } from "lodash";
 
 import Base from "./Base";
@@ -48,7 +48,6 @@ export default class Form<F extends Record<string, any> = Record<string, any>> e
       extra: observable,
       fields: observable,
       flatMapValues: computed,
-      validatedValues: computed,
       error: computed,
       hasError: computed,
       isValid: computed,
@@ -127,11 +126,6 @@ export default class Form<F extends Record<string, any> = Record<string, any>> e
 
   /* ------------------------------------------------------------------ */
   /* COMPUTED */
-
-  get validatedValues(): Record<string, any> {
-    console.warn("validatedValues is deprecated, use flatMapValues instead.");
-    return this.flatMapValues;
-  }
 
   get flatMapValues(): Record<string, any> {
     const data: any = {};
@@ -234,7 +228,7 @@ export default class Form<F extends Record<string, any> = Record<string, any>> e
     this.validator.error =
       message ||
       this.state.options.get(OptionsEnum.defaultGenericError) ||
-      true;
+      null;
     deep &&
       this.each((field: FieldInterface) => field.debouncedValidation.cancel());
   }

@@ -13,6 +13,14 @@ describe('Form submit() decoupled callback', () => {
         form.$('email').set('value', 'notAnEmailYet');
 
         describe('Form $L onError() checks', () => {
+          // This suite runs after later suites (nested describes added
+          // during execution run last), and the shared $L fixture may have
+          // been restored to the library default in the meantime — re-apply
+          // the onError side effect so these checks stay order-independent.
+          before(() => {
+            form.state.options.set({ validateOnChange: true });
+          });
+
           it('$L state.options "validateOnChange" should be true', () =>
             expect(form.state.options.get('validateOnChange')).to.be.true);
 

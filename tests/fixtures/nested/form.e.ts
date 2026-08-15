@@ -1,8 +1,8 @@
 import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
 import ajv from "ajv";
 import { Form } from "../../../src";
-import svkExtend from "../extension/svk";
-import svk from "../../../src/validators/SVK";
+import ajvExtend from "../extension/ajv";
+import ajvPlugin from "../../../src/validators/AJV";
 
 const fields = {
   state: {
@@ -53,9 +53,9 @@ const schema = {
 };
 
 const plugins: ValidationPlugins = {
-  svk: svk({
+  ajv: ajvPlugin({
     package: ajv,
-    extend: svkExtend,
+    extend: ajvExtend,
     schema,
   }),
 };

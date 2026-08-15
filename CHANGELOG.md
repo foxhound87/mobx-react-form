@@ -1,3 +1,37 @@
+# 7.0.0 (master)
+
+## Breaking Changes
+
+- **D1** (#29): `setupFieldProps` uses `??` instead of `||` — falsy field props (`0`, `''`, `false`) are no longer discarded in favor of defaults: a falsy prop is respected as-is (migration note: `props.$options \|\| data?.options` → `props.$options ?? data?.options`)
+- **D2** (#31): removed deprecated `form.validatedValues` getter (and its `console.warn`) — use `flatMapValues` (or `field.validatedValue`) instead; removed from `FormInterface`
+- **D3**: renamed SVK validator plugin to AJV (name parity with the underlying `ajv` engine):
+  - plugin key `plugins: { svk: ... }` → `plugins: { ajv: ... }`
+  - import `mobx-react-form/lib/validators/SVK` → `mobx-react-form/lib/validators/AJV`
+  - script-tag global `MobxReactFormValidatorSVK` → `MobxReactFormValidatorAJV`
+  - fixture files and extension renamed accordingly (`tests/fixtures/extension/ajv.ts`)
+- **D4** (#34): MobX 5 support — peer dependency widened to `^5.15.0 \|\| ^6.0.0 \|\| ^7.0.0`, added compat layer (`src/compat.ts`), `test:mobx5` script, CI matrix `[5, 6, 7]`
+
+## Features
+
+- **C1** (#20): `composer()` return now exposes `valid()` and `error()` helpers (all forms valid / any form has error)
+- **C2** (#25): `Options.get(key?)` — default `key = ''` supports no-arg call (`options.get()` returns the full options map)
+
+## Bug fixes
+
+- **B1** (#21): `Bindings.load()` — graceful fallback on missing binding instead of TypeError
+- **B2** (#22): `Form.invalidate()` — validator `error` stays `string | null`, never becomes `boolean true`
+- **B3** (#23): `Base.validate()` — `merge(opt, { path })` no longer mutates the caller's object (uses `merge({}, opt, { path })`)
+- **B4** (#24): `Validator.validate()` — `promises` array cleared after `Promise.all` (memory leak fix)
+- **B5** (#27): `State.observeOptions()` — guard on `disposeValidationOnChange`/`disposeValidationOnBlur` for uninitialized fields
+- **B6** (FIXES #28): `Field.onDrop()` — dedupe repeated file drops; `hasFiles()` robust to non-event `$`
+
+## Chore
+
+- **E1** (#26): `Options.set()` — removed dead `else` branch (always `set()`); dropped unused `extendObservable` import
+- **E3** (#33): fixed `--satements` typo → `--statements` in `coverage:check`
+- **E6**: AGENTS.md aligned with the release (version 7.0.0, driver table `ajv`, MobX 5 peer range)
+- test: add `tests/unit/test.composer.ts` covering composer instance lifecycle plus the new `valid()`/`error()` helpers
+
 # 6.20.0 (master)
 
 - chore: remediate 62 npm vulnerabilities (0 remaining in production deps, 0 critical) — lodash/lodash-es `^4.17.24`, mocha `^11.8`, nyc `^17.1`, ajv `^8`, validator `^13.15.20`, semantic-release `^24`, commitizen `^4.3.2`, cz-conventional-changelog `^3.3.0`

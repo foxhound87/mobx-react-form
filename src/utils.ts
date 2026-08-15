@@ -177,7 +177,7 @@ const isEvent = (obj: any): boolean => {
 };
 
 const hasFiles = ($: any): boolean =>
-  $.target.files && $.target.files.length !== 0;
+  !!$?.target?.files && $.target.files.length !== 0;
 
 const isBool = ($: any, val: any): boolean =>
   typeof val === 'boolean' && typeof $.target.checked === 'boolean';

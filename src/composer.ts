@@ -72,6 +72,8 @@ export const composer = (forms: { [key in string]: FormInterface }) => {
         select,
         check,
         get,
+        valid,
+        error,
         validate,
         submit,
         clear,

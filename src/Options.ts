@@ -2,10 +2,9 @@ import {
   observable,
   action,
   toJS,
-  extendObservable,
   set,
-  makeObservable,
 } from "mobx";
+import { makeObservable } from "./compat";
 
 import { get, has } from "lodash";
 
@@ -73,7 +72,7 @@ export default class Options implements OptionsInterface {
     });
   }
 
-  get(key: string, field: any = null): OptionsModel {
+  get(key: string = '', field: any = null): OptionsModel {
     // handle field option
     if (has(field, "path")) {
       if (has(field.$options, key)) {
@@ -87,10 +86,6 @@ export default class Options implements OptionsInterface {
   }
 
   set(options: OptionsModel): void {
-    if (set) {
-      set(this.options, options);
-    } else {
-      extendObservable(this.options, options);
-    }
+    set(this.options, options);
   }
 }

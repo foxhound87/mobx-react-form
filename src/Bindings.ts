@@ -50,7 +50,7 @@ export default class Bindings implements BindingsInterface {
       $try,
     });
 
-    if (has(this.templates, FieldPropsEnum.default)) {
+    if (has(this.templates, name)) {
       return get(this.templates, name)(args);
     }
 
@@ -64,6 +64,22 @@ export default class Bindings implements BindingsInterface {
       return $bindings;
     }
 
-    return get(this.templates, name)(args);
+    if (has(this.templates, name)) {
+      return get(this.templates, name)(args);
+    }
+
+    if (name === FieldPropsEnum.default) {
+      const $bindings = {};
+
+      each(get(this.rewriters, FieldPropsEnum.default), ($v, $k) =>
+        merge($bindings, { [$v]: $try((props as any)[$k], field[$k]) })
+      );
+
+      return $bindings;
+    }
+
+    throw new Error(
+      `Bindings: template or rewriter "${name}" does not exist \u2014 register it or use the "default" binding`
+    );
   }
 }

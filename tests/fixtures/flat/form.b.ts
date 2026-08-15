@@ -2,10 +2,10 @@ import ajv from "ajv";
 import validatorjs from "validatorjs";
 
 import { Form } from "../../../src";
-import svkExtend from "../extension/svk";
+import ajvExtend from "../extension/ajv";
 
 import dvr from "../../../src/validators/DVR";
-import svk from "../../../src/validators/SVK";
+import ajvPlugin from "../../../src/validators/AJV";
 import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
 
 const fields = {
@@ -36,10 +36,10 @@ const schema = {
 
 const plugins: ValidationPlugins = {
   dvr: dvr({ package: validatorjs }),
-  svk: svk({
+  ajv: ajvPlugin({
     schema,
     package: ajv,
-    extend: svkExtend,
+    extend: ajvExtend,
   }),
 };
 
