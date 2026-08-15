@@ -23,6 +23,8 @@ Validation can be triggered:
 | **Object schema** | YUP | Modern JS/TS, chainable API | `y.string().required().min(3)` |
 | **Object schema** | JOI | Enterprise-grade, rich error messages | `j.string().min(3).required()` |
 | **TypeScript schema** | ZOD | TypeScript-first, type inference | `z.string().min(3)` |
+| **TypeScript schema** | VALIBOT | Tiny TS-first schemas, sync only | `v.pipe(v.string(), v.minLength(3))` |
+| **TypeScript schema** | VINEJS | Sync rules, async validation API | `vine.string().minLength(3)` |
 
 ### When to use what
 
@@ -34,6 +36,8 @@ Validation can be triggered:
 | Modern object-oriented validation | **YUP** — popular, good DX |
 | Enterprise / complex schemas | **JOI** — battle-tested, rich errors |
 | TypeScript-native with infer | **ZOD** — best TS integration |
+| Tiny TypeScript-first schemas (sync) | **VALIBOT** — smallest bundle, sync pipes |
+| Sync rules with async API | **VINEJS** — promise-based validation |
 
 ### Can I use multiple plugins?
 
@@ -43,19 +47,20 @@ Validation can be triggered:
 
 ## Plugin Comparison
 
-| Feature | VJF | DVR | AJV | YUP | JOI | ZOD |
-|---|---|---|---|---|---|---|
-| **Custom validation functions** | ✅ Native | ❌ | ❌ | ❌ | ❌ | ❌ |
-| **String-based rules** | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **JSON Schema** | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ |
-| **Chainable API** | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
-| **Async validation** | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Extend with custom rules** | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Automatic error messages** | User-defined | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **TypeScript inference** | No | No | No | Partial | Partial | ✅ |
+| Feature | VJF | DVR | AJV | YUP | JOI | ZOD | VALIBOT | VINEJS |
+|---|---|---|---|---|---|---|---|---|
+| **Custom validation functions** | ✅ Native | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **String-based rules** | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **JSON Schema** | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Chainable API** | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Async validation** | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| **Extend with custom rules** | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| **Automatic error messages** | User-defined | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **TypeScript inference** | No | No | No | Partial | Partial | ✅ | ✅ | ✅ |
 
-> **VJF**, **DVR** and **AJV** support async validation and custom extension (via the `extend` callback).
-> **YUP**, **JOI** and **ZOD** do not support the `extend` callback or async validation pipelines — they rely on their own native APIs for those features.
+> **VJF**, **DVR**, **AJV**, **VALIBOT** and **VINEJS** support custom extension (via the `extend` callback).
+> **VJF**, **DVR**, **AJV** and **VINEJS** support the async validation pipeline.
+> **YUP**, **JOI** and **ZOD** do not support the `extend` callback — they rely on their own native APIs for those features. VALIBOT is sync-only (use native `pipe`/`check`/`custom()` for async-style logic).
 
 ---
 
@@ -69,22 +74,27 @@ Validation can be triggered:
 - [Setup YUP — Object Schema Validator](plugins/YUP/setup.md)
 - [Setup JOI — Object Schema Validator](plugins/JOI/setup.md)
 - [Setup ZOD — TypeScript-First Schema Validation](plugins/ZOD/setup.md)
+- [Setup VALIBOT — Tiny TypeScript-First Schema Validation](plugins/VALIBOT/setup.md)
+- [Setup VINEJS — Sync Rules, Async Validation API](plugins/VINEJS/setup.md)
 
 ### Extend with custom rules
 
-> Available only for **VJF**, **DVR** and **AJV**.
+> Available only for **VJF**, **DVR**, **AJV**, **VALIBOT** and **VINEJS**.
 
 - [Extend VJF — Custom Validation Functions](plugins/VJF/extend.md)
 - [Extend DVR — Custom Declarative Rules](plugins/DVR/extend.md)
 - [Extend AJV — Custom JSON Schema Keywords](plugins/AJV/extend.md)
+- [Extend VALIBOT — Custom Valibot Checks](plugins/VALIBOT/extend.md)
+- [Extend VINEJS — Custom VineJS Rules](plugins/VINEJS/extend.md)
 
 ### Async validation
 
-> Available only for **VJF**, **DVR** and **AJV**.
+> Available only for **VJF**, **DVR**, **AJV** and **VINEJS**.
 
 - [Async VJF](plugins/VJF/async.md)
 - [Async DVR](plugins/DVR/async.md)
 - [Async AJV](plugins/AJV/async.md)
+- [Async VINEJS](plugins/VINEJS/async.md)
 
 ---
 

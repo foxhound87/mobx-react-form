@@ -11,7 +11,7 @@ MobX React Form provides a collection of **AI agent skills** — reusable, self-
 Skills are markdown files that teach an AI agent how to work with specific features of mobx-react-form. When a skill is installed and activated, the AI can:
 
 - Write correct form definitions (flat, nested, mixed)
-- Set up validation with any plugin (DVR, VJF, YUP, JOI, ZOD, AJV)
+- Set up validation with any plugin (DVR, VJF, YUP, JOI, ZOD, AJV, VALIBOT, VINEJS)
 - Configure event hooks and handlers
 - Create custom bindings for your UI framework
 - Build advanced features (wizards, sortable lists, file uploads, computed fields, etc.)
@@ -26,7 +26,7 @@ Each skill covers a focused area of the library, so the AI uses only what it nee
 | **mobx-react-form-api** | Core API — installation, Form/Field constructor, properties, methods, helpers, event handlers |
 | **mobx-react-form-flat** | Flat field definitions — unified mode, separated mode, mixed mode, field properties, patterns |
 | **mobx-react-form-nested** | Nested & array fields — dot notation, array notation, dynamic add/remove, ArrayMap, field traversal |
-| **mobx-react-form-validation** | Validation — DVR, VJF, AJV, YUP, JOI, ZOD plugins, async validation, cross-validation, hooks |
+| **mobx-react-form-validation** | Validation — DVR, VJF, AJV, YUP, JOI, ZOD, VALIBOT, VINEJS plugins, async validation, cross-validation, hooks |
 | **mobx-react-form-bindings** | Field bindings — default rewriter/template, custom bindings, `$try`, per-field mapping, UI frameworks |
 | **mobx-react-form-multi-step** | Multi-step wizard forms — nested groups, per-step validation, navigation, review screen |
 | **mobx-react-form-events** | Event hooks & handlers — onInit, onChange, onFocus, onBlur, onSubmit, onSuccess, onError, key events |

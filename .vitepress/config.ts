@@ -232,6 +232,8 @@ export default defineConfig({
               { text: 'Setup YUP', link: '/validation/plugins/YUP/setup' },
               { text: 'Setup JOI', link: '/validation/plugins/JOI/setup' },
               { text: 'Setup ZOD', link: '/validation/plugins/ZOD/setup' },
+              { text: 'Setup VALIBOT', link: '/validation/plugins/VALIBOT/setup' },
+              { text: 'Setup VINEJS', link: '/validation/plugins/VINEJS/setup' },
             ],
           },
           {
@@ -241,6 +243,8 @@ export default defineConfig({
               { text: 'Extend VJF', link: '/validation/plugins/VJF/extend' },
               { text: 'Extend DVR', link: '/validation/plugins/DVR/extend' },
               { text: 'Extend AJV', link: '/validation/plugins/AJV/extend' },
+              { text: 'Extend VALIBOT', link: '/validation/plugins/VALIBOT/extend' },
+              { text: 'Extend VINEJS', link: '/validation/plugins/VINEJS/extend' },
             ],
           },
           {
@@ -250,6 +254,7 @@ export default defineConfig({
               { text: 'Async VJF', link: '/validation/plugins/VJF/async' },
               { text: 'Async DVR', link: '/validation/plugins/DVR/async' },
               { text: 'Async AJV', link: '/validation/plugins/AJV/async' },
+              { text: 'Async VINEJS', link: '/validation/plugins/VINEJS/async' },
             ],
           },
         ],

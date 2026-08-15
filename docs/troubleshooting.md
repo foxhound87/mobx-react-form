@@ -200,6 +200,8 @@ import ajv from 'mobx-react-form/lib/validators/AJV';
 import yup from 'mobx-react-form/lib/validators/YUP';
 import zod from 'mobx-react-form/lib/validators/ZOD';
 import joi from 'mobx-react-form/lib/validators/JOI';
+import valibot from 'mobx-react-form/lib/validators/VALIBOT';
+import vinejs from 'mobx-react-form/lib/validators/VINEJS';
 ```
 
 If you get module resolution errors, ensure your bundler (webpack, vite, etc.) can resolve the package.

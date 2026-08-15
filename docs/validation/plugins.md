@@ -12,10 +12,13 @@ All package listed below are not included in the mobx-react-form package and mus
 | **YUP** | Object Schema Validator | `npm i yup` | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorYUP.umd.min.js) · [GitHub](https://github.com/jquense/yup) · [NPM](https://www.npmjs.com/package/yup) |
 | **JOI** | Object Schema Validator | `npm i joi` | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorJOI.umd.min.js) · [GitHub](https://github.com/hapijs/joi) · [NPM](https://www.npmjs.com/package/joi) |
 | **ZOD** | TypeScript-first schema validation | `npm i zod` | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorZOD.umd.min.js) · [GitHub](https://github.com/colinhacks/zod) · [NPM](https://www.npmjs.com/package/zod) |
+| **VALIBOT** | Tiny TypeScript-first schema validation | `npm i valibot` | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorVALIBOT.umd.min.js) · [GitHub](https://github.com/fabian-hiller/valibot) · [NPM](https://www.npmjs.com/package/valibot) |
+| **VINEJS** | Sync rules, async validation API | `npm i @vinejs/vine` | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorVINEJS.umd.min.js) · [GitHub](https://github.com/vinejs/vine) · [NPM](https://www.npmjs.com/package/@vinejs/vine) |
 
 ###### INFO
 
 * The `validator` package when setting up `VJF` is optional.
+* VALIBOT requires no `package` (bundled); VINEJS requires a Vine instance via `package`.
 * To setup custom error messages, see the related plugin repo, each package has a different implementation.
 
 ###### SETUP
@@ -25,3 +28,5 @@ All package listed below are not included in the mobx-react-form package and mus
 - [Setup YUP - Object Schema Validator](plugins/YUP/setup.md)
 - [Setup JOI - Object Schema Validator](plugins/JOI/setup.md)
 - [Setup ZOD - TypeScript-first schema validation](plugins/ZOD/setup.md)
+- [Setup VALIBOT - Tiny TypeScript-first schema validation](plugins/VALIBOT/setup.md)
+- [Setup VINEJS - Sync rules, async validation API](plugins/VINEJS/setup.md)

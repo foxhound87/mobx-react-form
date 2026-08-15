@@ -48,3 +48,7 @@ new Form({ ... }, { plugins });
 ```
 
 > **Note:** ZOD does not support the `extend` callback or async validation pipelines through mobx-react-form's plugin system. For custom validation and async rules, use ZOD's native `.refine()` or `.superRefine()` methods on the schema directly.
+
+### ZOD versions
+
+The **ZOD** driver supports **zod v3.25+ and v4** (peer `^3.25.0 || ^4.0.0`, optional peer; devDep in repo). The driver relies only on `safeParse` + `error.format()`, stable across both majors. For v4 smaller bundles use `zod/v4/core`.
