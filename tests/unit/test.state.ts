@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import Form from "../../src/Form";
+import vjf from "../../src/validators/VJF";
 import { StateInterface } from "../../src/models/StateInterface";
 
 describe("State — extra() coverage", () => {
@@ -170,5 +171,113 @@ describe("State — observeOptions exec callbacks", () => {
     // Toggle OFF → exec calls disposeValidationOnChange()
     form.state.options.set({ validateOnChange: false });
     expect(form.state.options.get("validateOnChange")).to.be.false;
+  });
+});
+
+describe("State — set() current subtype", () => {
+  it("should assign only the current subtype (not initial)", () => {
+    const form = new Form({
+      fields: { k: { label: "K", value: "v" } },
+    });
+    const state: any = (form as any).state;
+
+    state.set("current", "props", { marker: "current-only" });
+
+    expect(state.current.props.marker).to.equal("current-only");
+    expect(state.initial.props.marker).to.be.undefined;
+  });
+});
+
+describe("State — dispose guards on fields without observers", () => {
+  it("validateOnChange -> false skips fields without disposeValidationOnChange", () => {
+    const form = new Form(
+      {
+        fields: {
+          email: {
+            label: "Email",
+            value: "x",
+            rules: "required",
+            options: { validateOnChange: false } as any,
+          },
+        },
+      },
+      { name: "Guard1", options: { validateOnChange: true } as any }
+    );
+
+    expect(() =>
+      form.state.options.set({ validateOnChange: false })
+    ).to.not.throw();
+    expect(form.state.options.get("validateOnChange")).to.be.false;
+  });
+
+  it("validateOnBlur -> false skips fields without disposeValidationOnBlur", () => {
+    const form = new Form(
+      {
+        fields: {
+          email: {
+            label: "Email",
+            value: "x",
+            rules: "required",
+            options: { validateOnBlur: false } as any,
+          },
+        },
+      },
+      { name: "Guard2", options: { validateOnBlur: true } as any }
+    );
+
+    expect(() =>
+      form.state.options.set({ validateOnBlur: false })
+    ).to.not.throw();
+    expect(form.state.options.get("validateOnBlur")).to.be.false;
+  });
+});
+
+describe("Form — deep showErrors() and resetValidation()", () => {
+  it("should propagate deep and accept shallow flag", async () => {
+    const form = new Form(
+      {
+        fields: {
+          email: {
+            label: "Email",
+            value: "",
+            validators: [
+              ({ field }: any) => (field.value ? true : "Email required"),
+            ],
+          },
+          nested: {
+            fields: [
+              {
+                name: "user",
+                label: "User",
+                value: "",
+                validators: [
+                  ({ field }: any) => (field.value ? true : "User required"),
+                ],
+              },
+            ],
+          },
+        },
+      },
+      {
+        name: "Deep",
+        plugins: { vjf: vjf() },
+        options: { validateOnInit: false } as any,
+      }
+    );
+
+    await form.validate({ showErrors: false });
+
+    expect(form.hasError).to.be.true;
+
+    form.showErrors(true);
+    expect(form.$("email").hasError).to.be.true;
+
+    form.showErrors(false);
+    expect(form.$("email").hasError).to.be.true;
+
+    form.resetValidation();
+    form.resetValidation(false);
+    expect(form.validator.error).to.be.null;
+    expect(form.$("email").error).to.be.null;
   });
 });

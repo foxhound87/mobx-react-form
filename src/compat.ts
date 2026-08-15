@@ -37,6 +37,11 @@ export const makeObservable = (target: any, annotations: Annotations): any => {
     return M.makeObservable(target, annotations);
   }
 
+  return fallbackMakeObservable(target, annotations);
+};
+
+/* istanbul ignore next -- MobX 5 only: no makeObservable in 5.x and no decorate in 6/7, not runnable on the MobX 6/7 test matrix */
+function fallbackMakeObservable(target: any, annotations: Annotations): any {
   const members = Object.entries(annotations).filter(([key]) =>
     key in target
   );

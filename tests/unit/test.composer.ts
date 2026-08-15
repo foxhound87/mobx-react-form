@@ -179,4 +179,27 @@ describe("Composer", () => {
     expect(wizard.select("step1").isPristine).to.be.true;
     expect(wizard.select("step2").isPristine).to.be.true;
   });
+
+  it("should accept explicit option objects for clear/reset (default-arg branches)", () => {
+    const wizard = buildWizard();
+
+    wizard.select("step1").$("email").value = "test@test.com";
+
+    expect(() => wizard.clear({ deep: false })).to.not.throw();
+    expect(() => wizard.reset({ deep: true, execHook: true })).to.not.throw();
+
+    expect(wizard.get("value").step1.email).to.equal("");
+  });
+
+  it("should accept explicit option objects for validate/submit (default-arg branches)", () => {
+    const wizard = buildWizard();
+
+    return wizard
+      .validate({ showErrors: false })
+      .then(() => wizard.submit({ validate: false, execOnSubmitHook: true, execValidationHooks: true }))
+      .then((result: any) => {
+        expect(result.valid).to.be.false;
+        expect(result.error).to.be.true;
+      });
+  });
 });

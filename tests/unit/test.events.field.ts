@@ -238,6 +238,29 @@ describe("Field Event Handlers", () => {
       expect(field.files).to.have.lengthOf(1);
       expect(field.files[0]).to.deep.equal(file);
     });
+
+    it("should dedupe repeated drops of the same file (FIXES row 28)", () => {
+      const fileA = { name: "a.txt", size: 10, lastModified: 1700000000000 };
+      const fileB = { name: "b.txt", size: 20, lastModified: 1700000000001 };
+
+      field.onDrop(fileA);
+      field.onDrop({ ...fileA });
+      field.onDrop(fileB);
+
+      expect(field.files).to.have.lengthOf(2);
+      expect(field.files.map((f: any) => f.name)).to.have.members([
+        "a.txt",
+        "b.txt",
+      ]);
+    });
+
+    it("should keep a distinct file whose size differs only in lastModified", () => {
+      const base = { name: "a.txt", size: 10, lastModified: 1700000000000 };
+      field.onDrop(base);
+      field.onDrop({ name: "a.txt", size: 10, lastModified: 1700000000002 });
+
+      expect(field.files).to.have.lengthOf(2);
+    });
   });
 
   describe("focus() and blur() actions", () => {
