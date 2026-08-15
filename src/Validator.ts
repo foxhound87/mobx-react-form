@@ -27,6 +27,8 @@ export default class Validator implements ValidatorInterface {
     yup: undefined,
     zod: undefined,
     joi: undefined,
+    valibot: undefined,
+    vinejs: undefined,
   };
 
   error: string | null = null;

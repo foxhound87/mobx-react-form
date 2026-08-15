@@ -498,4 +498,128 @@ describe("Validator Edge Cases", () => {
       expect(form.$("username").hasError).to.be.true;
     });
   });
+
+  describe("ZOD v4 - schema validation", () => {
+    let schema: any;
+
+    beforeEach(() => {
+      schema = z.object({
+        email: z.string().email(),
+        age: z.number().min(18),
+        user: z.object({
+          zip: z.string().min(5),
+        }),
+      });
+    });
+
+    it("should pass on valid data", () => {
+      const form = new Form(
+        {
+          fields: {
+            email: { label: "Email", value: "valid@email.com" },
+            age: { label: "Age", value: 30 },
+            user: { fields: [{ name: "zip", label: "ZIP", value: "12345" }] },
+          },
+        },
+        {
+          name: "ZOD4Valid",
+          plugins: { zod: zodValidator({ package: z, schema }) },
+          options: { validateOnInit: true },
+        },
+      );
+
+      expect(form.$("email").hasError).to.be.false;
+      expect(form.$("age").hasError).to.be.false;
+      expect(form.$("user.zip").hasError).to.be.false;
+    });
+
+    it("should detect invalid email", () => {
+      const form = new Form(
+        {
+          fields: {
+            email: { label: "Email", value: "not-an-email" },
+            age: { label: "Age", value: 30 },
+            user: { fields: [{ name: "zip", label: "ZIP", value: "12345" }] },
+          },
+        },
+        {
+          name: "ZOD4Invalid",
+          plugins: { zod: zodValidator({ package: z, schema }) },
+          options: { validateOnInit: true },
+        },
+      );
+
+      expect(form.$("email").hasError).to.be.true;
+      expect(form.$("email").validationErrorStack).to.not.be.empty;
+    });
+
+    it("should detect min value violation", () => {
+      const form = new Form(
+        {
+          fields: {
+            email: { label: "Email", value: "valid@email.com" },
+            age: { label: "Age", value: 15 },
+            user: { fields: [{ name: "zip", label: "ZIP", value: "12345" }] },
+          },
+        },
+        {
+          name: "ZOD4Min",
+          plugins: { zod: zodValidator({ package: z, schema }) },
+          options: { validateOnInit: true },
+        },
+      );
+
+      expect(form.$("age").hasError).to.be.true;
+    });
+
+    it("should handle nested field errors", () => {
+      const form = new Form(
+        {
+          fields: {
+            email: { label: "Email", value: "valid@email.com" },
+            age: { label: "Age", value: 30 },
+            user: { fields: [{ name: "zip", label: "ZIP", value: "123" }] },
+          },
+        },
+        {
+          name: "ZOD4Nested",
+          plugins: { zod: zodValidator({ package: z, schema }) },
+          options: { validateOnInit: true },
+        },
+      );
+
+      expect(form.$("user.zip").hasError).to.be.true;
+    });
+
+    it("should support validationPluginsOrder with other plugins", () => {
+      const form = new Form(
+        {
+          fields: {
+            username: {
+              label: "Username",
+              value: "ab",
+              rules: "min:5|max:20",
+            },
+            email: { label: "Email", value: "valid@email.com" },
+            age: { label: "Age", value: 30 },
+            user: { fields: [{ name: "zip", label: "ZIP", value: "12345" }] },
+          },
+        },
+        {
+          name: "ZOD4Order",
+          plugins: {
+            zod: zodValidator({ package: z, schema }),
+            dvr: dvr({ package: validatorjs }),
+          },
+          options: {
+            validateOnInit: true,
+            validationPluginsOrder: ["zod", "dvr"],
+          },
+        },
+      );
+
+      expect(form.$("email").hasError).to.be.false;
+      expect(form.$("username").hasError).to.be.true;
+    });
+  });
 });
