@@ -1,3 +1,17 @@
+# 7.1.0 (master)
+
+## Features
+
+- **C1** (#36): new **VALIBOT** validation driver — sync-only, plugin key `valibot`, import `mobx-react-form/lib/validators/VALIBOT`, script-tag global `MobxReactFormValidatorVALIBOT`. Usage: `valibot({ schema })` with a Valibot v1 schema; per-field errors match MRF paths (incl. nested `user.email` and array `members.0.name`). devDep `valibot@^1`.
+- **C2** (#37): new **VINEJS** validation driver — plugin key `vinejs`, import `mobx-react-form/lib/validators/VINEJS`, script-tag global `MobxReactFormValidatorVINEJS`. Usage: `vinejs({ package: vine, schema })`. VineJS `validate()` is async-by-design at the API level even for synchronous rules, so the driver consumes the MRF async contract (`setValidationAsyncData` + `promises`), mirroring the YUP driver. devDep `@vinejs/vine@^4`.
+- **C3** (#38): **ZOD driver hardened for v3.25+ / v4** — peer widened to `zod: ^3.25.0 || ^4.0.0` (optional peer via `peerDependenciesMeta`), devDep `zod@^4`; driver relies only on `safeParse` + `error.format()` (stable across both majors), so no driver changes were needed. Fixture expectations updated to zod v4 messages.
+
+## Chore
+
+- **E1**: toolchain — TypeScript devDep bumped `^4.5.5` → `^5` (5.9.3). No TS5 errors surfaced in the existing codebase (`tsc --noEmit` clean); full suite green after bump.
+- **E2**: new unit test file `tests/unit/test.validators.valibot.ts` covering VALIBOT, VINEJS and ZOD v4 (valid / invalid / nested / message stack / `validationPluginsOrder`), contributing to the coverage gate.
+- **E3**: AGENTS.md aligned with the release — version 7.1.0, driver table now 8 rows (`valibot`, `vinejs`), zod v4 peer note, plugin keys and UMD globals documented.
+
 # 7.0.0 (master)
 
 ## Breaking Changes

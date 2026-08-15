@@ -38,7 +38,7 @@ export type ExtendPlugin<TValidator = ValidationPackage> = (args: {
 }) => void;
 
 export interface ValidationPluginConfig<TValidator = ValidationPackage> {
-  package: TValidator;
+  package?: TValidator;
   schema?: any;
   options?: any;
   extend?: ExtendPlugin<TValidator>;
@@ -72,6 +72,8 @@ export interface ValidationPlugins {
   yup?: ValidationPlugin;
   zod?: ValidationPlugin;
   joi?: ValidationPlugin;
+  valibot?: ValidationPlugin;
+  vinejs?: ValidationPlugin;
 }
 
 export type DriversMap = {

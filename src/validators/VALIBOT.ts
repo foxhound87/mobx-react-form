@@ -1,3 +1,4 @@
+import * as v from "valibot";
 import FieldInterface from "../models/FieldInterface";
 import FormInterface from "../models/FormInterface";
 import StateInterface from "../models/StateInterface";
@@ -8,12 +9,12 @@ import {
   ValidationPluginInterface,
 } from "../models/ValidatorInterface";
 
-class JOI<TValidator = any> implements ValidationPluginInterface<TValidator> {
+class VALIBOT<TValidator = any> implements ValidationPluginInterface {
   promises: Promise<any>[];
   config: ValidationPluginConfig<TValidator>;
   state: StateInterface | null;
   extend?: (args: { validator: TValidator; form: FormInterface }) => void;
-  validator: TValidator;
+  validator: any;
   schema: any;
 
   constructor({
@@ -25,8 +26,9 @@ class JOI<TValidator = any> implements ValidationPluginInterface<TValidator> {
     this.promises = promises;
     this.config = config;
     this.extend = config?.extend;
-    this.validator = config.package!;
+    this.validator = config.package ?? v;
     this.schema = config.schema;
+
     this.extendValidator();
   }
 
@@ -39,34 +41,23 @@ class JOI<TValidator = any> implements ValidationPluginInterface<TValidator> {
     }
   }
 
+  // Convert a Valibot issue.path (array of { key }) into an MRF-style string path
+  // e.g. [{ key: 'members' }, { key: 0 }, { key: 'name' }] => 'members.0.name'
+  normalizePath(issuePath: any[] = []): string {
+    return issuePath.map((seg) => seg?.key).join(".");
+  }
+
   validate(field: FieldInterface): void {
-    const data = this.state!.form.flatMapValues;
-    const { error } = this.schema.validate(data, { abortEarly: false });
+    const result = v.safeParse(this.schema, field.state.form.flatMapValues);
 
-    if (!error) return;
+    if (result.success) return;
 
-    const fieldPathArray = (field.path ?? "").split(".");
+    const messages = result.issues
+      .filter((issue: any) => this.normalizePath(issue.path) === field.path)
+      .map((issue: any) => issue.message);
 
-    const fieldErrors = error.details
-      .filter((detail: any) => {
-        const errorPathString = detail.path.join(".");
-        const fieldPathString = fieldPathArray.join(".");
-        return (
-          errorPathString === fieldPathString ||
-          errorPathString.startsWith(`${fieldPathString}.`)
-        );
-      })
-      .map((detail: any) => {
-        const label = detail.context?.label || detail.path.join(".");
-        const message = detail.message.replace(
-          `${detail.path.join(".")}`,
-          label
-        );
-        return message;
-      });
-
-    if (fieldErrors.length) {
-      field.validationErrorStack = fieldErrors;
+    if (messages?.length) {
+      field.validationErrorStack = messages;
     }
   }
 }
@@ -74,6 +65,6 @@ class JOI<TValidator = any> implements ValidationPluginInterface<TValidator> {
 export default <TValidator = any>(
   config?: ValidationPluginConfig<TValidator>
 ): ValidationPlugin<TValidator> => ({
-  class: JOI<TValidator>,
+  class: VALIBOT<TValidator>,
   config,
 });

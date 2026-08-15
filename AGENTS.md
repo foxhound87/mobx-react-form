@@ -12,7 +12,7 @@ A concise guide for LLMs working with **MobX React Form** — the reactive MobX 
 | **NPM**          | [npmjs.com/package/mobx-react-form](https://www.npmjs.com/package/mobx-react-form)     |
 | **GitHub**       | [github.com/foxhound87/mobx-react-form](https://github.com/foxhound87/mobx-react-form) |
 | **Docs**         | [foxhound87.github.io/mobx-react-form](https://foxhound87.github.io/mobx-react-form/)  |
-| **Version**      | 7.x (current: 7.0.0)                                                                  |
+| **Version**      | 7.x (current: 7.1.0)                                                                  |
 | **Size**         | ~8KB gzip (tree-shakeable)                                                             |
 | **License**      | MIT                                                                                    |
 | **Dependencies** | MobX 5, 6 & 7 (peer: `^5.15.0 || ^6.0.0 || ^7.0.0`), lodash, React (optional)                      |
@@ -27,7 +27,7 @@ MobX React Form is built on three core principles:
 
 2. **Composable by design** — Fields nest infinitely (objects, arrays, arrays of arrays). Forms compose via `composer()` for wizards and multi-step flows. `ArrayMap` preserves insertion order for dynamic lists.
 
-3. **Plugin-driven validation** — 6 validation drivers (DVR, VJF, AJV, YUP, JOI, ZOD) share a uniform lifecycle. Swap or combine them without changing field definitions.
+3. **Plugin-driven validation** — 8 validation drivers (DVR, VJF, AJV, YUP, JOI, ZOD, VALIBOT, VINEJS) share a uniform lifecycle. Swap or combine them without changing field definitions.
 
 The result: you define your form structure declaratively, and reactivity, validation, change tracking, and UI bindings are automatic.
 
@@ -101,7 +101,7 @@ Form(setup: FieldsDefinitions, config: FormConfig)
 
 | Config key | Type                                                | Purpose                         |
 | ---------- | --------------------------------------------------- | ------------------------------- | --------------------------- |
-| `plugins`  | `{ dvr?, vjf?, ajv?, yup?, zod?, joi? }`            | Validation drivers              |
+| `plugins`  | `{ dvr?, vjf?, ajv?, yup?, zod?, joi?, valibot?, vinejs? }` | Validation drivers              |
 | `hooks`    | `{ onInit?, onChange?, onSuccess?, onError?, ... }` | Lifecycle callbacks             |
 | `handlers` | `{ onSubmit?, onKeyDown?, ... }`                    | Custom event handlers (curried) |
 | `options`  | `OptionsModel`                                      | Form behavior flags             |
@@ -230,7 +230,7 @@ Built-in handlers on Form/Base: `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDe
 
 ### 4.7 Validation Drivers
 
-Six plugins sharing a uniform lifecycle. Enable one or more:
+Eight plugins sharing a uniform lifecycle. Enable one or more:
 
 ```javascript
 import dvr from "mobx-react-form/lib/validators/DVR";
@@ -239,16 +239,28 @@ import yupPlugin from "mobx-react-form/lib/validators/YUP";
 import joiPlugin from "mobx-react-form/lib/validators/JOI";
 import zodPlugin from "mobx-react-form/lib/validators/ZOD";
 import ajv from "mobx-react-form/lib/validators/AJV";
+import valibotPlugin from "mobx-react-form/lib/validators/VALIBOT";
+import vinejsPlugin from "mobx-react-form/lib/validators/VINEJS";
 ```
 
-| Driver  | Rules Format                         | Async | Extend | Best For                        |
-| ------- | ------------------------------------ | ----- | ------ | ------------------------------- |
-| **DVR** | String rules (`'required\|email'`)   | ✅    | ✅     | Simple forms, quick setup       |
-| **VJF** | Custom functions `() => [bool, msg]` | ✅    | ✅     | Full control, complex logic     |
-| **AJV** | JSON Schema                          | ✅    | ✅     | API compatibility, schema-first |
-| **YUP** | `y.string().required()`              | ❌    | ❌     | Modern JS/TS                    |
-| **JOI** | `j.string().required()`              | ❌    | ❌     | Enterprise, rich rules          |
-| **ZOD** | `z.string().min(3)`                  | ❌    | ❌     | TypeScript-native               |
+| Driver    | Rules Format                         | Async | Extend | Best For                        |
+| --------- | ------------------------------------ | ----- | ------ | ------------------------------- |
+| **DVR**   | String rules (`'required\|email'`)   | ✅    | ✅     | Simple forms, quick setup       |
+| **VJF**   | Custom functions `() => [bool, msg]` | ✅    | ✅     | Full control, complex logic     |
+| **AJV**   | JSON Schema                          | ✅    | ✅     | API compatibility, schema-first |
+| **YUP**   | `y.string().required()`              | ❌    | ❌     | Modern JS/TS                    |
+| **JOI**   | `j.string().required()`              | ❌    | ❌     | Enterprise, rich rules          |
+| **ZOD**   | `z.string().min(3)`                  | ❌    | ❌     | TypeScript-native               |
+| **VALIBOT** | `v.string(), v.minLength(3)`       | ❌    | ✅     | Sync, tiny TS-first schemas     |
+| **VINEJS**  | `vine.string().minLength(3)`       | ✅*   | ✅     | Sync rules, async API           |
+
+\* VineJS `validate()` is async-by-design at the API level (even for synchronous
+rules) — the driver consumes the MRF async contract (`setValidationAsyncData` +
+`promises`), mirroring the YUP driver.
+
+- **ZOD** driver supports **zod v3.25+ and v4** (peer `^3.25.0 || ^4.0.0`,
+  optional peer; devDep in repo). Driver relies only on `safeParse` + `error.format()`,
+  stable across both majors.
 
 **Example — enable DVR + VJF together:**
 
@@ -563,7 +575,7 @@ All properties you can define per field:
 | `label`         | `string \| function`       | Display label                                                                |
 | `placeholder`   | `string \| function`       | Placeholder text                                                             |
 | `type`          | `string`                   | Input type (`text`, `checkbox`, `password`, `file`, `number`, etc.)          |
-| `rules`         | `string`                   | Validation rules (DVR: `'required\|email'`, VJF/AJV/YUP/JOI/ZOD: per-driver) |
+| `rules`         | `string`                   | Validation rules (DVR: `'required\|email'`, VJF/AJV/YUP/JOI/ZOD/VALIBOT/VINEJS: per-driver) |
 | `validators`    | `function[]`               | Custom validation functions (VJF)                                            |
 | `related`       | `string[]`                 | Re-validate these field paths when this field changes                        |
 | `disabled`      | `boolean \| function`      | Disabled state                                                               |
@@ -746,4 +758,4 @@ const bindings = {
 
 ---
 
-> **For LLMs:** When helping users with mobx-react-form, always check which validation plugin is being used — patterns differ significantly between DVR/VJF/AJV/YUP/JOI/ZOD. Prefer `computed` props over manual reactivity. Always wrap components with `observer()`. Use `field.bind()` instead of manual prop wiring. Custom handlers are **curried** `(field) => (e) =>`.
+> **For LLMs:** When helping users with mobx-react-form, always check which validation plugin is being used — patterns differ significantly between DVR/VJF/AJV/YUP/JOI/ZOD/VALIBOT/VINEJS. Prefer `computed` props over manual reactivity. Always wrap components with `observer()`. Use `field.bind()` instead of manual prop wiring. Custom handlers are **curried** `(field) => (e) =>`.

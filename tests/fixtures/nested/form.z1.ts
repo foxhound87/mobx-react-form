@@ -67,9 +67,9 @@ export default new Form({
 			});
 
 			describe("Check zod validation errors", () => {
-				it('user.username error should equal zod error', () => expect(form.$('user.username').error).to.be.equal('String must contain at least 3 character(s)'));
-				it('user.email error should equal zod error', () => expect(form.$('user.email').error).to.be.equal('Invalid email'));
-				it('user.password error should equal zod error', () => expect(form.$('user.password').error).to.be.equal('String must contain at least 6 character(s)'));
+				it('user.username error should equal zod error', () => expect(form.$('user.username').error).to.be.equal('Too small: expected string to have >=3 characters'));
+				it('user.email error should equal zod error', () => expect(form.$('user.email').error).to.be.equal('Invalid email address'));
+				it('user.password error should equal zod error', () => expect(form.$('user.password').error).to.be.equal('Too small: expected string to have >=6 characters'));
 				it('user.passwordConfirm error should equal zod error', () => expect(form.$('user.passwordConfirm').error).to.be.equal('Passwords do not match'));
 			});
 

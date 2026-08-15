@@ -11,11 +11,21 @@
   "sideEffects": false,
   "typesVersions": {
     "*": {
-      "composer": ["./lib/composer.d.ts"],
-      "lib/composer": ["./lib/composer.d.ts"],
-      "validators/*": ["./lib/validators/*.d.ts"],
-      "lib/validators/*": ["./lib/validators/*.d.ts"],
-      "lib/utils": ["./lib/utils.d.ts"]
+      "composer": [
+        "./lib/composer.d.ts"
+      ],
+      "lib/composer": [
+        "./lib/composer.d.ts"
+      ],
+      "validators/*": [
+        "./lib/validators/*.d.ts"
+      ],
+      "lib/validators/*": [
+        "./lib/validators/*.d.ts"
+      ],
+      "lib/utils": [
+        "./lib/utils.d.ts"
+      ]
     }
   },
   "exports": {
@@ -121,7 +131,13 @@
     "lodash-es": "^4.17.24"
   },
   "peerDependencies": {
-    "mobx": "^5.15.0 || ^6.0.0 || ^7.0.0"
+    "mobx": "^5.15.0 || ^6.0.0 || ^7.0.0",
+    "zod": "^3.25.0 || ^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "zod": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^6.0.0",
@@ -137,6 +153,7 @@
     "@types/validatorjs": "^3.15.0",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
+    "@vinejs/vine": "^4.4.0",
     "ajv": "^8.0.0",
     "chai": "3.5.0",
     "commitizen": "^4.3.2",
@@ -153,10 +170,11 @@
     "rollup": "^4.59.0",
     "semantic-release": "^24.0.0",
     "ts-node": "^10.5.0",
-    "typescript": "^4.5.5",
+    "typescript": "^5.9.3",
+    "valibot": "^1.4.2",
     "validator": "^13.15.20",
     "validatorjs": "^3.15.1",
     "yup": "^0.32.11",
-    "zod": "^3.22.4"
+    "zod": "^3.25.0 || ^4.0.0"
   }
 }

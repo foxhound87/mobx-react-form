@@ -26,6 +26,8 @@ const umdEntries = {
   MobxReactFormValidatorYUP: { input: "./src/validators/YUP.ts", exports: "default" },
   MobxReactFormValidatorJOI: { input: "./src/validators/JOI.ts", exports: "default" },
   MobxReactFormValidatorZOD: { input: "./src/validators/ZOD.ts", exports: "default" },
+  MobxReactFormValidatorVALIBOT: { input: "./src/validators/VALIBOT.ts", exports: "default" },
+  MobxReactFormValidatorVINEJS: { input: "./src/validators/VINEJS.ts", exports: "default" },
 };
 
 const libEntries = Object.values(umdEntries).map(({ input }) => input);

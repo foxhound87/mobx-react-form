@@ -60,9 +60,9 @@ export default new Form({
 			});
 
 			describe("Check zod validation errors", () => {
-				it('products[0].name error should equal zod error', () => expect(form.$('products[0].name').error).to.be.equal('String must contain at least 3 character(s)'));
-				it('products[0].qty error should equal zod error', () => expect(form.$('products[0].qty').error).to.be.equal('Number must be greater than or equal to 0'));
-				it('products[0].amount error should equal zod error', () => expect(form.$('products[0].amount').error).to.be.equal('Number must be greater than or equal to 0'));
+				it('products[0].name error should equal zod error', () => expect(form.$('products[0].name').error).to.be.equal('Too small: expected string to have >=3 characters'));
+				it('products[0].qty error should equal zod error', () => expect(form.$('products[0].qty').error).to.be.equal('Too small: expected number to be >=0'));
+				it('products[0].amount error should equal zod error', () => expect(form.$('products[0].amount').error).to.be.equal('Too small: expected number to be >=0'));
 			});
 
 		}

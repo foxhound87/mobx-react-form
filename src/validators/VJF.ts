@@ -33,7 +33,7 @@ class VJF<TValidator = any> implements ValidationPluginInterface<TValidator> {
     this.promises = promises;
     this.config = config;
     this.extend = config?.extend;
-    this.validator = config?.package;
+    this.validator = config?.package!;
     this.extendValidator();
   }
 
