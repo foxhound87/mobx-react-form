@@ -18,7 +18,7 @@ hero:
 
 features:
   - title: Validation Plugins
-    details: Choose from 6 drivers — DVR, VJF, SVK, YUP, JOI, ZOD. Sync & async, extendable rules.
+    details: Choose from 6 drivers — DVR, VJF, AJV, YUP, JOI, ZOD. Sync & async, extendable rules.
     link: /validation/
     linkText: Learn more
 

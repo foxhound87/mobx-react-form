@@ -196,7 +196,7 @@ When importing validation plugins, use the correct path:
 // Correct imports:
 import dvr from 'mobx-react-form/lib/validators/DVR';
 import vjf from 'mobx-react-form/lib/validators/VJF';
-import svk from 'mobx-react-form/lib/validators/SVK';
+import ajv from 'mobx-react-form/lib/validators/AJV';
 import yup from 'mobx-react-form/lib/validators/YUP';
 import zod from 'mobx-react-form/lib/validators/ZOD';
 import joi from 'mobx-react-form/lib/validators/JOI';

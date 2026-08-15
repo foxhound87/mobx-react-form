@@ -21,7 +21,7 @@ const plugins = {
 };
 ```
 
-> See [Validation Plugins](validation/plugins.md) for all supported validators: **VJF** (vanilla functions), **DVR** (declarative rules), **SVK** (JSON Schema), **YUP**, **JOI**, **ZOD**.
+> See [Validation Plugins](validation/plugins.md) for all supported validators: **VJF** (vanilla functions), **DVR** (declarative rules), **AJV** (JSON Schema), **YUP**, **JOI**, **ZOD**.
 
 ---
 

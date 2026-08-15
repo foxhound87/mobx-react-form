@@ -1,6 +1,6 @@
-## Custom Json Schema Validation Keywords (SVK)
+## Custom JSON Schema Validation Keywords (AJV)
 
-Using `ajv` as plugin, the Schema Validation Keywords (**SVK**) funcionalities will be enabled and can be extended too.
+Using `ajv` as plugin, the Schema Validation Keywords (**AJV**) functionalities will be enabled and can be extended too.
 
 > See the ajv documentation: [Defining Custom Keywords](https://ajv.js.org/keywords.html) for a deeper explaination
 
@@ -50,12 +50,12 @@ The `extend` function takes in input an object with the following props:
 * the `validator` instance
 
 ```javascript
-import svk from 'mobx-react-form/lib/validators/SVK';
-import ajv from 'ajv';
+import ajv from 'mobx-react-form/lib/validators/AJV';
+import Ajv from 'ajv';
 
 const plugins = {
-  svk: svk({
-    package: ajv,
+  ajv: ajv({
+    package: Ajv,
     schema: $schema,
     options: { ... }, // ajv options
     extend: ({ validator, form }) => {
@@ -66,10 +66,6 @@ const plugins = {
     };
   }),
 };
-
-// create the form using extended plugins
-
-new Form({ fields }, { plugins });
 ```
 
 <details markdown="1">
@@ -78,11 +74,11 @@ new Form({ fields }, { plugins });
 No need to import the plugin function:
 
 ```javascript
-import ajv from 'ajv';
+import Ajv from 'ajv';
 
 const plugins = {
-  svk: {
-    package: ajv,
+  ajv: {
+    package: Ajv,
     extend: () => { ... },
   },
 };

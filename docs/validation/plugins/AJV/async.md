@@ -1,4 +1,4 @@
-## Async Json Schema Validation Keywords (SVK)
+## Async JSON Schema Validation Keywords (AJV)
 
 ### Set `async:true` into the keyword object
 

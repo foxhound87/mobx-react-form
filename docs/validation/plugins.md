@@ -8,7 +8,7 @@ All package listed below are not included in the mobx-react-form package and mus
 |---|---|---|---|
 | **VJF** | Vanilla Javascript Functions | `npm i validator` | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorVJF.umd.min.js) · [GitHub](https://github.com/validatorjs/validator.js) · [NPM](https://www.npmjs.com/package/validator) |
 | **DVR** | Declarative Validation Rules | `npm i validatorjs` | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorDVR.umd.min.js) · [GitHub](https://github.com/mikeerickson/validatorjs) · [NPM](https://www.npmjs.com/package/validatorjs) |
-| **SVK** | Schema Validation Keywords | `npm i ajv` | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorSVK.umd.min.js) · [GitHub](https://github.com/ajv-validator/ajv) · [NPM](https://www.npmjs.com/package/ajv) |
+| **AJV** | Schema Validation Keywords | `npm i ajv` | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorAJV.umd.min.js) · [GitHub](https://github.com/ajv-validator/ajv) · [NPM](https://www.npmjs.com/package/ajv) |
 | **YUP** | Object Schema Validator | `npm i yup` | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorYUP.umd.min.js) · [GitHub](https://github.com/jquense/yup) · [NPM](https://www.npmjs.com/package/yup) |
 | **JOI** | Object Schema Validator | `npm i joi` | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorJOI.umd.min.js) · [GitHub](https://github.com/hapijs/joi) · [NPM](https://www.npmjs.com/package/joi) |
 | **ZOD** | TypeScript-first schema validation | `npm i zod` | [UMD](https://unpkg.com/mobx-react-form/umd/MobxReactFormValidatorZOD.umd.min.js) · [GitHub](https://github.com/colinhacks/zod) · [NPM](https://www.npmjs.com/package/zod) |
@@ -21,7 +21,7 @@ All package listed below are not included in the mobx-react-form package and mus
 ###### SETUP
 - [Setup VJF - Vanilla Javascript Validation Functions](plugins/VJF/setup.md)
 - [Setup DVR - Declarative Validation Rules](plugins/DVR/setup.md)
-- [Setup SVK - Schema Validation Keywords](plugins/SVK/setup.md)
+- [Setup AJV - Schema Validation Keywords](plugins/AJV/setup.md)
 - [Setup YUP - Object Schema Validator](plugins/YUP/setup.md)
 - [Setup JOI - Object Schema Validator](plugins/JOI/setup.md)
 - [Setup ZOD - TypeScript-first schema validation](plugins/ZOD/setup.md)

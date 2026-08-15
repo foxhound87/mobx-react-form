@@ -19,7 +19,7 @@ Validation can be triggered:
 |---|---|---|---|
 | **Custom functions** | VJF | Full control, custom logic, server checks | `({ field }) => [field.value.length > 3, 'Too short']` |
 | **Declarative rules** | DVR | Simple string-based rules (like Laravel) | `'required or email or min:5'` |
-| **JSON Schema** | SVK | JSON-first projects, API compatibility | `{ type: 'string', minLength: 3 }` |
+| **JSON Schema** | AJV | JSON-first projects, API compatibility | `{ type: 'string', minLength: 3 }` |
 | **Object schema** | YUP | Modern JS/TS, chainable API | `y.string().required().min(3)` |
 | **Object schema** | JOI | Enterprise-grade, rich error messages | `j.string().min(3).required()` |
 | **TypeScript schema** | ZOD | TypeScript-first, type inference | `z.string().min(3)` |
@@ -30,7 +30,7 @@ Validation can be triggered:
 |---|---|
 | Simple forms with basic rules | **DVR** — fastest to write |
 | Full control over validation logic | **VJF** — write any function |
-| JSON Schema compliance (API validation) | **SVK** — standards-based |
+| JSON Schema compliance (API validation) | **AJV** — standards-based |
 | Modern object-oriented validation | **YUP** — popular, good DX |
 | Enterprise / complex schemas | **JOI** — battle-tested, rich errors |
 | TypeScript-native with infer | **ZOD** — best TS integration |
@@ -43,7 +43,7 @@ Validation can be triggered:
 
 ## Plugin Comparison
 
-| Feature | VJF | DVR | SVK | YUP | JOI | ZOD |
+| Feature | VJF | DVR | AJV | YUP | JOI | ZOD |
 |---|---|---|---|---|---|---|
 | **Custom validation functions** | ✅ Native | ❌ | ❌ | ❌ | ❌ | ❌ |
 | **String-based rules** | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
@@ -54,7 +54,7 @@ Validation can be triggered:
 | **Automatic error messages** | User-defined | ✅ | ✅ | ✅ | ✅ | ✅ |
 | **TypeScript inference** | No | No | No | Partial | Partial | ✅ |
 
-> **VJF**, **DVR** and **SVK** support async validation and custom extension (via the `extend` callback).
+> **VJF**, **DVR** and **AJV** support async validation and custom extension (via the `extend` callback).
 > **YUP**, **JOI** and **ZOD** do not support the `extend` callback or async validation pipelines — they rely on their own native APIs for those features.
 
 ---
@@ -65,26 +65,26 @@ Validation can be triggered:
 
 - [Setup VJF — Vanilla JavaScript Functions](plugins/VJF/setup.md)
 - [Setup DVR — Declarative Validation Rules](plugins/DVR/setup.md)
-- [Setup SVK — Schema Validation Keywords](plugins/SVK/setup.md)
+- [Setup AJV — Schema Validation Keywords](plugins/AJV/setup.md)
 - [Setup YUP — Object Schema Validator](plugins/YUP/setup.md)
 - [Setup JOI — Object Schema Validator](plugins/JOI/setup.md)
 - [Setup ZOD — TypeScript-First Schema Validation](plugins/ZOD/setup.md)
 
 ### Extend with custom rules
 
-> Available only for **VJF**, **DVR** and **SVK**.
+> Available only for **VJF**, **DVR** and **AJV**.
 
 - [Extend VJF — Custom Validation Functions](plugins/VJF/extend.md)
 - [Extend DVR — Custom Declarative Rules](plugins/DVR/extend.md)
-- [Extend SVK — Custom JSON Schema Keywords](plugins/SVK/extend.md)
+- [Extend AJV — Custom JSON Schema Keywords](plugins/AJV/extend.md)
 
 ### Async validation
 
-> Available only for **VJF**, **DVR** and **SVK**.
+> Available only for **VJF**, **DVR** and **AJV**.
 
 - [Async VJF](plugins/VJF/async.md)
 - [Async DVR](plugins/DVR/async.md)
-- [Async SVK](plugins/SVK/async.md)
+- [Async AJV](plugins/AJV/async.md)
 
 ---
 

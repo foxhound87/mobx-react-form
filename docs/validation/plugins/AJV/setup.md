@@ -1,6 +1,6 @@
-## Enabling Json Schema Validation Keywords (SVK)
+## Enabling JSON Schema Validation Keywords (AJV)
 
-We are using [ajv](https://github.com/ajv-validator/ajv) to enable Schema Validation Keywords (**SVK**) with automatic Error Messages.
+We are using [ajv](https://github.com/ajv-validator/ajv) to enable Schema Validation Keywords (**AJV**) with automatic Error Messages.
 
 #### Install `ajv` Package
 `ajv` is not included in the package, so you have to install it manually.
@@ -25,15 +25,15 @@ const $schema = {
 
 #### Define a plugins object
 
-Pass the `ajv` package and the previously defined `schema` to the **SVK** plugin.
+Pass the `ajv` package and the previously defined `schema` to the **AJV** plugin.
 
 ```javascript
-import svk from 'mobx-react-form/lib/validators/SVK';
-import ajv from 'ajv';
+import ajv from 'mobx-react-form/lib/validators/AJV';
+import Ajv from 'ajv';
 
 const plugins = {
-  svk: svk({
-    package: ajv,
+  ajv: ajv({
+    package: Ajv,
     schema: $schema,
     options: { ... }, // ajv options
   })
@@ -46,10 +46,10 @@ const plugins = {
 No need to import the plugin function:
 
 ```javascript
-import ajv from 'ajv';
+import Ajv from 'ajv';
 
 const plugins = {
-  svk: ajv
+  ajv: Ajv
 };
 ```
 

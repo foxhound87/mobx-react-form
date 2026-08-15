@@ -187,7 +187,7 @@ Control validation timing and plugin execution order.
 |--------|------|---------|-------------|
 | **validationDebounceWait** | number | `250` | Milliseconds to delay validation after the last change |
 | **validationDebounceOptions** | object | `{ leading: false, trailing: true }` | Lodash debounce options |
-| **validationPluginsOrder** | string[] | `undefined` | Order of validation plugins: `vjf`, `dvr`, `svk`, `yup`, `zod`, `joi` |
+| **validationPluginsOrder** | string[] | `undefined` | Order of validation plugins: `vjf`, `dvr`, `ajv`, `yup`, `zod`, `joi` |
 | **stopValidationOnError** | boolean | `false` | Stop validating a field once it's already marked invalid |
 | **resetValidationBeforeValidate** | boolean | `true` | Reset validation state before each `validate()` call |
 
@@ -205,7 +205,7 @@ const options = {
 
 // Run VJF first, then DVR, stop on first error
 const options = {
-  validationPluginsOrder: ['vjf', 'dvr', 'svk'],
+  validationPluginsOrder: ['vjf', 'dvr', 'ajv'],
   stopValidationOnError: true,
 };
 ```

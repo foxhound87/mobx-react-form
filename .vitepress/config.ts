@@ -228,7 +228,7 @@ export default defineConfig({
             items: [
               { text: 'Setup VJF', link: '/validation/plugins/VJF/setup' },
               { text: 'Setup DVR', link: '/validation/plugins/DVR/setup' },
-              { text: 'Setup SVK', link: '/validation/plugins/SVK/setup' },
+              { text: 'Setup AJV', link: '/validation/plugins/AJV/setup' },
               { text: 'Setup YUP', link: '/validation/plugins/YUP/setup' },
               { text: 'Setup JOI', link: '/validation/plugins/JOI/setup' },
               { text: 'Setup ZOD', link: '/validation/plugins/ZOD/setup' },
@@ -240,7 +240,7 @@ export default defineConfig({
             items: [
               { text: 'Extend VJF', link: '/validation/plugins/VJF/extend' },
               { text: 'Extend DVR', link: '/validation/plugins/DVR/extend' },
-              { text: 'Extend SVK', link: '/validation/plugins/SVK/extend' },
+              { text: 'Extend AJV', link: '/validation/plugins/AJV/extend' },
             ],
           },
           {
@@ -249,7 +249,7 @@ export default defineConfig({
             items: [
               { text: 'Async VJF', link: '/validation/plugins/VJF/async' },
               { text: 'Async DVR', link: '/validation/plugins/DVR/async' },
-              { text: 'Async SVK', link: '/validation/plugins/SVK/async' },
+              { text: 'Async AJV', link: '/validation/plugins/AJV/async' },
             ],
           },
         ],
