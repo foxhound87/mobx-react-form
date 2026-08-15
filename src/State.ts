@@ -151,9 +151,10 @@ export default class State implements StateInterface {
           key: OptionsEnum.validateOnChange,
           to: false,
           exec: () =>
-            this.form.each((field: FieldInterface) =>
-              field.disposeValidationOnChange()
-            ),
+            this.form.each((field: FieldInterface) => {
+              if (typeof field.disposeValidationOnChange !== "function") return;
+              field.disposeValidationOnChange();
+            }),
         },
         {
           // start observing fields validateOnBlur
@@ -171,9 +172,10 @@ export default class State implements StateInterface {
           key: OptionsEnum.validateOnBlur,
           to: false,
           exec: () =>
-            this.form.each((field: FieldInterface) =>
-              field.disposeValidationOnBlur()
-            ),
+            this.form.each((field: FieldInterface) => {
+              if (typeof field.disposeValidationOnBlur !== "function") return;
+              field.disposeValidationOnBlur();
+            }),
         },
       ])
     );

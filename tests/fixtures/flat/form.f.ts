@@ -1,10 +1,10 @@
 import ajv from "ajv";
 import { Form } from "../../../src";
 import { shouldBeEqualTo } from "../extension/vjf";
-import svkExtend from "../extension/svk";
+import ajvExtend from "../extension/ajv";
 
 import vjf from "../../../src/validators/VJF";
-import svk from "../../../src/validators/SVK";
+import ajvPlugin from "../../../src/validators/AJV";
 import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
 
 const schema = {
@@ -19,9 +19,9 @@ const schema = {
 
 const plugins: ValidationPlugins = {
   vjf: vjf(),
-  svk: svk({
+  ajv: ajvPlugin({
     package: ajv,
-    extend: svkExtend,
+    extend: ajvExtend,
     schema,
   }),
 };

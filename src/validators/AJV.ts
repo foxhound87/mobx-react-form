@@ -17,7 +17,7 @@ function isPromise(obj: any): obj is Promise<any> {
   );
 }
 
-class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
+class AJV<TValidator = any> implements ValidationPluginInterface<TValidator> {
   promises: Promise<any>[];
   config: ValidationPluginConfig<TValidator>;
   state: StateInterface | null;
@@ -48,8 +48,8 @@ class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
   }
 
   initValidator(): void {
-    const AJV = this.config.package as any;
-    const validatorInstance = new AJV(this.extendOptions(this.config.options));
+    const AjvPackage = this.config.package as any;
+    const validatorInstance = new AjvPackage(this.extendOptions(this.config.options));
 
     if (typeof validatorInstance.addFormat === "function") {
       validatorInstance.addFormat("email", (value: any) =>
@@ -70,7 +70,12 @@ class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
   }
 
   validate(field: FieldInterface): void {
-    const result = this.validator(field.state.form.flatMapValues);
+    let result: any;
+    try {
+      result = this.validator(field.state.form.flatMapValues);
+    } catch (e) {
+      return;
+    }
 
     if (isPromise(result)) {
       const $p = result
@@ -130,6 +135,6 @@ class SVK<TValidator = any> implements ValidationPluginInterface<TValidator> {
 export default <TValidator = any>(
   config?: ValidationPluginConfig<TValidator>
 ): ValidationPlugin<TValidator> => ({
-  class: SVK<TValidator>,
+  class: AJV<TValidator>,
   config,
 });

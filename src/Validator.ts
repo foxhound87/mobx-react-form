@@ -1,4 +1,5 @@
-import { action, observable, makeObservable } from "mobx";
+import { action, observable } from "mobx";
+import { makeObservable } from "./compat";
 import { each } from "lodash";
 import { $try } from "./utils";
 import ValidatorInterface, {
@@ -22,7 +23,7 @@ export default class Validator implements ValidatorInterface {
   plugins: ValidationPlugins = {
     vjf: undefined,
     dvr: undefined,
-    svk: undefined,
+    ajv: undefined,
     yup: undefined,
     zod: undefined,
     joi: undefined,
@@ -86,7 +87,7 @@ export default class Validator implements ValidatorInterface {
       );
 
       // wait all promises
-      resolve(Promise.all(this.promises));
+      resolve(Promise.all(this.promises.splice(0)));
     })
       .then(
         action(() => {

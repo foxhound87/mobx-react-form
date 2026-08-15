@@ -68,7 +68,7 @@ export interface ValidationPlugins {
   [key: string]: ValidationPlugin | undefined;
   vjf?: ValidationPlugin;
   dvr?: ValidationPlugin;
-  svk?: ValidationPlugin;
+  ajv?: ValidationPlugin;
   yup?: ValidationPlugin;
   zod?: ValidationPlugin;
   joi?: ValidationPlugin;

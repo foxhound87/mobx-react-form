@@ -1,6 +1,6 @@
 import ajv from "ajv";
 import { Form } from "../../../src";
-import svk from "../../../src/validators/SVK";
+import ajvPlugin from "../../../src/validators/AJV";
 import { FormInterface } from "../../../src/models/FormInterface";
 import { OptionsModel } from "../../../src/models/OptionsModel";
 import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
@@ -30,7 +30,7 @@ const schema = {
 };
 
 const plugins: ValidationPlugins = {
-  svk: svk({
+  ajv: ajvPlugin({
     package: ajv,
     schema,
   }),

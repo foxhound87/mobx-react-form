@@ -6,9 +6,9 @@ import { Form } from "../../../src";
 
 import dvr from "../../../src/validators/DVR";
 import vjf from "../../../src/validators/VJF";
-import svk from "../../../src/validators/SVK";
+import ajvPlugin from "../../../src/validators/AJV";
 
-import svkExtend from "../extension/svk";
+import ajvExtend from "../extension/ajv";
 import { isEmailByValidator } from "../extension/vjf";
 import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
 
@@ -84,9 +84,9 @@ const schema = {
 const plugins: ValidationPlugins = {
   vjf: vjf({ package: validator }),
   dvr: dvr({ package: validatorjs }),
-  svk: svk({
+  ajv: ajvPlugin({
     package: ajv,
-    extend: svkExtend,
+    extend: ajvExtend,
     schema,
   }),
 };
