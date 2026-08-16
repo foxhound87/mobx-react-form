@@ -36,7 +36,7 @@
 - Support for Material UI, Ant Design, React Widgets, React Select, React Aria, Headless UI & more.
 - [AI Agent Skills](https://github.com/foxhound87/skills): installable guides for AI coding assistants
 - [Forms Composer](https://foxhound87.github.io/mobx-formkit/extra/composer): to handle multi-forms submit, validations and other actions
-- Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
+- Dedicated [DevTools](https://github.com/foxhound87/mobx-formkit-devtools) Package.
 
 ## Summary
 
