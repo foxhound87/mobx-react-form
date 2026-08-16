@@ -6,14 +6,14 @@ All package listed below are not included in the mobx-formkit package and must b
 
 | Driver | Description | Install | Links |
 |---|---|---|---|
-| **VJF** | Vanilla Javascript Functions | `npm i validator` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxformkitValidatorVJF.umd.min.js) · [GitHub](https://github.com/validatorjs/validator.js) · [NPM](https://www.npmjs.com/package/validator) |
-| **DVR** | Declarative Validation Rules | `npm i validatorjs` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxformkitValidatorDVR.umd.min.js) · [GitHub](https://github.com/mikeerickson/validatorjs) · [NPM](https://www.npmjs.com/package/validatorjs) |
-| **AJV** | Schema Validation Keywords | `npm i ajv` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxformkitValidatorAJV.umd.min.js) · [GitHub](https://github.com/ajv-validator/ajv) · [NPM](https://www.npmjs.com/package/ajv) |
-| **YUP** | Object Schema Validator | `npm i yup` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxformkitValidatorYUP.umd.min.js) · [GitHub](https://github.com/jquense/yup) · [NPM](https://www.npmjs.com/package/yup) |
-| **JOI** | Object Schema Validator | `npm i joi` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxformkitValidatorJOI.umd.min.js) · [GitHub](https://github.com/hapijs/joi) · [NPM](https://www.npmjs.com/package/joi) |
-| **ZOD** | TypeScript-first schema validation | `npm i zod` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxformkitValidatorZOD.umd.min.js) · [GitHub](https://github.com/colinhacks/zod) · [NPM](https://www.npmjs.com/package/zod) |
-| **VALIBOT** | Tiny TypeScript-first schema validation | `npm i valibot` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxformkitValidatorVALIBOT.umd.min.js) · [GitHub](https://github.com/fabian-hiller/valibot) · [NPM](https://www.npmjs.com/package/valibot) |
-| **VINEJS** | Sync rules, async validation API | `npm i @vinejs/vine` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxformkitValidatorVINEJS.umd.min.js) · [GitHub](https://github.com/vinejs/vine) · [NPM](https://www.npmjs.com/package/@vinejs/vine) |
+| **VJF** | Vanilla Javascript Functions | `npm i validator` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxFormkitValidatorVJF.umd.min.js) · [GitHub](https://github.com/validatorjs/validator.js) · [NPM](https://www.npmjs.com/package/validator) |
+| **DVR** | Declarative Validation Rules | `npm i validatorjs` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxFormkitValidatorDVR.umd.min.js) · [GitHub](https://github.com/mikeerickson/validatorjs) · [NPM](https://www.npmjs.com/package/validatorjs) |
+| **AJV** | Schema Validation Keywords | `npm i ajv` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxFormkitValidatorAJV.umd.min.js) · [GitHub](https://github.com/ajv-validator/ajv) · [NPM](https://www.npmjs.com/package/ajv) |
+| **YUP** | Object Schema Validator | `npm i yup` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxFormkitValidatorYUP.umd.min.js) · [GitHub](https://github.com/jquense/yup) · [NPM](https://www.npmjs.com/package/yup) |
+| **JOI** | Object Schema Validator | `npm i joi` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxFormkitValidatorJOI.umd.min.js) · [GitHub](https://github.com/hapijs/joi) · [NPM](https://www.npmjs.com/package/joi) |
+| **ZOD** | TypeScript-first schema validation | `npm i zod` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxFormkitValidatorZOD.umd.min.js) · [GitHub](https://github.com/colinhacks/zod) · [NPM](https://www.npmjs.com/package/zod) |
+| **VALIBOT** | Tiny TypeScript-first schema validation | `npm i valibot` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxFormkitValidatorVALIBOT.umd.min.js) · [GitHub](https://github.com/fabian-hiller/valibot) · [NPM](https://www.npmjs.com/package/valibot) |
+| **VINEJS** | Sync rules, async validation API | `npm i @vinejs/vine` | [UMD](https://unpkg.com/mobx-formkit/umd/MobxFormkitValidatorVINEJS.umd.min.js) · [GitHub](https://github.com/vinejs/vine) · [NPM](https://www.npmjs.com/package/@vinejs/vine) |
 
 ###### INFO
 

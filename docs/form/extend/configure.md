@@ -11,7 +11,7 @@
 Import the base `Form` and `Field` class:
 
 ```javascript
-import Mobxformkit, { Field } from "mobx-formkit";
+import MobxFormkit, { Field } from "mobx-formkit";
 ```
 
 or you can also import the base `Form` like this:

@@ -11,7 +11,7 @@ Key breaking changes and migration steps between major versions of mobx-formkit.
 The library was rewritten in TypeScript. Both import styles are supported and equivalent:
 
 ```javascript
-import Mobxformkit from 'mobx-formkit';  // default export (still works)
+import MobxFormkit from 'mobx-formkit';  // default export (still works)
 import { Form } from 'mobx-formkit';       // named export (added in v6)
 ```
 

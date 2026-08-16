@@ -15,7 +15,7 @@ const forms = composer({
     formC: new FormC({ ...formDefinitionsC }),
 });
 ```
-> Each Form instance have to be a Mobxformkit instance.
+> Each Form instance have to be a MobxFormkit instance.
 
 #### Available Methods
 
