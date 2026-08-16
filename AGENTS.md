@@ -752,7 +752,7 @@ const bindings = {
 | Repo                                                                               | Purpose                                                    |
 | ---------------------------------------------------------------------------------- | ---------------------------------------------------------- |
 | [mobx-formkit-demo](https://github.com/foxhound87/mobx-formkit-demo)             | Live demo app with React components                        |
-| [mobx-formkit-devtools](https://github.com/foxhound87/mobx-formkit-devtools)     | DevTools panel for debugging                               |
+| [mobx-react-form-devtools](https://github.com/foxhound87/mobx-react-form-devtools) | DevTools panel for debugging                               |
 | [mobx-formkit--docs](https://foxhound87.github.io/mobx-formkit/)                 | This documentation site                                    |
 | [skills](https://github.com/foxhound87/skills)                                     | AI skill files for Cursor, Windsurf, Claude Code, Codebuff |
 
