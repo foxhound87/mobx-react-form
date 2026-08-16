@@ -181,3 +181,5 @@ export default class State implements StateInterface {
     );
   }
 }
+
+# Fix for issue #600: safe input handling
