@@ -1,4 +1,4 @@
-name: Mobx React Form
+name: Mobx Formkit
 on:
   push:
     branches:
