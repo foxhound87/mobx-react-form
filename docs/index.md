@@ -2,12 +2,12 @@
 layout: home
 
 hero:
-  name: MobX formkit
+  name: MobX Formkit
   text: Reactive MobX Form State Management
   tagline: Extensible validation, nested fields, event hooks, bindings — with full TypeScript support.
   image:
     src: /hero-icon.svg
-    alt: MobX formkit
+    alt: MobX Formkit
   actions:
     - theme: brand
       text: Quick Start

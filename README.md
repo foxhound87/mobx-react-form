@@ -1,6 +1,6 @@
 ### [Repo](https://github.com/foxhound87/mobx-formkit) &bull; [Documentation](https://foxhound87.github.io/mobx-formkit) &bull; [Live Demo](https://foxhound87.github.io/mobx-formkit-demo) &bull; [Demo Code](https://github.com/foxhound87/mobx-formkit-demo) &bull; [NPM](https://www.npmjs.com/package/mobx-formkit) &bull; [Skills](https://github.com/foxhound87/skills) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Discord Channel](https://discord.gg/CVV8w4zat4)
 
-# MobX formkit
+# MobX Formkit
 
 #### Reactive MobX Form State Management
 

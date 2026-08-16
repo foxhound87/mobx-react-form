@@ -1,4 +1,4 @@
-# MobX formkit DevTools
+# MobX Formkit DevTools
 
 ---
 
@@ -10,7 +10,7 @@ npm install --save mobx-react-form-devtools
 
 ## Demo
 
-[MobX formkit DevTools Demo](https://foxhound87.github.io/mobx-formkit-demo/)
+[MobX Formkit DevTools Demo](https://foxhound87.github.io/mobx-formkit-demo/)
 
 ## Usage
 

@@ -10,7 +10,7 @@ npm install --save mobx-formkit
 
 ## 1. Choose a Validation Plugin
 
-MobX formkit supports multiple validation plugins. Below we use **DVR** (Declarative Validation Rules) with `validatorjs`:
+MobX Formkit supports multiple validation plugins. Below we use **DVR** (Declarative Validation Rules) with `validatorjs`:
 
 ```javascript
 import dvr from 'mobx-formkit/lib/validators/DVR';

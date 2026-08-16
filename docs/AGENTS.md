@@ -1,6 +1,6 @@
 # Guide for AI Agents
 
-A concise guide for LLMs working with **MobX formkit** — the reactive MobX form state management library.
+A concise guide for LLMs working with **MobX Formkit** — the reactive MobX form state management library.
 
 ---
 
@@ -21,7 +21,7 @@ A concise guide for LLMs working with **MobX formkit** — the reactive MobX for
 
 ## 2. Philosophy
 
-MobX formkit is built on three core principles:
+MobX Formkit is built on three core principles:
 
 1. **Reactive by default** — Every field is a MobX observable. Form state (value, error, dirty, touched, etc.) is reactive. Your UI updates automatically with `observer()` — no manual `setState`, no change handlers to write.
 

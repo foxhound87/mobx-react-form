@@ -1,6 +1,6 @@
 # AI Agent Skills
 
-MobX formkit provides a collection of **AI agent skills** — reusable, self-contained instructions that enable AI coding assistants (Cursor, Windsurf, Claude Code, Codebuff, Copilot, and others) to generate correct mobx-formkit code on demand.
+MobX Formkit provides a collection of **AI agent skills** — reusable, self-contained instructions that enable AI coding assistants (Cursor, Windsurf, Claude Code, Codebuff, Copilot, and others) to generate correct mobx-formkit code on demand.
 
 > 🔗 **Repository:** [github.com/foxhound87/skills](https://github.com/foxhound87/skills)
 
