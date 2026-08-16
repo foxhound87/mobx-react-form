@@ -1,3 +1,3 @@
 # Documentation
 
-https://foxhound87.github.io/mobx-react-form/
+https://foxhound87.github.io/mobx-formikit/

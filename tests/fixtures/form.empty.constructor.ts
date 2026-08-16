@@ -1,4 +1,4 @@
-import MobxReactForm from "../../src";
+import MobxFormikit from "../../src";
 
 // EMPTY CONSTRUCTOR
-export default new MobxReactForm(); // do not change!
+export default new MobxFormikit(); // do not change!

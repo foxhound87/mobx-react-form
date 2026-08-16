@@ -1,10 +1,10 @@
 {
-  "name": "mobx-react-form",
+  "name": "mobx-formikit",
   "license": "MIT",
   "version": "0.0.0-development",
   "author": "Claudio Savino <claudio.savino@me.com> (https://twitter.com/foxhound87)",
   "description": "Reactive MobX Form State Management",
-  "homepage": "https://github.com/foxhound87/mobx-react-form#readme",
+  "homepage": "https://github.com/foxhound87/mobx-formikit#readme",
   "main": "./lib/index.js",
   "module": "./lib/esm/index.js",
   "types": "./lib/index.d.ts",
@@ -80,7 +80,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/foxhound87/mobx-react-form.git"
+    "url": "git+https://github.com/foxhound87/mobx-formikit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/foxhound87/mobx-formikit/issues"
   },
   "collective": {
     "type": "opencollective",

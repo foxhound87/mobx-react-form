@@ -1,3 +1,7 @@
+# 1.0.0
+
+Renamed from mobx-react-form (last published 7.1.0). Package name and UMD globals changed; APIs identical.
+
 # 7.1.0 (master)
 
 ## Features
