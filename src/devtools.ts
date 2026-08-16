@@ -8,17 +8,31 @@ export type FormkitDevtoolsEvent =
   | { type: "snapshot"; payload: FormkitDevtoolsSnapshot };
 
 export interface FormkitDevtoolsFieldSnapshot {
+  key?: string;
   path?: string;
   name?: string;
+  id?: string;
   type?: string;
   value?: any;
   default?: any;
   initial?: any;
   error?: any;
+  label?: string;
+  placeholder?: string;
+  autoFocus?: boolean;
+  related?: any;
+  rules?: any;
+  options?: any;
+  bindings?: any;
+  extra?: any;
+  checked?: any;
+  validators?: any;
+  validatedWith?: any;
   hasError?: boolean;
   isValid?: boolean;
   isDirty?: boolean;
   isPristine?: boolean;
+  isDefault?: boolean;
   isEmpty?: boolean;
   disabled?: boolean;
   touched?: boolean;
@@ -27,6 +41,12 @@ export interface FormkitDevtoolsFieldSnapshot {
   changed?: boolean;
   deleted?: boolean;
   validating?: boolean;
+  clearing?: boolean;
+  resetting?: boolean;
+  submitting?: boolean;
+  size?: number;
+  submitted?: boolean;
+  validated?: boolean;
   fields?: FormkitDevtoolsFieldSnapshot[];
 }
 
@@ -38,7 +58,23 @@ export interface FormkitDevtoolsSnapshot {
   validated?: boolean;
   submitting?: boolean;
   validating?: boolean;
+  clearing?: boolean;
+  resetting?: boolean;
+  hasError?: boolean;
+  isValid?: boolean;
+  isDirty?: boolean;
+  isPristine?: boolean;
+  isDefault?: boolean;
+  isEmpty?: boolean;
+  disabled?: boolean;
+  deleted?: boolean;
+  touched?: boolean;
+  focused?: boolean;
+  blurred?: boolean;
+  changed?: boolean;
+  error?: any;
   options?: Record<string, any>;
+  helpers?: Record<string, any>;
   fields: FormkitDevtoolsFieldSnapshot[];
 }
 
@@ -55,29 +91,115 @@ export interface FormkitDevtoolsHook {
 }
 
 const HOOK_KEY = "__MOBX_FORMKIT_DEVTOOLS_HOOK__";
+
 const FIELD_PROPS = [
-  "path",
+  "key",
+  "id",
   "name",
+  "path",
   "type",
-  "value",
+  "bindings",
+  "options",
   "default",
   "initial",
-  "error",
+  "value",
+  "label",
+  "placeholder",
+  "autoFocus",
+  "related",
+  "rules",
+  "extra",
+  "checked",
+  "validators",
+  "validatedWith",
+  "clearing",
+  "resetting",
   "hasError",
   "isValid",
   "isDirty",
   "isPristine",
+  "isDefault",
   "isEmpty",
   "disabled",
+  "deleted",
   "touched",
   "focused",
   "blurred",
   "changed",
-  "deleted",
+  "error",
+  "size",
+  "submitted",
+  "validated",
+  "submitting",
   "validating",
 ] as const;
 
-const FORM_PROPS = ["name", "size", "submitted", "validated", "submitting", "validating"] as const;
+const FORM_PROPS = [
+  "name",
+  "size",
+  "submitted",
+  "validated",
+  "submitting",
+  "validating",
+  "clearing",
+  "resetting",
+  "hasError",
+  "isValid",
+  "isDirty",
+  "isPristine",
+  "isDefault",
+  "isEmpty",
+  "disabled",
+  "deleted",
+  "touched",
+  "focused",
+  "blurred",
+  "changed",
+  "error",
+] as const;
+
+const FIELD_HELPER_PROPS = [
+  "error",
+  "label",
+  "placeholder",
+  "default",
+  "initial",
+  "type",
+  "disabled",
+  "checked",
+  "related",
+  "rules",
+  "options",
+  "extra",
+  "bindings",
+  "validators",
+  "validatedWith",
+] as const;
+
+/**
+ * Recursively convert a value into a plain, structured-clone-safe shape:
+ * observable structures become plain objects/arrays and functions become
+ * name strings (functions cannot cross the postMessage boundary).
+ */
+const serialize = (value: any, depth: number = 0): any => {
+  if (depth > 8) return undefined;
+  if (typeof value === "function") {
+    return `[Function${value.name ? `: ${value.name}` : ""}]`;
+  }
+  if (value == null) return value;
+  const plain = toJS(value);
+  if (Array.isArray(plain)) {
+    return plain.map((item: any) => serialize(item, depth + 1));
+  }
+  if (typeof plain === "object") {
+    const out: Record<string, any> = {};
+    for (const key of Object.keys(plain)) {
+      out[key] = serialize(plain[key], depth + 1);
+    }
+    return out;
+  }
+  return plain;
+};
 
 const isArrayMap = (target: any) => Boolean(target && typeof target === "object" && target._isArrayMap);
 
@@ -93,7 +215,7 @@ const pick = (source: any, props: readonly string[]) => {
   const out: Record<string, any> = {};
   for (const prop of props) {
     const value = source && typeof source === "object" ? source[prop] : undefined;
-    if (value !== undefined) out[prop] = toJS(value);
+    if (value !== undefined) out[prop] = serialize(value);
   }
   return out;
 };
@@ -108,9 +230,46 @@ const serializeField = (field: any, key?: string): FormkitDevtoolsFieldSnapshot 
   return out;
 };
 
+const fieldKey = (field: FormkitDevtoolsFieldSnapshot, index: number): string =>
+  (field as any).key ?? field.path ?? field.name ?? `field-${index}`;
+
+const collectProp = (fields: FormkitDevtoolsFieldSnapshot[], prop: string): Record<string, any> => {
+  const out: Record<string, any> = {};
+  fields.forEach((field, index) => {
+    const key = fieldKey(field, index);
+    out[key] = field.fields && field.fields.length
+      ? collectProp(field.fields, prop)
+      : (field as any)[prop];
+  });
+  return out;
+};
+
+const collectHelpers = (form: any, fields: FormkitDevtoolsFieldSnapshot[]): Record<string, any> => {
+  const out: Record<string, any> = {};
+  for (const prop of FIELD_HELPER_PROPS) {
+    out[prop] = collectProp(fields, prop);
+  }
+  out.hooks = serialize(form.$hooks);
+  out.handlers = serialize(form.$handlers);
+  return out;
+};
+
+const collectBooleanOptions = (form: any): Record<string, boolean> => {
+  const out: Record<string, boolean> = {};
+  const options = form?.state?.options?.options;
+  if (!options || typeof options !== "object") return out;
+  for (const key of Object.keys(options)) {
+    const value = options[key];
+    if (typeof value === "boolean") out[key] = value;
+  }
+  return out;
+};
+
 const serializeForm = (key: string, form: any): FormkitDevtoolsSnapshot => {
-  const out: FormkitDevtoolsSnapshot = { key, ...pick(form, FORM_PROPS) };
+  const out = { key, ...pick(form, FORM_PROPS) } as FormkitDevtoolsSnapshot;
   out.fields = pairsOf(form.fields).map(([fieldKey, field]: [string, any]) => serializeField(field, fieldKey));
+  out.helpers = collectHelpers(form, out.fields);
+  out.options = collectBooleanOptions(form);
   return out;
 };
 
@@ -118,29 +277,35 @@ const createHook = (): FormkitDevtoolsHook => {
   const registry = new Map<string, any>();
   const listeners = new Set<(event: FormkitDevtoolsEvent) => void>();
   const disposers = new Map<string, () => void>();
+  const caches = new Map<string, FormkitDevtoolsSnapshot>();
+  const dirty = new Set<string>();
   let connected = false;
-  let pending = false;
+  let flushTimer: ReturnType<typeof setTimeout> | null = null;
 
   const emit: FormkitDevtoolsHook["emit"] = (event) => {
     for (const listener of listeners) listener(event);
   };
 
   const flush = () => {
-    pending = false;
-    for (const [key, form] of registry) {
-      emit({ type: "snapshot", payload: serializeForm(key, form) });
+    flushTimer = null;
+    const keys = [...dirty];
+    dirty.clear();
+    for (const key of keys) {
+      const snapshot = caches.get(key);
+      if (snapshot) emit({ type: "snapshot", payload: snapshot });
     }
   };
 
-  const requestFlush = () => {
-    if (pending) return;
-    pending = true;
-    setTimeout(flush, 0);
+  const scheduleFlush = (key: string) => {
+    dirty.add(key);
+    if (flushTimer == null) flushTimer = setTimeout(flush, 0);
   };
 
   const dispose = (key: string) => {
     disposers.get(key)?.();
     disposers.delete(key);
+    dirty.delete(key);
+    caches.delete(key);
   };
 
   const setup = (key: string) => {
@@ -150,12 +315,20 @@ const createHook = (): FormkitDevtoolsHook => {
     if (!form) return;
     disposers.set(
       key,
-      autorun(() => requestFlush())
+      autorun(() => {
+        // Reading observables inside serializeForm makes the autorun re-run
+        // on every field/form change; the result is cached and emitted once
+        // (batched) by flush.
+        caches.set(key, serializeForm(key, form));
+        scheduleFlush(key);
+      })
     );
   };
 
   return {
-    connected,
+    get connected() {
+      return connected;
+    },
     registry,
     emit,
     subscribe(listener) {
@@ -189,7 +362,7 @@ const createHook = (): FormkitDevtoolsHook => {
     },
     requestSnapshot() {
       for (const [key, form] of registry) {
-        emit({ type: "snapshot", payload: serializeForm(key, form) });
+        emit({ type: "snapshot", payload: caches.get(key) ?? serializeForm(key, form) });
       }
     },
   };

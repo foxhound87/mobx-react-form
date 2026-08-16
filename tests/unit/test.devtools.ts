@@ -29,7 +29,7 @@ describe("devtools hook", () => {
     const events: FormkitDevtoolsEvent[] = [];
     hook.subscribe((event) => events.push(event));
 
-    new Form({ email: {} }, { name: "login" });
+    new Form({ fields: { email: {} } }, { name: "login" });
 
     expect(hook.registry.has("login")).to.equal(true);
     expect(hook.registry.get("login")).to.be.instanceOf(Form);
@@ -37,7 +37,10 @@ describe("devtools hook", () => {
   });
 
   it("emits snapshots on connect and when values change", (done) => {
-    const form = new Form({ email: { value: "a@b.c" }, meta: { firstName: "" } }, { name: "contact" });
+    const form = new Form(
+      { fields: { email: { value: "a@b.c" }, meta: { firstName: "" } } },
+      { name: "contact" }
+    );
 
     hook.register("contact", form);
     hook.connect();
