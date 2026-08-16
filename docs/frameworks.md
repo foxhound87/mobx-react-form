@@ -1,6 +1,6 @@
 # Render Engine Support
 
-**mobx-react-form** is a **UI-agnostic** state library: the core depends only on `mobx` (plus `lodash-es`) and knows nothing about React, Vue, or any DOM. Any rendering engine that can consume MobX observables works out of the box — no changes to the library, no adapter, no fork.
+**mobx-formikit** is a **UI-agnostic** state library: the core depends only on `mobx` (plus `lodash-es`) and knows nothing about React, Vue, or any DOM. Any rendering engine that can consume MobX observables works out of the box — no changes to the library, no adapter, no fork.
 
 | Render Engine | Binding Package | Status |
 |---|---|---|
@@ -21,7 +21,7 @@ The form state lives entirely inside observable class instances (`Form`, `Field`
 
 ```javascript
 // The exact same form definition, everywhere:
-import { Form } from 'mobx-react-form';
+import { Form } from 'mobx-formikit';
 
 const form = new Form({
   fields: {
@@ -45,7 +45,7 @@ const EmailField = observer(({ form }) => (
 ));
 ```
 
-React is the reference integration — see the [Quick Start](quick-start.md), [Bindings](bindings/) and the live [demo](https://foxhound87.github.io/mobx-react-form-demo).
+React is the reference integration — see the [Quick Start](quick-start.md), [Bindings](bindings/) and the live [demo](https://foxhound87.github.io/mobx-formikit-demo).
 
 ---
 
@@ -72,7 +72,7 @@ Install `mobx-vue-lite` (Composition API, mobxjs org). Wrap any reactive region 
 ```vue
 <script setup>
 import { Observer } from 'mobx-vue-lite';
-import { Form } from 'mobx-react-form';
+import { Form } from 'mobx-formikit';
 
 const form = new Form({ fields: { email: { rules: 'required|email' } } });
 </script>
@@ -100,7 +100,7 @@ Install `@adobe/lit-mobx` and extend `MobxLitElement` — observables read in `r
 ```javascript
 import { html } from 'lit';
 import { MobxLitElement } from '@adobe/lit-mobx';
-import { Form } from 'mobx-react-form';
+import { Form } from 'mobx-formikit';
 
 export class EmailField extends MobxLitElement {
   form = new Form({ fields: { email: { label: 'Email', rules: 'required|email' } } });
@@ -131,7 +131,7 @@ Install `mobx-angular` and use the `*mobxAutorun` directive — it observes ever
 
 ```typescript
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { Form } from 'mobx-react-form';
+import { Form } from 'mobx-formikit';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -160,7 +160,7 @@ Install the community `mobx-solid` binding — the API mirrors `mobx-react-lite`
 
 ```jsx
 import { observer } from 'mobx-solid';
-import { Form } from 'mobx-react-form';
+import { Form } from 'mobx-formikit';
 
 const EmailField = observer(({ form }) => (
   <input value={form.$('email').value} onChange={form.$('email').onChange} />
@@ -173,7 +173,7 @@ const EmailField = observer(({ form }) => (
 
 ## Engines not listed?
 
-Because the core is UI-agnostic, any renderer with a MobX binding (or a `reaction`/`autorun` escape hatch) can drive a form. Missing yours? Drop a line in the [GitHub Discussions](https://github.com/foxhound87/mobx-react-form/discussions) — adding an integration page is a small docs PR.
+Because the core is UI-agnostic, any renderer with a MobX binding (or a `reaction`/`autorun` escape hatch) can drive a form. Missing yours? Drop a line in the [GitHub Discussions](https://github.com/foxhound87/mobx-formikit/discussions) — adding an integration page is a small docs PR.
 
 ---
 

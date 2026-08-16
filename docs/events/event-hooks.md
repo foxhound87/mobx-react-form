@@ -132,7 +132,7 @@ new Form({
 Extend the **Form** or **Field** class with a `hooks()` method which returns `onSuccess()` and `onError()`:
 
 ```javascript
-import { Form } from 'mobx-react-form';
+import { Form } from 'mobx-formikit';
 
 class MyForm extends Form {
   hooks() {
@@ -155,7 +155,7 @@ class MyForm extends Form {
 **On a custom Field class:**
 
 ```javascript
-import { Form, Field } from 'mobx-react-form';
+import { Form, Field } from 'mobx-formikit';
 
 class MyField extends Field {
   hooks() {

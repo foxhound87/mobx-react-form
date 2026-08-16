@@ -2,11 +2,11 @@
 
 ---
 
-Import `mobx` and `mobx-react-form` into your html:
+Import `mobx` and `mobx-formikit` into your html:
 
 * Download [latest version of lodash](https://unpkg.com/lodash/lodash.min.js)
 * Download [latest version of mobx](https://unpkg.com/mobx/lib/mobx.umd.js)
-* Download [latest version of mobx-react-form](https://unpkg.com/mobx-react-form/umd/MobxReactForm.umd.min.js)
+* Download [latest version of mobx-formikit](https://unpkg.com/mobx-formikit/umd/MobxFormikit.umd.min.js)
 * Download a [Validation Plugin](validation/plugins.md)
 
 ```html
@@ -15,14 +15,14 @@ Import `mobx` and `mobx-react-form` into your html:
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>MobX React Form (UMD)</title>
+    <title>MobX Formikit (UMD)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <script src="https://unpkg.com/lodash@x.x.x/lodash.min.js"></script>
     <script src="https://unpkg.com/mobx@x.x.x/lib/mobx.umd.js"></script>
-    <script src="https://unpkg.com/mobx-react-form@x.x.x/umd/MobxReactForm.umd.min.js"></script>
-    <script src="https://unpkg.com/mobx-react-form@x.x.x/umd/MobxReactFormValidatorDVR.umd.min.js"></script>
+    <script src="https://unpkg.com/mobx-formikit@x.x.x/umd/MobxFormikit.umd.min.js"></script>
+    <script src="https://unpkg.com/mobx-formikit@x.x.x/umd/MobxFormikitValidatorDVR.umd.min.js"></script>
     <script src="https://unpkg.com/validatorjs@x.x.x/dist/validator.js"></script>
     <script src="source.js"></script>
   </body>
@@ -30,7 +30,7 @@ Import `mobx` and `mobx-react-form` into your html:
 
 ```
 
-Access the `MobxReactForm` from your source:
+Access the `MobxFormikit` from your source:
 
 > source.js
 
@@ -40,11 +40,11 @@ Access the `MobxReactForm` from your source:
 
 console.log('lodash', _ && '>>> OK');
 console.log('mobx', mobx && '>>> OK');
-console.log('MobxReactForm', MobxReactForm && '>>> OK');
-console.log('MobxReactFormValidatorDVR', MobxReactFormValidatorDVR && '>>> OK');
+console.log('MobxFormikit', MobxFormikit && '>>> OK');
+console.log('MobxFormikitValidatorDVR', MobxFormikitValidatorDVR && '>>> OK');
 console.log('Validator', Validator && '>>> OK');
 
-const { Form } = MobxReactForm;
+const { Form } = MobxFormikit;
 
 const form = new Form({
   fields: {
@@ -60,7 +60,7 @@ const form = new Form({
     showErrorsOnInit: true,
   },
   plugins: {
-    dvr: MobxReactFormValidatorDVR({
+    dvr: MobxFormikitValidatorDVR({
       package: Validator
     })
   },

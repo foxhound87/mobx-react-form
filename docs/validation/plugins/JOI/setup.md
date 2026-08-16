@@ -28,7 +28,7 @@ const $schema = j.object({
 Pass the `JOI` package and the previously defined `schema` to the **JOI** plugin.
 
 ```javascript
-import joi from 'mobx-react-form/lib/validators/JOI';
+import joi from 'mobx-formikit/lib/validators/JOI';
 import j from 'joi';
 
 const plugins = {
@@ -48,4 +48,4 @@ const plugins = {
 new Form({ ... }, { plugins });
 ```
 
-> **Note:** JOI does not support the `extend` callback or async validation pipelines through mobx-react-form's plugin system. For custom validation and async rules, use JOI's native `.custom()` method on the schema directly.
+> **Note:** JOI does not support the `extend` callback or async validation pipelines through mobx-formikit's plugin system. For custom validation and async rules, use JOI's native `.custom()` method on the schema directly.

@@ -14,7 +14,7 @@ npm install --save validator
 Minimal setup:
 
 ```javascript
-import vjf from 'mobx-react-form/lib/validators/VJF';
+import vjf from 'mobx-formikit/lib/validators/VJF';
 
 const plugins = {
   vjf: vjf()
@@ -24,7 +24,7 @@ const plugins = {
 Using `validator.js`:
 
 ```javascript
-import vjf from 'mobx-react-form/lib/validators/VJF';
+import vjf from 'mobx-formikit/lib/validators/VJF';
 import validator from 'validator';
 
 const plugins = {
@@ -38,7 +38,7 @@ const plugins = {
 Shortcut:
 
 ```javascript
-import vjf from 'mobx-react-form/lib/validators/VJF';
+import vjf from 'mobx-formikit/lib/validators/VJF';
 import validator from 'validator';
 
 const plugins = {

@@ -1,44 +1,44 @@
-# MobX React Form DevTools
+# MobX Formikit DevTools
 
 ---
 
 ## Install
 
 ```bash
-npm install --save mobx-react-form-devtools
+npm install --save mobx-formikit-devtools
 ```
 
 ## Demo
 
-[MobX React Form DevTools Demo](https://foxhound87.github.io/mobx-react-form-demo/)
+[MobX Formikit DevTools Demo](https://foxhound87.github.io/mobx-formikit-demo/)
 
 ## Usage
 
 ```javascript
-import MobxReactFormDevTools from 'mobx-react-form-devtools';
+import MobxFormikitDevTools from 'mobx-formikit-devtools';
 
 // register forms
-MobxReactFormDevTools.register({
+MobxFormikitDevTools.register({
   loginForm,
   registerForm,
   supportForm,
 });
 
 // select form to show into the devtools
-MobxReactFormDevTools.select('registerForm');
+MobxFormikitDevTools.select('registerForm');
 
 // open the devtools (closed by default)
-MobxReactFormDevTools.open(true);
+MobxFormikitDevTools.open(true);
 
 // render the component
-<MobxReactFormDevTools.UI />
+<MobxFormikitDevTools.UI />
 ```
 
 ## Theme
 
 ```javascript
 // custom theme colors
-MobxReactFormDevTools.theme({
+MobxFormikitDevTools.theme({
   base00: '#2b303b',
   base01: '#343d46',
   base02: '#4f5b66',
@@ -60,4 +60,4 @@ MobxReactFormDevTools.theme({
 
 ## Screenshot
 
-![DevTools](https://github.com/foxhound87/mobx-react-form-devtools/blob/master/screenshot.png?raw=true)
+![DevTools](https://github.com/foxhound87/mobx-formikit-devtools/blob/master/screenshot.png?raw=true)

@@ -1,6 +1,6 @@
 # Migration Guide
 
-Key breaking changes and migration steps between major versions of mobx-react-form.
+Key breaking changes and migration steps between major versions of mobx-formikit.
 
 ---
 
@@ -11,8 +11,8 @@ Key breaking changes and migration steps between major versions of mobx-react-fo
 The library was rewritten in TypeScript. Both import styles are supported and equivalent:
 
 ```javascript
-import MobxReactForm from 'mobx-react-form';  // default export (still works)
-import { Form } from 'mobx-react-form';       // named export (added in v6)
+import MobxFormikit from 'mobx-formikit';  // default export (still works)
+import { Form } from 'mobx-formikit';       // named export (added in v6)
 ```
 
 > The named export `{ Form }` was added in v6 alongside the existing default export. Both work — choose whichever fits your project's convention.
@@ -21,12 +21,12 @@ import { Form } from 'mobx-react-form';       // named export (added in v6)
 
 **Before (v5.x):**
 ```javascript
-import dvr from 'mobx-react-form/lib/validators/DVR';
+import dvr from 'mobx-formikit/lib/validators/DVR';
 ```
 
 **After (v6.x):**
 ```javascript
-import dvr from 'mobx-react-form/lib/validators/DVR';
+import dvr from 'mobx-formikit/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 
 const plugins = {
@@ -73,7 +73,7 @@ Version 6.13.0 introduced full TypeScript strict mode with `strictNullChecks` an
 ### New: Generic `Form<F>` and `Field<T>`
 
 ```typescript
-import { Form } from 'mobx-react-form';
+import { Form } from 'mobx-formikit';
 
 interface LoginForm {
   email: string;
@@ -88,7 +88,7 @@ form.values();   // returns { email?: string; password?: string }
 ### New: `PathsOf<T>` Utility Type
 
 ```typescript
-import { PathsOf } from 'mobx-react-form';
+import { PathsOf } from 'mobx-formikit';
 
 type Paths = PathsOf<{ club: { name: string } }>;
 // "club" | "club.name"
@@ -97,7 +97,7 @@ type Paths = PathsOf<{ club: { name: string } }>;
 ### New: `FieldDefinition` Interface
 
 ```typescript
-import type { FieldDefinition } from 'mobx-react-form';
+import type { FieldDefinition } from 'mobx-formikit';
 
 const fields: Record<string, FieldDefinition> = {
   username: { label: 'Username', value: '' },
@@ -216,6 +216,6 @@ const options = {
 
 ## Need Help?
 
-- Check the [CHANGELOG](https://github.com/foxhound87/mobx-react-form/blob/master/CHANGELOG.md) for full version history
-- [Open an issue](https://github.com/foxhound87/mobx-react-form/issues) on GitHub
+- Check the [CHANGELOG](https://github.com/foxhound87/mobx-formikit/blob/master/CHANGELOG.md) for full version history
+- [Open an issue](https://github.com/foxhound87/mobx-formikit/issues) on GitHub
 - Review the [Quick Start](quick-start.md) for the latest setup instructions

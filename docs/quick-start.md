@@ -3,17 +3,17 @@
 ## Install
 
 ```bash
-npm install --save mobx-react-form
+npm install --save mobx-formikit
 ```
 
 ---
 
 ## 1. Choose a Validation Plugin
 
-MobX React Form supports multiple validation plugins. Below we use **DVR** (Declarative Validation Rules) with `validatorjs`:
+MobX Formikit supports multiple validation plugins. Below we use **DVR** (Declarative Validation Rules) with `validatorjs`:
 
 ```javascript
-import dvr from 'mobx-react-form/lib/validators/DVR';
+import dvr from 'mobx-formikit/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 
 const plugins = {
@@ -70,7 +70,7 @@ const hooks = {
 ## 4. Create the Form
 
 ```javascript
-import { Form } from 'mobx-react-form';
+import { Form } from 'mobx-formikit';
 
 const form = new Form({ fields }, { plugins, hooks });
 ```
@@ -116,13 +116,13 @@ export default observer(({ form }) => (
 | TypeScript usage | [TypeScript Guide](typescript.md) |
 | Nested & array fields | [Defining Fields](fields/) |
 | Validation plugins deep-dive | [Validation](validation/) |
-| Live demo | [foxhound87.github.io/mobx-react-form-demo](https://foxhound87.github.io/mobx-react-form-demo) |
+| Live demo | [foxhound87.github.io/mobx-formikit-demo](https://foxhound87.github.io/mobx-formikit-demo) |
 
 ---
 
 > 💡 **TypeScript** — The `Form` class accepts a generic for type-safe field access:
 > ```typescript
-> import { Form } from 'mobx-react-form';
+> import { Form } from 'mobx-formikit';
 >
 > interface MyFields {
 >   email: string;

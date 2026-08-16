@@ -2,9 +2,9 @@
 
 Handle **file inputs** and **drag-and-drop upload zones** via fields with `type: 'file'`. The form treats file fields as first-class citizens — they expose the selected `FileList`, support drop events, and integrate with validation.
 
-> 🔗 **Live Demo:** [File Upload](https://foxhound87.github.io/mobx-react-form-demo/?section=fileUpload)  
-> 📁 **Source:** [FormFileUpload.tsx](https://github.com/foxhound87/mobx-react-form-demo/blob/master/src/components/forms/FormFileUpload.tsx)  
-> 📁 **Setup:** [fileUpload.ts](https://github.com/foxhound87/mobx-react-form-demo/blob/master/src/forms/setup/fileUpload.ts)
+> 🔗 **Live Demo:** [File Upload](https://foxhound87.github.io/mobx-formikit-demo/?section=fileUpload)  
+> 📁 **Source:** [FormFileUpload.tsx](https://github.com/foxhound87/mobx-formikit-demo/blob/master/src/components/forms/FormFileUpload.tsx)  
+> 📁 **Setup:** [fileUpload.ts](https://github.com/foxhound87/mobx-formikit-demo/blob/master/src/forms/setup/fileUpload.ts)
 
 ---
 

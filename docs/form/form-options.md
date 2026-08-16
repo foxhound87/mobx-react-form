@@ -225,7 +225,7 @@ const options = {
 ### Set Options On Form Constructor
 
 ```javascript
-import { Form } from 'mobx-react-form';
+import { Form } from 'mobx-formikit';
 
 const options = {
   showErrorsOnInit: true,
@@ -241,7 +241,7 @@ const form = new Form({ fields }, { options });
 Use the `options()` method to return your options object:
 
 ```javascript
-import { Form } from 'mobx-react-form';
+import { Form } from 'mobx-formikit';
 
 class MyForm extends Form {
   options() {

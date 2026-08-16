@@ -1,42 +1,42 @@
-### [Repo](https://github.com/foxhound87/mobx-react-form) &bull; [Documentation](https://foxhound87.github.io/mobx-react-form) &bull; [Live Demo](https://foxhound87.github.io/mobx-react-form-demo) &bull; [Demo Code](https://github.com/foxhound87/mobx-react-form-demo) &bull; [NPM](https://www.npmjs.com/package/mobx-react-form) &bull; [Skills](https://github.com/foxhound87/skills) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Discord Channel](https://discord.gg/CVV8w4zat4)
+### [Repo](https://github.com/foxhound87/mobx-formikit) &bull; [Documentation](https://foxhound87.github.io/mobx-formikit) &bull; [Live Demo](https://foxhound87.github.io/mobx-formikit-demo) &bull; [Demo Code](https://github.com/foxhound87/mobx-formikit-demo) &bull; [NPM](https://www.npmjs.com/package/mobx-formikit) &bull; [Skills](https://github.com/foxhound87/skills) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Discord Channel](https://discord.gg/CVV8w4zat4)
 
-# MobX React Form
+# MobX Formikit
 
 #### Reactive MobX Form State Management
 
-[![NPM](https://nodei.co/npm/mobx-react-form.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/mobx-react-form)
-[![NPM Version](https://img.shields.io/npm/v/mobx-react-form?label=npm&logo=npm&style=for-the-badge)](https://www.npmjs.com/package/mobx-react-form)
+[![NPM](https://nodei.co/npm/mobx-formikit.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/mobx-formikit)
+[![NPM Version](https://img.shields.io/npm/v/mobx-formikit?label=npm&logo=npm&style=for-the-badge)](https://www.npmjs.com/package/mobx-formikit)
 
-![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/foxhound87/mobx-react-form/ci.yml?branch=master)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/foxhound87/mobx-react-form)
-![npm bundle size](https://img.shields.io/bundlephobia/min/mobx-react-form)
-![npm bundle size (gzip)](https://img.shields.io/bundlephobia/minzip/mobx-react-form)
-[![Codecov Coverage](https://img.shields.io/codecov/c/github/foxhound87/mobx-react-form/master.svg)](https://codecov.io/gh/foxhound87/mobx-react-form)
-[![node](https://img.shields.io/node/v/mobx-react-form.svg)]()
-[![GitHub license](https://img.shields.io/github/license/foxhound87/mobx-react-form.svg)]()
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/foxhound87/mobx-react-form)
-![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/foxhound87/mobx-react-form)
-[![Downloads](https://img.shields.io/npm/dt/mobx-react-form.svg)]()
-[![Downloads](https://img.shields.io/npm/dm/mobx-react-form.svg)]()
-[![Backers on Open Collective](https://opencollective.com/mobx-react-form/backers/badge.svg)](#backers)
-[![Sponsors on Open Collective](https://opencollective.com/mobx-react-form/sponsors/badge.svg)](#sponsors)
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/foxhound87/mobx-formikit/ci.yml?branch=master)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/foxhound87/mobx-formikit)
+![npm bundle size](https://img.shields.io/bundlephobia/min/mobx-formikit)
+![npm bundle size (gzip)](https://img.shields.io/bundlephobia/minzip/mobx-formikit)
+[![Codecov Coverage](https://img.shields.io/codecov/c/github/foxhound87/mobx-formikit/master.svg)](https://codecov.io/gh/foxhound87/mobx-formikit)
+[![node](https://img.shields.io/node/v/mobx-formikit.svg)]()
+[![GitHub license](https://img.shields.io/github/license/foxhound87/mobx-formikit.svg)]()
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/foxhound87/mobx-formikit)
+![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/foxhound87/mobx-formikit)
+[![Downloads](https://img.shields.io/npm/dt/mobx-formikit.svg)]()
+[![Downloads](https://img.shields.io/npm/dm/mobx-formikit.svg)]()
+[![Backers on Open Collective](https://opencollective.com/mobx-formikit/backers/badge.svg)](#backers)
+[![Sponsors on Open Collective](https://opencollective.com/mobx-formikit/sponsors/badge.svg)](#sponsors)
 
 <br>
 
 ## Features
 
-- Extensibles [Validation Plugins](https://foxhound87.github.io/mobx-react-form/validation/plugins).
+- Extensibles [Validation Plugins](https://foxhound87.github.io/mobx-formikit/validation/plugins).
 - Sync & Async Validation (w/ Promises & automatic errors).
 - Nested Fields (w/ Serialization & Validation).
 - Nested Forms (w/ Nested Submission & Validation Hooks).
-- [Event Hooks](https://foxhound87.github.io/mobx-react-form/events/event-hooks), [Event Handlers](https://foxhound87.github.io/mobx-react-form/events/event-handlers) & [Validation Hooks](https://foxhound87.github.io/mobx-react-form/events/validation-hooks)
-- Functional [Computed Field Props](https://foxhound87.github.io/mobx-react-form/extra/computed-props)
-- Field Props [Observers & Interceptors](https://foxhound87.github.io/mobx-react-form/extra/mobx-events)
-- Field [Props Bindings](https://foxhound87.github.io/mobx-react-form/bindings/) for custom Components.
+- [Event Hooks](https://foxhound87.github.io/mobx-formikit/events/event-hooks), [Event Handlers](https://foxhound87.github.io/mobx-formikit/events/event-handlers) & [Validation Hooks](https://foxhound87.github.io/mobx-formikit/events/validation-hooks)
+- Functional [Computed Field Props](https://foxhound87.github.io/mobx-formikit/extra/computed-props)
+- Field Props [Observers & Interceptors](https://foxhound87.github.io/mobx-formikit/extra/mobx-events)
+- Field [Props Bindings](https://foxhound87.github.io/mobx-formikit/bindings/) for custom Components.
 - Support for Material UI, Ant Design, React Widgets, React Select, React Aria, Headless UI & more.
 - [AI Agent Skills](https://github.com/foxhound87/skills): installable guides for AI coding assistants
-- [Forms Composer](https://foxhound87.github.io/mobx-react-form/extra/composer): to handle multi-forms submit, validations and other actions
-- Dedicated [DevTools](https://github.com/foxhound87/mobx-react-form-devtools) Package.
+- [Forms Composer](https://foxhound87.github.io/mobx-formikit/extra/composer): to handle multi-forms submit, validations and other actions
+- Dedicated [DevTools](https://github.com/foxhound87/mobx-formikit-devtools) Package.
 
 ## Summary
 
@@ -72,21 +72,21 @@ These issues, and the ones which provides also PR with failing tests will get hi
 ### Contributors
 
 This project exists thanks to all the people who contribute.
-<img src="https://opencollective.com/mobx-react-form/contributors.svg?width=890&button=false" />
+<img src="https://opencollective.com/mobx-formikit/contributors.svg?width=890&button=false" />
 
 
 ### Backers
 
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/mobx-react-form#backer)]
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/mobx-formikit#backer)]
 
-<a href="https://opencollective.com/mobx-react-form#backers" target="_blank"><img src="https://opencollective.com/mobx-react-form/backers.svg?width=890"></a>
+<a href="https://opencollective.com/mobx-formikit#backers" target="_blank"><img src="https://opencollective.com/mobx-formikit/backers.svg?width=890"></a>
 
 
 ### Sponsors
 
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/mobx-react-form#sponsor)]
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/mobx-formikit#sponsor)]
 
-<img src="https://opencollective.com/mobx-react-form/sponsors.svg"/>
+<img src="https://opencollective.com/mobx-formikit/sponsors.svg"/>
 
 
 <br />

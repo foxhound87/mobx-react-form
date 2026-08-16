@@ -142,7 +142,7 @@ Props are split across parallel objects keyed by field name or dot/array path:
 ### Flat: Unified Mode
 
 ```javascript
-import { Form } from 'mobx-react-form';
+import { Form } from 'mobx-formikit';
 
 const fields = {
   username: {
@@ -163,7 +163,7 @@ const form = new Form({ fields });
 
 > 💡 **TypeScript:** Annotate with `Record<string, FieldDefinition>` for autocomplete:
 > ```typescript
-> import { Form, FieldDefinition } from 'mobx-react-form';
+> import { Form, FieldDefinition } from 'mobx-formikit';
 >
 > const fields: Record<string, FieldDefinition> = {
 >   username: { label: 'Username', value: 'SteveJobs' },

@@ -4,7 +4,7 @@ Using `ajv` as plugin, the Schema Validation Keywords (**AJV**) functionalities 
 
 > See the ajv documentation: [Defining Custom Keywords](https://ajv.js.org/keywords.html) for a deeper explaination
 
-Below we see how to implement it in `mobx-react-form`:
+Below we see how to implement it in `mobx-formikit`:
 
 #### Define a keywords object with the custom keyword
 
@@ -50,7 +50,7 @@ The `extend` function takes in input an object with the following props:
 * the `validator` instance
 
 ```javascript
-import ajv from 'mobx-react-form/lib/validators/AJV';
+import ajv from 'mobx-formikit/lib/validators/AJV';
 import Ajv from 'ajv';
 
 const plugins = {

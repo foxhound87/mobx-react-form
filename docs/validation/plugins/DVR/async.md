@@ -16,7 +16,7 @@ const asyncRules = {
 ### Implement the `extend` callback using `registerAsync()`
 
 ```javascript
-import dvr from 'mobx-react-form/lib/validators/DVR';
+import dvr from 'mobx-formikit/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 
 const plugins = {

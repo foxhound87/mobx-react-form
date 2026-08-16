@@ -1,6 +1,6 @@
 # TypeScript Usage
 
-mobx-react-form ships with first-class TypeScript support, providing type inference for form fields, autocomplete for field properties, and nested path autocomplete for the `$()` selector.
+mobx-formikit ships with first-class TypeScript support, providing type inference for form fields, autocomplete for field properties, and nested path autocomplete for the `$()` selector.
 
 > TypeScript version `>= 4.1` is recommended for full support of recursive conditional types (`PathsOf`).
 
@@ -24,7 +24,7 @@ mobx-react-form ships with first-class TypeScript support, providing type infere
 Use the generic type parameter `F` on `Form<F>` to describe the shape of your form values:
 
 ```typescript
-import { Form } from 'mobx-react-form';
+import { Form } from 'mobx-formikit';
 
 interface LoginForm {
   email: string;
@@ -49,8 +49,8 @@ The generic propagates through all methods:
 When defining fields in unified mode, annotate with `Record<string, FieldDefinition>` for full autocomplete:
 
 ```typescript
-import { Form } from 'mobx-react-form';
-import type { FieldDefinition } from 'mobx-react-form';
+import { Form } from 'mobx-formikit';
+import type { FieldDefinition } from 'mobx-formikit';
 
 const fields: Record<string, FieldDefinition> = {
   username: {
@@ -135,7 +135,7 @@ form.$('club.unknown');          // ✗ TypeScript error — not a valid path
 The `PathsOf<T>` utility type recursively derives all possible field paths from a type `T`:
 
 ```typescript
-import { PathsOf } from 'mobx-react-form';
+import { PathsOf } from 'mobx-formikit';
 
 type ClubForm = {
   club: { name: string; city: string };
@@ -172,7 +172,7 @@ It correctly excludes built-in types like `Date`, `File`, `Blob`, `RegExp`, `Map
 ## Explicit `PathsOf` Usage
 
 ```typescript
-import { Form, PathsOf } from 'mobx-react-form';
+import { Form, PathsOf } from 'mobx-formikit';
 
 // Helper with typed path
 function getField<T extends Record<string, any>>(
@@ -214,7 +214,7 @@ The `values()` method returns a partial object (all keys optional) typed from `F
 When extending classes, propagate the generic parameter for full type safety:
 
 ```typescript
-import { Form, Field } from 'mobx-react-form';
+import { Form, Field } from 'mobx-formikit';
 
 interface MyFormValues {
   email: string;
@@ -254,7 +254,7 @@ import type {
   FormInterface,
   FieldsDefinitions,
   FormConfig,
-} from 'mobx-react-form';
+} from 'mobx-formikit';
 
 // FormInterface<F> — the full form contract
 // FieldsDefinitions — the constructor shape (fields, values, labels, etc.)
@@ -319,7 +319,7 @@ interface FormConfig {
 Each validation plugin can be typed for custom extend functions:
 
 ```typescript
-import dvr from 'mobx-react-form/lib/validators/DVR';
+import dvr from 'mobx-formikit/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 
 // The extend callback receives typed arguments:

@@ -10,7 +10,7 @@
 Extend the **Form** or **Field** class with a `hooks()` method which returns the Event Hook functions.
 
 ```javascript
-import { Form, Field } from 'mobx-react-form';
+import { Form, Field } from 'mobx-formikit';
 
 class MyForm extends Form {
   hooks() {

@@ -11,13 +11,13 @@
 Import the base `Form` and `Field` class:
 
 ```javascript
-import MobxReactForm, { Field } from 'mobx-react-form';
+import MobxFormikit, { Field } from 'mobx-formikit';
 ```
 
 or you can also import the base `Form` like this:
 
 ```javascript
-import { Form, Field } from 'mobx-react-form';
+import { Form, Field } from 'mobx-formikit';
 ```
 
 extend the `Field` (for example with custom props):

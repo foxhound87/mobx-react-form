@@ -1,10 +1,10 @@
 # Sortable List
 
-Array fields in MobX React Form are backed by `ArrayMap` — an ordered key-value collection that exposes array-like operations while maintaining full MobX reactivity. This enables **drag-and-drop reordering** of dynamic array items.
+Array fields in MobX Formikit are backed by `ArrayMap` — an ordered key-value collection that exposes array-like operations while maintaining full MobX reactivity. This enables **drag-and-drop reordering** of dynamic array items.
 
-> 🔗 **Live Demo:** [Sortable List](https://foxhound87.github.io/mobx-react-form-demo/?section=sortableList)  
-> 📁 **Demo Source:** [FormSortableList.tsx](https://github.com/foxhound87/mobx-react-form-demo/blob/master/src/components/forms/FormSortableList.tsx)  
-> 📁 **Form Setup:** [sortableList.ts](https://github.com/foxhound87/mobx-react-form-demo/blob/master/src/forms/setup/sortableList.ts)
+> 🔗 **Live Demo:** [Sortable List](https://foxhound87.github.io/mobx-formikit-demo/?section=sortableList)  
+> 📁 **Demo Source:** [FormSortableList.tsx](https://github.com/foxhound87/mobx-formikit-demo/blob/master/src/components/forms/FormSortableList.tsx)  
+> 📁 **Form Setup:** [sortableList.ts](https://github.com/foxhound87/mobx-formikit-demo/blob/master/src/forms/setup/sortableList.ts)
 
 ---
 

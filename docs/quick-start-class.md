@@ -3,17 +3,17 @@
 ## Install
 
 ```bash
-npm install --save mobx-react-form
+npm install --save mobx-formikit
 ```
 
 ---
 
 ## 1. Choose a Validation Plugin
 
-MobX React Form supports multiple validation plugins. Below we use **DVR** (Declarative Validation Rules) with `validatorjs`:
+MobX Formikit supports multiple validation plugins. Below we use **DVR** (Declarative Validation Rules) with `validatorjs`:
 
 ```javascript
-import dvr from 'mobx-react-form/lib/validators/DVR';
+import dvr from 'mobx-formikit/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 ```
 
@@ -26,8 +26,8 @@ import validatorjs from 'validatorjs';
 Extend the `Form` class and use its lifecycle methods to configure plugins, fields, and hooks:
 
 ```javascript
-import { Form } from 'mobx-react-form';
-import dvr from 'mobx-react-form/lib/validators/DVR';
+import { Form } from 'mobx-formikit';
+import dvr from 'mobx-formikit/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 
 class MyForm extends Form {
@@ -129,7 +129,7 @@ export default observer(({ form }) => (
 | TypeScript usage | [TypeScript Guide](typescript.md) |
 | Nested & array fields | [Defining Fields](fields/) |
 | Validation plugins deep-dive | [Validation](validation/) |
-| Live demo | [foxhound87.github.io/mobx-react-form-demo](https://foxhound87.github.io/mobx-react-form-demo) |
+| Live demo | [foxhound87.github.io/mobx-formikit-demo](https://foxhound87.github.io/mobx-formikit-demo) |
 
 ---
 

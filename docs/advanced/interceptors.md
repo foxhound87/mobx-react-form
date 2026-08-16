@@ -2,9 +2,9 @@
 
 Intercept field value changes **before they propagate** using MobX `intercept()`. Reject or modify incoming values at the field level, or log every mutation as it happens.
 
-> 🔗 **Live Demo:** [Interceptors](https://foxhound87.github.io/mobx-react-form-demo/?section=interceptors)  
-> 📁 **Source:** [FormInterceptors.tsx](https://github.com/foxhound87/mobx-react-form-demo/blob/master/src/components/forms/FormInterceptors.tsx)  
-> 📁 **Setup:** [interceptors.ts](https://github.com/foxhound87/mobx-react-form-demo/blob/master/src/forms/setup/interceptors.ts)
+> 🔗 **Live Demo:** [Interceptors](https://foxhound87.github.io/mobx-formikit-demo/?section=interceptors)  
+> 📁 **Source:** [FormInterceptors.tsx](https://github.com/foxhound87/mobx-formikit-demo/blob/master/src/components/forms/FormInterceptors.tsx)  
+> 📁 **Setup:** [interceptors.ts](https://github.com/foxhound87/mobx-formikit-demo/blob/master/src/forms/setup/interceptors.ts)
 
 ---
 

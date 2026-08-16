@@ -1,6 +1,6 @@
 # Guide for AI Agents
 
-A concise guide for LLMs working with **MobX React Form** — the reactive MobX form state management library.
+A concise guide for LLMs working with **MobX Formikit** — the reactive MobX form state management library.
 
 ---
 
@@ -8,10 +8,10 @@ A concise guide for LLMs working with **MobX React Form** — the reactive MobX 
 
 | Field | Value |
 |-------|-------|
-| **Package** | `mobx-react-form` |
-| **NPM** | [npmjs.com/package/mobx-react-form](https://www.npmjs.com/package/mobx-react-form) |
-| **GitHub** | [github.com/foxhound87/mobx-react-form](https://github.com/foxhound87/mobx-react-form) |
-| **Docs** | [foxhound87.github.io/mobx-react-form](https://foxhound87.github.io/mobx-react-form/) |
+| **Package** | `mobx-formikit` |
+| **NPM** | [npmjs.com/package/mobx-formikit](https://www.npmjs.com/package/mobx-formikit) |
+| **GitHub** | [github.com/foxhound87/mobx-formikit](https://github.com/foxhound87/mobx-formikit) |
+| **Docs** | [foxhound87.github.io/mobx-formikit](https://foxhound87.github.io/mobx-formikit/) |
 | **Version** | 7.x (current: 7.1.0) |
 | **Size** | ~8KB gzip (tree-shakeable) |
 | **License** | MIT |
@@ -21,7 +21,7 @@ A concise guide for LLMs working with **MobX React Form** — the reactive MobX 
 
 ## 2. Philosophy
 
-MobX React Form is built on three core principles:
+MobX Formikit is built on three core principles:
 
 1. **Reactive by default** — Every field is a MobX observable. Form state (value, error, dirty, touched, etc.) is reactive. Your UI updates automatically with `observer()` — no manual `setState`, no change handlers to write.
 
@@ -227,14 +227,14 @@ Built-in handlers on Form/Base: `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDe
 Eight plugins sharing a uniform lifecycle. Enable one or more:
 
 ```javascript
-import dvr from 'mobx-react-form/lib/validators/DVR';
-import vjf from 'mobx-react-form/lib/validators/VJF';
-import yupPlugin from 'mobx-react-form/lib/validators/YUP';
-import joiPlugin from 'mobx-react-form/lib/validators/JOI';
-import zodPlugin from 'mobx-react-form/lib/validators/ZOD';
-import ajv from 'mobx-react-form/lib/validators/AJV';
-import valibotPlugin from 'mobx-react-form/lib/validators/VALIBOT';
-import vinejsPlugin from 'mobx-react-form/lib/validators/VINEJS';
+import dvr from 'mobx-formikit/lib/validators/DVR';
+import vjf from 'mobx-formikit/lib/validators/VJF';
+import yupPlugin from 'mobx-formikit/lib/validators/YUP';
+import joiPlugin from 'mobx-formikit/lib/validators/JOI';
+import zodPlugin from 'mobx-formikit/lib/validators/ZOD';
+import ajv from 'mobx-formikit/lib/validators/AJV';
+import valibotPlugin from 'mobx-formikit/lib/validators/VALIBOT';
+import vinejsPlugin from 'mobx-formikit/lib/validators/VINEJS';
 ```
 
 | Driver | Rules Format | Async | Extend | Best For |
@@ -476,8 +476,8 @@ form.size;           // number of top-level fields
 ### 5.8 TypeScript
 
 ```typescript
-import { Form, Field } from 'mobx-react-form';
-import type { PathsOf, FieldDefinition } from 'mobx-react-form';
+import { Form, Field } from 'mobx-formikit';
+import type { PathsOf, FieldDefinition } from 'mobx-formikit';
 
 // Typed form
 interface Profile {
@@ -499,7 +499,7 @@ const fields: Record<string, FieldDefinition> = [
 ### 5.9 Composer (Multi-Form)
 
 ```javascript
-import { composer } from 'mobx-react-form/lib/composer';
+import { composer } from 'mobx-formikit/lib/composer';
 
 const wizard = composer({ step1: form1, step2: form2 });
 wizard.validate();                      // validates all forms
@@ -707,11 +707,11 @@ const bindings = {
 
 | Repo | Purpose |
 |------|---------|
-| [mobx-react-form-demo](https://github.com/foxhound87/mobx-react-form-demo) | Live demo app with React components |
-| [mobx-react-form-devtools](https://github.com/foxhound87/mobx-react-form-devtools) | DevTools panel for debugging |
+| [mobx-formikit-demo](https://github.com/foxhound87/mobx-formikit-demo) | Live demo app with React components |
+| [mobx-formikit-devtools](https://github.com/foxhound87/mobx-formikit-devtools) | DevTools panel for debugging |
 | [skills](https://github.com/foxhound87/skills) | AI skill files for Cursor, Windsurf, Claude Code, Codebuff |
-| [mobx-react-form--docs](https://github.com/foxhound87/mobx-react-form--docs) | This documentation site |
+| [mobx-formikit--docs](https://github.com/foxhound87/mobx-formikit--docs) | This documentation site |
 
 ---
 
-> **For LLMs:** When helping users with mobx-react-form, always check which validation plugin is being used — patterns differ significantly between DVR/VJF/AJV/YUP/JOI/ZOD/VALIBOT/VINEJS. Prefer `computed` props over manual reactivity. Always wrap components with `observer()`. Use `field.bind()` instead of manual prop wiring. Custom handlers are **curried** `(field) => (e) =>`.
+> **For LLMs:** When helping users with mobx-formikit, always check which validation plugin is being used — patterns differ significantly between DVR/VJF/AJV/YUP/JOI/ZOD/VALIBOT/VINEJS. Prefer `computed` props over manual reactivity. Always wrap components with `observer()`. Use `field.bind()` instead of manual prop wiring. Custom handlers are **curried** `(field) => (e) =>`.
