@@ -18,16 +18,16 @@ const lodashToEsm = alias({
 });
 
 const umdEntries = {
-  MobxFormikit: { input: "./src/index.ts", exports: "named" },
-  MobxFormikitComposer: { input: "./src/composer.ts", exports: "named" },
-  MobxFormikitValidatorVJF: { input: "./src/validators/VJF.ts", exports: "default" },
-  MobxFormikitValidatorDVR: { input: "./src/validators/DVR.ts", exports: "default" },
-  MobxFormikitValidatorAJV: { input: "./src/validators/AJV.ts", exports: "default" },
-  MobxFormikitValidatorYUP: { input: "./src/validators/YUP.ts", exports: "default" },
-  MobxFormikitValidatorJOI: { input: "./src/validators/JOI.ts", exports: "default" },
-  MobxFormikitValidatorZOD: { input: "./src/validators/ZOD.ts", exports: "default" },
-  MobxFormikitValidatorVALIBOT: { input: "./src/validators/VALIBOT.ts", exports: "default" },
-  MobxFormikitValidatorVINEJS: { input: "./src/validators/VINEJS.ts", exports: "default" },
+  MobxFormkit: { input: "./src/index.ts", exports: "named" },
+  MobxFormkitComposer: { input: "./src/composer.ts", exports: "named" },
+  MobxFormkitValidatorVJF: { input: "./src/validators/VJF.ts", exports: "default" },
+  MobxFormkitValidatorDVR: { input: "./src/validators/DVR.ts", exports: "default" },
+  MobxFormkitValidatorAJV: { input: "./src/validators/AJV.ts", exports: "default" },
+  MobxFormkitValidatorYUP: { input: "./src/validators/YUP.ts", exports: "default" },
+  MobxFormkitValidatorJOI: { input: "./src/validators/JOI.ts", exports: "default" },
+  MobxFormkitValidatorZOD: { input: "./src/validators/ZOD.ts", exports: "default" },
+  MobxFormkitValidatorVALIBOT: { input: "./src/validators/VALIBOT.ts", exports: "default" },
+  MobxFormkitValidatorVINEJS: { input: "./src/validators/VINEJS.ts", exports: "default" },
 };
 
 const libEntries = Object.values(umdEntries).map(({ input }) => input);

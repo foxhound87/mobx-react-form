@@ -1,6 +1,6 @@
 import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
 import { FieldConstructor } from "../../../src/models/FieldInterface";
-import MobxFormikit, { Field } from "../../../src";
+import MobxFormkit, { Field } from "../../../src";
 import { isEmail, shouldBeEqualTo } from "../extension/vjf";
 import vjf from "../../../src/validators/VJF";
 import { FormInterface } from "../../../src/models/FormInterface";
@@ -31,7 +31,7 @@ class NewField extends Field {
   }
 }
 
-class NewForm extends MobxFormikit {
+class NewForm extends MobxFormkit {
   makeField(data: FieldConstructor) {
     return new NewField(data);
   }

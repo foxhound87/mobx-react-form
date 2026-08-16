@@ -1,6 +1,6 @@
 import { ValidationPlugins } from "../../../src/models/ValidatorInterface";
 import validatorjs from "validatorjs";
-import MobxFormikit from "../../../src";
+import MobxFormkit from "../../../src";
 import dvr from "../../../src/validators/DVR";
 import { OptionsModel } from "../../../src/models/OptionsModel";
 
@@ -12,7 +12,7 @@ const fields = {
   },
 };
 
-class NewForm extends MobxFormikit {
+class NewForm extends MobxFormkit {
   options(): OptionsModel {
     return {
       validateOnInit: true,
