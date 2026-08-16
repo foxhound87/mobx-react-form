@@ -3,24 +3,24 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>MobX React Form (UMD)</title>
+    <title>MobX Formikit (UMD)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <script src="https://unpkg.com/lodash@4.17.21/lodash.min.js"></script>
     <script src="https://unpkg.com/mobx@6.4.1/dist/mobx.umd.development.js"></script>
-    <script src="../umd/MobxReactForm.umd.js"></script>
-    <script src="../umd/MobxReactFormValidatorDVR.umd.js"></script>
+    <script src="../umd/MobxFormikit.umd.js"></script>
+    <script src="../umd/MobxFormikitValidatorDVR.umd.js"></script>
     <script src="https://unpkg.com/validatorjs@3.22.1/dist/validator.js"></script>
     <script>
         /* eslint no-console: 0 */
         /* eslint no-undef: 0 */
 
-        const { Form } = MobxReactForm;
+        const { Form } = MobxFormikit;
         console.log('lodash', _ && '- READY');
         console.log('mobx', mobx && '- READY');
-        console.log('MobxReactForm', MobxReactForm && '- READY');
-        console.log('MobxReactFormValidatorDVR', MobxReactFormValidatorDVR && '- READY');
+        console.log('MobxFormikit', MobxFormikit && '- READY');
+        console.log('MobxFormikitValidatorDVR', MobxFormikitValidatorDVR && '- READY');
         console.log('Validator', Validator && '- READY');
 
         const form = new Form({
@@ -38,7 +38,7 @@
             validateOnInit: true,
           },
           plugins: {
-            dvr: MobxReactFormValidatorDVR({
+            dvr: MobxFormikitValidatorDVR({
               package: Validator
             })
           },

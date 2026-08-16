@@ -1,11 +1,11 @@
 import { expect } from "chai";
-import MobxReactForm from "../../src";
+import MobxFormikit from "../../src";
 import FormInterface, {
   FieldsDefinitions,
   FormConfig,
 } from "../../src/models/FormInterface";
 
-class FormExtra extends MobxReactForm {
+class FormExtra extends MobxFormikit {
   constructor(props: FieldsDefinitions, config: FormConfig) {
     super(props, config);
   }
