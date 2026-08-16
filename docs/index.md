@@ -70,6 +70,26 @@ features:
 
 <div class="home-sections" markdown="1">
 
+<div class="engine-panel" markdown="1">
+  <div class="engine-panel-head">One Form Definition · Every Render Engine</div>
+  <p class="engine-panel-copy">
+    The core is <strong>UI-agnostic</strong> — it depends only on <code>mobx</code> and knows
+    nothing about React, Vue or any DOM. The same <code>Form</code> instance renders in any
+    engine with a MobX binding: <strong>React, Vue 3, Lit, Angular, Solid, Octane</strong>, or
+    plain <strong>vanilla HTML/JS</strong>.
+  </p>
+  <div class="engine-chips">
+    <span class="engine-chip">React</span>
+    <span class="engine-chip">Vue 3</span>
+    <span class="engine-chip">Lit</span>
+    <span class="engine-chip">Angular</span>
+    <span class="engine-chip">Solid</span>
+    <span class="engine-chip">Octane</span>
+    <span class="engine-chip">Vanilla HTML/JS</span>
+  </div>
+  <a class="engine-panel-link" href="/mobx-formkit/frameworks">How multi-engine support works →</a>
+</div>
+
 ## Get Started in Seconds
 
 ```bash
@@ -89,7 +109,19 @@ Then pick a validation plugin, define your fields, and you're ready to go.
 
 ## Built for Your UI Framework
 
-Use it with any React UI library — or with **vanilla HTML/JS** via UMD bundle:
+<strong>Render engines</strong> — the same form definition, the same observable state, any renderer with a MobX binding:
+
+<div class="engine-chips" id="engine-chips">
+  <span class="engine-chip">React</span>
+  <span class="engine-chip">Vue 3</span>
+  <span class="engine-chip">Lit</span>
+  <span class="engine-chip">Angular</span>
+  <span class="engine-chip">Solid</span>
+  <span class="engine-chip">Octane</span>
+  <span class="engine-chip">Vanilla HTML/JS</span>
+</div>
+
+<strong>React UI libraries</strong> — map fields to any component library with the bundled <code>Bindings</code>:
 
 <div class="framework-grid" id="framework-grid">
   <div class="framework-item">
@@ -130,7 +162,7 @@ Use it with any React UI library — or with **vanilla HTML/JS** via UMD bundle:
   </div>
 </div>
 
-See the [UMD Setup guide](/umd-setup) for vanilla HTML/JS usage, or the [Bindings guide](/bindings/) for custom component libraries.
+See the [Render Engine Support](/frameworks) page for per-engine examples, the [UMD Setup guide](/umd-setup) for vanilla HTML/JS usage, or the [Bindings guide](/bindings/) for custom component libraries.
 
 </div>
 
@@ -290,6 +322,66 @@ See the [UMD Setup guide](/umd-setup) for vanilla HTML/JS usage, or the [Binding
 .framework-icon {
   font-size: 1.1rem;
   line-height: 1;
+}
+
+/* Engine panel & chips */
+.engine-panel {
+  max-width: 800px;
+  margin: 0 auto 48px;
+  padding: 28px 32px;
+  background: linear-gradient(180deg, var(--vp-c-brand-soft), var(--vp-c-bg));
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 14px;
+  text-align: center;
+}
+
+.engine-panel-head {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, var(--vp-c-brand-1), var(--vp-c-brand-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.engine-panel-copy {
+  font-size: 0.95rem;
+  color: var(--vp-c-text-2);
+  margin-bottom: 16px;
+}
+
+.engine-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 16px auto 18px;
+  max-width: 700px;
+}
+
+.engine-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--vp-c-text-1);
+}
+
+.engine-panel-link {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.engine-panel-link:hover {
+  color: var(--vp-c-brand-2);
+  text-decoration: underline;
 }
 
 /* Resources grid */
