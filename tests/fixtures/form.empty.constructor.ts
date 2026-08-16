@@ -1,4 +1,4 @@
-import MobxFormikit from "../../src";
+import MobxFormkit from "../../src";
 
 // EMPTY CONSTRUCTOR
-export default new MobxFormikit(); // do not change!
+export default new MobxFormkit(); // do not change!

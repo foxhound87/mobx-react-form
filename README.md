@@ -1,23 +1,23 @@
-### [Documentation](https://foxhound87.github.io/mobx-formikit) &bull; [Live Demo](https://foxhound87.github.io/mobx-formikit-demo) &bull; [Demo Code](https://github.com/foxhound87/mobx-formikit-demo) &bull; [NPM](https://www.npmjs.com/package/mobx-formikit) &bull; [Skills](https://github.com/foxhound87/skills) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Discord Channel](https://discord.gg/CVV8w4zat4)
+### [Documentation](https://foxhound87.github.io/mobx-formkit) &bull; [Live Demo](https://foxhound87.github.io/mobx-formkit-demo) &bull; [Demo Code](https://github.com/foxhound87/mobx-formkit-demo) &bull; [NPM](https://www.npmjs.com/package/mobx-formkit) &bull; [Skills](https://github.com/foxhound87/skills) &bull; [Tutorial](https://medium.com/@foxhound87/automagically-manage-react-forms-state-with-mobx-and-automatic-validation-2b00a32b9769) &bull; [Join Discord Channel](https://discord.gg/CVV8w4zat4)
 
-# MobX Formikit
+# MobX Formkit
 
 ### Reactive MobX Form State Management
 
-[![NPM](https://nodei.co/npm/mobx-formikit.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/mobx-formikit)
-[![NPM Version](https://img.shields.io/npm/v/mobx-formikit?label=npm&logo=npm&style=for-the-badge)](https://www.npmjs.com/package/mobx-formikit)
+[![NPM](https://nodei.co/npm/mobx-formkit.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/mobx-formkit)
+[![NPM Version](https://img.shields.io/npm/v/mobx-formkit?label=npm&logo=npm&style=for-the-badge)](https://www.npmjs.com/package/mobx-formkit)
 
-![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/foxhound87/mobx-formikit/ci.yml?branch=master)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/foxhound87/mobx-formikit)
-![npm bundle size](https://img.shields.io/bundlephobia/min/mobx-formikit)
-![npm bundle size (gzip)](https://img.shields.io/bundlephobia/minzip/mobx-formikit)
-[![Codecov Coverage](https://img.shields.io/codecov/c/github/foxhound87/mobx-formikit/master.svg)](https://codecov.io/gh/foxhound87/mobx-formikit)
-[![node](https://img.shields.io/node/v/mobx-formikit.svg)]()
-[![GitHub license](https://img.shields.io/github/license/foxhound87/mobx-formikit.svg)]()
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/foxhound87/mobx-formikit)
-![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/foxhound87/mobx-formikit)
-[![Downloads](https://img.shields.io/npm/dt/mobx-formikit.svg)]()
-[![Downloads](https://img.shields.io/npm/dm/mobx-formikit.svg)]()
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/foxhound87/mobx-formkit/ci.yml?branch=master)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/foxhound87/mobx-formkit)
+![npm bundle size](https://img.shields.io/bundlephobia/min/mobx-formkit)
+![npm bundle size (gzip)](https://img.shields.io/bundlephobia/minzip/mobx-formkit)
+[![Codecov Coverage](https://img.shields.io/codecov/c/github/foxhound87/mobx-formkit/master.svg)](https://codecov.io/gh/foxhound87/mobx-formkit)
+[![node](https://img.shields.io/node/v/mobx-formkit.svg)]()
+[![GitHub license](https://img.shields.io/github/license/foxhound87/mobx-formkit.svg)]()
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/foxhound87/mobx-formkit)
+![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/foxhound87/mobx-formkit)
+[![Downloads](https://img.shields.io/npm/dt/mobx-formkit.svg)]()
+[![Downloads](https://img.shields.io/npm/dm/mobx-formkit.svg)]()
 [![Backers on Open Collective](https://opencollective.com/mobx-react-form/backers/badge.svg)](#backers)
 [![Sponsors on Open Collective](https://opencollective.com/mobx-react-form/sponsors/badge.svg)](#sponsors)
 
@@ -27,28 +27,28 @@
 
 | What                 | Old                          | New                          |
 | -------------------- | ---------------------------- | ---------------------------- |
-| npm package          | `mobx-react-form`            | `mobx-formikit`              |
-| UMD globals          | `MobxReactForm*`             | `MobxFormikit*`              |
-| imports & everywhere | `mobx-react-form`            | `mobx-formikit`              |
+| npm package          | `mobx-react-form`            | `mobx-formkit`              |
+| UMD globals          | `MobxReactForm*`             | `MobxFormkit*`              |
+| imports & everywhere | `mobx-react-form`            | `mobx-formkit`              |
 
 > **Breaking (UMD):** UMD bundle filenames and script-tag globals changed from
-> `MobxReactForm*` to `MobxFormikit*` — update `<script src>` paths and global
+> `MobxReactForm*` to `MobxFormkit*` — update `<script src>` paths and global
 > references accordingly. There is no alias; APIs are otherwise identical.
 
 ## Features
 
-- Extensibles [Validation Plugins](https://foxhound87.github.io/mobx-formikit/validation/plugins.html).
+- Extensibles [Validation Plugins](https://foxhound87.github.io/mobx-formkit/validation/plugins.html).
 - Sync & Async Validation (w/ Promises & automatic errors).
 - Nested Fields (w/ Serialization & Validation).
 - Nested Forms (w/ Nested Submission & Validation Hooks).
-- [Event Hooks](https://foxhound87.github.io/mobx-formikit/events/event-hooks.html), [Event Handlers](https://foxhound87.github.io/mobx-formikit/events/event-handlers.html) & [Validation Hooks](https://foxhound87.github.io/mobx-formikit/events/validation-hooks.html)
-- Functional [Computed Field Props](https://foxhound87.github.io/mobx-formikit/extra/computed-props.html)
-- Field Props [Observers & Interceptors](https://foxhound87.github.io/mobx-formikit/extra/mobx-events.html)
-- Field [Props Bindings](https://foxhound87.github.io/mobx-formikit/bindings/README.html) for custom Components.
+- [Event Hooks](https://foxhound87.github.io/mobx-formkit/events/event-hooks.html), [Event Handlers](https://foxhound87.github.io/mobx-formkit/events/event-handlers.html) & [Validation Hooks](https://foxhound87.github.io/mobx-formkit/events/validation-hooks.html)
+- Functional [Computed Field Props](https://foxhound87.github.io/mobx-formkit/extra/computed-props.html)
+- Field Props [Observers & Interceptors](https://foxhound87.github.io/mobx-formkit/extra/mobx-events.html)
+- Field [Props Bindings](https://foxhound87.github.io/mobx-formkit/bindings/README.html) for custom Components.
 - Support for Material UI, Ant Design, React Widgets, React Select, React Aria, Headless UI & more.
 - [AI Agent Skills](https://github.com/foxhound87/skills): installable guides for AI coding assistants
-- [Forms Composer](https://foxhound87.github.io/mobx-formikit/extra/composer.html): to handle multi-forms submit, validations and other actions
-- Dedicated [DevTools](https://github.com/foxhound87/mobx-formikit-devtools) Package.
+- [Forms Composer](https://foxhound87.github.io/mobx-formkit/extra/composer.html): to handle multi-forms submit, validations and other actions
+- Dedicated [DevTools](https://github.com/foxhound87/mobx-formkit-devtools) Package.
 
 <br>
 
@@ -57,17 +57,17 @@
 [![Edit form-quickstart](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nrrZgG8y4)
 
 ```bash
-npm install --save mobx-formikit
+npm install --save mobx-formkit
 ```
 
-> **MobX 6 & 7 support**: `mobx-formikit` works with both `mobx@6` and `mobx@7` (peer dependency: `^6.0.0 || ^7.0.0`). For MobX 7 use the matching React bindings (`mobx-react@^10`).
+> **MobX 6 & 7 support**: `mobx-formkit` works with both `mobx@6` and `mobx@7` (peer dependency: `^6.0.0 || ^7.0.0`). For MobX 7 use the matching React bindings (`mobx-react@^10`).
 
 #### Choose and Setup a Validation Plugin
 
 Below we are creating a `plugins` object using the `validatorjs` package to enable `DVR` functionalities (Declarative Validation Rules).
 
 ```javascript
-import dvr from "mobx-formikit/lib/validators/DVR";
+import dvr from "mobx-formkit/lib/validators/DVR";
 import validatorjs from "validatorjs";
 
 const plugins = {
@@ -77,7 +77,7 @@ const plugins = {
 };
 ```
 
-> See [Validation Plugins](https://foxhound87.github.io/mobx-formikit/validation/plugins.html) for more info on supported packages.
+> See [Validation Plugins](https://foxhound87.github.io/mobx-formkit/validation/plugins.html) for more info on supported packages.
 
 #### Define the Form Fields
 
@@ -108,7 +108,7 @@ const fields = [
 ];
 ```
 
-> See [Fields Definitions](https://foxhound87.github.io/mobx-formikit/fields/) and all available [Field Props](https://foxhound87.github.io/mobx-formikit/api-reference/fields-properties.html) on the docs.
+> See [Fields Definitions](https://foxhound87.github.io/mobx-formkit/fields/) and all available [Field Props](https://foxhound87.github.io/mobx-formkit/api-reference/fields-properties.html) on the docs.
 
 #### Define the Validation Hooks
 
@@ -127,25 +127,25 @@ const hooks = {
 };
 ```
 
-> See more on the docs about the [Validation Hooks](https://foxhound87.github.io/mobx-formikit/events/validation-hooks.html) and the [Event Hooks](https://foxhound87.github.io/mobx-formikit/events/event-hooks.html)
+> See more on the docs about the [Validation Hooks](https://foxhound87.github.io/mobx-formkit/events/validation-hooks.html) and the [Event Hooks](https://foxhound87.github.io/mobx-formkit/events/event-hooks.html)
 
 #### Initialize the Form
 
 Simply pass the `fields`, `plugins` and `hooks` objects to the constructor
 
 ```javascript
-import MobxFormikit from "mobx-formikit";
+import MobxFormkit from "mobx-formkit";
 
-const myForm = new MobxFormikit({ fields }, { plugins, hooks });
+const myForm = new MobxFormkit({ fields }, { plugins, hooks });
 ```
 
-> Learn more on the docs about the [Form Instance](https://foxhound87.github.io/mobx-formikit/form/) and the [Form Options](https://foxhound87.github.io/mobx-formikit/form/form-options.html)
+> Learn more on the docs about the [Form Instance](https://foxhound87.github.io/mobx-formkit/form/) and the [Form Options](https://foxhound87.github.io/mobx-formkit/form/form-options.html)
 
 #### Pass the myForm to a react component
 
 The package provide some built-in and ready to use Event Handlers:
 
-`onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more...](https://foxhound87.github.io/mobx-formikit/events/event-handlers.html)
+`onSubmit(e)`, `onClear(e)`, `onReset(e)` & [more...](https://foxhound87.github.io/mobx-formkit/events/event-handlers.html)
 
 ```javascript
 import React from "react";
@@ -174,11 +174,11 @@ export default observer(({ myForm }) => (
 ));
 ```
 
-> See more on the docs about the [Field Props Bindings](https://foxhound87.github.io/mobx-formikit/bindings)
+> See more on the docs about the [Field Props Bindings](https://foxhound87.github.io/mobx-formkit/bindings)
 
 ###### Extending the Form class
 
-[See how to implement the same configuration of this quickstart extending the Form class](https://foxhound87.github.io/mobx-formikit/quick-start-class.html)
+[See how to implement the same configuration of this quickstart extending the Form class](https://foxhound87.github.io/mobx-formkit/quick-start-class.html)
 
 <br>
 

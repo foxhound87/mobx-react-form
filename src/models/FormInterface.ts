@@ -33,7 +33,7 @@ import { ValidatorInterface, ValidationPlugins } from "./ValidatorInterface";
  * form.$('profile'); // ✓ autocomplete, returns Field<{ name: string; age: number }>
  *
  * // For nested paths, use PathsOf in a helper function:
- * import { PathsOf } from 'mobx-formikit';
+ * import { PathsOf } from 'mobx-formkit';
  *
  * function getField(form: Form<{ profile: { name: string; age: number } }>, path: PathsOf<{ profile: { name: string; age: number } }>) {
  *   return form.$(path).value;
