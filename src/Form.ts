@@ -70,6 +70,8 @@ export default class Form<F extends Record<string, any> = Record<string, any>> e
     runInAction(() => (this.$hooks = hooks));
     runInAction(() => (this.$handlers = handlers));
 
+    (globalThis as any).__MOBX_FORMKIT_DEVTOOLS_HOOK__?.emit?.({ type: "form:new", key: this.name, form: this });
+
     // load data from initializers methods
     const initial = each(
       {

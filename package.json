@@ -17,6 +17,9 @@
       "lib/composer": [
         "./lib/composer.d.ts"
       ],
+      "devtools": [
+        "./lib/devtools.d.ts"
+      ],
       "validators/*": [
         "./lib/validators/*.d.ts"
       ],
@@ -38,6 +41,11 @@
       "types": "./lib/composer.d.ts",
       "import": "./lib/esm/composer.js",
       "require": "./lib/composer.js"
+    },
+    "./devtools": {
+      "types": "./lib/devtools.d.ts",
+      "import": "./lib/esm/devtools.js",
+      "require": "./lib/devtools.js"
     },
     "./validators/*": {
       "types": "./lib/validators/*.d.ts",
