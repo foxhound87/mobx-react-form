@@ -155,7 +155,7 @@ const options = {
 For multi-step workflows (wizards), split the form using the [Forms Composer](extra/composer) — each step is its own form, validated independently:
 
 ```javascript
-import { composer } from 'mobx-formikit';
+import { composer } from 'mobx-formkit';
 
 const step1 = new Form({ ... });
 const step2 = new Form({ ... });
@@ -184,7 +184,7 @@ class MyForm extends Form {
 
 ## Bundle Size
 
-mobx-formikit is tree-shakeable. Version 6.14+ removed 36 lodash dependencies, replacing them with vanilla JS for a smaller bundle.
+mobx-formkit is tree-shakeable. Version 6.14+ removed 36 lodash dependencies, replacing them with vanilla JS for a smaller bundle.
 
 | Measure | Size |
 |---------|------|
@@ -217,7 +217,7 @@ const options = {
 
 ### No DOM Dependencies
 
-mobx-formikit has no DOM dependencies — it works with any React SSR framework (Next.js, Remix, etc.) without modifications. The form logic runs entirely on the server during SSR.
+mobx-formkit has no DOM dependencies — it works with any React SSR framework (Next.js, Remix, etc.) without modifications. The form logic runs entirely on the server during SSR.
 
 ### Hydration
 
@@ -237,4 +237,4 @@ const form = new Form({
 form.set('value', serverValues);
 ```
 
-> SSR compatibility requires `mobx-formikit` version 6.0.0 or later.
+> SSR compatibility requires `mobx-formkit` version 6.0.0 or later.

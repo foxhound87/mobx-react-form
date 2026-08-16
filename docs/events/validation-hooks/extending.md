@@ -13,7 +13,7 @@
 Extend the **Form** or **Field** class with a `hooks()` method which returns Validation Hooks.
 
 ```javascript
-import { Form } from 'mobx-formikit';
+import { Form } from 'mobx-formkit';
 
 class MyForm extends Form {
   hooks() {

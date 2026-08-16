@@ -27,7 +27,7 @@ const $schema = z.object({
 Pass the `ZOD` package and the previously defined `schema` to the **ZOD** plugin.
 
 ```javascript
-import zod from 'mobx-formikit/lib/validators/ZOD';
+import zod from 'mobx-formkit/lib/validators/ZOD';
 import z from 'zod';
 
 const plugins = {
@@ -47,7 +47,7 @@ const plugins = {
 new Form({ ... }, { plugins });
 ```
 
-> **Note:** ZOD does not support the `extend` callback or async validation pipelines through mobx-formikit's plugin system. For custom validation and async rules, use ZOD's native `.refine()` or `.superRefine()` methods on the schema directly.
+> **Note:** ZOD does not support the `extend` callback or async validation pipelines through mobx-formkit's plugin system. For custom validation and async rules, use ZOD's native `.refine()` or `.superRefine()` methods on the schema directly.
 
 ### ZOD versions
 

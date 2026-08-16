@@ -1,6 +1,6 @@
 # Guide for AI Agents
 
-A concise guide for LLMs working with **MobX Formikit** — the reactive MobX form state management library.
+A concise guide for LLMs working with **MobX formkit** — the reactive MobX form state management library.
 
 ---
 
@@ -8,10 +8,10 @@ A concise guide for LLMs working with **MobX Formikit** — the reactive MobX fo
 
 | Field | Value |
 |-------|-------|
-| **Package** | `mobx-formikit` |
-| **NPM** | [npmjs.com/package/mobx-formikit](https://www.npmjs.com/package/mobx-formikit) |
-| **GitHub** | [github.com/foxhound87/mobx-formikit](https://github.com/foxhound87/mobx-formikit) |
-| **Docs** | [foxhound87.github.io/mobx-formikit](https://foxhound87.github.io/mobx-formikit/) |
+| **Package** | `mobx-formkit` |
+| **NPM** | [npmjs.com/package/mobx-formkit](https://www.npmjs.com/package/mobx-formkit) |
+| **GitHub** | [github.com/foxhound87/mobx-formkit](https://github.com/foxhound87/mobx-formkit) |
+| **Docs** | [foxhound87.github.io/mobx-formkit](https://foxhound87.github.io/mobx-formkit/) |
 | **Version** | 7.x (current: 7.1.0) |
 | **Size** | ~8KB gzip (tree-shakeable) |
 | **License** | MIT |
@@ -21,7 +21,7 @@ A concise guide for LLMs working with **MobX Formikit** — the reactive MobX fo
 
 ## 2. Philosophy
 
-MobX Formikit is built on three core principles:
+MobX formkit is built on three core principles:
 
 1. **Reactive by default** — Every field is a MobX observable. Form state (value, error, dirty, touched, etc.) is reactive. Your UI updates automatically with `observer()` — no manual `setState`, no change handlers to write.
 
@@ -227,14 +227,14 @@ Built-in handlers on Form/Base: `onSubmit`, `onClear`, `onReset`, `onAdd`, `onDe
 Eight plugins sharing a uniform lifecycle. Enable one or more:
 
 ```javascript
-import dvr from 'mobx-formikit/lib/validators/DVR';
-import vjf from 'mobx-formikit/lib/validators/VJF';
-import yupPlugin from 'mobx-formikit/lib/validators/YUP';
-import joiPlugin from 'mobx-formikit/lib/validators/JOI';
-import zodPlugin from 'mobx-formikit/lib/validators/ZOD';
-import ajv from 'mobx-formikit/lib/validators/AJV';
-import valibotPlugin from 'mobx-formikit/lib/validators/VALIBOT';
-import vinejsPlugin from 'mobx-formikit/lib/validators/VINEJS';
+import dvr from 'mobx-formkit/lib/validators/DVR';
+import vjf from 'mobx-formkit/lib/validators/VJF';
+import yupPlugin from 'mobx-formkit/lib/validators/YUP';
+import joiPlugin from 'mobx-formkit/lib/validators/JOI';
+import zodPlugin from 'mobx-formkit/lib/validators/ZOD';
+import ajv from 'mobx-formkit/lib/validators/AJV';
+import valibotPlugin from 'mobx-formkit/lib/validators/VALIBOT';
+import vinejsPlugin from 'mobx-formkit/lib/validators/VINEJS';
 ```
 
 | Driver | Rules Format | Async | Extend | Best For |
@@ -476,8 +476,8 @@ form.size;           // number of top-level fields
 ### 5.8 TypeScript
 
 ```typescript
-import { Form, Field } from 'mobx-formikit';
-import type { PathsOf, FieldDefinition } from 'mobx-formikit';
+import { Form, Field } from 'mobx-formkit';
+import type { PathsOf, FieldDefinition } from 'mobx-formkit';
 
 // Typed form
 interface Profile {
@@ -499,7 +499,7 @@ const fields: Record<string, FieldDefinition> = [
 ### 5.9 Composer (Multi-Form)
 
 ```javascript
-import { composer } from 'mobx-formikit/lib/composer';
+import { composer } from 'mobx-formkit/lib/composer';
 
 const wizard = composer({ step1: form1, step2: form2 });
 wizard.validate();                      // validates all forms
@@ -707,11 +707,11 @@ const bindings = {
 
 | Repo | Purpose |
 |------|---------|
-| [mobx-formikit-demo](https://github.com/foxhound87/mobx-formikit-demo) | Live demo app with React components |
-| [mobx-formikit-devtools](https://github.com/foxhound87/mobx-formikit-devtools) | DevTools panel for debugging |
+| [mobx-formkit-demo](https://github.com/foxhound87/mobx-formkit-demo) | Live demo app with React components |
+| [mobx-formkit-devtools](https://github.com/foxhound87/mobx-formkit-devtools) | DevTools panel for debugging |
 | [skills](https://github.com/foxhound87/skills) | AI skill files for Cursor, Windsurf, Claude Code, Codebuff |
-| [mobx-formikit--docs](https://github.com/foxhound87/mobx-formikit--docs) | This documentation site |
+| [mobx-formkit--docs](https://github.com/foxhound87/mobx-formkit--docs) | This documentation site |
 
 ---
 
-> **For LLMs:** When helping users with mobx-formikit, always check which validation plugin is being used — patterns differ significantly between DVR/VJF/AJV/YUP/JOI/ZOD/VALIBOT/VINEJS. Prefer `computed` props over manual reactivity. Always wrap components with `observer()`. Use `field.bind()` instead of manual prop wiring. Custom handlers are **curried** `(field) => (e) =>`.
+> **For LLMs:** When helping users with mobx-formkit, always check which validation plugin is being used — patterns differ significantly between DVR/VJF/AJV/YUP/JOI/ZOD/VALIBOT/VINEJS. Prefer `computed` props over manual reactivity. Always wrap components with `observer()`. Use `field.bind()` instead of manual prop wiring. Custom handlers are **curried** `(field) => (e) =>`.

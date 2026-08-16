@@ -4,7 +4,7 @@ Using `valibot` as plugin, the **VALIBOT** schema validation is enabled and can 
 
 > See the valibot documentation: [Validation & Transformation](https://valibot.dev/guides/validate/) for a deeper explanation.
 
-Below we see how to implement it in `mobx-formikit`:
+Below we see how to implement it in `mobx-formkit`:
 
 #### Define a custom check/transform
 
@@ -30,7 +30,7 @@ The `extend` function takes in input an object with the following props:
 The `validator` is the internal Valibot namespace (`v`), so registered/imported helpers are accessible from it at validation time.
 
 ```javascript
-import valibot from 'mobx-formikit/lib/validators/VALIBOT';
+import valibot from 'mobx-formkit/lib/validators/VALIBOT';
 import * as v from 'valibot';
 
 const plugins = {

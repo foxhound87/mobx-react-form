@@ -28,7 +28,7 @@ const $schema = (y) =>
 Pass the `YUP` package and the previously defined `schema` to the **YUP** plugin.
 
 ```javascript
-import yup from 'mobx-formikit/lib/validators/YUP';
+import yup from 'mobx-formkit/lib/validators/YUP';
 import $pkg from 'yup';
 
 const plugins = {
@@ -48,4 +48,4 @@ const plugins = {
 new Form({ ... }, { plugins });
 ```
 
-> **Note:** YUP does not support the `extend` callback or async validation pipelines through mobx-formikit's plugin system. For custom rules and async validation, use YUP's native `.test()` method on the schema directly.
+> **Note:** YUP does not support the `extend` callback or async validation pipelines through mobx-formkit's plugin system. For custom rules and async validation, use YUP's native `.test()` method on the schema directly.

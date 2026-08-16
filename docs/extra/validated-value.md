@@ -1,6 +1,6 @@
 # Validated Value & Flat Map
 
-How MobX Formikit resolves **which value to validate** and how to get **all validated values at once**.
+How MobX formkit resolves **which value to validate** and how to get **all validated values at once**.
 
 ---
 

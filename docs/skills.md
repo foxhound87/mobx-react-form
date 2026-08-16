@@ -1,6 +1,6 @@
 # AI Agent Skills
 
-MobX Formikit provides a collection of **AI agent skills** — reusable, self-contained instructions that enable AI coding assistants (Cursor, Windsurf, Claude Code, Codebuff, Copilot, and others) to generate correct mobx-formikit code on demand.
+MobX formkit provides a collection of **AI agent skills** — reusable, self-contained instructions that enable AI coding assistants (Cursor, Windsurf, Claude Code, Codebuff, Copilot, and others) to generate correct mobx-formkit code on demand.
 
 > 🔗 **Repository:** [github.com/foxhound87/skills](https://github.com/foxhound87/skills)
 
@@ -8,7 +8,7 @@ MobX Formikit provides a collection of **AI agent skills** — reusable, self-co
 
 ## What are Skills?
 
-Skills are markdown files that teach an AI agent how to work with specific features of mobx-formikit. When a skill is installed and activated, the AI can:
+Skills are markdown files that teach an AI agent how to work with specific features of mobx-formkit. When a skill is installed and activated, the AI can:
 
 - Write correct form definitions (flat, nested, mixed)
 - Set up validation with any plugin (DVR, VJF, YUP, JOI, ZOD, AJV, VALIBOT, VINEJS)
@@ -23,21 +23,21 @@ Each skill covers a focused area of the library, so the AI uses only what it nee
 
 | Skill | Description |
 |-------|-------------|
-| **mobx-formikit-api** | Core API — installation, Form/Field constructor, properties, methods, helpers, event handlers |
-| **mobx-formikit-flat** | Flat field definitions — unified mode, separated mode, mixed mode, field properties, patterns |
-| **mobx-formikit-nested** | Nested & array fields — dot notation, array notation, dynamic add/remove, ArrayMap, field traversal |
-| **mobx-formikit-validation** | Validation — DVR, VJF, AJV, YUP, JOI, ZOD, VALIBOT, VINEJS plugins, async validation, cross-validation, hooks |
-| **mobx-formikit-bindings** | Field bindings — default rewriter/template, custom bindings, `$try`, per-field mapping, UI frameworks |
-| **mobx-formikit-multi-step** | Multi-step wizard forms — nested groups, per-step validation, navigation, review screen |
-| **mobx-formikit-events** | Event hooks & handlers — onInit, onChange, onFocus, onBlur, onSubmit, onSuccess, onError, key events |
-| **mobx-formikit-observers-interceptors** | MobX observers & interceptors — observe field changes, intercept mutations, reject/modify values, disposers |
-| **mobx-formikit-computed** | Reactive computed props & autorun — computed field values, autorun-derived totals, row calculations |
-| **mobx-formikit-composer** | Forms composer — orchestrate multiple Form instances, batch validate/submit/clear/reset |
-| **mobx-formikit-converters** | Input/output converters — transform values between input and store, per-field and separated mode |
-| **mobx-formikit-file-upload** | File upload fields — type: file, drag-and-drop zones, onDrop hook, FileList access, validation |
-| **mobx-formikit-sortable** | Sortable arrays — move(), ArrayMap reordering, drag-and-drop with @dnd-kit, up/down buttons |
-| **mobx-formikit-extend** | Extend Form & Field classes — custom field classes, makeField(), generic/specific extension |
-| **mobx-formikit-options** | Form & field options — validation timing, error display, strict modes, debounce, data retrieval |
+| **mobx-formkit-api** | Core API — installation, Form/Field constructor, properties, methods, helpers, event handlers |
+| **mobx-formkit-flat** | Flat field definitions — unified mode, separated mode, mixed mode, field properties, patterns |
+| **mobx-formkit-nested** | Nested & array fields — dot notation, array notation, dynamic add/remove, ArrayMap, field traversal |
+| **mobx-formkit-validation** | Validation — DVR, VJF, AJV, YUP, JOI, ZOD, VALIBOT, VINEJS plugins, async validation, cross-validation, hooks |
+| **mobx-formkit-bindings** | Field bindings — default rewriter/template, custom bindings, `$try`, per-field mapping, UI frameworks |
+| **mobx-formkit-multi-step** | Multi-step wizard forms — nested groups, per-step validation, navigation, review screen |
+| **mobx-formkit-events** | Event hooks & handlers — onInit, onChange, onFocus, onBlur, onSubmit, onSuccess, onError, key events |
+| **mobx-formkit-observers-interceptors** | MobX observers & interceptors — observe field changes, intercept mutations, reject/modify values, disposers |
+| **mobx-formkit-computed** | Reactive computed props & autorun — computed field values, autorun-derived totals, row calculations |
+| **mobx-formkit-composer** | Forms composer — orchestrate multiple Form instances, batch validate/submit/clear/reset |
+| **mobx-formkit-converters** | Input/output converters — transform values between input and store, per-field and separated mode |
+| **mobx-formkit-file-upload** | File upload fields — type: file, drag-and-drop zones, onDrop hook, FileList access, validation |
+| **mobx-formkit-sortable** | Sortable arrays — move(), ArrayMap reordering, drag-and-drop with @dnd-kit, up/down buttons |
+| **mobx-formkit-extend** | Extend Form & Field classes — custom field classes, makeField(), generic/specific extension |
+| **mobx-formkit-options** | Form & field options — validation timing, error display, strict modes, debounce, data retrieval |
 
 ---
 
@@ -54,9 +54,9 @@ npx skills add https://github.com/foxhound87/skills --all
 ### Install individual skills
 
 ```bash
-npx skills add https://github.com/foxhound87/skills --skill mobx-formikit-api
-npx skills add https://github.com/foxhound87/skills --skill mobx-formikit-validation
-npx skills add https://github.com/foxhound87/skills --skill mobx-formikit-bindings
+npx skills add https://github.com/foxhound87/skills --skill mobx-formkit-api
+npx skills add https://github.com/foxhound87/skills --skill mobx-formkit-validation
+npx skills add https://github.com/foxhound87/skills --skill mobx-formkit-bindings
 ```
 
 ### Install for a specific agent
@@ -79,13 +79,13 @@ npx skills add https://github.com/foxhound87/skills --all -a opencode
 
 ### In chat-based AI assistants
 
-Once installed, simply ask your AI assistant to work with mobx-formikit. If the skill system is supported, the relevant skills are automatically loaded when you describe your task.
+Once installed, simply ask your AI assistant to work with mobx-formkit. If the skill system is supported, the relevant skills are automatically loaded when you describe your task.
 
 Example prompts:
 
-> "Create a login form with mobx-formikit using DVR validation and Material UI bindings."
+> "Create a login form with mobx-formkit using DVR validation and Material UI bindings."
 >
-> "Add a sortable list of items to my existing mobx-formikit using the array fields API."
+> "Add a sortable list of items to my existing mobx-formkit using the array fields API."
 >
 > "Set up a multi-step wizard form with per-step validation and a review screen."
 

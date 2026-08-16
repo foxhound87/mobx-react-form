@@ -4,7 +4,7 @@ Using `@vinejs/vine` as plugin, the **VINEJS** schema validation is enabled and 
 
 > See the VineJS documentation: [Extending Vine](https://vinejs.dev/docs/custom_rules) for a deeper explanation.
 
-Below we see how to implement it in `mobx-formikit`:
+Below we see how to implement it in `mobx-formkit`:
 
 #### Implement the `extend` callback for the `plugins` object
 
@@ -16,7 +16,7 @@ The `extend` function takes in input an object with the following props:
 The `validator` is the Vine instance passed via `package` — custom rules and refinements are registered on it with `.rule()` / `.refine()`.
 
 ```javascript
-import vinejs from 'mobx-formikit/lib/validators/VINEJS';
+import vinejs from 'mobx-formkit/lib/validators/VINEJS';
 import { Vine } from '@vinejs/vine';
 
 const vine = new Vine();

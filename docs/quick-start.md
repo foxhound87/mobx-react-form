@@ -3,17 +3,17 @@
 ## Install
 
 ```bash
-npm install --save mobx-formikit
+npm install --save mobx-formkit
 ```
 
 ---
 
 ## 1. Choose a Validation Plugin
 
-MobX Formikit supports multiple validation plugins. Below we use **DVR** (Declarative Validation Rules) with `validatorjs`:
+MobX formkit supports multiple validation plugins. Below we use **DVR** (Declarative Validation Rules) with `validatorjs`:
 
 ```javascript
-import dvr from 'mobx-formikit/lib/validators/DVR';
+import dvr from 'mobx-formkit/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 
 const plugins = {
@@ -70,7 +70,7 @@ const hooks = {
 ## 4. Create the Form
 
 ```javascript
-import { Form } from 'mobx-formikit';
+import { Form } from 'mobx-formkit';
 
 const form = new Form({ fields }, { plugins, hooks });
 ```
@@ -116,13 +116,13 @@ export default observer(({ form }) => (
 | TypeScript usage | [TypeScript Guide](typescript.md) |
 | Nested & array fields | [Defining Fields](fields/) |
 | Validation plugins deep-dive | [Validation](validation/) |
-| Live demo | [foxhound87.github.io/mobx-formikit-demo](https://foxhound87.github.io/mobx-formikit-demo) |
+| Live demo | [foxhound87.github.io/mobx-formkit-demo](https://foxhound87.github.io/mobx-formkit-demo) |
 
 ---
 
 > 💡 **TypeScript** — The `Form` class accepts a generic for type-safe field access:
 > ```typescript
-> import { Form } from 'mobx-formikit';
+> import { Form } from 'mobx-formkit';
 >
 > interface MyFields {
 >   email: string;

@@ -61,7 +61,7 @@ The `sync()` method handles multiple input types automatically:
 
 > `onChange` is an alias of `onSync`, which calls `sync` internally.
 
-> If you are using a custom component which doesn't work with the package's built-in sync handler, [open an Issue](https://github.com/foxhound87/mobx-formikit/issues).
+> If you are using a custom component which doesn't work with the package's built-in sync handler, [open an Issue](https://github.com/foxhound87/mobx-formkit/issues).
 
 ---
 

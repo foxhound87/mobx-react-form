@@ -28,7 +28,7 @@ const $schema = {
 Pass the `ajv` package and the previously defined `schema` to the **AJV** plugin.
 
 ```javascript
-import ajv from 'mobx-formikit/lib/validators/AJV';
+import ajv from 'mobx-formkit/lib/validators/AJV';
 import Ajv from 'ajv';
 
 const plugins = {
@@ -72,7 +72,7 @@ new Form({ ..., schema }, { plugins });
 new Form({ ... }, { plugins });
 ```
 
-#### Default AJV options used by mobx-formikit
+#### Default AJV options used by mobx-formkit
 
 ```javascript
 {

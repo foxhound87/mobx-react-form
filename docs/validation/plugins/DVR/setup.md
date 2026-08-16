@@ -15,7 +15,7 @@ npm install --save validatorjs
 Pass the `validatorjs` package to the **DVR** plugin.
 
 ```javascript
-import dvr from "mobx-formikit/lib/validators/DVR";
+import dvr from "mobx-formkit/lib/validators/DVR";
 import validatorjs from "validatorjs";
 
 const plugins = {
@@ -29,7 +29,7 @@ const plugins = {
 Shortcut:
 
 ```javascript
-import dvr from "mobx-formikit/lib/validators/DVR";
+import dvr from "mobx-formkit/lib/validators/DVR";
 import validatorjs from "validatorjs";
 
 const plugins = {

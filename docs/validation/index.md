@@ -2,7 +2,7 @@
 
 ## Overview
 
-mobx-formikit ships with a **pluggable validation system**. You can choose one or more validation backends (called _drivers_) and attach them to the form at initialization. Each driver is responsible for validating each field and pushing error messages into the field's `validationErrorStack`.
+mobx-formkit ships with a **pluggable validation system**. You can choose one or more validation backends (called _drivers_) and attach them to the form at initialization. Each driver is responsible for validating each field and pushing error messages into the field's `validationErrorStack`.
 
 Validation can be triggered:
 

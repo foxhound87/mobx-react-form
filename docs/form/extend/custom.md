@@ -11,13 +11,13 @@
 Import the base `Form` and `Field` class:
 
 ```javascript
-import MobxFormikit, { Field } from 'mobx-formikit';
+import Mobxformkit, { Field } from 'mobx-formkit';
 ```
 
 or you can also import the base `Form` like this:
 
 ```javascript
-import { Form, Field } from 'mobx-formikit';
+import { Form, Field } from 'mobx-formkit';
 ```
 
 In this example, you can see how to extend a specific field:

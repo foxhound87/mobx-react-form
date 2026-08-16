@@ -1,6 +1,6 @@
 # Error Handling
 
-Patterns and options for handling form and field errors in mobx-formikit.
+Patterns and options for handling form and field errors in mobx-formkit.
 
 ---
 

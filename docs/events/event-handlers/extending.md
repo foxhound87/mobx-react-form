@@ -10,7 +10,7 @@
 Override handlers by extending the **Form** or **Field** class with a `handlers()` method or by directly assigning handler properties.
 
 ```javascript
-import { Form, Field } from 'mobx-formikit';
+import { Form, Field } from 'mobx-formkit';
 
 class CustomField extends Field {
   onChange = (e) => this.set(e.target.value);

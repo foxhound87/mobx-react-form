@@ -29,7 +29,7 @@ const $schema = vine.object({
 VINEJS requires the `package` prop (a Vine instance) together with the previously defined `schema`. The schema is compiled by the driver.
 
 ```javascript
-import vinejs from 'mobx-formikit/lib/validators/VINEJS';
+import vinejs from 'mobx-formkit/lib/validators/VINEJS';
 
 const plugins = {
   vinejs: vinejs({
@@ -47,7 +47,7 @@ new Form({ ... }, { plugins });
 
 #### Async (promise-based) validation
 
-VineJS `validate()` is async-by-design at the API level — even for synchronous rules. The driver consumes the mobx-formikit async contract (`setValidationAsyncData` + `promises`), so always await validation:
+VineJS `validate()` is async-by-design at the API level — even for synchronous rules. The driver consumes the mobx-formkit async contract (`setValidationAsyncData` + `promises`), so always await validation:
 
 ```javascript
 await form.validate();

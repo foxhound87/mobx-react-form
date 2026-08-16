@@ -2,10 +2,10 @@
 
 Custom **field bindings** transform how fields interact with input components. Each field can use a different binding to customize its behavior — auto-uppercasing, numeric-only filtering, debug logging, or standard prop mapping.
 
-> 🔗 **Live Demo:** [Bindings Demo](https://foxhound87.github.io/mobx-formikit-demo/?section=bindingsDemo)  
-> 📁 **Source:** [FormBindingsDemo.tsx](https://github.com/foxhound87/mobx-formikit-demo/blob/master/src/components/forms/FormBindingsDemo.tsx)  
-> 📁 **Setup:** [bindingsDemo.ts](https://github.com/foxhound87/mobx-formikit-demo/blob/master/src/forms/setup/bindingsDemo.ts)  
-> 📁 **Bindings:** [_.bindings.ts](https://github.com/foxhound87/mobx-formikit-demo/blob/master/src/forms/_.bindings.ts)
+> 🔗 **Live Demo:** [Bindings Demo](https://foxhound87.github.io/mobx-formkit-demo/?section=bindingsDemo)  
+> 📁 **Source:** [FormBindingsDemo.tsx](https://github.com/foxhound87/mobx-formkit-demo/blob/master/src/components/forms/FormBindingsDemo.tsx)  
+> 📁 **Setup:** [bindingsDemo.ts](https://github.com/foxhound87/mobx-formkit-demo/blob/master/src/forms/setup/bindingsDemo.ts)  
+> 📁 **Bindings:** [_.bindings.ts](https://github.com/foxhound87/mobx-formkit-demo/blob/master/src/forms/_.bindings.ts)
 
 ---
 

@@ -1,6 +1,6 @@
 # Troubleshooting & FAQ
 
-Common issues, errors, and solutions when using mobx-formikit.
+Common issues, errors, and solutions when using mobx-formkit.
 
 ---
 
@@ -97,7 +97,7 @@ npm install --save validatorjs
 ```
 
 ```javascript
-import dvr from 'mobx-formikit/lib/validators/DVR';
+import dvr from 'mobx-formkit/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 
 const plugins = {
@@ -194,14 +194,14 @@ When importing validation plugins, use the correct path:
 
 ```javascript
 // Correct imports:
-import dvr from 'mobx-formikit/lib/validators/DVR';
-import vjf from 'mobx-formikit/lib/validators/VJF';
-import ajv from 'mobx-formikit/lib/validators/AJV';
-import yup from 'mobx-formikit/lib/validators/YUP';
-import zod from 'mobx-formikit/lib/validators/ZOD';
-import joi from 'mobx-formikit/lib/validators/JOI';
-import valibot from 'mobx-formikit/lib/validators/VALIBOT';
-import vinejs from 'mobx-formikit/lib/validators/VINEJS';
+import dvr from 'mobx-formkit/lib/validators/DVR';
+import vjf from 'mobx-formkit/lib/validators/VJF';
+import ajv from 'mobx-formkit/lib/validators/AJV';
+import yup from 'mobx-formkit/lib/validators/YUP';
+import zod from 'mobx-formkit/lib/validators/ZOD';
+import joi from 'mobx-formkit/lib/validators/JOI';
+import valibot from 'mobx-formkit/lib/validators/VALIBOT';
+import vinejs from 'mobx-formkit/lib/validators/VINEJS';
 ```
 
 If you get module resolution errors, ensure your bundler (webpack, vite, etc.) can resolve the package.
@@ -210,6 +210,6 @@ If you get module resolution errors, ensure your bundler (webpack, vite, etc.) c
 
 ## Still Stuck?
 
-- [Open an issue](https://github.com/foxhound87/mobx-formikit/issues) on GitHub
-- Check the [demo project](https://github.com/foxhound87/mobx-formikit-demo) for real-world examples
+- [Open an issue](https://github.com/foxhound87/mobx-formkit/issues) on GitHub
+- Check the [demo project](https://github.com/foxhound87/mobx-formkit-demo) for real-world examples
 - Review the [API Reference](api-reference/) for full method and property documentation

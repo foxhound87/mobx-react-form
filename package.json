@@ -1,27 +1,27 @@
 {
   "private": true,
-  "name": "mobx-formikit-docs",
+  "name": "mobx-formkit-docs",
   "version": "2.0.0",
-  "description": "MobX Formikit Documentation — powered by VitePress",
+  "description": "MobX formkit Documentation — powered by VitePress",
   "type": "module",
   "scripts": {
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview",
-    "docs:publish": "vitepress build && cd _book && rm -rf .git && git init && git checkout --orphan gh-pages && git add . && git commit -m 'update book' && git push git@github.com:foxhound87/mobx-formikit.git gh-pages --force"
+    "docs:publish": "vitepress build && cd _book && rm -rf .git && git init && git checkout --orphan gh-pages && git add . && git commit -m 'update book' && git push git@github.com:foxhound87/mobx-formkit.git gh-pages --force"
   },
   "devDependencies": {
     "vitepress": "^1.6.3"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/foxhound87/mobx-formikit.git"
+    "url": "git+https://github.com/foxhound87/mobx-formkit.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/foxhound87/mobx-formikit/issues"
+    "url": "https://github.com/foxhound87/mobx-formkit/issues"
   },
-  "homepage": "https://github.com/foxhound87/mobx-formikit#readme"
+  "homepage": "https://github.com/foxhound87/mobx-formkit#readme"
 }

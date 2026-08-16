@@ -1,6 +1,6 @@
 # Validation Lifecycle
 
-This page explains **when** and **how** validation runs in mobx-formikit, from a single field change all the way through form submission.
+This page explains **when** and **how** validation runs in mobx-formkit, from a single field change all the way through form submission.
 
 ---
 

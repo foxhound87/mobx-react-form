@@ -2,9 +2,9 @@
 
 A **multi-step registration wizard** with per-step validation, step indicators, a final review screen, and full form submission — all built with nested field groups and React state for navigation.
 
-> 🔗 **Live Demo:** [Wizard](https://foxhound87.github.io/mobx-formikit-demo/?section=wizard)  
-> 📁 **Source:** [FormWizard.tsx](https://github.com/foxhound87/mobx-formikit-demo/blob/master/src/components/forms/FormWizard.tsx)  
-> 📁 **Setup:** [wizard.ts](https://github.com/foxhound87/mobx-formikit-demo/blob/master/src/forms/setup/wizard.ts)
+> 🔗 **Live Demo:** [Wizard](https://foxhound87.github.io/mobx-formkit-demo/?section=wizard)  
+> 📁 **Source:** [FormWizard.tsx](https://github.com/foxhound87/mobx-formkit-demo/blob/master/src/components/forms/FormWizard.tsx)  
+> 📁 **Setup:** [wizard.ts](https://github.com/foxhound87/mobx-formkit-demo/blob/master/src/forms/setup/wizard.ts)
 
 ---
 

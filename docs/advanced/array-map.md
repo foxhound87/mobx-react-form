@@ -1,8 +1,8 @@
 # ArrayMap
 
-**Ordered key-value collections** — the data structure that powers dynamic array fields in MobX Formikit. Every field group backed by an array (e.g., `hobbies[]`, `products[]`) uses `ArrayMap` internally.
+**Ordered key-value collections** — the data structure that powers dynamic array fields in MobX formkit. Every field group backed by an array (e.g., `hobbies[]`, `products[]`) uses `ArrayMap` internally.
 
-> 📁 **Source:** [`src/ArrayMap.ts`](https://github.com/foxhound87/mobx-formikit/blob/master/src/ArrayMap.ts)
+> 📁 **Source:** [`src/ArrayMap.ts`](https://github.com/foxhound87/mobx-formkit/blob/master/src/ArrayMap.ts)
 
 ---
 

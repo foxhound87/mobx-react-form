@@ -2,19 +2,19 @@
 layout: home
 
 hero:
-  name: MobX Formikit
+  name: MobX formkit
   text: Reactive MobX Form State Management
   tagline: Extensible validation, nested fields, event hooks, bindings — with full TypeScript support.
   image:
     src: /hero-icon.svg
-    alt: MobX Formikit
+    alt: MobX formkit
   actions:
     - theme: brand
       text: Quick Start
       link: /quick-start
     - theme: alt
       text: View on GitHub
-      link: https://github.com/foxhound87/mobx-formikit
+      link: https://github.com/foxhound87/mobx-formkit
 
 features:
   - title: Validation Plugins
@@ -73,14 +73,14 @@ features:
 ## Get Started in Seconds
 
 ```bash
-npm install --save mobx-formikit
+npm install --save mobx-formkit
 ```
 
 Then pick a validation plugin, define your fields, and you're ready to go.
 
 <div class="cta-row">
-  <a href="/mobx-formikit/quick-start" class="cta-button primary">Quick Start Guide →</a>
-  <a href="/mobx-formikit/quick-start-class" class="cta-button secondary">Class-based Setup →</a>
+  <a href="/mobx-formkit/quick-start" class="cta-button primary">Quick Start Guide →</a>
+  <a href="/mobx-formkit/quick-start-class" class="cta-button secondary">Class-based Setup →</a>
 </div>
 
 </div>
@@ -139,17 +139,17 @@ See the [UMD Setup guide](/umd-setup) for vanilla HTML/JS usage, or the [Binding
 ## Resources & Community
 
 <div class="resources-grid">
-  <a href="https://foxhound87.github.io/mobx-formikit-demo/" class="resource-card">
+  <a href="https://foxhound87.github.io/mobx-formkit-demo/" class="resource-card">
     <div class="resource-icon">🚀</div>
     <div class="resource-title">Live Demo</div>
     <div class="resource-desc">See it in action</div>
   </a>
-  <a href="/mobx-formikit/recipes" class="resource-card">
+  <a href="/mobx-formkit/recipes" class="resource-card">
     <div class="resource-icon">📖</div>
     <div class="resource-title">Recipes & Patterns</div>
     <div class="resource-desc">Real-world examples</div>
   </a>
-  <a href="/mobx-formikit/troubleshooting" class="resource-card">
+  <a href="/mobx-formkit/troubleshooting" class="resource-card">
     <div class="resource-icon">❓</div>
     <div class="resource-title">FAQ & Troubleshooting</div>
     <div class="resource-desc">Common issues solved</div>
@@ -164,7 +164,7 @@ See the [UMD Setup guide](/umd-setup) for vanilla HTML/JS usage, or the [Binding
     <div class="resource-title">AI Skills</div>
     <div class="resource-desc">Guides for AI coding</div>
   </a>
-  <a href="https://github.com/foxhound87/mobx-formikit" class="resource-card">
+  <a href="https://github.com/foxhound87/mobx-formkit" class="resource-card">
     <div class="resource-icon">⭐</div>
     <div class="resource-title">GitHub</div>
     <div class="resource-desc">Source & issues</div>

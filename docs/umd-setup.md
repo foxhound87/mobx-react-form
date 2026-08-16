@@ -2,11 +2,11 @@
 
 ---
 
-Import `mobx` and `mobx-formikit` into your html:
+Import `mobx` and `mobx-formkit` into your html:
 
 * Download [latest version of lodash](https://unpkg.com/lodash/lodash.min.js)
 * Download [latest version of mobx](https://unpkg.com/mobx/lib/mobx.umd.js)
-* Download [latest version of mobx-formikit](https://unpkg.com/mobx-formikit/umd/MobxFormikit.umd.min.js)
+* Download [latest version of mobx-formkit](https://unpkg.com/mobx-formkit/umd/Mobxformkit.umd.min.js)
 * Download a [Validation Plugin](validation/plugins.md)
 
 ```html
@@ -15,14 +15,14 @@ Import `mobx` and `mobx-formikit` into your html:
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>MobX Formikit (UMD)</title>
+    <title>MobX formkit (UMD)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <script src="https://unpkg.com/lodash@x.x.x/lodash.min.js"></script>
     <script src="https://unpkg.com/mobx@x.x.x/lib/mobx.umd.js"></script>
-    <script src="https://unpkg.com/mobx-formikit@x.x.x/umd/MobxFormikit.umd.min.js"></script>
-    <script src="https://unpkg.com/mobx-formikit@x.x.x/umd/MobxFormikitValidatorDVR.umd.min.js"></script>
+    <script src="https://unpkg.com/mobx-formkit@x.x.x/umd/Mobxformkit.umd.min.js"></script>
+    <script src="https://unpkg.com/mobx-formkit@x.x.x/umd/MobxformkitValidatorDVR.umd.min.js"></script>
     <script src="https://unpkg.com/validatorjs@x.x.x/dist/validator.js"></script>
     <script src="source.js"></script>
   </body>
@@ -30,7 +30,7 @@ Import `mobx` and `mobx-formikit` into your html:
 
 ```
 
-Access the `MobxFormikit` from your source:
+Access the `Mobxformkit` from your source:
 
 > source.js
 
@@ -40,11 +40,11 @@ Access the `MobxFormikit` from your source:
 
 console.log('lodash', _ && '>>> OK');
 console.log('mobx', mobx && '>>> OK');
-console.log('MobxFormikit', MobxFormikit && '>>> OK');
-console.log('MobxFormikitValidatorDVR', MobxFormikitValidatorDVR && '>>> OK');
+console.log('Mobxformkit', Mobxformkit && '>>> OK');
+console.log('MobxformkitValidatorDVR', MobxformkitValidatorDVR && '>>> OK');
 console.log('Validator', Validator && '>>> OK');
 
-const { Form } = MobxFormikit;
+const { Form } = Mobxformkit;
 
 const form = new Form({
   fields: {
@@ -60,7 +60,7 @@ const form = new Form({
     showErrorsOnInit: true,
   },
   plugins: {
-    dvr: MobxFormikitValidatorDVR({
+    dvr: MobxformkitValidatorDVR({
       package: Validator
     })
   },

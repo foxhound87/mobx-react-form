@@ -113,7 +113,7 @@ The second argument configures plugins, options, bindings, and form-level hooks/
 ## Constructor Usage
 
 ```javascript
-import { Form } from 'mobx-formikit';
+import { Form } from 'mobx-formkit';
 
 // Unified fields only
 new Form({ fields });
@@ -143,7 +143,7 @@ new Form(
 When extending the `Form` class, you can use methods instead of constructor arguments:
 
 ```javascript
-import { Form } from 'mobx-formikit';
+import { Form } from 'mobx-formkit';
 
 class MyForm extends Form {
 

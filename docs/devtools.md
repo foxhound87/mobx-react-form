@@ -1,44 +1,44 @@
-# MobX Formikit DevTools
+# MobX formkit DevTools
 
 ---
 
 ## Install
 
 ```bash
-npm install --save mobx-formikit-devtools
+npm install --save mobx-formkit-devtools
 ```
 
 ## Demo
 
-[MobX Formikit DevTools Demo](https://foxhound87.github.io/mobx-formikit-demo/)
+[MobX formkit DevTools Demo](https://foxhound87.github.io/mobx-formkit-demo/)
 
 ## Usage
 
 ```javascript
-import MobxFormikitDevTools from 'mobx-formikit-devtools';
+import MobxformkitDevTools from 'mobx-formkit-devtools';
 
 // register forms
-MobxFormikitDevTools.register({
+MobxformkitDevTools.register({
   loginForm,
   registerForm,
   supportForm,
 });
 
 // select form to show into the devtools
-MobxFormikitDevTools.select('registerForm');
+MobxformkitDevTools.select('registerForm');
 
 // open the devtools (closed by default)
-MobxFormikitDevTools.open(true);
+MobxformkitDevTools.open(true);
 
 // render the component
-<MobxFormikitDevTools.UI />
+<MobxformkitDevTools.UI />
 ```
 
 ## Theme
 
 ```javascript
 // custom theme colors
-MobxFormikitDevTools.theme({
+MobxformkitDevTools.theme({
   base00: '#2b303b',
   base01: '#343d46',
   base02: '#4f5b66',
@@ -60,4 +60,4 @@ MobxFormikitDevTools.theme({
 
 ## Screenshot
 
-![DevTools](https://github.com/foxhound87/mobx-formikit-devtools/blob/master/screenshot.png?raw=true)
+![DevTools](https://github.com/foxhound87/mobx-formkit-devtools/blob/master/screenshot.png?raw=true)

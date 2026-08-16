@@ -1,6 +1,6 @@
 ## Async (promise-based) Validation (VINEJS)
 
-VineJS `validate()` is **async-by-design** at the API level — even for synchronous rules. The **VINEJS** driver consumes the mobx-formikit async contract (`setValidationAsyncData` + `promises`), so all validation flows through the promise pipeline.
+VineJS `validate()` is **async-by-design** at the API level — even for synchronous rules. The **VINEJS** driver consumes the mobx-formkit async contract (`setValidationAsyncData` + `promises`), so all validation flows through the promise pipeline.
 
 ### Always await validation
 

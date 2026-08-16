@@ -7,7 +7,7 @@ With the `composer` you can execute some actions on all forms at same time.
 #### How to use Composer
 
 ```javascript
-import { composer } from 'mobx-formikit/lib/composer';
+import { composer } from 'mobx-formkit/lib/composer';
 
 const forms = composer({
     formA: new FormA({ ...formDefinitionsA }),
@@ -15,7 +15,7 @@ const forms = composer({
     formC: new FormC({ ...formDefinitionsC }),
 });
 ```
-> Each Form instance have to be a MobxFormikit instance.
+> Each Form instance have to be a Mobxformkit instance.
 
 #### Available Methods
 

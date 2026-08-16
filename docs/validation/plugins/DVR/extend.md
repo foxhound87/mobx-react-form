@@ -4,7 +4,7 @@ Using `skaterdav85/validatorjs` as plugin, the Declarative Validation Rules (**D
 
 > See the skaterdav85/validatorjs documentation: [Registering Custom Validation Rules](https://github.com/skaterdav85/validatorjs#registering-custom-validation-rules) for a deeper explaination
 
-Below we see how to implement it in `mobx-formikit`:
+Below we see how to implement it in `mobx-formkit`:
 
 ### Define a `rules` object with the custom rules
 
@@ -25,7 +25,7 @@ The `extend` function takes in input an object with the following props:
 * the `validator` instance
 
 ```javascript
-import dvr from 'mobx-formikit/lib/validators/DVR';
+import dvr from 'mobx-formkit/lib/validators/DVR';
 import validatorjs from 'validatorjs';
 
 const plugins = {

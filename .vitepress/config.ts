@@ -1,8 +1,8 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  base: '/mobx-formikit/',
-  title: 'MobX Formikit',
+  base: '/mobx-formkit/',
+  title: 'MobX Formkit',
   description: 'Reactive MobX Form State Management — extensible validation, nested fields, event hooks, and bindings for React.',
   lang: 'en-US',
 
@@ -11,7 +11,7 @@ export default defineConfig({
   outDir: './_book',
 
   head: [
-    ['link', { rel: 'icon', href: 'https://foxhound87.github.io/mobx-formikit-demo/favicon.ico' }],
+    ['link', { rel: 'icon', href: 'https://foxhound87.github.io/mobx-formkit-demo/favicon.ico' }],
     ['style', {}, `
       :root {
         --vp-c-brand-1: #e11d48;
@@ -34,7 +34,7 @@ export default defineConfig({
     if (a && !a.querySelector('.hero-stars')) {
       var w = document.createElement('span');
       w.className = 'hero-stars';
-      w.innerHTML = '<a href="https://github.com/foxhound87/mobx-formikit" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/github/stars/foxhound87/mobx-formikit?style=for-the-badge&logo=github&label=Stars&color=e11d48" alt="GitHub stars"></a>';
+      w.innerHTML = '<a href="https://github.com/foxhound87/mobx-formkit" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/github/stars/foxhound87/mobx-formkit?style=for-the-badge&logo=github&label=Stars&color=e11d48" alt="GitHub stars"></a>';
       a.appendChild(w);
       clearInterval(timer);
     }
@@ -51,16 +51,16 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Guide', link: '/quick-start' },
       { text: 'API', link: '/api-reference/' },
-      { text: 'Demo', link: 'https://foxhound87.github.io/mobx-formikit-demo/' },
+      { text: 'Demo', link: 'https://foxhound87.github.io/mobx-formkit-demo/' },
       {
         text: 'Resources',
         items: [
-          { text: 'NPM', link: 'https://www.npmjs.com/package/mobx-formikit' },
-          { text: 'GitHub', link: 'https://github.com/foxhound87/mobx-formikit' },
+          { text: 'NPM', link: 'https://www.npmjs.com/package/mobx-formkit' },
+          { text: 'GitHub', link: 'https://github.com/foxhound87/mobx-formkit' },
           { text: 'Discord', link: 'https://discord.gg/CVV8w4zat4' },
           { text: 'AI Agent Guide', link: '/AGENTS' },
           { text: 'AI Skills', link: 'https://github.com/foxhound87/skills' },
-          { text: 'Demo Code', link: 'https://github.com/foxhound87/mobx-formikit-demo' },
+          { text: 'Demo Code', link: 'https://github.com/foxhound87/mobx-formkit-demo' },
         ],
       },
     ],
@@ -267,12 +267,12 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/foxhound87/mobx-formikit' },
+      { icon: 'github', link: 'https://github.com/foxhound87/mobx-formkit' },
       { icon: 'discord', link: 'https://discord.gg/CVV8w4zat4' },
     ],
 
     editLink: {
-      pattern: 'https://github.com/foxhound87/mobx-formikit/edit/master/docs/:path',
+      pattern: 'https://github.com/foxhound87/mobx-formkit/edit/master/docs/:path',
       text: 'Edit this page on GitHub',
     },
   },

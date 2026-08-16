@@ -27,7 +27,7 @@ const $schema = v.object({
 VALIBOT does not need the `package` prop — pass the previously defined `schema` to the **VALIBOT** plugin:
 
 ```javascript
-import valibot from 'mobx-formikit/lib/validators/VALIBOT';
+import valibot from 'mobx-formkit/lib/validators/VALIBOT';
 
 const plugins = {
   valibot: valibot({

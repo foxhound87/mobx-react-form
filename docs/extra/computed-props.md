@@ -81,5 +81,5 @@ const form = new Form({ fields, computed, ... }, {
 
 ## Examples
 
-- [Nested Computed Field (with constructor)](https://codesandbox.io/s/mobx-formikit--computed-constructor-jeg5b7)
-- [Nested Computed Field (extending classes)](https://codesandbox.io/s/mobx-formikit--computed-ee5kl1)
+- [Nested Computed Field (with constructor)](https://codesandbox.io/s/mobx-formkit--computed-constructor-jeg5b7)
+- [Nested Computed Field (extending classes)](https://codesandbox.io/s/mobx-formkit--computed-ee5kl1)

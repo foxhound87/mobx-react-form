@@ -1,6 +1,6 @@
 # Recipes & Common Patterns
 
-Practical examples of real-world form scenarios with mobx-formikit.
+Practical examples of real-world form scenarios with mobx-formkit.
 
 ---
 
@@ -9,7 +9,7 @@ Practical examples of real-world form scenarios with mobx-formikit.
 Validate one field based on the value of another:
 
 ```javascript
-import { Form } from 'mobx-formikit';
+import { Form } from 'mobx-formkit';
 
 const fields = {
   country: {
@@ -71,7 +71,7 @@ const fields = {
 Use the Forms Composer to manage multi-step flows:
 
 ```javascript
-import { composer } from 'mobx-formikit/lib/composer';
+import { composer } from 'mobx-formkit/lib/composer';
 import StepOneForm from './StepOneForm';
 import StepTwoForm from './StepTwoForm';
 import StepThreeForm from './StepThreeForm';
