@@ -171,7 +171,7 @@ See the [Render Engine Support](/frameworks) page for per-engine examples, the [
 ## Resources & Community
 
 <div class="resources-grid">
-  <a href="https://foxhound87.github.io/mobx-formkit-demo/" class="resource-card">
+  <a href="https://foxhound87.github.io/mobx-formkit-demo/" target="_blank" rel="noopener" class="resource-card">
     <div class="resource-icon">🚀</div>
     <div class="resource-title">Live Demo</div>
     <div class="resource-desc">See it in action</div>
@@ -186,17 +186,17 @@ See the [Render Engine Support](/frameworks) page for per-engine examples, the [
     <div class="resource-title">FAQ & Troubleshooting</div>
     <div class="resource-desc">Common issues solved</div>
   </a>
-  <a href="https://discord.gg/CVV8w4zat4" class="resource-card">
+  <a href="https://discord.gg/CVV8w4zat4" target="_blank" rel="noopener" class="resource-card">
     <div class="resource-icon">💬</div>
     <div class="resource-title">Discord Community</div>
     <div class="resource-desc">Chat & support</div>
   </a>
-  <a href="https://github.com/foxhound87/skills" class="resource-card">
+  <a href="https://github.com/foxhound87/skills" target="_blank" rel="noopener" class="resource-card">
     <div class="resource-icon">🤖</div>
     <div class="resource-title">AI Skills</div>
     <div class="resource-desc">Guides for AI coding</div>
   </a>
-  <a href="https://github.com/foxhound87/mobx-formkit" class="resource-card">
+  <a href="https://github.com/foxhound87/mobx-formkit" target="_blank" rel="noopener" class="resource-card">
     <div class="resource-icon">⭐</div>
     <div class="resource-title">GitHub</div>
     <div class="resource-desc">Source & issues</div>
@@ -387,7 +387,7 @@ See the [Render Engine Support](/frameworks) page for per-engine examples, the [
 /* Resources grid */
 .resources-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   max-width: 700px;
   margin: 0 auto;
@@ -485,7 +485,7 @@ See the [Render Engine Support](/frameworks) page for per-engine examples, the [
   }
   
   .resources-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>
