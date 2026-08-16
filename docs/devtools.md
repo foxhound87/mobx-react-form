@@ -1,44 +1,83 @@
 # MobX Formkit DevTools
 
+DevTools for MobX Formkit — an in-app dock SDK and a browser extension
+(Chrome / Firefox / Edge) to inspect form state, fields, and validation in
+real time.
+
+> The devtools are **opt-in**: they only activate on pages that import
+> `mobx-formkit/devtools`.
+
+---
+
+## Prerequisite
+
+Import the devtools hook **before** creating your forms (e.g. at the top of
+your client entry):
+
+```ts
+import 'mobx-formkit/devtools';
+```
+
 ---
 
 ## Install
 
 ```bash
-npm install --save mobx-react-form-devtools
+npm install --save mobx-formkit-devtools
 ```
 
 ## Demo
 
 [MobX Formkit DevTools Demo](https://foxhound87.github.io/mobx-formkit-demo/)
 
+---
+
 ## Usage
 
-```javascript
-import MobxReactFormDevTools from 'mobx-react-form-devtools';
+```tsx
+import DevTools from 'mobx-formkit-devtools/react';
+import forms from './forms';
 
-// register forms
-MobxReactFormDevTools.register({
-  loginForm,
-  registerForm,
-  supportForm,
-});
+// register your forms ({ name: form })
+DevTools.register(forms);
 
-// select form to show into the devtools
-MobxReactFormDevTools.select('registerForm');
+// select a form to show into the devtools (optional)
+DevTools.select('login');
 
 // open the devtools (closed by default)
-MobxReactFormDevTools.open(true);
+DevTools.open(true);
 
-// render the component
-<MobxReactFormDevTools.UI />
+function App() {
+  return (
+    <>
+      {/* render the dock once, at the app root */}
+      <DevTools.UI />
+      {/* your app */}
+    </>
+  );
+}
 ```
+
+### API
+
+- `DevTools.UI` — the dock component (render it once, at the app root).
+- `DevTools.register(forms)` — register an object of forms (`{ name: form }`).
+- `DevTools.select(key)` — select a form by key.
+- `DevTools.open(flag)` — open/close the dock.
+- `DevTools.Options` — the form-options component.
+- `DevTools.theme({ … })` — override the color theme.
+
+> The React SDK expects these **peer dependencies** (install them
+> alongside): `react`, `react-dom`, `mobx` (`^6.12 || ^7`), `mobx-react`,
+> and `mobx-formkit` (the legacy `mobx-react-form` name is also supported).
+
+---
 
 ## Theme
 
 ```javascript
 // custom theme colors
-MobxReactFormDevTools.theme({
+DevTools.theme({
   base00: '#2b303b',
   base01: '#343d46',
   base02: '#4f5b66',
@@ -58,6 +97,10 @@ MobxReactFormDevTools.theme({
 });
 ```
 
-## Screenshot
+---
 
-![DevTools](https://github.com/foxhound87/mobx-react-form-devtools/blob/master/screenshot.png?raw=true)
+## Browser extension
+
+The DevTools also ship as a browser extension (Chrome / Firefox / Edge).
+See the [mobx-formkit-devtools](https://github.com/foxhound87/mobx-formkit-devtools)
+repository for build and install instructions.
