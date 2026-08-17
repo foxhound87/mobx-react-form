@@ -18,22 +18,10 @@
 ![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/foxhound87/mobx-formkit)
 [![Downloads](https://img.shields.io/npm/dt/mobx-formkit.svg)]()
 [![Downloads](https://img.shields.io/npm/dm/mobx-formkit.svg)]()
-[![Backers on Open Collective](https://opencollective.com/mobx-react-form/backers/badge.svg)](#backers)
-[![Sponsors on Open Collective](https://opencollective.com/mobx-react-form/sponsors/badge.svg)](#sponsors)
+[![Backers on Open Collective](https://opencollective.com/mobx-formkit/backers/badge.svg)](#backers)
+[![Sponsors on Open Collective](https://opencollective.com/mobx-formkit/sponsors/badge.svg)](#sponsors)
 
 <br>
-
-## Migrating from mobx-react-form
-
-| What                 | Old                          | New                          |
-| -------------------- | ---------------------------- | ---------------------------- |
-| npm package          | `mobx-react-form`            | `mobx-formkit`              |
-| UMD globals          | `MobxReactForm*`             | `MobxFormkit*`              |
-| imports & everywhere | `mobx-react-form`            | `mobx-formkit`              |
-
-> **Breaking (UMD):** UMD bundle filenames and script-tag globals changed from
-> `MobxReactForm*` to `MobxFormkit*` — update `<script src>` paths and global
-> references accordingly. There is no alias; APIs are otherwise identical.
 
 ## Features
 
@@ -199,16 +187,16 @@ These issues, and the ones which provides also PR with failing tests will get hi
 ### Contributors
 
 This project exists thanks to all the people who contribute.
-<a href="graphs/contributors"><img src="https://opencollective.com/mobx-react-form/contributors.svg?width=890&button=false" /></a>
+<a href="graphs/contributors"><img src="https://opencollective.com/mobx-formkit/contributors.svg?width=890&button=false" /></a>
 
 ### Backers
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/mobx-react-form#backer)]
 
-<a href="https://opencollective.com/mobx-react-form#backers" target="_blank"><img src="https://opencollective.com/mobx-react-form/backers.svg?width=890"></a>
+<a href="https://opencollective.com/mobx-formkit#backers" target="_blank"><img src="https://opencollective.com/mobx-formkit/backers.svg?width=890"></a>
 
 ### Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/mobx-react-form#sponsor)]
 
-<img src="https://opencollective.com/mobx-react-form/sponsors.svg"/>
+<img src="https://opencollective.com/mobx-formkit/sponsors.svg"/>
