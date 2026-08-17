@@ -449,7 +449,7 @@ form.isEmpty;        // all fields empty
 form.hasError;       // any field has error (some)
 form.error;          // first error message (requires bubbleUpErrorMessages)
 form.focused;        // any field focused
-form.touched;        // any field blurred at least once
+form.touched;        // any field focused at least once
 form.disabled;       // all fields disabled (every)
 form.changed;        // change count (number)
 form.submitted;      // submission count (number)
