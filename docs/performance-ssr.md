@@ -155,7 +155,7 @@ const options = {
 For multi-step workflows (wizards), split the form using the [Forms Composer](extra/composer) — each step is its own form, validated independently:
 
 ```javascript
-import { composer } from 'mobx-formkit';
+import { composer } from 'mobx-formkit/lib/composer';
 
 const step1 = new Form({ ... });
 const step2 = new Form({ ... });

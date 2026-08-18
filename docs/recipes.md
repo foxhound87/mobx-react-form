@@ -88,8 +88,8 @@ function nextStep(currentStep) {
   current.submit({
     onSuccess: () => {
       if (currentStep === 'step3') {
-        forms.submit().then(({ forms }) => {
-          console.log('All steps valid!', forms);
+        forms.submit().then(({ valid }) => {
+          console.log('All steps valid!', valid);
         });
       }
     },

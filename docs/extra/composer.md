@@ -1,6 +1,6 @@
 # Forms Composer
 
-Forms composer is an useful helper that can be used to manage a group of related `Froms` instances.
+Forms composer is an useful helper that can be used to manage a group of related `Forms` instances.
 For example we have multiple forms and each of them is a part of a multi-step application.
 With the `composer` you can execute some actions on all forms at same time.
 
@@ -26,7 +26,7 @@ const forms = composer({
 | **check(prop)** | string | object | Return an object with a boolean of the checked prop for each form. | - |
 | **get(prop)** | string | object | Return an object with a value of the getted prop for each form. | - |
 | **valid()** | - | boolean | Check if all forms are valid. | - |
-| **error()** | - | boolean | Check if all forms has errors. | - |
+| **error()** | - | boolean | Check if any form has errors. | - |
 | **clear()** | - | void | Clear all forms. | - |
 | **clear({ deep, execHook })** | - | void | Clear all forms (with options). | - |
 | **reset()** | - | void | Reset all forms. | - |
