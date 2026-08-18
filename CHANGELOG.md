@@ -1,3 +1,16 @@
+## 1.1.0 (2026-08-16)
+
+### Features
+
+- devtools: add opt-in devtools hook entry with exports (dda0682)
+- devtools: enrich snapshots with helpers, options and batched emission (dbe2181)
+
+## 1.1.1 (2026-08-18)
+
+### Fixes
+
+- fix: emit form:new event to devtools hook on form construction (6e328f9)
+
 # 1.0.0
 
 Renamed from mobx-react-form (last published 7.1.0). Package name and UMD globals changed; APIs identical.
