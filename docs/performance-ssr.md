@@ -161,8 +161,8 @@ const step1 = new Form({ ... });
 const step2 = new Form({ ... });
 
 const wizard = composer({ step1, step2 });
-wizard.step1.validate();
-wizard.step2.submit();
+wizard.select('step1').validate();
+wizard.select('step2').submit();
 ```
 
 ### Lazy-loading field groups
