@@ -4,6 +4,165 @@ Key breaking changes and migration steps between major versions of mobx-formkit.
 
 ---
 
+## mobx-react-form 7.1 → mobx-formkit
+
+`mobx-formkit` is the renamed successor of `mobx-react-form` (MRF): the legacy package was **renamed and deprecated on npm**, and the codebase and its API continue here unchanged (final legacy release: `mobx-react-form@7.1.0`). Migration is a drop-in swap — package name, imports and UMD globals only.
+
+### Package, Imports & UMD Globals
+
+| What                | Old (MRF 7.1)                                      | New (mobx-formkit)                                      |
+| ------------------- | -------------------------------------------------- | ------------------------------------------------------- |
+| npm package         | `mobx-react-form`                                  | `mobx-formkit`                                          |
+| default export      | `import MobxReactForm from 'mobx-react-form'`      | `import MobxFormkit from 'mobx-formkit'`                |
+| named exports       | `{ Form }` (added in v6)                           | `import { Form, Field, ArrayMap } from 'mobx-formkit'`  |
+| validation plugins  | `mobx-react-form/lib/validators/DVR`               | `mobx-formkit/lib/validators/DVR`                       |
+| UMD script-tag globals | `MobxReactForm*`                                | `MobxFormkit*`                                          |
+| DevTools form name  | `mobx-react-form`                                  | `mobx-formkit` (legacy name also accepted)              |
+
+> **Breaking (UMD):** UMD bundle filenames and script-tag globals changed from `MobxReactForm*` to `MobxFormkit*` — update `<script src>` paths and global references accordingly. There is no alias; APIs are otherwise identical.
+
+```bash
+npm uninstall mobx-react-form
+npm install --save mobx-formkit
+```
+
+### Form Definition
+
+**Before — MRF 7.1:**
+
+```javascript
+import dvr from 'mobx-react-form/lib/validators/DVR';
+import validatorjs from 'validatorjs';
+import MobxReactForm from 'mobx-react-form';
+
+const fields = [
+  { name: 'email', label: 'Email', rules: 'required|email|string|between:5,25' },
+  { name: 'password', label: 'Password', rules: 'required|string|between:5,25', type: 'password' },
+];
+
+const plugins = { dvr: dvr({ package: validatorjs }) };
+const myForm = new MobxReactForm({ fields }, { plugins, hooks });
+```
+
+**After — mobx-formkit:**
+
+```javascript
+import dvr from 'mobx-formkit/lib/validators/DVR';
+import validatorjs from 'validatorjs';
+import { Form } from 'mobx-formkit';
+
+const fields = [
+  { name: 'email', label: 'Email', rules: 'required|email|string|between:5,25' },
+  { name: 'password', label: 'Password', rules: 'required|string|between:5,25', type: 'password' },
+];
+
+const plugins = { dvr: dvr({ package: validatorjs }) };
+const myForm = new Form({ fields }, { plugins, hooks });
+```
+
+See [Quick Start](quick-start.md) and [Defining Fields](fields/index.md) for the full field definition modes.
+
+### Field Access — `$()` and Bindings
+
+**Before — MRF 7.1:**
+
+```jsx
+<form onSubmit={myForm.onSubmit}>
+  <label htmlFor={myForm.$('email').id}>{myForm.$('email').label}</label>
+  <input {...myForm.$('email').bind()} />
+  <p>{myForm.$('email').error}</p>
+</form>
+```
+
+**After — mobx-formkit:**
+
+```jsx
+<form onSubmit={myForm.onSubmit}>
+  <label htmlFor={myForm.$('email').id}>{myForm.$('email').label}</label>
+  <input {...myForm.$('email').bind()} />
+  <p>{myForm.$('email').error}</p>
+</form>
+```
+
+Identical: `$()` field selection, `bind()`, `values()`/`errors()` retrieval and computed state (`isValid`, `isDirty`, `touched`, …). See [Fields Methods](api-reference/fields-methods.md) and [Bindings](bindings/index.md).
+
+### Validation — Plugins & Rules
+
+**Before — MRF 7.1:**
+
+```javascript
+import dvr from 'mobx-react-form/lib/validators/DVR';
+import validatorjs from 'validatorjs';
+
+const plugins = { dvr: dvr({ package: validatorjs }) };
+```
+
+**After — mobx-formkit:**
+
+```javascript
+import dvr from 'mobx-formkit/lib/validators/DVR';
+import validatorjs from 'validatorjs';
+
+const plugins = { dvr: dvr({ package: validatorjs }) };
+```
+
+Only the import path changes. The `rules` string syntax (`'required|email'`), the 8 validation drivers (DVR, VJF, AJV, YUP, JOI, ZOD, VALIBOT, VINEJS), plugin setup and the validation lifecycle are unchanged. See [Validation Plugins](validation/plugins.md) and [Validation Lifecycle](validation/lifecycle.md).
+
+### Events & Hooks
+
+**Before — MRF 7.1:**
+
+```javascript
+const hooks = {
+  onSuccess(form) {
+    console.log('Form Values!', form.values());
+  },
+  onError(form) {
+    console.log('All form errors', form.errors());
+  },
+};
+```
+
+**After — mobx-formkit:**
+
+```javascript
+const hooks = {
+  onSuccess(form) {
+    console.log('Form Values!', form.values());
+  },
+  onError(form) {
+    console.log('All form errors', form.errors());
+  },
+};
+```
+
+Identical: hooks and curried handlers are passed in the constructor's second argument (`{ plugins, hooks, handlers, options, bindings, extra, name }`). See [Event Hooks](events/event-hooks.md), [Event Handlers](events/event-handlers.md) and [Validation Hooks](events/validation-hooks.md).
+
+### Submit
+
+**Before — MRF 7.1:**
+
+```javascript
+await myForm.submit(); // validates, then runs onSuccess / onError
+```
+
+**After — mobx-formkit:**
+
+```javascript
+await myForm.submit(); // identical
+```
+
+Submit, validate, clear and reset methods and the built-in event handlers (`onSubmit`, `onClear`, `onReset`) are unchanged. See [Form Methods](api-reference/form-methods.md) and [Validate & Check](actions/validate.md).
+
+### What Does NOT Change
+
+- Field definitions & parsing — unified, separated and `struct` modes work as before
+- `$()`/`select()` access, nested fields (`address.city`, `members[].name`), `ArrayMap`
+- Validation options (`validateOnChange`, `validationPluginsOrder`, …), converters, observers/interceptors, composer
+- MobX peer range: `^5.15.0 || ^6.0.0 || ^7.0.0` (MobX 5 via the internal `compat` layer)
+
+---
+
 ## 5.x → 6.x
 
 ### TypeScript Rewrite (6.0.0)
