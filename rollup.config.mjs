@@ -30,7 +30,10 @@ const umdEntries = {
   MobxFormkitValidatorVINEJS: { input: "./src/validators/VINEJS.ts", exports: "default" },
 };
 
-const libEntries = Object.values(umdEntries).map(({ input }) => input);
+const libEntries = [
+  ...Object.values(umdEntries).map(({ input }) => input),
+  "./src/devtools.ts",
+];
 
 export default [
   // CJS — with declarations
