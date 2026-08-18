@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Background circle with gradient -->
+  <defs>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e11d48" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+    <linearGradient id="icon-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fda4af" />
+      <stop offset="100%" stop-color="#fff" />
+    </linearGradient>
+    <filter id="glow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#e11d48" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Glow behind -->
+  <circle cx="100" cy="100" r="95" fill="#e11d48" opacity="0.08"/>
+
+  <!-- Main circle -->
+  <circle cx="100" cy="100" r="80" fill="url(#bg-grad)"/>
+
+  <!-- Form icon - checkmark -->
+  <g filter="url(#glow)">
+    <!-- Document outline -->
+    <rect x="70" y="62" width="60" height="76" rx="8" stroke="url(#icon-grad)" stroke-width="4" fill="none" opacity="0.95"/>
+
+    <!-- Lines on document -->
+    <line x1="82" y1="80" x2="118" y2="80" stroke="url(#icon-grad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+    <line x1="82" y1="94" x2="118" y2="94" stroke="url(#icon-grad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+    <line x1="82" y1="108" x2="106" y2="108" stroke="url(#icon-grad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- Checkmark -->
+    <path d="M80 114 L92 126 L120 102" stroke="url(#icon-grad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+</svg>
